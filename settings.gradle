@@ -1,0 +1,15 @@
+rootProject.name='micro_utils'
+
+String[] includes = [
+    ":pagination:common",
+    ":pagination:exposed",
+    ":pagination:ktor:common",
+    ":pagination:ktor:server",
+]
+
+
+includes.each {
+    include it
+    ProjectDescriptor project = project(it)
+    project.name = rootProject.name + project.projectDir.absolutePath.replace("${rootDir.absolutePath}", "").replace(File.separator, ".")
+}

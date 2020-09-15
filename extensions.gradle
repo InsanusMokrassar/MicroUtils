@@ -1,0 +1,25 @@
+allprojects {
+    ext {
+        projectByName = { name ->
+            for (subproject in rootProject.subprojects) {
+                if (subproject.name == name) {
+                    return subproject
+                }
+            }
+            return null
+        }
+
+        internalProject = { name ->
+            if (releaseMode) {
+                "$group:$name:$version"
+            } else {
+                projectByName("$name")
+            }
+        }
+
+        releaseMode = (project.hasProperty('RELEASE_MODE') && project.property('RELEASE_MODE') == "true") || System.getenv('RELEASE_MODE') == "true"
+
+        mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerialization"
+        mppJavaProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJavaProject"
+    }
+}
