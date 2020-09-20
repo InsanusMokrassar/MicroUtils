@@ -5,6 +5,7 @@ String[] includes = [
     ":pagination:exposed",
     ":pagination:ktor:common",
     ":pagination:ktor:server",
+    ":repos:common",
 ]
 
 
