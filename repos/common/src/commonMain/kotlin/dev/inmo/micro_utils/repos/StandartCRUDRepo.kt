@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
+import kotlinx.coroutines.flow.Flow
 
 interface ReadStandardCRUDRepo<ObjectType, IdType> : Repo {
     suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType>

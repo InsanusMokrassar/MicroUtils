@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
+import kotlinx.coroutines.flow.Flow
 
 interface StandardReadKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
