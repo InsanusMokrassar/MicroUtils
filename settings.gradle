@@ -6,6 +6,10 @@ String[] includes = [
     ":pagination:ktor:common",
     ":pagination:ktor:server",
     ":repos:common",
+    ":repos:exposed",
+    ":repos:ktor:client",
+    ":repos:ktor:common",
+    ":repos:ktor:server",
 ]
 
 

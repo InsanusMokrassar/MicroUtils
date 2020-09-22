@@ -1,0 +1,17 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+}
+
+apply from: "$mppProjectWithSerializationPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api internalProject("micro_utils.repos.ktor.common")
+                api "io.ktor:ktor-client:$ktor_version"
+            }
+        }
+    }
+}
