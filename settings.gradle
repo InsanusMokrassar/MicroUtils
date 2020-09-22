@@ -10,6 +10,9 @@ String[] includes = [
     ":repos:ktor:client",
     ":repos:ktor:common",
     ":repos:ktor:server",
+    ":ktor:server",
+    ":ktor:common",
+    ":ktor:client",
 ]
 
 

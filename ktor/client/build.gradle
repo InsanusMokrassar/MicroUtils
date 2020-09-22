@@ -9,9 +9,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api internalProject("micro_utils.repos.ktor.common")
-                api internalProject("micro_utils.pagination.ktor.common")
-                api internalProject("micro_utils.ktor.client")
+                api internalProject("micro_utils.ktor.common")
                 api "io.ktor:ktor-client:$ktor_version"
             }
         }

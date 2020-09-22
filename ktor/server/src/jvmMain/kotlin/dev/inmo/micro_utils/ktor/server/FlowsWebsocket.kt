@@ -1,0 +1,43 @@
+package dev.inmo.micro_utils.ktor.server
+
+import dev.inmo.micro_utils.ktor.common.CorrectCloseException
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import io.ktor.http.cio.websocket.*
+import io.ktor.routing.Route
+import io.ktor.websocket.webSocket
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.serialization.SerializationStrategy
+
+private suspend fun DefaultWebSocketSession.checkReceivedAndCloseIfExists() {
+    if (incoming.poll() != null) {
+        close()
+        throw CorrectCloseException
+    }
+}
+
+fun <T> Route.includeWebsocketHandling(
+    suburl: String,
+    flow: Flow<T>,
+    converter: (T) -> ByteArray
+) {
+    webSocket(suburl) {
+        safely {
+            flow.collect {
+                checkReceivedAndCloseIfExists()
+                send(converter(it))
+            }
+        }
+    }
+}
+
+fun <T> Route.includeWebsocketHandling(
+    suburl: String,
+    flow: Flow<T>,
+    serializer: SerializationStrategy<T>
+) = includeWebsocketHandling(
+    suburl,
+    flow
+) {
+    standardKtorSerialFormat.encodeToByteArray(serializer, it)
+}
