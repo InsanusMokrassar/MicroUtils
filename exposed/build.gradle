@@ -9,12 +9,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api internalProject("micro_utils.repos.common")
-            }
-        }
-        jvmMain {
-            dependencies {
-                api internalProject("micro_utils.exposed")
+
             }
         }
     }

@@ -13,6 +13,8 @@ String[] includes = [
     ":ktor:server",
     ":ktor:common",
     ":ktor:client",
+    ":coroutines",
+    ":exposed"
 ]
 
 

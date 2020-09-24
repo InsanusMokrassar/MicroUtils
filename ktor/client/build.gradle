@@ -10,6 +10,7 @@ kotlin {
         commonMain {
             dependencies {
                 api internalProject("micro_utils.ktor.common")
+                api internalProject("micro_utils.coroutines")
                 api "io.ktor:ktor-client:$ktor_version"
             }
         }

@@ -9,8 +9,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlin_serialisation_core_version"
-                api "com.soywiz.korlibs.klock:klock:$klockVersion"
+                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
             }
         }
     }

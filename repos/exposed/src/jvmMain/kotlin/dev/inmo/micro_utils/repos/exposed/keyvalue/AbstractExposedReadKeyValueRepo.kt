@@ -1,8 +1,10 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
-import com.insanusmokrassar.postssystem.exposed.commons.paginate
-import com.insanusmokrassar.postssystem.utils.common.pagination.*
-import com.insanusmokrassar.postssystem.utils.repos.StandardReadKeyValueRepo
+import dev.inmo.micro_utils.exposed.paginate
+import dev.inmo.micro_utils.pagination.Pagination
+import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.createPaginationResult
+import dev.inmo.micro_utils.repos.StandardReadKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 

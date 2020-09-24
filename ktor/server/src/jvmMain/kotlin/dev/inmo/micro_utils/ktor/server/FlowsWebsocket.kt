@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.ktor.server
 
+import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.CorrectCloseException
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import io.ktor.http.cio.websocket.*

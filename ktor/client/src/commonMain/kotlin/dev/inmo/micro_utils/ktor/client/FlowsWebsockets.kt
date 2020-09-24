@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.ktor.client
 
+import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.asCorrectWebSocketUrl
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import io.ktor.client.HttpClient

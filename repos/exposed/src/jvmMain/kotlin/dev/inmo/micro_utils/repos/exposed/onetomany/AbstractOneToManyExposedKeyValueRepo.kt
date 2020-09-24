@@ -1,8 +1,6 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
-import com.insanusmokrassar.budgetmanager.core.utils.repo.onetomany.AbstractOneToManyExposedReadKeyValueRepo
-import com.insanusmokrassar.budgetmanager.core.utils.repo.onetomany.ColumnAllocator
-import com.insanusmokrassar.postssystem.utils.repos.OneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 

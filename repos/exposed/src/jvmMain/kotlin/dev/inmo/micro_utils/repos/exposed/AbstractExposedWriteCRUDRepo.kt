@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed
 
-import com.insanusmokrassar.postssystem.utils.repos.UpdatedValuePair
-import com.insanusmokrassar.postssystem.utils.repos.WriteStandardCRUDRepo
+import dev.inmo.micro_utils.repos.UpdatedValuePair
+import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow

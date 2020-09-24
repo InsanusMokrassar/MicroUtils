@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
-import com.insanusmokrassar.postssystem.utils.repos.StandardKeyValueRepo
+import dev.inmo.micro_utils.repos.StandardKeyValueRepo
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
