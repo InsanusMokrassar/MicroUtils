@@ -12,7 +12,6 @@ kotlin {
                 api internalProject("micro_utils.repos.ktor.common")
                 api internalProject("micro_utils.pagination.ktor.common")
                 api internalProject("micro_utils.ktor.client")
-                api "io.ktor:ktor-client:$ktor_version"
             }
         }
     }

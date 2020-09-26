@@ -17,8 +17,6 @@ kotlin {
             dependencies {
                 api internalProject("micro_utils.pagination.ktor.server")
                 api internalProject("micro_utils.ktor.server")
-                api "io.ktor:ktor-server:$ktor_version"
-                api "io.ktor:ktor-server-host-common:$ktor_version"
             }
         }
     }
