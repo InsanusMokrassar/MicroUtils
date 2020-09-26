@@ -2140,6 +2140,7 @@ internal val knownMimeTypes: Set<MimeType> = setOf(
     KnownMimeTypes.Video.XMsWvx,
     KnownMimeTypes.Video.XMsvideo,
     KnownMimeTypes.Video.XSgiMovie,
+    KnownMimeTypes.XConference.Any,
     KnownMimeTypes.XConference.XCooltalk,
 )
 
