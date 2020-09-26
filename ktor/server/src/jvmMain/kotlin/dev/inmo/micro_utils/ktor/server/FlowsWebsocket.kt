@@ -1,8 +1,7 @@
 package dev.inmo.micro_utils.ktor.server
 
 import dev.inmo.micro_utils.coroutines.safely
-import dev.inmo.micro_utils.ktor.common.CorrectCloseException
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.Route
 import io.ktor.websocket.webSocket
@@ -20,15 +19,16 @@ private suspend fun DefaultWebSocketSession.checkReceivedAndCloseIfExists() {
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
-    converter: (T) -> ByteArray
+    converter: (T) -> StandardKtorSerialInputData
 ) {
     webSocket(suburl) {
+//        println("connected")
         safely {
             flow.collect {
-                checkReceivedAndCloseIfExists()
                 send(converter(it))
             }
         }
+//        println("disconnected")
     }
 }
 
@@ -40,5 +40,5 @@ fun <T> Route.includeWebsocketHandling(
     suburl,
     flow
 ) {
-    standardKtorSerialFormat.encodeToByteArray(serializer, it)
+    standardKtorSerialFormat.encodeDefault(serializer, it)
 }

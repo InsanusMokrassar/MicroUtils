@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.ktor.client
 
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -11,13 +11,14 @@ typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 suspend fun <ResultType> HttpClient.uniget(
     url: String,
     resultDeserializer: DeserializationStrategy<ResultType>
-) = get<ByteArray>(
+) = get<StandardKtorSerialInputData>(
     url
 ).let {
-    standardKtorSerialFormat.decodeFromByteArray(resultDeserializer, it)
+    standardKtorSerialFormat.decodeDefault(resultDeserializer, it)
 }
 
-fun <T> SerializationStrategy<T>.encodeUrlQueryValue(value: T) = standardKtorSerialFormat.encodeToHexString(
+
+fun <T> SerializationStrategy<T>.encodeUrlQueryValue(value: T) = standardKtorSerialFormat.encodeHex(
     this,
     value
 )
@@ -26,8 +27,8 @@ suspend fun <BodyType, ResultType> HttpClient.unipost(
     url: String,
     bodyInfo: BodyPair<BodyType>,
     resultDeserializer: DeserializationStrategy<ResultType>
-) = post<ByteArray>(url) {
-    body = standardKtorSerialFormat.encodeToByteArray(bodyInfo.first, bodyInfo.second)
+) = post<StandardKtorSerialInputData>(url) {
+    body = standardKtorSerialFormat.encodeDefault(bodyInfo.first, bodyInfo.second)
 }.let {
-    standardKtorSerialFormat.decodeFromByteArray(resultDeserializer, it)
+    standardKtorSerialFormat.decodeDefault(resultDeserializer, it)
 }

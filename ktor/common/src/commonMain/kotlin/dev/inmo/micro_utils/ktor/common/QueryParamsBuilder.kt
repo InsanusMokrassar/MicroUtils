@@ -11,7 +11,7 @@ val List<QueryParam>.asUrlQuery: String
 
 fun String.includeQueryParams(
     queryParams: QueryParams
-): String = "$this${if (contains("?")) "&" else "?"}${queryParams.asUrlQuery}"
+): String = "$this${if(queryParams.isNotEmpty()) "${if (contains("?")) "&" else "?"}${queryParams.asUrlQuery}" else ""}"
 
 fun String.includeQueryParams(
     queryParams: List<QueryParam>

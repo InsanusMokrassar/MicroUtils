@@ -17,6 +17,7 @@ kotlin {
         jvmMain {
             dependencies {
                 api "io.ktor:ktor-server:$ktor_version"
+                api "io.ktor:ktor-server-cio:$ktor_version"
                 api "io.ktor:ktor-server-host-common:$ktor_version"
                 api "io.ktor:ktor-websockets:$ktor_version"
             }

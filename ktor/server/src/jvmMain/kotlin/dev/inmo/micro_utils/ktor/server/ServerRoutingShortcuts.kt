@@ -1,8 +1,10 @@
 package dev.inmo.micro_utils.ktor.server
 
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.coroutines.safely
+import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.application.ApplicationCall
 import io.ktor.http.HttpStatusCode
+import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.response.respondBytes
 import io.ktor.util.toByteArray
@@ -12,18 +14,20 @@ suspend fun <T> ApplicationCall.unianswer(
     answerSerializer: SerializationStrategy<T>,
     answer: T
 ) {
-    respondBytes(
-        standardKtorSerialFormat.encodeToByteArray(answerSerializer, answer),
+    respondBytes (
+        standardKtorSerialFormat.encodeDefault(answerSerializer, answer),
         standardKtorSerialFormatContentType
     )
 }
 
 suspend fun <T> ApplicationCall.uniload(
     deserializer: DeserializationStrategy<T>
-) = standardKtorSerialFormat.decodeFromByteArray(
-    deserializer,
-    request.receiveChannel().toByteArray()
-)
+) = safely {
+    standardKtorSerialFormat.decodeDefault(
+        deserializer,
+        receive()
+    )
+}
 
 suspend fun ApplicationCall.getParameterOrSendError(
     field: String
@@ -49,7 +53,7 @@ fun <T> ApplicationCall.decodeUrlQueryValue(
     field: String,
     deserializer: DeserializationStrategy<T>
 ) = getQueryParameter(field) ?.let {
-    standardKtorSerialFormat.decodeFromHexString(
+    standardKtorSerialFormat.decodeHex(
         deserializer,
         it
     )

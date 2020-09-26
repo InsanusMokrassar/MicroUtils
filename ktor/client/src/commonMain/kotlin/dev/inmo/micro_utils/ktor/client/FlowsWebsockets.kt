@@ -1,8 +1,7 @@
 package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.coroutines.safely
-import dev.inmo.micro_utils.ktor.common.asCorrectWebSocketUrl
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.ws
 import io.ktor.http.cio.websocket.*
@@ -17,7 +16,7 @@ import kotlinx.serialization.DeserializationStrategy
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },
-    crossinline conversation: suspend (ByteArray) -> T
+    crossinline conversation: suspend (StandardKtorSerialInputData) -> T
 ): Flow<T> {
     val correctedUrl = url.asCorrectWebSocketUrl
 
@@ -25,19 +24,11 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
         val producerScope = this@channelFlow
         do {
             val reconnect = try {
-                safely(
-                    {
-                        throw it
-                    }
-                ) {
-                    ws(
-                        correctedUrl
-                    ) {
-                        while (true) {
-                            when (val received = incoming.receive()) {
-                                is Frame.Binary -> producerScope.send(
-                                    conversation(received.readBytes())
-                                )
+                safely ({ throw it }) {
+                    ws(correctedUrl) {
+                        for (received in incoming) {
+                            when (received) {
+                                is Frame.Binary -> producerScope.send(conversation(received.readBytes()))
                                 else -> {
                                     producerScope.close()
                                     return@ws
@@ -57,7 +48,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
         } while (reconnect)
         if (!producerScope.isClosedForSend) {
             safely(
-                { /* do nothing */ }
+                { it.printStackTrace() }
             ) {
                 producerScope.close()
             }
@@ -77,6 +68,5 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
     url,
     checkReconnection
 ) {
-    standardKtorSerialFormat.decodeFromByteArray(deserializer, it)
+    standardKtorSerialFormat.decodeDefault(deserializer, it)
 }
-

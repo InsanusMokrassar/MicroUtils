@@ -21,3 +21,4 @@ fun buildStandardUrl(
     subpart: String,
     vararg parameters: QueryParam
 ) = buildStandardUrl(basePart, subpart, parameters.toList())
+
