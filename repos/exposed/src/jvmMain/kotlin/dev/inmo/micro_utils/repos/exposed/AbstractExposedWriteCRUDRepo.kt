@@ -12,9 +12,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = 64,
-    databaseName: String = ""
+    tableName: String = ""
 ) :
-    AbstractExposedReadCRUDRepo<ObjectType, IdType>(databaseName),
+    AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 {

@@ -4,10 +4,10 @@ import kotlinx.coroutines.channels.Channel
 
 abstract class AbstractExposedCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = Channel.BUFFERED,
-    databaseName: String = ""
+    tableName: String = ""
 ) :
     AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         flowsChannelsSize,
-        databaseName
+        tableName
     ),
     ExposedCRUDRepo<ObjectType, IdType>
