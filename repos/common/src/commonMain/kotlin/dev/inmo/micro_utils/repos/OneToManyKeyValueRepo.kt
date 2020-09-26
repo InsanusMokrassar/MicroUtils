@@ -12,12 +12,10 @@ interface OneToManyReadKeyValueRepo<Key, Value> : Repo {
     suspend fun count(): Long
 }
 
-interface OneToManyWriteKeyValueRepo<Key, Value> :
-    Repo {
+interface OneToManyWriteKeyValueRepo<Key, Value> : Repo {
     suspend fun add(k: Key, v: Value)
     suspend fun remove(k: Key, v: Value)
     suspend fun clear(k: Key)
 }
 
-interface OneToManyKeyValueRepo<Key, Value> : OneToManyReadKeyValueRepo<Key, Value>,
-    OneToManyWriteKeyValueRepo<Key, Value>
+interface OneToManyKeyValueRepo<Key, Value> : OneToManyReadKeyValueRepo<Key, Value>, OneToManyWriteKeyValueRepo<Key, Value>

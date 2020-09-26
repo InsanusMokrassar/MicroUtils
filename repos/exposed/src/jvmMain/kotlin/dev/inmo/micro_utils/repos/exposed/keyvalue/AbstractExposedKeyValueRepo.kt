@@ -24,7 +24,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val onValueRemoved: Flow<Key> = onValueRemovedChannel.asFlow()
 
     override suspend fun set(k: Key, v: Value) {
-        transaction(db = database) {
+        transaction(database) {
             if (select { keyColumn.eq(k) }.limit(1).any()) {
                 update({ keyColumn.eq(k) }) {
                     it[valueColumn] = v
@@ -40,7 +40,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     }
 
     override suspend fun unset(k: Key) {
-        transaction(db = database) {
+        transaction(database) {
             deleteWhere { keyColumn.eq(k) }
         }
         onValueRemovedChannel.send(k)

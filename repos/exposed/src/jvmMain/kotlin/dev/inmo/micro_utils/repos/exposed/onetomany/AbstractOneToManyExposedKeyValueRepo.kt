@@ -14,7 +14,7 @@ abstract class AbstractOneToManyExposedKeyValueRepo<Key, Value>(
     database
 ) {
     override suspend fun add(k: Key, v: Value) {
-        transaction(db = database) {
+        transaction(database) {
             insert {
                 it[keyColumn] = k
                 it[valueColumn] = v
@@ -23,10 +23,10 @@ abstract class AbstractOneToManyExposedKeyValueRepo<Key, Value>(
     }
 
     override suspend fun remove(k: Key, v: Value) {
-        transaction(db = database) { deleteWhere { keyColumn.eq(k).and(valueColumn.eq(v)) } }
+        transaction(database) { deleteWhere { keyColumn.eq(k).and(valueColumn.eq(v)) } }
     }
 
     override suspend fun clear(k: Key) {
-        transaction(db = database) { deleteWhere { keyColumn.eq(k) } }
+        transaction(database) { deleteWhere { keyColumn.eq(k) } }
     }
 }

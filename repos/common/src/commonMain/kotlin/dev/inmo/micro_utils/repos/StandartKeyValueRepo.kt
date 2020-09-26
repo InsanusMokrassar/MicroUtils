@@ -20,5 +20,4 @@ interface StandardWriteKeyValueRepo<Key, Value> : Repo {
     suspend fun unset(k: Key)
 }
 
-interface StandardKeyValueRepo<Key, Value> : StandardReadKeyValueRepo<Key, Value>,
-    StandardWriteKeyValueRepo<Key, Value>
+interface StandardKeyValueRepo<Key, Value> : StandardReadKeyValueRepo<Key, Value>, StandardWriteKeyValueRepo<Key, Value>

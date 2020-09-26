@@ -15,23 +15,23 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
 ) : StandardReadKeyValueRepo<Key, Value>, Table() {
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
 
-    override suspend fun get(k: Key): Value? = transaction(db = database) {
+    override suspend fun get(k: Key): Value? = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)
     }
 
-    override suspend fun contains(key: Key): Boolean = transaction(db = database) {
+    override suspend fun contains(key: Key): Boolean = transaction(database) {
         select { keyColumn.eq(key) }.limit(1).any()
     }
 
-    override suspend fun count(): Long = transaction(db = database) { selectAll().count() }
+    override suspend fun count(): Long = transaction(database) { selectAll().count() }
 
-    override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(db = database) {
+    override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
         selectAll().paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
             it[keyColumn]
         }
     }.createPaginationResult(pagination, count())
 
-    override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = transaction(db = database) {
+    override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = transaction(database) {
         selectAll().paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
             it[valueColumn]
         }
