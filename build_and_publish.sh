@@ -9,23 +9,7 @@ function assert_success() {
     fi
 }
 
-function build_and_publish() {
-  export RELEASE_MODE=true
-  project="$1"
+export RELEASE_MODE=true
+project="$1"
 
-  assert_success ./gradlew clean "$project:clean" "$project:build" "$project:publishToMavenLocal" "$project:bintrayUpload"
-}
-
-pids=()
-
-while [ -n "$1" ]
-do
-  build_and_publish "$1" &
-  pids[${#pids[*]}]=$!
-  shift
-done
-
-for item in ${pids[*]}
-do
-  wait "$item"
-done
+assert_success ./gradlew clean "$project:clean" "$project:build" "$project:publishToMavenLocal" "$project:bintrayUpload"
