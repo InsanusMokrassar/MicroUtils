@@ -10,11 +10,7 @@ kotlin {
         commonMain {
             dependencies {
                 api internalProject("micro_utils.repos.common")
-            }
-        }
-        jvmMain {
-            dependencies {
-                api internalProject("micro_utils.exposed")
+                api internalProject("micro_utils.pagination.exposed")
             }
         }
     }

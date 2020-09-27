@@ -1,6 +1,8 @@
 project.version = "$version"
 project.group = "$group"
 
+apply from: "$publishGradlePath"
+
 repositories {
     jcenter()
     mavenCentral()

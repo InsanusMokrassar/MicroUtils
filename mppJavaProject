@@ -1,6 +1,8 @@
 project.version = "$version"
 project.group = "$group"
 
+apply from: "$publishGradlePath"
+
 repositories {
     mavenLocal()
     jcenter()
@@ -15,8 +17,6 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib')
-
-                api internalProject("micro_utils.pagination.common")
             }
         }
         commonTest {
@@ -28,7 +28,6 @@ kotlin {
 
         jvmMain {
             dependencies {
-                api "org.jetbrains.exposed:exposed-core:$kotlin_exposed_version"
             }
         }
         jvmTest {
