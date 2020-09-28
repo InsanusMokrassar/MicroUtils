@@ -32,7 +32,7 @@ bintray {
     pkg {
         repo = "MicroUtils"
         name = "${project.name}"
-        vcsUrl = "https://git.inmo.dev/InsanusMokrassar/MicroUtils_mirror"
+        vcsUrl = "https://github.com/InsanusMokrassar/MicroUtils"
         licenses = ["Apache-2.0"]
         version {
             name = "${project.version}"
