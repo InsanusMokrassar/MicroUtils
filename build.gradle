@@ -22,4 +22,4 @@ repositories {
 }
 
 apply from: "./extensions.gradle"
-apply from: "./github.gradle"
+apply from: "./github_release.gradle"
