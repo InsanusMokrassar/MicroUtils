@@ -9,6 +9,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$gradle_bintray_plugin_version"
+        classpath "com.github.breadmoirai:github-release:$github_release_plugin_version"
     }
 }
 
@@ -20,3 +21,4 @@ repositories {
 }
 
 apply from: "./extensions.gradle"
+apply from: "./github.gradle"
