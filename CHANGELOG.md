@@ -8,4 +8,7 @@ Inited :)
 
 * `Repos`
     * `Common`
-        * Extension `ReadStandardCRUDRepo#doWithAll` has been added
+        * Extensions `doForAll` and `getAll` were added for all current types of repos:
+            * `ReadStandardCRUDRepo`
+            * `StandardReadKeyValueRepo`
+            * `OneToManyReadKeyValueRepo`
