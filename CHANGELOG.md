@@ -12,3 +12,4 @@ Inited :)
             * `ReadStandardCRUDRepo`
             * `StandardReadKeyValueRepo`
             * `OneToManyReadKeyValueRepo`
+        * `StandardReadKeyValueRepo` methods `values` and `keys` now have default value for `reversed` parameter `false`
