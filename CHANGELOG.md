@@ -22,6 +22,8 @@ Inited :)
     * `Common`
         * Interfaces related to `OneToManyKeyValueRepo` were renamed with convenience to `Read`/`Write` modifier before name
             * All subclasses were renamed
+        * Interfaces related to `StandartKeyValueRepo` were renamed with convenience to `Read`/`Write` modifier before name
+            * All subclasses were renamed
         * Extensions `doForAll` and `getAll` were added for all current types of repos:
             * `ReadStandardCRUDRepo`
             * `ReadStandardKeyValueRepo`

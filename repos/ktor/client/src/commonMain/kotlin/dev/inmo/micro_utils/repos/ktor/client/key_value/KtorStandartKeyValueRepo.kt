@@ -1,8 +1,8 @@
 package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
-import dev.inmo.micro_utils.repos.StandardReadKeyValueRepo
-import dev.inmo.micro_utils.repos.StandardWriteKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
 import io.ktor.client.*
 import kotlinx.serialization.KSerializer
 
@@ -14,14 +14,14 @@ class KtorStandartKeyValueRepo<K, V> (
     valueSerializer: KSerializer<V>,
     valueNullableSerializer: KSerializer<V?>
 ) : StandardKeyValueRepo<K, V>,
-    StandardReadKeyValueRepo<K, V> by KtorStandartReadKeyValueRepo(
+    ReadStandardKeyValueRepo<K, V> by KtorReadStandardKeyValueRepo(
         "$baseUrl/$baseSubpart",
         client,
         keySerializer,
         valueSerializer,
         valueNullableSerializer
     ),
-    StandardWriteKeyValueRepo<K, V> by KtorStandartWriteKeyValueRepo(
+    WriteStandardKeyValueRepo<K, V> by KtorWriteStandardKeyValueRepo(
         "$baseUrl/$baseSubpart",
         client,
         keySerializer,

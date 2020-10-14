@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.StandardReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -9,7 +9,7 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
     protected val database: Database,
     protected val keyColumn: Column<Key>,
     protected val valueColumn: Column<Value>
-) : StandardReadKeyValueRepo<Key, Value>, Table() {
+) : ReadStandardKeyValueRepo<Key, Value>, Table() {
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
 
     override suspend fun get(k: Key): Value? = transaction(database) {

@@ -4,7 +4,7 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import kotlinx.coroutines.flow.Flow
 
-interface StandardReadKeyValueRepo<Key, Value> : Repo {
+interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
     suspend fun values(pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
@@ -12,7 +12,7 @@ interface StandardReadKeyValueRepo<Key, Value> : Repo {
     suspend fun count(): Long
 }
 
-interface StandardWriteKeyValueRepo<Key, Value> : Repo {
+interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Key>
 
@@ -20,4 +20,4 @@ interface StandardWriteKeyValueRepo<Key, Value> : Repo {
     suspend fun unset(k: Key)
 }
 
-interface StandardKeyValueRepo<Key, Value> : StandardReadKeyValueRepo<Key, Value>, StandardWriteKeyValueRepo<Key, Value>
+interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value>
