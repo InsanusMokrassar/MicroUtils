@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
+import kotlinx.coroutines.flow.Flow
 
 interface OneToManyReadKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key, pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
@@ -13,6 +14,10 @@ interface OneToManyReadKeyValueRepo<Key, Value> : Repo {
 }
 
 interface OneToManyWriteKeyValueRepo<Key, Value> : Repo {
+    val onNewValue: Flow<Pair<Key, Value>>
+    val onValueRemoved: Flow<Pair<Key, Value>>
+    val onDataCleared: Flow<Key>
+
     suspend fun add(k: Key, v: Value)
     suspend fun remove(k: Key, v: Value)
     suspend fun clear(k: Key)
