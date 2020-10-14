@@ -9,6 +9,7 @@ String[] includes = [
     ":mime_types",
     ":repos:common",
     ":repos:exposed",
+    ":repos:inmemory",
     ":repos:ktor:client",
     ":repos:ktor:common",
     ":repos:ktor:server",
