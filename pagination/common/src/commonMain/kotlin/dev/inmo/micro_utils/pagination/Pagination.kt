@@ -50,3 +50,8 @@ fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =
         datasetSize.toLong(),
         pageSize
     )
+
+/**
+ * @return calculated page number which can be correctly used in [PaginationResult] as [PaginationResult.page] value
+ */
+fun calculatePage(firstIndex: Int, resultsSize: Int): Int = firstIndex / resultsSize

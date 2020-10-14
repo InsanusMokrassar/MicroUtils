@@ -33,4 +33,6 @@ abstract class AbstractExposedReadCRUDRepo<ObjectType, IdType>(
     override suspend fun contains(id: IdType): Boolean = transaction(db = database) {
         select { selectById(id) }.limit(1).any()
     }
+
+    override suspend fun count(): Long = transaction(db = database) { selectAll().count() }
 }

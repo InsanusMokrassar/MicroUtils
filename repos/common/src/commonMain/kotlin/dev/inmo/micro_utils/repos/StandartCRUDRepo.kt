@@ -8,6 +8,7 @@ interface ReadStandardCRUDRepo<ObjectType, IdType> : Repo {
     suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType>
     suspend fun getById(id: IdType): ObjectType?
     suspend fun contains(id: IdType): Boolean
+    suspend fun count(): Long
 }
 
 typealias UpdatedValuePair<IdType, ValueType> = Pair<IdType, ValueType>

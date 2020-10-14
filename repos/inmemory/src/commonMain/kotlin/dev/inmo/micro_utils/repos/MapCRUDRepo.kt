@@ -12,13 +12,15 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
             map[it]
         }.createPaginationResult(
             pagination,
-            map.size.toLong()
+            count()
         )
     }
 
     override suspend fun getById(id: IdType): ObjectType? = map[id]
 
     override suspend fun contains(id: IdType): Boolean = map.containsKey(id)
+
+    override suspend fun count(): Long = map.size.toLong()
 }
 
 abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(

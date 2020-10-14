@@ -23,6 +23,19 @@ fun <T> List<T>.createPaginationResult(
     pagination.size
 )
 
+fun <T> List<T>.createPaginationResult(
+    firstIndex: Int,
+    commonObjectsNumber: Long
+) = PaginationResult(
+    calculatePage(firstIndex, size),
+    calculatePagesNumber(
+        commonObjectsNumber,
+        size
+    ),
+    this,
+    size
+)
+
 fun <T> Pair<Long, List<T>>.createPaginationResult(
     pagination: Pagination
 ) = second.createPaginationResult(pagination, first)
