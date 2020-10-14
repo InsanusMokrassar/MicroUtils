@@ -89,3 +89,8 @@ fun <ObjectType, IdType, InputValueType> MapCRUDRepo(
 
     override suspend fun createObject(newValue: InputValueType): Pair<IdType, ObjectType> = createCallback(newValue)
 }
+
+fun <ObjectType, IdType, InputValueType> MutableMap<IdType, ObjectType>.asCrudRepo(
+    updateCallback: suspend (newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
+    createCallback: suspend (newValue: InputValueType) -> Pair<IdType, ObjectType>
+) = MapCRUDRepo(this, updateCallback, createCallback)
