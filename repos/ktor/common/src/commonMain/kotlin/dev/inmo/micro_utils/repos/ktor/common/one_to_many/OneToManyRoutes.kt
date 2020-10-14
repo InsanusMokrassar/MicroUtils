@@ -7,6 +7,10 @@ const val containsByKeyValueRoute = "containsByKeyValue"
 const val countByKeyRoute = "countByKey"
 const val countRoute = "count"
 
+const val onNewValueRoute = "onNewValue"
+const val onValueRemovedRoute = "onValueRemoved"
+const val onDataClearedRoute = "onDataCleared"
+
 const val addRoute = "add"
 const val removeRoute = "remove"
 const val clearRoute = "clear"

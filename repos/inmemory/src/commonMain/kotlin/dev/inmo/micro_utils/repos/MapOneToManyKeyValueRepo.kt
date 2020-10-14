@@ -5,9 +5,9 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.paginate
 import kotlinx.coroutines.flow.Flow
 
-class ReadOneToManyKeyValueRepo<Key, Value>(
+class MapReadOneToManyKeyValueRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap()
-) : OneToManyReadKeyValueRepo<Key, Value> {
+) : ReadOneToManyKeyValueRepo<Key, Value> {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
         val list = map[k] ?: return emptyPaginationResult()
 
@@ -44,9 +44,9 @@ class ReadOneToManyKeyValueRepo<Key, Value>(
     override suspend fun count(): Long = map.size.toLong()
 }
 
-class WriteOneToManyKeyValueRepo<Key, Value>(
+class MapWriteOneToManyKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
-) : OneToManyWriteKeyValueRepo<Key, Value> {
+) : WriteOneToManyKeyValueRepo<Key, Value> {
     private val _onNewValue: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
@@ -74,8 +74,8 @@ class WriteOneToManyKeyValueRepo<Key, Value>(
 class MapOneToManyKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
 ) : OneToManyKeyValueRepo<Key, Value>,
-    OneToManyReadKeyValueRepo<Key, Value> by ReadOneToManyKeyValueRepo(map),
-    OneToManyWriteKeyValueRepo<Key, Value> by WriteOneToManyKeyValueRepo(map)
+    ReadOneToManyKeyValueRepo<Key, Value> by MapReadOneToManyKeyValueRepo(map),
+    WriteOneToManyKeyValueRepo<Key, Value> by MapWriteOneToManyKeyValueRepo(map)
 
 fun <K, V> MutableMap<K, List<V>>.asOneToManyKeyValueRepo(): OneToManyKeyValueRepo<K, V> = MapOneToManyKeyValueRepo(
     map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap()

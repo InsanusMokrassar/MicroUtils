@@ -20,12 +20,14 @@ Inited :)
             * `Set`
 * `Repos`
     * `Common`
+        * Interfaces related to `OneToManyKeyValueRepo` were renamed with convenience to `Read`/`Write` modifier before name
+            * All subclasses were renamed
         * Extensions `doForAll` and `getAll` were added for all current types of repos:
             * `ReadStandardCRUDRepo`
-            * `StandardReadKeyValueRepo`
-            * `OneToManyReadKeyValueRepo`
-        * `StandardReadKeyValueRepo` methods `values` and `keys` now have default value for `reversed` parameter `false`
-        * New `Flow`'s in `OneToManyWriteKeyValueRepo`:
+            * `ReadStandardKeyValueRepo`
+            * `ReadOneToManyKeyValueRepo`
+        * `ReadStandardKeyValueRepo` methods `values` and `keys` now have default value for `reversed` parameter `false`
+        * New `Flow`'s in `WriteOneToManyKeyValueRepo`:
             * `onNewValue`
             * `onValueRemoved`
             * `onDataCleared`

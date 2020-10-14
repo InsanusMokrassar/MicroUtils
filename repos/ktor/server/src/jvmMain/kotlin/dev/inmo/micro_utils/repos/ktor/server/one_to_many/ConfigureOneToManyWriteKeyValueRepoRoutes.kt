@@ -1,8 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.server.one_to_many
 
-import dev.inmo.micro_utils.ktor.server.unianswer
-import dev.inmo.micro_utils.ktor.server.uniload
-import dev.inmo.micro_utils.repos.OneToManyWriteKeyValueRepo
+import dev.inmo.micro_utils.ktor.server.*
+import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.application.call
 import io.ktor.routing.Route
@@ -12,11 +11,27 @@ import kotlinx.serialization.builtins.PairSerializer
 import kotlinx.serialization.builtins.serializer
 
 fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
-    originalRepo: OneToManyWriteKeyValueRepo<Key, Value>,
+    originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSealizer: KSerializer<Value>,
 ) {
     val keyValueSerializer = PairSerializer(keySerializer, valueSealizer)
+
+    includeWebsocketHandling(
+        onNewValueRoute,
+        originalRepo.onNewValue,
+        keyValueSerializer
+    )
+    includeWebsocketHandling(
+        onValueRemovedRoute,
+        originalRepo.onValueRemoved,
+        keyValueSerializer
+    )
+    includeWebsocketHandling(
+        onDataClearedRoute,
+        originalRepo.onDataCleared,
+        keySerializer
+    )
 
     post(addRoute) {
         val obj = call.uniload(

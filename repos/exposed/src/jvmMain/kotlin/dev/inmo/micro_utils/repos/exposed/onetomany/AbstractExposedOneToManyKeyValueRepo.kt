@@ -4,11 +4,11 @@ import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-abstract class AbstractOneToManyExposedKeyValueRepo<Key, Value>(
+abstract class AbstractExposedOneToManyKeyValueRepo<Key, Value>(
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     database: Database
-) : OneToManyKeyValueRepo<Key, Value>, AbstractOneToManyExposedReadKeyValueRepo<Key, Value>(
+) : OneToManyKeyValueRepo<Key, Value>, AbstractExposedReadOneToManyKeyValueRepo<Key, Value>(
     keyColumnAllocator,
     valueColumnAllocator,
     database
@@ -30,3 +30,6 @@ abstract class AbstractOneToManyExposedKeyValueRepo<Key, Value>(
         transaction(database) { deleteWhere { keyColumn.eq(k) } }
     }
 }
+
+@Deprecated("Renamed", ReplaceWith("AbstractExposedOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.AbstractExposedOneToManyKeyValueRepo"))
+typealias AbstractOneToManyExposedKeyValueRepo<Key, Value> = AbstractExposedOneToManyKeyValueRepo<Key, Value>

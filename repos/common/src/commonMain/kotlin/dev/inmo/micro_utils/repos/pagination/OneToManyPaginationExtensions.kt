@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.pagination
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
 
-suspend inline fun <Key, Value, REPO : OneToManyReadKeyValueRepo<Key, Value>> REPO.doForAll(
+suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.doForAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     methodCaller: suspend REPO.(Pagination) -> PaginationResult<Key>,
     block: (List<Pair<Key, List<Value>>>) -> Unit
@@ -25,11 +25,11 @@ suspend inline fun <Key, Value, REPO : OneToManyReadKeyValueRepo<Key, Value>> RE
     }
 }
 
-suspend inline fun <Key, Value, REPO : OneToManyReadKeyValueRepo<Key, Value>> REPO.doForAll(
+suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.doForAll(
     block: (List<Pair<Key, List<Value>>>) -> Unit
 ) = doForAll({ keys(it, false) }, block)
 
-suspend inline fun <Key, Value, REPO : OneToManyReadKeyValueRepo<Key, Value>> REPO.getAll(
+suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.getAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     methodCaller: suspend REPO.(Pagination) -> PaginationResult<Key>
 ): List<Pair<Key, List<Value>>> {
