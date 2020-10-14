@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.pagination
 
 import kotlin.math.ceil
+import kotlin.math.floor
 
 /**
  * Base interface of pagination
@@ -50,3 +51,12 @@ fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =
         datasetSize.toLong(),
         pageSize
     )
+
+/**
+ * @return calculated page number which can be correctly used in [PaginationResult] as [PaginationResult.page] value
+ */
+fun calculatePage(firstIndex: Int, resultsSize: Int): Int = if (resultsSize > 0) {
+    floor(firstIndex.toFloat() / resultsSize).toInt()
+} else {
+    0
+}

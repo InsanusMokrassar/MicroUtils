@@ -47,4 +47,12 @@ class KtorReadStandardCrudRepo<ObjectType, IdType> (
         ),
         Boolean.serializer()
     )
+
+    override suspend fun count(): Long = client.uniget(
+        buildStandardUrl(
+            baseUrl,
+            countRouting
+        ),
+        Long.serializer()
+    )
 }

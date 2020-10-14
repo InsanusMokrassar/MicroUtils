@@ -10,6 +10,8 @@ data class PaginationResult<T>(
     override val size: Int
 ) : Pagination
 
+fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0)
+
 fun <T> List<T>.createPaginationResult(
     pagination: Pagination,
     commonObjectsNumber: Long
@@ -21,6 +23,19 @@ fun <T> List<T>.createPaginationResult(
     ),
     this,
     pagination.size
+)
+
+fun <T> List<T>.createPaginationResult(
+    firstIndex: Int,
+    commonObjectsNumber: Long
+) = PaginationResult(
+    calculatePage(firstIndex, size),
+    calculatePagesNumber(
+        commonObjectsNumber,
+        size
+    ),
+    this,
+    size
 )
 
 fun <T> Pair<Long, List<T>>.createPaginationResult(

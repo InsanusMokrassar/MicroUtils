@@ -1,17 +1,17 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.OneToManyReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 typealias ColumnAllocator<T> = Table.() -> Column<T>
 
-abstract class AbstractOneToManyExposedReadKeyValueRepo<Key, Value>(
+abstract class AbstractExposedReadOneToManyKeyValueRepo<Key, Value>(
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     protected val database: Database
-) : OneToManyReadKeyValueRepo<Key, Value>, Table() {
+) : ReadOneToManyKeyValueRepo<Key, Value>, Table() {
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
 
@@ -45,3 +45,6 @@ abstract class AbstractOneToManyExposedReadKeyValueRepo<Key, Value>(
         select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).any()
     }
 }
+
+@Deprecated("Renamed", ReplaceWith("AbstractExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.AbstractExposedReadOneToManyKeyValueRepo"))
+typealias AbstractOneToManyExposedReadKeyValueRepo<Key, Value> = AbstractExposedReadOneToManyKeyValueRepo<Key, Value>

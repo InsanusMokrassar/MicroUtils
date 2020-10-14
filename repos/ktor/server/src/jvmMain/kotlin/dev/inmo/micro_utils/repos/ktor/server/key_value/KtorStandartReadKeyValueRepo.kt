@@ -4,7 +4,7 @@ import dev.inmo.micro_utils.ktor.server.decodeUrlQueryValueOrSendError
 import dev.inmo.micro_utils.ktor.server.unianswer
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.StandardReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.application.*
 import io.ktor.routing.*
@@ -12,7 +12,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
 fun <K, V> Route.configureReadStandartKeyValueRepoRoutes (
-    originalRepo: StandardReadKeyValueRepo<K, V>,
+    originalRepo: ReadStandardKeyValueRepo<K, V>,
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
     valueNullableSerializer: KSerializer<V?>,

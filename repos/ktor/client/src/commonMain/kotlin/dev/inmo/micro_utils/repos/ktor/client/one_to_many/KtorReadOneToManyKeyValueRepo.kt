@@ -6,18 +6,18 @@ import dev.inmo.micro_utils.ktor.common.buildStandardUrl
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.asUrlQueryParts
-import dev.inmo.micro_utils.repos.OneToManyReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
-class KtorOneToManyReadKeyValueRepo<Key, Value> (
+class KtorReadOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val client: HttpClient = HttpClient(),
     private val keySerializer: KSerializer<Key>,
     private val valueSerializer: KSerializer<Value>,
-) : OneToManyReadKeyValueRepo<Key, Value> {
+) : ReadOneToManyKeyValueRepo<Key, Value> {
     private val paginationValueResultSerializer = PaginationResult.serializer(valueSerializer)
     private val paginationKeyResultSerializer = PaginationResult.serializer(keySerializer)
 

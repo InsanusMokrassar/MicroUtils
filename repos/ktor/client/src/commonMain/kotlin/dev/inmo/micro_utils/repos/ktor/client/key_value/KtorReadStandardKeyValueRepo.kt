@@ -6,19 +6,19 @@ import dev.inmo.micro_utils.ktor.common.buildStandardUrl
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.asUrlQueryParts
-import dev.inmo.micro_utils.repos.StandardReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
-class KtorStandartReadKeyValueRepo<Key, Value> (
+class KtorReadStandardKeyValueRepo<Key, Value> (
     private var baseUrl: String,
     private var client: HttpClient = HttpClient(),
     private var keySerializer: KSerializer<Key>,
     private var valueSerializer: KSerializer<Value>,
     private var valueNullableSerializer: KSerializer<Value?>,
-) : StandardReadKeyValueRepo<Key, Value> {
+) : ReadStandardKeyValueRepo<Key, Value> {
     override suspend fun get(k: Key): Value? = client.uniget(
         buildStandardUrl(
             baseUrl,
@@ -71,3 +71,6 @@ class KtorStandartReadKeyValueRepo<Key, Value> (
         Long.serializer()
     )
 }
+
+@Deprecated("Renamed", ReplaceWith("KtorReadStandardKeyValueRepo", "dev.inmo.micro_utils.repos.ktor.client.key_value.KtorReadStandardKeyValueRepo"))
+typealias KtorStandartReadKeyValueRepo<Key, Value> = KtorReadStandardKeyValueRepo<Key, Value>
