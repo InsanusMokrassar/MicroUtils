@@ -8,11 +8,13 @@ import io.ktor.http.cio.websocket.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.serialization.DeserializationStrategy
+import kotlin.js.JsExport
 
 /**
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
+@JsExport
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },
@@ -60,6 +62,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
+@JsExport
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },

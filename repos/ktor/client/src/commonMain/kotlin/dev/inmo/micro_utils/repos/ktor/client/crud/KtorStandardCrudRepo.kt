@@ -3,7 +3,9 @@ package dev.inmo.micro_utils.repos.ktor.client.crud
 import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
+import kotlin.js.JsExport
 
+@JsExport
 class KtorStandardCrudRepo<ObjectType, IdType, InputValue> (
     baseUrl: String,
     baseSubpart: String,

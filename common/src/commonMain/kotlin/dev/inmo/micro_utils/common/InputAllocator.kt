@@ -5,12 +5,15 @@ import kotlinx.serialization.builtins.ByteArraySerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.js.JsExport
 
 typealias ByteArrayAllocator = () -> ByteArray
 
+@JsExport
 val ByteArray.asAllocator: ByteArrayAllocator
     get() = { this }
 
+@JsExport
 object ByteArrayAllocatorSerializer : KSerializer<ByteArrayAllocator> {
     private val realSerializer = ByteArraySerializer()
     override val descriptor: SerialDescriptor = realSerializer.descriptor

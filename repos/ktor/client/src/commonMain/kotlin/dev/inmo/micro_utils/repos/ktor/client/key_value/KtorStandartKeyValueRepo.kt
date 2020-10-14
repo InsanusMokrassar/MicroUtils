@@ -5,7 +5,9 @@ import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
 import io.ktor.client.*
 import kotlinx.serialization.KSerializer
+import kotlin.js.JsExport
 
+@JsExport
 class KtorStandartKeyValueRepo<K, V> (
     baseUrl: String,
     baseSubpart: String,

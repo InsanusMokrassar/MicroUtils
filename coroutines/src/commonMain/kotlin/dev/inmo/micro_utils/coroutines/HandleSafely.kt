@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.supervisorScope
+import kotlin.js.JsExport
 
 
 typealias ExceptionHandler<T> = suspend (Throwable) -> T
@@ -11,6 +12,7 @@ typealias ExceptionHandler<T> = suspend (Throwable) -> T
  * @param [onException] Will be called when happen exception inside of [block]. By default will throw exception - this
  * exception will be available for catching
  */
+@JsExport
 suspend inline fun <T> safely(
     noinline onException: ExceptionHandler<T> = { throw it },
     noinline block: suspend CoroutineScope.() -> T

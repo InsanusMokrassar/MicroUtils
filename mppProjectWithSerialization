@@ -13,7 +13,11 @@ repositories {
 kotlin {
     jvm()
     js (BOTH) {
-        browser()
+        browser {
+            dceTask {
+                dceOptions.devMode = true
+            }
+        }
         nodejs()
     }
 

@@ -2,7 +2,9 @@ package dev.inmo.micro_utils.repos.pagination
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
+import kotlin.js.JsExport
 
+@JsExport
 suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.doForAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     methodCaller: suspend REPO.(Pagination) -> PaginationResult<Key>,
@@ -25,10 +27,12 @@ suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> RE
     }
 }
 
+@JsExport
 suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.doForAll(
     block: (List<Pair<Key, List<Value>>>) -> Unit
 ) = doForAll({ keys(it, false) }, block)
 
+@JsExport
 suspend inline fun <Key, Value, REPO : ReadOneToManyKeyValueRepo<Key, Value>> REPO.getAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     methodCaller: suspend REPO.(Pagination) -> PaginationResult<Key>
