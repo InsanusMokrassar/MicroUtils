@@ -4,7 +4,7 @@ import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.*
 import kotlinx.coroutines.flow.Flow
 
-class MapCRUDRepo<ObjectType, IdType>(
+class ReadMapCRUDRepo<ObjectType, IdType>(
     private val map: Map<IdType, ObjectType> = emptyMap()
 ) : ReadStandardCRUDRepo<ObjectType, IdType> {
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> {
@@ -21,7 +21,7 @@ class MapCRUDRepo<ObjectType, IdType>(
     override suspend fun contains(id: IdType): Boolean = map.containsKey(id)
 }
 
-abstract class MutableMapCRUDRepo<ObjectType, IdType, InputValueType>(
+abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
     private val map: MutableMap<IdType, ObjectType> = mutableMapOf()
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> {
     private val _newObjectsFlow: BroadcastFlow<ObjectType> = BroadcastFlow()
@@ -68,17 +68,17 @@ abstract class MutableMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
 }
 
-abstract class HashMapCRUDRepo<ObjectType, IdType, InputValueType>(
+abstract class MapCRUDRepo<ObjectType, IdType, InputValueType>(
     map: MutableMap<IdType, ObjectType>
 ) : StandardCRUDRepo<ObjectType, IdType, InputValueType>,
-    ReadStandardCRUDRepo<ObjectType, IdType> by MapCRUDRepo(map),
-    MutableMapCRUDRepo<ObjectType, IdType, InputValueType>(map)
+    ReadStandardCRUDRepo<ObjectType, IdType> by ReadMapCRUDRepo(map),
+    WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(map)
 
-fun <ObjectType, IdType, InputValueType> HashMapCRUDRepo(
+fun <ObjectType, IdType, InputValueType> MapCRUDRepo(
     map: MutableMap<IdType, ObjectType>,
     updateCallback: suspend (newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
     createCallback: suspend (newValue: InputValueType) -> Pair<IdType, ObjectType>
-) = object : HashMapCRUDRepo<ObjectType, IdType, InputValueType>(map) {
+) = object : MapCRUDRepo<ObjectType, IdType, InputValueType>(map) {
     override suspend fun updateObject(
         newValue: InputValueType,
         id: IdType,
