@@ -5,7 +5,6 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import kotlinx.coroutines.flow.Flow
 import kotlin.js.JsExport
 
-@JsExport
 interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
     suspend fun values(pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
@@ -14,7 +13,6 @@ interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun count(): Long
 }
 
-@JsExport
 interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Key>
@@ -23,5 +21,4 @@ interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun unset(k: Key)
 }
 
-@JsExport
 interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value>

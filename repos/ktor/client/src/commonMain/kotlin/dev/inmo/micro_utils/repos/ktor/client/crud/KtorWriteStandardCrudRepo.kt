@@ -13,7 +13,6 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 import kotlin.js.JsExport
 
-@JsExport
 class KtorWriteStandardCrudRepo<ObjectType, IdType, InputValue> (
     private val baseUrl: String,
     private val client: HttpClient = HttpClient(),

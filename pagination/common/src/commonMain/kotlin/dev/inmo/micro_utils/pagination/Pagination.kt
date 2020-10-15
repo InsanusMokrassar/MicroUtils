@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.pagination
 
 import kotlin.js.JsExport
+import kotlin.js.JsName
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -27,7 +28,6 @@ interface Pagination {
 /**
  * First number in index of objects. It can be used as offset for databases or other data sources
  */
-@JsExport
 val Pagination.firstIndex: Int
     get() = page * size
 
@@ -37,7 +37,6 @@ val Pagination.firstIndex: Int
  * [[firstIndex], [lastIndex]]; That means, that for [Pagination] with [Pagination.size] == 10 and [Pagination.page] == 1
  * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19.
  */
-@JsExport
 val Pagination.lastIndex: Int
     get() = firstIndex + size - 1
 
@@ -52,6 +51,7 @@ fun calculatePagesNumber(datasetSize: Long, pageSize: Int): Int {
  * Calculates pages count for given [datasetSize]
  */
 @JsExport
+@JsName("calculatePagesNumberWithInt")
 fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =
     calculatePagesNumber(
         datasetSize.toLong(),

@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.ktor.common
 
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @JsExport
 fun buildStandardUrl(
@@ -12,6 +13,7 @@ fun buildStandardUrl(
 )
 
 @JsExport
+@JsName("buildStandardUrlWithParametersList")
 fun buildStandardUrl(
     basePart: String,
     subpart: String,
@@ -21,6 +23,7 @@ fun buildStandardUrl(
 )
 
 @JsExport
+@JsName("buildStandardUrlWithParametersVararg")
 fun buildStandardUrl(
     basePart: String,
     subpart: String,

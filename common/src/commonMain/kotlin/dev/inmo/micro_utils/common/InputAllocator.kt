@@ -9,7 +9,6 @@ import kotlin.js.JsExport
 
 typealias ByteArrayAllocator = () -> ByteArray
 
-@JsExport
 val ByteArray.asAllocator: ByteArrayAllocator
     get() = { this }
 

@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.serialization.DeserializationStrategy
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 /**
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
@@ -63,6 +64,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
 @JsExport
+@JsName("createStandardWebsocketFlowWithDeserializer")
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },

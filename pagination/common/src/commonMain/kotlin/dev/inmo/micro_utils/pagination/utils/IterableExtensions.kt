@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.pagination.utils
 
 import dev.inmo.micro_utils.pagination.*
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @JsExport
 fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
@@ -23,6 +24,7 @@ fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 @JsExport
+@JsName("paginateList")
 fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
     return subList(with.firstIndex, with.lastIndex + 1).createPaginationResult(
         with,
@@ -31,6 +33,7 @@ fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 @JsExport
+@JsName("paginateSet")
 fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
     return this.drop(with.firstIndex).take(with.size).createPaginationResult(
         with,

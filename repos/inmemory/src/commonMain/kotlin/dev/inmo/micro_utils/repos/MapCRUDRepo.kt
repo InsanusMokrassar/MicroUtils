@@ -4,8 +4,8 @@ import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.*
 import kotlinx.coroutines.flow.Flow
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
-@JsExport
 class ReadMapCRUDRepo<ObjectType, IdType>(
     private val map: Map<IdType, ObjectType> = emptyMap()
 ) : ReadStandardCRUDRepo<ObjectType, IdType> {
@@ -25,7 +25,6 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
     override suspend fun count(): Long = map.size.toLong()
 }
 
-@JsExport
 abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
     private val map: MutableMap<IdType, ObjectType> = mutableMapOf()
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> {
@@ -81,6 +80,7 @@ abstract class MapCRUDRepo<ObjectType, IdType, InputValueType>(
     WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(map)
 
 @JsExport
+@JsName("MapCRUDRepoFactory")
 fun <ObjectType, IdType, InputValueType> MapCRUDRepo(
     map: MutableMap<IdType, ObjectType>,
     updateCallback: suspend (newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,

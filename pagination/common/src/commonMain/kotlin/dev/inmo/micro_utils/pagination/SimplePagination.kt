@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.pagination
 
 import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 const val defaultSmallPageSize = 2
 const val defaultMediumPageSize = 5
@@ -32,6 +33,7 @@ data class SimplePagination(
 ) : Pagination
 
 @JsExport
+@JsName("PaginationFactory")
 fun Pagination(
     page: Int,
     size: Int

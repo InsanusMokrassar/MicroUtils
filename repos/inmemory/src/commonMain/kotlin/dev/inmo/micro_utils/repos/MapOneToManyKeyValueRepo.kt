@@ -6,7 +6,6 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import kotlinx.coroutines.flow.Flow
 import kotlin.js.JsExport
 
-@JsExport
 class MapReadOneToManyKeyValueRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap()
 ) : ReadOneToManyKeyValueRepo<Key, Value> {
@@ -46,7 +45,6 @@ class MapReadOneToManyKeyValueRepo<Key, Value>(
     override suspend fun count(): Long = map.size.toLong()
 }
 
-@JsExport
 class MapWriteOneToManyKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
 ) : WriteOneToManyKeyValueRepo<Key, Value> {

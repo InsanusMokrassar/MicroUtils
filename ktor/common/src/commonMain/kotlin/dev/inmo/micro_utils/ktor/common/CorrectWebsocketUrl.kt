@@ -4,7 +4,6 @@ import kotlin.js.JsExport
 
 private val schemaRegex = Regex("^[^:]*://")
 
-@JsExport
 val String.asCorrectWebSocketUrl: String
     get() = if (startsWith("ws")) {
         this

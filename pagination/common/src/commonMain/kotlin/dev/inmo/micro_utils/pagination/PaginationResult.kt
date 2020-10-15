@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.pagination
 
 import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @JsExport
 @Serializable
@@ -16,6 +17,7 @@ data class PaginationResult<T>(
 fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0)
 
 @JsExport
+@JsName("createPaginationResultWithPagination")
 fun <T> List<T>.createPaginationResult(
     pagination: Pagination,
     commonObjectsNumber: Long
@@ -30,6 +32,7 @@ fun <T> List<T>.createPaginationResult(
 )
 
 @JsExport
+@JsName("createPaginationResultWithFirstIndex")
 fun <T> List<T>.createPaginationResult(
     firstIndex: Int,
     commonObjectsNumber: Long
@@ -44,6 +47,7 @@ fun <T> List<T>.createPaginationResult(
 )
 
 @JsExport
+@JsName("createPaginationResultWithPair")
 fun <T> Pair<Long, List<T>>.createPaginationResult(
     pagination: Pagination
 ) = second.createPaginationResult(pagination, first)

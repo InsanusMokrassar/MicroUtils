@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlin.js.JsExport
+import kotlin.js.JsName
 
 @JsExport
 class BroadcastStateFlow<T> internal constructor(
@@ -25,6 +26,7 @@ fun <T> BroadcastChannel<T>.asStateFlow(value: T, scope: CoroutineScope): StateF
 }
 
 @JsExport
+@JsName("nullableAsStateFlow")
 fun <T> BroadcastChannel<T?>.asStateFlow(scope: CoroutineScope): StateFlow<T?> = asStateFlow(null, scope)
 
 @JsExport
@@ -35,5 +37,6 @@ fun <T> broadcastStateFlow(initial: T, scope: CoroutineScope, channelSize: Int =
 }
 
 @JsExport
+@JsName("nullableBroadcastStateFlow")
 fun <T> broadcastStateFlow(scope: CoroutineScope, channelSize: Int = Channel.BUFFERED) = broadcastStateFlow<T?>(null, scope, channelSize)
 
