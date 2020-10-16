@@ -1,8 +1,5 @@
 package dev.inmo.micro_utils.pagination
 
-import kotlin.js.JsExport
-
-@JsExport
 inline fun doWithPagination(
     startPagination: Pagination = FirstPagePagination(),
     requestMaker: (pagination: Pagination) -> Pagination?
@@ -13,7 +10,6 @@ inline fun doWithPagination(
     }
 }
 
-@JsExport
 @Suppress("NOTHING_TO_INLINE")
 inline fun PaginationResult<*>.nextPageIfNotEmpty() = if (results.isNotEmpty()) {
     SimplePagination(
@@ -24,7 +20,6 @@ inline fun PaginationResult<*>.nextPageIfNotEmpty() = if (results.isNotEmpty()) 
     null
 }
 
-@JsExport
 @Suppress("NOTHING_TO_INLINE")
 inline fun PaginationResult<*>.thisPageIfNotEmpty(): Pagination? = if (results.isNotEmpty()) {
     this

@@ -11,9 +11,7 @@ import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
-import kotlin.js.JsExport
 
-@JsExport
 class KtorReadOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val client: HttpClient = HttpClient(),
@@ -85,4 +83,5 @@ class KtorReadOneToManyKeyValueRepo<Key, Value> (
         ),
         Long.serializer()
     )
+
 }

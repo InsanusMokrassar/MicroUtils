@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.PairSerializer
 import kotlinx.serialization.builtins.serializer
-import kotlin.js.JsExport
 
-@JsExport
 class KtorWriteOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val client: HttpClient = HttpClient(),

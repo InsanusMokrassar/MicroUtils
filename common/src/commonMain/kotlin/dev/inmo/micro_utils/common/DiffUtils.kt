@@ -1,8 +1,5 @@
 package dev.inmo.micro_utils.common
 
-import kotlin.js.JsExport
-
-@JsExport
 fun <T> Iterable<T>.syncWith(
     other: Iterable<T>,
     removed: (List<T>) -> Unit = {},

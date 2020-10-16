@@ -5,9 +5,7 @@ import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
-import kotlin.js.JsExport
 
-@JsExport
 class KtorOneToManyKeyValueRepo<Key, Value>(
     baseUrl: String,
     baseSubpart: String,

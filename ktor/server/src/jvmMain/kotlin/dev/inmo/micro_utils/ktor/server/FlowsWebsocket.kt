@@ -9,6 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.SerializationStrategy
 
+private suspend fun DefaultWebSocketSession.checkReceivedAndCloseIfExists() {
+    if (incoming.poll() != null) {
+        close()
+        throw CorrectCloseException
+    }
+}
+
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,

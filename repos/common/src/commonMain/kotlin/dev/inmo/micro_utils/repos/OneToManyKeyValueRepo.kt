@@ -3,9 +3,7 @@ package dev.inmo.micro_utils.repos
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import kotlinx.coroutines.flow.Flow
-import kotlin.js.JsExport
 
-@JsExport
 interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key, pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
@@ -17,7 +15,6 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
 @Deprecated("Renamed", ReplaceWith("ReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo"))
 typealias OneToManyReadKeyValueRepo<Key, Value> = ReadOneToManyKeyValueRepo<Key, Value>
 
-@JsExport
 interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Pair<Key, Value>>
@@ -30,5 +27,4 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
 @Deprecated("Renamed", ReplaceWith("WriteOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo"))
 typealias OneToManyWriteKeyValueRepo<Key, Value> = WriteOneToManyKeyValueRepo<Key, Value>
 
-@JsExport
 interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>

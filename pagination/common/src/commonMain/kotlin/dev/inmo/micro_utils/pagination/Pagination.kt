@@ -1,6 +1,5 @@
 package dev.inmo.micro_utils.pagination
 
-import kotlin.js.JsExport
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -10,7 +9,6 @@ import kotlin.math.floor
  * If you want to request something, you should use [SimplePagination]. If you need to return some result including
  * pagination - [PaginationResult]
  */
-@JsExport
 interface Pagination {
     /**
      * Started with 0.
@@ -27,7 +25,6 @@ interface Pagination {
 /**
  * First number in index of objects. It can be used as offset for databases or other data sources
  */
-@JsExport
 val Pagination.firstIndex: Int
     get() = page * size
 
@@ -37,21 +34,18 @@ val Pagination.firstIndex: Int
  * [[firstIndex], [lastIndex]]; That means, that for [Pagination] with [Pagination.size] == 10 and [Pagination.page] == 1
  * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19.
  */
-@JsExport
 val Pagination.lastIndex: Int
     get() = firstIndex + size - 1
 
 /**
  * Calculates pages count for given [datasetSize]
  */
-@JsExport
 fun calculatePagesNumber(datasetSize: Long, pageSize: Int): Int {
     return ceil(datasetSize.toDouble() / pageSize).toInt()
 }
 /**
  * Calculates pages count for given [datasetSize]
  */
-@JsExport
 fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =
     calculatePagesNumber(
         datasetSize.toLong(),
@@ -61,7 +55,6 @@ fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =
 /**
  * @return calculated page number which can be correctly used in [PaginationResult] as [PaginationResult.page] value
  */
-@JsExport
 fun calculatePage(firstIndex: Int, resultsSize: Int): Int = if (resultsSize > 0) {
     floor(firstIndex.toFloat() / resultsSize).toInt()
 } else {

@@ -1,17 +1,13 @@
 package dev.inmo.micro_utils.mime_types
 
 import kotlinx.serialization.Serializable
-import kotlin.js.JsExport
 
-@JsExport
 @Serializable(MimeTypeSerializer::class)
 interface MimeType {
     val raw: String
 }
-@JsExport
 data class CustomMimeType(override val raw: String) : MimeType
 
-@JsExport
 @Serializable(MimeTypeSerializer::class)
 sealed class KnownMimeTypes(override val raw: String) : MimeType {
     object Any : MimeType, KnownMimeTypes("*/*")
@@ -2148,12 +2144,10 @@ internal val knownMimeTypes: Set<MimeType> = setOf(
     KnownMimeTypes.XConference.XCooltalk,
 )
 
-@JsExport
 val knownMimeTypesMap by lazy {
     knownMimeTypes.associateBy { it.raw }
 }
 
-@JsExport
 fun findBuiltinMimeType(from: String): MimeType? {
     return knownMimeTypesMap[from]
 }

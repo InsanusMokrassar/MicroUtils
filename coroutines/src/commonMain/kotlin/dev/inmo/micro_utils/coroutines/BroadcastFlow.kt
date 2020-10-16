@@ -2,9 +2,7 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
-import kotlin.js.JsExport
 
-@JsExport
 @Suppress("FunctionName")
 fun <T> BroadcastFlow(
     internalChannelSize: Int = Channel.BUFFERED
@@ -17,7 +15,6 @@ fun <T> BroadcastFlow(
     )
 }
 
-@JsExport
 class BroadcastFlow<T> internal constructor(
     private val channel: BroadcastChannel<T>,
     private val flow: Flow<T>

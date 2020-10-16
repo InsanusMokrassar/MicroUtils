@@ -4,9 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import kotlin.js.JsExport
 
-@JsExport
 class BroadcastStateFlow<T> internal constructor(
     parentFlow: Flow<T>,
     private val stateGetter: () -> T
@@ -15,7 +13,6 @@ class BroadcastStateFlow<T> internal constructor(
         get() = stateGetter()
 }
 
-@JsExport
 fun <T> BroadcastChannel<T>.asStateFlow(value: T, scope: CoroutineScope): StateFlow<T> = asFlow().let {
     var state: T = value
     it.onEach { state = it }.launchIn(scope)
@@ -24,16 +21,13 @@ fun <T> BroadcastChannel<T>.asStateFlow(value: T, scope: CoroutineScope): StateF
     }
 }
 
-@JsExport
 fun <T> BroadcastChannel<T?>.asStateFlow(scope: CoroutineScope): StateFlow<T?> = asStateFlow(null, scope)
 
-@JsExport
 fun <T> broadcastStateFlow(initial: T, scope: CoroutineScope, channelSize: Int = Channel.BUFFERED) = BroadcastChannel<T>(
     channelSize
 ).let {
     it to it.asStateFlow(initial, scope)
 }
 
-@JsExport
 fun <T> broadcastStateFlow(scope: CoroutineScope, channelSize: Int = Channel.BUFFERED) = broadcastStateFlow<T?>(null, scope, channelSize)
 

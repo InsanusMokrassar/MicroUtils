@@ -11,9 +11,7 @@ import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
-import kotlin.js.JsExport
 
-@JsExport
 class KtorReadStandardCrudRepo<ObjectType, IdType> (
     private val baseUrl: String,
     private val client: HttpClient = HttpClient(),
