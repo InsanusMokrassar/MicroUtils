@@ -3,21 +3,10 @@ project.group = "$group"
 
 apply from: "$publishGradlePath"
 
-repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "https://kotlin.bintray.com/kotlinx" }
-    mavenLocal()
-}
-
 kotlin {
     jvm()
     js (BOTH) {
-        browser {
-            dceTask {
-                dceOptions.devMode = true
-            }
-        }
+        browser()
         nodejs()
     }
 

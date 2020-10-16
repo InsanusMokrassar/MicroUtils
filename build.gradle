@@ -14,11 +14,13 @@ buildscript {
     }
 }
 
-repositories {
-    mavenLocal()
-    jcenter()
-    mavenCentral()
-    maven { url "https://kotlin.bintray.com/kotlinx" }
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        mavenLocal()
+    }
 }
 
 apply from: "./extensions.gradle"
