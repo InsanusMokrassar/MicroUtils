@@ -19,7 +19,7 @@ if (new File(projectDir, "secret.gradle").exists()) {
         token "${project.property('GITHUB_RELEASE_TOKEN')}"
 
         owner "InsanusMokrassar"
-        repo "${rootProject.name}"
+        repo "MicroUtils"
 
         tagName "${project.version}"
         releaseName "${project.version}"
