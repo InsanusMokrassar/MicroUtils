@@ -1,14 +1,15 @@
 package dev.inmo.micro_utils.ktor.common
 
 import kotlin.js.JsExport
-import kotlin.js.JsName
 
 typealias QueryParam = Pair<String, String?>
 typealias QueryParams = Map<String, String?>
 
+@JsExport
 val QueryParams.asUrlQuery: String
     get() = keys.joinToString("&") { "${it}${get(it) ?.let { value -> "=$value" }}" }
 
+@JsExport
 val List<QueryParam>.asUrlQuery: String
     get() = joinToString("&") { (key, value) -> "${key}${value ?.let { _ -> "=$value" }}" }
 
@@ -18,11 +19,11 @@ fun String.includeQueryParams(
 ): String = "$this${if(queryParams.isNotEmpty()) "${if (contains("?")) "&" else "?"}${queryParams.asUrlQuery}" else ""}"
 
 @JsExport
-@JsName("includeQueryParamsWithList")
 fun String.includeQueryParams(
     queryParams: List<QueryParam>
 ): String = "$this${if (contains("?")) "&" else "?"}${queryParams.asUrlQuery}"
 
+@JsExport
 val String.parseUrlQuery: QueryParams
     get() = split("&").map {
         it.split("=").let { pair ->

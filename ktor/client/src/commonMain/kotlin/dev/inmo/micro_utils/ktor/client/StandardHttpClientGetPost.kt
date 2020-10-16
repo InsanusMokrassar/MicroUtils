@@ -9,6 +9,7 @@ import kotlin.js.JsExport
 
 typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 
+@JsExport
 suspend fun <ResultType> HttpClient.uniget(
     url: String,
     resultDeserializer: DeserializationStrategy<ResultType>
@@ -25,6 +26,7 @@ fun <T> SerializationStrategy<T>.encodeUrlQueryValue(value: T) = standardKtorSer
     value
 )
 
+@JsExport
 suspend fun <BodyType, ResultType> HttpClient.unipost(
     url: String,
     bodyInfo: BodyPair<BodyType>,

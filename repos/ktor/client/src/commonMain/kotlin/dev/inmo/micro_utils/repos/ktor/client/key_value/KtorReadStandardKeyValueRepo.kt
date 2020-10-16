@@ -13,6 +13,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlin.js.JsExport
 
+@JsExport
 class KtorReadStandardKeyValueRepo<Key, Value> (
     private var baseUrl: String,
     private var client: HttpClient = HttpClient(),

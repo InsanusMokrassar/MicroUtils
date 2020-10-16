@@ -3,10 +3,8 @@ package dev.inmo.micro_utils.coroutines
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 import kotlin.js.JsExport
-import kotlin.js.JsName
 
 @JsExport
-@JsName("BroadcastFlowFactory")
 @Suppress("FunctionName")
 fun <T> BroadcastFlow(
     internalChannelSize: Int = Channel.BUFFERED
