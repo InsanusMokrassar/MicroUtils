@@ -10,6 +10,7 @@
             * `ExposedCRUDRepo` now extends `ExposedRepo` instead of simple `Repo`
         * New extension `initTable` for classes which are `Table` and `ExposedRepo` at the same time
         * `KeyValue`:
+            * `tableName` parameter
             * Class `AbstractExposedReadKeyValueRepo`
                 * Renamed to `ExposedReadKeyValueRepo`
                 * Changed incoming types to `ColumnAllocator`
@@ -20,6 +21,7 @@
                 * Changed incoming types to `ColumnAllocator`
                 * `open` instead of `abstract`
         * `OneToMany`:
+            * `tableName` parameter
             * Class `AbstractExposedReadOneToManyKeyValueRepo`
                 * Renamed to `ExposedReadOneToManyKeyValueRepo`
                 * Changed incoming arguments order
