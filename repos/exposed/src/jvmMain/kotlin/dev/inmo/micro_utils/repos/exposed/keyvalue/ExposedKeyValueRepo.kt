@@ -24,7 +24,7 @@ open class ExposedKeyValueRepo<Key, Value>(
     override val onNewValue: Flow<Pair<Key, Value>> = onNewValueChannel.asFlow()
     override val onValueRemoved: Flow<Key> = onValueRemovedChannel.asFlow()
 
-    override fun onInit() { initTable() }
+    init { initTable() }
 
     override suspend fun set(k: Key, v: Value) {
         transaction(database) {

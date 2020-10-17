@@ -14,7 +14,7 @@ open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
 
-    override fun onInit() { initTable() }
+    init { initTable() }
 
     override suspend fun count(k: Key): Long = transaction(database) { select { keyColumn.eq(k) }.count() }
 

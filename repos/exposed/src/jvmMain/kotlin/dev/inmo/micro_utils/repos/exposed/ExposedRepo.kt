@@ -5,6 +5,4 @@ import org.jetbrains.exposed.sql.Database
 
 interface ExposedRepo : Repo {
     val database: Database
-
-    fun onInit()
 }

@@ -27,7 +27,7 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
 
-    override fun onInit() { initTable() }
+    init { initTable() }
 
     override suspend fun add(k: Key, v: Value) {
         transaction(database) {

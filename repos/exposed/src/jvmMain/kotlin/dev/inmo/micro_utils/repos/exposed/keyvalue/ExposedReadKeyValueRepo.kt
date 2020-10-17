@@ -15,7 +15,7 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     protected val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
 
-    override fun onInit() { initTable() }
+    init { initTable() }
 
     override suspend fun get(k: Key): Value? = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)
