@@ -1,10 +1,8 @@
 # Changelog
 
-## 0.1.0
+## 0.2.0
 
-Inited :)
-
-### 0.1.1
+## 0.1.1
 
 * `Versions`:
     * `kotlinx.serialization`: `1.0.0-RC2` -> `1.0.0`
@@ -39,3 +37,8 @@ Inited :)
         * `MapCRUDRepo` class as implementation of `StandardCRUDRepo` on top of `MutableMap` has been added
         * `MapKeyValueRepo` class as implementation of `StandardKeyValueRepo` on top of `MutableMap` has been added
         * `MapOneToManyKeyValueRepo` class as implementation of `OneToManyKeyValueRepo` on top of `MutableMap` has been added
+
+
+## 0.1.0
+
+Inited :)
