@@ -9,8 +9,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
     override val database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
-    valueColumnAllocator: ColumnAllocator<Value>
-) : ReadOneToManyKeyValueRepo<Key, Value>, ExposedRepo, Table() {
+    valueColumnAllocator: ColumnAllocator<Value>,
+    tableName: String? = null
+) : ReadOneToManyKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
 

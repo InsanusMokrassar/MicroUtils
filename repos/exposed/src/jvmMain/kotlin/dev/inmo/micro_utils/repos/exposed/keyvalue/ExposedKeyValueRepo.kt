@@ -12,19 +12,19 @@ import org.jetbrains.exposed.sql.transactions.transaction
 open class ExposedKeyValueRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
-    valueColumnAllocator: ColumnAllocator<Value>
+    valueColumnAllocator: ColumnAllocator<Value>,
+    tableName: String? = null
 ) : StandardKeyValueRepo<Key, Value>, ExposedReadKeyValueRepo<Key, Value>(
     database,
     keyColumnAllocator,
-    valueColumnAllocator
+    valueColumnAllocator,
+    tableName
 ) {
     private val onNewValueChannel = BroadcastChannel<Pair<Key, Value>>(Channel.BUFFERED)
     private val onValueRemovedChannel = BroadcastChannel<Key>(Channel.BUFFERED)
 
     override val onNewValue: Flow<Pair<Key, Value>> = onNewValueChannel.asFlow()
     override val onValueRemoved: Flow<Key> = onValueRemovedChannel.asFlow()
-
-    init { initTable() }
 
     override suspend fun set(k: Key, v: Value) {
         transaction(database) {

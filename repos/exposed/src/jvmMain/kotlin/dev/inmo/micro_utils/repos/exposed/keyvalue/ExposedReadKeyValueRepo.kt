@@ -10,12 +10,11 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     override val database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
-) : ReadStandardKeyValueRepo<Key, Value>, ExposedRepo, Table() {
+    tableName: String? = null
+) : ReadStandardKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
-
-    init { initTable() }
 
     override suspend fun get(k: Key): Value? = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)

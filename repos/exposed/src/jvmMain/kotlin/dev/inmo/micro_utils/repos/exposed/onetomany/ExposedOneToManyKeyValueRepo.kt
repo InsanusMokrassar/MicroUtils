@@ -11,11 +11,13 @@ import org.jetbrains.exposed.sql.transactions.transaction
 open class ExposedOneToManyKeyValueRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
-    valueColumnAllocator: ColumnAllocator<Value>
+    valueColumnAllocator: ColumnAllocator<Value>,
+    tableName: String? = null
 ) : OneToManyKeyValueRepo<Key, Value>, ExposedReadOneToManyKeyValueRepo<Key, Value>(
     database,
     keyColumnAllocator,
-    valueColumnAllocator
+    valueColumnAllocator,
+    tableName
 ) {
     protected val _onNewValue: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
@@ -26,8 +28,6 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
     protected val _onDataCleared: BroadcastFlow<Key> = BroadcastFlow()
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
-
-    init { initTable() }
 
     override suspend fun add(k: Key, v: Value) {
         transaction(database) {
