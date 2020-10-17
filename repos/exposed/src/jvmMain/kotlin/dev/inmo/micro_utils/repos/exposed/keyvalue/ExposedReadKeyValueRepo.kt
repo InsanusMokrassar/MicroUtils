@@ -2,15 +2,20 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.exposed.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
-    protected val database: Database,
-    protected val keyColumn: Column<Key>,
-    protected val valueColumn: Column<Value>
-) : ReadStandardKeyValueRepo<Key, Value>, Table() {
+open class ExposedReadKeyValueRepo<Key, Value>(
+    override val database: Database,
+    keyColumnAllocator: ColumnAllocator<Key>,
+    valueColumnAllocator: ColumnAllocator<Value>,
+) : ReadStandardKeyValueRepo<Key, Value>, ExposedRepo, Table() {
+    protected val keyColumn: Column<Key> = keyColumnAllocator()
+    protected val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
+
+    override fun onInit() { initTable() }
 
     override suspend fun get(k: Key): Value? = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)
@@ -34,3 +39,6 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
         }
     }.createPaginationResult(pagination, count())
 }
+
+@Deprecated("Renamed", ReplaceWith("ExposedReadKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.keyvalue.ExposedReadKeyValueRepo"))
+typealias AbstractExposedReadKeyValueRepo<Key, Value> = ExposedReadKeyValueRepo<Key, Value>

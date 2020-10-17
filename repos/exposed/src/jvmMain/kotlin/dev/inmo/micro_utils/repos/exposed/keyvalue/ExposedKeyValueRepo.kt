@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
+import dev.inmo.micro_utils.repos.exposed.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -8,20 +9,22 @@ import kotlinx.coroutines.flow.asFlow
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-abstract class AbstractExposedKeyValueRepo<Key, Value>(
+open class ExposedKeyValueRepo<Key, Value>(
     database: Database,
-    keyColumn: Column<Key>,
-    valueColumn: Column<Value>
-) : StandardKeyValueRepo<Key, Value>, AbstractExposedReadKeyValueRepo<Key, Value>(
+    keyColumnAllocator: ColumnAllocator<Key>,
+    valueColumnAllocator: ColumnAllocator<Value>
+) : StandardKeyValueRepo<Key, Value>, ExposedRepo, ExposedReadKeyValueRepo<Key, Value>(
     database,
-    keyColumn,
-    valueColumn
+    keyColumnAllocator,
+    valueColumnAllocator
 ) {
     private val onNewValueChannel = BroadcastChannel<Pair<Key, Value>>(Channel.BUFFERED)
     private val onValueRemovedChannel = BroadcastChannel<Key>(Channel.BUFFERED)
 
     override val onNewValue: Flow<Pair<Key, Value>> = onNewValueChannel.asFlow()
     override val onValueRemoved: Flow<Key> = onValueRemovedChannel.asFlow()
+
+    override fun onInit() { initTable() }
 
     override suspend fun set(k: Key, v: Value) {
         transaction(database) {
@@ -46,3 +49,6 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         onValueRemovedChannel.send(k)
     }
 }
+
+@Deprecated("Renamed", ReplaceWith("ExposedKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.keyvalue.ExposedKeyValueRepo"))
+typealias AbstractExposedKeyValueRepo<Key, Value> = ExposedKeyValueRepo<Key, Value>
