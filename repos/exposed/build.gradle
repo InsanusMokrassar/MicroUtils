@@ -9,6 +9,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api internalProject("micro_utils.coroutines")
                 api internalProject("micro_utils.repos.common")
                 api internalProject("micro_utils.pagination.exposed")
             }

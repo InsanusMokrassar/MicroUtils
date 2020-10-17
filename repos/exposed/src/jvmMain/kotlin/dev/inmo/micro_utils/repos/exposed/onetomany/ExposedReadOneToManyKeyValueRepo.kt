@@ -2,18 +2,19 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.exposed.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-typealias ColumnAllocator<T> = Table.() -> Column<T>
-
-abstract class AbstractExposedReadOneToManyKeyValueRepo<Key, Value>(
+open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
+    override val database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
-    valueColumnAllocator: ColumnAllocator<Value>,
-    protected val database: Database
-) : ReadOneToManyKeyValueRepo<Key, Value>, Table() {
+    valueColumnAllocator: ColumnAllocator<Value>
+) : ReadOneToManyKeyValueRepo<Key, Value>, ExposedRepo, Table() {
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
+
+    init { initTable() }
 
     override suspend fun count(k: Key): Long = transaction(database) { select { keyColumn.eq(k) }.count() }
 
@@ -46,5 +47,8 @@ abstract class AbstractExposedReadOneToManyKeyValueRepo<Key, Value>(
     }
 }
 
-@Deprecated("Renamed", ReplaceWith("AbstractExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.AbstractExposedReadOneToManyKeyValueRepo"))
-typealias AbstractOneToManyExposedReadKeyValueRepo<Key, Value> = AbstractExposedReadOneToManyKeyValueRepo<Key, Value>
+@Deprecated("Renamed", ReplaceWith("ExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedReadOneToManyKeyValueRepo"))
+typealias AbstractOneToManyExposedReadKeyValueRepo<Key, Value> = ExposedReadOneToManyKeyValueRepo<Key, Value>
+
+@Deprecated("Renamed", ReplaceWith("ExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedReadOneToManyKeyValueRepo"))
+typealias AbstractExposedReadOneToManyKeyValueRepo<Key, Value> = ExposedReadOneToManyKeyValueRepo<Key, Value>
