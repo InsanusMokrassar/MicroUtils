@@ -2,6 +2,34 @@
 
 ## 0.2.0
 
+* `Repos`
+    * `Exposed`
+        * Now this project depend on `micro_utils.coroutines`
+        * Typealias `ColumnAllocator` has been replaced to root exposed package
+        * Interface `ExposedRepo` has been added
+            * `ExposedCRUDRepo` now extends `ExposedRepo` instead of simple `Repo`
+        * New extension `initTable` for classes which are `Table` and `ExposedRepo` at the same time
+        * `KeyValue`:
+            * Class `AbstractExposedReadKeyValueRepo`
+                * Renamed to `ExposedReadKeyValueRepo`
+                * Changed incoming types to `ColumnAllocator`
+                * `open` instead of `abstract`
+                * Implements `ExposedRepo`
+            * Class `AbstractExposedKeyValueRepo`
+                * Renamed to `ExposedKeyValueRepo`
+                * Changed incoming types to `ColumnAllocator`
+                * `open` instead of `abstract`
+        * `OneToMany`:
+            * Class `AbstractExposedReadOneToManyKeyValueRepo`
+                * Renamed to `ExposedReadOneToManyKeyValueRepo`
+                * Changed incoming arguments order
+                * Implements `ExposedRepo`
+            * Class `AbstractExposedOneToManyKeyValueRepo`
+                * Renamed to `ExposedKeyValueRepo`
+                * Changed incoming arguments order
+                * `open` instead of `abstract`
+                * Release for every `Flow` in parent interfaces
+
 ## 0.1.1
 
 * `Versions`:

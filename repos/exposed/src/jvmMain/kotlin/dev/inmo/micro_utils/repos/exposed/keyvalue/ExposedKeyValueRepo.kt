@@ -13,7 +13,7 @@ open class ExposedKeyValueRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>
-) : StandardKeyValueRepo<Key, Value>, ExposedRepo, ExposedReadKeyValueRepo<Key, Value>(
+) : StandardKeyValueRepo<Key, Value>, ExposedReadKeyValueRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator
