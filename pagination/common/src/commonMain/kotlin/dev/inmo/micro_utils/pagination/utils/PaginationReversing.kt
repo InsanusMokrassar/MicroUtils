@@ -19,7 +19,7 @@ fun Pagination.reverse(datasetSize: Long): SimplePagination {
             newPage,
             size
         ).let {
-            if (it.lastIndex > datasetSize) {
+            if (it.lastIndex >= datasetSize) {
                 it.copy(size = (datasetSize - firstIndex - 1).toInt())
             } else {
                 it
