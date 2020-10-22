@@ -7,6 +7,7 @@
         * Extension `Pagination#reverse` has been added
         * Factory `PaginationByIndexes`
         * Shortcut `calculatePagesNumber` with reversed parameters
+        * Value `emptyPagination` for empty `SimplePagination` cases
 
 ## 0.2.0
 

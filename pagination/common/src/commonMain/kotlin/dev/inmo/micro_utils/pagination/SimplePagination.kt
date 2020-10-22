@@ -14,6 +14,8 @@ inline fun FirstPagePagination(size: Int = defaultMediumPageSize) =
         size = size
     )
 
+val emptyPagination = Pagination(0, 0)
+
 @Suppress("NOTHING_TO_INLINE")
 inline fun Pagination.nextPage() =
     SimplePagination(

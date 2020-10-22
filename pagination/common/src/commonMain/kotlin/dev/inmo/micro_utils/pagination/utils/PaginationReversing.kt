@@ -13,15 +13,15 @@ import dev.inmo.micro_utils.pagination.*
 fun Pagination.reverse(objectsCount: Long): SimplePagination {
     val firstIndex = (objectsCount - (this.lastIndex + 1)).let {
         when {
-            it < 0 -> it
-            it > objectsCount -> objectsCount
+            it < 0 -> 0
+            it >= objectsCount -> return emptyPagination
             else -> it
         }
     }.toInt()
     val lastIndex = (objectsCount - (this.firstIndex + 1)).let {
         when {
-            it < 0 -> it
-            it > objectsCount -> objectsCount
+            it < 0 -> return emptyPagination
+            it >= objectsCount -> objectsCount - 1
             else -> it
         }
     }.toInt()
