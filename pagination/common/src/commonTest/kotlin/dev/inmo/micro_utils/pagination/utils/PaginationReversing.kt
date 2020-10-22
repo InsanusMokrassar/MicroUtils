@@ -9,7 +9,6 @@ class PaginationReversingTests {
     fun testThatCommonCaseWorksOk() {
         val pageSize = 3
         val collectionSize = 9
-        val pages = calculatePage(collectionSize, pageSize)
 
         assertEquals(Pagination(-1, pageSize).reverse(collectionSize), Pagination(0, 0))
 

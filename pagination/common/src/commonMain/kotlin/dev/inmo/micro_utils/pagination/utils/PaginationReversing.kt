@@ -10,22 +10,22 @@ import dev.inmo.micro_utils.pagination.*
  *
  * @return Reversed version of this [Pagination]
  */
-fun Pagination.reverse(objectsCount: Long): SimplePagination {
-    val firstIndex = (objectsCount - (this.lastIndex + 1)).let {
-        when {
-            it < 0 -> 0
-            it >= objectsCount -> return emptyPagination
-            else -> it
+fun Pagination.reverse(datasetSize: Long): SimplePagination {
+    val pagesNumber = calculatePagesNumber(size, datasetSize)
+    val newPage = pagesNumber - page - 1
+    return when {
+        page < 0 || page >= pagesNumber -> emptyPagination
+        else -> Pagination(
+            newPage,
+            size
+        ).let {
+            if (it.lastIndex > datasetSize) {
+                it.copy(size = (datasetSize - firstIndex - 1).toInt())
+            } else {
+                it
+            }
         }
-    }.toInt()
-    val lastIndex = (objectsCount - (this.firstIndex + 1)).let {
-        when {
-            it < 0 -> return emptyPagination
-            it >= objectsCount -> objectsCount - 1
-            else -> it
-        }
-    }.toInt()
-    return PaginationByIndexes(firstIndex, lastIndex)
+    }
 }
 
 /**
