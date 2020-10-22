@@ -44,6 +44,11 @@ fun calculatePagesNumber(datasetSize: Long, pageSize: Int): Int {
     return ceil(datasetSize.toDouble() / pageSize).toInt()
 }
 /**
+ * Calculates pages count for given [datasetSize]. As a fact, it is shortcut for [calculatePagesNumber]
+ * @return calculated page number which can be correctly used in [PaginationResult] as [PaginationResult.page] value
+ */
+fun calculatePagesNumber(pageSize: Int, datasetSize: Long): Int = calculatePagesNumber(datasetSize, pageSize)
+/**
  * Calculates pages count for given [datasetSize]
  */
 fun calculatePagesNumber(datasetSize: Int, pageSize: Int): Int =

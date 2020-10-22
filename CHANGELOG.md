@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1
+
+* `Pagination`
+    * `Common`:
+        * Extension `Pagination#reverse` has been added
+        * Factory `PaginationByIndexes`
+        * Shortcut `calculatePagesNumber` with reversed parameters
+
 ## 0.2.0
 
 * `Repos`
