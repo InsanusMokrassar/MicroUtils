@@ -27,7 +27,21 @@ data class SimplePagination(
     override val size: Int
 ) : Pagination
 
+/**
+ * Factory for [SimplePagination]
+ */
 fun Pagination(
     page: Int,
     size: Int
 ) = SimplePagination(page, size)
+
+/**
+ * @param firstIndex Inclusive first index of pagination
+ * @param lastIndex INCLUSIVE last index of pagination (last index of object covered by result [SimplePagination])
+ */
+fun PaginationByIndexes(
+    firstIndex: Int,
+    lastIndex: Int
+) = maxOf(0, (lastIndex - firstIndex + 1)).let { size ->
+    Pagination(calculatePage(firstIndex, size), size)
+}
