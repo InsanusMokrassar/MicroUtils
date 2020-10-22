@@ -27,3 +27,8 @@ fun Pagination.reverse(objectsCount: Long): SimplePagination {
     }.toInt()
     return PaginationByIndexes(firstIndex, lastIndex)
 }
+
+/**
+ * Shortcut for [reverse]
+ */
+fun Pagination.reverse(objectsCount: Int) = reverse(objectsCount.toLong())

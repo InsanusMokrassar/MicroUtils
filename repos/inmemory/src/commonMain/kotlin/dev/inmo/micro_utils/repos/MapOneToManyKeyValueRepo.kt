@@ -3,6 +3,7 @@ package dev.inmo.micro_utils.repos
 import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.paginate
+import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.Flow
 
 class MapReadOneToManyKeyValueRepo<Key, Value>(
@@ -13,8 +14,7 @@ class MapReadOneToManyKeyValueRepo<Key, Value>(
 
         return list.paginate(
             if (reversed) {
-                val firstIndex = (map.size - pagination.lastIndex).let { if (it < 0) 0 else it }
-                SimplePagination(firstIndex, pagination.size)
+                pagination.reverse(list.size)
             } else {
                 pagination
             }
@@ -22,17 +22,15 @@ class MapReadOneToManyKeyValueRepo<Key, Value>(
     }
 
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
-        val firstIndex: Int = if (reversed) {
-            val size = map.size
-            (size - pagination.lastIndex).let { if (it < 0) 0 else it }
-        } else {
-            pagination.firstIndex
+        val keys = map.keys
+        val actualPagination = if (reversed) pagination.reverse(keys.size) else pagination
+        return keys.paginate(actualPagination).let {
+            if (reversed) {
+                it.copy(results = it.results.reversed())
+            } else {
+                it
+            }
         }
-
-        return map.keys.drop(firstIndex).take(pagination.size).createPaginationResult(
-            firstIndex,
-            count()
-        )
     }
 
     override suspend fun contains(k: Key): Boolean = map.containsKey(k)
