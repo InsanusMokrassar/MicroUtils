@@ -11,12 +11,16 @@ import dev.inmo.micro_utils.pagination.*
  * @return Reversed version of this [Pagination]
  */
 fun Pagination.reverse(objectsCount: Long): SimplePagination {
-    if (firstIndex > objectsCount) {
-        return Pagination(objectsCount.toInt(), size)
+    val resultSize = minOf(size, objectsCount.toInt())
+    return when {
+        firstIndex > objectsCount -> Pagination(calculatePage(resultSize, resultSize), resultSize)
+        size > objectsCount -> FirstPagePagination(resultSize)
+        else -> {
+            val firstIndex = (objectsCount - firstIndex - resultSize).toInt()
+            Pagination(
+                firstIndex,
+                resultSize
+            )
+        }
     }
-    val firstIndex = (objectsCount - firstIndex - size).toInt()
-    return Pagination(
-        firstIndex,
-        size
-    )
 }
