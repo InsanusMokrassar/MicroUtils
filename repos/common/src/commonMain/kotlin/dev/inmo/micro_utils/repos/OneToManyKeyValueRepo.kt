@@ -43,20 +43,22 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onValueRemoved: Flow<Pair<Key, Value>>
     val onDataCleared: Flow<Key>
 
-    @Deprecated("Will be extracted as extension for other add method")
-    suspend fun add(k: Key, v: Value)
     suspend fun add(toAdd: Map<Key, List<Value>>) = toAdd.forEach { (k, values) ->
         values.forEach { v ->
             add(k, v)
         }
     }
-    @Deprecated("Will be extracted as extension for other remove method")
-    suspend fun remove(k: Key, v: Value)
+    @Deprecated("Will be extracted as extension for other add method")
+    suspend fun add(k: Key, v: Value)
+
     suspend fun remove(toRemove: Map<Key, List<Value>>) = toRemove.forEach { (k, values) ->
         values.forEach { v ->
             remove(k, v)
         }
     }
+    @Deprecated("Will be extracted as extension for other remove method")
+    suspend fun remove(k: Key, v: Value)
+
     suspend fun clear(k: Key)
 }
 @Deprecated("Renamed", ReplaceWith("WriteOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo"))
