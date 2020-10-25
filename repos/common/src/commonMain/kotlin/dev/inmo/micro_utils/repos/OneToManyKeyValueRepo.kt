@@ -25,11 +25,11 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
     /**
      * WARNING!!! THIS METHOD PROBABLY IS NOT EFFICIENT, USE WITH CAUTION
      */
-    suspend fun getAll(): Map<Key, List<Value>> = mutableMapOf<Key, List<Value>>().also { map ->
+    suspend fun getAll(reverseLists: Boolean = false): Map<Key, List<Value>> = mutableMapOf<Key, List<Value>>().also { map ->
         doWithPagination {
             keys(it).also { paginationResult ->
                 paginationResult.results.forEach { k ->
-                    map[k] = getAll(k)
+                    map[k] = getAll(k, reverseLists)
                 }
             }.nextPageIfNotEmpty()
         }
@@ -63,3 +63,29 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
 typealias OneToManyWriteKeyValueRepo<Key, Value> = WriteOneToManyKeyValueRepo<Key, Value>
 
 interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+    k: Key,
+    vararg v: Value
+) = add(mapOf(k to v.toList()))
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+    keysAndValues: List<Pair<Key, List<Value>>>
+) = add(keysAndValues.toMap())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+    vararg keysAndValues: Pair<Key, List<Value>>
+) = add(keysAndValues.toMap())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
+    k: Key,
+    vararg v: Value
+) = remove(mapOf(k to v.toList()))
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
+    keysAndValues: List<Pair<Key, List<Value>>>
+) = remove(keysAndValues.toMap())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
+    vararg keysAndValues: Pair<Key, List<Value>>
+) = remove(keysAndValues.toMap())
