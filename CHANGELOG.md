@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2
+
+* `Repos`
+    * `Common`
+        * Several new methods `ReadOneToManyKeyValueRepo#getAll`
+        * Several new method `WriteOneToManyKeyValueRepo#add` and several extensions
+        * Several new method `WriteOneToManyKeyValueRepo#remove` and several extensions
+
 ## 0.2.1
 
 * `Pagination`

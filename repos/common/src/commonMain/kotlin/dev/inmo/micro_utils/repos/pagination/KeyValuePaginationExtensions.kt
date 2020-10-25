@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.pagination
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 
 suspend inline fun <Key, Value, REPO : ReadStandardKeyValueRepo<Key, Value>> REPO.doForAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
