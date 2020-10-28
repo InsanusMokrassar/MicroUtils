@@ -45,11 +45,19 @@ fun <T> BroadcastChannel<T?>.asStateFlow(
     replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize
 ): StateFlow<T?> = asStateFlow(null, scope, replayCacheSize)
 
-fun <T> broadcastStateFlow(initial: T, scope: CoroutineScope, channelSize: Int = Channel.BUFFERED, replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize) = BroadcastChannel<T>(
+fun <T> broadcastStateFlow(
+    initial: T, scope: CoroutineScope,
+    channelSize: Int = Channel.BUFFERED,
+    replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize
+) = BroadcastChannel<T>(
     channelSize
 ).let {
     it to it.asStateFlow(initial, scope, replayCacheSize)
 }
 
-fun <T> broadcastStateFlow(scope: CoroutineScope, channelSize: Int = Channel.BUFFERED, replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize) = broadcastStateFlow<T?>(null, scope, channelSize, replayCacheSize)
+fun <T> broadcastStateFlow(
+    scope: CoroutineScope,
+    channelSize: Int = Channel.BUFFERED,
+    replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize
+) = broadcastStateFlow<T?>(null, scope, channelSize, replayCacheSize)
 
