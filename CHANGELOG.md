@@ -2,6 +2,11 @@
 
 ## 0.2.3
 
+* `Common`
+    * `K/JS`
+        * Add several extensions for `Element` objects to detect that object is on screen viewport
+        * Add several extensions for `Element` objects to detect object visibility
+
 ## 0.2.2
 
 * `Repos`
