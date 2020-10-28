@@ -1,0 +1,88 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+    }
+}
+
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "org.jetbrains.dokka" version "$dokka_version"
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+kotlin {
+    jvm()
+    js(BOTH) {
+        browser()
+        nodejs()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib')
+
+                project.parent.subprojects.forEach {
+                    if (
+                        it != project
+                        && it.hasProperty("kotlin")
+                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                    ) {
+                        api it
+                    }
+                }
+            }
+        }
+    }
+}
+
+private List<SourceDirectorySet> findSourcesWithName(String... approximateNames) {
+    return parent.subprojects
+            .findAll { it != project && it.hasProperty("kotlin") }
+            .collectMany { it.kotlin.sourceSets }
+            .findAll { sourceSet ->
+                approximateNames.any { nameToFilter ->
+                    sourceSet.name.contains(nameToFilter)
+                }
+            }.collect { it.kotlin }
+}
+
+tasks.dokkaHtml {
+    dokkaSourceSets {
+        configureEach {
+            skipDeprecated.set(true)
+
+            sourceLink {
+                localDirectory.set(file("./"))
+                remoteUrl.set(new URL("https://github.com/InsanusMokrassar/MicroUtils/blob/master/"))
+                remoteLineSuffix.set("#L")
+            }
+        }
+
+        named("commonMain") {
+            sourceRoots.setFrom(findSourcesWithName("commonMain"))
+        }
+
+        named("jsMain") {
+            sourceRoots.setFrom(findSourcesWithName("jsMain", "commonMain"))
+        }
+
+        named("jvmMain") {
+            sourceRoots.setFrom(findSourcesWithName("jvmMain", "commonMain"))
+        }
+    }
+}
