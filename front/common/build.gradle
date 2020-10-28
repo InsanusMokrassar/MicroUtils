@@ -1,0 +1,15 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+}
+
+apply from: "$mppJsProjectPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api internalProject("micro_utils.common")
+            }
+        }
+    }
+}
