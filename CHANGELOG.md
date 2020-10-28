@@ -2,6 +2,9 @@
 
 ## 0.2.3
 
+* `Versions`
+    * `Coroutines`: `1.3.9` -> `1.4.0`
+    * `Exposed`: `0.27.1` -> `0.28.1`
 * `Common`
     * `K/JS`
         * Add several extensions for `Element` objects to detect that object is on screen viewport
