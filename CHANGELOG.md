@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.3
+
+* `Versions`
+    * `Coroutines`: `1.3.9` -> `1.4.0`
+    * `Exposed`: `0.27.1` -> `0.28.1`
+* `Common`
+    * `K/JS`
+        * Add several extensions for `Element` objects to detect that object is on screen viewport
+        * Add several extensions for `Element` objects to detect object visibility
+* `Coroutines`
+    * `BroadcastStateFlow` now use different strategy for getting of state and implements `replayCache`
+
 ## 0.2.2
 
 * `Repos`
