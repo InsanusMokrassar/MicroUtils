@@ -4,6 +4,7 @@ import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 
 @Suppress("FunctionName")
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 fun <T> BroadcastFlow(
     internalChannelSize: Int = Channel.BUFFERED
 ): BroadcastFlow<T> {
@@ -15,6 +16,7 @@ fun <T> BroadcastFlow(
     )
 }
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 class BroadcastFlow<T> internal constructor(
     private val channel: BroadcastChannel<T>,
     private val flow: Flow<T>

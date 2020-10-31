@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.*
 
 const val defaultBroadcastStateFlowReplayCacheSize = 1
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 class BroadcastStateFlow<T> internal constructor(
     parentFlow: Flow<T>,
     initial: T,
@@ -34,17 +35,20 @@ class BroadcastStateFlow<T> internal constructor(
     }
 }
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 fun <T> BroadcastChannel<T>.asStateFlow(
     value: T,
     scope: CoroutineScope,
     replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize
 ): StateFlow<T> = BroadcastStateFlow(asFlow(), value, replayCacheSize, scope)
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 fun <T> BroadcastChannel<T?>.asStateFlow(
     scope: CoroutineScope,
     replayCacheSize: Int = defaultBroadcastStateFlowReplayCacheSize
 ): StateFlow<T?> = asStateFlow(null, scope, replayCacheSize)
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 fun <T> broadcastStateFlow(
     initial: T, scope: CoroutineScope,
     channelSize: Int = Channel.BUFFERED,
@@ -55,6 +59,7 @@ fun <T> broadcastStateFlow(
     it to it.asStateFlow(initial, scope, replayCacheSize)
 }
 
+@Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")
 fun <T> broadcastStateFlow(
     scope: CoroutineScope,
     channelSize: Int = Channel.BUFFERED,

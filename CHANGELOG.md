@@ -4,6 +4,9 @@
 
 * `Versions`
     * `Serialization`: `1.0.0` -> `1.0.1`
+* `Coroutines`
+    * `BroadcastFlow` now is deprecated
+    * `BroadcastStateFlow` now is deprecated
 
 ## 0.2.3
 
