@@ -7,6 +7,10 @@
 * `Coroutines`
     * `BroadcastFlow` now is deprecated
     * `BroadcastStateFlow` now is deprecated
+    * New extensions for `Flow`s:
+        * `Flow#subscribe`
+        * `Flow#subscribeSafely`
+        * `Flow#subscribeSafelyWithoutExceptions`
 
 ## 0.2.3
 
