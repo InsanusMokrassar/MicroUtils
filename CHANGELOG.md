@@ -4,6 +4,14 @@
 
 * `Versions`
     * `Serialization`: `1.0.0` -> `1.0.1`
+* `Common`
+    * Full rework of `DiffUtils`
+        * Data class `Diff` has been added
+        * Extension `Iterable#calculateDiff` has been added
+            * Extension `Iterable#calculateStrictDiff` as replacement for `Iterable#calculateDiff` with
+            `strictComparison` mode enabled
+            * Functions `Diff` (as analog of `Iterable#calculateDiff`) and `StrictDiff` (as analog of
+            `Iterable#calculateStrictDiff`)
 * `Coroutines`
     * `BroadcastFlow` now is deprecated
     * `BroadcastStateFlow` now is deprecated
