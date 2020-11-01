@@ -16,7 +16,7 @@ class DiffUtilsTests {
                     continue
                 }
                 val removedSublist = oldList.subList(i, i + count)
-                oldList.calculateNonstrictDiff(oldList - removedSublist).apply {
+                oldList.calculateDiff(oldList - removedSublist).apply {
                     assertEquals(
                         removedSublist.mapIndexed { j, o -> IndexedValue(i + j, o) },
                         removed
@@ -68,7 +68,7 @@ class DiffUtilsTests {
                         mutable[index] = it.value
                     }
                 }
-                oldList.calculateNonstrictDiff(mutable).apply {
+                oldList.calculateDiff(mutable).apply {
                     assertEquals(
                         changes,
                         replaced
