@@ -26,10 +26,6 @@ class DiffUtilsTests {
         }
     }
 
-    /**
-     * In this test was used [calculateDiff] parameter `strictComparison`. That is required to be sure that the same
-     * objects with different links will be used as different objects in `strictComparison` mode
-     */
     @Test
     fun testThatSimpleAddWorks() {
         val oldList = (0 until 10).map { it.toString() }
@@ -40,10 +36,10 @@ class DiffUtilsTests {
                 if (i + count > oldList.lastIndex) {
                     continue
                 }
-                val addedSublist = oldList.subList(i, i + count)
+                val addedSublist = oldList.subList(i, i + count).map { "added$it" }
                 val mutable = oldList.toMutableList()
-                mutable.addAll(i, oldList.subList(i, i + count).map { it.toCharArray().concatToString() })
-                oldList.calculateStrictDiff(mutable).apply {
+                mutable.addAll(i, addedSublist)
+                oldList.calculateDiff(mutable).apply {
                     assertEquals(
                         addedSublist.mapIndexed { j, o -> IndexedValue(i + j, o) },
                         added

@@ -148,7 +148,7 @@ inline fun <T> StrictDiff(old: Iterable<T>, new: Iterable<T>) = old.calculateDif
  */
 inline fun <T> Iterable<T>.calculateStrictDiff(
     other: Iterable<T>
-) = calculateDiff(other, true)
+) = calculateDiff(other, strictComparison = true)
 
 /**
  * Compare one-to-one
