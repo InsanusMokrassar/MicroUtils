@@ -2,7 +2,8 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
-import dev.inmo.micro_utils.repos.exposed.*
+import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import dev.inmo.micro_utils.repos.exposed.ExposedRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 

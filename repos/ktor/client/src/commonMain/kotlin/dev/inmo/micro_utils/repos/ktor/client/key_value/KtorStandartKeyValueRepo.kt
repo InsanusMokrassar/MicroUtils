@@ -1,9 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.client.key_value
 
-import dev.inmo.micro_utils.repos.StandardKeyValueRepo
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
-import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
-import io.ktor.client.*
+import dev.inmo.micro_utils.repos.*
+import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 
 class KtorStandartKeyValueRepo<K, V> (

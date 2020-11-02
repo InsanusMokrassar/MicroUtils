@@ -3,7 +3,6 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
-import dev.inmo.micro_utils.repos.exposed.initTable
 import kotlinx.coroutines.flow.Flow
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction

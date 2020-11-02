@@ -1,7 +1,8 @@
 package dev.inmo.micro_utils.repos.ktor.server.key_value
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
-import io.ktor.routing.*
+import io.ktor.routing.Route
+import io.ktor.routing.route
 import kotlinx.serialization.KSerializer
 
 fun <K, V> Route.configureStandartKeyValueRepoRoutes(

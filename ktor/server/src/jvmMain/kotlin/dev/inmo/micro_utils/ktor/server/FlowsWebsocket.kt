@@ -2,7 +2,8 @@ package dev.inmo.micro_utils.ktor.server
 
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
-import io.ktor.http.cio.websocket.*
+import io.ktor.http.cio.websocket.DefaultWebSocketSession
+import io.ktor.http.cio.websocket.close
 import io.ktor.routing.Route
 import io.ktor.websocket.webSocket
 import kotlinx.coroutines.flow.Flow
