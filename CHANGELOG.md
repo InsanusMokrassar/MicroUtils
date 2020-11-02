@@ -4,6 +4,7 @@
 
 * `Coroutines`
     * Function `safelyWithoutExceptions`
+    * Extension `CoroutineScope#safeActor`
 
 ## 0.2.4
 
