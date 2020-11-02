@@ -2,6 +2,9 @@
 
 ## 0.2.5
 
+* `Coroutines`
+    * Function `safelyWithoutExceptions`
+
 ## 0.2.4
 
 * `Versions`
