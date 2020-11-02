@@ -1,7 +1,8 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.channels.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 
 @Suppress("FunctionName")
 @Deprecated("Deprecated due to stabilization of SharedFlow and StateFlow")

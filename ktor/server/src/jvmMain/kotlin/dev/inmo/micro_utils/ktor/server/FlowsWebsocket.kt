@@ -22,13 +22,11 @@ fun <T> Route.includeWebsocketHandling(
     converter: (T) -> StandardKtorSerialInputData
 ) {
     webSocket(suburl) {
-//        println("connected")
         safely {
             flow.collect {
                 send(converter(it))
             }
         }
-//        println("disconnected")
     }
 }
 

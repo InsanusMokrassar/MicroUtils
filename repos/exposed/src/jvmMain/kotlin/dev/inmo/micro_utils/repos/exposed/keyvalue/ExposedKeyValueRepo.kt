@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
-import dev.inmo.micro_utils.repos.exposed.*
+import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

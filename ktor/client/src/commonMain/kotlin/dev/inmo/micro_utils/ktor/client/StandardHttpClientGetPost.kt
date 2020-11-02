@@ -4,7 +4,8 @@ import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.post
-import kotlinx.serialization.*
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.SerializationStrategy
 
 typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 

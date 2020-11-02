@@ -1,7 +1,8 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.coroutines.BroadcastFlow
-import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.Pagination
+import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.Flow

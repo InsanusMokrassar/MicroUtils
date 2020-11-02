@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.5
+
+* `Coroutines`
+    * Function `safelyWithoutExceptions`
+    * Extension `CoroutineScope#safeActor`
+
 ## 0.2.4
 
 * `Versions`

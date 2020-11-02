@@ -21,3 +21,10 @@ suspend inline fun <T> safely(
         onException(e)
     }
 }
+
+/**
+ * Shortcut for [safely] without exception handler (instead of this you will receive null as a result)
+ */
+suspend inline fun <T> safelyWithoutExceptions(
+    noinline block: suspend CoroutineScope.() -> T
+): T? = safely({ null }, block)

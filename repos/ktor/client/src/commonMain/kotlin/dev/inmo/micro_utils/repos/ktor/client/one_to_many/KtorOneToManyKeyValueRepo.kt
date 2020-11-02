@@ -1,8 +1,6 @@
 package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 
-import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
-import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
-import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 

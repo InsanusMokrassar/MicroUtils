@@ -4,7 +4,8 @@ import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.ws
-import io.ktor.http.cio.websocket.*
+import io.ktor.http.cio.websocket.Frame
+import io.ktor.http.cio.websocket.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.serialization.DeserializationStrategy
