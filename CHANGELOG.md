@@ -2,6 +2,9 @@
 
 ## 0.2.6
 
+* `Pagination`
+    * Fixes in function `List#paginate`
+
 ## 0.2.5
 
 * `Coroutines`
