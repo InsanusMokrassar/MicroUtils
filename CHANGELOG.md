@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.6
+
+* `Pagination`
+    * Fixes in function `List#paginate`
+    * Extension property `Pagination#lastIndexExclusive`
+
 ## 0.2.5
 
 * `Coroutines`

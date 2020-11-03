@@ -21,7 +21,12 @@ fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
-    return subList(with.firstIndex, with.lastIndex + 1).createPaginationResult(
+    val firstIndex = maxOf(with.firstIndex, 0)
+    val lastIndex = minOf(with.lastIndexExclusive, size)
+    if (firstIndex > lastIndex) {
+        return emptyPaginationResult()
+    }
+    return subList(firstIndex, lastIndex).createPaginationResult(
         with,
         size.toLong()
     )

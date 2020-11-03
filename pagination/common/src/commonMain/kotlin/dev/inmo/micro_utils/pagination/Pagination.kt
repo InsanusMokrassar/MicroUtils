@@ -32,10 +32,19 @@ val Pagination.firstIndex: Int
  * Last number in index of objects. In fact, one [Pagination] object represent data in next range:
  *
  * [[firstIndex], [lastIndex]]; That means, that for [Pagination] with [Pagination.size] == 10 and [Pagination.page] == 1
+ * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19. Here [Pagination.lastIndexExclusive] == 20
+ */
+val Pagination.lastIndexExclusive: Int
+    get() = firstIndex + size
+
+/**
+ * Last number in index of objects. In fact, one [Pagination] object represent data in next range:
+ *
+ * [[firstIndex], [lastIndex]]; That means, that for [Pagination] with [Pagination.size] == 10 and [Pagination.page] == 1
  * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19.
  */
 val Pagination.lastIndex: Int
-    get() = firstIndex + size - 1
+    get() = lastIndexExclusive - 1
 
 /**
  * Calculates pages count for given [datasetSize]
