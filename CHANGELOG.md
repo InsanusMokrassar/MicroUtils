@@ -4,6 +4,7 @@
 
 * `Pagination`
     * Fixes in function `List#paginate`
+    * Extension property `Pagination#lastIndexExclusive`
 
 ## 0.2.5
 
