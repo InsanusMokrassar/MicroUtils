@@ -55,13 +55,18 @@ class MapWriteOneToManyKeyValueRepo<Key, Value>(
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
 
-    override suspend fun add(k: Key, v: Value) {
-        map.getOrPut(k) { mutableListOf() }.add(v)
-        _onNewValue.send(k to v)
+    override suspend fun add(toAdd: Map<Key, List<Value>>) {
+        toAdd.keys.forEach {
+            map.getOrPut(it) {
+                mutableListOf()
+            }.addAll(toAdd[it] ?: return@forEach)
+        }
     }
 
-    override suspend fun remove(k: Key, v: Value) {
-        map[k] ?.remove(v) ?.also { _onValueRemoved.send(k to v) }
+    override suspend fun remove(toRemove: Map<Key, List<Value>>) {
+        toRemove.keys.forEach {
+            map[it] ?.removeAll(toRemove[it] ?: return@forEach)
+        }
     }
 
     override suspend fun clear(k: Key) {
