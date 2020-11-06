@@ -7,6 +7,7 @@
 * `Repos`:
     * `WriteStandardKeyValueRepo` got new methods `set` and `unset` with collections
     * All standard realizations of repos got collections methods realizations
+    * All old usages of `BroadcastFlow` and `BroadcastChannel` has been replaced with `MutableSharedFlow`
     * `Ktor`:
         * `Server`:
             * Fixed incorrect answer for `keyvalue`
