@@ -2,6 +2,15 @@
 
 ## 0.2.7
 
+* `Versions`:
+    * `Coroutines`: `1.4.0` -> `1.4.1`
+* `Repos`:
+    * `WriteStandardKeyValueRepo` got new methods `set` and `unset` with collections
+    * All standard realizations of repos got collections methods realizations
+    * `Ktor`:
+        * `Server`:
+            * Fixed incorrect answer for `keyvalue`
+
 ## 0.2.6
 
 * `Pagination`

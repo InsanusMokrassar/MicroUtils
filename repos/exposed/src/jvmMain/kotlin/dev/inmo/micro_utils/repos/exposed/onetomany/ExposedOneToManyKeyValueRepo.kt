@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -18,13 +18,13 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
     valueColumnAllocator,
     tableName
 ) {
-    protected val _onNewValue: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
+    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
-    protected val _onValueRemoved: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
+    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onValueRemoved: Flow<Pair<Key, Value>>
         get() = _onValueRemoved
-    protected val _onDataCleared: BroadcastFlow<Key> = BroadcastFlow()
+    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
 
@@ -34,19 +34,42 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
                 it[keyColumn] = k
                 it[valueColumn] = v
             }
-        }.also { _onNewValue.send(k to v) }
+        }.also { _onNewValue.emit(k to v) }
     }
 
-    override suspend fun remove(k: Key, v: Value) {
+    override suspend fun add(toAdd: Map<Key, List<Value>>) {
         transaction(database) {
-            deleteWhere { keyColumn.eq(k).and(valueColumn.eq(v)) }
-        }.also { _onValueRemoved.send(k to v) }
+            toAdd.keys.flatMap { k ->
+                toAdd[k] ?.mapNotNull { v ->
+                    insertIgnore {
+                        it[keyColumn] = k
+                        it[valueColumn] = v
+                    }.getOrNull(keyColumn) ?.let { k to v }
+                } ?: emptyList()
+            }
+        }.forEach { _onNewValue.emit(it) }
+    }
+
+    override suspend fun remove(toRemove: Map<Key, List<Value>>) {
+        transaction(database) {
+            toRemove.keys.flatMap { k ->
+                toRemove[k] ?.mapNotNull { v ->
+                    if (deleteIgnoreWhere { keyColumn.eq(k).and(valueColumn.eq(v)) } > 0 ) {
+                        k to v
+                    } else {
+                        null
+                    }
+                } ?: emptyList()
+            }
+        }.forEach {
+            _onValueRemoved.emit(it)
+        }
     }
 
     override suspend fun clear(k: Key) {
         transaction(database) {
             deleteWhere { keyColumn.eq(k) }
-        }.also { _onDataCleared.send(k) }
+        }.also { _onDataCleared.emit(k) }
     }
 }
 

@@ -7,8 +7,7 @@ import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.PairSerializer
-import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.builtins.*
 
 class KtorWriteOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
@@ -17,6 +16,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
     private val valueSerializer: KSerializer<Value>
 ) : WriteOneToManyKeyValueRepo<Key, Value> {
     private val keyValueSerializer = PairSerializer(keySerializer, valueSerializer)
+    private val keyValueMapSerializer = MapSerializer(keySerializer, ListSerializer(valueSerializer))
     override val onNewValue: Flow<Pair<Key, Value>> = client.createStandardWebsocketFlow(
         buildStandardUrl(baseUrl, onNewValueRoute),
         deserializer = keyValueSerializer
@@ -39,15 +39,23 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
         Unit.serializer(),
     )
 
-    override suspend fun remove(k: Key, v: Value) = client.unipost(
+    override suspend fun remove(toRemove: Map<Key, List<Value>>) = client.unipost(
         buildStandardUrl(
             baseUrl,
             removeRoute,
         ),
-        BodyPair(keyValueSerializer, k to v),
+        BodyPair(keyValueMapSerializer, toRemove),
         Unit.serializer(),
     )
 
+    override suspend fun add(toAdd: Map<Key, List<Value>>) = client.unipost(
+        buildStandardUrl(
+            baseUrl,
+            clearRoute,
+        ),
+        BodyPair(keyValueMapSerializer, toAdd),
+        Unit.serializer(),
+    )
     override suspend fun clear(k: Key)  = client.unipost(
         buildStandardUrl(
             baseUrl,

@@ -43,21 +43,13 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onValueRemoved: Flow<Pair<Key, Value>>
     val onDataCleared: Flow<Key>
 
-    suspend fun add(toAdd: Map<Key, List<Value>>) = toAdd.forEach { (k, values) ->
-        values.forEach { v ->
-            add(k, v)
-        }
-    }
+    suspend fun add(toAdd: Map<Key, List<Value>>)
     @Deprecated("Will be extracted as extension for other add method")
-    suspend fun add(k: Key, v: Value)
+    suspend fun add(k: Key, v: Value) = add(mapOf(k to listOf(v)))
 
-    suspend fun remove(toRemove: Map<Key, List<Value>>) = toRemove.forEach { (k, values) ->
-        values.forEach { v ->
-            remove(k, v)
-        }
-    }
+    suspend fun remove(toRemove: Map<Key, List<Value>>)
     @Deprecated("Will be extracted as extension for other remove method")
-    suspend fun remove(k: Key, v: Value)
+    suspend fun remove(k: Key, v: Value) = remove(mapOf(k to listOf(v)))
 
     suspend fun clear(k: Key)
 }

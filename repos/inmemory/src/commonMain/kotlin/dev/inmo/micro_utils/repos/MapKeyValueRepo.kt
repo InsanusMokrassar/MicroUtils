@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 class ReadMapKeyValueRepo<Key, Value>(
     private val map: Map<Key, Value> = emptyMap()
@@ -47,20 +48,31 @@ class ReadMapKeyValueRepo<Key, Value>(
 class WriteMapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value> = mutableMapOf()
 ) : WriteStandardKeyValueRepo<Key, Value> {
-    private val _onNewValue: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
+    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
-    private val _onValueRemoved: BroadcastFlow<Key> = BroadcastFlow()
+    private val _onValueRemoved: MutableSharedFlow<Key> = MutableSharedFlow()
     override val onValueRemoved: Flow<Key>
         get() = _onValueRemoved
 
     override suspend fun set(k: Key, v: Value) {
         map[k] = v
-        _onNewValue.send(k to v)
+        _onNewValue.emit(k to v)
+    }
+
+    override suspend fun set(toSet: Map<Key, Value>) {
+        map.putAll(toSet)
+        toSet.forEach { (k, v) -> _onNewValue.emit(k to v) }
     }
 
     override suspend fun unset(k: Key) {
-        map.remove(k) ?.also { _onValueRemoved.send(k) }
+        map.remove(k) ?.also { _onValueRemoved.emit(k) }
+    }
+
+    override suspend fun unset(toUnset: List<Key>) {
+        toUnset.forEach { k ->
+            map.remove(k) ?.also { _ -> _onValueRemoved.emit(k) }
+        }
     }
 }
 

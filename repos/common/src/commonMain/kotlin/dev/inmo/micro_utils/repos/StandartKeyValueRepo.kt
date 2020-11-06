@@ -16,8 +16,16 @@ interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Key>
 
+    @Deprecated("Realize set with map instead")
     suspend fun set(k: Key, v: Value)
+    suspend fun set(toSet: Map<Key, Value>) = toSet.forEach { (k, v) ->
+        set(k, v)
+    }
+    @Deprecated("Realize unset with list instead")
     suspend fun unset(k: Key)
+    suspend fun unset(toUnset: List<Key>) = toUnset.forEach {
+        unset(it)
+    }
 }
 
 interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value>

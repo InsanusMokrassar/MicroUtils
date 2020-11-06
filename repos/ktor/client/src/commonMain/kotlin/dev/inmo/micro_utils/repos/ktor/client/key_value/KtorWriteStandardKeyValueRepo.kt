@@ -7,8 +7,7 @@ import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.PairSerializer
-import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.builtins.*
 
 class KtorWriteStandardKeyValueRepo<K, V> (
     private var baseUrl: String,
@@ -16,6 +15,8 @@ class KtorWriteStandardKeyValueRepo<K, V> (
     private var keySerializer: KSerializer<K>,
     private var valueSerializer: KSerializer<V>,
 ) : WriteStandardKeyValueRepo<K, V> {
+    private val keyValueMapSerializer = MapSerializer(keySerializer, valueSerializer)
+    private val keysListSerializer = ListSerializer(keySerializer)
     override val onNewValue: Flow<Pair<K, V>> = client.createStandardWebsocketFlow(
         buildStandardUrl(baseUrl, onNewValueRoute),
         deserializer = PairSerializer(keySerializer, valueSerializer)
@@ -26,23 +27,25 @@ class KtorWriteStandardKeyValueRepo<K, V> (
         deserializer = keySerializer
     )
 
-    override suspend fun set(k: K, v: V) = client.unipost(
+    override suspend fun set(toSet: Map<K, V>) = client.unipost(
         buildStandardUrl(
             baseUrl,
             setRoute
         ),
-        BodyPair(KeyValuePostObject.serializer(keySerializer, valueSerializer), KeyValuePostObject(k, v)),
+        BodyPair(keyValueMapSerializer, toSet),
         Unit.serializer()
     )
+    override suspend fun set(k: K, v: V) = set(mapOf(k to v))
 
-    override suspend fun unset(k: K) = client.unipost(
+    override suspend fun unset(toUnset: List<K>) = client.unipost(
         buildStandardUrl(
             baseUrl,
             unsetRoute,
         ),
-        BodyPair(keySerializer, k),
+        BodyPair(keysListSerializer, toUnset),
         Unit.serializer()
     )
+    override suspend fun unset(k: K) = unset(listOf(k))
 }
 
 @Deprecated("Renamed", ReplaceWith("KtorWriteStandardKeyValueRepo", "dev.inmo.micro_utils.repos.ktor.client.key_value.KtorWriteStandardKeyValueRepo"))

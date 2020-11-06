@@ -7,15 +7,15 @@ import io.ktor.application.call
 import io.ktor.routing.Route
 import io.ktor.routing.post
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.PairSerializer
-import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.builtins.*
 
 fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
     originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
-    valueSealizer: KSerializer<Value>,
+    valueSerializer: KSerializer<Value>,
 ) {
-    val keyValueSerializer = PairSerializer(keySerializer, valueSealizer)
+    val keyValueSerializer = PairSerializer(keySerializer, valueSerializer)
+    val keyValueMapSerializer = MapSerializer(keySerializer, ListSerializer(valueSerializer))
 
     includeWebsocketHandling(
         onNewValueRoute,
@@ -34,24 +34,22 @@ fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
     )
 
     post(addRoute) {
-        val obj = call.uniload(
-            keyValueSerializer
-        )
+        val obj = call.uniload(keyValueMapSerializer)
 
         call.unianswer(
             Unit.serializer(),
-            originalRepo.add(obj.first, obj.second)
+            originalRepo.add(obj)
         )
     }
 
     post(removeRoute) {
         val obj = call.uniload(
-            keyValueSerializer
+            keyValueMapSerializer
         )
 
         call.unianswer(
             Unit.serializer(),
-            originalRepo.remove(obj.first, obj.second),
+            originalRepo.remove(obj),
         )
     }
 
