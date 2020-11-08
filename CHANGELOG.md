@@ -2,6 +2,10 @@
 
 ## 0.2.8
 
+* `Repos`:
+    * `Exposed`:
+        * CRUD realizations replaced their channels to shared flows
+
 ## 0.2.7
 
 * `Versions`:
