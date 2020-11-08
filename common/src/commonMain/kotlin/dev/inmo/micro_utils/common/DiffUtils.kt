@@ -149,18 +149,3 @@ inline fun <T> StrictDiff(old: Iterable<T>, new: Iterable<T>) = old.calculateDif
 inline fun <T> Iterable<T>.calculateStrictDiff(
     other: Iterable<T>
 ) = calculateDiff(other, strictComparison = true)
-
-/**
- * Compare one-to-one
- */
-@Deprecated("Will be removed or replaced with some new function. Use calculateDiff instead")
-inline fun <T> Iterable<T>.syncWith(
-    other: Iterable<T>,
-    noinline removed: (List<T>) -> Unit = {},
-    noinline added: (List<T>) -> Unit = {}
-) {
-    calculateDiff(other).also {
-        removed(it.removed.map { it.value })
-        added(it.added.map { it.value })
-    }
-}

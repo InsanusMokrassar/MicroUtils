@@ -1,6 +1,5 @@
 package dev.inmo.micro_utils.repos
 
-import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
@@ -55,18 +54,9 @@ class WriteMapKeyValueRepo<Key, Value>(
     override val onValueRemoved: Flow<Key>
         get() = _onValueRemoved
 
-    override suspend fun set(k: Key, v: Value) {
-        map[k] = v
-        _onNewValue.emit(k to v)
-    }
-
     override suspend fun set(toSet: Map<Key, Value>) {
         map.putAll(toSet)
         toSet.forEach { (k, v) -> _onNewValue.emit(k to v) }
-    }
-
-    override suspend fun unset(k: Key) {
-        map.remove(k) ?.also { _onValueRemoved.emit(k) }
     }
 
     override suspend fun unset(toUnset: List<Key>) {

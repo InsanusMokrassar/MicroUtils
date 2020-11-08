@@ -30,15 +30,6 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
         deserializer = keySerializer
     )
 
-    override suspend fun add(k: Key, v: Value) = client.unipost(
-        buildStandardUrl(
-            baseUrl,
-            addRoute,
-        ),
-        BodyPair(keyValueSerializer, k to v),
-        Unit.serializer(),
-    )
-
     override suspend fun remove(toRemove: Map<Key, List<Value>>) = client.unipost(
         buildStandardUrl(
             baseUrl,

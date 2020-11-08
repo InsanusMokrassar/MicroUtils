@@ -24,22 +24,6 @@ open class ExposedKeyValueRepo<Key, Value>(
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
 
-    override suspend fun set(k: Key, v: Value) {
-        transaction(database) {
-            if (select { keyColumn.eq(k) }.limit(1).any()) {
-                update({ keyColumn.eq(k) }) {
-                    it[valueColumn] = v
-                }
-            } else {
-                insert {
-                    it[keyColumn] = k
-                    it[valueColumn] = v
-                }
-            }
-        }
-        _onNewValue.emit(k to v)
-    }
-
     override suspend fun set(toSet: Map<Key, Value>) {
         transaction(database) {
             toSet.mapNotNull { (k, v) ->
@@ -62,13 +46,6 @@ open class ExposedKeyValueRepo<Key, Value>(
         }
     }
 
-    override suspend fun unset(k: Key) {
-        transaction(database) {
-            deleteWhere { keyColumn.eq(k) }
-        }
-        _onValueRemoved.emit(k)
-    }
-
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
             toUnset.mapNotNull {
@@ -83,6 +60,3 @@ open class ExposedKeyValueRepo<Key, Value>(
         }
     }
 }
-
-@Deprecated("Renamed", ReplaceWith("ExposedKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.keyvalue.ExposedKeyValueRepo"))
-typealias AbstractExposedKeyValueRepo<Key, Value> = ExposedKeyValueRepo<Key, Value>

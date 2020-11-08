@@ -1,6 +1,5 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
-import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.flow.*
@@ -27,15 +26,6 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
     protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
-
-    override suspend fun add(k: Key, v: Value) {
-        transaction(database) {
-            insert {
-                it[keyColumn] = k
-                it[valueColumn] = v
-            }
-        }.also { _onNewValue.emit(k to v) }
-    }
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         transaction(database) {
@@ -72,9 +62,3 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
         }.also { _onDataCleared.emit(k) }
     }
 }
-
-@Deprecated("Renamed", ReplaceWith("ExposedOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedOneToManyKeyValueRepo"))
-typealias AbstractOneToManyExposedKeyValueRepo<Key, Value> = ExposedOneToManyKeyValueRepo<Key, Value>
-
-@Deprecated("Renamed", ReplaceWith("ExposedOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedOneToManyKeyValueRepo"))
-typealias AbstractExposedOneToManyKeyValueRepo<Key, Value> = ExposedOneToManyKeyValueRepo<Key, Value>

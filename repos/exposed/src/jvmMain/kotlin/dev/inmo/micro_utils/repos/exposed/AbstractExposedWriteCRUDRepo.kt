@@ -3,28 +3,27 @@ package dev.inmo.micro_utils.repos.exposed
 import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
 import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateStatement
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
-    flowsChannelsSize: Int = 64,
+    flowsChannelsSize: Int = 0,
     tableName: String = ""
 ) :
     AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 {
-    protected val newObjectsChannel = BroadcastChannel<ObjectType>(flowsChannelsSize)
-    protected val updateObjectsChannel = BroadcastChannel<ObjectType>(flowsChannelsSize)
-    protected val deleteObjectsIdsChannel = BroadcastChannel<IdType>(flowsChannelsSize)
+    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(flowsChannelsSize)
+    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(flowsChannelsSize)
+    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(flowsChannelsSize)
 
-    override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asFlow()
+    override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asSharedFlow()
+    override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()
+    override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asSharedFlow()
 
     abstract val InsertStatement<Number>.asObject: ObjectType
     abstract val selectByIds: SqlExpressionBuilder.(List<out IdType>) -> Op<Boolean>
@@ -45,7 +44,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
             values.map { value -> createWithoutNotification(value) }
         }.also {
             it.forEach {
-                newObjectsChannel.send(it)
+                newObjectsChannel.emit(it)
             }
         }
     }
@@ -75,7 +74,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         onBeforeUpdate(listOf(id to value))
         return updateWithoutNotification(id, value).also {
             if (it != null) {
-                updateObjectsChannel.send(it)
+                updateObjectsChannel.emit(it)
             }
         }
     }
@@ -89,7 +88,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
             } as List<ObjectType>
         ).also {
             it.forEach {
-                updateObjectsChannel.send(it)
+                updateObjectsChannel.emit(it)
             }
         }
     }

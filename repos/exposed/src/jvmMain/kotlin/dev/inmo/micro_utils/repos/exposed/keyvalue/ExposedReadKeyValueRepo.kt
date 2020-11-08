@@ -39,6 +39,3 @@ open class ExposedReadKeyValueRepo<Key, Value>(
         }
     }.createPaginationResult(pagination, count())
 }
-
-@Deprecated("Renamed", ReplaceWith("ExposedReadKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.keyvalue.ExposedReadKeyValueRepo"))
-typealias AbstractExposedReadKeyValueRepo<Key, Value> = ExposedReadKeyValueRepo<Key, Value>

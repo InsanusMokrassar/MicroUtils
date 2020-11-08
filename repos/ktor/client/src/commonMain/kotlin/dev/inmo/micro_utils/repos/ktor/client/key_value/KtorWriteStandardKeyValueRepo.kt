@@ -35,7 +35,6 @@ class KtorWriteStandardKeyValueRepo<K, V> (
         BodyPair(keyValueMapSerializer, toSet),
         Unit.serializer()
     )
-    override suspend fun set(k: K, v: V) = set(mapOf(k to v))
 
     override suspend fun unset(toUnset: List<K>) = client.unipost(
         buildStandardUrl(
@@ -45,8 +44,4 @@ class KtorWriteStandardKeyValueRepo<K, V> (
         BodyPair(keysListSerializer, toUnset),
         Unit.serializer()
     )
-    override suspend fun unset(k: K) = unset(listOf(k))
 }
-
-@Deprecated("Renamed", ReplaceWith("KtorWriteStandardKeyValueRepo", "dev.inmo.micro_utils.repos.ktor.client.key_value.KtorWriteStandardKeyValueRepo"))
-typealias KtorStandartWriteKeyValueRepo<K, V> = KtorWriteStandardKeyValueRepo<K, V>

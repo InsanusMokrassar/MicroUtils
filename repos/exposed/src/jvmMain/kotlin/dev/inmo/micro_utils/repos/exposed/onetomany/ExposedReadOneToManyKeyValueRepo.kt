@@ -47,9 +47,3 @@ open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
         select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).any()
     }
 }
-
-@Deprecated("Renamed", ReplaceWith("ExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedReadOneToManyKeyValueRepo"))
-typealias AbstractOneToManyExposedReadKeyValueRepo<Key, Value> = ExposedReadOneToManyKeyValueRepo<Key, Value>
-
-@Deprecated("Renamed", ReplaceWith("ExposedReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.exposed.onetomany.ExposedReadOneToManyKeyValueRepo"))
-typealias AbstractExposedReadOneToManyKeyValueRepo<Key, Value> = ExposedReadOneToManyKeyValueRepo<Key, Value>

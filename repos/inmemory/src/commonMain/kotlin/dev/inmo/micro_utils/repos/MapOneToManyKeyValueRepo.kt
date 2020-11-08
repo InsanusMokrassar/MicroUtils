@@ -1,10 +1,9 @@
 package dev.inmo.micro_utils.repos
 
-import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 class MapReadOneToManyKeyValueRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap()
@@ -45,32 +44,35 @@ class MapReadOneToManyKeyValueRepo<Key, Value>(
 class MapWriteOneToManyKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
 ) : WriteOneToManyKeyValueRepo<Key, Value> {
-    private val _onNewValue: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
-    override val onNewValue: Flow<Pair<Key, Value>>
-        get() = _onNewValue
-    private val _onValueRemoved: BroadcastFlow<Pair<Key, Value>> = BroadcastFlow()
-    override val onValueRemoved: Flow<Pair<Key, Value>>
-        get() = _onValueRemoved
-    private val _onDataCleared: BroadcastFlow<Key> = BroadcastFlow()
-    override val onDataCleared: Flow<Key>
-        get() = _onDataCleared
+    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
+    private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    override val onValueRemoved: Flow<Pair<Key, Value>> = _onValueRemoved.asSharedFlow()
+    private val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
+    override val onDataCleared: Flow<Key> = _onDataCleared.asSharedFlow()
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
-        toAdd.keys.forEach {
-            map.getOrPut(it) {
-                mutableListOf()
-            }.addAll(toAdd[it] ?: return@forEach)
+        toAdd.keys.forEach { k ->
+            if (map.getOrPut(k) { mutableListOf() }.addAll(toAdd[k] ?: return@forEach)) {
+                toAdd[k] ?.forEach { v ->
+                    _onNewValue.emit(k to v)
+                }
+            }
         }
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
-        toRemove.keys.forEach {
-            map[it] ?.removeAll(toRemove[it] ?: return@forEach)
+        toRemove.keys.forEach { k ->
+            if (map[k] ?.removeAll(toRemove[k] ?: return@forEach) == true) {
+                toRemove[k] ?.forEach { v ->
+                    _onValueRemoved.emit(k to v)
+                }
+            }
         }
     }
 
     override suspend fun clear(k: Key) {
-        map.remove(k) ?.also { _onDataCleared.send(k) }
+        map.remove(k) ?.also { _onDataCleared.emit(k) }
     }
 }
 
