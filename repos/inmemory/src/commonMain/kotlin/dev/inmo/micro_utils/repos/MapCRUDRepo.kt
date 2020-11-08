@@ -1,8 +1,7 @@
 package dev.inmo.micro_utils.repos
 
-import dev.inmo.micro_utils.coroutines.BroadcastFlow
 import dev.inmo.micro_utils.pagination.*
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 class ReadMapCRUDRepo<ObjectType, IdType>(
     private val map: Map<IdType, ObjectType> = emptyMap()
@@ -26,15 +25,12 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
 abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
     private val map: MutableMap<IdType, ObjectType> = mutableMapOf()
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> {
-    private val _newObjectsFlow: BroadcastFlow<ObjectType> = BroadcastFlow()
-    override val newObjectsFlow: Flow<ObjectType>
-        get() = _newObjectsFlow
-    private val _updatedObjectsFlow: BroadcastFlow<ObjectType> = BroadcastFlow()
-    override val updatedObjectsFlow: Flow<ObjectType>
-        get() = _updatedObjectsFlow
-    private val _deletedObjectsIdsFlow: BroadcastFlow<IdType> = BroadcastFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType>
-        get() = _deletedObjectsIdsFlow
+    private val _newObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
+    override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
+    private val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
+    override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
+    private val _deletedObjectsIdsFlow: MutableSharedFlow<IdType> = MutableSharedFlow()
+    override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
 
     protected abstract suspend fun updateObject(newValue: InputValueType, id: IdType, old: ObjectType): ObjectType
     protected abstract suspend fun createObject(newValue: InputValueType): Pair<IdType, ObjectType>
@@ -44,7 +40,7 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
             val (id, newObject) = createObject(it)
             map[id] = newObject
             newObject.also { _ ->
-                _newObjectsFlow.send(newObject)
+                _newObjectsFlow.emit(newObject)
             }
         }
     }
@@ -54,7 +50,7 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
         return newValue.also {
             map[id] = it
-            _updatedObjectsFlow.send(it)
+            _updatedObjectsFlow.emit(it)
         }
     }
 
@@ -64,7 +60,7 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
     override suspend fun deleteById(ids: List<IdType>) {
         ids.forEach {
-            map.remove(it) ?.also { _ -> _deletedObjectsIdsFlow.send(it) }
+            map.remove(it) ?.also { _ -> _deletedObjectsIdsFlow.emit(it) }
         }
     }
 
