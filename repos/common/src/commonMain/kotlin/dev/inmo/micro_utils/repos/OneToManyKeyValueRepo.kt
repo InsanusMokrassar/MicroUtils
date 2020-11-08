@@ -35,8 +35,6 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
         }
     }
 }
-@Deprecated("Renamed", ReplaceWith("ReadOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo"))
-typealias OneToManyReadKeyValueRepo<Key, Value> = ReadOneToManyKeyValueRepo<Key, Value>
 
 interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
@@ -44,42 +42,44 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onDataCleared: Flow<Key>
 
     suspend fun add(toAdd: Map<Key, List<Value>>)
-    @Deprecated("Will be extracted as extension for other add method")
-    suspend fun add(k: Key, v: Value) = add(mapOf(k to listOf(v)))
 
     suspend fun remove(toRemove: Map<Key, List<Value>>)
-    @Deprecated("Will be extracted as extension for other remove method")
-    suspend fun remove(k: Key, v: Value) = remove(mapOf(k to listOf(v)))
 
     suspend fun clear(k: Key)
 }
-@Deprecated("Renamed", ReplaceWith("WriteOneToManyKeyValueRepo", "dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo"))
-typealias OneToManyWriteKeyValueRepo<Key, Value> = WriteOneToManyKeyValueRepo<Key, Value>
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+    keysAndValues: List<Pair<Key, List<Value>>>
+) = add(keysAndValues.toMap())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+    vararg keysAndValues: Pair<Key, List<Value>>
+) = add(keysAndValues.toMap())
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
+    k: Key, v: List<Value>
+) = add(mapOf(k to v))
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
+    k: Key, vararg v: Value
+) = add(k, v.toList())
 
 interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
-    k: Key,
-    vararg v: Value
-) = add(mapOf(k to v.toList()))
-
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
-    keysAndValues: List<Pair<Key, List<Value>>>
-) = add(keysAndValues.toMap())
-
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
-    vararg keysAndValues: Pair<Key, List<Value>>
-) = add(keysAndValues.toMap())
-
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
-    k: Key,
-    vararg v: Value
-) = remove(mapOf(k to v.toList()))
-
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = remove(keysAndValues.toMap())
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.remove(
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = remove(keysAndValues.toMap())
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+    k: Key,
+    v: List<Value>
+) = remove(mapOf(k to v))
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+    k: Key,
+    vararg v: Value
+) = remove(k, v.toList())

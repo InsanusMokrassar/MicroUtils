@@ -69,6 +69,3 @@ class KtorReadStandardKeyValueRepo<Key, Value> (
         Long.serializer()
     )
 }
-
-@Deprecated("Renamed", ReplaceWith("KtorReadStandardKeyValueRepo", "dev.inmo.micro_utils.repos.ktor.client.key_value.KtorReadStandardKeyValueRepo"))
-typealias KtorStandartReadKeyValueRepo<Key, Value> = KtorReadStandardKeyValueRepo<Key, Value>

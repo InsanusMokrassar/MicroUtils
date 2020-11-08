@@ -2,7 +2,22 @@
 
 ## 0.3.0
 
+All deprecations has been removed
+
 * `Repos`:
+    * `Common`:
+        * `KeyValue` and `OneToMany` repos lost their deprecated methods
+        * `OneToMany` write repos got additional extensions for mutation of repo
+        * `KeyValue` write repos got additional extensions for mutation of repo
+        * New interface `MapperRepo` and new classes which are using this:
+            * `KeyValue`
+                * `MapperReadStandardKeyValueRepo`
+                * `MapperWriteStandardKeyValueRepo`
+                * `MapperStandardKeyValueRepo`
+            * `OneToMany`
+                * `MapperReadOneToManyKeyValueRepo`
+                * `MapperWriteOneToManyKeyValueRepo`
+                * `MapperOneToManyKeyValueRepo`
     * `Exposed`:
         * CRUD realizations replaced their channels to shared flows
 
