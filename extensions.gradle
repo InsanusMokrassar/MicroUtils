@@ -21,6 +21,7 @@ allprojects {
 
         mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerialization"
         mppJavaProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJavaProject"
+        mppAndroidProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppAndroidProject"
 
         publishGradlePath = "${rootProject.projectDir.absolutePath}/publish.gradle"
         publishMavenPath = "${rootProject.projectDir.absolutePath}/maven.publish.gradle"
