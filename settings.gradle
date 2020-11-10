@@ -13,7 +13,7 @@ String[] includes = [
     ":repos:ktor:client",
     ":repos:ktor:common",
     ":repos:ktor:server",
-    ":repos:android:db",
+//    ":repos:android:db",
     ":ktor:server",
     ":ktor:common",
     ":ktor:client",
@@ -23,8 +23,12 @@ String[] includes = [
 ]
 
 
-includes.each {
-    include it
-    ProjectDescriptor project = project(it)
-    project.name = rootProject.name + project.projectDir.absolutePath.replace("${rootDir.absolutePath}", "").replace(File.separator, ".")
+includes.each { originalName ->
+    String projectDirectory = "${rootProject.projectDir.getAbsolutePath()}${originalName.replaceAll(":", File.separator)}"
+    String projectName = "${rootProject.name}${originalName.replaceAll(":", ".")}"
+    String projectIdentifier = ":${projectName}"
+    include projectIdentifier
+    ProjectDescriptor project = project(projectIdentifier)
+    project.name = projectName
+    project.projectDir = new File(projectDirectory)
 }

@@ -4,6 +4,7 @@ project.group = "$group"
 apply from: "$publishGradlePath"
 
 kotlin {
+    android {}
 
     sourceSets {
         commonMain {
