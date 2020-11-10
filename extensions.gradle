@@ -10,11 +10,12 @@ allprojects {
         }
 
         internalProject = { name ->
-            if (releaseMode) {
-                "$group:$name:$version"
-            } else {
-                projectByName("$name")
-            }
+//            if (releaseMode) {
+//                "$group:$name:$version"
+//            } else {
+//                projectByName("$name")
+//            }
+            projectByName("$name")
         }
 
         releaseMode = (project.hasProperty('RELEASE_MODE') && project.property('RELEASE_MODE') == "true") || System.getenv('RELEASE_MODE') == "true"
