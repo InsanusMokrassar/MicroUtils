@@ -1,26 +1,15 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
-    }
-}
-
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "org.jetbrains.dokka" version "$dokka_version"
+    id "com.android.library"
+    id "kotlin-android-extensions"
+    id "org.jetbrains.dokka"
 }
 
 repositories {
     mavenLocal()
     jcenter()
+    google()
     mavenCentral()
 }
 
@@ -30,6 +19,7 @@ kotlin {
         browser()
         nodejs()
     }
+    android {}
 
     sourceSets {
         commonMain {
@@ -41,6 +31,57 @@ kotlin {
                         it != project
                         && it.hasProperty("kotlin")
                         && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
+                    ) {
+                        api it
+                    }
+                }
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation kotlin('stdlib')
+
+                project.parent.subprojects.forEach {
+                    if (
+                        it != project
+                        && it.hasProperty("kotlin")
+                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+                    ) {
+                        api it
+                    }
+                }
+            }
+        }
+        jvmMain {
+            dependencies {
+                implementation kotlin('stdlib')
+
+                project.parent.subprojects.forEach {
+                    if (
+                        it != project
+                        && it.hasProperty("kotlin")
+                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
+                    ) {
+                        api it
+                    }
+                }
+            }
+        }
+        androidMain {
+            dependencies {
+                implementation kotlin('stdlib')
+
+                project.parent.subprojects.forEach {
+                    if (
+                        it != project
+                        && it.hasProperty("kotlin")
+                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
                         api it
                     }
@@ -84,5 +125,11 @@ tasks.dokkaHtml {
         named("jvmMain") {
             sourceRoots.setFrom(findSourcesWithName("jvmMain", "commonMain"))
         }
+
+        named("androidMain") {
+            sourceRoots.setFrom(findSourcesWithName("androidMain", "commonMain"))
+        }
     }
 }
+
+apply from: "$defaultAndroidSettingsPresetPath"

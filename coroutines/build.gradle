@@ -14,5 +14,10 @@ kotlin {
                 api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
             }
         }
+        androidMain {
+            dependencies {
+                api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+            }
+        }
     }
 }

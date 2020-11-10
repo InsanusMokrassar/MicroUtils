@@ -14,6 +14,7 @@ buildscript {
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$gradle_bintray_plugin_version"
         classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$dexcount_version"
         classpath "com.github.breadmoirai:github-release:$github_release_plugin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
 }
 

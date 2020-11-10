@@ -11,13 +11,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api internalProject("micro_utils.repos.common")
-                api internalProject("micro_utils.coroutines")
+                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
             }
         }
         androidMain {
             dependencies {
-                implementation "androidx.core:core-ktx:$core_ktx_version"
+                api "androidx.recyclerview:recyclerview:$androidx_recycler_version"
             }
         }
     }
