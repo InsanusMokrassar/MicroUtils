@@ -18,11 +18,35 @@ kotlin {
                 implementation kotlin('test-annotations-common')
             }
         }
+    }
+}
 
-        jvmTest {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
+android {
+    compileSdkVersion "$android_compileSdkVersion".toInteger()
+    defaultConfig {
+        minSdkVersion "$android_minSdkVersion".toInteger()
+        targetSdkVersion "$android_compileSdkVersion".toInteger()
+        versionCode "${android_code_version}".toInteger()
+        versionName "$version"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/kotlinx-serialization-runtime.kotlin_module'
+        exclude 'META-INF/kotlinx-serialization-cbor.kotlin_module'
+        exclude 'META-INF/kotlinx-serialization-properties.kotlin_module'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }

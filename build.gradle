@@ -1,18 +1,18 @@
 buildscript {
-    ext {
-        kotlin_version = '1.4.10'
-    }
     repositories {
-        mavenLocal()
         jcenter()
+        google()
         mavenCentral()
+        mavenLocal()
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$gradle_bintray_plugin_version"
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$dexcount_version"
         classpath "com.github.breadmoirai:github-release:$github_release_plugin_version"
     }
 }
@@ -22,6 +22,7 @@ allprojects {
         mavenLocal()
         jcenter()
         mavenCentral()
+        google()
         maven { url "https://kotlin.bintray.com/kotlinx" }
     }
 }
