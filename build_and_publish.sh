@@ -12,4 +12,7 @@ function assert_success() {
 export RELEASE_MODE=true
 project="$1"
 
-assert_success ./gradlew clean "$project:clean" "$project:build" "$project:publishToMavenLocal" "$project:bintrayUpload"
+assert_success ./gradlew clean
+assert_success ./gradlew "$project:build"
+assert_success ./gradlew "$project:publishToMavenLocal"
+assert_success ./gradlew "$project:bintrayUpload"

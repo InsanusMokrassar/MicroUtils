@@ -13,7 +13,11 @@ bintray {
                 if (directorySubname == "kotlinMultiplatform") {
                     it.setPath("${project.name}/${project.version}/${project.name}-${project.version}.module")
                 } else {
-                    it.setPath("${project.name}-${directorySubname}/${project.version}/${project.name}-${directorySubname}-${project.version}.module")
+                    if (directorySubname.indexOf("android") != -1) {
+                        it.setPath("${project.name}-android/${project.version}/${project.name}-android-${project.version}.module")
+                    } else {
+                        it.setPath("${project.name}-${directorySubname}/${project.version}/${project.name}-${directorySubname}-${project.version}.module")
+                    }
                 }
             } else {
                 if (directorySubname == "kotlinMultiplatform" && it.getName() == "pom-default.xml") {
