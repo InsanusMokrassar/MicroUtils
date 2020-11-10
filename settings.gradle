@@ -13,7 +13,6 @@ String[] includes = [
     ":repos:ktor:client",
     ":repos:ktor:common",
     ":repos:ktor:server",
-    ":repos:android",
     ":ktor:server",
     ":ktor:common",
     ":ktor:client",

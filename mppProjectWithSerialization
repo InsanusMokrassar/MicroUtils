@@ -9,6 +9,9 @@ kotlin {
         browser()
         nodejs()
     }
+    android {
+        publishLibraryVariants()
+    }
 
     sourceSets {
         commonMain {
@@ -34,5 +37,14 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
+        androidTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation "androidx.test.ext:junit:$test_ext_junit_version"
+                implementation "androidx.test.espresso:espresso-core:$espresso_core"
+            }
+        }
     }
 }
+
+apply from: "$defaultAndroidSettingsPresetPath"

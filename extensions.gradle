@@ -23,6 +23,8 @@ allprojects {
         mppJavaProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJavaProject"
         mppAndroidProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppAndroidProject"
 
+        defaultAndroidSettingsPresetPath = "${rootProject.projectDir.absolutePath}/defaultAndroidSettings"
+
         publishGradlePath = "${rootProject.projectDir.absolutePath}/publish.gradle"
         publishMavenPath = "${rootProject.projectDir.absolutePath}/maven.publish.gradle"
     }

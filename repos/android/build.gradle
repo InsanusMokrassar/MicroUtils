@@ -6,3 +6,19 @@ plugins {
 }
 
 apply from: "$mppAndroidProjectPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api internalProject("micro_utils.repos.common")
+                api internalProject("micro_utils.coroutines")
+            }
+        }
+        androidMain {
+            dependencies {
+                implementation "androidx.core:core-ktx:$core_ktx_version"
+            }
+        }
+    }
+}
