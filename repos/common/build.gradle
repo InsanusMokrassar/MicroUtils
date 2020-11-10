@@ -1,6 +1,8 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+    id "kotlin-android-extensions"
 }
 
 apply from: "$mppProjectWithSerializationPresetPath"
@@ -13,6 +15,14 @@ kotlin {
                 api internalProject("micro_utils.pagination.common")
 
                 api "com.benasher44:uuid:$uuidVersion"
+            }
+        }
+
+        androidMain {
+            dependencies {
+                api "androidx.core:core-ktx:$core_ktx_version"
+                api internalProject("micro_utils.common")
+                api internalProject("micro_utils.coroutines")
             }
         }
     }

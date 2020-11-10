@@ -1,0 +1,23 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+    id "kotlin-android-extensions"
+}
+
+apply from: "$mppAndroidProjectPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+            }
+        }
+        androidMain {
+            dependencies {
+                api "androidx.recyclerview:recyclerview:$androidx_recycler_version"
+            }
+        }
+    }
+}
