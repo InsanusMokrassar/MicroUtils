@@ -2,6 +2,40 @@
 
 ## 0.3.1
 
+**ANDROID PACKAGES**
+
+* `Android`:
+    * `RecyclerView`:
+        * Library has been created
+* `Common`
+    * Now available package `dev.inmo:micro_utils.common-android`
+* `Coroutines`
+    * Now available package `dev.inmo:micro_utils.coroutines-android`
+* `Ktor`
+    * `Common`
+        * Now available package `dev.inmo:micro_utils.ktor.common-android`
+    * `Client`
+        * Now available package `dev.inmo:micro_utils.ktor.client-android`
+* `MimeTypes`
+    * Now available package `dev.inmo:micro_utils.mime_types-android`
+* `Pagination`
+    * `Common`
+        * Now available package `dev.inmo:micro_utils.pagination.common-android`
+    * `Ktor`
+        * `Common`
+            * Now available package `dev.inmo:micro_utils.pagination.ktor.common-android`
+* `Repos`
+    * `Common`
+        * Now available package `dev.inmo:micro_utils.repos.common-android`
+        * Now it is possible to use default realizations of repos abstractions natively on android
+    * `Inmemory`
+        * Now available package `dev.inmo:micro_utils.repos.inmemory-android`
+    * `Ktor`
+        * `Common`
+            * Now available package `dev.inmo:micro_utils.repos.ktor.common-android`
+        * `Common`
+            * Now available package `dev.inmo:micro_utils.repos.ktor.client-android`
+
 ## 0.3.0
 
 All deprecations has been removed
