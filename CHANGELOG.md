@@ -4,6 +4,10 @@
 
 * `Versions`:
     * `Coroutines`: `1.4.1` -> `1.4.2`
+* `Repos`:
+    * `Common`:
+        * New inline function `mapper` for simplier creating of `MapperRepo` objects
+        * Extensions `withMapper` for keyvalue repos and onetomany repos
 
 ## 0.3.1
 
