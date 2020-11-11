@@ -10,7 +10,7 @@ kotlin {
         nodejs()
     }
     android {
-        publishLibraryVariants("release")
+        publishAllLibraryVariants()
     }
 
     sourceSets {

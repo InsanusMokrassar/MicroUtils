@@ -12,6 +12,9 @@ android {
         release {
             minifyEnabled false
         }
+        debug {
+            debuggable true
+        }
     }
 
     packagingOptions {
@@ -27,5 +30,9 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 }
