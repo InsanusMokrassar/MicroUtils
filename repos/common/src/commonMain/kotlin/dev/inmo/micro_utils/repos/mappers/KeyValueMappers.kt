@@ -51,6 +51,11 @@ open class MapperReadStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     override suspend fun count(): Long = to.count()
 }
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> ReadStandardKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): ReadStandardKeyValueRepo<FromKey, FromValue> = MapperReadStandardKeyValueRepo(this, mapper)
+
 open class MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: WriteStandardKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -75,6 +80,11 @@ open class MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     )
 }
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> WriteStandardKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): WriteStandardKeyValueRepo<FromKey, FromValue> = MapperWriteStandardKeyValueRepo(this, mapper)
+
 open class MapperStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: StandardKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -82,3 +92,8 @@ open class MapperStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper,
     ReadStandardKeyValueRepo<FromKey, FromValue> by MapperReadStandardKeyValueRepo(to, mapper),
     WriteStandardKeyValueRepo<FromKey, FromValue> by MapperWriteStandardKeyValueRepo(to, mapper)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> StandardKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): StandardKeyValueRepo<FromKey, FromValue> = MapperStandardKeyValueRepo(this, mapper)

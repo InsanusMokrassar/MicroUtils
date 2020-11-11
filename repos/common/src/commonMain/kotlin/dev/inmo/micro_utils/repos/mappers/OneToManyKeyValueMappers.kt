@@ -49,6 +49,11 @@ open class MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     override suspend fun count(k: FromKey): Long = to.count(k.toOutKey())
 }
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> ReadOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): ReadOneToManyKeyValueRepo<FromKey, FromValue> = MapperReadOneToManyKeyValueRepo(this, mapper)
+
 open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: WriteOneToManyKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -78,6 +83,11 @@ open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     override suspend fun clear(k: FromKey) = to.clear(k.toOutKey())
 }
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> WriteOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): WriteOneToManyKeyValueRepo<FromKey, FromValue> = MapperWriteOneToManyKeyValueRepo(this, mapper)
+
 open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: OneToManyKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -85,3 +95,8 @@ open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper,
     ReadOneToManyKeyValueRepo<FromKey, FromValue> by MapperReadOneToManyKeyValueRepo(to, mapper),
     WriteOneToManyKeyValueRepo<FromKey, FromValue> by MapperWriteOneToManyKeyValueRepo(to, mapper)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <FromKey, FromValue, ToKey, ToValue> OneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+): OneToManyKeyValueRepo<FromKey, FromValue> = MapperOneToManyKeyValueRepo(this, mapper)
