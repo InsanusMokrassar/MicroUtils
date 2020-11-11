@@ -13,10 +13,16 @@ bintray {
                 if (directorySubname == "kotlinMultiplatform") {
                     it.setPath("${project.name}/${project.version}/${project.name}-${project.version}.module")
                 } else {
-                    if (directorySubname.indexOf("android") != -1) {
-                        it.setPath("${project.name}-android/${project.version}/${project.name}-android-${project.version}.module")
-                    } else {
-                        it.setPath("${project.name}-${directorySubname}/${project.version}/${project.name}-${directorySubname}-${project.version}.module")
+                    switch (directorySubname) {
+                        case "androidRelease":
+                            it.setPath("${project.name}-android/${project.version}/${project.name}-android-${project.version}.module")
+                            break
+                        case "androidDebug":
+                            it.setPath("${project.name}-android-debug/${project.version}/${project.name}-android-debug-${project.version}.module")
+                            break
+                        default:
+                            it.setPath("${project.name}-${directorySubname}/${project.version}/${project.name}-${directorySubname}-${project.version}.module")
+                            break
                     }
                 }
             } else {
