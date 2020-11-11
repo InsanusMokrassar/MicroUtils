@@ -1,9 +1,22 @@
-language: java
+language: android
 install: true
 
 os: linux
 dist: trusty
 jdk: oraclejdk8
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-30.0.2
+    - android-30
+    - add-on
+    - extra
+
+before_script:
+  - yes | /usr/local/android-sdk/tools/bin/sdkmanager "build-tools;30.0.2"
+  - yes | /usr/local/android-sdk/tools/bin/sdkmanager "platforms;android-30"
 
 jobs:
   include:
