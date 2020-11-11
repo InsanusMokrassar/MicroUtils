@@ -56,7 +56,7 @@ inline fun <FromKey, FromValue, ToKey, ToValue> ReadStandardKeyValueRepo<ToKey, 
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ): ReadStandardKeyValueRepo<FromKey, FromValue> = MapperReadStandardKeyValueRepo(this, mapper)
 
-    open class MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
+open class MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: WriteStandardKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ) : WriteStandardKeyValueRepo<FromKey, FromValue>, MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper {
