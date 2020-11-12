@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3
+
+* `Coroutines`:
+    * New extension `Flow<T>#plus`
+
 ## 0.3.2
 
 * `Versions`:
