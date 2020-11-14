@@ -169,6 +169,33 @@ class OneToManyAndroidRepo<Key, Value>(
         )
     }
 
+    override suspend fun keys(
+        v: Value,
+        pagination: Pagination,
+        reversed: Boolean
+    ): PaginationResult<Key> = count().let { count ->
+        val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
+        helper.readableTransaction {
+            select(
+                tableName,
+                selection = "$valueColumnName=?",
+                selectionArgs = arrayOf(v.asValue()),
+                limit = resultPagination.limitClause()
+            ).use { c ->
+                mutableListOf<Key>().also {
+                    if (c.moveToFirst()) {
+                        do {
+                            it.add(c.getString(idColumnName).asKey())
+                        } while (c.moveToNext())
+                    }
+                }
+            }
+        }.createPaginationResult(
+            pagination,
+            count
+        )
+    }
+
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
         helper.writableTransaction {
             toRemove.flatMap { (k, vs) ->

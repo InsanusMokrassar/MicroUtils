@@ -42,6 +42,23 @@ open class MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         )
     }
 
+    override suspend fun keys(
+        v: FromValue,
+        pagination: Pagination,
+        reversed: Boolean
+    ): PaginationResult<FromKey> = to.keys(
+        v.toOutValue(),
+        pagination,
+        reversed
+    ).let {
+        PaginationResult(
+            it.page,
+            it.pagesNumber,
+            it.results.map { it.toInnerKey() },
+            it.size
+        )
+    }
+
     override suspend fun contains(k: FromKey): Boolean = to.contains(k.toOutKey())
     override suspend fun contains(k: FromKey, v: FromValue): Boolean = to.contains(k.toOutKey(), v.toOutValue())
 
@@ -53,6 +70,16 @@ open class MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
 inline fun <FromKey, FromValue, ToKey, ToValue> ReadOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ): ReadOneToManyKeyValueRepo<FromKey, FromValue> = MapperReadOneToManyKeyValueRepo(this, mapper)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+): ReadOneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+    mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
+)
 
 open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: WriteOneToManyKeyValueRepo<ToKey, ToValue>,
@@ -88,6 +115,16 @@ inline fun <FromKey, FromValue, ToKey, ToValue> WriteOneToManyKeyValueRepo<ToKey
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ): WriteOneToManyKeyValueRepo<FromKey, FromValue> = MapperWriteOneToManyKeyValueRepo(this, mapper)
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> WriteOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+): WriteOneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+    mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
+)
+
 open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: OneToManyKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -100,3 +137,13 @@ open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
 inline fun <FromKey, FromValue, ToKey, ToValue> OneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ): OneToManyKeyValueRepo<FromKey, FromValue> = MapperOneToManyKeyValueRepo(this, mapper)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> OneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+): OneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+    mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
+)

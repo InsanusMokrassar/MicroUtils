@@ -8,6 +8,7 @@ interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
     suspend fun values(pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
+    suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
     suspend fun contains(key: Key): Boolean
     suspend fun count(): Long
 }

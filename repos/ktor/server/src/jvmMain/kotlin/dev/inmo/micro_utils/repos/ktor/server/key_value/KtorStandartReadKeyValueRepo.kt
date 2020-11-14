@@ -1,11 +1,11 @@
 package dev.inmo.micro_utils.repos.ktor.server.key_value
 
-import dev.inmo.micro_utils.ktor.server.decodeUrlQueryValueOrSendError
-import dev.inmo.micro_utils.ktor.server.unianswer
+import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
+import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import io.ktor.application.call
 import io.ktor.routing.Route
 import io.ktor.routing.get
@@ -49,10 +49,11 @@ fun <K, V> Route.configureReadStandartKeyValueRepoRoutes (
             reversedParameterName,
             Boolean.serializer()
         ) ?: return@get
+        val value = call.decodeUrlQueryValue(valueParameterName, valueSerializer)
 
         call.unianswer(
             PaginationResult.serializer(keySerializer),
-            originalRepo.keys(parination, reversed)
+            value ?.let { originalRepo.keys(value, parination, reversed) } ?: originalRepo.keys(parination, reversed)
         )
     }
 

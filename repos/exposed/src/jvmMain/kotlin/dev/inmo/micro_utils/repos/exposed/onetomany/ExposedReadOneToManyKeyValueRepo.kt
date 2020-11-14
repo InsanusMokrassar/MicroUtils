@@ -39,6 +39,21 @@ open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
         count()
     )
 
+    override suspend fun keys(
+        v: Value,
+        pagination: Pagination,
+        reversed: Boolean
+    ): PaginationResult<Key> = transaction(database) {
+        select { valueColumn.eq(v) }.let {
+            it.count() to it.paginate(pagination, keyColumn, reversed).map { it[keyColumn] }
+        }
+    }.let { (count, list) ->
+        list.createPaginationResult(
+            pagination,
+            count
+        )
+    }
+
     override suspend fun contains(k: Key): Boolean = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).any()
     }

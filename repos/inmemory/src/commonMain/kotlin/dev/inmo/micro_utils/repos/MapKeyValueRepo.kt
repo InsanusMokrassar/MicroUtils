@@ -39,6 +39,18 @@ class ReadMapKeyValueRepo<Key, Value>(
         }
     }
 
+    override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
+        val keys: List<Key> = map.mapNotNull { (k, value) -> if (v == value) k else null }
+        val actualPagination = if (reversed) pagination.reverse(keys.size) else pagination
+        return keys.paginate(actualPagination).let {
+            if (reversed) {
+                it.copy(results = it.results.reversed())
+            } else {
+                it
+            }
+        }
+    }
+
     override suspend fun contains(key: Key): Boolean = map.containsKey(key)
 
     override suspend fun count(): Long = map.size.toLong()

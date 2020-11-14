@@ -96,6 +96,20 @@ class KeyValueStore<T : Any> internal constructor (
         }
     }
 
+    override suspend fun keys(v: T, pagination: Pagination, reversed: Boolean): PaginationResult<String> {
+        val resultPagination = if (reversed) pagination.reverse(count()) else pagination
+        return sharedPreferences.all.mapNotNull { (k, value) -> if (value == v) k else null }.paginate(
+            resultPagination
+        ).let {
+            PaginationResult(
+                it.page,
+                it.pagesNumber,
+                it.results.let { if (reversed) it.reversed() else it },
+                it.size
+            )
+        }
+    }
+
     override suspend fun contains(key: String): Boolean = sharedPreferences.contains(key)
 
     override suspend fun count(): Long = sharedPreferences.all.size.toLong()

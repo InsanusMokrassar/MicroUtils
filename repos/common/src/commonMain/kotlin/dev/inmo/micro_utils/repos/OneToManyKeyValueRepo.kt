@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key, pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
+    suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
     suspend fun contains(k: Key): Boolean
     suspend fun contains(k: Key, v: Value): Boolean
     suspend fun count(k: Key): Long
