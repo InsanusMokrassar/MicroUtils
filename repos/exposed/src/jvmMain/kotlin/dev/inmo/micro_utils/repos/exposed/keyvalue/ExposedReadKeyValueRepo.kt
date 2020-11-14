@@ -33,6 +33,16 @@ open class ExposedReadKeyValueRepo<Key, Value>(
         }
     }.createPaginationResult(pagination, count())
 
+    override suspend fun keys(value: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
+        select { valueColumn.eq(value) }.let {
+            it.count() to it.paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
+                it[keyColumn]
+            }
+        }
+    }.let { (count, list) ->
+        list.createPaginationResult(pagination, count)
+    }
+
     override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = transaction(database) {
         selectAll().paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
             it[valueColumn]

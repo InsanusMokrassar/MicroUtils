@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.ktor.common.buildStandardUrl
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
+import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
@@ -44,6 +45,18 @@ class KtorReadStandardKeyValueRepo<Key, Value> (
             baseUrl,
             keysRoute,
             mapOf(
+                reversedParameterName to Boolean.serializer().encodeUrlQueryValue(reversed)
+            ) + pagination.asUrlQueryParts
+        ),
+        PaginationResult.serializer(keySerializer)
+    )
+
+    override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = client.uniget(
+        buildStandardUrl(
+            baseUrl,
+            keysRoute,
+            mapOf(
+                valueParameterName to valueSerializer.encodeUrlQueryValue(v),
                 reversedParameterName to Boolean.serializer().encodeUrlQueryValue(reversed)
             ) + pagination.asUrlQueryParts
         ),

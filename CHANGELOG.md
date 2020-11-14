@@ -5,6 +5,8 @@
 * `Repos`:
     * `ReadOneToManyKeyValueRepo` got `keys` method with value parameter
         * All implementations inside of this library has been updated
+    * `ReadStandardKeyValueRepo` got `keys` method with value parameter
+        * All implementations inside of this library has been updated
 
 ## 0.3.3
 

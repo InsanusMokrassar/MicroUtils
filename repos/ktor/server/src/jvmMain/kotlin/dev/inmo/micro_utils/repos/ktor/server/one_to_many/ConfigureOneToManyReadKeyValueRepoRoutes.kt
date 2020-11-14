@@ -4,7 +4,11 @@ import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ktor.common.*
+import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
+import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
+import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.application.call
 import io.ktor.routing.Route
 import io.ktor.routing.get
@@ -47,14 +51,9 @@ fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
             valueSealizer
         )
 
-        value ?.also {
-            call.unianswer(
-                paginationKeyResult,
-                originalRepo.keys(value, pagination, reversed)
-            )
-        } ?: call.unianswer(
+        call.unianswer(
             paginationKeyResult,
-            originalRepo.keys(pagination, reversed)
+            value ?.let { originalRepo.keys(value, pagination, reversed) } ?: originalRepo.keys(pagination, reversed)
         )
     }
 

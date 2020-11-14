@@ -44,6 +44,23 @@ open class MapperReadStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         )
     }
 
+    override suspend fun keys(
+        v: FromValue,
+        pagination: Pagination,
+        reversed: Boolean
+    ): PaginationResult<FromKey> = to.keys(
+        v.toOutValue(),
+        pagination,
+        reversed
+    ).let {
+        PaginationResult(
+            it.page,
+            it.pagesNumber,
+            it.results.map { it.toInnerKey() },
+            it.size
+        )
+    }
+
     override suspend fun contains(key: FromKey): Boolean = to.contains(
         key.toOutKey()
     )

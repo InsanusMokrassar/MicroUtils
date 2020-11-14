@@ -5,7 +5,10 @@ import dev.inmo.micro_utils.ktor.client.uniget
 import dev.inmo.micro_utils.ktor.common.buildStandardUrl
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
+import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
+import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
