@@ -7,6 +7,7 @@
         * All implementations inside of this library has been updated
     * `ReadStandardKeyValueRepo` got `keys` method with value parameter
         * All implementations inside of this library has been updated
+    * New extensions `withMapper`
 
 ## 0.3.3
 
