@@ -42,8 +42,17 @@ fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
             reversedParameterName,
             Boolean.serializer()
         ) ?: false
+        val value: Value? = call.decodeUrlQueryValue(
+            valueParameterName,
+            valueSealizer
+        )
 
-        call.unianswer(
+        value ?.also {
+            call.unianswer(
+                paginationKeyResult,
+                originalRepo.keys(value, pagination, reversed)
+            )
+        } ?: call.unianswer(
             paginationKeyResult,
             originalRepo.keys(pagination, reversed)
         )

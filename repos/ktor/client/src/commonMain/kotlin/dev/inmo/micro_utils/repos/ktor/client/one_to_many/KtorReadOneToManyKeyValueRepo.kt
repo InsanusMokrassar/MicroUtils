@@ -42,6 +42,18 @@ class KtorReadOneToManyKeyValueRepo<Key, Value> (
         paginationKeyResultSerializer
     )
 
+    override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = client.uniget(
+        buildStandardUrl(
+            baseUrl,
+            keysRoute,
+            mapOf(
+                valueParameterName to valueSerializer.encodeUrlQueryValue(v),
+                reversedParameterName to Boolean.serializer().encodeUrlQueryValue(reversed)
+            ) + pagination.asUrlQueryParts
+        ),
+        paginationKeyResultSerializer
+    )
+
     override suspend fun contains(k: Key): Boolean = client.uniget(
         buildStandardUrl(
             baseUrl,
