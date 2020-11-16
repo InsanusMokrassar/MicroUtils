@@ -2,8 +2,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
-import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
-import dev.inmo.micro_utils.repos.exposed.ExposedRepo
+import dev.inmo.micro_utils.repos.exposed.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -16,6 +15,8 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     protected val keyColumn: Column<Key> = keyColumnAllocator()
     protected val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
+
+    init { initTable() }
 
     override suspend fun get(k: Key): Value? = transaction(database) {
         select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)
@@ -33,8 +34,8 @@ open class ExposedReadKeyValueRepo<Key, Value>(
         }
     }.createPaginationResult(pagination, count())
 
-    override suspend fun keys(value: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
-        select { valueColumn.eq(value) }.let {
+    override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
+        select { valueColumn.eq(v) }.let {
             it.count() to it.paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
                 it[keyColumn]
             }

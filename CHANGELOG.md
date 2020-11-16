@@ -4,6 +4,7 @@
 
 * `Repos`:
     * Fixed error in `ExposedKeyValueRepo` related to negative size of shared flow
+    * Fixed error in `ExposedKeyValueRepo` related to avoiding of table initiation
 
 ## 0.4.0
 

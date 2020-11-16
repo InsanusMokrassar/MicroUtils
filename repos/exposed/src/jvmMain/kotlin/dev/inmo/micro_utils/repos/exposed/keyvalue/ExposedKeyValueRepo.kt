@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import dev.inmo.micro_utils.repos.exposed.initTable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
