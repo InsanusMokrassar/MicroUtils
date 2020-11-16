@@ -18,8 +18,8 @@ open class ExposedKeyValueRepo<Key, Value>(
     valueColumnAllocator,
     tableName
 ) {
-    private val _onNewValue = MutableSharedFlow<Pair<Key, Value>>(Channel.BUFFERED)
-    private val _onValueRemoved = MutableSharedFlow<Key>(Channel.BUFFERED)
+    private val _onNewValue = MutableSharedFlow<Pair<Key, Value>>()
+    private val _onValueRemoved = MutableSharedFlow<Key>()
 
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()

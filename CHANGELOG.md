@@ -2,6 +2,9 @@
 
 ## 0.4.1
 
+* `Repos`:
+    * Fixed error in `ExposedKeyValueRepo` related to negative size of shared flow
+
 ## 0.4.0
 
 * `Repos`:
