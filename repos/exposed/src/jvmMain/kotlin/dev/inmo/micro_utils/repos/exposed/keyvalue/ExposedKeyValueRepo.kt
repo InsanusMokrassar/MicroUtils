@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import dev.inmo.micro_utils.repos.exposed.initTable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
@@ -18,8 +19,8 @@ open class ExposedKeyValueRepo<Key, Value>(
     valueColumnAllocator,
     tableName
 ) {
-    private val _onNewValue = MutableSharedFlow<Pair<Key, Value>>(Channel.BUFFERED)
-    private val _onValueRemoved = MutableSharedFlow<Key>(Channel.BUFFERED)
+    private val _onNewValue = MutableSharedFlow<Pair<Key, Value>>()
+    private val _onValueRemoved = MutableSharedFlow<Key>()
 
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
