@@ -107,6 +107,12 @@ open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         }.toMap()
     )
 
+    override suspend fun set(toSet: Map<FromKey, List<FromValue>>) {
+        to.set(
+            toSet.map { (k, vs) -> k.toOutKey() to vs.map { v -> v.toOutValue() } }.toMap()
+        )
+    }
+
     override suspend fun clear(k: FromKey) = to.clear(k.toOutKey())
 }
 

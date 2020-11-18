@@ -61,4 +61,13 @@ fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
             originalRepo.clear(key),
         )
     }
+
+    post(setRoute) {
+        val obj = call.uniload(keyValueMapSerializer)
+
+        call.unianswer(
+            Unit.serializer(),
+            originalRepo.set(obj)
+        )
+    }
 }
