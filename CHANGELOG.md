@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+* `Repos`:
+    * Add `WriteOneToManyKeyValueRepo#set` function and extensions
+
 ## 0.4.1
 
 * `Repos`:

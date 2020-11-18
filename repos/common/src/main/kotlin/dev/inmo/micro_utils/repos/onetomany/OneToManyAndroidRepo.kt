@@ -87,6 +87,29 @@ class OneToManyAndroidRepo<Key, Value>(
         }
     }
 
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        val (clearedKeys, inserted) = helper.writableTransaction {
+            toSet.mapNotNull { (k, _) ->
+                if (delete(tableName, "$idColumnName=?", arrayOf(k.asId())) > 0) {
+                    k
+                } else {
+                    null
+                }
+            } to toSet.flatMap { (k, values) ->
+                values.map { v ->
+                    insert(
+                        tableName,
+                        null,
+                        contentValuesOf(idColumnName to k.asId(), valueColumnName to v.asValue())
+                    )
+                    k to v
+                }
+            }
+        }
+        clearedKeys.forEach { _onDataCleared.emit(it) }
+        inserted.forEach { newPair -> _onNewValue.emit(newPair) }
+    }
+
     override suspend fun contains(k: Key): Boolean = helper.readableTransaction {
         select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.asId()), limit = FirstPagePagination(1).limitClause()).use {
             it.count > 0

@@ -42,17 +42,26 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
     override suspend fun add(toAdd: Map<Key, List<Value>>) = client.unipost(
         buildStandardUrl(
             baseUrl,
-            clearRoute,
+            addRoute,
         ),
         BodyPair(keyValueMapSerializer, toAdd),
         Unit.serializer(),
     )
-    override suspend fun clear(k: Key)  = client.unipost(
+    override suspend fun clear(k: Key) = client.unipost(
         buildStandardUrl(
             baseUrl,
             clearRoute,
         ),
         BodyPair(keySerializer, k),
+        Unit.serializer(),
+    )
+
+    override suspend fun set(toSet: Map<Key, List<Value>>) = client.unipost(
+        buildStandardUrl(
+            baseUrl,
+            setRoute,
+        ),
+        BodyPair(keyValueMapSerializer, toSet),
         Unit.serializer(),
     )
 }
