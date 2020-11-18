@@ -1,69 +1,72 @@
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
-apply from: "$publishMavenPath"
-
-bintray {
-    user = project.hasProperty('BINTRAY_USER') ? project.property('BINTRAY_USER') : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('BINTRAY_KEY') ? project.property('BINTRAY_KEY') : System.getenv('BINTRAY_KEY')
-    filesSpec {
-        from "${buildDir}/publications/"
-        eachFile {
-            String directorySubname = it.getFile().parentFile.name
-            if (it.getName() == "module.json") {
-                if (directorySubname == "kotlinMultiplatform") {
-                    it.setPath("${project.name}/${project.version}/${project.name}-${project.version}.module")
-                } else {
-                    switch (directorySubname) {
-                        case "androidRelease":
-                            it.setPath("${project.name}-android/${project.version}/${project.name}-android-${project.version}.module")
-                            break
-                        case "androidDebug":
-                            it.setPath("${project.name}-android-debug/${project.version}/${project.name}-android-debug-${project.version}.module")
-                            break
-                        default:
-                            it.setPath("${project.name}-${directorySubname}/${project.version}/${project.name}-${directorySubname}-${project.version}.module")
-                            break
-                    }
-                }
-            } else {
-                if (directorySubname == "kotlinMultiplatform" && it.getName() == "pom-default.xml") {
-                    it.setPath("${project.name}/${project.version}/${project.name}-${project.version}.pom")
-                } else {
-                    it.exclude()
-                }
-            }
-        }
-        into "${project.group}".replace(".", "/")
-    }
-    
-    publish = true
-    override = true
-    
-    pkg {
-        repo = "MicroUtils"
-        name = "${project.name}"
-        vcsUrl = "https://github.com/InsanusMokrassar/MicroUtils"
-        licenses = ["Apache-2.0"]
-        version {
-            name = "${project.version}"
-            released = new Date()
-            vcsTag = "${project.version}"
-            gpg {
-                sign = true
-                passphrase = project.hasProperty('signing.gnupg.passphrase') ? project.property('signing.gnupg.passphrase') : System.getenv('signing.gnupg.passphrase')
-            }
-        }
-    }
+task javadocsJar(type: Jar) {
+    classifier = 'javadoc'
 }
 
-bintrayUpload.doFirst {
-    publications = publishing.publications.collect {
+afterEvaluate {
+    project.publishing.publications.all {
+        // rename artifacts
+        groupId "${project.group}"
         if (it.name.contains('kotlinMultiplatform')) {
-            null
+            artifactId = "${project.name}"
         } else {
-            it.name
+            artifactId = "${project.name}-$name"
         }
-    } - null
+    }
 }
 
-bintrayUpload.dependsOn publishToMavenLocal
+publishing {
+    publications.all {
+        artifact javadocsJar
+
+        pom {
+            description = ""
+            name = "${project.name}"
+            url = "https://git.inmo.dev/InsanusMokrassar/MicroUtils_mirror"
+
+            scm {
+                developerConnection = "scm:git:[fetch=]ssh://git@git.inmo.dev:8322/InsanusMokrassar/MicroUtils_mirror.git[push=]ssh://git@git.inmo.dev:8322/InsanusMokrassar/MicroUtils_mirror.git"
+                url = "ssh://git@git.inmo.dev:8322/InsanusMokrassar/MicroUtils_mirror.git"
+            }
+
+            developers {
+                
+                    developer {
+                        id = "InsanusMokrassar"
+                        name = "Aleksei Ovsiannikov"
+                        email = "ovsyannikov.alexey95@gmail.com"
+                    }
+                
+
+                    developer {
+                        id = "000Sanya"
+                        name = "Syrov Aleksandr"
+                        email = "000sanya.000sanya@gmail.com"
+                    }
+                
+            }
+
+            licenses {
+                
+                    license {
+                        name = "Apache Software License 2.0"
+                        url = "https://git.inmo.dev/InsanusMokrassar/MicroUtils_mirror/src/master/LICENSE"
+                    }
+                
+            }
+        }
+        
+        repositories {
+            maven {
+                name = "bintray"
+                url = uri("https://api.bintray.com/maven/${project.hasProperty('BINTRAY_USER') ? project.property('BINTRAY_USER') : System.getenv('BINTRAY_USER')}/MicroUtils/${project.name}/;publish=1;override=1")
+                credentials {
+                    username = project.hasProperty('BINTRAY_USER') ? project.property('BINTRAY_USER') : System.getenv('BINTRAY_USER')
+                    password = project.hasProperty('BINTRAY_KEY') ? project.property('BINTRAY_KEY') : System.getenv('BINTRAY_KEY')
+                }
+            }
+        }
+        
+    }
+}
