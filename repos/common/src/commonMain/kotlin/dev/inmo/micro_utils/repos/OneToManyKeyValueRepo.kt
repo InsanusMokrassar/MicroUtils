@@ -47,6 +47,11 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     suspend fun remove(toRemove: Map<Key, List<Value>>)
 
     suspend fun clear(k: Key)
+
+    suspend fun set(toSet: Map<Key, List<Value>>) {
+        toSet.keys.forEach { key -> clear(key) }
+        add(toSet)
+    }
 }
 
 suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
@@ -64,6 +69,22 @@ suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
 suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
     k: Key, vararg v: Value
 ) = add(k, v.toList())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.set(
+    keysAndValues: List<Pair<Key, List<Value>>>
+) = set(keysAndValues.toMap())
+
+suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.set(
+    vararg keysAndValues: Pair<Key, List<Value>>
+) = set(keysAndValues.toMap())
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
+    k: Key, v: List<Value>
+) = set(mapOf(k to v))
+
+suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
+    k: Key, vararg v: Value
+) = set(k, v.toList())
 
 interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>
 
