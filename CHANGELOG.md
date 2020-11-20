@@ -2,6 +2,11 @@
 
 ## 0.4.3
 
+* `Common`:
+    * Two new extensions for Android:
+        * `Resources#getSp`
+        * `Resources#getDp`
+
 ## 0.4.2
 
 * `Repos`:
