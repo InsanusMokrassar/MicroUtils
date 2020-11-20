@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.3
+
+* `Versions`:
+    * `Kotlin`: `1.4.10` -> `1.4.20`
+* `Common`:
+    * Two new extensions for Android:
+        * `Resources#getSp`
+        * `Resources#getDp`
+
 ## 0.4.2
 
 * `Repos`:

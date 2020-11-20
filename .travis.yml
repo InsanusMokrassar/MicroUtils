@@ -22,5 +22,6 @@ jobs:
   include:
     - stage: build
       script: ./gradlew build -s -x jvmTest -x jsIrTest -x jsIrBrowserTest -x jsIrNodeTest -x jsLegacyTest -x jsLegacyBrowserTest -x jsLegacyNodeTest
-    - state: test
-      script: ./gradlew allTests
+#    Tests are temporarily disabled on public travis due to the problems of launching
+#    - state: test
+#      script: ./gradlew allTests
