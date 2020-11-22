@@ -11,7 +11,8 @@
         * Add default realization of `StandardVersionsRepoProxy` based on `KeyValue` repos
         * Add realizations of `StandardVersionsRepoProxy` for exposed and android (`SQL` and `SharedPreferences`)
     * `Commons`:
-        * In Android
+        * In Android fully reworked transactions functions
+        * Now `DatabaseCoroutineContext` is a shortcut for `Dispatchers.IO`
 
 ## 0.4.3
 
