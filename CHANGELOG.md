@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.4
+
+* `Versions`:
+    * `Klock`: `1.12.1` -> `2.0.0`
+* `Repos`:
+    * Add interface `VersionsRepo`
+        * Add default realization of `VersionsRepo` named `StandardVersionsRepo` which use `StandardVersionsRepoProxy`
+        to get access to some end-store
+        * Add default realization of `StandardVersionsRepoProxy` based on `KeyValue` repos
+        * Add realizations of `StandardVersionsRepoProxy` for exposed and android (`SQL` and `SharedPreferences`)
+    * `Commons`:
+        * In Android fully reworked transactions functions
+        * Now `DatabaseCoroutineContext` is a shortcut for `Dispatchers.IO`
+
 ## 0.4.3
 
 * `Versions`:

@@ -2,26 +2,68 @@ package dev.inmo.micro_utils.repos
 
 import android.database.sqlite.SQLiteDatabase
 import dev.inmo.micro_utils.coroutines.safely
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
+
+private object ContextsPool {
+    private val contexts = mutableListOf<CoroutineContext>()
+    private val mutex = Mutex(locked = false)
+    private val freeContexts = mutableListOf<CoroutineContext>()
+
+    suspend fun acquireContext(): CoroutineContext {
+        return mutex.withLock {
+            freeContexts.removeFirstOrNull() ?: Executors.newSingleThreadExecutor().asCoroutineDispatcher().also {
+                contexts.add(it)
+            }
+        }
+    }
+
+    suspend fun freeContext(context: CoroutineContext) {
+        return mutex.withLock {
+            if (context in contexts && context !in freeContexts) {
+                freeContexts.add(context)
+            }
+        }
+    }
+
+    suspend fun <T> use(block: suspend (CoroutineContext) -> T): T = acquireContext().let {
+        try {
+            block(it)
+        } finally {
+            freeContext(it)
+        }
+    }
+}
+
+class TransactionContext(
+    val databaseContext: CoroutineContext
+): CoroutineContext.Element {
+    override val key: CoroutineContext.Key<TransactionContext> = TransactionContext
+
+    companion object : CoroutineContext.Key<TransactionContext>
+}
 
 suspend fun <T> SQLiteDatabase.transaction(block: suspend SQLiteDatabase.() -> T): T {
-    return withContext(DatabaseCoroutineContext) {
-        when {
-            inTransaction() -> {
-                block()
-            }
-            else -> {
-                beginTransaction()
-                safely(
-                    {
-                        endTransaction()
-                        throw it
-                    }
-                ) {
-                    block().also {
-                        setTransactionSuccessful()
-                        endTransaction()
-                    }
+    return coroutineContext[TransactionContext] ?.let {
+        withContext(it.databaseContext) {
+            block()
+        }
+    } ?: ContextsPool.use { context ->
+        withContext(TransactionContext(context) + context) {
+            beginTransaction()
+            safely(
+                {
+                    endTransaction()
+                    throw it
+                }
+            ) {
+                block().also {
+                    setTransactionSuccessful()
+                    endTransaction()
                 }
             }
         }
