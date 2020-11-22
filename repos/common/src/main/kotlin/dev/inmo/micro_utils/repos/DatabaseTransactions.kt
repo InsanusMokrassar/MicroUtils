@@ -2,33 +2,36 @@ package dev.inmo.micro_utils.repos
 
 import android.database.sqlite.SQLiteDatabase
 import dev.inmo.micro_utils.coroutines.safely
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 
-object InTransaction: CoroutineContext.Element, CoroutineContext.Key<InTransaction> {
-    override val key: CoroutineContext.Key<InTransaction> = InTransaction
+class TransactionContext(
+    val databaseContext: CoroutineContext
+): CoroutineContext.Element {
+    override val key: CoroutineContext.Key<TransactionContext> = TransactionContext
+
+    companion object : CoroutineContext.Key<TransactionContext>
 }
 
 suspend fun <T> SQLiteDatabase.transaction(block: suspend SQLiteDatabase.() -> T): T {
-    return when {
-        coroutineContext[InTransaction] == InTransaction -> {
+    return coroutineContext[TransactionContext] ?.let {
+        withContext(it.databaseContext) {
             block()
         }
-        else -> {
-            withContext(InTransaction) {
-                beginTransaction()
-                safely(
-                    {
-                        endTransaction()
-                        throw it
-                    }
-                ) {
-                    block().also {
-                        setTransactionSuccessful()
-                        endTransaction()
-                    }
+    } ?: Executors.newSingleThreadExecutor().asCoroutineDispatcher().let { context ->
+        withContext(TransactionContext(context) + context) {
+            beginTransaction()
+            safely(
+                {
+                    endTransaction()
+                    throw it
+                }
+            ) {
+                block().also {
+                    setTransactionSuccessful()
+                    endTransaction()
                 }
             }
         }
