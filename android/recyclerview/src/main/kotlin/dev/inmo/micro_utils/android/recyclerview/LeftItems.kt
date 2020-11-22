@@ -1,14 +1,20 @@
 package dev.inmo.micro_utils.android.recyclerview
 
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+
+@Suppress("NOTHING_TO_INLINE")
+private inline fun RecyclerView.LayoutManager.findLastVisibleItemPositionGetter(): (() -> Int)? = when (this) {
+    is LinearLayoutManager -> ::findLastVisibleItemPosition
+    is GridLayoutManager -> ::findLastVisibleItemPosition
+    else -> null
+}
 
 fun RecyclerView.lastVisibleItemFlow(
     completingScope: CoroutineScope
 ): Flow<Int> {
-    val lastVisibleElementFun: () -> Int = (layoutManager as? LinearLayoutManager) ?.let { it::findLastVisibleItemPosition } ?: error("Currently supported only linear layout manager")
+    val lastVisibleElementFun: () -> Int = layoutManager ?.findLastVisibleItemPositionGetter() ?: error("Currently supported only linear layout manager")
     val lastVisibleFlow = MutableStateFlow(lastVisibleElementFun())
     addOnScrollListener(
         object : RecyclerView.OnScrollListener() {

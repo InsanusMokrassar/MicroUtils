@@ -4,6 +4,8 @@
 
 * `Versions`:
     * `Klock`: `1.12.1` -> `2.0.0`
+* `Commons`:
+    * Update left items functionality to include work with `GridLayoutManager`
 * `Repos`:
     * Add interface `VersionsRepo`
         * Add default realization of `VersionsRepo` named `StandardVersionsRepo` which use `StandardVersionsRepoProxy`
