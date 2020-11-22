@@ -25,7 +25,7 @@ interface VersionsRepo<T> : Repo {
     suspend fun setTableVersion(
         tableName: String,
         version: Int,
-        onCreate: suspend T.() -> Unit,
-        onUpdate: suspend T.(from: Int, to: Int) -> Unit
+        onCreate: suspend T.() -> Unit = {},
+        onUpdate: suspend T.(from: Int, to: Int) -> Unit = { _, _ ->}
     )
 }
