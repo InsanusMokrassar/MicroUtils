@@ -14,7 +14,7 @@ private inline fun RecyclerView.LayoutManager.findLastVisibleItemPositionGetter(
 fun RecyclerView.lastVisibleItemFlow(
     completingScope: CoroutineScope
 ): Flow<Int> {
-    val lastVisibleElementFun: () -> Int = layoutManager ?.findLastVisibleItemPositionGetter() ?: error("Currently supported only linear layout manager")
+    val lastVisibleElementFun: () -> Int = layoutManager ?.findLastVisibleItemPositionGetter() ?: error("Currently supported only linear and grid layout manager")
     val lastVisibleFlow = MutableStateFlow(lastVisibleElementFun())
     addOnScrollListener(
         object : RecyclerView.OnScrollListener() {
