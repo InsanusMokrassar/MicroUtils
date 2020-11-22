@@ -26,7 +26,7 @@ class AndroidSQLStandardVersionsRepoProxy(
                 createTable(
                     tableName,
                     tableNameColumnName to ColumnType.Text.NOT_NULLABLE,
-                        tableVersionColumnName to ColumnType.Numeric.INTEGER()
+                    tableVersionColumnName to ColumnType.Numeric.INTEGER()
                 )
             }
         }

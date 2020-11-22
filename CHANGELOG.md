@@ -10,6 +10,8 @@
         to get access to some end-store
         * Add default realization of `StandardVersionsRepoProxy` based on `KeyValue` repos
         * Add realizations of `StandardVersionsRepoProxy` for exposed and android (`SQL` and `SharedPreferences`)
+    * `Commons`:
+        * In Android
 
 ## 0.4.3
 
