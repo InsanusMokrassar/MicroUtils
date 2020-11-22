@@ -2,6 +2,8 @@
 
 ## 0.4.4
 
+* `Versions`:
+    * `Klock`: `1.12.1` -> `2.0.0`
 * `Repos`:
     * Add interface `VersionsRepo`
         * Add default realization of `VersionsRepo` named `StandardVersionsRepo` which use `StandardVersionsRepoProxy`
