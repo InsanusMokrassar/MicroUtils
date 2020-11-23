@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.5
+
+* `Android`
+    * `Alerts`
+        * `Common`
+            * Project has been created
+        * `RecyclerView`
+            * Project has been created
+* `Common`
+    * Annotation `PreviewFeature` has been added
+    * `Android`
+        * Added tools to work with visibility in more comfortable way
+        * Added tools to work with disabled/enabled state in more comfortable way
+        * Added tools to work with expanded/collapsed state in more comfortable way (in preview mode)
+
 ## 0.4.4
 
 * `Versions`:

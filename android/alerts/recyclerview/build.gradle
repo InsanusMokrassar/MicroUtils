@@ -4,14 +4,14 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppAndroidProjectPresetPath"
 
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api internalProject("micro_utils.repos.common")
-                api internalProject("micro_utils.coroutines")
+                api internalProject("micro_utils.android.alerts.common")
+                api internalProject("micro_utils.android.recyclerview")
             }
         }
     }

@@ -4,14 +4,13 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppAndroidProjectPresetPath"
 
 kotlin {
     sourceSets {
-        commonMain {
+        androidMain {
             dependencies {
-                api internalProject("micro_utils.repos.common")
-                api internalProject("micro_utils.coroutines")
+                api "androidx.appcompat:appcompat-resources:$appcompat_version"
             }
         }
     }
