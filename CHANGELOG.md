@@ -5,6 +5,9 @@
 * `Android`
     * `Alerts`
         * Project has been created
+    * `RecyclerView`
+        * `Alerts`
+            * Project has been created
 * `Common`
     * Annotation `PreviewFeature` has been added
     * `Android`
