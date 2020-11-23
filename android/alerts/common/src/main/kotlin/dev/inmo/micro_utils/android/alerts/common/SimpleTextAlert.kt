@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 
-package dev.inmo.micro_utils.android.alerts
+package dev.inmo.micro_utils.android.alerts.common
 
 import android.app.AlertDialog
 import android.content.Context

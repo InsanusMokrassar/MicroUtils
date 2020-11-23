@@ -10,8 +10,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api internalProject("micro_utils.android.alerts.common")
                 api internalProject("micro_utils.android.recyclerview")
-                api internalProject("micro_utils.android.alerts")
             }
         }
     }

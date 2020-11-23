@@ -4,9 +4,9 @@
 
 * `Android`
     * `Alerts`
-        * Project has been created
-    * `RecyclerView`
-        * `Alerts`
+        * `Common`
+            * Project has been created
+        * `RecyclerView`
             * Project has been created
 * `Common`
     * Annotation `PreviewFeature` has been added

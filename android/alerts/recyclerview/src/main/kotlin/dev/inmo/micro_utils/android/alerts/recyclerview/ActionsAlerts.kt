@@ -1,13 +1,13 @@
 @file:Suppress("unused")
 
-package dev.inmo.micro_utils.android.recyclerview.alerts
+package dev.inmo.micro_utils.android.alerts.recyclerview
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.ViewGroup
 import android.widget.TextView
-import dev.inmo.micro_utils.android.alerts.AlertDialogCallback
+import dev.inmo.micro_utils.android.alerts.common.AlertDialogCallback
 import dev.inmo.micro_utils.android.recyclerview.*
 
 data class AlertAction(

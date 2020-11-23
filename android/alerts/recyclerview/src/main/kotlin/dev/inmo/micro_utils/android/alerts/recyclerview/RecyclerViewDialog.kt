@@ -1,13 +1,12 @@
-package dev.inmo.micro_utils.android.recyclerview.alerts
+package dev.inmo.micro_utils.android.alerts.recyclerview
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.inmo.micro_utils.android.alerts.AlertDialogCallback
-import dev.inmo.micro_utils.android.alerts.createCustomViewAlertDialogWithResources
+import dev.inmo.micro_utils.android.alerts.common.AlertDialogCallback
+import dev.inmo.micro_utils.android.alerts.common.createCustomViewAlertDialogWithResources
 
 fun Context.createRecyclerViewDialog(
     title: Int? = null,
