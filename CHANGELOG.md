@@ -2,6 +2,10 @@
 
 ## 0.4.5
 
+* `Android`
+    * `Alerts`
+        * Project has been created
+
 ## 0.4.4
 
 * `Versions`:

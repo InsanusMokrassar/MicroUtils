@@ -1,0 +1,17 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+}
+
+apply from: "$mppAndroidProjectPresetPath"
+
+kotlin {
+    sourceSets {
+        androidMain {
+            dependencies {
+                api "androidx.appcompat:appcompat-resources:$appcompat_version"
+            }
+        }
+    }
+}
