@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.4.6
+
+* `Common`
+    * New annotation `Warning` has been added
+* `Pagination`
+    * `Common`
+        * `Pagination` got new extension: `Pagination#isFirstPage`
+* `Coroutines`:
+    * New extension `FlowCollector#invoke` has been added
+* `Repos`
+    * `Common`
+        * `JVM` (and `Android` since `Android API 26`):
+            * `FileStandardKeyValueRepo` has been added
+        * Add several `typealias`es for each type of repos
+
 ## 0.4.5
 
 * `Android`

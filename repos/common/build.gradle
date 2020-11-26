@@ -17,6 +17,11 @@ kotlin {
             }
         }
 
+        jvmMain {
+            dependencies {
+                api internalProject("micro_utils.common")
+            }
+        }
         androidMain {
             dependencies {
                 api "androidx.core:core-ktx:$core_ktx_version"

@@ -36,6 +36,7 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
         }
     }
 }
+typealias ReadKeyValuesRepo<Key,Value> = ReadOneToManyKeyValueRepo<Key, Value>
 
 interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
@@ -53,6 +54,7 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
         add(toSet)
     }
 }
+typealias WriteKeyValuesRepo<Key,Value> = WriteOneToManyKeyValueRepo<Key, Value>
 
 suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
     keysAndValues: List<Pair<Key, List<Value>>>
@@ -87,6 +89,7 @@ suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
 ) = set(k, v.toList())
 
 interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>
+typealias KeyValuesRepo<Key,Value> = OneToManyKeyValueRepo<Key, Value>
 
 suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
     keysAndValues: List<Pair<Key, List<Value>>>

@@ -23,6 +23,12 @@ interface Pagination {
 }
 
 /**
+ * Logical shortcut for comparison that page is 0
+ */
+inline val Pagination.isFirstPage
+    get() = page == 0
+
+/**
  * First number in index of objects. It can be used as offset for databases or other data sources
  */
 val Pagination.firstIndex: Int
