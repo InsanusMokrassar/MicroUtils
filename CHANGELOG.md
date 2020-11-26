@@ -7,6 +7,10 @@
         * `Pagination` got new extension: `Pagination#isFirstPage`
 * `Coroutines`:
     * New extension `FlowCollector#invoke` has been added
+* `Repos`
+    * `Common`
+        * `JVM` (and `Android` since `Android API 26`):
+            * `FileStandardKeyValueRepo` has been added
 
 ## 0.4.5
 
