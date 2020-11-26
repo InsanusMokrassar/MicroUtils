@@ -2,6 +2,10 @@
 
 ## 0.4.6
 
+* `Pagination`
+    * `Common`
+        * `Pagination` got new extension: `Pagination#isFirstPage`
+
 ## 0.4.5
 
 * `Android`
