@@ -11,6 +11,7 @@
     * `Common`
         * `JVM` (and `Android` since `Android API 26`):
             * `FileStandardKeyValueRepo` has been added
+        * Add several `typealias`es for each type of repos
 
 ## 0.4.5
 

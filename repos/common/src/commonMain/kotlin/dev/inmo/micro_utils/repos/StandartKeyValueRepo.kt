@@ -12,6 +12,7 @@ interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun contains(key: Key): Boolean
     suspend fun count(): Long
 }
+typealias ReadKeyValueRepo<Key,Value> = ReadStandardKeyValueRepo<Key, Value>
 
 interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
@@ -20,6 +21,7 @@ interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun set(toSet: Map<Key, Value>)
     suspend fun unset(toUnset: List<Key>)
 }
+typealias WriteKeyValueRepo<Key,Value> = WriteStandardKeyValueRepo<Key, Value>
 
 suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.set(
     vararg toSet: Pair<Key, Value>
@@ -34,3 +36,4 @@ suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unset(
 ) = unset(k.toList())
 
 interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value>
+typealias KeyValueRepo<Key,Value> = StandardKeyValueRepo<Key, Value>

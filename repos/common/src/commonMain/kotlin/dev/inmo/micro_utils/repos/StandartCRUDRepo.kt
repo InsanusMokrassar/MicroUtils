@@ -10,6 +10,7 @@ interface ReadStandardCRUDRepo<ObjectType, IdType> : Repo {
     suspend fun contains(id: IdType): Boolean
     suspend fun count(): Long
 }
+typealias ReadCRUDRepo<ObjectType, IdType> = ReadStandardCRUDRepo<ObjectType, IdType>
 
 typealias UpdatedValuePair<IdType, ValueType> = Pair<IdType, ValueType>
 val <IdType> UpdatedValuePair<IdType, *>.id
@@ -27,6 +28,7 @@ interface WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> : Repo {
     suspend fun update(values: List<UpdatedValuePair<IdType, InputValueType>>): List<ObjectType>
     suspend fun deleteById(ids: List<IdType>)
 }
+typealias WriteCRUDRepo<ObjectType, IdType, InputValueType> = WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 
 suspend fun <ObjectType, IdType, InputValueType> WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>.create(
     vararg values: InputValueType
@@ -40,3 +42,4 @@ suspend fun <ObjectType, IdType, InputValueType> WriteStandardCRUDRepo<ObjectTyp
 
 interface StandardCRUDRepo<ObjectType, IdType, InputValueType> : ReadStandardCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
+typealias CRUDRepo<ObjectType, IdType, InputValueType> = StandardCRUDRepo<ObjectType, IdType, InputValueType>
