@@ -5,6 +5,8 @@
 * `Pagination`
     * `Common`
         * `Pagination` got new extension: `Pagination#isFirstPage`
+* `Coroutines`:
+    * New extension `FlowCollector#invoke` has been added
 
 ## 0.4.5
 
