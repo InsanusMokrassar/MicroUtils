@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.repos
 
+import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.*
@@ -81,6 +82,7 @@ class FileReadStandardKeyValueRepo(
 /**
  * Files watching will not correctly works on Android with version of API lower than API 26
  */
+@Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
 class FileWriteStandardKeyValueRepo(
     private val folder: File,
     filesChangedProcessingScope: CoroutineScope? = null
@@ -160,6 +162,7 @@ class FileWriteStandardKeyValueRepo(
     }
 }
 
+@Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
 class FileStandardKeyValueRepo(
     folder: File,
     filesChangedProcessingScope: CoroutineScope? = null

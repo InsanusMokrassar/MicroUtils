@@ -2,6 +2,8 @@
 
 ## 0.4.6
 
+* `Common`
+    * New annotation `Warning` has been added
 * `Pagination`
     * `Common`
         * `Pagination` got new extension: `Pagination#isFirstPage`
