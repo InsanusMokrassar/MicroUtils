@@ -1,12 +1,14 @@
 package dev.inmo.micro_utils.repos.ktor.server.crud
 
-import dev.inmo.micro_utils.ktor.server.decodeUrlQueryValueOrSendError
-import dev.inmo.micro_utils.ktor.server.unianswer
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.application.call
+import io.ktor.http.ContentType
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import kotlinx.serialization.KSerializer
@@ -16,47 +18,65 @@ fun <ObjectType, IdType> Route.configureReadStandardCrudRepoRoutes(
     originalRepo: ReadStandardCRUDRepo<ObjectType, IdType>,
     objectsSerializer: KSerializer<ObjectType>,
     objectsNullableSerializer: KSerializer<ObjectType?>,
-    idsSerializer: KSerializer<IdType>
+    idsSerializer: KSerializer<IdType>,
+    unifiedRouter: UnifiedRouter
 ) {
     val paginationResultSerializer = PaginationResult.serializer(objectsSerializer)
 
     get(getByPaginationRouting) {
-        val pagination = call.request.queryParameters.extractPagination
+        unifiedRouter.apply {
+            val pagination = call.request.queryParameters.extractPagination
 
-        call.unianswer(
-            paginationResultSerializer,
-            originalRepo.getByPagination(pagination)
-        )
+            unianswer(
+                paginationResultSerializer,
+                originalRepo.getByPagination(pagination)
+            )
+        }
     }
 
     get(getByIdRouting) {
-        val id = call.decodeUrlQueryValueOrSendError(
-            "id",
-            idsSerializer
-        ) ?: return@get
+        unifiedRouter.apply {
+            val id = decodeUrlQueryValueOrSendError(
+                "id",
+                idsSerializer
+            ) ?: return@get
 
-        call.unianswer(
-            objectsNullableSerializer,
-            originalRepo.getById(id)
-        )
+            unianswer(
+                objectsNullableSerializer,
+                originalRepo.getById(id)
+            )
+        }
     }
 
     get(containsRouting) {
-        val id = call.decodeUrlQueryValueOrSendError(
-            "id",
-            idsSerializer
-        ) ?: return@get
+        unifiedRouter.apply {
+            val id = decodeUrlQueryValueOrSendError(
+                "id",
+                idsSerializer
+            ) ?: return@get
 
-        call.unianswer(
-            Boolean.serializer(),
-            originalRepo.contains(id)
-        )
+            unianswer(
+                Boolean.serializer(),
+                originalRepo.contains(id)
+            )
+        }
     }
 
     get(countRouting) {
-        call.unianswer(
-            Long.serializer(),
-            originalRepo.count()
-        )
+        unifiedRouter.apply {
+            unianswer(
+                Long.serializer(),
+                originalRepo.count()
+            )
+        }
     }
 }
+
+inline fun <ObjectType, IdType> Route.configureReadStandardCrudRepoRoutes(
+    originalRepo: ReadStandardCRUDRepo<ObjectType, IdType>,
+    objectsSerializer: KSerializer<ObjectType>,
+    objectsNullableSerializer: KSerializer<ObjectType?>,
+    idsSerializer: KSerializer<IdType>,
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    serialFormatContentType: ContentType = standardKtorSerialFormatContentType
+) = configureReadStandardCrudRepoRoutes(originalRepo, objectsSerializer, objectsNullableSerializer, idsSerializer, UnifiedRouter(serialFormat, serialFormatContentType))

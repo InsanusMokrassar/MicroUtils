@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.4.7
+
+* `Ktor`
+    * `Client`
+        * New class `UnifiedRequester`
+    * `Server`
+        * New class `UnifiedRouter`
+* `Repos`
+    * `Ktor`
+        * `Client`
+            * Rewriting of all clients on new `UnifiedRequester`
+        * `Server`
+            * Rewriting of all clients on new `UnifiedRouter`
+
 ## 0.4.6
 
 * `Common`

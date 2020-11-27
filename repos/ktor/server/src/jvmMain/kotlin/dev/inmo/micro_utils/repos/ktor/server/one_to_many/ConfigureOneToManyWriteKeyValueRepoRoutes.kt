@@ -1,9 +1,12 @@
 package dev.inmo.micro_utils.repos.ktor.server.one_to_many
 
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.application.call
+import io.ktor.http.ContentType
 import io.ktor.routing.Route
 import io.ktor.routing.post
 import kotlinx.serialization.KSerializer
@@ -13,61 +16,78 @@ fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
     originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
+    unifiedRouter: UnifiedRouter
 ) {
     val keyValueSerializer = PairSerializer(keySerializer, valueSerializer)
     val keyValueMapSerializer = MapSerializer(keySerializer, ListSerializer(valueSerializer))
 
-    includeWebsocketHandling(
-        onNewValueRoute,
-        originalRepo.onNewValue,
-        keyValueSerializer
-    )
-    includeWebsocketHandling(
-        onValueRemovedRoute,
-        originalRepo.onValueRemoved,
-        keyValueSerializer
-    )
-    includeWebsocketHandling(
-        onDataClearedRoute,
-        originalRepo.onDataCleared,
-        keySerializer
-    )
+    unifiedRouter.apply {
+        includeWebsocketHandling(
+            onNewValueRoute,
+            originalRepo.onNewValue,
+            keyValueSerializer
+        )
+        includeWebsocketHandling(
+            onValueRemovedRoute,
+            originalRepo.onValueRemoved,
+            keyValueSerializer
+        )
+        includeWebsocketHandling(
+            onDataClearedRoute,
+            originalRepo.onDataCleared,
+            keySerializer
+        )
+    }
 
     post(addRoute) {
-        val obj = call.uniload(keyValueMapSerializer)
+        unifiedRouter.apply {
+            val obj = uniload(keyValueMapSerializer)
 
-        call.unianswer(
-            Unit.serializer(),
-            originalRepo.add(obj)
-        )
+            unianswer(
+                Unit.serializer(),
+                originalRepo.add(obj)
+            )
+        }
     }
 
     post(removeRoute) {
-        val obj = call.uniload(
-            keyValueMapSerializer
-        )
+        unifiedRouter.apply {
+            val obj = uniload(keyValueMapSerializer)
 
-        call.unianswer(
-            Unit.serializer(),
-            originalRepo.remove(obj),
-        )
+            unianswer(
+                Unit.serializer(),
+                originalRepo.remove(obj),
+            )
+        }
     }
 
     post(clearRoute) {
-        val key = call.uniload(keySerializer)
+        unifiedRouter.apply {
+            val key = uniload(keySerializer)
 
-        call.unianswer(
-            Unit.serializer(),
-            originalRepo.clear(key),
-        )
+            unianswer(
+                Unit.serializer(),
+                originalRepo.clear(key),
+            )
+        }
     }
 
     post(setRoute) {
-        val obj = call.uniload(keyValueMapSerializer)
+        unifiedRouter.apply {
+            val obj = uniload(keyValueMapSerializer)
 
-        call.unianswer(
-            Unit.serializer(),
-            originalRepo.set(obj)
-        )
+            unianswer(
+                Unit.serializer(),
+                originalRepo.set(obj)
+            )
+        }
     }
 }
+
+fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
+    originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
+    keySerializer: KSerializer<Key>,
+    valueSerializer: KSerializer<Value>,
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    serialFormatContentType: ContentType = standardKtorSerialFormatContentType
+) = configureOneToManyWriteKeyValueRepoRoutes(originalRepo, keySerializer, valueSerializer, UnifiedRouter(serialFormat, serialFormatContentType))

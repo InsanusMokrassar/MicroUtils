@@ -1,5 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.server.one_to_many
 
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
@@ -10,6 +12,7 @@ import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.application.call
+import io.ktor.http.ContentType
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import kotlinx.serialization.KSerializer
@@ -18,89 +21,110 @@ import kotlinx.serialization.builtins.serializer
 fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
     originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
-    valueSealizer: KSerializer<Value>,
+    valueSerializer: KSerializer<Value>,
+    unifiedRouter: UnifiedRouter
 ) {
     val paginationKeyResult = PaginationResult.serializer(keySerializer)
-    val paginationValueResult = PaginationResult.serializer(valueSealizer)
+    val paginationValueResult = PaginationResult.serializer(valueSerializer)
 
     get(getRoute) {
-        val pagination = call.request.queryParameters.extractPagination
-        val key = call.decodeUrlQueryValueOrSendError(
-            keyParameterName,
-            keySerializer
-        ) ?: return@get
-        val reversed = call.decodeUrlQueryValue(
-            reversedParameterName,
-            Boolean.serializer()
-        ) ?: false
+        unifiedRouter.apply {
+            val pagination = call.request.queryParameters.extractPagination
+            val key = decodeUrlQueryValueOrSendError(
+                keyParameterName,
+                keySerializer
+            ) ?: return@get
+            val reversed = decodeUrlQueryValue(
+                reversedParameterName,
+                Boolean.serializer()
+            ) ?: false
 
-        call.unianswer(
-            paginationValueResult,
-            originalRepo.get(key, pagination, reversed)
-        )
+            unianswer(
+                paginationValueResult,
+                originalRepo.get(key, pagination, reversed)
+            )
+        }
     }
 
     get(keysRoute) {
-        val pagination = call.request.queryParameters.extractPagination
-        val reversed = call.decodeUrlQueryValue(
-            reversedParameterName,
-            Boolean.serializer()
-        ) ?: false
-        val value: Value? = call.decodeUrlQueryValue(
-            valueParameterName,
-            valueSealizer
-        )
+        unifiedRouter.apply {
+            val pagination = call.request.queryParameters.extractPagination
+            val reversed = decodeUrlQueryValue(
+                reversedParameterName,
+                Boolean.serializer()
+            ) ?: false
+            val value: Value? = decodeUrlQueryValue(
+                valueParameterName,
+                valueSerializer
+            )
 
-        call.unianswer(
-            paginationKeyResult,
-            value ?.let { originalRepo.keys(value, pagination, reversed) } ?: originalRepo.keys(pagination, reversed)
-        )
+            unianswer(
+                paginationKeyResult,
+                value?.let { originalRepo.keys(value, pagination, reversed) } ?: originalRepo.keys(pagination, reversed)
+            )
+        }
     }
 
     get(containsByKeyRoute) {
-        val key = call.decodeUrlQueryValueOrSendError(
-            keyParameterName,
-            keySerializer
-        ) ?: return@get
+        unifiedRouter.apply {
+            val key = decodeUrlQueryValueOrSendError(
+                keyParameterName,
+                keySerializer
+            ) ?: return@get
 
-        call.unianswer(
-            Boolean.serializer(),
-            originalRepo.contains(key)
-        )
+            unianswer(
+                Boolean.serializer(),
+                originalRepo.contains(key)
+            )
+        }
     }
 
     get(containsByKeyValueRoute) {
-        val key = call.decodeUrlQueryValueOrSendError(
-            keyParameterName,
-            keySerializer
-        ) ?: return@get
-        val value = call.decodeUrlQueryValueOrSendError(
-            valueParameterName,
-            valueSealizer
-        ) ?: return@get
+        unifiedRouter.apply {
+            val key = decodeUrlQueryValueOrSendError(
+                keyParameterName,
+                keySerializer
+            ) ?: return@get
+            val value = decodeUrlQueryValueOrSendError(
+                valueParameterName,
+                valueSerializer
+            ) ?: return@get
 
-        call.unianswer(
-            Boolean.serializer(),
-            originalRepo.contains(key, value)
-        )
+            unianswer(
+                Boolean.serializer(),
+                originalRepo.contains(key, value)
+            )
+        }
     }
 
     get(countByKeyRoute) {
-        val key = call.decodeUrlQueryValueOrSendError(
-            keyParameterName,
-            keySerializer
-        ) ?: return@get
+        unifiedRouter.apply {
+            val key = decodeUrlQueryValueOrSendError(
+                keyParameterName,
+                keySerializer
+            ) ?: return@get
 
-        call.unianswer(
-            Long.serializer(),
-            originalRepo.count(key)
-        )
+            unianswer(
+                Long.serializer(),
+                originalRepo.count(key)
+            )
+        }
     }
 
     get(countRoute) {
-        call.unianswer(
-            Long.serializer(),
-            originalRepo.count()
-        )
+        unifiedRouter.apply {
+            unianswer(
+                Long.serializer(),
+                originalRepo.count()
+            )
+        }
     }
 }
+
+inline fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
+    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+    keySerializer: KSerializer<Key>,
+    valueSerializer: KSerializer<Value>,
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    serialFormatContentType: ContentType = standardKtorSerialFormatContentType
+) = configureOneToManyReadKeyValueRepoRoutes(originalRepo, keySerializer, valueSerializer, UnifiedRouter(serialFormat, serialFormatContentType))
