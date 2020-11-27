@@ -1,10 +1,10 @@
 package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 
 import dev.inmo.micro_utils.ktor.client.UnifiedRequester
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 
 class KtorOneToManyKeyValueRepo<Key, Value>(
@@ -32,6 +32,6 @@ class KtorOneToManyKeyValueRepo<Key, Value>(
         client: HttpClient,
         keySerializer: KSerializer<Key>,
         valueSerializer: KSerializer<Value>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this (baseUrl, baseSubpart, UnifiedRequester(client, serialFormat), keySerializer, valueSerializer)
 }

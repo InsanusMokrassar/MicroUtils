@@ -1,13 +1,11 @@
 package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.ktor.client.*
-import dev.inmo.micro_utils.ktor.common.buildStandardUrl
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
@@ -25,7 +23,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
         client: HttpClient,
         keySerializer: KSerializer<K>,
         valueSerializer: KSerializer<V>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this (
         baseUrl, UnifiedRequester(client, serialFormat), keySerializer, valueSerializer
     )

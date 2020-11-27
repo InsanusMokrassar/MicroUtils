@@ -1,9 +1,12 @@
 package dev.inmo.micro_utils.repos.ktor.server.crud
 
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.application.call
+import io.ktor.http.ContentType
 import io.ktor.routing.Route
 import io.ktor.routing.post
 import kotlinx.serialization.KSerializer
@@ -14,7 +17,8 @@ fun <ObjectType, IdType, InputValue> Route.configureWriteStandardCrudRepoRoutes(
     objectsSerializer: KSerializer<ObjectType>,
     objectsNullableSerializer: KSerializer<ObjectType?>,
     inputsSerializer: KSerializer<InputValue>,
-    idsSerializer: KSerializer<IdType>
+    idsSerializer: KSerializer<IdType>,
+    unifiedRouter: UnifiedRouter
 ) {
     val listObjectsSerializer = ListSerializer(objectsSerializer)
     val listInputSerializer = ListSerializer(inputsSerializer)
@@ -25,58 +29,80 @@ fun <ObjectType, IdType, InputValue> Route.configureWriteStandardCrudRepoRoutes(
     )
     val listInputUpdateSerializer = ListSerializer(inputUpdateSerializer)
 
-    includeWebsocketHandling(
-        newObjectsFlowRouting,
-        originalRepo.newObjectsFlow,
-        objectsSerializer
-    )
-    includeWebsocketHandling(
-        updatedObjectsFlowRouting,
-        originalRepo.updatedObjectsFlow,
-        objectsSerializer
-    )
-    includeWebsocketHandling(
-        deletedObjectsIdsFlowRouting,
-        originalRepo.deletedObjectsIdsFlow,
-        idsSerializer
-    )
+    unifiedRouter.apply {
+        includeWebsocketHandling(
+            newObjectsFlowRouting,
+            originalRepo.newObjectsFlow,
+            objectsSerializer
+        )
+        includeWebsocketHandling(
+            updatedObjectsFlowRouting,
+            originalRepo.updatedObjectsFlow,
+            objectsSerializer
+        )
+        includeWebsocketHandling(
+            deletedObjectsIdsFlowRouting,
+            originalRepo.deletedObjectsIdsFlow,
+            idsSerializer
+        )
+    }
 
     post(createRouting) {
-        call.unianswer(
-            listObjectsSerializer,
-            originalRepo.create(
-                call.uniload(listInputSerializer)
+        unifiedRouter.apply {
+            unianswer(
+                listObjectsSerializer,
+                originalRepo.create(
+                    uniload(listInputSerializer)
+                )
             )
-        )
+        }
     }
 
     post(updateRouting) {
-        val (id, input) = call.uniload(inputUpdateSerializer)
-        call.unianswer(
-            objectsNullableSerializer,
-            originalRepo.update(
-                id, input
+        unifiedRouter.apply {
+            val (id, input) = uniload(inputUpdateSerializer)
+            unianswer(
+                objectsNullableSerializer,
+                originalRepo.update(
+                    id, input
+                )
             )
-        )
+        }
     }
 
     post(updateManyRouting) {
-        val updates = call.uniload(listInputUpdateSerializer)
-        call.unianswer(
-            listObjectsSerializer,
-            originalRepo.update(
-                updates
+        unifiedRouter.apply {
+            val updates = uniload(listInputUpdateSerializer)
+            unianswer(
+                listObjectsSerializer,
+                originalRepo.update(
+                    updates
+                )
             )
-        )
+        }
     }
 
     post(deleteByIdRouting) {
-        val ids = call.uniload(listIdsSerializer)
-        call.unianswer(
-            Unit.serializer(),
-            originalRepo.deleteById(
-                ids
+        unifiedRouter.apply {
+            val ids = uniload(listIdsSerializer)
+            unianswer(
+                Unit.serializer(),
+                originalRepo.deleteById(
+                    ids
+                )
             )
-        )
+        }
     }
 }
+
+fun <ObjectType, IdType, InputValue> Route.configureWriteStandardCrudRepoRoutes(
+    originalRepo: WriteStandardCRUDRepo<ObjectType, IdType, InputValue>,
+    objectsSerializer: KSerializer<ObjectType>,
+    objectsNullableSerializer: KSerializer<ObjectType?>,
+    inputsSerializer: KSerializer<InputValue>,
+    idsSerializer: KSerializer<IdType>,
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    serialFormatContentType: ContentType = standardKtorSerialFormatContentType
+) = configureWriteStandardCrudRepoRoutes(
+    originalRepo, objectsSerializer, objectsNullableSerializer, inputsSerializer, idsSerializer, UnifiedRouter(serialFormat, serialFormatContentType)
+)

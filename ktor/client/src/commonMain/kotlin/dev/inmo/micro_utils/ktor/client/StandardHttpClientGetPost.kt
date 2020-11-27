@@ -10,7 +10,7 @@ typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 
 class UnifiedRequester(
     private val client: HttpClient = HttpClient(),
-    private val serialFormat: BinaryFormat = standardKtorSerialFormat
+    private val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
 ) {
     suspend fun <ResultType> uniget(
         url: String,

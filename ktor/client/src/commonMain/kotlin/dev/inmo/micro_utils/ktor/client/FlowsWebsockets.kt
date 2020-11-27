@@ -8,7 +8,6 @@ import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.DeserializationStrategy
 
 /**
@@ -66,7 +65,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },
     deserializer: DeserializationStrategy<T>,
-    serialFormat: BinaryFormat = standardKtorSerialFormat
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
 ) = createStandardWebsocketFlow(
     url,
     checkReconnection

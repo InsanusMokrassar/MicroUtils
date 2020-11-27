@@ -1,8 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 
 import dev.inmo.micro_utils.ktor.client.*
-import dev.inmo.micro_utils.ktor.common.buildStandardUrl
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
@@ -10,7 +9,6 @@ import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import io.ktor.client.HttpClient
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
@@ -28,7 +26,7 @@ class KtorReadOneToManyKeyValueRepo<Key, Value> (
         client: HttpClient,
         keySerializer: KSerializer<Key>,
         valueSerializer: KSerializer<Value>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this (baseUrl, UnifiedRequester(client, serialFormat), keySerializer, valueSerializer)
 
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> = unifiedRequester.uniget(

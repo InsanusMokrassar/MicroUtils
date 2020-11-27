@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.ktor.client.UnifiedRequester
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
@@ -34,6 +35,6 @@ class KtorStandartKeyValueRepo<K, V> (
         keySerializer: KSerializer<K>,
         valueSerializer: KSerializer<V>,
         valueNullableSerializer: KSerializer<V?>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this(baseUrl, baseSubpart, UnifiedRequester(client, serialFormat), keySerializer, valueSerializer, valueNullableSerializer)
 }

@@ -1,10 +1,10 @@
 package dev.inmo.micro_utils.repos.ktor.client.crud
 
 import dev.inmo.micro_utils.ktor.client.UnifiedRequester
+import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 
 class KtorStandardCrudRepo<ObjectType, IdType, InputValue> (
@@ -39,7 +39,7 @@ class KtorStandardCrudRepo<ObjectType, IdType, InputValue> (
         objectsNullableSerializer: KSerializer<ObjectType?>,
         inputsSerializer: KSerializer<InputValue>,
         idsSerializer: KSerializer<IdType>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this(
         baseUrl, baseSubpart, UnifiedRequester(client, serialFormat), objectsSerializer, objectsNullableSerializer, inputsSerializer, idsSerializer
     )

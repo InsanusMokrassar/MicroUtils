@@ -1,13 +1,11 @@
 package dev.inmo.micro_utils.repos.ktor.client.crud
 
 import dev.inmo.micro_utils.ktor.client.*
-import dev.inmo.micro_utils.ktor.common.buildStandardUrl
-import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
+import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.client.HttpClient
-import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
@@ -26,7 +24,7 @@ class KtorReadStandardCrudRepo<ObjectType, IdType> (
         objectsSerializer: KSerializer<ObjectType>,
         objectsSerializerNullable: KSerializer<ObjectType?>,
         idsSerializer: KSerializer<IdType>,
-        serialFormat: BinaryFormat = standardKtorSerialFormat
+        serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
     ) : this (
         baseUrl, UnifiedRequester(client, serialFormat), objectsSerializer, objectsSerializerNullable, idsSerializer
     )
