@@ -2,6 +2,14 @@
 
 ## 0.4.7
 
+* `Ktor`
+    * `Client`
+        * New class `UnifiedRequester`
+* `Repos`
+    * `Ktor`
+        * `Client`
+            * Rewriting of all clients on new `UnifiedRequester`
+
 ## 0.4.6
 
 * `Common`

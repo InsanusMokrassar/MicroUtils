@@ -2,32 +2,45 @@ package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.buildStandardUrl
+import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.BinaryFormat
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
 class KtorWriteStandardKeyValueRepo<K, V> (
     private var baseUrl: String,
-    private var client: HttpClient = HttpClient(),
+    private var unifiedRequester: UnifiedRequester,
     private var keySerializer: KSerializer<K>,
     private var valueSerializer: KSerializer<V>,
 ) : WriteStandardKeyValueRepo<K, V> {
     private val keyValueMapSerializer = MapSerializer(keySerializer, valueSerializer)
     private val keysListSerializer = ListSerializer(keySerializer)
-    override val onNewValue: Flow<Pair<K, V>> = client.createStandardWebsocketFlow(
+
+    constructor(
+        baseUrl: String,
+        client: HttpClient,
+        keySerializer: KSerializer<K>,
+        valueSerializer: KSerializer<V>,
+        serialFormat: BinaryFormat = standardKtorSerialFormat
+    ) : this (
+        baseUrl, UnifiedRequester(client, serialFormat), keySerializer, valueSerializer
+    )
+
+    override val onNewValue: Flow<Pair<K, V>> = unifiedRequester.createStandardWebsocketFlow(
         buildStandardUrl(baseUrl, onNewValueRoute),
         deserializer = PairSerializer(keySerializer, valueSerializer)
     )
 
-    override val onValueRemoved: Flow<K> = client.createStandardWebsocketFlow(
+    override val onValueRemoved: Flow<K> = unifiedRequester.createStandardWebsocketFlow(
         buildStandardUrl(baseUrl, onValueRemovedRoute),
         deserializer = keySerializer
     )
 
-    override suspend fun set(toSet: Map<K, V>) = client.unipost(
+    override suspend fun set(toSet: Map<K, V>) = unifiedRequester.unipost(
         buildStandardUrl(
             baseUrl,
             setRoute
@@ -36,7 +49,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
         Unit.serializer()
     )
 
-    override suspend fun unset(toUnset: List<K>) = client.unipost(
+    override suspend fun unset(toUnset: List<K>) = unifiedRequester.unipost(
         buildStandardUrl(
             baseUrl,
             unsetRoute,
