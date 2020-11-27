@@ -34,7 +34,7 @@ fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
     serializer: SerializationStrategy<T>,
-    serialFormat: StandardKtorSerialFormat
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
 ) = includeWebsocketHandling(
     suburl,
     flow
