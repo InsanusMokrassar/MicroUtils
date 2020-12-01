@@ -2,6 +2,9 @@
 
 ## 0.4.8
 
+* `Pagination`
+    * Add `PaginatedIterable` and `PaginatedIterator`
+
 ## 0.4.7
 
 * `Ktor`
