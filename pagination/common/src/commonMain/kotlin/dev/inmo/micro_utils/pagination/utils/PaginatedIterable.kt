@@ -14,9 +14,9 @@ class PaginatedIterator<T>(
     override fun next(): T {
         if (currentStack.isEmpty()) {
             val resultPagination = paginationResultGetter.invoke(pagination)
-            pagination = resultPagination.nextPage()
             currentStack.addAll(resultPagination.results)
             require(currentStack.isNotEmpty()) { "There is no elements left" }
+            pagination = resultPagination.nextPage()
         }
         return currentStack.removeFirst()
     }
