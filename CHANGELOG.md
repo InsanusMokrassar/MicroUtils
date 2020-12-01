@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.8
+
+* `Versions`:
+    * `Coroutines`: `1.4.1` -> `1.4.2`
+    * `UUID`: `0.2.2` -> `0.2.3`
+* `Pagination`
+    * Add `PaginatedIterable` and `PaginatedIterator`
+
 ## 0.4.7
 
 * `Ktor`
