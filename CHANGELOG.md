@@ -4,6 +4,9 @@
 
 * `Versions`:
     * `Ktor`: `1.4.2` -> `1.4.3`
+* `Repo`
+    * `Exposed`
+        * `asObject` open fun has been added in CRUD realization
 
 ## 0.4.8
 
