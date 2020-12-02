@@ -2,7 +2,6 @@ package dev.inmo.micro_utils.repos.exposed
 
 import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
-import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.InsertStatement
@@ -25,8 +24,10 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()
     override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asSharedFlow()
 
+    @Deprecated("Will be removed in near major update. Override open fun with the same name instead")
     abstract val InsertStatement<Number>.asObject: ObjectType
-    abstract val selectByIds: SqlExpressionBuilder.(List<out IdType>) -> Op<Boolean>
+    protected open fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType = asObject
+    abstract val selectByIds: SqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
 
     protected abstract fun insert(value: InputValueType, it: InsertStatement<Number>)
     protected abstract fun update(id: IdType, value: InputValueType, it: UpdateStatement)
@@ -34,7 +35,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     protected open suspend fun onBeforeCreate(value: List<InputValueType>) {}
     private fun createWithoutNotification(value: InputValueType): ObjectType {
         return transaction(database) {
-            insert { insert(value, it) }.asObject
+            insert { insert(value, it) }.asObject(value)
         }
     }
 
@@ -42,10 +43,8 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         onBeforeCreate(values)
         return transaction(db = database) {
             values.map { value -> createWithoutNotification(value) }
-        }.also {
-            it.forEach {
-                newObjectsChannel.emit(it)
-            }
+        }.onEach {
+            newObjectsChannel.emit(it)
         }
     }
 
@@ -83,13 +82,9 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         return (
             transaction(db = database) {
                 values.map { (id, value) -> updateWithoutNotification(id, value) }
-            }.filter {
-                it != null
-            } as List<ObjectType>
-        ).also {
-            it.forEach {
-                updateObjectsChannel.emit(it)
-            }
+            }.filterNotNull()
+        ).onEach {
+            updateObjectsChannel.emit(it)
         }
     }
     protected open suspend fun onBeforeDelete(ids: List<IdType>) {}

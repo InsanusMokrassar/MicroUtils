@@ -3,20 +3,18 @@ package dev.inmo.micro_utils.repos.crud
 import android.content.ContentValues
 import dev.inmo.micro_utils.common.mapNotNullA
 import dev.inmo.micro_utils.repos.*
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.*
 
 abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType>(
     helper: StandardSQLHelper
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>,
     AbstractAndroidCRUDRepo<ObjectType, IdType>(helper) {
-    protected val newObjectsChannel = BroadcastChannel<ObjectType>(64)
-    protected val updateObjectsChannel = BroadcastChannel<ObjectType>(64)
-    protected val deleteObjectsIdsChannel = BroadcastChannel<IdType>(64)
-    override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asFlow()
+    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(64)
+    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(64)
+    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(64)
+    override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asSharedFlow()
+    override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()
+    override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asSharedFlow()
 
     protected abstract suspend fun InputValueType.asContentValues(id: IdType? = null): ContentValues
 
@@ -42,7 +40,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
             }
         }.also {
             it.forEach {
-                newObjectsChannel.send(it)
+                newObjectsChannel.emit(it)
             }
         }
     }
@@ -59,7 +57,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
             }
         }
         deleted.forEach {
-            deleteObjectsIdsChannel.send(it)
+            deleteObjectsIdsChannel.emit(it)
         }
     }
 
@@ -76,7 +74,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
             }
         }
         return getById(id) ?.also {
-            updateObjectsChannel.send(it)
+            updateObjectsChannel.emit(it)
         }
     }
 
@@ -95,7 +93,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
             getById(it.first)
         }.also {
             it.forEach {
-                updateObjectsChannel.send(it)
+                updateObjectsChannel.emit(it)
             }
         }
     }

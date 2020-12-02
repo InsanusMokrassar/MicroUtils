@@ -32,11 +32,11 @@ class AndroidSQLStandardVersionsRepoProxy(
         }
     }
 
-    override suspend fun getTableVersion(table: String): Int? = database.writableTransaction {
+    override suspend fun getTableVersion(tableName: String): Int? = database.writableTransaction {
         select(
-            tableName,
+            this@AndroidSQLStandardVersionsRepoProxy.tableName,
             selection = "$tableNameColumnName=?",
-            selectionArgs = arrayOf(table),
+            selectionArgs = arrayOf(tableName),
             limit = limitClause(1)
         ).use {
             if (it.moveToFirst()) {
@@ -47,16 +47,16 @@ class AndroidSQLStandardVersionsRepoProxy(
         }
     }
 
-    override suspend fun updateTableVersion(table: String, version: Int) {
+    override suspend fun updateTableVersion(tableName: String, version: Int) {
         database.writableTransaction {
             val updated = update(
-                tableName,
+                this@AndroidSQLStandardVersionsRepoProxy.tableName,
                 contentValuesOf(tableVersionColumnName to version),
                 "$tableNameColumnName=?",
-                arrayOf(table)
+                arrayOf(tableName)
             ) > 0
             if (!updated) {
-                insert(tableName, null, contentValuesOf(tableNameColumnName to table, tableVersionColumnName to version))
+                insert(this@AndroidSQLStandardVersionsRepoProxy.tableName, null, contentValuesOf(tableNameColumnName to tableName, tableVersionColumnName to version))
             }
         }
     }
