@@ -4,6 +4,8 @@
 
 * `Versions`:
     * `Ktor`: `1.4.2` -> `1.4.3`
+* `Coroutines`:
+    * `launchSynchronously` has been added in JVM
 * `Repo`
     * `Common`
         * In repos different usages of `BroadcastChannel`s has been replaced with `MutableSharedFlow`
