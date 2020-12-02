@@ -5,6 +5,8 @@
 * `Versions`:
     * `Ktor`: `1.4.2` -> `1.4.3`
 * `Repo`
+    * `Common`
+        * In repos different usages of `BroadcastChannel`s has been replaced with `MutableSharedFlow`
     * `Exposed`
         * `asObject` open fun has been added in CRUD realization
 

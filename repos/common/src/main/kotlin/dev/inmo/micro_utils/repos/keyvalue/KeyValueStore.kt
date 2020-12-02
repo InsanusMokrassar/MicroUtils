@@ -8,10 +8,7 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.StandardKeyValueRepo
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.*
 
 private val cache = HashMap<String, KeyValueStore<*>>()
 
@@ -37,11 +34,11 @@ class KeyValueStore<T : Any> internal constructor (
         null
     }
 
-    private val onNewValueChannel = BroadcastChannel<Pair<String, T>>(Channel.BUFFERED)
-    private val onValueRemovedChannel = BroadcastChannel<String>(Channel.BUFFERED)
+    private val onNewValueChannel = MutableSharedFlow<Pair<String, T>>()
+    private val onValueRemovedChannel = MutableSharedFlow<String>()
 
-    override val onNewValue: Flow<Pair<String, T>> = onNewValueChannel.asFlow()
-    override val onValueRemoved: Flow<String> = onValueRemovedChannel.asFlow()
+    override val onNewValue: Flow<Pair<String, T>> = onNewValueChannel.asSharedFlow()
+    override val onValueRemoved: Flow<String> = onValueRemovedChannel.asSharedFlow()
 
     init {
         cachedData ?.let {
@@ -131,7 +128,7 @@ class KeyValueStore<T : Any> internal constructor (
             }
         }
         toSet.forEach { (k, v) ->
-            onNewValueChannel.send(k to v)
+            onNewValueChannel.emit(k to v)
         }
     }
 
@@ -139,6 +136,6 @@ class KeyValueStore<T : Any> internal constructor (
         sharedPreferences.edit {
             toUnset.forEach { remove(it) }
         }
-        toUnset.forEach { onValueRemovedChannel.send(it) }
+        toUnset.forEach { onValueRemovedChannel.emit(it) }
     }
 }
