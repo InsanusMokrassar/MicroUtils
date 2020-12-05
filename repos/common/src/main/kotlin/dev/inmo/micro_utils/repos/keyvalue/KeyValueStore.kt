@@ -35,10 +35,10 @@ class KeyValueStore<T : Any> internal constructor (
     }
 
     private val onNewValueChannel = MutableSharedFlow<Pair<String, T>>()
-    private val onValueRemovedChannel = MutableSharedFlow<String>()
+    private val _onValueRemovedFlow = MutableSharedFlow<String>()
 
     override val onNewValue: Flow<Pair<String, T>> = onNewValueChannel.asSharedFlow()
-    override val onValueRemoved: Flow<String> = onValueRemovedChannel.asSharedFlow()
+    override val onValueRemoved: Flow<String> = _onValueRemovedFlow.asSharedFlow()
 
     init {
         cachedData ?.let {
@@ -136,6 +136,18 @@ class KeyValueStore<T : Any> internal constructor (
         sharedPreferences.edit {
             toUnset.forEach { remove(it) }
         }
-        toUnset.forEach { onValueRemovedChannel.emit(it) }
+        toUnset.forEach { _onValueRemovedFlow.emit(it) }
+    }
+
+    override suspend fun unsetWithValues(toUnset: List<T>) {
+        val keysToRemove = sharedPreferences.all.mapNotNull { if (it.value in toUnset) it.key else null }
+        sharedPreferences.edit {
+            keysToRemove.map {
+                remove(it)
+            }
+        }
+        keysToRemove.forEach {
+            _onValueRemovedFlow.emit(it)
+        }
     }
 }

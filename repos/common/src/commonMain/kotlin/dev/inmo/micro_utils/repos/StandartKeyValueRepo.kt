@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.repos
 
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.*
 import kotlinx.coroutines.flow.Flow
 
 interface ReadStandardKeyValueRepo<Key, Value> : Repo {
@@ -20,6 +19,7 @@ interface WriteStandardKeyValueRepo<Key, Value> : Repo {
 
     suspend fun set(toSet: Map<Key, Value>)
     suspend fun unset(toUnset: List<Key>)
+    suspend fun unsetWithValues(toUnset: List<Value>)
 }
 typealias WriteKeyValueRepo<Key,Value> = WriteStandardKeyValueRepo<Key, Value>
 
@@ -35,5 +35,17 @@ suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unset(
     vararg k: Key
 ) = unset(k.toList())
 
-interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value>
+suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unsetWithValues(
+    vararg v: Value
+) = unsetWithValues(v.toList())
+
+interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value> {
+    override suspend fun unsetWithValues(toUnset: List<Value>) = toUnset.forEach { v ->
+        doWithPagination {
+            keys(v, it).also {
+                unset(it.results)
+            }
+        }
+    }
+}
 typealias KeyValueRepo<Key,Value> = StandardKeyValueRepo<Key, Value>

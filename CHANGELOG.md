@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.4.10
+
+* `Versions`:
+    * `Klock`: `2.0.0` -> `2.0.1`
+* `Repo`
+    * Repo `WriteStandardKeyValueRepo` got new method `unsetWithValues`
+
 ## 0.4.9
 
 * `Versions`:

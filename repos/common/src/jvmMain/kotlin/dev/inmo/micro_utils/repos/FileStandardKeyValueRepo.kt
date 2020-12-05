@@ -160,6 +160,18 @@ class FileWriteStandardKeyValueRepo(
             }
         }
     }
+
+    override suspend fun unsetWithValues(toUnset: List<File>) {
+        val keys = toUnset.mapNotNull { v ->
+            val key = v.absolutePath.removePrefix(folder.absolutePath)
+            if (key != v.absolutePath) {
+                key
+            } else {
+                null
+            }
+        }
+        unset(keys)
+    }
 }
 
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
