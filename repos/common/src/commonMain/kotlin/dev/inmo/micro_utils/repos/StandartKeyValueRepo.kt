@@ -35,6 +35,10 @@ suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unset(
     vararg k: Key
 ) = unset(k.toList())
 
+suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unsetWithValues(
+    vararg v: Value
+) = unsetWithValues(v.toList())
+
 interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value> {
     override suspend fun unsetWithValues(toUnset: List<Value>) = toUnset.forEach { v ->
         doWithPagination {
