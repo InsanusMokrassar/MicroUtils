@@ -10,7 +10,7 @@ This is a library with collection of tools for working in Kotlin environment. Fi
 <details>
   <summary> <b>Android environment</b> </summary>
 
-You always can look at the [properties file](https://github.com/InsanusMokrassar/MicroUtils/blob/master/gradle.properties#L24-L34) to get information about current project dependencies, compile and build tools for `Android` target.
+You always can look at the <a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master/gradle.properties#L24-L34">properties file</a> to get information about current project dependencies, compile and build tools for `Android` target.
 
 </details>
 
