@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.*
 
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class KtorStandartKeyValueRepo<K, V> (
     baseUrl: String,
     baseSubpart: String,
