@@ -19,6 +19,7 @@ fun <K, V> Route.configureWriteStandardKeyValueRepoRoutes (
 ) {
     val keyValueMapSerializer = MapSerializer(keySerializer, valueSerializer)
     val keysListSerializer = ListSerializer(keySerializer)
+    val valuesListSerializer = ListSerializer(valueSerializer)
     unifiedRouter.apply {
         includeWebsocketHandling(
             onNewValueRoute,
@@ -48,6 +49,14 @@ fun <K, V> Route.configureWriteStandardKeyValueRepoRoutes (
             val toUnset = uniload(keysListSerializer)
 
             unianswer(Unit.serializer(), originalRepo.unset(toUnset))
+        }
+    }
+
+    post(unsetWithValuesRoute) {
+        unifiedRouter.apply {
+            val toUnset = uniload(valuesListSerializer)
+
+            unianswer(Unit.serializer(), originalRepo.unsetWithValues(toUnset))
         }
     }
 }

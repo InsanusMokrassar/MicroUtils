@@ -105,6 +105,10 @@ open class MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
             k.toOutKey()
         }
     )
+
+    override suspend fun unsetWithValues(toUnset: List<FromValue>) = to.unsetWithValues(
+        toUnset.map { it.toOutValue() }
+    )
 }
 
 @Suppress("NOTHING_TO_INLINE")

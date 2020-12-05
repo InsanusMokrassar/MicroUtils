@@ -76,6 +76,15 @@ class WriteMapKeyValueRepo<Key, Value>(
             map.remove(k) ?.also { _ -> _onValueRemoved.emit(k) }
         }
     }
+
+    override suspend fun unsetWithValues(toUnset: List<Value>) {
+        map.forEach {
+            if (it.value in toUnset) {
+                map.remove(it.key)
+                _onValueRemoved.emit(it.key)
+            }
+        }
+    }
 }
 
 class MapKeyValueRepo<Key, Value>(

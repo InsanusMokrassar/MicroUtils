@@ -17,6 +17,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
 ) : WriteStandardKeyValueRepo<K, V> {
     private val keyValueMapSerializer = MapSerializer(keySerializer, valueSerializer)
     private val keysListSerializer = ListSerializer(keySerializer)
+    private val valuesListSerializer = ListSerializer(valueSerializer)
 
     constructor(
         baseUrl: String,
@@ -53,6 +54,15 @@ class KtorWriteStandardKeyValueRepo<K, V> (
             unsetRoute,
         ),
         BodyPair(keysListSerializer, toUnset),
+        Unit.serializer()
+    )
+
+    override suspend fun unsetWithValues(toUnset: List<V>) = unifiedRequester.unipost(
+        buildStandardUrl(
+            baseUrl,
+            unsetWithValuesRoute,
+        ),
+        BodyPair(valuesListSerializer, toUnset),
         Unit.serializer()
     )
 }
