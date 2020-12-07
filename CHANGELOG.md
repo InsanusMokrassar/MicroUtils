@@ -2,6 +2,9 @@
 
 ## 0.4.11
 
+* `Common`
+    * Add `clamp` function
+
 ## 0.4.10
 
 * `Versions`:
