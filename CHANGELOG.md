@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.12
+
+* `Coroutines`
+    * `JVM`
+        * Update `launchSynchronously` signature
+* `Selector`
+    * Project created
+
 ## 0.4.11
 
 * `Common`

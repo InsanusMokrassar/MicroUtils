@@ -17,6 +17,7 @@ You always can look at the <a href="https://github.com/InsanusMokrassar/MicroUti
 ## Projects
 
 * `common` contains common tools for platform which usually are absent out-of-the-box when you starting project
+* `selector` contains tools to use `Selector` interface with things like `RecyclerView` in android or other selection needs
 * `coroutines` is a module for `Kotlin Coroutines` with different things like subscribing on flows (`onEach` + `launchIn` shortcut :) )
 * `ktor` is a set of modules for `client`s and `server`s
 * `mime_types` is NOT lightweight set of `MimeType`s with a lot of different objected and serializable (with `Kotlin Serialization`) mime types
