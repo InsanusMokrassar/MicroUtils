@@ -2,12 +2,12 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.*
 
-fun <T> launchSynchronously(scope: CoroutineScope = CoroutineScope(Dispatchers.Default), block: suspend CoroutineScope.() -> T): T {
+fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T): T {
     var throwable: Throwable? = null
     var result: T? = null
     val objectToSynchronize = java.lang.Object()
     val launchCallback = {
-        scope.launch {
+        launch {
             safely(
                 {
                     throwable = it
@@ -26,3 +26,5 @@ fun <T> launchSynchronously(scope: CoroutineScope = CoroutineScope(Dispatchers.D
     }
     throw throwable ?: return result!!
 }
+
+fun <T> launchSynchronously(block: suspend CoroutineScope.() -> T): T = CoroutineScope(Dispatchers.Default).launchSynchronously(block)

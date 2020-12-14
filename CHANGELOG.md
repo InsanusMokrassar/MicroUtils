@@ -2,6 +2,8 @@
 
 ## 0.4.12
 
+* `Coroutines`
+    * Update `launchSynchronously` signature
 * `Selector`
     * Project created
 
