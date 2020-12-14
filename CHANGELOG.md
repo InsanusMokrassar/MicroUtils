@@ -3,7 +3,8 @@
 ## 0.4.12
 
 * `Coroutines`
-    * Update `launchSynchronously` signature
+    * `JVM`
+        * Update `launchSynchronously` signature
 * `Selector`
     * Project created
 
