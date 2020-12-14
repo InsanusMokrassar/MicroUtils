@@ -12,12 +12,21 @@ interface Selector<T> {
     val itemUnselected: SharedFlow<T>
 
     suspend fun toggleSelection(element: T)
+    suspend fun forceSelect(element: T)
+    suspend fun forceDeselect(element: T)
+    suspend fun clearSelection()
 }
 
 @Suppress("NOTHING_TO_INLINE")
 inline operator fun <T> Selector<T>.contains(element: T) = selectedItems.contains(element)
 @Suppress("NOTHING_TO_INLINE")
 inline fun <T> Selector<T>.nothingSelected(): Boolean = selectedItems.isEmpty()
+suspend inline fun <T> Selector<T>.toggleSelection(elements: List<T>) = elements.forEach { toggleSelection(it) }
+suspend inline fun <T> Selector<T>.forceSelect(elements: List<T>) = elements.forEach { forceSelect(it) }
+suspend inline fun <T> Selector<T>.forceDeselect(elements: List<T>) = elements.forEach { forceDeselect(it) }
+suspend inline fun <T> Selector<T>.toggleSelection(firstElement: T, vararg elements: T) = toggleSelection(listOf(firstElement) + elements.toList())
+suspend inline fun <T> Selector<T>.forceSelect(firstElement: T, vararg elements: T) = forceSelect(listOf(firstElement) + elements.toList())
+suspend inline fun <T> Selector<T>.forceDeselect(firstElement: T, vararg elements: T) = forceDeselect(listOf(firstElement) + elements.toList())
 
 /**
  * Realization of [Selector] with one or without selected element. This realization will always have empty
@@ -48,6 +57,24 @@ class SingleSelector<T>(
         null
     }
 
+    override suspend fun forceDeselect(element: T) {
+        mutex ?.lock()
+        if (selectedItem == element) {
+            selectedItem = null
+            _itemUnselected.emit(element)
+        }
+        mutex ?.unlock()
+    }
+
+    override suspend fun forceSelect(element: T) {
+        mutex ?.lock()
+        if (selectedItem != element) {
+            selectedItem = element
+            _itemSelected.emit(element)
+        }
+        mutex ?.unlock()
+    }
+
     override suspend fun toggleSelection(element: T) {
         mutex ?.lock()
         if (selectedItem == element) {
@@ -63,6 +90,10 @@ class SingleSelector<T>(
             _itemSelected.emit(element)
         }
         mutex ?.unlock()
+    }
+
+    override suspend fun clearSelection() {
+        selectedItem ?.let { forceDeselect(it) }
     }
 }
 
@@ -90,6 +121,22 @@ class MultipleSelector<T>(
         null
     }
 
+    override suspend fun forceDeselect(element: T) {
+        mutex ?.lock()
+        if (_selectedItems.remove(element)) {
+            _itemUnselected.emit(element)
+        }
+        mutex ?.unlock()
+    }
+
+    override suspend fun forceSelect(element: T) {
+        mutex ?.lock()
+        if (element !in _selectedItems && _selectedItems.add(element)) {
+            _itemSelected.emit(element)
+        }
+        mutex ?.unlock()
+    }
+
     override suspend fun toggleSelection(element: T) {
         mutex ?.lock()
         if (_selectedItems.remove(element)) {
@@ -98,6 +145,14 @@ class MultipleSelector<T>(
             _selectedItems.add(element)
             _itemSelected.emit(element)
         }
+        mutex ?.unlock()
+    }
+
+    override suspend fun clearSelection() {
+        mutex ?.lock()
+        val preSelectedItems = _selectedItems.toList()
+        _selectedItems.clear()
+        preSelectedItems.forEach { _itemUnselected.emit(it) }
         mutex ?.unlock()
     }
 }
