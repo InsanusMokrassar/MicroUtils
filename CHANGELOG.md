@@ -2,6 +2,9 @@
 
 ## 0.4.12
 
+* `Selector`
+    * Project created
+
 ## 0.4.11
 
 * `Common`
