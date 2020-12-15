@@ -2,6 +2,10 @@
 
 ## 0.4.13
 
+* `Common`
+    * `Android`
+        * Add expand/collapse functionality for horizontal expand/collapse
+
 ## 0.4.12
 
 * `Coroutines`
