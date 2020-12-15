@@ -14,7 +14,7 @@ private fun View.performExpand(
 ) {
     measure(targetWidth, targetHeight)
     onMeasured()
-    visibility = View.VISIBLE
+    show()
     val a: Animation = object : Animation() {
         override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
             super.applyTransformation(interpolatedTime, t)
