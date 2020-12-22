@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.15
+
+* `Coroutines`:
+    * `safely`:
+        * `SafelyExceptionHandlerKey` has been deprecated
+        * `SafelyExceptionHandler` has been deprecated
+        * `ContextSafelyExceptionHandlerKey` has been added
+        * `ContextSafelyExceptionHandler` has been added
+        * `safelyWithContextExceptionHandler` has been added
+
 ## 0.4.14
 
 * `Versions`:
