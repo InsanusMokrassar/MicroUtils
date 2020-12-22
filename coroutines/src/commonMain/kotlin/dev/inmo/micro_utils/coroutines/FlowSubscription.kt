@@ -16,7 +16,7 @@ inline fun <T> Flow<T>.subscribe(scope: CoroutineScope, noinline block: suspend 
  */
 inline fun <T> Flow<T>.subscribeSafely(
     scope: CoroutineScope,
-    noinline onException: ExceptionHandler<Unit> = { throw it },
+    noinline onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
     noinline block: suspend (T) -> Unit
 ) = subscribe(scope) {
     safely(onException) {

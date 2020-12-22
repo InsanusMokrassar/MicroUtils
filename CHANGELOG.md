@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.14
+
+* `Versions`:
+    * `Kotlin`: `1.4.20` -> `1.4.21`
+    * `Ktor`: `1.4.3` -> `1.5.0`
+    * `Klock`: `2.0.1` -> `2.0.2`
+* `Coroutines`:
+    * Add global variable `defaultSafelyExceptionHandler`
+    * Add `SafelyExceptionHandlerKey` and `SafelyExceptionHandler` classes to be able to overwrite
+    `defaultSafelyExceptionHandler` using context of coroutine
+
 ## 0.4.13
 
 * `Common`

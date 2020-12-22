@@ -19,7 +19,7 @@ fun <T> CoroutineScope.actor(
 
 inline fun <T> CoroutineScope.safeActor(
     channelCapacity: Int = Channel.UNLIMITED,
-    noinline onException: ExceptionHandler<Unit> = {},
+    noinline onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
     crossinline block: suspend (T) -> Unit
 ): Channel<T> = actor(
     channelCapacity

@@ -25,7 +25,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
         val producerScope = this@channelFlow
         do {
             val reconnect = try {
-                safely ({ throw it }) {
+                safely {
                     ws(correctedUrl) {
                         for (received in incoming) {
                             when (received) {
