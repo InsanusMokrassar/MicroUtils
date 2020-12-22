@@ -1,9 +1,9 @@
 package dev.inmo.micro_utils.coroutines
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.supervisorScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
-import kotlin.reflect.KClass
 
 typealias ExceptionHandler<T> = suspend (Throwable) -> T
 
@@ -16,24 +16,13 @@ var defaultSafelyExceptionHandler: ExceptionHandler<Nothing> = { throw it }
  * Key for [SafelyExceptionHandler] which can be used in [CoroutineContext.get] to get current default
  * [SafelyExceptionHandler]
  */
-class SafelyExceptionHandlerKey<T>() : CoroutineContext.Key<SafelyExceptionHandler<T>>
-private val nothingSafelyEceptionHandlerKey = SafelyExceptionHandlerKey<Nothing>()
-private val unitSafelyEceptionHandlerKey = SafelyExceptionHandlerKey<Unit>()
+class SafelyExceptionHandlerKey<T> : CoroutineContext.Key<SafelyExceptionHandler<T>>
 
-private val exceptionHandlersKeysCache = mutableMapOf<>()
 /**
  * Shortcut for creating instance of [SafelyExceptionHandlerKey]
  */
 @Suppress("NOTHING_TO_INLINE")
-inline fun <T> safelyExceptionHandlerKey() = SafelyExceptionHandlerKey(T::class)
-
-/**
- * Shortcut for getting instance of [SafelyExceptionHandler] from current [coroutineContext]
- */
-@Suppress("NOTHING_TO_INLINE")
-suspend inline fun <reified T : Any> safelyExceptionHandler() = coroutineContext[safelyExceptionHandlerKey<T>()]
-@Suppress("NOTHING_TO_INLINE")
-inline fun <reified T : Any> ExceptionHandler<T>.safelyExceptionHandler() = SafelyExceptionHandler(this, T::class)
+inline fun <T> safelyExceptionHandlerKey() = SafelyExceptionHandlerKey<T>()
 
 /**
  * Wrapper for [ExceptionHandler] which can be used in [CoroutineContext] to set local (for [CoroutineContext]) default
@@ -42,11 +31,11 @@ inline fun <reified T : Any> ExceptionHandler<T>.safelyExceptionHandler() = Safe
  * @see SafelyExceptionHandlerKey
  * @see ExceptionHandler
  */
-class SafelyExceptionHandler<T : Any>(
-    val handler: ExceptionHandler<T>,
-    returnKClass: KClass<T>
+class SafelyExceptionHandler<T>(
+    val handler: ExceptionHandler<T>
 ) : CoroutineContext.Element {
-    override val key: CoroutineContext.Key<*> = SafelyExceptionHandlerKey(returnKClass)
+
+    override val key: CoroutineContext.Key<*> = safelyExceptionHandlerKey<T>()
 }
 
 /**
@@ -67,28 +56,18 @@ class SafelyExceptionHandler<T : Any>(
  * @see SafelyExceptionHandler
  */
 suspend inline fun <T> safely(
-    onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
-    block: suspend CoroutineScope.() -> T
+    noinline onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
+    noinline block: suspend CoroutineScope.() -> T
 ): T {
-    val contextHandler = if (onException === defaultSafelyExceptionHandler) {
-        coroutineContext[nothingSafelyEceptionHandlerKey] ?:
-        safelyExceptionHandler<Unit>() ?.let { unitHandler ->
-            val handler = unitHandler.handler
-            SafelyExceptionHandler<T> {
-                handler(it)
-                onException(it)
-            }
-        } ?:
-        onException.safelyExceptionHandler()
-    } else {
-        onException.safelyExceptionHandler()
-    }
     return try {
-        withContext(contextHandler) {
-            supervisorScope(block)
-        }
+        supervisorScope(block)
     } catch (e: Throwable) {
-        contextHandler.handler(e)
+        val handler = if (onException == defaultSafelyExceptionHandler) {
+            coroutineContext[safelyExceptionHandlerKey<T>()] ?.handler ?: onException
+        } else {
+            onException
+        }
+        handler(e)
     }
 }
 
