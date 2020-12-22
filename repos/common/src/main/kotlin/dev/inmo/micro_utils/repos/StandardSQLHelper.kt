@@ -10,21 +10,6 @@ import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-private data class CallbackContinuationPair<T> (
-    val callback: suspend SQLiteDatabase.() -> T,
-    val continuation: Continuation<T>
-) {
-    suspend fun SQLiteDatabase.execute() {
-        safely(
-            {
-                continuation.resumeWithException(it)
-            }
-        ) {
-            continuation.resume(callback())
-        }
-    }
-}
-
 class StandardSQLHelper(
     context: Context,
     name: String,
