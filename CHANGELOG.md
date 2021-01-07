@@ -2,6 +2,12 @@
 
 ## 0.4.16
 
+* `Coroutines`:
+    * `safely`:
+        * New `safelyWithoutExceptions` function may accept `onException` parameter with nullable result
+        * Old `safelyWithoutExceptions` now using `defaultSafelyWithoutExceptionHandler` to handle exceptions "like in
+          `safely`", but it is expected that `defaultSafelyWithoutExceptionHandler` will not throw any exception
+
 ## 0.4.15
 
 * `Coroutines`:

@@ -12,6 +12,17 @@ typealias ExceptionHandler<T> = suspend (Throwable) -> T
 var defaultSafelyExceptionHandler: ExceptionHandler<Nothing> = { throw it }
 
 /**
+ * This instance will be used in all calls of [safelyWithoutExceptions] as an exception handler for [safely] call
+ */
+var defaultSafelyWithoutExceptionHandler: ExceptionHandler<Unit> = {
+    try {
+        defaultSafelyExceptionHandler(it)
+    } catch (e: Throwable) {
+         // do nothing
+    }
+}
+
+/**
  * Key for [SafelyExceptionHandler] which can be used in [CoroutineContext.get] to get current default
  * [SafelyExceptionHandler]
  */
@@ -123,8 +134,23 @@ suspend inline fun <T> safely(
 }
 
 /**
- * Shortcut for [safely] without exception handler (instead of this you will receive null as a result)
+ * Shortcut for [safely] with exception handler, that as expected must return null in case of impossible creating of
+ * result from exception (instead of throwing it)
+ */
+suspend inline fun <T> safelyWithoutExceptions(
+    noinline onException: ExceptionHandler<T?>,
+    noinline block: suspend CoroutineScope.() -> T
+): T? = safely(onException, block)
+
+/**
+ * Shortcut for [safely] without exception handler (instead of this you will always receive null as a result)
  */
 suspend inline fun <T> safelyWithoutExceptions(
     noinline block: suspend CoroutineScope.() -> T
-): T? = safely({ null }, block)
+): T? = safelyWithoutExceptions(
+    {
+        defaultSafelyWithoutExceptionHandler.invoke(it)
+        null
+    },
+    block
+)
