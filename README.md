@@ -22,6 +22,7 @@ You always can look at the <a href="https://github.com/InsanusMokrassar/MicroUti
 * `ktor` is a set of modules for `client`s and `server`s
 * `mime_types` is NOT lightweight set of `MimeType`s with a lot of different objected and serializable (with `Kotlin Serialization`) mime types
 * `pagination` is a complex of modules (explanation in [Complex modules structure](#complex-modules-structure) section) for lightweight pagination
+* `serialization` is a collection of projects with serializers for `kotlinx.serialization`
 * `repos` is a complex of modules (explanation in [Complex modules structure](#complex-modules-structure) section) for `KeyValue`/`OneToMany`/`CRUD` repos created to be able to exclude some heavy dependencies when you need some simple and lightweight typical repositories
 
 ## Complex modules structure

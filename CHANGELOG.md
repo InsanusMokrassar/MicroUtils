@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.17
+
+* `Common`
+    * Functionality for decode/encode base 64 to/from `ByteArray`/`String` have been added
+* `Serialization`
+    * `Base 64`
+        * Project has been initiated
+
 ## 0.4.16
 
 * `Coroutines`:
