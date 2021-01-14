@@ -21,6 +21,7 @@ String[] includes = [
     ":android:recyclerview",
     ":android:alerts:common",
     ":android:alerts:recyclerview",
+    ":serialization:base64",
 
     ":dokka"
 ]
