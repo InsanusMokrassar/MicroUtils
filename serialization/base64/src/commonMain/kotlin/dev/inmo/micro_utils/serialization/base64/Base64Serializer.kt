@@ -17,5 +17,4 @@ open class Base64Serializer<T>(
     override fun serialize(encoder: Encoder, value: T) = encoder.encodeString(converterFrom(value).encodeBase64String())
 }
 
-@Serializer(String::class)
 object Base64StringSerializer : Base64Serializer<String>({ it }, { it })
