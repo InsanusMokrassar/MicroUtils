@@ -2,6 +2,10 @@
 
 ## 0.4.18
 
+* `Serialization`
+    * `Base 64`
+        * New `Base64ByteArraySerializer` has been added
+
 ## 0.4.17
 
 * `Common`
