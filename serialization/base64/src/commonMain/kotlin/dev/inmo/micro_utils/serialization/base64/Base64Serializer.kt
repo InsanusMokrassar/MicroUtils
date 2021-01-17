@@ -18,3 +18,4 @@ open class Base64Serializer<T>(
 }
 
 object Base64StringSerializer : Base64Serializer<String>({ it }, { it })
+object Base64ByteArraySerializer : Base64Serializer<ByteArray>({ it.decodeToString() }, { it.encodeToByteArray() })

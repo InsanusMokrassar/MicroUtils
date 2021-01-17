@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.18
+
+* `Coroutines`:
+    * New extension `Iterable<Deferred>#awaitFirst` has been added
+* `Serialization`
+    * `Base 64`
+        * New `Base64ByteArraySerializer` has been added
+
 ## 0.4.17
 
 * `Common`
