@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.19
+
+* `Coroutines`:
+    * New extension `Iterable<Deferred>#awaitFirstWithDeferred` has been added to identify which of `Deferred`s was
+      normally completed
+    * New extensions `Iterable<Deferred<T>>#invokeOnFirst` and `Iterable<DeferredAction<*, O>>.invokeFirstOf` have been
+    added
+
 ## 0.4.18
 
 * `Coroutines`:
