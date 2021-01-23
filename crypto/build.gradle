@@ -1,0 +1,30 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+}
+
+apply from: "$mppProjectWithSerializationPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api project(":micro_utils.common")
+            }
+        }
+        jsMain {
+            dependencies {
+                api npm("crypto-js", "$crypto_js_version")
+            }
+        }
+    }
+}
+
+android {
+    sourceSets {
+        main {
+            java.srcDirs += [ "src/jvmMain/kotlin" ]
+        }
+    }
+}
