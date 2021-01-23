@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.serialization.base64
 
-import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.crypto.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.builtins.serializer
