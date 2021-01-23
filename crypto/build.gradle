@@ -10,8 +10,21 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api project(":micro_utils.crypto")
+                api project(":micro_utils.common")
             }
+        }
+        jsMain {
+            dependencies {
+                api npm("crypto-js", "$crypto_js_version")
+            }
+        }
+    }
+}
+
+android {
+    sourceSets {
+        main {
+            java.srcDirs += [ "src/jvmMain/kotlin" ]
         }
     }
 }

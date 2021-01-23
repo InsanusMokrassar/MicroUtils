@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.4.21
+
+* `Common`
+    * `JS`
+        * Extension `DataView#toByteArray` has been added
+        * Extension `ArrayBuffer#toByteArray` has been added
+        * Extension `ByteArray#toDataView` has been added
+        * Extension `ByteArray#toArrayBuffer` has been added
+* `Coroutines`
+    * `JS`
+        * Extension `Blob#toByteArray` has been added
+* `Crypto`
+    * Subproject has been created
+* `Serialization`
+    * `Base64`
+        * Currently, it is not depended on `common` project and use `crypto` instead
+
 ## 0.4.20
 
 * `Serialization`

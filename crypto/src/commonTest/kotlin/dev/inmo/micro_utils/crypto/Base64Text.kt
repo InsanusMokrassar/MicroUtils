@@ -1,6 +1,5 @@
-package dev.inmo.micro_utils.common
+package dev.inmo.micro_utils.crypto
 
-import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
