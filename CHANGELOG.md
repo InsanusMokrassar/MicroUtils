@@ -2,6 +2,8 @@
 
 ## 0.4.23
 
+* `Versions`:
+    * `Ktor`: `1.5.0` -> `1.5.1`
 * `Serialization`
     * `Base64`
         * New serializer `Base64BytesToFromStringSerializer` has been added
