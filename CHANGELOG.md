@@ -2,6 +2,10 @@
 
 ## 0.4.23
 
+* `Serialization`
+    * `Base64`
+        * New serializer `Base64BytesToFromStringSerializer` has been added
+
 ## 0.4.22
 
 * `Versions`:
