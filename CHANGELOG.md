@@ -2,6 +2,9 @@
 
 ## 0.4.24
 
+* `Versions`:
+    * `Kotlin`: `1.4.21` -> `1.4.30`
+    * `Klock`: `2.0.4` -> `2.0.6`
 * `Coroutines`:
     * New class `DoWithFirstBuilder`
     * Several new extensions like `firstOf`/`first`/`invokeOnFirstOf`
