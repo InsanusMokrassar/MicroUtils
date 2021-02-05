@@ -4,7 +4,9 @@ project.group = "$group"
 apply from: "$publishGradlePath"
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.main.kotlinOptions.useIR = true
+    }
     js (BOTH) {
         browser()
         nodejs()

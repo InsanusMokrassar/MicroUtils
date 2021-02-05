@@ -10,7 +10,7 @@ publishing {
         artifact javadocsJar
 
         pom {
-            description = ""
+            description = "It is set of projects with micro tools for avoiding of routines coding"
             name = "${project.name}"
             url = "https://git.inmo.dev/InsanusMokrassar/MicroUtils_mirror"
 
@@ -55,6 +55,16 @@ publishing {
                     password = project.hasProperty('BINTRAY_KEY') ? project.property('BINTRAY_KEY') : System.getenv('BINTRAY_KEY')
                 }
             }
+            
+            maven {
+                name = "sonatype"
+                url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
+                    password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
+                }
+            }
+            
         }
         
     }
@@ -62,5 +72,5 @@ publishing {
 
 signing {
     useGpgCmd()
-    publishing.publications.forEach { sign it }
+    sign publishing.publications
 }
