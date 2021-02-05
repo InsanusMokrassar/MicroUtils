@@ -2,6 +2,10 @@
 
 ## 0.4.24
 
+* `Coroutines`:
+    * New class `DoWithFirstBuilder`
+    * Several new extensions like `firstOf`/`first`/`invokeOnFirstOf`
+
 ## 0.4.23
 
 * `Versions`:
