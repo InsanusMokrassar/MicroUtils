@@ -16,6 +16,8 @@ class DoWithFirstBuilder<T>(
     operator fun plus(block: suspend CoroutineScope.() -> T) {
         deferreds.add(scope.async(start = CoroutineStart.LAZY, block = block))
     }
+    inline fun add(noinline block: suspend CoroutineScope.() -> T) = plus(block)
+    inline fun include(noinline block: suspend CoroutineScope.() -> T) = plus(block)
 
     fun build() = deferreds.toList()
 }
