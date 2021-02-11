@@ -2,6 +2,9 @@
 
 ## 0.4.25
 
+* `Matrix`:
+    * Subproject has been created
+
 ## 0.4.24
 
 * `Versions`:

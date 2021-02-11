@@ -2,6 +2,7 @@ rootProject.name='micro_utils'
 
 String[] includes = [
     ":common",
+    ":matrix",
     ":crypto",
     ":selector:common",
     ":pagination:common",
