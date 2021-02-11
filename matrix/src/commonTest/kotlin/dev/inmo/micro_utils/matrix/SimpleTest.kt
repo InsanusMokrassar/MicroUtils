@@ -27,14 +27,14 @@ class SimpleTest {
 
         val fromMatrixWithSimpleAdd = matrix<Int> {
             row {
-                add(1)
-                add(2)
-                add(3)
+                column(1)
+                column(2)
+                column(3)
             }
             row {
-                add(4)
-                add(5)
-                add(6)
+                column(4)
+                column(5)
+                column(6)
             }
         }
 
