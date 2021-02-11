@@ -5,6 +5,9 @@ class MatrixBuilder<T> {
     val matrix: Matrix<T>
         get() = mutMatrix
 
-    fun add(t: List<T>) = mutMatrix.add(t)
-    operator fun plus(t: List<T>) = add(t)
+    fun row(t: List<T>) = mutMatrix.add(t)
+    operator fun List<T>.unaryPlus() = row(this)
 }
+
+fun <T> MatrixBuilder<T>.row(block: RowBuilder<T>.() -> Unit) = +RowBuilder<T>().also(block).row
+fun <T> MatrixBuilder<T>.row(vararg elements: T) = +elements.toList()

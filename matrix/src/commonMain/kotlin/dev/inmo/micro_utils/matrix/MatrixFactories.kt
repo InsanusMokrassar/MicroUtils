@@ -15,17 +15,3 @@ fun <T> flatMatrix(vararg elements: T): Matrix<T> {
         row { elements.forEach { +it } }
     }.matrix
 }
-
-fun <T> row(block: RowBuilder<T>.() -> Unit): List<T> {
-    return RowBuilder<T>().also(block).row
-}
-
-fun <T> MatrixBuilder<T>.row(block: RowBuilder<T>.() -> Unit) {
-    add(RowBuilder<T>().also(block).row)
-}
-
-fun <T> MatrixBuilder<T>.row(vararg elements: T) {
-    add(elements.toList())
-}
-
-operator fun <T> RowBuilder<T>.plus(t: T) = add(t)
