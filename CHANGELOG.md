@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.26
+
+* `Versions`:
+    * `Serialization`: `1.0.1` -> `1.1.0`
+
 ## 0.4.25
 
 * `Matrix`:
