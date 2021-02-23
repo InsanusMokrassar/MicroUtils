@@ -60,9 +60,11 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
             }
         }.let {
             if (it > 0) {
-                select {
-                    selectById(this, id)
-                }.limit(1).firstOrNull() ?.asObject
+                transaction(db = database) {
+                    select {
+                        selectById(this, id)
+                    }.limit(1).firstOrNull() ?.asObject
+                }
             } else {
                 null
             }
