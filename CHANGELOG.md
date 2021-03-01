@@ -5,6 +5,8 @@
 * `Versions`:
     * `Kotlin`: `1.4.30` -> `1.4.31`
     * `Ktor`: `1.5.1` -> `1.5.2`
+* `Coroutines`
+    * Add `createActionsActor`/`createSafeActionsActor` and `doWithSuspending`
 
 ## 0.4.27
 
