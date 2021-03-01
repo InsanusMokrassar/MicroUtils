@@ -26,20 +26,39 @@ fun SQLiteDatabase.createTable(
     }
 }
 
-fun Cursor.getString(columnName: String) = getString(
-    getColumnIndex(columnName)
+/**
+ * @throws IllegalArgumentException
+ */
+fun Cursor.getString(columnName: String): String = getString(
+    getColumnIndexOrThrow(columnName)
 )
 
-fun Cursor.getLong(columnName: String) = getLong(
-    getColumnIndex(columnName)
+/**
+ * @throws IllegalArgumentException
+ */
+fun Cursor.getShort(columnName: String): Short = getShort(
+    getColumnIndexOrThrow(columnName)
 )
 
-fun Cursor.getInt(columnName: String) = getInt(
-    getColumnIndex(columnName)
+/**
+ * @throws IllegalArgumentException
+ */
+fun Cursor.getLong(columnName: String): Long = getLong(
+    getColumnIndexOrThrow(columnName)
 )
 
-fun Cursor.getDouble(columnName: String) = getDouble(
-    getColumnIndex(columnName)
+/**
+ * @throws IllegalArgumentException
+ */
+fun Cursor.getInt(columnName: String): Int = getInt(
+    getColumnIndexOrThrow(columnName)
+)
+
+/**
+ * @throws IllegalArgumentException
+ */
+fun Cursor.getDouble(columnName: String): Double = getDouble(
+    getColumnIndexOrThrow(columnName)
 )
 
 fun SQLiteDatabase.select(
