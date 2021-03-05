@@ -2,6 +2,9 @@
 
 ## 0.4.29
 
+* `Versions`:
+    * `Coroutines`: `1.4.2` -> `1.4.3`
+
 ## 0.4.28
 
 * `Versions`:
