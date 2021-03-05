@@ -42,21 +42,19 @@ class OneToManyAndroidRepo<Key, Value>(
     private fun String.asKey(): Key = internalSerialFormat.decodeFromString(keySerializer, this)
 
     init {
-        runBlocking(DatabaseCoroutineContext) {
-            helper.writableTransaction {
-                createTable(
-                    tableName,
-                    internalId to internalIdType,
-                    idColumnName to ColumnType.Text.NOT_NULLABLE,
-                    valueColumnName to ColumnType.Text.NULLABLE
-                )
-            }
+        helper.blockingWritableTransaction {
+            createTable(
+                tableName,
+                internalId to internalIdType,
+                idColumnName to ColumnType.Text.NOT_NULLABLE,
+                valueColumnName to ColumnType.Text.NULLABLE
+            )
         }
     }
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         val added = mutableListOf<Pair<Key, Value>>()
-        helper.writableTransaction {
+        helper.blockingWritableTransaction {
             toAdd.forEach { (k, values) ->
                 values.forEach { v ->
                     insert(
@@ -78,7 +76,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }
 
     override suspend fun clear(k: Key) {
-        helper.writableTransaction {
+        helper.blockingWritableTransaction {
             delete(tableName, "$idColumnName=?", arrayOf(k.asId()))
         }.also {
             if (it > 0) {
@@ -88,7 +86,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }
 
     override suspend fun set(toSet: Map<Key, List<Value>>) {
-        val (clearedKeys, inserted) = helper.writableTransaction {
+        val (clearedKeys, inserted) = helper.blockingWritableTransaction {
             toSet.mapNotNull { (k, _) ->
                 if (delete(tableName, "$idColumnName=?", arrayOf(k.asId())) > 0) {
                     k
@@ -110,13 +108,13 @@ class OneToManyAndroidRepo<Key, Value>(
         inserted.forEach { newPair -> _onNewValue.emit(newPair) }
     }
 
-    override suspend fun contains(k: Key): Boolean = helper.readableTransaction {
+    override suspend fun contains(k: Key): Boolean = helper.blockingReadableTransaction {
         select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.asId()), limit = FirstPagePagination(1).limitClause()).use {
             it.count > 0
         }
     }
 
-    override suspend fun contains(k: Key, v: Value): Boolean = helper.readableTransaction {
+    override suspend fun contains(k: Key, v: Value): Boolean = helper.blockingReadableTransaction {
         select(
             tableName,
             selection = "$idColumnName=? AND $valueColumnName=?",
@@ -127,7 +125,7 @@ class OneToManyAndroidRepo<Key, Value>(
         }
     }
 
-    override suspend fun count(): Long =helper.readableTransaction {
+    override suspend fun count(): Long =helper.blockingReadableTransaction {
         select(
             tableName
         ).use {
@@ -135,7 +133,7 @@ class OneToManyAndroidRepo<Key, Value>(
         }
     }.toLong()
 
-    override suspend fun count(k: Key): Long = helper.readableTransaction {
+    override suspend fun count(k: Key): Long = helper.blockingReadableTransaction {
         select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.asId()), limit = FirstPagePagination(1).limitClause()).use {
             it.count
         }
@@ -147,7 +145,7 @@ class OneToManyAndroidRepo<Key, Value>(
         reversed: Boolean
     ): PaginationResult<Value> = count(k).let { count ->
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
-        helper.readableTransaction {
+        helper.blockingReadableTransaction {
             select(
                 tableName,
                 selection = "$idColumnName=?",
@@ -173,7 +171,7 @@ class OneToManyAndroidRepo<Key, Value>(
         reversed: Boolean
     ): PaginationResult<Key> = count().let { count ->
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
-        helper.readableTransaction {
+        helper.blockingReadableTransaction {
             select(
                 tableName,
                 limit = resultPagination.limitClause()
@@ -198,7 +196,7 @@ class OneToManyAndroidRepo<Key, Value>(
         reversed: Boolean
     ): PaginationResult<Key> = count().let { count ->
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
-        helper.readableTransaction {
+        helper.blockingReadableTransaction {
             select(
                 tableName,
                 selection = "$valueColumnName=?",
@@ -220,7 +218,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
-        helper.writableTransaction {
+        helper.blockingWritableTransaction {
             toRemove.flatMap { (k, vs) ->
                 vs.mapNotNullA { v ->
                     if (delete(tableName, "$idColumnName=? AND $valueColumnName=?", arrayOf(k.asId(), v.asValue())) > 0) {

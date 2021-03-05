@@ -4,6 +4,11 @@
 
 * `Versions`:
     * `Coroutines`: `1.4.2` -> `1.4.3`
+* `Repos`:
+    * `Common`
+        * `Android`:
+            * New `blockingReadableTransaction`/`blockingWritableTransaction`
+                * Android databases realizations now use blocking transactions where it is possible
 
 ## 0.4.28
 

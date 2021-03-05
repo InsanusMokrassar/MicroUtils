@@ -31,6 +31,20 @@ class StandardSQLHelper(
     suspend fun <T> readableTransaction(block: suspend SQLiteDatabase.() -> T): T = sqlOpenHelper.readableTransaction(block)
 }
 
+fun <T> SQLiteOpenHelper.blockingWritableTransaction(block: SQLiteDatabase.() -> T): T {
+    return writableDatabase.blockingTransaction(block)
+}
+fun <T> SQLiteOpenHelper.blockingReadableTransaction(block: SQLiteDatabase.() -> T): T {
+    return readableDatabase.blockingTransaction(block)
+}
+
+fun <T> StandardSQLHelper.blockingWritableTransaction(block: SQLiteDatabase.() -> T): T {
+    return sqlOpenHelper.blockingWritableTransaction(block)
+}
+fun <T> StandardSQLHelper.blockingReadableTransaction(block: SQLiteDatabase.() -> T): T {
+    return sqlOpenHelper.blockingReadableTransaction(block)
+}
+
 suspend fun <T> SQLiteOpenHelper.writableTransaction(block: suspend SQLiteDatabase.() -> T): T {
     return writableDatabase.transaction(block)
 }
