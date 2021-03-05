@@ -19,9 +19,10 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
     protected abstract suspend fun InputValueType.asContentValues(id: IdType? = null): ContentValues
 
     override suspend fun create(values: List<InputValueType>): List<ObjectType> {
-        val indexes = helper.writableTransaction {
-            values.map {
-                insert(tableName, null, it.asContentValues())
+        val valuesContentValues = values.map { it.asContentValues() }
+        val indexes = helper.blockingWritableTransaction {
+            valuesContentValues.map {
+                insert(tableName, null, it)
             }
         }
         return helper.readableTransaction {
@@ -47,7 +48,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
 
     override suspend fun deleteById(ids: List<IdType>) {
         val deleted = mutableListOf<IdType>()
-        helper.writableTransaction {
+        helper.blockingWritableTransaction {
             ids.forEach { id ->
                 delete(tableName, "$idColumnName=?", arrayOf(id.asId)).also {
                     if (it > 0) {
@@ -64,7 +65,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
     override suspend fun update(id: IdType, value: InputValueType): ObjectType? {
         val asContentValues = value.asContentValues(id)
         if (asContentValues.keySet().isNotEmpty()) {
-            helper.writableTransaction {
+            helper.blockingWritableTransaction {
                 update(
                     tableName,
                     asContentValues,
@@ -79,11 +80,12 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
     }
 
     override suspend fun update(values: List<UpdatedValuePair<IdType, InputValueType>>): List<ObjectType> {
+        val contentValues = values.map { (id, value) -> id to value.asContentValues(id) }
         helper.writableTransaction {
-            values.forEach { (id, value) ->
+            contentValues.forEach { (id, contentValues) ->
                 update(
                     tableName,
-                    value.asContentValues(id),
+                    contentValues,
                     "$idColumnName=?",
                     arrayOf(id.asId)
                 )
@@ -98,5 +100,5 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
         }
     }
 
-    override suspend fun count(): Long = helper.readableTransaction { select(tableName).use { it.count.toLong() } }
+    override suspend fun count(): Long = helper.blockingReadableTransaction { select(tableName).use { it.count.toLong() } }
 }

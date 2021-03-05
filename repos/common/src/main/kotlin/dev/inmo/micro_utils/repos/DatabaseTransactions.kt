@@ -32,7 +32,9 @@ private object ContextsPool {
 
     suspend fun <T> use(block: suspend (CoroutineContext) -> T): T = acquireContext().let {
         try {
-            block(it)
+            safely {
+                block(it)
+            }
         } finally {
             freeContext(it)
         }
@@ -48,11 +50,12 @@ class TransactionContext(
 }
 
 suspend fun <T> SQLiteDatabase.transaction(block: suspend SQLiteDatabase.() -> T): T {
-    return coroutineContext[TransactionContext] ?.let {
-        withContext(it.databaseContext) {
+    coroutineContext[TransactionContext] ?.let {
+        return withContext(it.databaseContext) {
             block()
         }
-    } ?: ContextsPool.use { context ->
+    }
+    return ContextsPool.use { context ->
         withContext(TransactionContext(context) + context) {
             beginTransaction()
             safely(
@@ -70,18 +73,18 @@ suspend fun <T> SQLiteDatabase.transaction(block: suspend SQLiteDatabase.() -> T
     }
 }
 
-inline fun <T> SQLiteDatabase.inlineTransaction(block: SQLiteDatabase.() -> T): T {
+inline fun <T> SQLiteDatabase.inlineTransaction(crossinline block: SQLiteDatabase.() -> T): T {
     return when {
         inTransaction() -> block()
         else -> {
             beginTransaction()
             try {
-                block().also {
-                    setTransactionSuccessful()
-                }
+                block().also { setTransactionSuccessful() }
             } finally {
                 endTransaction()
             }
         }
     }
 }
+
+fun <T> SQLiteDatabase.blockingTransaction(block: SQLiteDatabase.() -> T): T = inlineTransaction(block)

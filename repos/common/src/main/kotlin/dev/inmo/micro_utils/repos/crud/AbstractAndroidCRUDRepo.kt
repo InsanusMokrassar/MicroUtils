@@ -20,7 +20,7 @@ abstract class AbstractAndroidCRUDRepo<ObjectType, IdType>(
         it.count
     }.toLong()
 
-    override suspend fun contains(id: IdType): Boolean = helper.readableTransaction {
+    override suspend fun contains(id: IdType): Boolean = helper.blockingReadableTransaction {
         select(
             tableName,
             null,
