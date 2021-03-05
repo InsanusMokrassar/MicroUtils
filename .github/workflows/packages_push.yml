@@ -16,7 +16,7 @@ jobs:
           rm gradle.properties
           mv gradle.properties.tmp gradle.properties
       - name: Build and publish
-        run: ./gradlew clean build publishAllPublicationsToGithubPackagesRepository -x signJsPublication -x signJvmPublication -x signKotlinMultiplatformPublication -x signMetadataPublication
+        run: ./gradlew clean build publishAllPublicationsToGithubPackagesRepository -x signJsPublication -x signJvmPublication -x signKotlinMultiplatformPublication -x signMetadataPublication -x signAndroidDebugPublication -x signAndroidReleasePublication -x signKotlinMultiplatformPublication
         env:
           GITHUBPACKAGES_USER: ${{ github.actor }}
           GITHUBPACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
