@@ -9,6 +9,7 @@
         * `Android`:
             * New `blockingReadableTransaction`/`blockingWritableTransaction`
                 * Android databases realizations now use blocking transactions where it is possible
+            * Several improvements in transactions work
 
 ## 0.4.28
 
