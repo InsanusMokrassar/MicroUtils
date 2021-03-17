@@ -2,6 +2,10 @@
 
 ## 0.4.30
 
+* `Pagination`:
+    * New variable `defaultPaginationPageSize` has been added to be able to change default pagination size
+    * Add new value `firstPageWithOneElementPagination` 
+
 ## 0.4.29
 
 * `Versions`:

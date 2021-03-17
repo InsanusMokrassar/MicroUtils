@@ -18,6 +18,6 @@ val Pagination.asUrlQueryArrayParts
 val Map<String, String?>.extractPagination: Pagination
     get() = SimplePagination(
         get(paginationPageKey) ?.toIntOrNull() ?: 0,
-        get(paginationSizeKey) ?.toIntOrNull() ?: defaultMediumPageSize
+        get(paginationSizeKey) ?.toIntOrNull() ?: defaultPaginationPageSize
     )
 
