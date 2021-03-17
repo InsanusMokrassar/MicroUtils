@@ -7,14 +7,17 @@ const val defaultMediumPageSize = 5
 const val defaultLargePageSize = 10
 const val defaultExtraLargePageSize = 15
 
+var defaultPaginationPageSize = defaultMediumPageSize
+
 @Suppress("NOTHING_TO_INLINE", "FunctionName")
-inline fun FirstPagePagination(size: Int = defaultMediumPageSize) =
+inline fun FirstPagePagination(size: Int = defaultPaginationPageSize) =
     SimplePagination(
         page = 0,
         size = size
     )
 
 val emptyPagination = Pagination(0, 0)
+val firstPageWithOneElementPagination = FirstPagePagination(1)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Pagination.nextPage() =

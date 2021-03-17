@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.30
+
+* `Versions`:
+    * `Klock`: `2.0.6` -> `2.0.7`
+* `Pagination`:
+    * New variable `defaultPaginationPageSize` has been added to be able to change default pagination size
+    * Add new value `firstPageWithOneElementPagination` 
+
 ## 0.4.29
 
 * `Versions`:

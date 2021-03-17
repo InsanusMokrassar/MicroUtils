@@ -36,6 +36,6 @@ class PaginatedIterable<T>(
 @Suppress("NOTHING_TO_INLINE")
 inline fun <T> makeIterable(
     noinline countGetter: () -> Long,
-    pageSize: Int = defaultMediumPageSize,
+    pageSize: Int = defaultPaginationPageSize,
     noinline paginationResultGetter: Pagination.() -> PaginationResult<T>
 ): Iterable<T> = PaginatedIterable(pageSize, countGetter, paginationResultGetter)
