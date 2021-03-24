@@ -2,6 +2,8 @@
 
 ## 0.4.31
 
+* `Versions`:
+    * `Kotlin`: `1.4.31` -> `1.4.32`
 * Add subproject `repos.cache`
 
 ## 0.4.30
