@@ -2,6 +2,8 @@
 
 ## 0.4.31
 
+* Add subproject `repos.cache`
+
 ## 0.4.30
 
 * `Versions`:
