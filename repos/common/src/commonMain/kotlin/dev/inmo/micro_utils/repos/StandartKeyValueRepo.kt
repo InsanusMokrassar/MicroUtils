@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.utils.doAllWithCurrentPaging
 import kotlinx.coroutines.flow.Flow
 
 interface ReadStandardKeyValueRepo<Key, Value> : Repo {
@@ -41,7 +42,7 @@ suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unsetWithV
 
 interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value> {
     override suspend fun unsetWithValues(toUnset: List<Value>) = toUnset.forEach { v ->
-        doWithPagination {
+        doAllWithCurrentPaging {
             keys(v, it).also {
                 unset(it.results)
             }

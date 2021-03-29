@@ -21,8 +21,10 @@ inline fun PaginationResult<*>.nextPageIfNotEmpty() = if (results.isNotEmpty()) 
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun PaginationResult<*>.thisPageIfNotEmpty(): Pagination? = if (results.isNotEmpty()) {
+inline fun <T> PaginationResult<T>.thisPageIfNotEmpty(): PaginationResult<T>? = if (results.isNotEmpty()) {
     this
 } else {
     null
 }
+
+inline fun <T> PaginationResult<T>.currentPageIfNotEmpty() = thisPageIfNotEmpty()

@@ -25,13 +25,25 @@ inline fun <T> Flow<T>.subscribeSafely(
 }
 
 /**
- * Use [subscribeSafelyWithoutExceptions], but all exceptions inside of [safely] will be skipped
+ * Use [subscribeSafelyWithoutExceptions], but all exceptions will be passed to [defaultSafelyExceptionHandler]
  */
 inline fun <T> Flow<T>.subscribeSafelyWithoutExceptions(
     scope: CoroutineScope,
     noinline block: suspend (T) -> Unit
-) = subscribeSafely(
-    scope,
-    {},
-    block
-)
+) = subscribe(scope) {
+    safelyWithoutExceptions {
+        block(it)
+    }
+}
+
+/**
+ * Use [subscribeSafelyWithoutExceptions], but all exceptions inside of [safely] will be skipped
+ */
+inline fun <T> Flow<T>.subscribeSafelySkippingExceptions(
+    scope: CoroutineScope,
+    noinline block: suspend (T) -> Unit
+) = subscribe(scope) {
+    safelyWithoutExceptions({ /* skip exceptions */ }) {
+        block(it)
+    }
+}

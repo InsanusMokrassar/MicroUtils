@@ -11,6 +11,7 @@ String[] includes = [
     ":pagination:ktor:server",
     ":mime_types",
     ":repos:common",
+    ":repos:cache",
     ":repos:exposed",
     ":repos:inmemory",
     ":repos:ktor:client",

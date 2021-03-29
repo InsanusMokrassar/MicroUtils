@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.4.31
+
+* `Versions`:
+    * `Kotlin`: `1.4.31` -> `1.4.32`
+* `Pagination`:
+    * New extensions `PaginationResult.changeResultsUnchecked` and `PaginationResult.changeResults` for mapping results
+    with the same parameters, but different data
+    * Extension `PaginationResult.thisPageIfNotEmpty` now is typed and will return `PaginationResult?` with the same
+    generic type as income `PaginationResult`
+    * New extension `PaginationResult.currentPageIfNotEmpty` - shortcut for `PaginationResult.thisPageIfNotEmpty`
+    * New common functions. They were created as replacements for currently available for more comfortable work
+    with repos pagination:
+        * `doForAll`
+        * `doForAllWithNextPaging`
+        * `doForAllWithCurrentPaging`
+        * `getAll`
+        * `getAllWithNextPaging`
+        * `getAllWithCurrentPaging`
+* `Coroutines`:
+    * Rewrite `subscribeSafelyWithoutExceptions`
+        * Now `subscribeSafelyWithoutExceptions` will use default handler instead of skipping
+    * New extension `subscribeSafelySkippingExceptions`
+* `Repos`
+    * New subproject `repos.cache` - this subproject will contain repos with data caching mechanisms
+    * Most old `doForAll` methods have been deprecated
+
 ## 0.4.30
 
 * `Versions`:
