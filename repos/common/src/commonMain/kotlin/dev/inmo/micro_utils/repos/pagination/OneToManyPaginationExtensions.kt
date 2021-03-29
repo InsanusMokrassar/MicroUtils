@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.pagination
 
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 
 @Deprecated("Will be removed soon due to redundancy")

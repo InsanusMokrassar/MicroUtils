@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.pagination.getAllWithNextPaging
+import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import kotlinx.coroutines.flow.Flow
 
 interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {

@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.cache
 
 import dev.inmo.micro_utils.repos.*
-import dev.inmo.micro_utils.repos.pagination.getAllWithNextPaging
+import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 

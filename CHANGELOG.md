@@ -10,22 +10,21 @@
     * Extension `PaginationResult.thisPageIfNotEmpty` now is typed and will return `PaginationResult?` with the same
     generic type as income `PaginationResult`
     * New extension `PaginationResult.currentPageIfNotEmpty` - shortcut for `PaginationResult.thisPageIfNotEmpty`
+    * New common functions. They were created as replacements for currently available for more comfortable work
+    with repos pagination:
+        * `doForAll`
+        * `doForAllWithNextPaging`
+        * `doForAllWithCurrentPaging`
+        * `getAll`
+        * `getAllWithNextPaging`
+        * `getAllWithCurrentPaging`
 * `Coroutines`:
     * Rewrite `subscribeSafelyWithoutExceptions`
         * Now `subscribeSafelyWithoutExceptions` will use default handler instead of skipping
     * New extension `subscribeSafelySkippingExceptions`
 * `Repos`
     * New subproject `repos.cache` - this subproject will contain repos with data caching mechanisms
-    * `Pagination`
-        * New common functions. They were created as replacements for currently available for more comfortable work
-        with repos pagination:
-            * `doForAll`
-            * `doForAllWithNextPaging`
-            * `doForAllWithCurrentPaging`
-            * `getAll`
-            * `getAllWithNextPaging`
-            * `getAllWithCurrentPaging`
-        * Most old `doForAll` methods have been deprecated
+    * Most old `doForAll` methods have been deprecated
 
 ## 0.4.30
 
