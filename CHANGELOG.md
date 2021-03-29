@@ -5,6 +5,10 @@
 * `Versions`:
     * `Kotlin`: `1.4.31` -> `1.4.32`
 * Add subproject `repos.cache`
+* `Coroutines`:
+    * Rewrite `subscribeSafelyWithoutExceptions`
+        * Now `subscribeSafelyWithoutExceptions` will use default handler instead of skipping
+    * New extension `subscribeSafelySkippingExceptions`
 
 ## 0.4.30
 
