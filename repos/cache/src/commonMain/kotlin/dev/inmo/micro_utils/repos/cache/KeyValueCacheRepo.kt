@@ -9,34 +9,12 @@ import kotlinx.coroutines.sync.withLock
 
 open class KeyValueCacheRepo<Key,Value>(
     protected val parentRepo: KeyValueRepo<Key, Value>,
-    protected val cachedValuesCount: Int,
+    protected val kvCache: KVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : KeyValueRepo<Key,Value> by parentRepo {
-    protected open val cache = mutableMapOf<Key,Value>()
-    protected open val cacheStack = ArrayList<Key>(cachedValuesCount)
-    protected val syncMutex = Mutex()
-    protected val onNewJob = parentRepo.onNewValue.onEach { putCacheValue(it.first, it.second) }.launchIn(scope)
-    protected val onRemoveJob = parentRepo.onValueRemoved.onEach { removeCacheValue(it) }.launchIn(scope)
+    protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
+    protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
 
-    protected suspend fun putCacheValue(k: Key, v: Value) = syncMutex.withLock {
-        if (cache.size >= cachedValuesCount) {
-            val key = cacheStack.removeAt(0)
-            cache.remove(key)
-        }
-        cacheStack.add(k)
-        cache[k] = v
-    }
-
-    protected suspend fun removeCacheValue(k: Key) = syncMutex.withLock {
-        val i = cacheStack.indexOf(k)
-        if (i >= 0) {
-            val key = cacheStack.removeAt(i)
-            cache.remove(key)
-        }
-    }
-
-    override suspend fun get(k: Key): Value? = syncMutex.withLock {
-        cache[k] ?: parentRepo.get(k) ?.also { cache[k] = it }
-    }
-    override suspend fun contains(key: Key): Boolean = cache.containsKey(key) || parentRepo.contains(key)
+    override suspend fun get(k: Key): Value? = kvCache.get(k) ?: parentRepo.get(k) ?.also { kvCache.set(k, it) }
+    override suspend fun contains(key: Key): Boolean = kvCache.contains(key) || parentRepo.contains(key)
 }

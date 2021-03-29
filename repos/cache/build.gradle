@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api internalProject("micro_utils.repos.common")
+                api internalProject("micro_utils.repos.inmemory")
             }
         }
     }

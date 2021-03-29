@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.repos.pagination.getAllWithNextPaging
 import kotlinx.coroutines.flow.Flow
 
 interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
@@ -12,14 +13,12 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
     suspend fun count(k: Key): Long
     suspend fun count(): Long
 
-    suspend fun getAll(k: Key, reversed: Boolean = false): List<Value> = mutableListOf<Value>().also { list ->
-        doWithPagination {
-            get(k, it).also {
-                list.addAll(it.results)
-            }.nextPageIfNotEmpty()
-        }
-        if (reversed) {
-            list.reverse()
+    suspend fun getAll(k: Key, reversed: Boolean = false): List<Value> {
+        val results = getAllWithNextPaging { get(k, it) }
+        return if (reversed) {
+            results.reversed()
+        } else {
+            results
         }
     }
 
