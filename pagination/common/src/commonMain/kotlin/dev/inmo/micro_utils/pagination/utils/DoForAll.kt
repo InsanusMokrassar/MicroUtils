@@ -29,7 +29,7 @@ suspend fun <T> doAllWithCurrentPaging(
 ) {
     doForAll(
         initialPagination,
-        { it.thisPageIfNotEmpty() },
+        { it.currentPageIfNotEmpty() },
         block
     )
 }

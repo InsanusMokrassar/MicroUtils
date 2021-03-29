@@ -30,6 +30,6 @@ suspend fun <T> getAllWithCurrentPaging(
     block: suspend (Pagination) -> PaginationResult<T>
 ): List<T> = getAll(
     initialPagination,
-    { it.thisPageIfNotEmpty() },
+    { it.currentPageIfNotEmpty() },
     block
 )
