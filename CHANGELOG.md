@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.32
+
+* `Versions`:
+    * `Kotlin Exposed`: `0.29.1` -> `0.30.1`
+
 ## 0.4.31
 
 * `Versions`:
