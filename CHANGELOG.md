@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.33
+
+* `Versions`:
+    * `Ktor`: `1.5.2` -> `1.5.3`
+* `Coroutines`
+    * Add `WeakJob` workaround:
+        * `CoroutineScope#weakLaunch`
+        * `CoroutineScope#weakAsync`
+
 ## 0.4.32
 
 * `Versions`:
