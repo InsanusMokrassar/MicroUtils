@@ -4,7 +4,8 @@
 
 * `Coroutines`
     * Add `WeakJob` workaround:
-        * `CoroutineScope#`
+        * `CoroutineScope#weakLaunch`
+        * `CoroutineScope#weakAsync`
 
 ## 0.4.32
 

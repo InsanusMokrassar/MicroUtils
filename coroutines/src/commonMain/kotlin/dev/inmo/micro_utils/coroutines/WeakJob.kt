@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-fun CoroutineScope.createWeakSubScope() = CoroutineScope(coroutineContext.minusKey(Job)).also { newScope ->
+private fun CoroutineScope.createWeakSubScope() = CoroutineScope(coroutineContext.minusKey(Job)).also { newScope ->
     coroutineContext.job.invokeOnCompletion { newScope.cancel() }
 }
 
