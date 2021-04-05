@@ -2,6 +2,10 @@
 
 ## 0.4.33
 
+* `Coroutines`
+    * Add `WeakJob` workaround:
+        * `CoroutineScope#`
+
 ## 0.4.32
 
 * `Versions`:
