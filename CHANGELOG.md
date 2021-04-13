@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.34
+
+* `Versions`:
+    * `uuid`: `0.2.3` -> `0.2.4`
+* `Repos`:
+    * `AbstractExposedCRUDRepo` now implements `StandardCRUDRepo`
+    * `AbstractMutableAndroidCRUDRepo` now implements `StandardCRUDRepo`
+
 ## 0.4.33
 
 * `Versions`:

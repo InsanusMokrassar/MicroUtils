@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.*
 abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType>(
     helper: StandardSQLHelper
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>,
-    AbstractAndroidCRUDRepo<ObjectType, IdType>(helper) {
+    AbstractAndroidCRUDRepo<ObjectType, IdType>(helper),
+    StandardCRUDRepo<ObjectType, IdType, InputValueType> {
     protected val newObjectsChannel = MutableSharedFlow<ObjectType>(64)
     protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(64)
     protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(64)
