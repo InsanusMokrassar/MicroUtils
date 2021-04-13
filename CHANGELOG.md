@@ -2,6 +2,10 @@
 
 ## 0.4.34
 
+* `Repos`:
+    * `AbstractExposedCRUDRepo` now implements `StandardCRUDRepo`
+    * `AbstractMutableAndroidCRUDRepo` now implements `StandardCRUDRepo`
+
 ## 0.4.33
 
 * `Versions`:
