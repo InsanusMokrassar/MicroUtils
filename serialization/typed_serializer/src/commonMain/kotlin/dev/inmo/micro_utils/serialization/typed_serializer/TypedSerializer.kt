@@ -6,13 +6,13 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 import kotlin.reflect.KClass
 
-class TypedSerializer<T : Any>(
+open class TypedSerializer<T : Any>(
     kClass: KClass<T>,
     presetSerializers: Map<String, KSerializer<out T>> = emptyMap()
 ) : KSerializer<T> {
-    private val serializers = presetSerializers.toMutableMap()
+    protected val serializers = presetSerializers.toMutableMap()
     @InternalSerializationApi
-    override val descriptor: SerialDescriptor = buildSerialDescriptor(
+    override open val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TextSourceSerializer",
         SerialKind.CONTEXTUAL
     ) {
@@ -21,7 +21,7 @@ class TypedSerializer<T : Any>(
     }
 
     @InternalSerializationApi
-    override fun deserialize(decoder: Decoder): T {
+    override open fun deserialize(decoder: Decoder): T {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
             lateinit var result: T
@@ -45,12 +45,12 @@ class TypedSerializer<T : Any>(
     }
 
     @InternalSerializationApi
-    private fun <O: T> CompositeEncoder.encode(value: O) {
+    protected open fun <O: T> CompositeEncoder.encode(value: O) {
         encodeSerializableElement(descriptor, 1, value::class.serializer() as KSerializer<O>, value)
     }
 
     @InternalSerializationApi
-    override fun serialize(encoder: Encoder, value: T) {
+    override open fun serialize(encoder: Encoder, value: T) {
         encoder.encodeStructure(descriptor) {
             val valueSerializer = value::class.serializer()
             val type = serializers.keys.first { serializers[it] == valueSerializer }
@@ -60,13 +60,11 @@ class TypedSerializer<T : Any>(
     }
 
 
-    fun <O: T> include(type: String, serializer: KSerializer<O>) {
-        require(type !in serializers.keys)
+    open fun <O: T> include(type: String, serializer: KSerializer<O>) {
         serializers[type] = serializer
     }
 
-    fun exclude(type: String) {
-        require(type !in serializers.keys)
+    open fun exclude(type: String) {
         serializers.remove(type)
     }
 }
