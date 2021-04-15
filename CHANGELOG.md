@@ -2,6 +2,9 @@
 
 ## 0.4.35
 
+* `Versions`:
+    * `Kotlin Exposed`: `0.30.1` -> `0.30.2`
+
 ## 0.4.34
 
 * `Versions`:
