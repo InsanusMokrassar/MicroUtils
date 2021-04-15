@@ -4,6 +4,9 @@
 
 * `Versions`:
     * `Kotlin Exposed`: `0.30.1` -> `0.30.2`
+* `Serialization`:
+    * `TypedSerializer`:
+        * Project has been inited
 
 ## 0.4.34
 
