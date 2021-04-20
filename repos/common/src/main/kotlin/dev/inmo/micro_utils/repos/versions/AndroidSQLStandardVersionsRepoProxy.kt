@@ -21,14 +21,12 @@ class AndroidSQLStandardVersionsRepoProxy(
     private val tableVersionColumnName = "version"
 
     init {
-        runBlocking(DatabaseCoroutineContext) {
-            database.writableTransaction {
-                createTable(
-                    tableName,
-                    tableNameColumnName to ColumnType.Text.NOT_NULLABLE,
-                    tableVersionColumnName to ColumnType.Numeric.INTEGER()
-                )
-            }
+        database.blockingWritableTransaction {
+            createTable(
+                tableName,
+                tableNameColumnName to ColumnType.Text.NOT_NULLABLE,
+                tableVersionColumnName to ColumnType.Numeric.INTEGER()
+            )
         }
     }
 
