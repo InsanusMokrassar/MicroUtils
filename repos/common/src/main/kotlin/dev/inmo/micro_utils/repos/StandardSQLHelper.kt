@@ -5,6 +5,7 @@ import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import dev.inmo.micro_utils.coroutines.safely
+import dev.inmo.micro_utils.repos.keyvalue.keyValueStore
 import dev.inmo.micro_utils.repos.versions.*
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
@@ -15,7 +16,8 @@ class StandardSQLHelper(
     name: String,
     factory: SQLiteDatabase.CursorFactory? = null,
     version: Int = 1,
-    errorHandler: DatabaseErrorHandler? = null
+    errorHandler: DatabaseErrorHandler? = null,
+    useSharedPreferencesForVersions: Boolean = false
 ) {
     val sqlOpenHelper = object : SQLiteOpenHelper(context, name, factory, version, errorHandler) {
         override fun onCreate(db: SQLiteDatabase?) {}
@@ -23,7 +25,16 @@ class StandardSQLHelper(
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
     }
     val versionsRepo: VersionsRepo<SQLiteOpenHelper> by lazy {
-        StandardVersionsRepo(AndroidSQLStandardVersionsRepoProxy(sqlOpenHelper))
+        StandardVersionsRepo(
+            if (useSharedPreferencesForVersions) {
+                KeyValueBasedVersionsRepoProxy(
+                    context.keyValueStore("AndroidSPStandardVersionsRepo"),
+                    sqlOpenHelper
+                )
+            } else {
+                AndroidSQLStandardVersionsRepoProxy(sqlOpenHelper)
+            }
+        )
     }
 
     suspend fun <T> writableTransaction(block: suspend SQLiteDatabase.() -> T): T = sqlOpenHelper.writableTransaction(block)

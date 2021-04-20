@@ -18,19 +18,16 @@ class StandardVersionsRepo<T>(
         onCreate: suspend T.() -> Unit,
         onUpdate: suspend T.(from: Int, to: Int) -> Unit
     ) {
-        var savedVersion = proxy.getTableVersion(tableName)
-        if (savedVersion == null) {
+        var currentVersion = proxy.getTableVersion(tableName)
+        if (currentVersion == null) {
             proxy.database.onCreate()
-            proxy.updateTableVersion(tableName, version)
-        } else {
-            while (savedVersion != null && savedVersion < version) {
-                val newVersion = savedVersion + 1
+        }
+        while (currentVersion == null || currentVersion < version) {
+            val oldVersion = currentVersion ?: 0
+            currentVersion = oldVersion + 1
+            proxy.database.onUpdate(oldVersion, currentVersion)
 
-                proxy.database.onUpdate(savedVersion, newVersion)
-
-                proxy.updateTableVersion(tableName, newVersion)
-                savedVersion = newVersion
-            }
+            proxy.updateTableVersion(tableName, currentVersion)
         }
     }
 }
