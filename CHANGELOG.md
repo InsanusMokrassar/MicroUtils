@@ -2,6 +2,10 @@
 
 ## 0.5.0
 
+* `Versions`:
+    * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
+    * `RecyclerView`: `1.1.0` -> `1.2.0`
+
 ## 0.4.36
 
 * All `Android` targets inside common mpp modules now includes JVM code
