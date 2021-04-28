@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.5.0
+
 ## 0.4.36
 
 * All `Android` targets inside common mpp modules now includes JVM code
