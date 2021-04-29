@@ -23,34 +23,6 @@ var defaultSafelyWithoutExceptionHandler: ExceptionHandler<Unit> = {
 }
 
 /**
- * Key for [SafelyExceptionHandler] which can be used in [CoroutineContext.get] to get current default
- * [SafelyExceptionHandler]
- */
-@Deprecated("This method will be useless in future major update", ReplaceWith("ContextSafelyExceptionHandlerKey", "dev.inmo.micro_utils.coroutines.ContextSafelyExceptionHandler"))
-class SafelyExceptionHandlerKey<T> : CoroutineContext.Key<SafelyExceptionHandler<T>>
-
-/**
- * Shortcut for creating instance of [SafelyExceptionHandlerKey]
- */
-@Suppress("NOTHING_TO_INLINE")
-@Deprecated("This method will be useless in future major update", ReplaceWith("ContextSafelyExceptionHandlerKey", "dev.inmo.micro_utils.coroutines.ContextSafelyExceptionHandler"))
-inline fun <T> safelyExceptionHandlerKey() = SafelyExceptionHandlerKey<T>()
-
-/**
- * Wrapper for [ExceptionHandler] which can be used in [CoroutineContext] to set local (for [CoroutineContext]) default
- * [ExceptionHandler]. To get it use [CoroutineContext.get] with key [SafelyExceptionHandlerKey]
- *
- * @see SafelyExceptionHandlerKey
- * @see ExceptionHandler
- */
-@Deprecated("This method will be useless in future major update", ReplaceWith("ContextSafelyExceptionHandler", "dev.inmo.micro_utils.coroutines.ContextSafelyExceptionHandler"))
-class SafelyExceptionHandler<T>(
-    val handler: ExceptionHandler<T>
-) : CoroutineContext.Element {
-    override val key: CoroutineContext.Key<*> = safelyExceptionHandlerKey<T>()
-}
-
-/**
  * This key can (and will) be used to get [ContextSafelyExceptionHandler] from [coroutineContext] of suspend functions
  * and in [ContextSafelyExceptionHandler] for defining of its [CoroutineContext.Element.key]
  *
