@@ -5,6 +5,7 @@
 * `Versions`:
     * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
     * `RecyclerView`: `1.1.0` -> `1.2.0`
+    * `Ktor`: `1.5.3` -> `1.5.4`
 * **ALL DEPRECATIONS WERE REMOVED**
 
 ## 0.4.36
