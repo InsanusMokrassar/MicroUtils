@@ -6,6 +6,8 @@
     * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
     * `RecyclerView`: `1.1.0` -> `1.2.0`
     * `Ktor`: `1.5.3` -> `1.5.4`
+    * `Klock`: `2.0.7` -> `2.1.0`
+    * `UUID`: `0.2.4` -> `0.3.0`
 * **ALL DEPRECATIONS WERE REMOVED**
 
 ## 0.4.36
