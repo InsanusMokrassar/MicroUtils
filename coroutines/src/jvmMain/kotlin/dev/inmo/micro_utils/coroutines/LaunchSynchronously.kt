@@ -27,3 +27,6 @@ fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T
 }
 
 fun <T> launchSynchronously(block: suspend CoroutineScope.() -> T): T = CoroutineScope(Dispatchers.Default).launchSynchronously(block)
+
+fun <T> CoroutineScope.doSynchronously(block: suspend CoroutineScope.() -> T): T = launchSynchronously(block)
+fun <T> doSynchronously(block: suspend CoroutineScope.() -> T): T = launchSynchronously(block)

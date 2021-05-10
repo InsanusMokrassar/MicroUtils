@@ -10,6 +10,8 @@
     * `Klock`: `2.0.7` -> `2.1.0`
     * `UUID`: `0.2.4` -> `0.3.0`
 * **ALL DEPRECATIONS WERE REMOVED**
+* `Coroutines`:
+    * New extension and function `doSynchronously` which are the same as `launchSynchronously`
 
 ## 0.4.36
 
