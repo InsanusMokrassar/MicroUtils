@@ -12,6 +12,7 @@
 * **ALL DEPRECATIONS WERE REMOVED**
 * `Coroutines`:
     * New extension and function `doSynchronously` which are the same as `launchSynchronously`
+    * New extensions `doInDefault` and `doInIO`
 
 ## 0.4.36
 
