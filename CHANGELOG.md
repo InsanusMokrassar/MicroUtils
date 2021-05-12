@@ -10,6 +10,10 @@
     * `Klock`: `2.0.7` -> `2.1.0`
     * `UUID`: `0.2.4` -> `0.3.0`
 * **ALL DEPRECATIONS WERE REMOVED**
+* `Android`:
+    * `Alerts`:
+        * `RecyclerView`:
+            * Classes `ActionViewHolder` and `ActionsRecyclerViewAdapter` became public
 * `Coroutines`:
     * New extension and function `doSynchronously` which are the same as `launchSynchronously`
     * New extensions `doInDefault` and `doInIO`
