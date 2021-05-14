@@ -4,7 +4,7 @@
 
 * `Versions`:
     * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
-    * `Kotlin Coroutines`: `1.4.3` -> `1.5.0-RC`
+    * `Kotlin Coroutines`: `1.4.3` -> `1.5.0`
     * `RecyclerView`: `1.1.0` -> `1.2.0`
     * `Ktor`: `1.5.3` -> `1.5.4`
     * `Klock`: `2.0.7` -> `2.1.0`
