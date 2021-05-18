@@ -2,6 +2,11 @@
 
 ## 0.5.0
 
+**Notice**: This version is still depend on Kotlin
+Exposed 0.31.1. That means that this version
+may work improperly in modules based on Kotlin
+Exposed
+
 * `Versions`:
     * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
     * `Kotlin Coroutines`: `1.4.3` -> `1.5.0`
