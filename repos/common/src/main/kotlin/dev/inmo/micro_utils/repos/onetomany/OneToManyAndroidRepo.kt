@@ -55,7 +55,7 @@ class OneToManyAndroidRepo<Key, Value>(
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         val added = mutableListOf<Pair<Key, Value>>()
         helper.blockingWritableTransaction {
-            toAdd.forEach { (k, values) ->
+            for ((k, values) in toAdd) {
                 values.forEach { v ->
                     insert(
                         tableName,

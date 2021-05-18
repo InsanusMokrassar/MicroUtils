@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.5.0
+
+**Notice**: This version is still depend on Kotlin
+Exposed 0.31.1. That means that this version
+may work improperly in modules based on Kotlin
+Exposed
+
+* `Versions`:
+    * `Kotlin Exposed`: `0.30.2` -> `0.31.1`
+    * `Kotlin Coroutines`: `1.4.3` -> `1.5.0`
+    * `RecyclerView`: `1.1.0` -> `1.2.0`
+    * `Ktor`: `1.5.3` -> `1.5.4`
+    * `Klock`: `2.0.7` -> `2.1.0`
+    * `UUID`: `0.2.4` -> `0.3.0`
+* **ALL DEPRECATIONS WERE REMOVED**
+* `Android`:
+    * `Alerts`:
+        * `RecyclerView`:
+            * Classes `ActionViewHolder` and `ActionsRecyclerViewAdapter` became public
+* `Coroutines`:
+    * New extension and function `doSynchronously` which are the same as `launchSynchronously`
+    * New extensions `doInDefault` and `doInIO`
+
 ## 0.4.36
 
 * All `Android` targets inside common mpp modules now includes JVM code

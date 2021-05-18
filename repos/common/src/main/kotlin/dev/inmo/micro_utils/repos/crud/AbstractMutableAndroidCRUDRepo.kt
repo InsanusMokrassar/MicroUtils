@@ -50,7 +50,7 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
     override suspend fun deleteById(ids: List<IdType>) {
         val deleted = mutableListOf<IdType>()
         helper.blockingWritableTransaction {
-            ids.forEach { id ->
+            for (id in ids) {
                 delete(tableName, "$idColumnName=?", arrayOf(id.asId)).also {
                     if (it > 0) {
                         deleted.add(id)
@@ -58,8 +58,8 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
                 }
             }
         }
-        deleted.forEach {
-            deleteObjectsIdsChannel.emit(it)
+        for (deletedItem in deleted) {
+            deleteObjectsIdsChannel.emit(deletedItem)
         }
     }
 

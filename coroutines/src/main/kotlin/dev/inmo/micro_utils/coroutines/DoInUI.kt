@@ -8,3 +8,11 @@ suspend inline fun <T> doInUI(noinline block: suspend CoroutineScope.() -> T) = 
     Dispatchers.Main,
     block
 )
+suspend inline fun <T> doInDefault(noinline block: suspend CoroutineScope.() -> T) = withContext(
+    Dispatchers.Default,
+    block
+)
+suspend inline fun <T> doInIO(noinline block: suspend CoroutineScope.() -> T) = withContext(
+    Dispatchers.IO,
+    block
+)

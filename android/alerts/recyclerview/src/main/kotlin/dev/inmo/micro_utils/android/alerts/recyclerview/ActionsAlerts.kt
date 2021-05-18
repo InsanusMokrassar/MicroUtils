@@ -15,7 +15,7 @@ data class AlertAction(
     val callback: (DialogInterface) -> Unit
 )
 
-private class ActionViewHolder(
+class ActionViewHolder(
     container: ViewGroup, dialogInterfaceGetter: () -> DialogInterface
 ) : AbstractStandardViewHolder<AlertAction>(container, android.R.layout.simple_list_item_1) {
     private lateinit var action: AlertAction
@@ -34,7 +34,7 @@ private class ActionViewHolder(
     }
 }
 
-private class ActionsRecyclerViewAdapter(
+class ActionsRecyclerViewAdapter(
     data: List<AlertAction>,
     private val dialogInterfaceGetter: () -> DialogInterface
 ) : RecyclerViewAdapter<AlertAction>(data) {

@@ -42,9 +42,9 @@ class KeyValueStore<T : Any> internal constructor (
 
     init {
         cachedData ?.let {
-            sharedPreferences.all.forEach {
-                if (it.value != null) {
-                    cachedData[it.key] = it.value as Any
+            for ((key, value) in sharedPreferences.all) {
+                if (value != null) {
+                    cachedData[key] = value
                 }
             }
             sharedPreferences.registerOnSharedPreferenceChangeListener(this)
@@ -113,7 +113,7 @@ class KeyValueStore<T : Any> internal constructor (
 
     override suspend fun set(toSet: Map<String, T>) {
         sharedPreferences.edit {
-            toSet.forEach { (k, v) ->
+            for ((k, v) in toSet) {
                 when(v) {
                     is Int -> putInt(k, v)
                     is Long -> putLong(k, v)
@@ -127,16 +127,20 @@ class KeyValueStore<T : Any> internal constructor (
                 }
             }
         }
-        toSet.forEach { (k, v) ->
+        for ((k, v) in toSet) {
             onNewValueChannel.emit(k to v)
         }
     }
 
     override suspend fun unset(toUnset: List<String>) {
         sharedPreferences.edit {
-            toUnset.forEach { remove(it) }
+            for (item in toUnset) {
+                remove(item)
+            }
         }
-        toUnset.forEach { _onValueRemovedFlow.emit(it) }
+        for (it in toUnset) {
+            _onValueRemovedFlow.emit(it)
+        }
     }
 
     override suspend fun unsetWithValues(toUnset: List<T>) {
