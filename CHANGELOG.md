@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+* `Versions`:
+    * `Kotlin Serialization`: `1.2.0` -> `1.2.1`
+
 ## 0.5.0
 
 **Notice**: This version is still depend on Kotlin
