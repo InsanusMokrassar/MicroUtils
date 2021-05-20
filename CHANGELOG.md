@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.5.1
+
 ## 0.5.0
 
 **Notice**: This version is still depend on Kotlin
