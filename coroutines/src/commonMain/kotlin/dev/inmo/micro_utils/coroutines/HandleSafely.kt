@@ -108,6 +108,13 @@ suspend inline fun <T> safely(
     }
 }
 
+suspend inline fun <T> runCatchingSafely(
+    noinline onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
+    noinline block: suspend CoroutineScope.() -> T
+): Result<T> = runCatching {
+    safely(onException, block)
+}
+
 /**
  * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
  * returning null at one time
@@ -129,3 +136,10 @@ suspend inline fun <T> safelyWithoutExceptions(
     noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
     noinline block: suspend CoroutineScope.() -> T
 ): T? = safely(onException, block)
+
+suspend inline fun <T> runCatchingSafelyWithoutExceptions(
+    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
+    noinline block: suspend CoroutineScope.() -> T
+): Result<T?> = runCatching {
+    safelyWithoutExceptions(onException, block)
+}

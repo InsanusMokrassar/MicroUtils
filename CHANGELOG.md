@@ -10,6 +10,7 @@
     default value
         * New value `defaultSafelyWithoutExceptionHandlerWithNull` which is used in all `*WithoutExceptions` by default
     * Analogs of `launch` and `async` for `safely` and `safelyWithoutExceptions` were added
+    * Analogs of `runCatching` for `safely` and `safelyWithoutExceptions` were added
 
 ## 0.5.2
 
