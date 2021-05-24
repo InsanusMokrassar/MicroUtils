@@ -3,6 +3,7 @@
 ## 0.5.3
 
 * `Coroutines`:
+    * **Mechanism of `safely` has been changed: instead of creating new scope now is used `withContext`**
     * Extensions `doInUI` and `doInDefault` were replaced in common and available on any supported platform
     * Extension `doInIO` replaced into `jvm` and available on any `JVM` platform
     * Old extension `safelyWithouException` without `onException` has been replaced by its copy with `onException` and
