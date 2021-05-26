@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.SerializationStrategy
 
 private suspend fun DefaultWebSocketSession.checkReceivedAndCloseIfExists() {
-    if (incoming.poll() != null) {
+    if (incoming.tryReceive() != null) {
         close()
         throw CorrectCloseException
     }

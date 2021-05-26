@@ -38,7 +38,7 @@ inline fun CoroutineScope.createSafeActionsActor(
 suspend fun <T> Channel<suspend () -> Unit>.doWithSuspending(
     action: ActorAction<T>
 ) = suspendCoroutine<T> {
-    offer {
+    trySend {
         safely({ e -> it.resumeWithException(e) }) {
             it.resume(action())
         }
