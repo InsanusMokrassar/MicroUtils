@@ -101,7 +101,7 @@ suspend inline fun <T> safely(
     noinline block: suspend CoroutineScope.() -> T
 ): T {
     return try {
-        withContext(SupervisorJob(), block)
+        supervisorScope(block)
     } catch (e: Throwable) {
         coroutineContext[ContextSafelyExceptionHandlerKey] ?.handler ?.invoke(e)
         onException(e)
