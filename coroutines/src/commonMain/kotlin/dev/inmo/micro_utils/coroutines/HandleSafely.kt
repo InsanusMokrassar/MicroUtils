@@ -86,6 +86,9 @@ suspend fun <T> safelyWithContextExceptionHandler(
  * * [CoroutineContext.get] with [SafelyExceptionHandlerKey] as key
  * * [defaultSafelyExceptionHandler]
  *
+ * Remember, that [ExceptionHandler] from [CoroutineContext.get] will be used anyway if it is available. After it will
+ * be called [onException]
+ *
  * @param [onException] Will be called when happen exception inside of [block]. By default will throw exception - this
  * exception will be available for catching
  *
@@ -105,24 +108,38 @@ suspend inline fun <T> safely(
     }
 }
 
+suspend inline fun <T> runCatchingSafely(
+    noinline onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
+    noinline block: suspend CoroutineScope.() -> T
+): Result<T> = runCatching {
+    safely(onException, block)
+}
+
+/**
+ * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
+ * returning null at one time
+ *
+ * @see safelyWithoutExceptions
+ * @see launchSafelyWithoutExceptions
+ * @see asyncSafelyWithoutExceptions
+ */
+val defaultSafelyWithoutExceptionHandlerWithNull: ExceptionHandler<Nothing?> = {
+    defaultSafelyWithoutExceptionHandler.invoke(it)
+    null
+}
+
 /**
  * Shortcut for [safely] with exception handler, that as expected must return null in case of impossible creating of
- * result from exception (instead of throwing it)
+ * result from exception (instead of throwing it, by default always returns null)
  */
 suspend inline fun <T> safelyWithoutExceptions(
-    noinline onException: ExceptionHandler<T?>,
+    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
     noinline block: suspend CoroutineScope.() -> T
 ): T? = safely(onException, block)
 
-/**
- * Shortcut for [safely] without exception handler (instead of this you will always receive null as a result)
- */
-suspend inline fun <T> safelyWithoutExceptions(
+suspend inline fun <T> runCatchingSafelyWithoutExceptions(
+    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
     noinline block: suspend CoroutineScope.() -> T
-): T? = safelyWithoutExceptions(
-    {
-        defaultSafelyWithoutExceptionHandler.invoke(it)
-        null
-    },
-    block
-)
+): Result<T?> = runCatching {
+    safelyWithoutExceptions(onException, block)
+}

@@ -1,9 +1,8 @@
 package dev.inmo.micro_utils.coroutines
 
-import dev.inmo.micro_utils.coroutines.asDeferred
-import dev.inmo.micro_utils.coroutines.launchSynchronously
 import kotlinx.coroutines.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class DoWithFirstTests {
     @Test

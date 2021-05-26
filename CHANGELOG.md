@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.3
+
+* `Versions`:
+    * `Kotlin`: `1.5.0` -> `1.5.10`
+* `Coroutines`:
+    * Extensions `doInUI` and `doInDefault` were replaced in common and available on any supported platform
+    * Extension `doInIO` replaced into `jvm` and available on any `JVM` platform
+    * Old extension `safelyWithouException` without `onException` has been replaced by its copy with `onException` and
+    default value
+        * New value `defaultSafelyWithoutExceptionHandlerWithNull` which is used in all `*WithoutExceptions` by default
+    * Analogs of `launch` and `async` for `safely` and `safelyWithoutExceptions` were added
+    * Analogs of `runCatching` for `safely` and `safelyWithoutExceptions` were added
+
 ## 0.5.2
 
 * `Ktor`:
