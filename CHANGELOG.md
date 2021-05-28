@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.5
+
+* `Versions`
+    * `Ktor`: `1.5.4` -> `1.6.0`
+
 ## 0.5.4
 
 * `Versions`:
