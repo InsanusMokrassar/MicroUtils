@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.android.alerts.common
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -18,6 +20,10 @@ fun Context.createProgressBarAlertDialog(
         text ?.let {
             findViewById<TextView>(R.id.alertDialogProgressBarTitle).text = it
         }
+    }
+}.apply {
+    window ?.apply {
+        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }
 
