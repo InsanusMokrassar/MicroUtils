@@ -7,6 +7,7 @@
 * `Coroutines`
     * `JVM`
         * `launchSynchronously` and subsequent functions got improved mechanism
+    * New method `safelyWithResult`
 
 ## 0.5.5
 
