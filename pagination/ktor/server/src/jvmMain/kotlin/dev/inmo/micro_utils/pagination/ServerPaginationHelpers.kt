@@ -5,8 +5,8 @@ import io.ktor.http.Parameters
 
 val Parameters.extractPagination: Pagination
     get() = SimplePagination(
-        get("page") ?.toIntOrNull() ?: 0,
-        get("size") ?.toIntOrNull() ?: defaultPaginationPageSize
+        get(paginationPageKey) ?.toIntOrNull() ?: 0,
+        get(paginationSizeKey) ?.toIntOrNull() ?: defaultPaginationPageSize
     )
 
 val ApplicationCall.extractPagination: Pagination

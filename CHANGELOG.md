@@ -2,6 +2,14 @@
 
 ## 0.5.7
 
+* `Android`
+    * `Alerts`
+        * `Common`
+            * New extension `progressBarAlertDialog`
+* `Pagination`
+    * `Ktor`
+        * `Server`
+            * Fixes in extension `extractPagination`
 * `Repos`
     * `Cache`
         * All standard cache repos have been separated to read and read/write repos
