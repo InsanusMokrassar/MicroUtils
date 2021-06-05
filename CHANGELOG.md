@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.6
+
+* `Versions`
+    * `Exposed`: `0.31.1` -> `0.32.1`
+* `Coroutines`
+    * `JVM`
+        * `launchSynchronously` and subsequent functions got improved mechanism
+    * New method `safelyWithResult`
+
 ## 0.5.5
 
 * `Versions`

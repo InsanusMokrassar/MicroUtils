@@ -3,27 +3,21 @@ package dev.inmo.micro_utils.coroutines
 import kotlinx.coroutines.*
 
 fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T): T {
-    val deferred = CompletableDeferred<T>()
-    val objectToSynchronize = java.lang.Object()
-    val launchCallback = {
+    var result: Result<T>? = null
+    val objectToSynchronize = Object()
+    synchronized(objectToSynchronize) {
         launch {
-            safely(
-                {
-                    deferred.completeExceptionally(it)
-                }
-            ) {
-                deferred.complete(block())
-            }
+            result = safelyWithResult(block)
+        }.invokeOnCompletion {
             synchronized(objectToSynchronize) {
                 objectToSynchronize.notifyAll()
             }
         }
+        while (result == null) {
+            objectToSynchronize.wait()
+        }
     }
-    synchronized(objectToSynchronize) {
-        launchCallback()
-        objectToSynchronize.wait()
-    }
-    return deferred.getCompleted()
+    return result!!.getOrThrow()
 }
 
 fun <T> launchSynchronously(block: suspend CoroutineScope.() -> T): T = CoroutineScope(Dispatchers.Default).launchSynchronously(block)
