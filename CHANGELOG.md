@@ -4,6 +4,9 @@
 
 * `Versions`
     * `Exposed`: `0.31.1` -> `0.32.1`
+* `Coroutines`
+    * `JVM`
+        * `launchSynchronously` and subsequent functions got improved mechanism
 
 ## 0.5.5
 
