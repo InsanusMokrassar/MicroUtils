@@ -117,9 +117,7 @@ suspend inline fun <T> runCatchingSafely(
 
 suspend inline fun <T> safelyWithResult(
     noinline block: suspend CoroutineScope.() -> T
-): Result<T> = runCatching {
-    safely({ throw it }, block)
-}
+): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
 /**
  * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
