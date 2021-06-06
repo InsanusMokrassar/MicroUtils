@@ -2,10 +2,6 @@
 
 ## 0.5.7
 
-* `Android`
-    * `Alerts`
-        * `Common`
-            * New extension `progressBarAlertDialog`
 * `Pagination`
     * `Ktor`
         * `Server`
