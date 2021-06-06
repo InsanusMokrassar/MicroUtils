@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.7
+
+* `Pagination`
+    * `Ktor`
+        * `Server`
+            * Fixes in extension `extractPagination`
+* `Repos`
+    * `Cache`
+        * All standard cache repos have been separated to read and read/write repos
+
 ## 0.5.6
 
 * `Versions`
