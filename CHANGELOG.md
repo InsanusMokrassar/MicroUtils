@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.8
+
+* `Common`:
+    * New extension `Iterable#firstNotNull`
+* `Coroutines`
+    * New extension `Flow#firstNotNull`
+    * New extensions `CoroutineContext#LinkedSupervisorJob`, `CoroutineScope#LinkedSupervisorJob` and
+      `CoroutineScope#LinkedSupervisorScope`
+
 ## 0.5.7
 
 * `Pagination`
