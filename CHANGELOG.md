@@ -2,6 +2,10 @@
 
 ## 0.5.9
 
+* `Repos`
+    * `Common`
+        * `OneToManyAndroidRepo` got new primary constructor
+
 ## 0.5.8
 
 * `Common`:
