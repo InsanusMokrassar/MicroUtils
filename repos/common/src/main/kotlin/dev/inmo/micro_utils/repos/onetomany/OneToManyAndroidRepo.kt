@@ -20,10 +20,14 @@ private val internalSerialFormat = Json {
     ignoreUnknownKeys = true
 }
 
+typealias KeyValuesAndroidRepo<Key, Value> = OneToManyAndroidRepo<Key, Value>
+
 class OneToManyAndroidRepo<Key, Value>(
     private val tableName: String,
-    private val keySerializer: KSerializer<Key>,
-    private val valueSerializer: KSerializer<Value>,
+    private val keyAsString: Key.() -> String,
+    private val valueAsString: Value.() -> String,
+    private val keyFromString: String.() -> Key,
+    private val valueFromString: String.() -> Value,
     private val helper: SQLiteOpenHelper
 ) : OneToManyKeyValueRepo<Key, Value> {
     private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
@@ -35,11 +39,6 @@ class OneToManyAndroidRepo<Key, Value>(
 
     private val idColumnName = "id"
     private val valueColumnName = "value"
-
-    private fun Key.asId() = internalSerialFormat.encodeToString(keySerializer, this)
-    private fun Value.asValue() = internalSerialFormat.encodeToString(valueSerializer, this)
-    private fun String.asValue(): Value = internalSerialFormat.decodeFromString(valueSerializer, this)
-    private fun String.asKey(): Key = internalSerialFormat.decodeFromString(keySerializer, this)
 
     init {
         helper.blockingWritableTransaction {
@@ -61,8 +60,8 @@ class OneToManyAndroidRepo<Key, Value>(
                         tableName,
                         null,
                         contentValuesOf(
-                            idColumnName to k.asId(),
-                            valueColumnName to v.asValue()
+                            idColumnName to k.keyAsString(),
+                            valueColumnName to v.valueAsString()
                         )
                     ).also {
                         if (it != -1L) {
@@ -77,7 +76,7 @@ class OneToManyAndroidRepo<Key, Value>(
 
     override suspend fun clear(k: Key) {
         helper.blockingWritableTransaction {
-            delete(tableName, "$idColumnName=?", arrayOf(k.asId()))
+            delete(tableName, "$idColumnName=?", arrayOf(k.keyAsString()))
         }.also {
             if (it > 0) {
                 _onDataCleared.emit(k)
@@ -88,7 +87,7 @@ class OneToManyAndroidRepo<Key, Value>(
     override suspend fun set(toSet: Map<Key, List<Value>>) {
         val (clearedKeys, inserted) = helper.blockingWritableTransaction {
             toSet.mapNotNull { (k, _) ->
-                if (delete(tableName, "$idColumnName=?", arrayOf(k.asId())) > 0) {
+                if (delete(tableName, "$idColumnName=?", arrayOf(k.keyAsString())) > 0) {
                     k
                 } else {
                     null
@@ -98,7 +97,7 @@ class OneToManyAndroidRepo<Key, Value>(
                     insert(
                         tableName,
                         null,
-                        contentValuesOf(idColumnName to k.asId(), valueColumnName to v.asValue())
+                        contentValuesOf(idColumnName to k.keyAsString(), valueColumnName to v.valueAsString())
                     )
                     k to v
                 }
@@ -109,7 +108,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }
 
     override suspend fun contains(k: Key): Boolean = helper.blockingReadableTransaction {
-        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.asId()), limit = FirstPagePagination(1).limitClause()).use {
+        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = FirstPagePagination(1).limitClause()).use {
             it.count > 0
         }
     }
@@ -118,7 +117,7 @@ class OneToManyAndroidRepo<Key, Value>(
         select(
             tableName,
             selection = "$idColumnName=? AND $valueColumnName=?",
-            selectionArgs = arrayOf(k.asId(), v.asValue()),
+            selectionArgs = arrayOf(k.keyAsString(), v.valueAsString()),
             limit = FirstPagePagination(1).limitClause()
         ).use {
             it.count > 0
@@ -134,7 +133,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }.toLong()
 
     override suspend fun count(k: Key): Long = helper.blockingReadableTransaction {
-        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.asId()), limit = FirstPagePagination(1).limitClause()).use {
+        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = FirstPagePagination(1).limitClause()).use {
             it.count
         }
     }.toLong()
@@ -149,13 +148,13 @@ class OneToManyAndroidRepo<Key, Value>(
             select(
                 tableName,
                 selection = "$idColumnName=?",
-                selectionArgs = arrayOf(k.asId()),
+                selectionArgs = arrayOf(k.keyAsString()),
                 limit = resultPagination.limitClause()
             ).use { c ->
                 mutableListOf<Value>().also {
                     if (c.moveToFirst()) {
                         do {
-                            it.add(c.getString(valueColumnName).asValue())
+                            it.add(c.getString(valueColumnName).valueFromString())
                         } while (c.moveToNext())
                     }
                 }
@@ -179,7 +178,7 @@ class OneToManyAndroidRepo<Key, Value>(
                 mutableListOf<Key>().also {
                     if (c.moveToFirst()) {
                         do {
-                            it.add(c.getString(idColumnName).asKey())
+                            it.add(c.getString(idColumnName).keyFromString())
                         } while (c.moveToNext())
                     }
                 }
@@ -200,13 +199,13 @@ class OneToManyAndroidRepo<Key, Value>(
             select(
                 tableName,
                 selection = "$valueColumnName=?",
-                selectionArgs = arrayOf(v.asValue()),
+                selectionArgs = arrayOf(v.valueAsString()),
                 limit = resultPagination.limitClause()
             ).use { c ->
                 mutableListOf<Key>().also {
                     if (c.moveToFirst()) {
                         do {
-                            it.add(c.getString(idColumnName).asKey())
+                            it.add(c.getString(idColumnName).keyFromString())
                         } while (c.moveToNext())
                     }
                 }
@@ -221,7 +220,7 @@ class OneToManyAndroidRepo<Key, Value>(
         helper.blockingWritableTransaction {
             toRemove.flatMap { (k, vs) ->
                 vs.mapNotNullA { v ->
-                    if (delete(tableName, "$idColumnName=? AND $valueColumnName=?", arrayOf(k.asId(), v.asValue())) > 0) {
+                    if (delete(tableName, "$idColumnName=? AND $valueColumnName=?", arrayOf(k.keyAsString(), v.valueAsString())) > 0) {
                         k to v
                     } else {
                         null
@@ -233,3 +232,24 @@ class OneToManyAndroidRepo<Key, Value>(
         }
     }
 }
+
+fun <Key, Value> OneToManyAndroidRepo(
+    tableName: String,
+    keySerializer: KSerializer<Key>,
+    valueSerializer: KSerializer<Value>,
+    helper: SQLiteOpenHelper
+) = OneToManyAndroidRepo(
+    tableName,
+    { internalSerialFormat.encodeToString(keySerializer, this) },
+    { internalSerialFormat.encodeToString(valueSerializer, this) },
+    { internalSerialFormat.decodeFromString(keySerializer, this) },
+    { internalSerialFormat.decodeFromString(valueSerializer, this) },
+    helper
+)
+
+fun <Key, Value> KeyValuesAndroidRepo(
+    tableName: String,
+    keySerializer: KSerializer<Key>,
+    valueSerializer: KSerializer<Value>,
+    helper: SQLiteOpenHelper
+) = OneToManyAndroidRepo(tableName, keySerializer, valueSerializer, helper)
