@@ -20,6 +20,8 @@ private val internalSerialFormat = Json {
     ignoreUnknownKeys = true
 }
 
+typealias KeyValuesAndroidRepo<Key, Value> = OneToManyAndroidRepo<Key, Value>
+
 class OneToManyAndroidRepo<Key, Value>(
     private val tableName: String,
     private val keyAsString: Key.() -> String,
@@ -244,3 +246,10 @@ fun <Key, Value> OneToManyAndroidRepo(
     { internalSerialFormat.decodeFromString(valueSerializer, this) },
     helper
 )
+
+fun <Key, Value> KeyValuesAndroidRepo(
+    tableName: String,
+    keySerializer: KSerializer<Key>,
+    valueSerializer: KSerializer<Value>,
+    helper: SQLiteOpenHelper
+) = OneToManyAndroidRepo(tableName, keySerializer, valueSerializer, helper)
