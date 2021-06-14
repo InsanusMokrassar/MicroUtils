@@ -3,10 +3,7 @@ package dev.inmo.micro_utils.repos.onetomany
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.content.contentValuesOf
 import dev.inmo.micro_utils.common.mapNotNullA
-import dev.inmo.micro_utils.pagination.FirstPagePagination
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
-import dev.inmo.micro_utils.pagination.createPaginationResult
+import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
@@ -143,6 +140,12 @@ class OneToManyAndroidRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Value> = count(k).let { count ->
+        if (pagination.firstIndex >= count) {
+            return@let emptyList<Value>().createPaginationResult(
+                pagination,
+                count
+            )
+        }
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
         helper.blockingReadableTransaction {
             select(
@@ -169,6 +172,12 @@ class OneToManyAndroidRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Key> = count().let { count ->
+        if (pagination.firstIndex >= count) {
+            return@let emptyList<Key>().createPaginationResult(
+                pagination,
+                count
+            )
+        }
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
         helper.blockingReadableTransaction {
             select(
