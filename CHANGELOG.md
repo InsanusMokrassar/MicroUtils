@@ -2,6 +2,10 @@
 
 ## 0.5.10
 
+* `Versions`
+    * `Core KTX`: `1.3.2` -> `1.5.0`
+    * `AndroidX Recycler`: `1.2.0` -> `1.2.1`
+    * `AppCompat`: `1.2.0` -> `1.3.0`
 * `Ktor`
     * `Server`
         * All elements in configurators became a `fun interface`
