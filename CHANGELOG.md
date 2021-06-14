@@ -2,6 +2,12 @@
 
 ## 0.5.10
 
+* `Ktor`
+    * `Server`
+        * All elements in configurators became a `fun interface`
+* `Pagination`
+    * New function `doForAllWithCurrentPaging`
+
 ## 0.5.9
 
 * `Repos`

@@ -8,7 +8,7 @@ import kotlinx.serialization.Contextual
 class StatusPagesConfigurator(
     private val elements: List<@Contextual Element>
 ) : KtorApplicationConfigurator {
-    interface Element { operator fun StatusPages.Configuration.invoke() }
+    fun interface Element { operator fun StatusPages.Configuration.invoke() }
 
     override fun Application.configure() {
         install(StatusPages) {

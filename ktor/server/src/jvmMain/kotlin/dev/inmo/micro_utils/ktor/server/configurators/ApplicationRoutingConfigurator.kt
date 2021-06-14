@@ -10,17 +10,18 @@ import kotlinx.serialization.Serializable
 class ApplicationRoutingConfigurator(
     private val elements: List<@Contextual Element>
 ) : KtorApplicationConfigurator {
-    interface Element { operator fun Route.invoke() }
+    fun interface Element { operator fun Route.invoke() }
+    private val rootInstaller = Element {
+        elements.forEach {
+            it.apply { invoke() }
+        }
+    }
 
     override fun Application.configure() {
-        try {
-            feature(Routing)
-        } catch (e: IllegalStateException) {
-            install(Routing) {
-                elements.forEach {
-                    it.apply { invoke() }
-                }
-            }
+        featureOrNull(Routing) ?.apply {
+            rootInstaller.apply { invoke() }
+        } ?: install(Routing) {
+            rootInstaller.apply { invoke() }
         }
     }
 }
