@@ -33,3 +33,15 @@ fun View.toggleVisibility(goneOnHide: Boolean = true) {
         show()
     }
 }
+
+fun View.changeVisibility(show: Boolean = !isShown, goneOnHide: Boolean = true) {
+    if (show) {
+        if (goneOnHide) {
+            gone()
+        } else {
+            hide()
+        }
+    } else {
+        show()
+    }
+}

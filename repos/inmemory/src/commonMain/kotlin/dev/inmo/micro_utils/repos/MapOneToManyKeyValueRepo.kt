@@ -86,6 +86,12 @@ class MapWriteOneToManyKeyValueRepo<Key, Value>(
     override suspend fun clear(k: Key) {
         map.remove(k) ?.also { _onDataCleared.emit(k) }
     }
+
+    override suspend fun clearWithValue(v: Value) {
+        map.forEach { (k, values) ->
+            if (values.remove(v)) _onValueRemoved.emit(k to v)
+        }
+    }
 }
 
 class MapOneToManyKeyValueRepo<Key, Value>(

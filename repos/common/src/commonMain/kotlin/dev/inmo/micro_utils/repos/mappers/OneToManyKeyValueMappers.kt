@@ -114,6 +114,7 @@ open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     }
 
     override suspend fun clear(k: FromKey) = to.clear(k.toOutKey())
+    override suspend fun clearWithValue(v: FromValue) = to.clearWithValue(v.toOutValue())
 }
 
 @Suppress("NOTHING_TO_INLINE")
