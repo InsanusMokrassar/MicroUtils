@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.5.10
+
+* `Versions`
+    * `Core KTX`: `1.3.2` -> `1.5.0`
+    * `AndroidX Recycler`: `1.2.0` -> `1.2.1`
+    * `AppCompat`: `1.2.0` -> `1.3.0`
+* `Android`
+    * `RecyclerView`:
+        * `data` of `RecyclerViewAdapter` became an abstract field
+            * New function `RecyclerViewAdapter`
+    * `Common`:
+        * New extension `View#changeVisibility`
+    * `Repos`:
+        * `Common`:
+            * `WriteOneToManyRepo` got new function `clearWithValue`
+            * `Android`:
+                * New extension `SQLiteDatabase#selectDistinct`
+                * Fixes in `OneToManyAndroidRepo`
+* `Ktor`
+    * `Server`
+        * All elements in configurators became a `fun interface`
+* `Pagination`
+    * New function `doForAllWithCurrentPaging`
+
 ## 0.5.9
 
 * `Repos`

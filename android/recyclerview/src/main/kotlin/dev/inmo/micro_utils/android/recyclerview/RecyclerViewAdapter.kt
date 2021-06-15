@@ -1,12 +1,13 @@
 package dev.inmo.micro_utils.android.recyclerview
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class RecyclerViewAdapter<T>(
-    val data: List<T>
-): RecyclerView.Adapter<AbstractViewHolder<T>>() {
+abstract class RecyclerViewAdapter<T>: RecyclerView.Adapter<AbstractViewHolder<T>>() {
+    protected abstract val data: List<T>
+
     var emptyView: View? = null
         set(value) {
             field = value
@@ -65,4 +66,12 @@ abstract class RecyclerViewAdapter<T>(
             }
         }
     }
+}
+
+fun <T> RecyclerViewAdapter(
+    data: List<T>,
+    onCreateViewHolder: (parent: ViewGroup, viewType: Int) -> AbstractViewHolder<T>
+) = object : RecyclerViewAdapter<T>() {
+    override val data: List<T> = data
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder<T> = onCreateViewHolder(parent, viewType)
 }

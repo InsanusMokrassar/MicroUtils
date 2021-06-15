@@ -35,9 +35,9 @@ class ActionViewHolder(
 }
 
 class ActionsRecyclerViewAdapter(
-    data: List<AlertAction>,
+    override val data: List<AlertAction>,
     private val dialogInterfaceGetter: () -> DialogInterface
-) : RecyclerViewAdapter<AlertAction>(data) {
+) : RecyclerViewAdapter<AlertAction>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder<AlertAction> = ActionViewHolder(
         parent, dialogInterfaceGetter
     )

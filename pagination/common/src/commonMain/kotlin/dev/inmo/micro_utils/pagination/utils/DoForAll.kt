@@ -33,3 +33,8 @@ suspend fun <T> doAllWithCurrentPaging(
         block
     )
 }
+
+suspend fun <T> doForAllWithCurrentPaging(
+    initialPagination: Pagination = FirstPagePagination(),
+    block: suspend (Pagination) -> PaginationResult<T>
+) = doAllWithCurrentPaging(initialPagination, block)

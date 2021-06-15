@@ -3,10 +3,7 @@ package dev.inmo.micro_utils.repos.onetomany
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.content.contentValuesOf
 import dev.inmo.micro_utils.common.mapNotNullA
-import dev.inmo.micro_utils.pagination.FirstPagePagination
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
-import dev.inmo.micro_utils.pagination.createPaginationResult
+import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +35,9 @@ class OneToManyAndroidRepo<Key, Value>(
     override val onDataCleared: Flow<Key> = _onDataCleared.asSharedFlow()
 
     private val idColumnName = "id"
+    private val idColumnArray = arrayOf(idColumnName)
     private val valueColumnName = "value"
+    private val valueColumnArray = arrayOf(valueColumnName)
 
     init {
         helper.blockingWritableTransaction {
@@ -108,7 +107,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }
 
     override suspend fun contains(k: Key): Boolean = helper.blockingReadableTransaction {
-        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = FirstPagePagination(1).limitClause()).use {
+        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = firstPageWithOneElementPagination.limitClause()).use {
             it.count > 0
         }
     }
@@ -124,7 +123,7 @@ class OneToManyAndroidRepo<Key, Value>(
         }
     }
 
-    override suspend fun count(): Long =helper.blockingReadableTransaction {
+    override suspend fun count(): Long = helper.blockingReadableTransaction {
         select(
             tableName
         ).use {
@@ -133,7 +132,7 @@ class OneToManyAndroidRepo<Key, Value>(
     }.toLong()
 
     override suspend fun count(k: Key): Long = helper.blockingReadableTransaction {
-        select(tableName, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = FirstPagePagination(1).limitClause()).use {
+        selectDistinct(tableName, columns = valueColumnArray, selection = "$idColumnName=?", selectionArgs = arrayOf(k.keyAsString()), limit = FirstPagePagination(1).limitClause()).use {
             it.count
         }
     }.toLong()
@@ -143,10 +142,17 @@ class OneToManyAndroidRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Value> = count(k).let { count ->
+        if (pagination.firstIndex >= count) {
+            return@let emptyList<Value>().createPaginationResult(
+                pagination,
+                count
+            )
+        }
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
         helper.blockingReadableTransaction {
             select(
                 tableName,
+                valueColumnArray,
                 selection = "$idColumnName=?",
                 selectionArgs = arrayOf(k.keyAsString()),
                 limit = resultPagination.limitClause()
@@ -169,10 +175,17 @@ class OneToManyAndroidRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Key> = count().let { count ->
+        if (pagination.firstIndex >= count) {
+            return@let emptyList<Key>().createPaginationResult(
+                pagination,
+                count
+            )
+        }
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
         helper.blockingReadableTransaction {
-            select(
+            selectDistinct(
                 tableName,
+                idColumnArray,
                 limit = resultPagination.limitClause()
             ).use { c ->
                 mutableListOf<Key>().also {
@@ -196,8 +209,9 @@ class OneToManyAndroidRepo<Key, Value>(
     ): PaginationResult<Key> = count().let { count ->
         val resultPagination = pagination.let { if (reversed) pagination.reverse(count) else pagination }
         helper.blockingReadableTransaction {
-            select(
+            selectDistinct(
                 tableName,
+                idColumnArray,
                 selection = "$valueColumnName=?",
                 selectionArgs = arrayOf(v.valueAsString()),
                 limit = resultPagination.limitClause()

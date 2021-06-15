@@ -67,6 +67,15 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
         Unit.serializer(),
     )
 
+    override suspend fun clearWithValue(v: Value) = unifiedRequester.unipost(
+        buildStandardUrl(
+            baseUrl,
+            clearWithValueRoute,
+        ),
+        BodyPair(valueSerializer, v),
+        Unit.serializer(),
+    )
+
     override suspend fun set(toSet: Map<Key, List<Value>>) = unifiedRequester.unipost(
         buildStandardUrl(
             baseUrl,

@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.utils.doForAllWithCurrentPaging
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import kotlinx.coroutines.flow.Flow
 
@@ -47,6 +48,7 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
     suspend fun remove(toRemove: Map<Key, List<Value>>)
 
     suspend fun clear(k: Key)
+    suspend fun clearWithValue(v: Value)
 
     suspend fun set(toSet: Map<Key, List<Value>>) {
         toSet.keys.forEach { key -> clear(key) }
@@ -87,7 +89,19 @@ suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
     k: Key, vararg v: Value
 ) = set(k, v.toList())
 
-interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value>
+interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value> {
+    override suspend fun clearWithValue(v: Value) {
+        doWithPagination {
+            val keysResult = keys(v, it)
+
+            if (keysResult.results.isNotEmpty()) {
+                remove(keysResult.results.map { it to listOf(v) })
+            }
+
+            keysResult.currentPageIfNotEmpty()
+        }
+    }
+}
 typealias KeyValuesRepo<Key,Value> = OneToManyKeyValueRepo<Key, Value>
 
 suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(

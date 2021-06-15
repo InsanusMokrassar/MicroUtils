@@ -8,7 +8,7 @@ import kotlinx.serialization.Contextual
 data class ApplicationCachingHeadersConfigurator(
     private val elements: List<@Contextual Element>
 ) : KtorApplicationConfigurator {
-    interface Element { operator fun CachingHeaders.Configuration.invoke() }
+    fun interface Element { operator fun CachingHeaders.Configuration.invoke() }
 
     override fun Application.configure() {
         install(CachingHeaders) {

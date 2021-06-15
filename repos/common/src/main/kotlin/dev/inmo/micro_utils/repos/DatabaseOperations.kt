@@ -74,6 +74,19 @@ fun SQLiteDatabase.select(
     table, columns, selection, selectionArgs, groupBy, having, orderBy, limit
 )
 
+fun SQLiteDatabase.selectDistinct(
+    table: String,
+    columns: Array<String>? = null,
+    selection: String? = null,
+    selectionArgs: Array<String>? = null,
+    groupBy: String? = null,
+    having: String? = null,
+    orderBy: String? = null,
+    limit: String? = null
+) = query(
+    true, table, columns, selection, selectionArgs, groupBy, having, orderBy, limit
+)
+
 fun makePlaceholders(count: Int): String {
     return (0 until count).joinToString { "?" }
 }
