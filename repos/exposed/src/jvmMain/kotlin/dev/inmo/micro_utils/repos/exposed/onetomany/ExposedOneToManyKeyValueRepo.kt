@@ -31,6 +31,9 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
         transaction(database) {
             toAdd.keys.flatMap { k ->
                 toAdd[k] ?.mapNotNull { v ->
+                    if (select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
+                        return@mapNotNull null
+                    }
                     insertIgnore {
                         it[keyColumn] = k
                         it[valueColumn] = v

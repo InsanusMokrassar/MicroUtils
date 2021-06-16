@@ -5,6 +5,8 @@
 * `Repos`:
     * `Common`:
         * Fixes in `WriteOneToManyRepo#add`
+    * `Exposed`:
+        * Fixes in `ExposedOneToManyKeyValueRepo#add`
 
 ## 0.5.10
 
