@@ -55,6 +55,17 @@ class OneToManyAndroidRepo<Key, Value>(
         helper.blockingWritableTransaction {
             for ((k, values) in toAdd) {
                 values.forEach { v ->
+                    val kAsString = k.keyAsString()
+                    val vAsString = v.valueAsString()
+                    val isThere = select(tableName,
+                        null,
+                        "$idColumnName=? AND $valueColumnName=?",
+                        arrayOf(kAsString, vAsString),
+                        limit = limitClause(1)
+                    ).use { it.moveToFirst() }
+                    if (isThere) {
+                        return@forEach
+                    }
                     insert(
                         tableName,
                         null,
