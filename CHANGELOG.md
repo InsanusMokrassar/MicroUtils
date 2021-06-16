@@ -2,6 +2,10 @@
 
 ## 0.5.11
 
+* `Repos`:
+    * `Common`:
+        * Fixes in `WriteOneToManyRepo#add`
+
 ## 0.5.10
 
 * `Versions`
