@@ -15,31 +15,35 @@ abstract class StateFlowBasedRecyclerViewAdapter<T>(
 
     init {
         dataState.onEach {
-            val diffForRemoves = Diff(data, it)
-            val removedIndexes = diffForRemoves.removed.map { it.index }
-            val leftRemove = removedIndexes.toMutableList()
-            data = data.filterIndexed { i, _ ->
-                if (i in leftRemove) {
-                    leftRemove.remove(i)
-                    true
-                } else {
-                    false
+            try {
+                val diffForRemoves = Diff(data, it)
+                val removedIndexes = diffForRemoves.removed.map { it.index }
+                val leftRemove = removedIndexes.toMutableList()
+                data = data.filterIndexed { i, _ ->
+                    if (i in leftRemove) {
+                        leftRemove.remove(i)
+                        true
+                    } else {
+                        false
+                    }
                 }
-            }
-            withContext(Dispatchers.Main) {
-                removedIndexes.sortedDescending().forEach {
-                    notifyItemRemoved(it)
+                withContext(Dispatchers.Main) {
+                    removedIndexes.sortedDescending().forEach {
+                        notifyItemRemoved(it)
+                    }
                 }
-            }
-            val diffAddsAndReplaces = Diff(data, it)
-            data = it
-            withContext(Dispatchers.Main) {
-                diffAddsAndReplaces.replaced.forEach { (from, to) ->
-                    notifyItemMoved(from.index, to.index)
+                val diffAddsAndReplaces = Diff(data, it)
+                data = it
+                withContext(Dispatchers.Main) {
+                    diffAddsAndReplaces.replaced.forEach { (from, to) ->
+                        notifyItemMoved(from.index, to.index)
+                    }
+                    diffAddsAndReplaces.added.forEach {
+                        notifyItemInserted(it.index)
+                    }
                 }
-                diffAddsAndReplaces.added.forEach {
-                    notifyItemInserted(it.index)
-                }
+            } catch (e: Throwable) {
+                // currently do nothing
             }
         }.launchIn(listeningScope)
     }
