@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+                api project(":micro_utils.common")
             }
         }
         androidMain {

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.5.12
+
+* `Common`:
+    * `Android`
+        * Extension `View#changeVisibility` has been fixed
+* `Android`
+    * `RecyclerView`
+        * Default adapter got `dataCountFlow` property
+        * New subtype of adapter based on `StateFlow`: `StateFlowBasedRecyclerViewAdapter`
+
 ## 0.5.11
 
 * `Repos`:

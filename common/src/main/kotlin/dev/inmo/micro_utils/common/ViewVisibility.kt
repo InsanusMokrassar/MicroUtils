@@ -36,12 +36,12 @@ fun View.toggleVisibility(goneOnHide: Boolean = true) {
 
 fun View.changeVisibility(show: Boolean = !isShown, goneOnHide: Boolean = true) {
     if (show) {
+        show()
+    } else {
         if (goneOnHide) {
             gone()
         } else {
             hide()
         }
-    } else {
-        show()
     }
 }
