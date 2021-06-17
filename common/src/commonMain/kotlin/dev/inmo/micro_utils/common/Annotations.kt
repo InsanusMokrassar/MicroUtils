@@ -16,7 +16,7 @@ package dev.inmo.micro_utils.common
     AnnotationTarget.TYPEALIAS,
     AnnotationTarget.TYPE_PARAMETER
 )
-annotation class PreviewFeature
+annotation class PreviewFeature(val message: String = "It is possible, that behaviour of this thing will be changed or removed in future releases")
 
 @RequiresOptIn(
     "This thing is marked as warned. See message of warn to get more info",
