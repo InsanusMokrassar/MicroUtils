@@ -28,6 +28,9 @@ String[] includes = [
     ":serialization:encapsulator",
     ":serialization:typed_serializer",
 
+    ":fsm:common",
+    ":fsm:repos",
+
     ":dokka"
 ]
 
