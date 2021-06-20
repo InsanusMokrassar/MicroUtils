@@ -1,4 +1,4 @@
-package dev.inmo.micro_utils.fsm.repos
+package dev.inmo.micro_utils.fsm.repos.common
 
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
@@ -8,7 +8,6 @@ import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.reflect.KClass
 
 class KeyValueBasedStatesManager(
     private val keyValueRepo: KeyValueRepo<Any, State>,

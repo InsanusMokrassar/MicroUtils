@@ -29,7 +29,7 @@ String[] includes = [
     ":serialization:typed_serializer",
 
     ":fsm:common",
-    ":fsm:repos",
+    ":fsm:repos:common",
 
     ":dokka"
 ]
