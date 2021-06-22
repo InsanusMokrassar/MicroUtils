@@ -7,9 +7,17 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 typealias ByteArrayAllocator = () -> ByteArray
+typealias SuspendByteArrayAllocator = suspend () -> ByteArray
 
 val ByteArray.asAllocator: ByteArrayAllocator
     get() = { this }
+val ByteArray.asSuspendAllocator: SuspendByteArrayAllocator
+    get() = { this }
+val ByteArrayAllocator.asSuspendAllocator: SuspendByteArrayAllocator
+    get() = { this() }
+suspend fun SuspendByteArrayAllocator.asAllocator(): ByteArrayAllocator {
+    return invoke().asAllocator
+}
 
 object ByteArrayAllocatorSerializer : KSerializer<ByteArrayAllocator> {
     private val realSerializer = ByteArraySerializer()
@@ -17,7 +25,7 @@ object ByteArrayAllocatorSerializer : KSerializer<ByteArrayAllocator> {
 
     override fun deserialize(decoder: Decoder): ByteArrayAllocator {
         val bytes = realSerializer.deserialize(decoder)
-        return { bytes }
+        return bytes.asAllocator
     }
 
     override fun serialize(encoder: Encoder, value: ByteArrayAllocator) {

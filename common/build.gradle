@@ -5,3 +5,18 @@ plugins {
 }
 
 apply from: "$mppProjectWithSerializationPresetPath"
+
+kotlin {
+    sourceSets {
+        jvmMain {
+            dependencies {
+                api project(":micro_utils.coroutines")
+            }
+        }
+        androidMain {
+            dependencies {
+                api project(":micro_utils.coroutines")
+            }
+        }
+    }
+}
