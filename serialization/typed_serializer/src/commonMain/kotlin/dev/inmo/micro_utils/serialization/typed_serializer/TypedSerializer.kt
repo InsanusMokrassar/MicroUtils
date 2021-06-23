@@ -12,7 +12,7 @@ open class TypedSerializer<T : Any>(
 ) : KSerializer<T> {
     protected val serializers = presetSerializers.toMutableMap()
     @InternalSerializationApi
-    override open val descriptor: SerialDescriptor = buildSerialDescriptor(
+    open override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TextSourceSerializer",
         SerialKind.CONTEXTUAL
     ) {
@@ -21,7 +21,7 @@ open class TypedSerializer<T : Any>(
     }
 
     @InternalSerializationApi
-    override open fun deserialize(decoder: Decoder): T {
+    open override fun deserialize(decoder: Decoder): T {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
             lateinit var result: T
@@ -50,7 +50,7 @@ open class TypedSerializer<T : Any>(
     }
 
     @InternalSerializationApi
-    override open fun serialize(encoder: Encoder, value: T) {
+    open override fun serialize(encoder: Encoder, value: T) {
         encoder.encodeStructure(descriptor) {
             val valueSerializer = value::class.serializer()
             val type = serializers.keys.first { serializers[it] == valueSerializer }
