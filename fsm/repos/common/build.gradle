@@ -8,14 +8,10 @@ apply from: "$mppProjectWithSerializationPresetPath"
 
 kotlin {
     sourceSets {
-        jvmMain {
+        commonMain {
             dependencies {
-                api project(":micro_utils.coroutines")
-            }
-        }
-        androidMain {
-            dependencies {
-                api project(":micro_utils.coroutines")
+                api project(":micro_utils.fsm.common")
+                api project(":micro_utils.repos.common")
             }
         }
     }

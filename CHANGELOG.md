@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.13
+
+* `Common`:
+    * Add functionality for multiplatform working with files:
+        * Main class for files `MPPFile`
+        * Inline class for filenames work encapsulation `FileName`
+* `FSM`
+    * Module inited and in preview state
+
 ## 0.5.12
 
 * `Common`:
