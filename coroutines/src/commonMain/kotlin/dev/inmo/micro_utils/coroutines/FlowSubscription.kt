@@ -4,6 +4,8 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Shortcut for chain if [Flow.onEach] and [Flow.launchIn]
@@ -29,9 +31,10 @@ inline fun <T> Flow<T>.subscribeSafely(
  */
 inline fun <T> Flow<T>.subscribeSafelyWithoutExceptions(
     scope: CoroutineScope,
+    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
     noinline block: suspend (T) -> Unit
 ) = subscribe(scope) {
-    safelyWithoutExceptions {
+    safelyWithoutExceptions(onException) {
         block(it)
     }
 }
