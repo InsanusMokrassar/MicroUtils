@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.14
+
+* `Versions`
+    * `Kotlin`: `1.5.10` -> `1.5.20`
+* `Coroutines`
+    * `subscribeSafelyWithoutExceptions` got new parameter `onException` by analogue with `safelyWithoutExceptions`
+    * New extensions `Flow#subscribeAsync` and subsequent analogs of `subscribe` with opportunity to set up custom marker
+
 ## 0.5.13
 
 * `Common`:
