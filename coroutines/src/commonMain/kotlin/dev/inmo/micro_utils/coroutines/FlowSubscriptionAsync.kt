@@ -38,7 +38,7 @@ private data class AsyncSubscriptionCommandData<T, M>(
     override suspend fun invoke(markersMap: MutableMap<M, SubscribeAsyncReceiver<T>>) {
         val marker = markerFactory(data)
         markersMap.getOrPut(marker) {
-            SubscribeAsyncReceiver(scope) {
+            SubscribeAsyncReceiver(scope.LinkedSupervisorScope()) {
                 safelyWithoutExceptions { block(it) }
                 if (isEmpty()) {
                     onEmpty(marker)
@@ -80,7 +80,7 @@ fun <T, M> Flow<T>.subscribeAsync(
         actor.send(dataCommand)
     }
 
-    job.invokeOnCompletion { subscope.cancel() }
+    job.invokeOnCompletion { if (subscope.isActive) subscope.cancel() }
 
     return job
 }
