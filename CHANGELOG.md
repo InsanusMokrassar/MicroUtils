@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.5.14
+## 0.5.15 HOTFIX FOR 0.5.14
+
+* `Coroutines`
+    * Fixes in `subscribeAsync`
+
+## 0.5.14 NOT RECOMMENDED
 
 * `Versions`
     * `Kotlin`: `1.5.10` -> `1.5.20`
