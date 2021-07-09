@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.16
+
+* `Versions`
+  * `Coroutines`: `1.5.0` -> `1.5.1`
+  * `Serialization`: `1.2.1` -> `1.2.2`
+  * `Ktor`: `1.6.0` -> `1.6.1`
+  * `Klock`: `2.1.2` -> `2.2.0`
+  * `Core KTX`: `1.5.0` -> `1.6.0`
+
 ## 0.5.15 HOTFIX FOR 0.5.14
 
 * `Coroutines`
