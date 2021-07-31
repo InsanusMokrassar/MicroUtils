@@ -2,6 +2,14 @@
 
 ## 0.5.17
 
+**SINCE THIS UPDATE JS PARTS WILL BE COMPILED WITH IR COMPILER ONLY**
+
+* `Versions`
+    * `Kotlin`: `1.5.20` -> `1.5.21`
+    * `Ktor`: `1.6.1` -> `1.6.2`
+    * `Klock`: `2.2.0` -> `2.3.1`
+    * `CryptoJS`: `4.0.0` -> `4.1.1`
+
 ## 0.5.16
 
 * `Versions`

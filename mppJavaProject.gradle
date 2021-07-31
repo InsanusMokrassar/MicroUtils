@@ -4,9 +4,7 @@ project.group = "$group"
 apply from: "$publishGradlePath"
 
 kotlin {
-    jvm {
-        compilations.main.kotlinOptions.useIR = true
-    }
+    jvm()
 
     sourceSets {
         commonMain {
