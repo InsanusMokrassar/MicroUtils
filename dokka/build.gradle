@@ -7,14 +7,13 @@ plugins {
 
 repositories {
     mavenLocal()
-    jcenter()
     google()
     mavenCentral()
 }
 
 kotlin {
     jvm()
-    js(BOTH) {
+    js(IR) {
         browser()
         nodejs()
     }
