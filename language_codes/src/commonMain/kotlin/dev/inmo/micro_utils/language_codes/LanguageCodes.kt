@@ -2,6 +2,11 @@ package dev.inmo.micro_utils.language_codes
 
 import kotlinx.serialization.Serializable
 
+/**
+ * This class has been automatically generated using
+ * https://github.com/InsanusMokrassar/MicroUtils/tree/master/language_codes/generator . This generator uses
+ * https://datahub.io/core/language-codes/ files (base and tags) and create the whole hierarchy using it.
+ */
 @Serializable(IetfLanguageCodeSerializer::class)
 sealed interface IetfLanguageCode {
     val code: String

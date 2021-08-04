@@ -92,6 +92,11 @@ ${indents}}
 fun buildKtFileContent(tags: List<Tag>): String = """
 import kotlinx.serialization.Serializable
 
+/**
+ * This class has been automatically generated using
+ * https://github.com/InsanusMokrassar/MicroUtils/tree/master/language_codes/generator . This generator uses
+ * https://datahub.io/core/language-codes/ files (base and tags) and create the whole hierarchy using it.
+ */
 ${baseClassSerializerAnnotationName}
 sealed interface $baseClassName {
     val code: String
