@@ -73,10 +73,8 @@ private fun printLanguageCodeAndTags(
     parent: Tag? = null,
     indents: String = "    "
 ): String = if (tag.subtags.isEmpty()) {
-"""
-${indents}${baseClassSerializerAnnotationName}
-${indents}object ${tag.title} : ${parent ?.title ?.let { "$it()" } ?: baseClassName} { override val code: String = "${tag.tag}" }
-"""
+"""${indents}${baseClassSerializerAnnotationName}
+${indents}object ${tag.title} : ${parent ?.title ?.let { "$it()" } ?: baseClassName} { override val code: String = "${tag.tag}" }"""
 } else {
 """
 ${indents}${baseClassSerializerAnnotationName}
