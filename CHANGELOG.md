@@ -2,6 +2,9 @@
 
 ## 0.5.18
 
+* `LanguageCode`:
+    * Module has been created
+
 ## 0.5.17
 
 **SINCE THIS UPDATE JS PARTS WILL BE COMPILED WITH IR COMPILER ONLY**
