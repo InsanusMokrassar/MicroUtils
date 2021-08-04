@@ -108,16 +108,28 @@ ${tags.joinToString("\n") { printLanguageCodeAndTags(it, indents = "    ") } }
 }
 """.trimIndent()
 
-fun createSerializerCode(tags: List<Tag>): String {
+fun createStringConverterCode(tags: List<Tag>): String {
     fun createDeserializeVariantForTag(
         tag: Tag,
         pretitle: String = baseClassName,
-        indents: String = "            "
+        indents: String = "        "
     ): String {
         val currentTitle = "$pretitle.${tag.title}"
         return """${indents}$currentTitle.code -> $currentTitle${if (tag.subtags.isNotEmpty()) tag.subtags.joinToString("\n", "\n") { createDeserializeVariantForTag(it, currentTitle, indents) } else ""}"""
     }
 
+    return """fun String.as$baseClassName(): $baseClassName {
+    return when (this) {
+${tags.joinToString("\n") { createDeserializeVariantForTag(it) }}
+        else -> $baseClassName.${unknownBaseClassName}(this)
+    }
+}
+fun convertTo$baseClassName(code: String) = code.as$baseClassName()
+fun $baseClassName(code: String) = code.as$baseClassName()
+"""
+}
+
+fun createSerializerCode(tags: List<Tag>): String {
     return """import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.encoding.Decoder
@@ -127,11 +139,7 @@ object $baseClassSerializerName : KSerializer<$baseClassName> {
     override val descriptor = String.serializer().descriptor
 
     override fun deserialize(decoder: Decoder): $baseClassName {
-        val tag = decoder.decodeString()
-        return when (tag) {
-${tags.joinToString("\n") { createDeserializeVariantForTag(it) }}
-            else -> $baseClassName.${unknownBaseClassName}(tag)
-        }
+        return $baseClassName(decoder.decodeString())
     }
 
     override fun serialize(encoder: Encoder, value: IetfLanguageCode) {
@@ -189,6 +197,12 @@ suspend fun main(vararg args: String) {
         delete()
         createNewFile()
         writeText(buildKtFileContent(tags))
+    }
+
+    File(outputFolder, "StringToLanguageCodes.kt").apply {
+        delete()
+        createNewFile()
+        writeText(createStringConverterCode(tags))
     }
 
     File(outputFolder, "$baseClassSerializerName.kt").apply {
