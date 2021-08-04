@@ -10,6 +10,8 @@ String[] includes = [
     ":pagination:ktor:common",
     ":pagination:ktor:server",
     ":mime_types",
+    ":language_codes",
+    ":language_codes:generator",
     ":repos:common",
     ":repos:cache",
     ":repos:exposed",
