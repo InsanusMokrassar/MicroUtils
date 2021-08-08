@@ -461,9 +461,9 @@ fun String.asIetfLanguageCode(): IetfLanguageCode {
         IetfLanguageCode.Burmese.code -> IetfLanguageCode.Burmese
         IetfLanguageCode.Burmese.MM.code -> IetfLanguageCode.Burmese.MM
         IetfLanguageCode.Nauru.code -> IetfLanguageCode.Nauru
-        IetfLanguageCode.BokmålNorwegianNorwegianBokmål.code -> IetfLanguageCode.BokmålNorwegianNorwegianBokmål
-        IetfLanguageCode.BokmålNorwegianNorwegianBokmål.NO.code -> IetfLanguageCode.BokmålNorwegianNorwegianBokmål.NO
-        IetfLanguageCode.BokmålNorwegianNorwegianBokmål.SJ.code -> IetfLanguageCode.BokmålNorwegianNorwegianBokmål.SJ
+        IetfLanguageCode.BokmalNorwegianNorwegianBokmal.code -> IetfLanguageCode.BokmalNorwegianNorwegianBokmal
+        IetfLanguageCode.BokmalNorwegianNorwegianBokmal.NO.code -> IetfLanguageCode.BokmalNorwegianNorwegianBokmal.NO
+        IetfLanguageCode.BokmalNorwegianNorwegianBokmal.SJ.code -> IetfLanguageCode.BokmalNorwegianNorwegianBokmal.SJ
         IetfLanguageCode.NdebeleNorthNorthNdebele.code -> IetfLanguageCode.NdebeleNorthNorthNdebele
         IetfLanguageCode.NdebeleNorthNorthNdebele.ZW.code -> IetfLanguageCode.NdebeleNorthNorthNdebele.ZW
         IetfLanguageCode.Nepali.code -> IetfLanguageCode.Nepali
@@ -639,8 +639,8 @@ fun String.asIetfLanguageCode(): IetfLanguageCode {
         IetfLanguageCode.Venda.code -> IetfLanguageCode.Venda
         IetfLanguageCode.Vietnamese.code -> IetfLanguageCode.Vietnamese
         IetfLanguageCode.Vietnamese.VN.code -> IetfLanguageCode.Vietnamese.VN
-        IetfLanguageCode.Volapük.code -> IetfLanguageCode.Volapük
-        IetfLanguageCode.Volapük.L001.code -> IetfLanguageCode.Volapük.L001
+        IetfLanguageCode.Volapuk.code -> IetfLanguageCode.Volapuk
+        IetfLanguageCode.Volapuk.L001.code -> IetfLanguageCode.Volapuk.L001
         IetfLanguageCode.Walloon.code -> IetfLanguageCode.Walloon
         IetfLanguageCode.Wolof.code -> IetfLanguageCode.Wolof
         IetfLanguageCode.Wolof.SN.code -> IetfLanguageCode.Wolof.SN
