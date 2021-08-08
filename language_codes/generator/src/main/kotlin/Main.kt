@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.text.Normalizer
 
 private val json = Json {
     ignoreUnknownKeys = true
@@ -28,6 +29,8 @@ fun String.adaptAsTitle() = if (first().isDigit()) {
 } else {
     this
 }
+
+fun String.normalized() = Normalizer.normalize(this, Normalizer.Form.NFD).replace(Regex("[^\\p{ASCII}]"), "")
 
 @Serializable
 private data class LanguageCodeWithTag(
@@ -74,11 +77,11 @@ private fun printLanguageCodeAndTags(
     indents: String = "    "
 ): String = if (tag.subtags.isEmpty()) {
 """${indents}${baseClassSerializerAnnotationName}
-${indents}object ${tag.title} : ${parent ?.title ?.let { "$it()" } ?: baseClassName} { override val code: String = "${tag.tag}" }"""
+${indents}object ${tag.title} : ${parent ?.title ?: baseClassName}() { override val code: String = "${tag.tag}" }"""
 } else {
 """
 ${indents}${baseClassSerializerAnnotationName}
-${indents}sealed class ${tag.title} : ${parent ?.title ?.let { "$it()" } ?: baseClassName} {
+${indents}sealed class ${tag.title} : ${parent ?.title ?: baseClassName}() {
 ${indents}    override val code: String = "${tag.tag}"
 
 ${tag.subtags.joinToString("\n") { printLanguageCodeAndTags(it, tag, "${indents}    ") }}
@@ -98,13 +101,15 @@ import kotlinx.serialization.Serializable
  * https://datahub.io/core/language-codes/ files (base and tags) and create the whole hierarchy using it.
  */
 ${baseClassSerializerAnnotationName}
-sealed interface $baseClassName {
-    val code: String
+sealed class $baseClassName {
+    abstract val code: String
 
 ${tags.joinToString("\n") { printLanguageCodeAndTags(it, indents = "    ") } }
 
     $baseClassSerializerAnnotationName
-    data class $unknownBaseClassName (override val code: String) : $baseClassName
+    data class $unknownBaseClassName (override val code: String) : $baseClassName()
+
+    override fun toString() = code
 }
 """.trimIndent()
 
@@ -179,18 +184,14 @@ suspend fun main(vararg args: String) {
         val subtags = unformattedSubtags.mapNotNull {
             if (it.endTag == null) {
                 val currentSubtags = (threeLevelTags[it.subtag] ?: emptyList()).map {
-                    Tag(it.endTagAsTitle!!, it.withSubtag, emptyList())
+                    Tag(it.endTagAsTitle!!.normalized(), it.withSubtag, emptyList())
                 }
-                Tag(it.middleTagTitle, it.withSubtag, currentSubtags)
+                Tag(it.middleTagTitle.normalized(), it.withSubtag, currentSubtags)
             } else {
                 null
             }
         }
-        Tag(
-            it.title,
-            it.tag,
-            subtags
-        )
+        Tag(it.title.normalized(), it.tag, subtags)
     }
 
     File(outputFolder, "LanguageCodes.kt").apply {

@@ -2,6 +2,10 @@
 
 ## 0.5.19
 
+* `LanguageCode`:
+    * `IetfLanguageCode` became as sealed class
+    * `IetfLanguageCode` now override `toString` and returns its code
+
 ## 0.5.18
 
 * `LanguageCode`:

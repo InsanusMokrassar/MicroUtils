@@ -8,18 +8,18 @@ import kotlinx.serialization.Serializable
  * https://datahub.io/core/language-codes/ files (base and tags) and create the whole hierarchy using it.
  */
 @Serializable(IetfLanguageCodeSerializer::class)
-sealed interface IetfLanguageCode {
-    val code: String
+sealed class IetfLanguageCode {
+    abstract val code: String
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Afar : IetfLanguageCode { override val code: String = "aa" }
+    object Afar : IetfLanguageCode() { override val code: String = "aa" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Abkhazian : IetfLanguageCode { override val code: String = "ab" }
+    object Abkhazian : IetfLanguageCode() { override val code: String = "ab" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Avestan : IetfLanguageCode { override val code: String = "ae" }
+    object Avestan : IetfLanguageCode() { override val code: String = "ae" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Afrikaans : IetfLanguageCode {
+    sealed class Afrikaans : IetfLanguageCode() {
         override val code: String = "af"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -33,7 +33,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Akan : IetfLanguageCode {
+    sealed class Akan : IetfLanguageCode() {
         override val code: String = "ak"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -45,7 +45,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Amharic : IetfLanguageCode {
+    sealed class Amharic : IetfLanguageCode() {
         override val code: String = "am"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -56,10 +56,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Aragonese : IetfLanguageCode { override val code: String = "an" }
+    object Aragonese : IetfLanguageCode() { override val code: String = "an" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Arabic : IetfLanguageCode {
+    sealed class Arabic : IetfLanguageCode() {
         override val code: String = "ar"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -125,7 +125,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Assamese : IetfLanguageCode {
+    sealed class Assamese : IetfLanguageCode() {
         override val code: String = "as"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -136,12 +136,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Avaric : IetfLanguageCode { override val code: String = "av" }
+    object Avaric : IetfLanguageCode() { override val code: String = "av" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Aymara : IetfLanguageCode { override val code: String = "ay" }
+    object Aymara : IetfLanguageCode() { override val code: String = "ay" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Azerbaijani : IetfLanguageCode {
+    sealed class Azerbaijani : IetfLanguageCode() {
         override val code: String = "az"
 
 
@@ -174,10 +174,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Bashkir : IetfLanguageCode { override val code: String = "ba" }
+    object Bashkir : IetfLanguageCode() { override val code: String = "ba" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Belarusian : IetfLanguageCode {
+    sealed class Belarusian : IetfLanguageCode() {
         override val code: String = "be"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -189,7 +189,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Bulgarian : IetfLanguageCode {
+    sealed class Bulgarian : IetfLanguageCode() {
         override val code: String = "bg"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -200,12 +200,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object BihariLanguages : IetfLanguageCode { override val code: String = "bh" }
+    object BihariLanguages : IetfLanguageCode() { override val code: String = "bh" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Bislama : IetfLanguageCode { override val code: String = "bi" }
+    object Bislama : IetfLanguageCode() { override val code: String = "bi" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Bambara : IetfLanguageCode {
+    sealed class Bambara : IetfLanguageCode() {
         override val code: String = "bm"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -217,7 +217,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Bengali : IetfLanguageCode {
+    sealed class Bengali : IetfLanguageCode() {
         override val code: String = "bn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -231,7 +231,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Tibetan : IetfLanguageCode {
+    sealed class Tibetan : IetfLanguageCode() {
         override val code: String = "bo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -245,7 +245,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Breton : IetfLanguageCode {
+    sealed class Breton : IetfLanguageCode() {
         override val code: String = "br"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -257,7 +257,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Bosnian : IetfLanguageCode {
+    sealed class Bosnian : IetfLanguageCode() {
         override val code: String = "bs"
 
 
@@ -291,7 +291,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class CatalanValencian : IetfLanguageCode {
+    sealed class CatalanValencian : IetfLanguageCode() {
         override val code: String = "ca"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -319,7 +319,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Chechen : IetfLanguageCode {
+    sealed class Chechen : IetfLanguageCode() {
         override val code: String = "ce"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -330,14 +330,14 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Chamorro : IetfLanguageCode { override val code: String = "ch" }
+    object Chamorro : IetfLanguageCode() { override val code: String = "ch" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Corsican : IetfLanguageCode { override val code: String = "co" }
+    object Corsican : IetfLanguageCode() { override val code: String = "co" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Cree : IetfLanguageCode { override val code: String = "cr" }
+    object Cree : IetfLanguageCode() { override val code: String = "cr" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Czech : IetfLanguageCode {
+    sealed class Czech : IetfLanguageCode() {
         override val code: String = "cs"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -349,7 +349,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class ChurchSlavicOldSlavonicChurchSlavonicOldBulgarianOldChurchSlavonic : IetfLanguageCode {
+    sealed class ChurchSlavicOldSlavonicChurchSlavonicOldBulgarianOldChurchSlavonic : IetfLanguageCode() {
         override val code: String = "cu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -360,10 +360,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Chuvash : IetfLanguageCode { override val code: String = "cv" }
+    object Chuvash : IetfLanguageCode() { override val code: String = "cv" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Welsh : IetfLanguageCode {
+    sealed class Welsh : IetfLanguageCode() {
         override val code: String = "cy"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -375,7 +375,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Danish : IetfLanguageCode {
+    sealed class Danish : IetfLanguageCode() {
         override val code: String = "da"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -389,7 +389,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class German : IetfLanguageCode {
+    sealed class German : IetfLanguageCode() {
         override val code: String = "de"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -412,10 +412,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object DivehiDhivehiMaldivian : IetfLanguageCode { override val code: String = "dv" }
+    object DivehiDhivehiMaldivian : IetfLanguageCode() { override val code: String = "dv" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Dzongkha : IetfLanguageCode {
+    sealed class Dzongkha : IetfLanguageCode() {
         override val code: String = "dz"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -427,7 +427,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Ewe : IetfLanguageCode {
+    sealed class Ewe : IetfLanguageCode() {
         override val code: String = "ee"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -441,7 +441,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class GreekModern1453 : IetfLanguageCode {
+    sealed class GreekModern1453 : IetfLanguageCode() {
         override val code: String = "el"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -455,7 +455,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class English : IetfLanguageCode {
+    sealed class English : IetfLanguageCode() {
         override val code: String = "en"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -685,7 +685,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Esperanto : IetfLanguageCode {
+    sealed class Esperanto : IetfLanguageCode() {
         override val code: String = "eo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -697,7 +697,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class SpanishCastilian : IetfLanguageCode {
+    sealed class SpanishCastilian : IetfLanguageCode() {
         override val code: String = "es"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -763,7 +763,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Estonian : IetfLanguageCode {
+    sealed class Estonian : IetfLanguageCode() {
         override val code: String = "et"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -775,7 +775,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Basque : IetfLanguageCode {
+    sealed class Basque : IetfLanguageCode() {
         override val code: String = "eu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -787,7 +787,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Persian : IetfLanguageCode {
+    sealed class Persian : IetfLanguageCode() {
         override val code: String = "fa"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -801,7 +801,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Fulah : IetfLanguageCode {
+    sealed class Fulah : IetfLanguageCode() {
         override val code: String = "ff"
 
 
@@ -879,7 +879,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Finnish : IetfLanguageCode {
+    sealed class Finnish : IetfLanguageCode() {
         override val code: String = "fi"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -890,10 +890,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Fijian : IetfLanguageCode { override val code: String = "fj" }
+    object Fijian : IetfLanguageCode() { override val code: String = "fj" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Faroese : IetfLanguageCode {
+    sealed class Faroese : IetfLanguageCode() {
         override val code: String = "fo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -907,7 +907,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class French : IetfLanguageCode {
+    sealed class French : IetfLanguageCode() {
         override val code: String = "fr"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1009,7 +1009,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class WesternFrisian : IetfLanguageCode {
+    sealed class WesternFrisian : IetfLanguageCode() {
         override val code: String = "fy"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1021,7 +1021,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Irish : IetfLanguageCode {
+    sealed class Irish : IetfLanguageCode() {
         override val code: String = "ga"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1035,7 +1035,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class GaelicScottishGaelic : IetfLanguageCode {
+    sealed class GaelicScottishGaelic : IetfLanguageCode() {
         override val code: String = "gd"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1047,7 +1047,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Galician : IetfLanguageCode {
+    sealed class Galician : IetfLanguageCode() {
         override val code: String = "gl"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1058,10 +1058,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Guarani : IetfLanguageCode { override val code: String = "gn" }
+    object Guarani : IetfLanguageCode() { override val code: String = "gn" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Gujarati : IetfLanguageCode {
+    sealed class Gujarati : IetfLanguageCode() {
         override val code: String = "gu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1073,7 +1073,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Manx : IetfLanguageCode {
+    sealed class Manx : IetfLanguageCode() {
         override val code: String = "gv"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1085,7 +1085,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Hausa : IetfLanguageCode {
+    sealed class Hausa : IetfLanguageCode() {
         override val code: String = "ha"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1101,7 +1101,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Hebrew : IetfLanguageCode {
+    sealed class Hebrew : IetfLanguageCode() {
         override val code: String = "he"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1113,7 +1113,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Hindi : IetfLanguageCode {
+    sealed class Hindi : IetfLanguageCode() {
         override val code: String = "hi"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1124,10 +1124,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object HiriMotu : IetfLanguageCode { override val code: String = "ho" }
+    object HiriMotu : IetfLanguageCode() { override val code: String = "ho" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Croatian : IetfLanguageCode {
+    sealed class Croatian : IetfLanguageCode() {
         override val code: String = "hr"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1140,10 +1140,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object HaitianHaitianCreole : IetfLanguageCode { override val code: String = "ht" }
+    object HaitianHaitianCreole : IetfLanguageCode() { override val code: String = "ht" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Hungarian : IetfLanguageCode {
+    sealed class Hungarian : IetfLanguageCode() {
         override val code: String = "hu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1155,7 +1155,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Armenian : IetfLanguageCode {
+    sealed class Armenian : IetfLanguageCode() {
         override val code: String = "hy"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1166,10 +1166,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Herero : IetfLanguageCode { override val code: String = "hz" }
+    object Herero : IetfLanguageCode() { override val code: String = "hz" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class InterlinguaInternationalAuxiliaryLanguageAssociation : IetfLanguageCode {
+    sealed class InterlinguaInternationalAuxiliaryLanguageAssociation : IetfLanguageCode() {
         override val code: String = "ia"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1181,7 +1181,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Indonesian : IetfLanguageCode {
+    sealed class Indonesian : IetfLanguageCode() {
         override val code: String = "id"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1192,10 +1192,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object InterlingueOccidental : IetfLanguageCode { override val code: String = "ie" }
+    object InterlingueOccidental : IetfLanguageCode() { override val code: String = "ie" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Igbo : IetfLanguageCode {
+    sealed class Igbo : IetfLanguageCode() {
         override val code: String = "ig"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1207,7 +1207,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class SichuanYiNuosu : IetfLanguageCode {
+    sealed class SichuanYiNuosu : IetfLanguageCode() {
         override val code: String = "ii"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1218,12 +1218,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Inupiaq : IetfLanguageCode { override val code: String = "ik" }
+    object Inupiaq : IetfLanguageCode() { override val code: String = "ik" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Ido : IetfLanguageCode { override val code: String = "io" }
+    object Ido : IetfLanguageCode() { override val code: String = "io" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Icelandic : IetfLanguageCode {
+    sealed class Icelandic : IetfLanguageCode() {
         override val code: String = "is"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1235,7 +1235,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Italian : IetfLanguageCode {
+    sealed class Italian : IetfLanguageCode() {
         override val code: String = "it"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1252,10 +1252,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Inuktitut : IetfLanguageCode { override val code: String = "iu" }
+    object Inuktitut : IetfLanguageCode() { override val code: String = "iu" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Japanese : IetfLanguageCode {
+    sealed class Japanese : IetfLanguageCode() {
         override val code: String = "ja"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1267,7 +1267,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Javanese : IetfLanguageCode {
+    sealed class Javanese : IetfLanguageCode() {
         override val code: String = "jv"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1279,7 +1279,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Georgian : IetfLanguageCode {
+    sealed class Georgian : IetfLanguageCode() {
         override val code: String = "ka"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1290,10 +1290,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Kongo : IetfLanguageCode { override val code: String = "kg" }
+    object Kongo : IetfLanguageCode() { override val code: String = "kg" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class KikuyuGikuyu : IetfLanguageCode {
+    sealed class KikuyuGikuyu : IetfLanguageCode() {
         override val code: String = "ki"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1304,10 +1304,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object KuanyamaKwanyama : IetfLanguageCode { override val code: String = "kj" }
+    object KuanyamaKwanyama : IetfLanguageCode() { override val code: String = "kj" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Kazakh : IetfLanguageCode {
+    sealed class Kazakh : IetfLanguageCode() {
         override val code: String = "kk"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1319,7 +1319,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class KalaallisutGreenlandic : IetfLanguageCode {
+    sealed class KalaallisutGreenlandic : IetfLanguageCode() {
         override val code: String = "kl"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1331,7 +1331,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class CentralKhmer : IetfLanguageCode {
+    sealed class CentralKhmer : IetfLanguageCode() {
         override val code: String = "km"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1343,7 +1343,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Kannada : IetfLanguageCode {
+    sealed class Kannada : IetfLanguageCode() {
         override val code: String = "kn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1355,7 +1355,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Korean : IetfLanguageCode {
+    sealed class Korean : IetfLanguageCode() {
         override val code: String = "ko"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1368,10 +1368,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Kanuri : IetfLanguageCode { override val code: String = "kr" }
+    object Kanuri : IetfLanguageCode() { override val code: String = "kr" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Kashmiri : IetfLanguageCode {
+    sealed class Kashmiri : IetfLanguageCode() {
         override val code: String = "ks"
 
 
@@ -1393,7 +1393,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Kurdish : IetfLanguageCode {
+    sealed class Kurdish : IetfLanguageCode() {
         override val code: String = "ku"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1404,10 +1404,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Komi : IetfLanguageCode { override val code: String = "kv" }
+    object Komi : IetfLanguageCode() { override val code: String = "kv" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Cornish : IetfLanguageCode {
+    sealed class Cornish : IetfLanguageCode() {
         override val code: String = "kw"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1419,7 +1419,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class KirghizKyrgyz : IetfLanguageCode {
+    sealed class KirghizKyrgyz : IetfLanguageCode() {
         override val code: String = "ky"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1430,10 +1430,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Latin : IetfLanguageCode { override val code: String = "la" }
+    object Latin : IetfLanguageCode() { override val code: String = "la" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class LuxembourgishLetzeburgesch : IetfLanguageCode {
+    sealed class LuxembourgishLetzeburgesch : IetfLanguageCode() {
         override val code: String = "lb"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1445,7 +1445,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Ganda : IetfLanguageCode {
+    sealed class Ganda : IetfLanguageCode() {
         override val code: String = "lg"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1456,10 +1456,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object LimburganLimburgerLimburgish : IetfLanguageCode { override val code: String = "li" }
+    object LimburganLimburgerLimburgish : IetfLanguageCode() { override val code: String = "li" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Lingala : IetfLanguageCode {
+    sealed class Lingala : IetfLanguageCode() {
         override val code: String = "ln"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1477,7 +1477,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Lao : IetfLanguageCode {
+    sealed class Lao : IetfLanguageCode() {
         override val code: String = "lo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1489,7 +1489,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Lithuanian : IetfLanguageCode {
+    sealed class Lithuanian : IetfLanguageCode() {
         override val code: String = "lt"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1501,7 +1501,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class LubaKatanga : IetfLanguageCode {
+    sealed class LubaKatanga : IetfLanguageCode() {
         override val code: String = "lu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1513,7 +1513,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Latvian : IetfLanguageCode {
+    sealed class Latvian : IetfLanguageCode() {
         override val code: String = "lv"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1525,7 +1525,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Malagasy : IetfLanguageCode {
+    sealed class Malagasy : IetfLanguageCode() {
         override val code: String = "mg"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1536,10 +1536,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Marshallese : IetfLanguageCode { override val code: String = "mh" }
+    object Marshallese : IetfLanguageCode() { override val code: String = "mh" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Maori : IetfLanguageCode {
+    sealed class Maori : IetfLanguageCode() {
         override val code: String = "mi"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1551,7 +1551,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Macedonian : IetfLanguageCode {
+    sealed class Macedonian : IetfLanguageCode() {
         override val code: String = "mk"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1563,7 +1563,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Malayalam : IetfLanguageCode {
+    sealed class Malayalam : IetfLanguageCode() {
         override val code: String = "ml"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1575,7 +1575,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Mongolian : IetfLanguageCode {
+    sealed class Mongolian : IetfLanguageCode() {
         override val code: String = "mn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1587,7 +1587,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Marathi : IetfLanguageCode {
+    sealed class Marathi : IetfLanguageCode() {
         override val code: String = "mr"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1599,7 +1599,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Malay : IetfLanguageCode {
+    sealed class Malay : IetfLanguageCode() {
         override val code: String = "ms"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1617,7 +1617,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Maltese : IetfLanguageCode {
+    sealed class Maltese : IetfLanguageCode() {
         override val code: String = "mt"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1629,7 +1629,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Burmese : IetfLanguageCode {
+    sealed class Burmese : IetfLanguageCode() {
         override val code: String = "my"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1640,24 +1640,24 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Nauru : IetfLanguageCode { override val code: String = "na" }
+    object Nauru : IetfLanguageCode() { override val code: String = "na" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class BokmålNorwegianNorwegianBokmål : IetfLanguageCode {
+    sealed class BokmalNorwegianNorwegianBokmal : IetfLanguageCode() {
         override val code: String = "nb"
 
         @Serializable(IetfLanguageCodeSerializer::class)
-        object NO : BokmålNorwegianNorwegianBokmål() { override val code: String = "nb-NO" }
+        object NO : BokmalNorwegianNorwegianBokmal() { override val code: String = "nb-NO" }
         @Serializable(IetfLanguageCodeSerializer::class)
-        object SJ : BokmålNorwegianNorwegianBokmål() { override val code: String = "nb-SJ" }
+        object SJ : BokmalNorwegianNorwegianBokmal() { override val code: String = "nb-SJ" }
 
         @Serializable(IetfLanguageCodeSerializer::class)
-        companion object : BokmålNorwegianNorwegianBokmål()
+        companion object : BokmalNorwegianNorwegianBokmal()
     }
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class NdebeleNorthNorthNdebele : IetfLanguageCode {
+    sealed class NdebeleNorthNorthNdebele : IetfLanguageCode() {
         override val code: String = "nd"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1669,7 +1669,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Nepali : IetfLanguageCode {
+    sealed class Nepali : IetfLanguageCode() {
         override val code: String = "ne"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1682,10 +1682,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Ndonga : IetfLanguageCode { override val code: String = "ng" }
+    object Ndonga : IetfLanguageCode() { override val code: String = "ng" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class DutchFlemish : IetfLanguageCode {
+    sealed class DutchFlemish : IetfLanguageCode() {
         override val code: String = "nl"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1709,7 +1709,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class NorwegianNynorskNynorskNorwegian : IetfLanguageCode {
+    sealed class NorwegianNynorskNynorskNorwegian : IetfLanguageCode() {
         override val code: String = "nn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1720,20 +1720,20 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Norwegian : IetfLanguageCode { override val code: String = "no" }
+    object Norwegian : IetfLanguageCode() { override val code: String = "no" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object NdebeleSouthSouthNdebele : IetfLanguageCode { override val code: String = "nr" }
+    object NdebeleSouthSouthNdebele : IetfLanguageCode() { override val code: String = "nr" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object NavajoNavaho : IetfLanguageCode { override val code: String = "nv" }
+    object NavajoNavaho : IetfLanguageCode() { override val code: String = "nv" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object ChichewaChewaNyanja : IetfLanguageCode { override val code: String = "ny" }
+    object ChichewaChewaNyanja : IetfLanguageCode() { override val code: String = "ny" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object OccitanPost1500 : IetfLanguageCode { override val code: String = "oc" }
+    object OccitanPost1500 : IetfLanguageCode() { override val code: String = "oc" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Ojibwa : IetfLanguageCode { override val code: String = "oj" }
+    object Ojibwa : IetfLanguageCode() { override val code: String = "oj" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Oromo : IetfLanguageCode {
+    sealed class Oromo : IetfLanguageCode() {
         override val code: String = "om"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1747,7 +1747,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Oriya : IetfLanguageCode {
+    sealed class Oriya : IetfLanguageCode() {
         override val code: String = "or"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1759,7 +1759,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class OssetianOssetic : IetfLanguageCode {
+    sealed class OssetianOssetic : IetfLanguageCode() {
         override val code: String = "os"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1773,7 +1773,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class PanjabiPunjabi : IetfLanguageCode {
+    sealed class PanjabiPunjabi : IetfLanguageCode() {
         override val code: String = "pa"
 
 
@@ -1806,10 +1806,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Pali : IetfLanguageCode { override val code: String = "pi" }
+    object Pali : IetfLanguageCode() { override val code: String = "pi" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Polish : IetfLanguageCode {
+    sealed class Polish : IetfLanguageCode() {
         override val code: String = "pl"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1821,7 +1821,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class PushtoPashto : IetfLanguageCode {
+    sealed class PushtoPashto : IetfLanguageCode() {
         override val code: String = "ps"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1835,7 +1835,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Portuguese : IetfLanguageCode {
+    sealed class Portuguese : IetfLanguageCode() {
         override val code: String = "pt"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1869,7 +1869,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Quechua : IetfLanguageCode {
+    sealed class Quechua : IetfLanguageCode() {
         override val code: String = "qu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1885,7 +1885,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Romansh : IetfLanguageCode {
+    sealed class Romansh : IetfLanguageCode() {
         override val code: String = "rm"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1897,7 +1897,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Rundi : IetfLanguageCode {
+    sealed class Rundi : IetfLanguageCode() {
         override val code: String = "rn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1909,7 +1909,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class RomanianMoldavianMoldovan : IetfLanguageCode {
+    sealed class RomanianMoldavianMoldovan : IetfLanguageCode() {
         override val code: String = "ro"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1923,7 +1923,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Russian : IetfLanguageCode {
+    sealed class Russian : IetfLanguageCode() {
         override val code: String = "ru"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1945,7 +1945,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Kinyarwanda : IetfLanguageCode {
+    sealed class Kinyarwanda : IetfLanguageCode() {
         override val code: String = "rw"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -1956,12 +1956,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Sanskrit : IetfLanguageCode { override val code: String = "sa" }
+    object Sanskrit : IetfLanguageCode() { override val code: String = "sa" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Sardinian : IetfLanguageCode { override val code: String = "sc" }
+    object Sardinian : IetfLanguageCode() { override val code: String = "sc" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Sindhi : IetfLanguageCode {
+    sealed class Sindhi : IetfLanguageCode() {
         override val code: String = "sd"
 
 
@@ -1995,7 +1995,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class NorthernSami : IetfLanguageCode {
+    sealed class NorthernSami : IetfLanguageCode() {
         override val code: String = "se"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2011,7 +2011,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Sango : IetfLanguageCode {
+    sealed class Sango : IetfLanguageCode() {
         override val code: String = "sg"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2023,7 +2023,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class SinhalaSinhalese : IetfLanguageCode {
+    sealed class SinhalaSinhalese : IetfLanguageCode() {
         override val code: String = "si"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2035,7 +2035,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Slovak : IetfLanguageCode {
+    sealed class Slovak : IetfLanguageCode() {
         override val code: String = "sk"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2047,7 +2047,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Slovenian : IetfLanguageCode {
+    sealed class Slovenian : IetfLanguageCode() {
         override val code: String = "sl"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2058,10 +2058,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Samoan : IetfLanguageCode { override val code: String = "sm" }
+    object Samoan : IetfLanguageCode() { override val code: String = "sm" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Shona : IetfLanguageCode {
+    sealed class Shona : IetfLanguageCode() {
         override val code: String = "sn"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2073,7 +2073,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Somali : IetfLanguageCode {
+    sealed class Somali : IetfLanguageCode() {
         override val code: String = "so"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2091,7 +2091,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Albanian : IetfLanguageCode {
+    sealed class Albanian : IetfLanguageCode() {
         override val code: String = "sq"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2107,7 +2107,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Serbian : IetfLanguageCode {
+    sealed class Serbian : IetfLanguageCode() {
         override val code: String = "sr"
 
 
@@ -2152,12 +2152,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Swati : IetfLanguageCode { override val code: String = "ss" }
+    object Swati : IetfLanguageCode() { override val code: String = "ss" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object SothoSouthern : IetfLanguageCode { override val code: String = "st" }
+    object SothoSouthern : IetfLanguageCode() { override val code: String = "st" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Sundanese : IetfLanguageCode {
+    sealed class Sundanese : IetfLanguageCode() {
         override val code: String = "su"
 
 
@@ -2179,7 +2179,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Swedish : IetfLanguageCode {
+    sealed class Swedish : IetfLanguageCode() {
         override val code: String = "sv"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2195,7 +2195,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Swahili : IetfLanguageCode {
+    sealed class Swahili : IetfLanguageCode() {
         override val code: String = "sw"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2213,7 +2213,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Tamil : IetfLanguageCode {
+    sealed class Tamil : IetfLanguageCode() {
         override val code: String = "ta"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2231,7 +2231,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Telugu : IetfLanguageCode {
+    sealed class Telugu : IetfLanguageCode() {
         override val code: String = "te"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2243,7 +2243,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Tajik : IetfLanguageCode {
+    sealed class Tajik : IetfLanguageCode() {
         override val code: String = "tg"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2255,7 +2255,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Thai : IetfLanguageCode {
+    sealed class Thai : IetfLanguageCode() {
         override val code: String = "th"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2267,7 +2267,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Tigrinya : IetfLanguageCode {
+    sealed class Tigrinya : IetfLanguageCode() {
         override val code: String = "ti"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2281,7 +2281,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Turkmen : IetfLanguageCode {
+    sealed class Turkmen : IetfLanguageCode() {
         override val code: String = "tk"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2292,12 +2292,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Tagalog : IetfLanguageCode { override val code: String = "tl" }
+    object Tagalog : IetfLanguageCode() { override val code: String = "tl" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Tswana : IetfLanguageCode { override val code: String = "tn" }
+    object Tswana : IetfLanguageCode() { override val code: String = "tn" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class TongaTongaIslands : IetfLanguageCode {
+    sealed class TongaTongaIslands : IetfLanguageCode() {
         override val code: String = "to"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2309,7 +2309,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Turkish : IetfLanguageCode {
+    sealed class Turkish : IetfLanguageCode() {
         override val code: String = "tr"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2322,10 +2322,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Tsonga : IetfLanguageCode { override val code: String = "ts" }
+    object Tsonga : IetfLanguageCode() { override val code: String = "ts" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Tatar : IetfLanguageCode {
+    sealed class Tatar : IetfLanguageCode() {
         override val code: String = "tt"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2336,12 +2336,12 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Twi : IetfLanguageCode { override val code: String = "tw" }
+    object Twi : IetfLanguageCode() { override val code: String = "tw" }
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Tahitian : IetfLanguageCode { override val code: String = "ty" }
+    object Tahitian : IetfLanguageCode() { override val code: String = "ty" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class UighurUyghur : IetfLanguageCode {
+    sealed class UighurUyghur : IetfLanguageCode() {
         override val code: String = "ug"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2353,7 +2353,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Ukrainian : IetfLanguageCode {
+    sealed class Ukrainian : IetfLanguageCode() {
         override val code: String = "uk"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2365,7 +2365,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Urdu : IetfLanguageCode {
+    sealed class Urdu : IetfLanguageCode() {
         override val code: String = "ur"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2379,7 +2379,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Uzbek : IetfLanguageCode {
+    sealed class Uzbek : IetfLanguageCode() {
         override val code: String = "uz"
 
 
@@ -2424,10 +2424,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Venda : IetfLanguageCode { override val code: String = "ve" }
+    object Venda : IetfLanguageCode() { override val code: String = "ve" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Vietnamese : IetfLanguageCode {
+    sealed class Vietnamese : IetfLanguageCode() {
         override val code: String = "vi"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2439,21 +2439,21 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Volapük : IetfLanguageCode {
+    sealed class Volapuk : IetfLanguageCode() {
         override val code: String = "vo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
-        object L001 : Volapük() { override val code: String = "vo-001" }
+        object L001 : Volapuk() { override val code: String = "vo-001" }
 
         @Serializable(IetfLanguageCodeSerializer::class)
-        companion object : Volapük()
+        companion object : Volapuk()
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object Walloon : IetfLanguageCode { override val code: String = "wa" }
+    object Walloon : IetfLanguageCode() { override val code: String = "wa" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Wolof : IetfLanguageCode {
+    sealed class Wolof : IetfLanguageCode() {
         override val code: String = "wo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2465,7 +2465,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Xhosa : IetfLanguageCode {
+    sealed class Xhosa : IetfLanguageCode() {
         override val code: String = "xh"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2477,7 +2477,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Yiddish : IetfLanguageCode {
+    sealed class Yiddish : IetfLanguageCode() {
         override val code: String = "yi"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2489,7 +2489,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Yoruba : IetfLanguageCode {
+    sealed class Yoruba : IetfLanguageCode() {
         override val code: String = "yo"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2502,10 +2502,10 @@ sealed interface IetfLanguageCode {
     }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    object ZhuangChuang : IetfLanguageCode { override val code: String = "za" }
+    object ZhuangChuang : IetfLanguageCode() { override val code: String = "za" }
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Chinese : IetfLanguageCode {
+    sealed class Chinese : IetfLanguageCode() {
         override val code: String = "zh"
 
 
@@ -2549,7 +2549,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    sealed class Zulu : IetfLanguageCode {
+    sealed class Zulu : IetfLanguageCode() {
         override val code: String = "zu"
 
         @Serializable(IetfLanguageCodeSerializer::class)
@@ -2561,5 +2561,7 @@ sealed interface IetfLanguageCode {
 
 
     @Serializable(IetfLanguageCodeSerializer::class)
-    data class UnknownIetfLanguageCode (override val code: String) : IetfLanguageCode
+    data class UnknownIetfLanguageCode (override val code: String) : IetfLanguageCode()
+
+    override fun toString() = code
 }
