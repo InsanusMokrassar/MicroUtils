@@ -8,6 +8,8 @@
 
 ## 0.5.18
 
+* `Versions`
+    * `Kotlin Exposed`: `0.32.1` -> `0.33.1`
 * `LanguageCode`:
     * Module has been created
 
