@@ -2,6 +2,12 @@
 
 ## 0.5.20
 
+* `Repos`:
+    * `Common`
+        * `Android`:
+            * `*OrNull` analogs of `Cursor.get*(String)` extensions have been added
+            * Extensions `Cursor.getFloat` and `Cursor.getFloatOrNull` have been added
+
 ## 0.5.19
 
 * `LanguageCode`:
