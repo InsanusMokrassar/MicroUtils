@@ -8,11 +8,23 @@ import kotlin.reflect.KClass
 
 open class TypedSerializer<T : Any>(
     kClass: KClass<T>,
-    presetSerializers: Map<String, KSerializer<out T>> = emptyMap()
+    presetSerializers: Map<String, KSerializer<out T>> = emptyMap(),
 ) : KSerializer<T> {
     protected val serializers = presetSerializers.toMutableMap()
     @InternalSerializationApi
-    open override val descriptor: SerialDescriptor = buildSerialDescriptor(
+    override val descriptor: SerialDescriptor = buildSerialDescriptor(
+        "TypedSerializer",
+        SerialKind.CONTEXTUAL
+    ) {
+        element("type", String.serializer().descriptor)
+        element("value", ContextualSerializer(kClass).descriptor)
+    }
+    @InternalSerializationApi
+    @Deprecated(
+        "This descriptor was deprecated due to incorrect serial name. You may use it in case something require it, " +
+            "but it is strongly recommended to migrate onto new descriptor"
+    )
+    protected val oldDescriptor: SerialDescriptor = buildSerialDescriptor(
         "TextSourceSerializer",
         SerialKind.CONTEXTUAL
     ) {

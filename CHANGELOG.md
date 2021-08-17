@@ -2,6 +2,10 @@
 
 ## 0.5.21
 
+* `Serialization`
+    * `Typed Serializer`:
+        * `TypedSerializer` Descriptor serial name has been fixed
+
 ## 0.5.20
 
 * `Repos`:
