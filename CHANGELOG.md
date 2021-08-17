@@ -2,6 +2,8 @@
 
 ## 0.5.21
 
+* `Versions`
+    * `Klock`: `2.3.1` -> `2.3.2`
 * `Serialization`
     * `Typed Serializer`:
         * `TypedSerializer` Descriptor serial name has been fixed
