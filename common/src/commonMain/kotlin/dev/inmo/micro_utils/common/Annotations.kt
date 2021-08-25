@@ -12,9 +12,7 @@ package dev.inmo.micro_utils.common
     AnnotationTarget.PROPERTY_GETTER,
     AnnotationTarget.PROPERTY_SETTER,
     AnnotationTarget.FUNCTION,
-    AnnotationTarget.TYPE,
-    AnnotationTarget.TYPEALIAS,
-    AnnotationTarget.TYPE_PARAMETER
+    AnnotationTarget.TYPEALIAS
 )
 annotation class PreviewFeature(val message: String = "It is possible, that behaviour of this thing will be changed or removed in future releases")
 
@@ -30,8 +28,6 @@ annotation class PreviewFeature(val message: String = "It is possible, that beha
     AnnotationTarget.PROPERTY_GETTER,
     AnnotationTarget.PROPERTY_SETTER,
     AnnotationTarget.FUNCTION,
-    AnnotationTarget.TYPE,
-    AnnotationTarget.TYPEALIAS,
-    AnnotationTarget.TYPE_PARAMETER
+    AnnotationTarget.TYPEALIAS
 )
 annotation class Warning(val message: String)

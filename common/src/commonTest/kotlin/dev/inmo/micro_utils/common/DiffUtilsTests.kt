@@ -11,7 +11,7 @@ class DiffUtilsTests {
         val withIndex = oldList.withIndex()
 
         for (count in 1 .. (floor(oldList.size.toFloat() / 2).toInt())) {
-            for ((i, v) in withIndex) {
+            for ((i, _) in withIndex) {
                 if (i + count > oldList.lastIndex) {
                     continue
                 }
