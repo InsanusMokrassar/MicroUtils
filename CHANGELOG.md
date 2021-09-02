@@ -2,6 +2,10 @@
 
 ## 0.5.23
 
+* `Versions`
+* `Common`:
+    * New extensions `Iterable#joinTo` and `Array#joinTo`
+
 ## 0.5.22
 
 * `Versions`
