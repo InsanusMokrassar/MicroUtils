@@ -2,7 +2,8 @@
 
 ## 0.5.23
 
-* `Versions`
+* `Versions`:
+    * `Exposed`: `0.33.1` -> `0.34.1`
 * `Common`:
     * New extensions `Iterable#joinTo` and `Array#joinTo`
 
