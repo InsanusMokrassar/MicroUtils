@@ -2,8 +2,8 @@ package dev.inmo.micro_utils.common
 
 inline fun <I, R> Iterable<I>.joinTo(
     crossinline separatorFun: (I) -> R?,
-    prefix: R?,
-    postfix: R?,
+    prefix: R? = null,
+    postfix: R? = null,
     crossinline transform: (I) -> R?
 ): List<R> {
     val result = mutableListOf<R>()
@@ -26,11 +26,25 @@ inline fun <I, R> Iterable<I>.joinTo(
 }
 
 inline fun <I, R> Iterable<I>.joinTo(
-    separator: R?,
-    prefix: R?,
-    postfix: R?,
+    separator: R? = null,
+    prefix: R? = null,
+    postfix: R? = null,
     crossinline transform: (I) -> R?
 ): List<R> = joinTo({ separator }, prefix, postfix, transform)
+
+inline fun <I> Iterable<I>.joinTo(
+    crossinline separatorFun: (I) -> I?,
+    prefix: I? = null,
+    postfix: I? = null,
+    crossinline transform: (I) -> I?
+): List<I> = joinTo<I, I>(separatorFun, prefix, postfix, transform)
+
+inline fun <I> Iterable<I>.joinTo(
+    separator: I?,
+    prefix: I? = null,
+    postfix: I? = null,
+    crossinline transform: (I) -> I?
+): List<I> = joinTo<I>({ separator }, prefix, postfix, transform)
 
 inline fun <I, reified R> Array<I>.joinTo(
     crossinline separatorFun: (I) -> R?,
@@ -40,8 +54,8 @@ inline fun <I, reified R> Array<I>.joinTo(
 ): Array<R> = asIterable().joinTo(separatorFun, prefix, postfix, transform).toTypedArray()
 
 inline fun <I, reified R> Array<I>.joinTo(
-    separator: R?,
-    prefix: R?,
-    postfix: R?,
+    separator: R? = null,
+    prefix: R? = null,
+    postfix: R? = null,
     crossinline transform: (I) -> R?
 ): Array<R> = asIterable().joinTo(separator, prefix, postfix, transform).toTypedArray()
