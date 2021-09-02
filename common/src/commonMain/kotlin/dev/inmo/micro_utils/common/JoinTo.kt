@@ -25,9 +25,23 @@ inline fun <I, R> Iterable<I>.joinTo(
     return result
 }
 
+inline fun <I, R> Iterable<I>.joinTo(
+    separator: R?,
+    prefix: R?,
+    postfix: R?,
+    crossinline transform: (I) -> R?
+): List<R> = joinTo({ separator }, prefix, postfix, transform)
+
 inline fun <I, reified R> Array<I>.joinTo(
     crossinline separatorFun: (I) -> R?,
     prefix: R?,
     postfix: R?,
     crossinline transform: (I) -> R?
 ): Array<R> = asIterable().joinTo(separatorFun, prefix, postfix, transform).toTypedArray()
+
+inline fun <I, reified R> Array<I>.joinTo(
+    separator: R?,
+    prefix: R?,
+    postfix: R?,
+    crossinline transform: (I) -> R?
+): Array<R> = asIterable().joinTo(separator, prefix, postfix, transform).toTypedArray()
