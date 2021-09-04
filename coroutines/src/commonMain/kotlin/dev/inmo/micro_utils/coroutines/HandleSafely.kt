@@ -39,11 +39,9 @@ object ContextSafelyExceptionHandlerKey : CoroutineContext.Key<ContextSafelyExce
  */
 class ContextSafelyExceptionHandler(
     val handler: ExceptionHandler<Unit>
-) : CoroutineContext.Element, CoroutineExceptionHandler {
+) : CoroutineContext.Element {
     override val key: CoroutineContext.Key<*>
         get() = ContextSafelyExceptionHandlerKey
-
-    override fun handleException(context: CoroutineContext, exception: Throwable) = handler(exception)
 }
 
 /**
@@ -150,9 +148,9 @@ suspend inline fun <T> runCatchingSafelyWithoutExceptions(
     safelyWithoutExceptions(onException, block)
 }
 
-suspend inline fun CoroutineScope(
+inline fun CoroutineScope(
     context: CoroutineContext,
-    defaultExceptionsHandler: ExceptionHandler<Unit>
+    noinline defaultExceptionsHandler: ExceptionHandler<Unit>
 ) = CoroutineScope(
     context + ContextSafelyExceptionHandler(defaultExceptionsHandler)
 )
