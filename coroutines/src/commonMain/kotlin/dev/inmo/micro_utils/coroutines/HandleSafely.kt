@@ -147,3 +147,10 @@ suspend inline fun <T> runCatchingSafelyWithoutExceptions(
 ): Result<T?> = runCatching {
     safelyWithoutExceptions(onException, block)
 }
+
+inline fun CoroutineScope(
+    context: CoroutineContext,
+    noinline defaultExceptionsHandler: ExceptionHandler<Unit>
+) = CoroutineScope(
+    context + ContextSafelyExceptionHandler(defaultExceptionsHandler)
+)
