@@ -5,6 +5,8 @@
 * `Versions`:
     * `Coroutines`: `1.5.1` -> `1.5.2`
     * `Klock`: `2.3.4` -> `2.4.1`
+* `Coroutines`:
+    * New function `CoroutineScope` with safely exceptions handler as second parameter
 
 ## 0.5.23
 
