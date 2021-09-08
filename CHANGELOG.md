@@ -4,6 +4,8 @@
 
 * `Versions`:
     * `UUID`: `0.3.0` -> `0.3.1`
+* `Common`:
+    * New property `MPPFile#withoutSlashAtTheEnd`
 
 ## 0.5.24
 

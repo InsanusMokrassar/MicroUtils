@@ -7,7 +7,7 @@ import kotlin.jvm.JvmInline
 @JvmInline
 value class FileName(val string: String) {
     val name: String
-        get() = string.takeLastWhile { it != '/' }
+        get() = withoutSlashAtTheEnd.takeLastWhile { it != '/' }
     val extension: String
         get() = name.takeLastWhile { it != '.' }
     val nameWithoutExtension: String
@@ -17,6 +17,8 @@ value class FileName(val string: String) {
                 filename.substring(0, it)
             } ?: filename
         }
+    val withoutSlashAtTheEnd: String
+        get() = string.dropLastWhile { it == '/' }
     override fun toString(): String = string
 }
 
