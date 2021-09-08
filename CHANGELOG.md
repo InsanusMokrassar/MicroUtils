@@ -8,6 +8,8 @@
     * New property `MPPFile#withoutSlashAtTheEnd`
     * Extension `clamp` has been deprecated
     * New extension `Iterable#diff`
+* `Serialization`:
+    * New operators `TypedSerializer#plusAssign` and `TypedSerializer#minusAssign`
 
 ## 0.5.24
 
