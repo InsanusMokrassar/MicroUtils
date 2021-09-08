@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.25
+
+* `Versions`:
+    * `UUID`: `0.3.0` -> `0.3.1`
+* `Common`:
+    * New property `MPPFile#withoutSlashAtTheEnd`
+    * Extension `clamp` has been deprecated
+    * New extension `Iterable#diff`
+* `Serialization`:
+    * New operators `TypedSerializer#plusAssign` and `TypedSerializer#minusAssign`
+
 ## 0.5.24
 
 * `Versions`:

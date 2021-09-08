@@ -11,6 +11,7 @@ open class TypedSerializer<T : Any>(
     presetSerializers: Map<String, KSerializer<out T>> = emptyMap(),
 ) : KSerializer<T> {
     protected val serializers = presetSerializers.toMutableMap()
+    @ExperimentalSerializationApi
     @InternalSerializationApi
     override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TypedSerializer",
@@ -32,8 +33,9 @@ open class TypedSerializer<T : Any>(
         element("value", ContextualSerializer(kClass).descriptor)
     }
 
+    @ExperimentalSerializationApi
     @InternalSerializationApi
-    open override fun deserialize(decoder: Decoder): T {
+    override fun deserialize(decoder: Decoder): T {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
             lateinit var result: T
@@ -56,13 +58,15 @@ open class TypedSerializer<T : Any>(
         }
     }
 
+    @ExperimentalSerializationApi
     @InternalSerializationApi
     protected open fun <O: T> CompositeEncoder.encode(value: O) {
         encodeSerializableElement(descriptor, 1, value::class.serializer() as KSerializer<O>, value)
     }
 
+    @ExperimentalSerializationApi
     @InternalSerializationApi
-    open override fun serialize(encoder: Encoder, value: T) {
+    override fun serialize(encoder: Encoder, value: T) {
         encoder.encodeStructure(descriptor) {
             val valueSerializer = value::class.serializer()
             val type = serializers.keys.first { serializers[it] == valueSerializer }
@@ -79,6 +83,16 @@ open class TypedSerializer<T : Any>(
     open fun exclude(type: String) {
         serializers.remove(type)
     }
+}
+
+@InternalSerializationApi
+operator fun <T : Any> TypedSerializer<T>.plusAssign(kClass: KClass<T>) {
+    include(kClass.simpleName!!, kClass.serializer())
+}
+
+@InternalSerializationApi
+operator fun <T : Any> TypedSerializer<T>.minusAssign(kClass: KClass<T>) {
+    exclude(kClass.simpleName!!)
 }
 
 inline fun <reified T : Any> TypedSerializer(

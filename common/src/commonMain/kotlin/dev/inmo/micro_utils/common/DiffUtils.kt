@@ -2,6 +2,8 @@
 
 package dev.inmo.micro_utils.common
 
+import kotlin.jvm.JvmInline
+
 private inline fun <T> getObject(
     additional: MutableList<T>,
     iterator: Iterator<T>
@@ -27,8 +29,8 @@ data class Diff<T> internal constructor(
 
 private inline fun <T> performChanges(
     potentialChanges: MutableList<Pair<IndexedValue<T>?, IndexedValue<T>?>>,
-    additionalsInOld: MutableList<T>,
-    additionalsInNew: MutableList<T>,
+    additionsInOld: MutableList<T>,
+    additionsInNew: MutableList<T>,
     changedList: MutableList<Pair<IndexedValue<T>, IndexedValue<T>>>,
     removedList: MutableList<IndexedValue<T>>,
     addedList: MutableList<IndexedValue<T>>,
@@ -52,20 +54,20 @@ private inline fun <T> performChanges(
                     newPotentials.first().second ?.let { addedList.add(it) }
                     newPotentials.drop(1).take(newPotentials.size - 2).forEach { (oldOne, newOne) ->
                         addedList.add(newOne!!)
-                        oldOne ?.let { additionalsInOld.add(oldOne.value) }
+                        oldOne ?.let { additionsInOld.add(oldOne.value) }
                     }
                     if (newPotentials.size > 1) {
-                        newPotentials.last().first ?.value ?.let { additionalsInOld.add(it) }
+                        newPotentials.last().first ?.value ?.let { additionsInOld.add(it) }
                     }
                 }
                 newOneEqualToOldObject -> {
                     newPotentials.first().first ?.let { removedList.add(it) }
                     newPotentials.drop(1).take(newPotentials.size - 2).forEach { (oldOne, newOne) ->
                         removedList.add(oldOne!!)
-                        newOne ?.let { additionalsInNew.add(newOne.value) }
+                        newOne ?.let { additionsInNew.add(newOne.value) }
                     }
                     if (newPotentials.size > 1) {
-                        newPotentials.last().second ?.value ?.let { additionalsInNew.add(it) }
+                        newPotentials.last().second ?.value ?.let { additionsInNew.add(it) }
                     }
                 }
             }
@@ -139,6 +141,10 @@ fun <T> Iterable<T>.calculateDiff(
 
     return Diff(removedObjects.toList(), changedObjects.toList(), addedObjects.toList())
 }
+inline fun <T> Iterable<T>.diff(
+    other: Iterable<T>,
+    strictComparison: Boolean = false
+): Diff<T> = calculateDiff(other, strictComparison)
 
 inline fun <T> Diff(old: Iterable<T>, new: Iterable<T>) = old.calculateDiff(new)
 inline fun <T> StrictDiff(old: Iterable<T>, new: Iterable<T>) = old.calculateDiff(new, true)
