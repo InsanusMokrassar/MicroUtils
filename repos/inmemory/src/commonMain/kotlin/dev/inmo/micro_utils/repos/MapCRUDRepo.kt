@@ -23,13 +23,13 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
 }
 
 abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
-    private val map: MutableMap<IdType, ObjectType> = mutableMapOf()
+    protected val map: MutableMap<IdType, ObjectType> = mutableMapOf()
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> {
-    private val _newObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
+    protected val _newObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
     override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
-    private val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
+    protected val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
     override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
-    private val _deletedObjectsIdsFlow: MutableSharedFlow<IdType> = MutableSharedFlow()
+    protected val _deletedObjectsIdsFlow: MutableSharedFlow<IdType> = MutableSharedFlow()
     override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
 
     protected abstract suspend fun updateObject(newValue: InputValueType, id: IdType, old: ObjectType): ObjectType

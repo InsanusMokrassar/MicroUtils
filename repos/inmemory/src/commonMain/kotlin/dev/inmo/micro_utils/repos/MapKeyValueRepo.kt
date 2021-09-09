@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class ReadMapKeyValueRepo<Key, Value>(
-    private val map: Map<Key, Value> = emptyMap()
+    protected val map: Map<Key, Value> = emptyMap()
 ) : ReadStandardKeyValueRepo<Key, Value> {
     override suspend fun get(k: Key): Value? = map[k]
 
