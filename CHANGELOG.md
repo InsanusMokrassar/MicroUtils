@@ -2,6 +2,10 @@
 
 ## 0.5.26
 
+* `Repos`:
+    * `InMemory`:
+        * `MapCRUDRepo`s and `MapKeyValueRepo`s got `protected` methods and properties instead of private
+
 ## 0.5.25
 
 * `Versions`:
