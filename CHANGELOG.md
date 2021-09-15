@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.27
+
+* `Versions`:
+    * `Exposed`: `0.34.1` -> `0.34.2`
+
 ## 0.5.26
 
 * `Repos`:
