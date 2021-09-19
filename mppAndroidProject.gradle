@@ -24,3 +24,9 @@ kotlin {
 }
 
 apply from: "$defaultAndroidSettingsPresetPath"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
