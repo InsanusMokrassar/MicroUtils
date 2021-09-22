@@ -9,6 +9,9 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Fix android 31.0.0 dx
+        continue-on-error: true
+        run: cd /usr/local/lib/android/sdk/build-tools/31.0.0/ && mv d8 dx && cd lib  && mv d8.jar dx.jar
       - name: Rewrite version
         run: |
           branch="`echo "${{ github.ref }}" | grep -o "[^/]*$"`"
@@ -18,6 +21,7 @@ jobs:
       - name: Build
         run: ./gradlew build
       - name: Publish
+        continue-on-error: true
         run: ./gradlew --no-parallel publishAllPublicationsToGithubPackagesRepository -x signJsPublication -x signJvmPublication -x signKotlinMultiplatformPublication -x signAndroidDebugPublication -x signAndroidReleasePublication -x signKotlinMultiplatformPublication
         env:
           GITHUBPACKAGES_USER: ${{ github.actor }}
