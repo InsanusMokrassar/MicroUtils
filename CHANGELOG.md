@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.31
+
+* `Versions`:
+    * `Klock`: `2.4.2` -> `2.4.3`
+
 ## 0.5.30
 
 * `Versions`:
