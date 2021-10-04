@@ -20,18 +20,6 @@ open class TypedSerializer<T : Any>(
         element("type", String.serializer().descriptor)
         element("value", ContextualSerializer(kClass).descriptor)
     }
-    @InternalSerializationApi
-    @Deprecated(
-        "This descriptor was deprecated due to incorrect serial name. You may use it in case something require it, " +
-            "but it is strongly recommended to migrate onto new descriptor"
-    )
-    protected val oldDescriptor: SerialDescriptor = buildSerialDescriptor(
-        "TextSourceSerializer",
-        SerialKind.CONTEXTUAL
-    ) {
-        element("type", String.serializer().descriptor)
-        element("value", ContextualSerializer(kClass).descriptor)
-    }
 
     @ExperimentalSerializationApi
     @InternalSerializationApi
