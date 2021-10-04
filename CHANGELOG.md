@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.0
+
+**THIS VERSION HAS MIGRATED FROM KORLIBS KLOCK TO KOTLINX DATETIME. CAREFUL**
+
+* `Versions`
+    * `Klock` -> `kotlinx.datetime`
+
 ## 0.5.31
 
 * `Versions`:
