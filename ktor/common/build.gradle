@@ -11,7 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlin_serialisation_core_version"
-                api "org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version"
+                api "com.soywiz.korlibs.klock:klock:$klockVersion"
             }
         }
     }
