@@ -1,17 +1,17 @@
 package dev.inmo.micro_utils.ktor.common
 
-import kotlinx.datetime.Instant
+import com.soywiz.klock.DateTime
 
-typealias FromToDateTime = Pair<Instant?, Instant?>
+typealias FromToDateTime = Pair<DateTime?, DateTime?>
 
 val FromToDateTime.asFromToUrlPart: QueryParams
     get() = mapOf(
-        "from" to first ?.toEpochMilliseconds() ?.toString(),
-        "to" to second ?.toEpochMilliseconds() ?.toString()
+        "from" to first ?.unixMillis ?.toString(),
+        "to" to second ?.unixMillis ?.toString()
     )
 
 val QueryParams.extractFromToDateTime: FromToDateTime
     get() = FromToDateTime(
-        get("from") ?.run { toLongOrNull() ?: (toDoubleOrNull() ?.toLong()) } ?.let { Instant.fromEpochMilliseconds(it) },
-        get("to") ?.run { toLongOrNull() ?: (toDoubleOrNull() ?.toLong()) } ?.let { Instant.fromEpochMilliseconds(it) }
+        get("from") ?.toDoubleOrNull() ?.let { DateTime(it) },
+        get("to") ?.toDoubleOrNull() ?.let { DateTime(it) }
     )
