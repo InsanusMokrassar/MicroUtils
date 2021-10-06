@@ -1,22 +1,15 @@
 package dev.inmo.micro_utils.fsm.repos.common
 
 import dev.inmo.micro_utils.fsm.common.State
-import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManagerStatesRepo
+import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManagerRepo
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.pagination.getAll
 
-class KeyValueBasedDefaultStatesManagerStatesRepo(
+class KeyValueBasedDefaultStatesManagerRepo(
     private val keyValueRepo: KeyValueRepo<Any, State>
-) : DefaultStatesManagerStatesRepo {
-    override suspend fun newState(state: State) {
+) : DefaultStatesManagerRepo {
+    override suspend fun set(state: State) {
         keyValueRepo.set(state.context, state)
-    }
-
-    override suspend fun updateState(from: State, to: State) {
-        if (from.context != to.context && keyValueRepo.get(from.context) == from) {
-            keyValueRepo.unset(from.context)
-        }
-        keyValueRepo.set(to.context, to)
     }
 
     override suspend fun removeState(state: State) {
@@ -26,4 +19,7 @@ class KeyValueBasedDefaultStatesManagerStatesRepo(
     }
 
     override suspend fun getStates(): List<State> = keyValueRepo.getAll { keys(it) }.map { it.second }
+    override suspend fun getContextState(context: Any): State? = keyValueRepo.get(context)
+
+    override suspend fun contains(context: Any): Boolean = keyValueRepo.contains(context)
 }

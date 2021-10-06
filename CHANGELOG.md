@@ -2,6 +2,11 @@
 
 ## 0.7.1
 
+* `FSM`:
+    * `Common`
+        * New manager `DefaultStatesManager` with `DefaultStatesManagerRepo` for abstraction of manager and storing of
+          data info
+
 ## 0.7.0
 
 **THIS VERSION HAS MIGRATED FROM KOTLINX DATETIME TO KORLIBS KLOCK. CAREFUL**
