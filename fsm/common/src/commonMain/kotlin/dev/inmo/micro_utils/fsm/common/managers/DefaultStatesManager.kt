@@ -40,8 +40,8 @@ interface DefaultStatesManagerRepo {
  * any event will be sent to [onChainStateUpdated], [onStartChain] or [onEndChain].
  */
 class DefaultStatesManager(
-    private val onContextsConflictResolver: suspend (old: State, new: State, currentNew: State) -> Boolean = { _, _, _ -> true },
-    private val repo: DefaultStatesManagerRepo
+    private val repo: DefaultStatesManagerRepo,
+    private val onContextsConflictResolver: suspend (old: State, new: State, currentNew: State) -> Boolean = { _, _, _ -> true }
 ) : StatesManager {
     private val _onChainStateUpdated = MutableSharedFlow<Pair<State, State>>(0)
     override val onChainStateUpdated: Flow<Pair<State, State>> = _onChainStateUpdated.asSharedFlow()

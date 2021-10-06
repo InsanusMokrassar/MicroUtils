@@ -13,13 +13,28 @@ private suspend fun <I : State> StatesMachine.launchStateHandling(
     }
 }
 
-class StatesMachine (
+interface StatesMachine : StatesHandler<State> {
+    fun start(scope: CoroutineScope): Job
+    suspend fun startChain(state: State)
+
+    companion object {
+        /**
+         * Creates [DefaultStatesMachine]
+         */
+        operator fun invoke(
+            statesManager: StatesManager,
+            handlers: List<StateHandlerHolder<*>>
+        ) = DefaultStatesMachine(statesManager, handlers)
+    }
+}
+
+class DefaultStatesMachine (
     private val statesManager: StatesManager,
     private val handlers: List<StateHandlerHolder<*>>
-) : StatesHandler<State> {
+) : StatesMachine {
     override suspend fun StatesMachine.handleState(state: State): State? = launchStateHandling(state, handlers)
 
-    fun start(scope: CoroutineScope): Job = scope.launchSafelyWithoutExceptions {
+    override fun start(scope: CoroutineScope): Job = scope.launchSafelyWithoutExceptions {
         val statePerformer: suspend (State) -> Unit = { state: State ->
             val newState = launchStateHandling(state, handlers)
             if (newState != null) {
@@ -40,7 +55,7 @@ class StatesMachine (
         }
     }
 
-    suspend fun startChain(state: State) {
+    override suspend fun startChain(state: State) {
         statesManager.startChain(state)
     }
 }
