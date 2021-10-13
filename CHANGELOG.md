@@ -2,8 +2,11 @@
 
 ## 0.7.1
 
+* `Coroutines`:
+    * `Common`:
+        * New `Flow` - `AccumulatorFlow`
 * `FSM`:
-    * `Common`
+    * `Common`:
         * New manager `DefaultStatesManager` with `DefaultStatesManagerRepo` for abstraction of manager and storing of
           data info
 
