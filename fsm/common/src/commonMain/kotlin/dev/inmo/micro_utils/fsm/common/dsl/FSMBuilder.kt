@@ -1,10 +1,12 @@
 package dev.inmo.micro_utils.fsm.common.dsl
 
 import dev.inmo.micro_utils.fsm.common.*
+import dev.inmo.micro_utils.fsm.common.managers.*
+import dev.inmo.micro_utils.fsm.common.managers.InMemoryStatesManager
 import kotlin.reflect.KClass
 
 class FSMBuilder(
-    var statesManager: StatesManager = InMemoryStatesManager()
+    var statesManager: StatesManager = DefaultStatesManager(InMemoryDefaultStatesManagerRepo())
 ) {
     private var states = mutableListOf<StateHandlerHolder<*>>()
 
