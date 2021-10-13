@@ -2,11 +2,16 @@
 
 ## 0.7.1
 
+* `Versions`:
+    * `Klock`: `2.4.3` -> `2.4.5`
+    * `Exposed`: `0.35.1` -> `0.35.2`
 * `Coroutines`:
     * `Common`:
         * New `Flow` - `AccumulatorFlow`
 * `FSM`:
     * `Common`:
+        * `InMemoryStatesManager` has been replaced
+        * `StatesMachine` became an interface
         * New manager `DefaultStatesManager` with `DefaultStatesManagerRepo` for abstraction of manager and storing of
           data info
 
