@@ -2,6 +2,10 @@ package dev.inmo.micro_utils.fsm.common.managers
 
 import dev.inmo.micro_utils.fsm.common.State
 
+/**
+ * Simple [DefaultStatesManagerRepo] for [DefaultStatesManager] which will store data in [map] and use primitive
+ * functionality
+ */
 class InMemoryDefaultStatesManagerRepo(
     private val map: MutableMap<Any, State> = mutableMapOf()
 ) : DefaultStatesManagerRepo {
