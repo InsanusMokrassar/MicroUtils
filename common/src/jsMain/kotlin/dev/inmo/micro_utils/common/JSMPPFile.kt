@@ -6,6 +6,9 @@ import org.w3c.files.File
 import org.w3c.files.FileReader
 import kotlin.js.Promise
 
+/**
+ * @suppress
+ */
 actual typealias MPPFile = File
 
 fun MPPFile.readBytesPromise() = Promise<ByteArray> { success, failure ->
@@ -23,10 +26,19 @@ fun MPPFile.readBytesPromise() = Promise<ByteArray> { success, failure ->
 
 private suspend fun MPPFile.dirtyReadBytes(): ByteArray = readBytesPromise().await()
 
+/**
+ * @suppress
+ */
 actual val MPPFile.filename: FileName
     get() = FileName(name)
+/**
+ * @suppress
+ */
 actual val MPPFile.filesize: Long
     get() = size.toLong()
+/**
+ * @suppress
+ */
 @Warning("That is not optimized version of bytes allocator. Use asyncBytesAllocator everywhere you can")
 actual val MPPFile.bytesAllocator: SuspendByteArrayAllocator
     get() = ::dirtyReadBytes

@@ -13,10 +13,10 @@ repositories {
 
 kotlin {
     jvm()
-    js(IR) {
-        browser()
-        nodejs()
-    }
+//    js(IR) {
+//        browser()
+//        nodejs()
+//    }
     android {}
 
     sourceSets {
@@ -29,7 +29,7 @@ kotlin {
                         it != project
                         && it.hasProperty("kotlin")
                         && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
                         && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
                         && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
@@ -38,22 +38,22 @@ kotlin {
                 }
             }
         }
-        jsMain {
-            dependencies {
-                implementation kotlin('stdlib')
+//        jsMain {
+//            dependencies {
+//                implementation kotlin('stdlib')
 
-                project.parent.subprojects.forEach {
-                    if (
-                        it != project
-                        && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
-                    ) {
-                        api it
-                    }
-                }
-            }
-        }
+//                project.parent.subprojects.forEach {
+//                    if (
+//                        it != project
+//                        && it.hasProperty("kotlin")
+//                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+//                    ) {
+//                        api it
+//                    }
+//                }
+//            }
+//        }
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib')
@@ -116,9 +116,9 @@ tasks.dokkaHtml {
             sourceRoots.setFrom(findSourcesWithName("commonMain"))
         }
 
-        named("jsMain") {
-            sourceRoots.setFrom(findSourcesWithName("jsMain", "commonMain"))
-        }
+//        named("jsMain") {
+//            sourceRoots.setFrom(findSourcesWithName("jsMain", "commonMain"))
+//        }
 
         named("jvmMain") {
             sourceRoots.setFrom(findSourcesWithName("jvmMain", "commonMain"))
