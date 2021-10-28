@@ -4,6 +4,9 @@
 
 * `Common`:
     * New type `Either`
+* `Serialization`:
+    * `TypedSerializer`
+        * New factory fun which accept vararg pairs of type and its serializer
 
 ## 0.7.3
 
