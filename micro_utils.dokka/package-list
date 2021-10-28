@@ -70,7 +70,6 @@ $dokka.location:dev.inmo.micro_utils.common//filename/dev.inmo.micro_utils.commo
 $dokka.location:dev.inmo.micro_utils.common//filename/java.io.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/filename.html
 $dokka.location:dev.inmo.micro_utils.common//filesize/dev.inmo.micro_utils.common.MPPFile#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/filesize.html
 $dokka.location:dev.inmo.micro_utils.common//filesize/java.io.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/filesize.html
-$dokka.location:dev.inmo.micro_utils.common//first/dev.inmo.micro_utils.common.Either.Companion#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]first.html
 $dokka.location:dev.inmo.micro_utils.common//firstNotNull/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]first-not-null.html
 $dokka.location:dev.inmo.micro_utils.common//getDp/android.content.res.Resources#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/get-dp.html
 $dokka.location:dev.inmo.micro_utils.common//getSp/android.content.res.Resources#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/get-sp.html
@@ -87,9 +86,6 @@ $dokka.location:dev.inmo.micro_utils.common//joinTo/kotlin.collections.Iterable[
 $dokka.location:dev.inmo.micro_utils.common//joinTo/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]#TypeParam(bounds=[kotlin.Any?])?#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]join-to.html
 $dokka.location:dev.inmo.micro_utils.common//mapNotNullA/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-not-null-a.html
 $dokka.location:dev.inmo.micro_utils.common//mapNotNullA/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-not-null-a.html
-$dokka.location:dev.inmo.micro_utils.common//onFirst/TypeParam(bounds=[dev.inmo.micro_utils.common.Either[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]])#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-first.html
-$dokka.location:dev.inmo.micro_utils.common//onSecond/TypeParam(bounds=[dev.inmo.micro_utils.common.Either[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]])#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-second.html
-$dokka.location:dev.inmo.micro_utils.common//second/dev.inmo.micro_utils.common.Either.Companion#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]second.html
 $dokka.location:dev.inmo.micro_utils.common//show/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/show.html
 $dokka.location:dev.inmo.micro_utils.common//shown/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/shown.html
 $dokka.location:dev.inmo.micro_utils.common//toggleEnabledState/android.view.View#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/toggle-enabled-state.html
@@ -104,18 +100,6 @@ $dokka.location:dev.inmo.micro_utils.common/Diff///PointingToDeclaration/micro_
 $dokka.location:dev.inmo.micro_utils.common/Diff/added/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-diff/added.html
 $dokka.location:dev.inmo.micro_utils.common/Diff/removed/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-diff/removed.html
 $dokka.location:dev.inmo.micro_utils.common/Diff/replaced/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-diff/replaced.html
-$dokka.location:dev.inmo.micro_utils.common/Either.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either/-companion/index.html
-$dokka.location:dev.inmo.micro_utils.common/Either///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either/index.html
-$dokka.location:dev.inmo.micro_utils.common/Either/t1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either/t1.html
-$dokka.location:dev.inmo.micro_utils.common/Either/t2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either/t2.html
-$dokka.location:dev.inmo.micro_utils.common/EitherFirst///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-first/index.html
-$dokka.location:dev.inmo.micro_utils.common/EitherFirst/EitherFirst/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-first/-either-first.html
-$dokka.location:dev.inmo.micro_utils.common/EitherFirst/t1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-first/t1.html
-$dokka.location:dev.inmo.micro_utils.common/EitherFirst/t2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-first/t2.html
-$dokka.location:dev.inmo.micro_utils.common/EitherSecond///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-second/index.html
-$dokka.location:dev.inmo.micro_utils.common/EitherSecond/EitherSecond/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-second/-either-second.html
-$dokka.location:dev.inmo.micro_utils.common/EitherSecond/t1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-second/t1.html
-$dokka.location:dev.inmo.micro_utils.common/EitherSecond/t2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-either-second/t2.html
 $dokka.location:dev.inmo.micro_utils.common/FileName///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-file-name/index.html
 $dokka.location:dev.inmo.micro_utils.common/FileName/FileName/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-file-name/-file-name.html
 $dokka.location:dev.inmo.micro_utils.common/FileName/extension/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-file-name/extension.html
