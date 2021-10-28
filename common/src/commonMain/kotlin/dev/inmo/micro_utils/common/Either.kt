@@ -17,6 +17,9 @@ sealed interface Either<T1, T2> {
     companion object
 }
 
+/**
+ * This type [Either] will always have not nullable [t1]
+ */
 data class EitherFirst<T1, T2>(
     override val t1: T1
 ) : Either<T1, T2> {
@@ -24,6 +27,9 @@ data class EitherFirst<T1, T2>(
         get() = null
 }
 
+/**
+ * This type [Either] will always have not nullable [t2]
+ */
 data class EitherSecond<T1, T2>(
     override val t2: T2
 ) : Either<T1, T2> {
@@ -31,15 +37,29 @@ data class EitherSecond<T1, T2>(
         get() = null
 }
 
+/**
+ * @return New instance of [EitherFirst]
+ */
 inline fun <T1, T2> Either.Companion.first(t1: T1): Either<T1, T2> = EitherFirst(t1)
+/**
+ * @return New instance of [EitherSecond]
+ */
 inline fun <T1, T2> Either.Companion.second(t1: T1): Either<T1, T2> = EitherFirst(t1)
 
+/**
+ * Will call [block] in case when [Either.t1] of [this] is not null
+ */
 inline fun <T1, T2, E : Either<T1, T2>> E.onFirst(crossinline block: (T1) -> Unit): E {
-    if (this is EitherFirst<*, *>) block(t1 as T1)
+    val t1 = t1
+    t1 ?.let(block)
     return this
 }
 
+/**
+ * Will call [block] in case when [Either.t2] of [this] is not null
+ */
 inline fun <T1, T2, E : Either<T1, T2>> E.onSecond(crossinline block: (T2) -> Unit): E {
-    if (this is EitherSecond<*, *>) block(t2 as T2)
+    val t2 = t2
+    t2 ?.let(block)
     return this
 }
