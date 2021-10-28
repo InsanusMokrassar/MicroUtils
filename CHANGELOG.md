@@ -2,6 +2,9 @@
 
 ## 0.7.4
 
+* `Common`:
+    * New type `Either`
+
 ## 0.7.3
 
 * `Versions`:
