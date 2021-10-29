@@ -6,13 +6,15 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.*
 
 abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType>(
-    helper: StandardSQLHelper
+    helper: StandardSQLHelper,
+    replyInFlows: Int = 0,
+    extraBufferCapacityInFlows: Int = 64
 ) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>,
     AbstractAndroidCRUDRepo<ObjectType, IdType>(helper),
     StandardCRUDRepo<ObjectType, IdType, InputValueType> {
-    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(64)
-    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(64)
-    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(64)
+    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(replyInFlows, extraBufferCapacityInFlows)
+    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(replyInFlows, extraBufferCapacityInFlows)
+    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(replyInFlows, extraBufferCapacityInFlows)
     override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asSharedFlow()
     override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()
     override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asSharedFlow()
