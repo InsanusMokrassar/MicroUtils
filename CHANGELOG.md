@@ -15,6 +15,9 @@
         * New parameter `AbstractExposedWriteCRUDRepo#replyCacheInFlows`
         * KeyValue realization `ExposedKeyValueRepo` properties `_onNewValue` and `_onValueRemoved` now are available in
           inheritors
+* `Pagination`:
+    * `Common`:
+        * New types `getAllBy*` for current, next and custom paging
 
 ## 0.7.3
 
