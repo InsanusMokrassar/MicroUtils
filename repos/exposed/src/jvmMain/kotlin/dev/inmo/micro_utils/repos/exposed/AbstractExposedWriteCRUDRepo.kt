@@ -10,15 +10,16 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = 0,
-    tableName: String = ""
+    tableName: String = "",
+    replyCacheInFlows: Int = 0
 ) :
     AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 {
-    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(flowsChannelsSize)
-    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(flowsChannelsSize)
-    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(flowsChannelsSize)
+    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
+    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
+    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
 
     override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asSharedFlow()
     override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()

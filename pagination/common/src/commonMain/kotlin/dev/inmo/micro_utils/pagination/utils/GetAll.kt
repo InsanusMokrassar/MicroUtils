@@ -16,6 +16,16 @@ suspend fun <T> getAll(
     return results.toList()
 }
 
+suspend fun <T, R> R.getAllBy(
+    initialPagination: Pagination = FirstPagePagination(),
+    paginationMapper: R.(PaginationResult<T>) -> Pagination?,
+    block: suspend R.(Pagination) -> PaginationResult<T>
+): List<T> = getAll(
+    initialPagination,
+    { paginationMapper(it) },
+    { block(it) }
+)
+
 suspend fun <T> getAllWithNextPaging(
     initialPagination: Pagination = FirstPagePagination(),
     block: suspend (Pagination) -> PaginationResult<T>
@@ -25,6 +35,14 @@ suspend fun <T> getAllWithNextPaging(
     block
 )
 
+suspend fun <T, R> R.getAllByWithNextPaging(
+    initialPagination: Pagination = FirstPagePagination(),
+    block: suspend R.(Pagination) -> PaginationResult<T>
+): List<T> = getAllWithNextPaging(
+    initialPagination,
+    { block(it) }
+)
+
 suspend fun <T> getAllWithCurrentPaging(
     initialPagination: Pagination = FirstPagePagination(),
     block: suspend (Pagination) -> PaginationResult<T>
@@ -32,4 +50,12 @@ suspend fun <T> getAllWithCurrentPaging(
     initialPagination,
     { it.currentPageIfNotEmpty() },
     block
+)
+
+suspend fun <T, R> R.getAllByWithCurrentPaging(
+    initialPagination: Pagination = FirstPagePagination(),
+    block: suspend R.(Pagination) -> PaginationResult<T>
+): List<T> = getAllWithCurrentPaging(
+    initialPagination,
+    { block(it) }
 )

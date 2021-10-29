@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.7.4
+
+* `Common`:
+    * New type `Either`
+* `Serialization`:
+    * `TypedSerializer`
+        * New factory fun which accept vararg pairs of type and its serializer
+* `Repos`:
+    * `Common` (`Android`):
+        * `AbstractMutableAndroidCRUDRepo` flows now will have extra buffer capacity instead of reply. It means that
+          android crud repo _WILL NOT_ send previous events to the 
+    * `Exposed`:
+        * New parameter `AbstractExposedWriteCRUDRepo#replyCacheInFlows`
+        * KeyValue realization `ExposedKeyValueRepo` properties `_onNewValue` and `_onValueRemoved` now are available in
+          inheritors
+* `Pagination`:
+    * `Common`:
+        * New types `getAllBy*` for current, next and custom paging
+
 ## 0.7.3
 
 * `Versions`:

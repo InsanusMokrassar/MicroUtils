@@ -86,3 +86,7 @@ operator fun <T : Any> TypedSerializer<T>.minusAssign(kClass: KClass<T>) {
 inline fun <reified T : Any> TypedSerializer(
     presetSerializers: Map<String, KSerializer<out T>> = emptyMap()
 ) = TypedSerializer(T::class, presetSerializers)
+
+inline fun <reified T : Any> TypedSerializer(
+    vararg presetSerializers: Pair<String, KSerializer<out T>>
+) = TypedSerializer(presetSerializers.toMap())
