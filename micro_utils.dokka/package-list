@@ -62,6 +62,7 @@ $dokka.location:dev.inmo.micro_utils.common//collapseHorizontally/android.view.V
 $dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]diff.html
 $dokka.location:dev.inmo.micro_utils.common//disable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disable.html
 $dokka.location:dev.inmo.micro_utils.common//disabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disabled.html
+$dokka.location:dev.inmo.micro_utils.common//either/kotlin.Any#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]either.html
 $dokka.location:dev.inmo.micro_utils.common//enable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enable.html
 $dokka.location:dev.inmo.micro_utils.common//enabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enabled.html
 $dokka.location:dev.inmo.micro_utils.common//expand/android.view.View#kotlin.Long#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/expand.html
