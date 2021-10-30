@@ -44,7 +44,7 @@ inline fun <T1, T2> Either.Companion.first(t1: T1): Either<T1, T2> = EitherFirst
 /**
  * @return New instance of [EitherSecond]
  */
-inline fun <T1, T2> Either.Companion.second(t1: T1): Either<T1, T2> = EitherFirst(t1)
+inline fun <T1, T2> Either.Companion.second(t2: T2): Either<T1, T2> = EitherSecond(t2)
 
 /**
  * Will call [block] in case when [Either.t1] of [this] is not null
@@ -62,4 +62,10 @@ inline fun <T1, T2, E : Either<T1, T2>> E.onSecond(crossinline block: (T2) -> Un
     val t2 = t2
     t2 ?.let(block)
     return this
+}
+
+inline fun <reified T1, reified T2> Any.either() = when (this) {
+    is T1 -> Either.first<T1, T2>(this)
+    is T2 -> Either.second<T1, T2>(this)
+    else -> error("Incorrect type of either argument $this")
 }
