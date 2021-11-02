@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.5
+
+* `Common`:
+    * Type `Either` got its own serializer
+
 ## 0.7.4
 
 * `Common`:
