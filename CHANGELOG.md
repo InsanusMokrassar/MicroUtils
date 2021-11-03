@@ -2,6 +2,9 @@
 
 ## 0.7.5
 
+* `Versions`:
+    * `Klock`: `2.4.6` -> `2.4.7`
+    * `Ktor`: `1.6.4` -> `1.6.5`
 * `Common`:
     * Type `Either` got its own serializer
 
