@@ -7,6 +7,9 @@
     * `Ktor`: `1.6.4` -> `1.6.5`
 * `Common`:
     * Type `Either` got its own serializer
+* `FSM`:
+    * `Common`:
+        * Add opportunity for comfortable adding default state handler
 
 ## 0.7.4
 
