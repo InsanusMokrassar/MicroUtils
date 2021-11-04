@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.7.5
+## 0.8.0
 
 * `Versions`:
     * `Klock`: `2.4.6` -> `2.4.7`
@@ -9,6 +9,9 @@
     * Type `Either` got its own serializer
 * `FSM`:
     * `Common`:
+        * Full rework of FSM:
+            * Now it is more flexible for checking of handler opportunity to handle state
+            * Now machine and states managers are type-oriented
         * Add opportunity for comfortable adding default state handler
 
 ## 0.7.4

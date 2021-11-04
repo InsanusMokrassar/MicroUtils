@@ -1,6 +1,7 @@
 import dev.inmo.micro_utils.fsm.common.*
 import dev.inmo.micro_utils.fsm.common.dsl.buildFSM
-import dev.inmo.micro_utils.fsm.common.dsl.strictlyOn
+import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManager
+import dev.inmo.micro_utils.fsm.common.managers.InMemoryStatesManager
 import kotlinx.coroutines.*
 
 sealed interface TrafficLightState : State {
@@ -25,9 +26,9 @@ class PlayableMain {
                 }
             }
 
-            val statesManager = InMemoryStatesManager()
+            val statesManager = DefaultStatesManager<TrafficLightState>()
 
-            val machine = buildFSM {
+            val machine = buildFSM<TrafficLightState> {
                 strictlyOn<GreenCommon> {
                     delay(1000L)
                     YellowCommon(it.context).also(::println)
