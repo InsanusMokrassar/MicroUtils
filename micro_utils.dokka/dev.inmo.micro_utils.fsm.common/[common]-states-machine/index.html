@@ -23,7 +23,7 @@
           </div>
           <div class="cover ">
             <h1 class="cover"><span>States</span><wbr></wbr><span><span>Machine</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">StatesMachine</a> : <a href="../[common]-states-handler/index.html">StatesHandler</a>&lt;<a href="../[common]-state/index.html">State</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Default <a href="index.html">StatesMachine</a> may <a href="start-chain.html">startChain</a> and use inside logic for handling <a href="../[common]-state/index.html">State</a>s. By default you may use <a href="../[common]-default-states-machine/index.html">DefaultStatesMachine</a> or build it with <a href="../../dev.inmo.micro_utils.fsm.common.dsl/[common]build-f-s-m.html">dev.inmo.micro_utils.fsm.common.dsl.buildFSM</a>. Implementers MUST NOT start handling until <a href="start.html">start</a> method will be called</p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">StatesMachine</a>&lt;<a href="index.html">T</a> : <a href="../[common]-state/index.html">State</a>&gt; : <a href="../[common]-states-handler/index.html">StatesHandler</a>&lt;<a href="index.html">T</a>, <a href="index.html">T</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Default <a href="index.html">StatesMachine</a> may <a href="start-chain.html">startChain</a> and use inside logic for handling <a href="../[common]-state/index.html">State</a>s. By default you may use <a href="../[common]-default-states-machine/index.html">DefaultStatesMachine</a> or build it with <a href="../../dev.inmo.micro_utils.fsm.common.dsl/[common]build-f-s-m.html">dev.inmo.micro_utils.fsm.common.dsl.buildFSM</a>. Implementers MUST NOT start handling until <a href="start.html">start</a> method will be called</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
@@ -51,10 +51,10 @@
                 </div>
               </div>
               <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="1663827417%2FFunctions%2F-1478683138" anchor-label="handleState" id="1663827417%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+              <div class="table" data-togglable="Functions"><a data-name="1210167093%2FFunctions%2F-1478683138" anchor-label="handleState" id="1210167093%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#1663827417%2FFunctions%2F-1478683138"><span>handle</span><wbr></wbr><span><span>State</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1663827417%2FFunctions%2F-1478683138"></span>
+                    <div class=""><span class="inline-flex"><a href="../[common]-states-handler/handle-state.html"><span>handle</span><wbr></wbr><span><span>State</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1210167093%2FFunctions%2F-1478683138"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -64,9 +64,29 @@
                       <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="index.html">StatesMachine</a>.<a href="index.html#1663827417%2FFunctions%2F-1478683138">handleState</a>(state: <a href="../[common]-state/index.html">State</a>): <a href="../[common]-state/index.html">State</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="index.html">StatesMachine</a>&lt;in <a href="index.html">T</a>&gt;.<a href="../[common]-states-handler/handle-state.html">handleState</a>(state: <a href="index.html">T</a>): <a href="index.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
-<div class="brief "><p class="paragraph">Main handling of <a href="index.html#1663827417%2FFunctions%2F-1478683138">state</a>. In case when this <a href="index.html#1663827417%2FFunctions%2F-1478683138">state</a> leads to another <a href="../[common]-state/index.html">State</a> and <a href="../[common]-states-handler/handle-state.html">handleState</a> returns not null <a href="../[common]-state/index.html">State</a> it is assumed that chain is not completed.</p></div></div>
+<div class="brief "><p class="paragraph">Main handling of <a href="../[common]-states-handler/handle-state.html">state</a>. In case when this <a href="../[common]-states-handler/handle-state.html">state</a> leads to another <a href="../[common]-state/index.html">State</a> and <a href="../[common]-states-handler/handle-state.html">handleState</a> returns not null <a href="../[common]-state/index.html">State</a> it is assumed that chain is not completed.</p></div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="-1320157902%2FFunctions%2F-1478683138" anchor-label="launchStateHandling" id="-1320157902%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="launch-state-handling.html"><span>launch</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Handling</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1320157902%2FFunctions%2F-1478683138"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">open suspend fun <a href="launch-state-handling.html">launchStateHandling</a>(state: <a href="index.html">T</a>, handlers: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../[common]-customizable-handler-holder/index.html">CustomizableHandlerHolder</a>&lt;in <a href="index.html">T</a>, <a href="index.html">T</a>&gt;&gt;): <a href="index.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
 </div>
                     </div>
                   </div>
@@ -91,10 +111,10 @@
                     </div>
                   </div>
                 </div>
-<a data-name="358326972%2FFunctions%2F-1478683138" anchor-label="startChain" id="358326972%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="-1903622856%2FFunctions%2F-1478683138" anchor-label="startChain" id="-1903622856%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="start-chain.html"><span>start</span><wbr></wbr><span><span>Chain</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="358326972%2FFunctions%2F-1478683138"></span>
+                    <div class=""><span class="inline-flex"><a href="start-chain.html"><span>start</span><wbr></wbr><span><span>Chain</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1903622856%2FFunctions%2F-1478683138"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -104,7 +124,7 @@
                       <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
   <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="start-chain.html">startChain</a>(state: <a href="../[common]-state/index.html">State</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="start-chain.html">startChain</a>(state: <a href="index.html">T</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 <div class="brief "><p class="paragraph">Start chain of <a href="../[common]-state/index.html">State</a>s witn <a href="start-chain.html">state</a></p></div></div>
 </div>
