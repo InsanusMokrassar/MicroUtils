@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.fsm.common
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
 
 interface StatesManager<T : State> {
     val onChainStateUpdated: Flow<Pair<T, T>>

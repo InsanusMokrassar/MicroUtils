@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.fsm.common
 
-import dev.inmo.micro_utils.coroutines.*
+import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import kotlinx.coroutines.*
 
 /**

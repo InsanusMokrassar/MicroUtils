@@ -1,10 +1,7 @@
 package dev.inmo.micro_utils.fsm.common.managers
 
 import dev.inmo.micro_utils.fsm.common.State
-import dev.inmo.micro_utils.fsm.common.StatesManager
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 /**
  * Creates [DefaultStatesManager] with [InMemoryDefaultStatesManagerRepo]

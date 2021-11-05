@@ -1,7 +1,8 @@
 package dev.inmo.micro_utils.fsm.common.dsl
 
 import dev.inmo.micro_utils.fsm.common.*
-import dev.inmo.micro_utils.fsm.common.managers.*
+import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManager
+import dev.inmo.micro_utils.fsm.common.managers.InMemoryDefaultStatesManagerRepo
 import kotlin.reflect.KClass
 
 class FSMBuilder<T : State>(

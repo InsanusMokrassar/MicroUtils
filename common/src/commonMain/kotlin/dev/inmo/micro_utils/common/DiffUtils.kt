@@ -2,8 +2,6 @@
 
 package dev.inmo.micro_utils.common
 
-import kotlin.jvm.JvmInline
-
 private inline fun <T> getObject(
     additional: MutableList<T>,
     iterator: Iterator<T>
