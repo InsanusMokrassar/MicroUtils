@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.8.0
+
+* `Versions`:
+    * `Klock`: `2.4.6` -> `2.4.7`
+    * `Ktor`: `1.6.4` -> `1.6.5`
+    * `Exposed`: `0.35.3` -> `0.36.1`
+* `Common`:
+    * Type `Either` got its own serializer
+* `FSM`:
+    * `Common`:
+        * Full rework of FSM:
+            * Now it is more flexible for checking of handler opportunity to handle state
+            * Now machine and states managers are type-oriented
+            * `StateHandlerHolder` has been renamed to `CheckableHandlerHolder`
+        * Add opportunity for comfortable adding default state handler
+
 ## 0.7.4
 
 * `Common`:

@@ -1,3 +1,5 @@
+@file:Suppress("SERIALIZER_TYPE_INCOMPATIBLE")
+
 package dev.inmo.micro_utils.language_codes
 
 import kotlinx.serialization.Serializable
