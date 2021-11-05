@@ -32,7 +32,7 @@ class CustomizableHandlerHolder<I : O, O : State>(
     }
 }
 
-fun <I : O, O : State> StateHandlerHolder(
+fun <I : O, O : State> CheckableHandlerHolder(
     inputKlass: KClass<I>,
     strict: Boolean = false,
     delegateTo: StatesHandler<I, O>
@@ -47,14 +47,27 @@ fun <I : O, O : State> StateHandlerHolder(
     }
 )
 
+@Deprecated("Renamed", ReplaceWith("CheckableHandlerHolder"))
+fun <I : O, O : State> StateHandlerHolder(
+    inputKlass: KClass<I>,
+    strict: Boolean = false,
+    delegateTo: StatesHandler<I, O>
+) = CheckableHandlerHolder(inputKlass, strict, delegateTo)
+
+inline fun <reified I : O, O : State> CheckableHandlerHolder(
+    strict: Boolean = false,
+    delegateTo: StatesHandler<I, O>
+) = CheckableHandlerHolder(I::class, strict, delegateTo)
+
+@Deprecated("Renamed", ReplaceWith("CheckableHandlerHolder"))
 inline fun <reified I : O, O : State> StateHandlerHolder(
     strict: Boolean = false,
     delegateTo: StatesHandler<I, O>
-) = StateHandlerHolder(I::class, strict, delegateTo)
+) = CheckableHandlerHolder(strict, delegateTo)
 
 inline fun <reified I : O, O: State> StatesHandler<I, O>.holder(
     strict: Boolean = true
-) = StateHandlerHolder<I, O>(
+) = CheckableHandlerHolder<I, O>(
     I::class,
     strict,
     this

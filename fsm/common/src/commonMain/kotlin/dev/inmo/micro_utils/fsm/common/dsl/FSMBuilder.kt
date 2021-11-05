@@ -12,7 +12,7 @@ class FSMBuilder<T : State>(
     private var states = mutableListOf<CustomizableHandlerHolder<T, T>>()
 
     fun <I : T> add(kClass: KClass<I>, handler: StatesHandler<I, T>) {
-        states.add(StateHandlerHolder(kClass, false, handler))
+        states.add(CheckableHandlerHolder(kClass, false, handler))
     }
 
     fun <I : T> add(filter: suspend (state: State) -> Boolean, handler: StatesHandler<I, T>) {
@@ -20,7 +20,7 @@ class FSMBuilder<T : State>(
     }
 
     fun <I : T> addStrict(kClass: KClass<I>, handler: StatesHandler<I, T>) {
-        states.add(StateHandlerHolder(kClass, true, handler))
+        states.add(CheckableHandlerHolder(kClass, true, handler))
     }
 
     inline fun <reified I : T> onStateOrSubstate(handler: StatesHandler<I, T>) {
