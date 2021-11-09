@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.1
+
+* `Versions`:
+    * `Exposed`: `0.36.1` -> `0.36.2`
+    * `Core KTX`: `1.6.0` -> `1.7.0`
+
 ## 0.8.0
 
 * `Versions`:

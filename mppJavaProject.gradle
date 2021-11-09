@@ -4,7 +4,13 @@ project.group = "$group"
 apply from: "$publishGradlePath"
 
 kotlin {
-    jvm()
+    jvm {
+        compilations.main {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
 
     sourceSets {
         commonMain {
@@ -28,7 +34,6 @@ kotlin {
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
