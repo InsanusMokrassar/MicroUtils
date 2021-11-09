@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.1
+
+* `Versions`:
+    * `Exposed`: `0.36.1` -> `0.36.2`
+
 ## 0.8.0
 
 * `Versions`:
