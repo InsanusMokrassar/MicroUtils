@@ -5,6 +5,9 @@
 * `Versions`:
     * `Klock`: `2.4.7` -> `2.4.8`
     * `Serialization`: `1.3.0` -> `1.3.1`
+* `FSM`:
+    * Now it is possible to pass any `CheckableHandlerHolder` in `FSMBuilder`
+    * Now `StatesMachine` works with `CheckableHandlerHolder` instead of `CustomizableHandlerHolder`
 
 ## 0.8.1
 
