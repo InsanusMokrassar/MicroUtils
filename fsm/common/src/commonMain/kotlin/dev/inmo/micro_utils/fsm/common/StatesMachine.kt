@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 interface StatesMachine<T : State> : StatesHandler<T, T> {
     suspend fun launchStateHandling(
         state: T,
-        handlers: List<CustomizableHandlerHolder<in T, T>>
+        handlers: List<CheckableHandlerHolder<in T, T>>
     ): T? {
         return handlers.firstOrNull { it.checkHandleable(state) } ?.run {
             handleState(state)
@@ -35,7 +35,7 @@ interface StatesMachine<T : State> : StatesHandler<T, T> {
          */
         operator fun <T: State> invoke(
             statesManager: StatesManager<T>,
-            handlers: List<CustomizableHandlerHolder<in T, T>>
+            handlers: List<CheckableHandlerHolder<in T, T>>
         ) = DefaultStatesMachine(statesManager, handlers)
     }
 }
@@ -46,7 +46,7 @@ interface StatesMachine<T : State> : StatesHandler<T, T> {
  */
 class DefaultStatesMachine <T: State>(
     private val statesManager: StatesManager<T>,
-    private val handlers: List<CustomizableHandlerHolder<in T, T>>
+    private val handlers: List<CheckableHandlerHolder<in T, T>>
 ) : StatesMachine<T> {
     /**
      * Will call [launchStateHandling] for state handling

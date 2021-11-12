@@ -9,14 +9,18 @@ class FSMBuilder<T : State>(
     var statesManager: StatesManager<T> = DefaultStatesManager(InMemoryDefaultStatesManagerRepo()),
     var defaultStateHandler: StatesHandler<T, T>? = StatesHandler { null }
 ) {
-    private var states = mutableListOf<CustomizableHandlerHolder<T, T>>()
+    private var states = mutableListOf<CheckableHandlerHolder<T, T>>()
+
+    fun add(handler: CheckableHandlerHolder<T, T>) {
+        states.add(handler)
+    }
 
     fun <I : T> add(kClass: KClass<I>, handler: StatesHandler<I, T>) {
-        states.add(CheckableHandlerHolder(kClass, false, handler))
+        add(CheckableHandlerHolder(kClass, false, handler))
     }
 
     fun <I : T> add(filter: suspend (state: State) -> Boolean, handler: StatesHandler<I, T>) {
-        states.add(handler.holder(filter))
+        add(handler.holder(filter))
     }
 
     fun <I : T> addStrict(kClass: KClass<I>, handler: StatesHandler<I, T>) {
