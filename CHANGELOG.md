@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.8.2
+
+* `Versions`:
+    * `Klock`: `2.4.7` -> `2.4.8`
+    * `Serialization`: `1.3.0` -> `1.3.1`
+
 ## 0.8.1
 
 * `Versions`:
