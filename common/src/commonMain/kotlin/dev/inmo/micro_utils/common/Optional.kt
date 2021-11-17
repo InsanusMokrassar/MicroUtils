@@ -50,3 +50,24 @@ fun <T> Optional<T>.onPresented(block: (T) -> Unit): Optional<T> = apply {
 fun <T> Optional<T>.onAbsent(block: () -> Unit): Optional<T> = apply {
     if (!dataPresented) { block() }
 }
+
+/**
+ * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or null otherwise
+ */
+fun <T> Optional<T>.dataOrNull() = if (dataPresented) data as T else null
+
+/**
+ * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or throw [throwable] otherwise
+ */
+fun <T> Optional<T>.dataOrThrow(throwable: Throwable) = if (dataPresented) data as T else throw throwable
+
+
+/**
+ * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
+ */
+fun <T> Optional<T>.dataOrElse(block: () -> T) = if (dataPresented) data as T else block()
+
+/**
+ * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
+ */
+suspend fun <T> Optional<T>.dataOrElseSuspendable(block: suspend () -> T) = if (dataPresented) data as T else block()

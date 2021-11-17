@@ -4,6 +4,7 @@
 
 * `Common`:
     * Ranges intersection functionality
+    * New type `Optional`
 * `Pagination`:
     * `Pagination` now extends `ClosedRange<Int>`
     * `Pagination` intersection functionality
