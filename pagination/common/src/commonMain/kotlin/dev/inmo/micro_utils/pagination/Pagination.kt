@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.pagination
 
+import dev.inmo.micro_utils.common.intersect
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -25,6 +26,12 @@ interface Pagination : ClosedRange<Int> {
         get() = page * size
     override val endInclusive: Int
         get() = lastIndex
+}
+
+fun Pagination.intersect(
+    other: Pagination
+): Pagination? = (this as ClosedRange<Int>).intersect(other as ClosedRange<Int>) ?.let {
+    PaginationByIndexes(it.first, it.second)
 }
 
 /**

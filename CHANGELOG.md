@@ -2,8 +2,11 @@
 
 ## 0.8.3
 
+* `Common`:
+    * Ranges intersection functionality
 * `Pagination`:
     * `Pagination` now extends `ClosedRange<Int>`
+    * `Pagination` intersection functionality
 
 ## 0.8.2
 
