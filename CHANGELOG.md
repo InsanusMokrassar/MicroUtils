@@ -2,6 +2,9 @@
 
 ## 0.8.3
 
+* `Pagination`:
+    * `Pagination` now extends `ClosedRange<Int>`
+
 ## 0.8.2
 
 * `Versions`:
