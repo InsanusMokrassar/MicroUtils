@@ -25,7 +25,7 @@ interface Pagination : ClosedRange<Int> {
     override val start: Int
         get() = page * size
     override val endInclusive: Int
-        get() = lastIndex
+        get() = start + size - 1
 }
 
 fun Pagination.intersect(
