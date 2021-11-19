@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.pagination
 
+import dev.inmo.micro_utils.common.intersect
 import kotlin.math.ceil
 import kotlin.math.floor
 
@@ -9,7 +10,7 @@ import kotlin.math.floor
  * If you want to request something, you should use [SimplePagination]. If you need to return some result including
  * pagination - [PaginationResult]
  */
-interface Pagination {
+interface Pagination : ClosedRange<Int> {
     /**
      * Started with 0.
      * Number of page inside of pagination. Offset can be calculated as [page] * [size]
@@ -20,6 +21,17 @@ interface Pagination {
      * Size of current page. Offset can be calculated as [page] * [size]
      */
     val size: Int
+
+    override val start: Int
+        get() = page * size
+    override val endInclusive: Int
+        get() = lastIndex
+}
+
+fun Pagination.intersect(
+    other: Pagination
+): Pagination? = (this as ClosedRange<Int>).intersect(other as ClosedRange<Int>) ?.let {
+    PaginationByIndexes(it.first, it.second)
 }
 
 /**
@@ -32,7 +44,7 @@ inline val Pagination.isFirstPage
  * First number in index of objects. It can be used as offset for databases or other data sources
  */
 val Pagination.firstIndex: Int
-    get() = page * size
+    get() = start
 
 /**
  * Last number in index of objects. In fact, one [Pagination] object represent data in next range:
@@ -41,7 +53,7 @@ val Pagination.firstIndex: Int
  * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19. Here [Pagination.lastIndexExclusive] == 20
  */
 val Pagination.lastIndexExclusive: Int
-    get() = firstIndex + size
+    get() = endInclusive + 1
 
 /**
  * Last number in index of objects. In fact, one [Pagination] object represent data in next range:
@@ -50,7 +62,7 @@ val Pagination.lastIndexExclusive: Int
  * you will retrieve [Pagination.firstIndex] == 10 and [Pagination.lastIndex] == 19.
  */
 val Pagination.lastIndex: Int
-    get() = lastIndexExclusive - 1
+    get() = endInclusive
 
 /**
  * Calculates pages count for given [datasetSize]
