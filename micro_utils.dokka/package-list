@@ -59,6 +59,10 @@ $dokka.location:dev.inmo.micro_utils.common//calculateStrictDiff/kotlin.collecti
 $dokka.location:dev.inmo.micro_utils.common//changeVisibility/android.view.View#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/change-visibility.html
 $dokka.location:dev.inmo.micro_utils.common//collapse/android.view.View#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/collapse.html
 $dokka.location:dev.inmo.micro_utils.common//collapseHorizontally/android.view.View#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/collapse-horizontally.html
+$dokka.location:dev.inmo.micro_utils.common//dataOrElse/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function0[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]data-or-else.html
+$dokka.location:dev.inmo.micro_utils.common//dataOrElseSuspendable/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.coroutines.SuspendFunction0[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]data-or-else-suspendable.html
+$dokka.location:dev.inmo.micro_utils.common//dataOrNull/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]data-or-null.html
+$dokka.location:dev.inmo.micro_utils.common//dataOrThrow/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Throwable/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]data-or-throw.html
 $dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]diff.html
 $dokka.location:dev.inmo.micro_utils.common//disable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disable.html
 $dokka.location:dev.inmo.micro_utils.common//disabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disabled.html
@@ -78,6 +82,9 @@ $dokka.location:dev.inmo.micro_utils.common//getSp/android.content.res.Resources
 $dokka.location:dev.inmo.micro_utils.common//gone/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/gone.html
 $dokka.location:dev.inmo.micro_utils.common//hidden/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/hidden.html
 $dokka.location:dev.inmo.micro_utils.common//hide/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/hide.html
+$dokka.location:dev.inmo.micro_utils.common//intersect/kotlin.ranges.ClosedRange[TypeParam(bounds=[kotlin.Comparable[^]])]#kotlin.ranges.ClosedRange[TypeParam(bounds=[kotlin.Comparable[^]])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]intersect.html
+$dokka.location:dev.inmo.micro_utils.common//intersect/kotlin.ranges.IntRange#kotlin.ranges.IntRange/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]intersect.html
+$dokka.location:dev.inmo.micro_utils.common//intersect/kotlin.ranges.LongRange#kotlin.ranges.LongRange/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]intersect.html
 $dokka.location:dev.inmo.micro_utils.common//isCollapsed/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/is-collapsed.html
 $dokka.location:dev.inmo.micro_utils.common//isExpanded/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/is-expanded.html
 $dokka.location:dev.inmo.micro_utils.common//joinTo/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])?#TypeParam(bounds=[kotlin.Any?])?#TypeParam(bounds=[kotlin.Any?])?#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]join-to.html
@@ -88,8 +95,11 @@ $dokka.location:dev.inmo.micro_utils.common//joinTo/kotlin.collections.Iterable[
 $dokka.location:dev.inmo.micro_utils.common//joinTo/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]#TypeParam(bounds=[kotlin.Any?])?#TypeParam(bounds=[kotlin.Any?])?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]join-to.html
 $dokka.location:dev.inmo.micro_utils.common//mapNotNullA/kotlin.Array[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-not-null-a.html
 $dokka.location:dev.inmo.micro_utils.common//mapNotNullA/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-not-null-a.html
+$dokka.location:dev.inmo.micro_utils.common//onAbsent/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-absent.html
 $dokka.location:dev.inmo.micro_utils.common//onFirst/TypeParam(bounds=[dev.inmo.micro_utils.common.Either[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]])#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-first.html
+$dokka.location:dev.inmo.micro_utils.common//onPresented/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-presented.html
 $dokka.location:dev.inmo.micro_utils.common//onSecond/TypeParam(bounds=[dev.inmo.micro_utils.common.Either[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]])#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]on-second.html
+$dokka.location:dev.inmo.micro_utils.common//optional/TypeParam(bounds=[kotlin.Any?])#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/optional.html
 $dokka.location:dev.inmo.micro_utils.common//second/dev.inmo.micro_utils.common.Either.Companion#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]second.html
 $dokka.location:dev.inmo.micro_utils.common//show/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/show.html
 $dokka.location:dev.inmo.micro_utils.common//shown/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/shown.html
@@ -132,6 +142,10 @@ $dokka.location:dev.inmo.micro_utils.common/FileName/string/#/PointingToDeclarat
 $dokka.location:dev.inmo.micro_utils.common/FileName/toString/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-file-name/to-string.html
 $dokka.location:dev.inmo.micro_utils.common/FileName/withoutSlashAtTheEnd/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-file-name/without-slash-at-the-end.html
 $dokka.location:dev.inmo.micro_utils.common/MPPFile///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[]-m-p-p-file/index.html
+$dokka.location:dev.inmo.micro_utils.common/Optional.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/-companion/index.html
+$dokka.location:dev.inmo.micro_utils.common/Optional.Companion/absent/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/-companion/absent.html
+$dokka.location:dev.inmo.micro_utils.common/Optional.Companion/presented/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/-companion/presented.html
+$dokka.location:dev.inmo.micro_utils.common/Optional///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/index.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/index.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature/PreviewFeature/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/-preview-feature.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature/message/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/message.html
@@ -2682,6 +2696,7 @@ $dokka.location:dev.inmo.micro_utils.pagination//extractPagination/Parameters#/P
 $dokka.location:dev.inmo.micro_utils.pagination//extractPagination/kotlin.collections.Map[kotlin.String,kotlin.String?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/extract-pagination.html
 $dokka.location:dev.inmo.micro_utils.pagination//firstIndex/dev.inmo.micro_utils.pagination.Pagination#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/first-index.html
 $dokka.location:dev.inmo.micro_utils.pagination//firstPageWithOneElementPagination/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/first-page-with-one-element-pagination.html
+$dokka.location:dev.inmo.micro_utils.pagination//intersect/dev.inmo.micro_utils.pagination.Pagination#dev.inmo.micro_utils.pagination.Pagination/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]intersect.html
 $dokka.location:dev.inmo.micro_utils.pagination//isFirstPage/dev.inmo.micro_utils.pagination.Pagination#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/is-first-page.html
 $dokka.location:dev.inmo.micro_utils.pagination//lastIndex/dev.inmo.micro_utils.pagination.Pagination#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/last-index.html
 $dokka.location:dev.inmo.micro_utils.pagination//lastIndexExclusive/dev.inmo.micro_utils.pagination.Pagination#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/last-index-exclusive.html
@@ -2693,8 +2708,10 @@ $dokka.location:dev.inmo.micro_utils.pagination//paginationPageKey/#/PointingToD
 $dokka.location:dev.inmo.micro_utils.pagination//paginationSizeKey/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/pagination-size-key.html
 $dokka.location:dev.inmo.micro_utils.pagination//thisPageIfNotEmpty/dev.inmo.micro_utils.pagination.PaginationResult[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]this-page-if-not-empty.html
 $dokka.location:dev.inmo.micro_utils.pagination/Pagination///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination/index.html
+$dokka.location:dev.inmo.micro_utils.pagination/Pagination/endInclusive/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination/end-inclusive.html
 $dokka.location:dev.inmo.micro_utils.pagination/Pagination/page/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination/page.html
 $dokka.location:dev.inmo.micro_utils.pagination/Pagination/size/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination/size.html
+$dokka.location:dev.inmo.micro_utils.pagination/Pagination/start/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination/start.html
 $dokka.location:dev.inmo.micro_utils.pagination/PaginationResult///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination-result/index.html
 $dokka.location:dev.inmo.micro_utils.pagination/PaginationResult/PaginationResult/#kotlin.Int#kotlin.Int#kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination-result/-pagination-result.html
 $dokka.location:dev.inmo.micro_utils.pagination/PaginationResult/page/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/[jvm]-pagination-result/page.html
