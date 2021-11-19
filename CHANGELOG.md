@@ -2,6 +2,10 @@
 
 ## 0.8.4
 
+* `Ktor`:
+    * `Server`:
+        * Several new `createKtorServer`
+
 ## 0.8.3
 
 * `Common`:
