@@ -7,8 +7,8 @@ package dev.inmo.micro_utils.common
  */
 inline fun <R> repeatOnFailure(
     times: Int,
-    crossinline onEachFailure: (Throwable) -> Unit = {},
-    crossinline action: (Int) -> R
+    onEachFailure: (Throwable) -> Unit = {},
+    action: (Int) -> R
 ): Optional<R> {
     repeat(times) {
         runCatching {
