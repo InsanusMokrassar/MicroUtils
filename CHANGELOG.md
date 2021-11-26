@@ -2,6 +2,9 @@
 
 ## 0.8.5
 
+* `Common`:
+    * `repeatOnFailure`
+
 ## 0.8.4
 
 * `Ktor`:
