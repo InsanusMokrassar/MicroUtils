@@ -129,7 +129,7 @@ inline fun <T1, T2> Either.Companion.second(t2: T2): Either<T1, T2> = EitherSeco
 /**
  * Will call [block] in case when [Either.t1] of [this] is not null
  */
-inline fun <T1, T2, E : Either<T1, T2>> E.onFirst(crossinline block: (T1) -> Unit): E {
+inline fun <T1, T2, E : Either<T1, T2>> E.onFirst(block: (T1) -> Unit): E {
     val t1 = t1
     t1 ?.let(block)
     return this
@@ -138,7 +138,7 @@ inline fun <T1, T2, E : Either<T1, T2>> E.onFirst(crossinline block: (T1) -> Uni
 /**
  * Will call [block] in case when [Either.t2] of [this] is not null
  */
-inline fun <T1, T2, E : Either<T1, T2>> E.onSecond(crossinline block: (T2) -> Unit): E {
+inline fun <T1, T2, E : Either<T1, T2>> E.onSecond(block: (T2) -> Unit): E {
     val t2 = t2
     t2 ?.let(block)
     return this
