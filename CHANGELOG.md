@@ -2,6 +2,10 @@
 
 ## 0.8.6
 
+* `Common`:
+    * `Either` extensions `onFirst` and `onSecond` now accept not `crossinline` callbacks
+    * All `joinTo` now accept not `crossinline` callbacks
+
 ## 0.8.5
 
 * `Common`:
