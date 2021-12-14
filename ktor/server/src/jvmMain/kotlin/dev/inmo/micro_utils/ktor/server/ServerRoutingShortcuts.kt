@@ -14,9 +14,10 @@ import io.ktor.request.receiveMultipart
 import io.ktor.response.respond
 import io.ktor.response.respondBytes
 import io.ktor.routing.Route
+import io.ktor.util.asStream
+import io.ktor.util.cio.writeChannel
 import io.ktor.util.pipeline.PipelineContext
-import io.ktor.utils.io.core.Input
-import io.ktor.utils.io.core.readBytes
+import io.ktor.utils.io.core.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 import java.io.File
@@ -182,7 +183,9 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                             name.nameWithoutExtension,
                             ".${name.extension}"
                         ).apply {
-                            writeBytes(it.provider().readBytes())
+                            outputStream().use { fileStream ->
+                                it.provider().asStream().copyTo(fileStream)
+                            }
                         }
                     }
                     "data" -> data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
@@ -216,7 +219,9 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                         name.nameWithoutExtension,
                         ".${name.extension}"
                     ).apply {
-                        writeBytes(it.provider().readBytes())
+                        outputStream().use { fileStream ->
+                            it.provider().asStream().copyTo(fileStream)
+                        }
                     }
                 } else {
                     onCustomFileItem(it)
