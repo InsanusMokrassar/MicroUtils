@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.7
+
+* `Ktor`:
+    * `Client`:
+        * `UnifiedRequester` now have no private fields
+    * `Server`
+        * `UnifiedRouter` now have no private fields
+
 ## 0.8.6
 
 * `Common`:

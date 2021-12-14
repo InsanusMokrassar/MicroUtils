@@ -9,8 +9,8 @@ import kotlinx.serialization.*
 typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 
 class UnifiedRequester(
-    private val client: HttpClient = HttpClient(),
-    private val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+    val client: HttpClient = HttpClient(),
+    val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
 ) {
     suspend fun <ResultType> uniget(
         url: String,

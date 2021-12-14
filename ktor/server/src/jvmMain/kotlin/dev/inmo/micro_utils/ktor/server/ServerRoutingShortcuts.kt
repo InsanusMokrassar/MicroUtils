@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 
 class UnifiedRouter(
-    private val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
-    private val serialFormatContentType: ContentType = standardKtorSerialFormatContentType
+    val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    val serialFormatContentType: ContentType = standardKtorSerialFormatContentType
 ) {
     fun <T> Route.includeWebsocketHandling(
         suburl: String,
