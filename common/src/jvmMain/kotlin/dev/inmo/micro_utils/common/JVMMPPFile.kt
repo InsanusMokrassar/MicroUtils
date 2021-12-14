@@ -22,6 +22,11 @@ actual val MPPFile.filesize: Long
 /**
  * @suppress
  */
+actual val MPPFile.bytesAllocatorSync: ByteArrayAllocator
+    get() = ::readBytes
+/**
+ * @suppress
+ */
 actual val MPPFile.bytesAllocator: SuspendByteArrayAllocator
     get() = {
         doInIO {

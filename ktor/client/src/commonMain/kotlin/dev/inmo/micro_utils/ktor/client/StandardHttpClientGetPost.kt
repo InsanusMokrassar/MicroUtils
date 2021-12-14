@@ -1,9 +1,13 @@
 package dev.inmo.micro_utils.ktor.client
 
+import dev.inmo.micro_utils.common.MPPFile
+import dev.inmo.micro_utils.common.filename
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
-import io.ktor.client.request.post
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
+import io.ktor.http.*
+import io.ktor.utils.io.core.ByteReadPacket
 import kotlinx.serialization.*
 
 typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
@@ -30,6 +34,54 @@ class UnifiedRequester(
         bodyInfo: BodyPair<BodyType>,
         resultDeserializer: DeserializationStrategy<ResultType>
     ) = client.unipost(url, bodyInfo, resultDeserializer, serialFormat)
+
+    suspend fun <ResultType> unimultipart(
+        url: String,
+        filename: String,
+        inputProvider: InputProvider,
+        resultDeserializer: DeserializationStrategy<ResultType>,
+        mimetype: String = "*/*",
+        additionalParametersBuilder: FormBuilder.() -> Unit = {},
+        dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+        requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    ): ResultType = client.unimultipart(url, filename, inputProvider, resultDeserializer, mimetype, additionalParametersBuilder, dataHeadersBuilder, requestBuilder, serialFormat)
+
+    suspend fun <BodyType, ResultType> unimultipart(
+        url: String,
+        filename: String,
+        inputProvider: InputProvider,
+        otherData: BodyPair<BodyType>,
+        resultDeserializer: DeserializationStrategy<ResultType>,
+        mimetype: String = "*/*",
+        additionalParametersBuilder: FormBuilder.() -> Unit = {},
+        dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+        requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    ): ResultType = client.unimultipart(url, filename, otherData, inputProvider, resultDeserializer, mimetype, additionalParametersBuilder, dataHeadersBuilder, requestBuilder, serialFormat)
+
+    suspend fun <ResultType> unimultipart(
+        url: String,
+        mppFile: MPPFile,
+        resultDeserializer: DeserializationStrategy<ResultType>,
+        mimetype: String = "*/*",
+        additionalParametersBuilder: FormBuilder.() -> Unit = {},
+        dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+        requestBuilder: HttpRequestBuilder.() -> Unit = {}
+    ): ResultType = client.unimultipart(
+        url, mppFile, resultDeserializer, mimetype, additionalParametersBuilder, dataHeadersBuilder, requestBuilder, serialFormat
+    )
+
+    suspend fun <BodyType, ResultType> unimultipart(
+        url: String,
+        mppFile: MPPFile,
+        otherData: BodyPair<BodyType>,
+        resultDeserializer: DeserializationStrategy<ResultType>,
+        mimetype: String = "*/*",
+        additionalParametersBuilder: FormBuilder.() -> Unit = {},
+        dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+        requestBuilder: HttpRequestBuilder.() -> Unit = {}
+    ): ResultType = client.unimultipart(
+        url, mppFile, otherData, resultDeserializer, mimetype, additionalParametersBuilder, dataHeadersBuilder, requestBuilder, serialFormat
+    )
 
     fun <T> createStandardWebsocketFlow(
         url: String,
@@ -69,3 +121,124 @@ suspend fun <BodyType, ResultType> HttpClient.unipost(
 }.let {
     serialFormat.decodeDefault(resultDeserializer, it)
 }
+
+suspend fun <ResultType> HttpClient.unimultipart(
+    url: String,
+    filename: String,
+    inputProvider: InputProvider,
+    resultDeserializer: DeserializationStrategy<ResultType>,
+    mimetype: String = "*/*",
+    additionalParametersBuilder: FormBuilder.() -> Unit = {},
+    dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+    requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+): ResultType = submitFormWithBinaryData<StandardKtorSerialInputData>(
+    url,
+    formData = formData {
+        append(
+            "bytes",
+            inputProvider,
+            Headers.build {
+                append(HttpHeaders.ContentType, mimetype)
+                append(HttpHeaders.ContentDisposition, "filename=$filename")
+                dataHeadersBuilder()
+            }
+        )
+        additionalParametersBuilder()
+    }
+) {
+    requestBuilder()
+}.let { serialFormat.decodeDefault(resultDeserializer, it) }
+
+suspend fun <BodyType, ResultType> HttpClient.unimultipart(
+    url: String,
+    filename: String,
+    otherData: BodyPair<BodyType>,
+    inputProvider: InputProvider,
+    resultDeserializer: DeserializationStrategy<ResultType>,
+    mimetype: String = "*/*",
+    additionalParametersBuilder: FormBuilder.() -> Unit = {},
+    dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+    requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+): ResultType = unimultipart(
+    url,
+    filename,
+    inputProvider,
+    resultDeserializer,
+    mimetype,
+    additionalParametersBuilder = {
+        val serialized = serialFormat.encodeDefault(otherData.first, otherData.second)
+        append(
+            "data",
+            InputProvider(serialized.size.toLong()) {
+                ByteReadPacket(serialized)
+            },
+            Headers.build {
+                append(HttpHeaders.ContentType, ContentType.Application.Cbor.contentType)
+                append(HttpHeaders.ContentDisposition, "filename=data.bytes")
+                dataHeadersBuilder()
+            }
+        )
+        additionalParametersBuilder()
+    },
+    dataHeadersBuilder,
+    requestBuilder,
+    serialFormat
+)
+
+suspend fun <ResultType> HttpClient.unimultipart(
+    url: String,
+    mppFile: MPPFile,
+    resultDeserializer: DeserializationStrategy<ResultType>,
+    mimetype: String = "*/*",
+    additionalParametersBuilder: FormBuilder.() -> Unit = {},
+    dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+    requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+): ResultType = unimultipart(
+    url,
+    mppFile.filename.string,
+    mppFile.inputProvider(),
+    resultDeserializer,
+    mimetype,
+    additionalParametersBuilder,
+    dataHeadersBuilder,
+    requestBuilder,
+    serialFormat
+)
+
+suspend fun <BodyType, ResultType> HttpClient.unimultipart(
+    url: String,
+    mppFile: MPPFile,
+    otherData: BodyPair<BodyType>,
+    resultDeserializer: DeserializationStrategy<ResultType>,
+    mimetype: String = "*/*",
+    additionalParametersBuilder: FormBuilder.() -> Unit = {},
+    dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
+    requestBuilder: HttpRequestBuilder.() -> Unit = {},
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+): ResultType = unimultipart(
+    url,
+    mppFile,
+    resultDeserializer,
+    mimetype,
+    additionalParametersBuilder = {
+        val serialized = serialFormat.encodeDefault(otherData.first, otherData.second)
+        append(
+            "data",
+            InputProvider(serialized.size.toLong()) {
+                ByteReadPacket(serialized)
+            },
+            Headers.build {
+                append(HttpHeaders.ContentType, ContentType.Application.Cbor.contentType)
+                append(HttpHeaders.ContentDisposition, "filename=data.bytes")
+                dataHeadersBuilder()
+            }
+        )
+        additionalParametersBuilder()
+    },
+    dataHeadersBuilder,
+    requestBuilder,
+    serialFormat
+)

@@ -1,18 +1,25 @@
 package dev.inmo.micro_utils.ktor.server
 
+import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.PartData
+import io.ktor.http.content.forEachPart
 import io.ktor.request.receive
+import io.ktor.request.receiveMultipart
 import io.ktor.response.respond
 import io.ktor.response.respondBytes
 import io.ktor.routing.Route
 import io.ktor.util.pipeline.PipelineContext
+import io.ktor.utils.io.core.Input
+import io.ktor.utils.io.core.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
+import java.io.File.createTempFile
 
 class UnifiedRouter(
     val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
@@ -102,6 +109,119 @@ suspend fun <T> ApplicationCall.uniload(
         deserializer,
         receive()
     )
+}
+
+suspend fun ApplicationCall.uniloadMultipart(
+    onFormItem: (PartData.FormItem) -> Unit = {},
+    onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {}
+) = safely {
+    val multipartData = receiveMultipart()
+
+    var resultInput: Input? = null
+
+    multipartData.forEachPart {
+        when (it) {
+            is PartData.FormItem -> onFormItem(it)
+            is PartData.FileItem -> {
+                when (it.name) {
+                    "bytes" -> resultInput = it.provider()
+                    else -> onCustomFileItem(it)
+                }
+            }
+            is PartData.BinaryItem -> onBinaryContent(it)
+        }
+    }
+
+    resultInput ?: error("Bytes has not been received")
+}
+
+suspend fun <T> ApplicationCall.uniloadMultipart(
+    deserializer: DeserializationStrategy<T>,
+    onFormItem: (PartData.FormItem) -> Unit = {},
+    onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {}
+): Pair<Input, T> {
+    var data: Optional<T>? = null
+    val resultInput = uniloadMultipart(
+        onFormItem,
+        {
+            if (it.name == "data") {
+                data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
+            } else {
+                onCustomFileItem(it)
+            }
+        },
+        onBinaryContent
+    )
+
+    val completeData = data ?: error("Data has not been received")
+    return resultInput to (completeData.dataOrNull().let { it as T })
+}
+
+suspend fun <T> ApplicationCall.uniloadMultipartFile(
+    deserializer: DeserializationStrategy<T>,
+    onFormItem: (PartData.FormItem) -> Unit = {},
+    onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {},
+) = safely {
+    val multipartData = receiveMultipart()
+
+    var resultInput: MPPFile? = null
+    var data: Optional<T>? = null
+
+    multipartData.forEachPart {
+        when (it) {
+            is PartData.FormItem -> onFormItem(it)
+            is PartData.FileItem -> {
+                when (it.name) {
+                    "bytes" -> {
+                        val name = FileName(it.originalFileName ?: error("File name is unknown for default part"))
+                        resultInput = MPPFile.createTempFile(
+                            name.nameWithoutExtension,
+                            ".${name.extension}"
+                        )
+                    }
+                    "data" -> data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
+                    else -> onCustomFileItem(it)
+                }
+            }
+            is PartData.BinaryItem -> onBinaryContent(it)
+        }
+    }
+
+    val completeData = data ?: error("Data has not been received")
+    (resultInput ?: error("Bytes has not been received")) to (completeData.dataOrNull().let { it as T })
+}
+
+suspend fun ApplicationCall.uniloadMultipartFile(
+    onFormItem: (PartData.FormItem) -> Unit = {},
+    onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {},
+) = safely {
+    val multipartData = receiveMultipart()
+
+    var resultInput: MPPFile? = null
+
+    multipartData.forEachPart {
+        when (it) {
+            is PartData.FormItem -> onFormItem(it)
+            is PartData.FileItem -> {
+                if (it.name == "bytes") {
+                    val name = FileName(it.originalFileName ?: error("File name is unknown for default part"))
+                    resultInput = MPPFile.createTempFile(
+                        name.nameWithoutExtension,
+                        ".${name.extension}"
+                    )
+                } else {
+                    onCustomFileItem(it)
+                }
+            }
+            is PartData.BinaryItem -> onBinaryContent(it)
+        }
+    }
+
+    resultInput ?: error("Bytes has not been received")
 }
 
 suspend fun ApplicationCall.getParameterOrSendError(

@@ -23,11 +23,12 @@ value class FileName(val string: String) {
 }
 
 
-@PreviewFeature
 expect class MPPFile
 
 expect val MPPFile.filename: FileName
 expect val MPPFile.filesize: Long
+expect val MPPFile.bytesAllocatorSync: ByteArrayAllocator
 expect val MPPFile.bytesAllocator: SuspendByteArrayAllocator
+fun MPPFile.bytesSync() = bytesAllocatorSync()
 suspend fun MPPFile.bytes() = bytesAllocator()
 
