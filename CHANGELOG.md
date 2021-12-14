@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.7
+
+* `Ktor`:
+    * `Client`:
+        * `UnifiedRequester` now have no private fields
+        * Add preview work with multipart
+    * `Server`
+        * `UnifiedRouter` now have no private fields
+        * Add preview work with multipart
+
 ## 0.8.6
 
 * `Common`:

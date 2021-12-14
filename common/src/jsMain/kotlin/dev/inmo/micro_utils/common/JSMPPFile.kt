@@ -2,8 +2,7 @@ package dev.inmo.micro_utils.common
 
 import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.ErrorEvent
-import org.w3c.files.File
-import org.w3c.files.FileReader
+import org.w3c.files.*
 import kotlin.js.Promise
 
 /**
@@ -24,6 +23,11 @@ fun MPPFile.readBytesPromise() = Promise<ByteArray> { success, failure ->
     reader.readAsArrayBuffer(this)
 }
 
+fun MPPFile.readBytes(): ByteArray {
+    val reader = FileReaderSync()
+    return reader.readAsArrayBuffer(this).toByteArray()
+}
+
 private suspend fun MPPFile.dirtyReadBytes(): ByteArray = readBytesPromise().await()
 
 /**
@@ -36,6 +40,12 @@ actual val MPPFile.filename: FileName
  */
 actual val MPPFile.filesize: Long
     get() = size.toLong()
+/**
+ * @suppress
+ */
+@Warning("That is not optimized version of bytes allocator. Use asyncBytesAllocator everywhere you can")
+actual val MPPFile.bytesAllocatorSync: ByteArrayAllocator
+    get() = ::readBytes
 /**
  * @suppress
  */

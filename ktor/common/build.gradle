@@ -10,6 +10,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api internalProject("micro_utils.common")
                 api "org.jetbrains.kotlinx:kotlinx-serialization-cbor:$kotlin_serialisation_core_version"
                 api "com.soywiz.korlibs.klock:klock:$klockVersion"
             }
