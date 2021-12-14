@@ -19,6 +19,7 @@ import io.ktor.utils.io.core.Input
 import io.ktor.utils.io.core.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
+import java.io.File
 import java.io.File.createTempFile
 
 class UnifiedRouter(
@@ -180,7 +181,9 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                         resultInput = MPPFile.createTempFile(
                             name.nameWithoutExtension,
                             ".${name.extension}"
-                        )
+                        ).apply {
+                            writeBytes(it.provider().readBytes())
+                        }
                     }
                     "data" -> data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
                     else -> onCustomFileItem(it)
@@ -212,7 +215,9 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                     resultInput = MPPFile.createTempFile(
                         name.nameWithoutExtension,
                         ".${name.extension}"
-                    )
+                    ).apply {
+                        writeBytes(it.provider().readBytes())
+                    }
                 } else {
                     onCustomFileItem(it)
                 }
