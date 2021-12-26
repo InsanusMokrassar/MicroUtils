@@ -20,7 +20,6 @@ interface UpdatableStatesMachine<T : State> : StatesMachine<T> {
 open class DefaultUpdatableStatesMachine<T : State>(
     statesManager: StatesManager<T>,
     handlers: List<CheckableHandlerHolder<in T, T>>,
-
 ) : DefaultStatesMachine<T>(
     statesManager,
     handlers
