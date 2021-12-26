@@ -28,7 +28,9 @@ open class DefaultUpdatableStatesMachine<T : State>(
 
     override suspend fun performStateUpdate(previousState: Optional<T>, actualState: T, scope: CoroutineScope) {
         statesJobsMutex.withLock {
-            statesJobs[actualState] ?.cancel()
+            if (previousState.dataOrNull() != actualState) {
+                statesJobs[actualState] ?.cancel()
+            }
             val job = previousState.mapOnPresented {
                 statesJobs.remove(it)
             } ?: scope.launch {
