@@ -1,8 +1,11 @@
 package dev.inmo.micro_utils.fsm.common
 
-import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
-import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
+import dev.inmo.micro_utils.common.Optional
+import dev.inmo.micro_utils.common.onPresented
+import dev.inmo.micro_utils.coroutines.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Default [StatesMachine] may [startChain] and use inside logic for handling [State]s. By default you may use
@@ -42,16 +45,52 @@ interface StatesMachine<T : State> : StatesHandler<T, T> {
 
 /**
  * Default realization of [StatesMachine]. It uses [statesManager] for incapsulation of [State]s storing and contexts
- * resolving, and uses [launchStateHandling] for [State] handling
+ * resolving, and uses [launchStateHandling] for [State] handling.
+ *
+ * This class suppose to be extended in case you wish some custom behaviour inside of [launchStateHandling], for example
  */
-class DefaultStatesMachine <T: State>(
-    private val statesManager: StatesManager<T>,
-    private val handlers: List<CheckableHandlerHolder<in T, T>>
+open class DefaultStatesMachine <T: State>(
+    protected val statesManager: StatesManager<T>,
+    protected val handlers: List<CheckableHandlerHolder<in T, T>>,
 ) : StatesMachine<T> {
     /**
      * Will call [launchStateHandling] for state handling
      */
     override suspend fun StatesMachine<in T>.handleState(state: T): T? = launchStateHandling(state, handlers)
+
+    /**
+     * This
+     */
+    protected val statesJobs = mutableMapOf<T, Job>()
+    protected val statesJobsMutex = Mutex()
+
+    protected open suspend fun performUpdate(state: T) {
+        val newState = launchStateHandling(state, handlers)
+        if (newState != null) {
+            statesManager.update(state, newState)
+        } else {
+            statesManager.endChain(state)
+        }
+    }
+
+    open suspend fun performStateUpdate(previousState: Optional<T>, actualState: T, scope: CoroutineScope) {
+        statesJobsMutex.withLock {
+            statesJobs[actualState] ?.cancel()
+            statesJobs[actualState] = scope.launch {
+                performUpdate(actualState)
+            }.also { job ->
+                job.invokeOnCompletion { _ ->
+                    scope.launch {
+                        statesJobsMutex.withLock {
+                            if (statesJobs[actualState] == job) {
+                                statesJobs.remove(actualState)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Launch handling of states. On [statesManager] [StatesManager.onStartChain],
@@ -60,23 +99,15 @@ class DefaultStatesMachine <T: State>(
      * [StatesManager.endChain].
      */
     override fun start(scope: CoroutineScope): Job = scope.launchSafelyWithoutExceptions {
-        val statePerformer: suspend (T) -> Unit = { state: T ->
-            val newState = launchStateHandling(state, handlers)
-            if (newState != null) {
-                statesManager.update(state, newState)
-            } else {
-                statesManager.endChain(state)
-            }
-        }
         statesManager.onStartChain.subscribeSafelyWithoutExceptions(this) {
-            launch { statePerformer(it) }
+            launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
         }
         statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(this) {
-            launch { statePerformer(it.second) }
+            launch { performStateUpdate(Optional.presented(it.first), it.second, scope.LinkedSupervisorScope()) }
         }
 
         statesManager.getActiveStates().forEach {
-            launch { statePerformer(it) }
+            launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
         }
     }
 

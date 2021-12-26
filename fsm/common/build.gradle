@@ -10,6 +10,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api project(":micro_utils.common")
                 api project(":micro_utils.coroutines")
             }
         }
