@@ -5,6 +5,9 @@
 * `Versions`:
     * `AppCompat`: `1.3.1` -> `1.4.0`
     * Android Compile SDK: `31.0.0` -> `32.0.0`
+* `FSM`:
+    * `DefaultStatesMachine` now is extendable
+    * New type `UpdatableStatesMachine` with default realization`DefaultUpdatableStatesMachine`
 
 ## 0.8.7
 

@@ -7,6 +7,14 @@ import kotlin.reflect.KClass
 
 class FSMBuilder<T : State>(
     var statesManager: StatesManager<T> = DefaultStatesManager(InMemoryDefaultStatesManagerRepo()),
+    val fsmBuilder: (states: List<CheckableHandlerHolder<T, T>>, defaultHandler: StatesHandler<T, T>?) -> StatesMachine<T> = { states, defaultHandler ->
+        StatesMachine(
+            statesManager,
+            states.let { list ->
+                defaultHandler ?.let { list + it.holder { true } } ?: list
+            }
+        )
+    },
     var defaultStateHandler: StatesHandler<T, T>? = StatesHandler { null }
 ) {
     private var states = mutableListOf<CheckableHandlerHolder<T, T>>()
@@ -42,12 +50,7 @@ class FSMBuilder<T : State>(
         add(filter, handler)
     }
 
-    fun build() = StatesMachine(
-        statesManager,
-        states.toList().let { list ->
-            defaultStateHandler ?.let { list + it.holder { true } } ?: list
-        }
-    )
+    fun build() = fsmBuilder(states.toList(), defaultStateHandler)
 }
 
 fun <T : State> buildFSM(

@@ -21,8 +21,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Optional<T> internal constructor(
-    internal val data: T?,
-    internal val dataPresented: Boolean
+    @Warning("It is unsafe to use this data directly")
+    val data: T?,
+    @Warning("It is unsafe to use this data directly")
+    val dataPresented: Boolean
 ) {
     companion object {
         /**
@@ -42,15 +44,29 @@ inline val <T> T.optional
 /**
  * Will call [block] when data presented ([Optional.dataPresented] == true)
  */
-fun <T> Optional<T>.onPresented(block: (T) -> Unit): Optional<T> = apply {
+inline fun <T> Optional<T>.onPresented(block: (T) -> Unit): Optional<T> = apply {
     if (dataPresented) { @Suppress("UNCHECKED_CAST") block(data as T) }
+}
+
+/**
+ * Will call [block] when data presented ([Optional.dataPresented] == true)
+ */
+inline fun <T, R> Optional<T>.mapOnPresented(block: (T) -> R): R? = run {
+    if (dataPresented) { @Suppress("UNCHECKED_CAST") block(data as T) } else null
 }
 
 /**
  * Will call [block] when data absent ([Optional.dataPresented] == false)
  */
-fun <T> Optional<T>.onAbsent(block: () -> Unit): Optional<T> = apply {
+inline fun <T> Optional<T>.onAbsent(block: () -> Unit): Optional<T> = apply {
     if (!dataPresented) { block() }
+}
+
+/**
+ * Will call [block] when data presented ([Optional.dataPresented] == true)
+ */
+inline fun <T, R> Optional<T>.mapOnAbsent(block: () -> R): R? = run {
+    if (!dataPresented) { @Suppress("UNCHECKED_CAST") block() } else null
 }
 
 /**
@@ -67,9 +83,10 @@ fun <T> Optional<T>.dataOrThrow(throwable: Throwable) = if (dataPresented) @Supp
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
  */
-fun <T> Optional<T>.dataOrElse(block: () -> T) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
+inline fun <T> Optional<T>.dataOrElse(block: () -> T) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
 
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
  */
+@Deprecated("dataOrElse now is inline", ReplaceWith("dataOrElse", "dev.inmo.micro_utils.common.dataOrElse"))
 suspend fun <T> Optional<T>.dataOrElseSuspendable(block: suspend () -> T) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
