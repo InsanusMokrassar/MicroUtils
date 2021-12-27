@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.9
+
+* `Ktor`:
+    * `Server`:
+        * Fixes in `uniloadMultipart`
+    * `Client`:
+        * Fixes in `unimultipart`
+* `FSM`:
+    * Fixes in `DefaultUpdatableStatesMachine`
+
 ## 0.8.8
 
 * `Versions`:

@@ -28,12 +28,12 @@ open class DefaultUpdatableStatesMachine<T : State>(
 
     override suspend fun performStateUpdate(previousState: Optional<T>, actualState: T, scope: CoroutineScope) {
         statesJobsMutex.withLock {
-            if (previousState.dataOrNull() != actualState) {
+            if (compare(previousState, actualState)) {
                 statesJobs[actualState] ?.cancel()
             }
             val job = previousState.mapOnPresented {
                 statesJobs.remove(it)
-            } ?: scope.launch {
+            } ?.takeIf { it.isActive } ?: scope.launch {
                 performUpdate(actualState)
             }.also { job ->
                 job.invokeOnCompletion { _ ->
@@ -51,6 +51,8 @@ open class DefaultUpdatableStatesMachine<T : State>(
             jobsStates[job] = actualState
         }
     }
+
+    protected open suspend fun compare(previous: Optional<T>, new: T): Boolean = previous.dataOrNull() != new
 
     override suspend fun updateChain(currentState: T, newState: T) {
         statesManager.update(currentState, newState)
