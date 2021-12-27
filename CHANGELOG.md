@@ -6,6 +6,9 @@
     * `Server`:
         * Fixes in `uniloadMultipart`
 
+* `FSM`:
+    * Fixes in `DefaultUpdatableStatesMachine`
+
 ## 0.8.8
 
 * `Versions`:
