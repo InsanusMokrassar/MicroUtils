@@ -5,7 +5,8 @@
 * `Ktor`:
     * `Server`:
         * Fixes in `uniloadMultipart`
-
+    * `Client`:
+        * Fixes in `unimultipart`
 * `FSM`:
     * Fixes in `DefaultUpdatableStatesMachine`
 

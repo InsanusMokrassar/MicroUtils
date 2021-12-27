@@ -140,7 +140,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
             inputProvider,
             Headers.build {
                 append(HttpHeaders.ContentType, mimetype)
-                append(HttpHeaders.ContentDisposition, "filename=$filename")
+                append(HttpHeaders.ContentDisposition, "filename=\"$filename\"")
                 dataHeadersBuilder()
             }
         )
