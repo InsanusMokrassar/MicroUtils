@@ -180,7 +180,13 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                     "bytes" -> {
                         val name = FileName(it.originalFileName ?: error("File name is unknown for default part"))
                         resultInput = MPPFile.createTempFile(
-                            name.nameWithoutExtension,
+                            name.nameWithoutExtension.let {
+                                var resultName = it
+                                while (resultName.length < 3) {
+                                    resultName += "_"
+                                }
+                                resultName
+                            },
                             ".${name.extension}"
                         ).apply {
                             outputStream().use { fileStream ->
@@ -216,7 +222,13 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                 if (it.name == "bytes") {
                     val name = FileName(it.originalFileName ?: error("File name is unknown for default part"))
                     resultInput = MPPFile.createTempFile(
-                        name.nameWithoutExtension,
+                        name.nameWithoutExtension.let {
+                            var resultName = it
+                            while (resultName.length < 3) {
+                                resultName += "_"
+                            }
+                            resultName
+                        },
                         ".${name.extension}"
                     ).apply {
                         outputStream().use { fileStream ->

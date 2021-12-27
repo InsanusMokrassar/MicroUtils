@@ -2,6 +2,10 @@
 
 ## 0.8.9
 
+* `Ktor`:
+    * `Server`:
+        * Fixes in `uniloadMultipart`
+
 ## 0.8.8
 
 * `Versions`:
