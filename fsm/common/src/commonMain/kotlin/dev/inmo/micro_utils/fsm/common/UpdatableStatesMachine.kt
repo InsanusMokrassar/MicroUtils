@@ -52,7 +52,7 @@ open class DefaultUpdatableStatesMachine<T : State>(
         }
     }
 
-    protected suspend fun compare(previous: Optional<T>, new: T): Boolean = previous.dataOrNull() != new
+    protected open suspend fun compare(previous: Optional<T>, new: T): Boolean = previous.dataOrNull() != new
 
     override suspend fun updateChain(currentState: T, newState: T) {
         statesManager.update(currentState, newState)
