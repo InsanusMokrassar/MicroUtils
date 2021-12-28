@@ -11,8 +11,7 @@ open class TypedSerializer<T : Any>(
     presetSerializers: Map<String, KSerializer<out T>> = emptyMap(),
 ) : KSerializer<T> {
     protected val serializers = presetSerializers.toMutableMap()
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(InternalSerializationApi::class)
     override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TypedSerializer",
         SerialKind.CONTEXTUAL
@@ -21,8 +20,7 @@ open class TypedSerializer<T : Any>(
         element("value", ContextualSerializer(kClass).descriptor)
     }
 
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): T {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
@@ -46,14 +44,12 @@ open class TypedSerializer<T : Any>(
         }
     }
 
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     protected open fun <O: T> CompositeEncoder.encode(value: O) {
         encodeSerializableElement(descriptor, 1, value::class.serializer() as KSerializer<O>, value)
     }
 
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: T) {
         encoder.encodeStructure(descriptor) {
             val valueSerializer = value::class.serializer()

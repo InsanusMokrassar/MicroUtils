@@ -12,4 +12,5 @@ out/
 secret.gradle
 local.properties
 
+
 publishing.sh

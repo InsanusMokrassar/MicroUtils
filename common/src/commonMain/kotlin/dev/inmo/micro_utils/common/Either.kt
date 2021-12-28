@@ -32,8 +32,7 @@ class EitherSerializer<T1, T2>(
     t1Serializer: KSerializer<T1>,
     t2Serializer: KSerializer<T2>,
 ) : KSerializer<Either<T1, T2>> {
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TypedSerializer",
         SerialKind.CONTEXTUAL
@@ -44,8 +43,7 @@ class EitherSerializer<T1, T2>(
     private val t1EitherSerializer = EitherFirst.serializer(t1Serializer, t2Serializer)
     private val t2EitherSerializer = EitherSecond.serializer(t1Serializer, t2Serializer)
 
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): Either<T1, T2> {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
@@ -77,8 +75,7 @@ class EitherSerializer<T1, T2>(
     }
 
 
-    @ExperimentalSerializationApi
-    @InternalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: Either<T1, T2>) {
         encoder.encodeStructure(descriptor) {
             when (value) {
