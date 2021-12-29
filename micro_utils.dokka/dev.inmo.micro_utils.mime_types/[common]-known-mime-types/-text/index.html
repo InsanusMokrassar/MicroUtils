@@ -2,28 +2,35 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Text</title>
-<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" async="async"></script>  </head>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><link href="../../../../styles/prism.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../../index.html">micro_utils.dokka</a></div>
+      <div>0.9.0</div>
+      <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button><button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text///PointingToDeclaration//-1478683138">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a>/<a href="../../index.html">dev.inmo.micro_utils.mime_types</a>/<a href="../index.html">[common]KnownMimeTypes</a>/<a href="index.html">Text</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-              <div id="searchBar"></div>
-            </div>
-          </div>
+      <div id="main"><script type="text/javascript" src="../../../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text///PointingToDeclaration//-1478683138">
+          <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a>/<a href="../../index.html">dev.inmo.micro_utils.mime_types</a>/<a href="../index.html">[common]KnownMimeTypes</a>/<a href="index.html">Text</a></div>
           <div class="cover ">
             <h1 class="cover"><span><span>Text</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">sealed class <a href="index.html">Text</a> : <a href="../index.html">KnownMimeTypes</a>, <a href="../../[common]-mime-type/index.html">MimeType</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+            <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+              <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Text</a> : <a href="../index.html">KnownMimeTypes</a>, <a href="../../[common]-mime-type/index.html">MimeType</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>            </div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
@@ -36,16 +43,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -56,16 +58,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-calendar/index.html">Calendar</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-calendar/index.html">Calendar</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -76,16 +73,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-css/index.html">Css</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-css/index.html">Css</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -96,16 +88,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-csv/index.html">Csv</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-csv/index.html">Csv</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -116,16 +103,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-html/index.html">Html</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-html/index.html">Html</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -136,16 +118,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-n3/index.html">N3</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-n3/index.html">N3</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -156,16 +133,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-plain/index.html">Plain</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-plain/index.html">Plain</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -176,16 +148,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-plain-bas/index.html">PlainBas</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-plain-bas/index.html">PlainBas</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -196,16 +163,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-prs-lines-tag/index.html">PrsLinesTag</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-prs-lines-tag/index.html">PrsLinesTag</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -216,16 +178,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-richtext/index.html">Richtext</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-richtext/index.html">Richtext</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -236,16 +193,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-sgml/index.html">Sgml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-sgml/index.html">Sgml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -256,16 +208,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-tab-separated-values/index.html">TabSeparatedValues</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-tab-separated-values/index.html">TabSeparatedValues</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -276,16 +223,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-troff/index.html">Troff</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-troff/index.html">Troff</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -296,16 +238,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-turtle/index.html">Turtle</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-turtle/index.html">Turtle</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -316,16 +253,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-uri-list/index.html">UriList</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-uri-list/index.html">UriList</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -336,16 +268,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-curl/index.html">VndCurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-curl/index.html">VndCurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -356,16 +283,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-curl-dcurl/index.html">VndCurlDcurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-curl-dcurl/index.html">VndCurlDcurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -376,16 +298,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-curl-mcurl/index.html">VndCurlMcurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-curl-mcurl/index.html">VndCurlMcurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -396,16 +313,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-curl-scurl/index.html">VndCurlScurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-curl-scurl/index.html">VndCurlScurl</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -416,16 +328,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fly/index.html">VndFly</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-fly/index.html">VndFly</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -436,16 +343,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fmi-flexstor/index.html">VndFmiFlexstor</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-fmi-flexstor/index.html">VndFmiFlexstor</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -456,16 +358,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-graphviz/index.html">VndGraphviz</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-graphviz/index.html">VndGraphviz</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -476,16 +373,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-in3d3dml/index.html">VndIn3d3dml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-in3d3dml/index.html">VndIn3d3dml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -496,16 +388,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-in3d-spot/index.html">VndIn3dSpot</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-in3d-spot/index.html">VndIn3dSpot</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -516,16 +403,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-sun-j2me-app-descriptor/index.html">VndSunJ2meAppDescriptor</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-sun-j2me-app-descriptor/index.html">VndSunJ2meAppDescriptor</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -536,16 +418,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-wap-wml/index.html">VndWapWml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-wap-wml/index.html">VndWapWml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -556,16 +433,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-wap-wmlscript/index.html">VndWapWmlscript</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-vnd-wap-wmlscript/index.html">VndWapWmlscript</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -576,16 +448,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-asm/index.html">XAsm</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-asm/index.html">XAsm</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -596,16 +463,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-c/index.html">XC</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-c/index.html">XC</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -616,16 +478,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-fortran/index.html">XFortran</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-fortran/index.html">XFortran</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -636,16 +493,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-java-source-java/index.html">XJavaSourceJava</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-java-source-java/index.html">XJavaSourceJava</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -656,16 +508,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-pascal/index.html">XPascal</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-pascal/index.html">XPascal</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -676,16 +523,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-setext/index.html">XSetext</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-setext/index.html">XSetext</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -696,16 +538,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-uuencode/index.html">XUuencode</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-uuencode/index.html">XUuencode</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -716,16 +553,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-vcalendar/index.html">XVcalendar</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-vcalendar/index.html">XVcalendar</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -736,16 +568,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-vcard/index.html">XVcard</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-x-vcard/index.html">XVcard</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -756,16 +583,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-yaml/index.html">Yaml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-yaml/index.html">Yaml</a> : <a href="index.html">KnownMimeTypes.Text</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -778,345 +600,344 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><a data-name="575580059%2FProperties%2F-1478683138" anchor-label="raw" id="575580059%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="../../[common]-mime-type/raw.html">raw</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/commonMain">common</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><a data-name="575580059%2FProperties%2F-1478683138" anchor-label="raw" id="575580059%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../../[common]-mime-type/raw.html">raw</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="2040920405%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="2040920405%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+              <div class="table" data-togglable="Inheritors"><a data-name="2040920405%2FInheritors%2F1737121690" anchor-label="Any" id="2040920405%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Any///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2040920405%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Any///PointingToDeclaration/">Any</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2040920405%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1938932957%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1938932957%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1938932957%2FInheritors%2F1737121690" anchor-label="Calendar" id="-1938932957%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Calendar///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938932957%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Calendar///PointingToDeclaration/">Calendar</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1938932957%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1858431262%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1858431262%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1858431262%2FInheritors%2F1737121690" anchor-label="Css" id="1858431262%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Css///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1858431262%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Css///PointingToDeclaration/">Css</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1858431262%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1951490683%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1951490683%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1951490683%2FInheritors%2F1737121690" anchor-label="Csv" id="1951490683%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Csv///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951490683%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Csv///PointingToDeclaration/">Csv</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1951490683%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1080374442%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1080374442%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1080374442%2FInheritors%2F1737121690" anchor-label="Html" id="-1080374442%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Html///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1080374442%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Html///PointingToDeclaration/">Html</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1080374442%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1181807940%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1181807940%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1181807940%2FInheritors%2F1737121690" anchor-label="N3" id="-1181807940%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.N3///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181807940%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.N3///PointingToDeclaration/">N3</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181807940%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-355407049%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-355407049%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-355407049%2FInheritors%2F1737121690" anchor-label="Plain" id="-355407049%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Plain///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-355407049%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Plain///PointingToDeclaration/">Plain</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-355407049%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="2028530005%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="2028530005%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="2028530005%2FInheritors%2F1737121690" anchor-label="PrsLinesTag" id="2028530005%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.PrsLinesTag///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2028530005%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.PrsLinesTag///PointingToDeclaration/">PrsLinesTag</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2028530005%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-2045329224%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-2045329224%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-2045329224%2FInheritors%2F1737121690" anchor-label="Richtext" id="-2045329224%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Richtext///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2045329224%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Richtext///PointingToDeclaration/">Richtext</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2045329224%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1265384718%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1265384718%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1265384718%2FInheritors%2F1737121690" anchor-label="Sgml" id="1265384718%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Sgml///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1265384718%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Sgml///PointingToDeclaration/">Sgml</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1265384718%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-942062957%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-942062957%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-942062957%2FInheritors%2F1737121690" anchor-label="TabSeparatedValues" id="-942062957%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.TabSeparatedValues///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942062957%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.TabSeparatedValues///PointingToDeclaration/">TabSeparatedValues</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942062957%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1444122800%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1444122800%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1444122800%2FInheritors%2F1737121690" anchor-label="Troff" id="1444122800%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Troff///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1444122800%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Troff///PointingToDeclaration/">Troff</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1444122800%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1324397285%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1324397285%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1324397285%2FInheritors%2F1737121690" anchor-label="Turtle" id="1324397285%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Turtle///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1324397285%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Turtle///PointingToDeclaration/">Turtle</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1324397285%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1425196841%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1425196841%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1425196841%2FInheritors%2F1737121690" anchor-label="UriList" id="-1425196841%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.UriList///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1425196841%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.UriList///PointingToDeclaration/">UriList</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1425196841%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1780261833%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1780261833%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1780261833%2FInheritors%2F1737121690" anchor-label="VndCurl" id="1780261833%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurl///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1780261833%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurl///PointingToDeclaration/">VndCurl</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1780261833%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="915710249%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="915710249%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="915710249%2FInheritors%2F1737121690" anchor-label="VndCurlDcurl" id="915710249%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlDcurl///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="915710249%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlDcurl///PointingToDeclaration/">VndCurlDcurl</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="915710249%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1085452154%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1085452154%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1085452154%2FInheritors%2F1737121690" anchor-label="VndCurlScurl" id="1085452154%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlScurl///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1085452154%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlScurl///PointingToDeclaration/">VndCurlScurl</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1085452154%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1017555392%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1017555392%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1017555392%2FInheritors%2F1737121690" anchor-label="VndCurlMcurl" id="1017555392%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlMcurl///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1017555392%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndCurlMcurl///PointingToDeclaration/">VndCurlMcurl</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1017555392%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="286670426%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="286670426%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="286670426%2FInheritors%2F1737121690" anchor-label="VndFly" id="286670426%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndFly///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286670426%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndFly///PointingToDeclaration/">VndFly</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="286670426%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-685205970%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-685205970%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-685205970%2FInheritors%2F1737121690" anchor-label="VndFmiFlexstor" id="-685205970%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndFmiFlexstor///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685205970%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndFmiFlexstor///PointingToDeclaration/">VndFmiFlexstor</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-685205970%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="1899454588%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="1899454588%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="1899454588%2FInheritors%2F1737121690" anchor-label="VndGraphviz" id="1899454588%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndGraphviz///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1899454588%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndGraphviz///PointingToDeclaration/">VndGraphviz</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1899454588%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-782322225%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-782322225%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-782322225%2FInheritors%2F1737121690" anchor-label="VndIn3d3dml" id="-782322225%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndIn3d3dml///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782322225%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndIn3d3dml///PointingToDeclaration/">VndIn3d3dml</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-782322225%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-963356451%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-963356451%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-963356451%2FInheritors%2F1737121690" anchor-label="VndIn3dSpot" id="-963356451%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndIn3dSpot///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-963356451%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndIn3dSpot///PointingToDeclaration/">VndIn3dSpot</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-963356451%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-91362767%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-91362767%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-91362767%2FInheritors%2F1737121690" anchor-label="VndSunJ2meAppDescriptor" id="-91362767%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndSunJ2meAppDescriptor///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-91362767%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndSunJ2meAppDescriptor///PointingToDeclaration/">VndSunJ2meAppDescriptor</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-91362767%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-689985051%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-689985051%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-689985051%2FInheritors%2F1737121690" anchor-label="VndWapWml" id="-689985051%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndWapWml///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-689985051%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndWapWml///PointingToDeclaration/">VndWapWml</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-689985051%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="516959354%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="516959354%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="516959354%2FInheritors%2F1737121690" anchor-label="VndWapWmlscript" id="516959354%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndWapWmlscript///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="516959354%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.VndWapWmlscript///PointingToDeclaration/">VndWapWmlscript</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="516959354%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1263250658%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1263250658%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1263250658%2FInheritors%2F1737121690" anchor-label="XAsm" id="-1263250658%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XAsm///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1263250658%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XAsm///PointingToDeclaration/">XAsm</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1263250658%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="340714550%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="340714550%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="340714550%2FInheritors%2F1737121690" anchor-label="XC" id="340714550%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XC///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="340714550%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XC///PointingToDeclaration/">XC</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="340714550%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-445550523%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-445550523%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-445550523%2FInheritors%2F1737121690" anchor-label="XFortran" id="-445550523%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XFortran///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-445550523%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XFortran///PointingToDeclaration/">XFortran</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-445550523%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="118874045%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="118874045%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="118874045%2FInheritors%2F1737121690" anchor-label="XPascal" id="118874045%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XPascal///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="118874045%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XPascal///PointingToDeclaration/">XPascal</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="118874045%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-417450390%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-417450390%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-417450390%2FInheritors%2F1737121690" anchor-label="XJavaSourceJava" id="-417450390%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XJavaSourceJava///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417450390%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XJavaSourceJava///PointingToDeclaration/">XJavaSourceJava</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-417450390%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-2004355958%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-2004355958%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-2004355958%2FInheritors%2F1737121690" anchor-label="XSetext" id="-2004355958%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XSetext///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2004355958%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XSetext///PointingToDeclaration/">XSetext</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2004355958%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1451165645%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1451165645%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1451165645%2FInheritors%2F1737121690" anchor-label="XUuencode" id="-1451165645%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XUuencode///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1451165645%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XUuencode///PointingToDeclaration/">XUuencode</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1451165645%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1944706043%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1944706043%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1944706043%2FInheritors%2F1737121690" anchor-label="XVcalendar" id="-1944706043%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XVcalendar///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1944706043%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XVcalendar///PointingToDeclaration/">XVcalendar</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1944706043%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1736037005%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1736037005%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1736037005%2FInheritors%2F1737121690" anchor-label="XVcard" id="-1736037005%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XVcard///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1736037005%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.XVcard///PointingToDeclaration/">XVcard</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1736037005%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-314707465%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-314707465%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-314707465%2FInheritors%2F1737121690" anchor-label="PlainBas" id="-314707465%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.PlainBas///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314707465%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.PlainBas///PointingToDeclaration/">PlainBas</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-314707465%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
                   </div>
                 </div>
-<a data-name="-1637520422%2FInheritors%2F1737121690" anchor-label="KnownMimeTypes.Text" id="-1637520422%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
+<a data-name="-1637520422%2FInheritors%2F1737121690" anchor-label="Yaml" id="-1637520422%2FInheritors%2F1737121690" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain :micro_utils.dokka:dokkaHtml/commonMain :micro_utils.dokka:dokkaHtml/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Yaml///PointingToDeclaration/">KnownMimeTypes.Text</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1637520422%2FInheritors%2F1737121690"></span>
+                    <div class=""><span class="inline-flex"><span data-unresolved-link="dev.inmo.micro_utils.mime_types/KnownMimeTypes.Text.Yaml///PointingToDeclaration/">Yaml</span><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1637520422%2FInheritors%2F1737121690"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div></div>
@@ -1126,7 +947,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>

@@ -2,35 +2,44 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>[android]DefaultStatesManager</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
   <body>
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../index.html">micro_utils.dokka</a></div>
+      <div>0.9.0</div>
+      <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.fsm.common.managers/DefaultStatesManager///PointingToDeclaration//-1837788132">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a>/<a href="../index.html">dev.inmo.micro_utils.fsm.common.managers</a>/<a href="index.html">[android]DefaultStatesManager</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-              <div id="searchBar"></div>
-            </div>
-          </div>
+      <div id="main"><script type="text/javascript" src="../../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.fsm.common.managers/DefaultStatesManager///PointingToDeclaration//-1837788132">
+          <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a>/<a href="../index.html">dev.inmo.micro_utils.fsm.common.managers</a>/<a href="index.html">[android]DefaultStatesManager</a></div>
           <div class="cover ">
             <h1 class="cover"><span>Default</span><wbr></wbr><span>States</span><wbr></wbr><span><span>Manager</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">class <a href="index.html">DefaultStatesManager</a>&lt;<a href="index.html">T</a> : <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>&gt;(repo: <a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a>&lt;<a href="index.html">T</a>&gt;, onContextsConflictResolver: suspend (<a href="index.html">T</a>, <a href="index.html">T</a>, <a href="index.html">T</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>) : <a href="../../dev.inmo.micro_utils.fsm.common/[android]-states-manager/index.html">StatesManager</a>&lt;<a href="index.html">T</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+            <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+              <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DefaultStatesManager</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator"> : </span><a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a><span class="token operator">&gt;</span><span class="token punctuation">(</span>repo<span class="token operator">: </span><a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span>onContextsConflictResolver<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span> : <a href="../../dev.inmo.micro_utils.fsm.common/[android]-states-manager/index.html">StatesManager</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>            </div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button></div>
             <div class="tabs-section-body">
               <h2 class="">Parameters</h2>
               <div data-togglable="Parameters">
-                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span><span>repo</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">This repo will be used as repository for storing states. All operations with this repo will happen BEFORE any event will be sent to <a href="on-chain-state-updated.html">onChainStateUpdated</a>, <a href="on-start-chain.html">onStartChain</a> or <a href="on-end-chain.html">onEndChain</a>. By default will be used <a href="../[android]-in-memory-default-states-manager-repo/index.html">InMemoryDefaultStatesManagerRepo</a> or you may create custom <a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a> and pass as <span data-unresolved-link="dev.inmo.micro_utils.fsm.common.managers/DefaultStatesManager/repo/#/PointingToDeclaration/">repo</span> parameter</p></div></div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span>on</span><wbr></wbr><span>Contexts</span><wbr></wbr><span>Conflict</span><wbr></wbr><span><span>Resolver</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Receive old <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>, new one and the state currently placed on new <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> key. In case when this callback will returns true, the state placed on <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of new will be replaced by new state by using <a href="end-chain.html">endChain</a> with that state</p></div></div></div></div></div></div></div></div></div>
+                <div class="platform-hinted WithExtraAttributes with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Parameters">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span><span>repo</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">This repo will be used as repository for storing states. All operations with this repo will happen BEFORE any event will be sent to <a href="on-chain-state-updated.html">onChainStateUpdated</a>, <a href="on-start-chain.html">onStartChain</a> or <a href="on-end-chain.html">onEndChain</a>. By default will be used <a href="../[android]-in-memory-default-states-manager-repo/index.html">InMemoryDefaultStatesManagerRepo</a> or you may create custom <a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a> and pass as <span data-unresolved-link="dev.inmo.micro_utils.fsm.common.managers/DefaultStatesManager/repo/#/PointingToDeclaration/">repo</span> parameter</p></div></div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span>on</span><wbr></wbr><span>Contexts</span><wbr></wbr><span>Conflict</span><wbr></wbr><span><span>Resolver</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Receive old <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>, new one and the state currently placed on new <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> key. In case when this callback will returns true, the state placed on <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of new will be replaced by new state by using <a href="end-chain.html">endChain</a> with that state</p></div></div></div></div></div></div></div></div>                </div>
               </div>
               <h2 class="tabbedcontent">Constructors</h2>
               <div class="table" data-togglable="Constructors"><a data-name="-1874809702%2FConstructors%2F-1837788132" anchor-label="DefaultStatesManager" id="-1874809702%2FConstructors%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
@@ -40,11 +49,10 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
-                      </div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">fun &lt;<a href="index.html">T</a> : <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>&gt; <a href="-default-states-manager.html">DefaultStatesManager</a>(repo: <a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a>&lt;<a href="index.html">T</a>&gt; = InMemoryDefaultStatesManagerRepo(), onContextsConflictResolver: suspend (<a href="index.html">T</a>, <a href="index.html">T</a>, <a href="index.html">T</a>) -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = { _, _, _ -&gt; true })<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator"> : </span><a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a><span class="token operator">&gt; </span><a href="-default-states-manager.html"><span class="token function">DefaultStatesManager</span></a><span class="token punctuation">(</span>repo<span class="token operator">: </span><a href="../[android]-default-states-manager-repo/index.html">DefaultStatesManagerRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span>InMemoryDefaultStatesManagerRepo()<span class="token punctuation">, </span>onContextsConflictResolver<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>{ _, _, _ -&gt; true }<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
                     </div>
                   </div>
@@ -58,16 +66,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="end-chain.html"><span class="token function">endChain</span></a><span class="token punctuation">(</span>state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Ends chain with context from <a href="end-chain.html">state</a>. In case when <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of <a href="end-chain.html">state</a> is absent, <a href="end-chain.html">state</a> should be just ignored</p></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">open suspend override fun <a href="end-chain.html">endChain</a>(state: <a href="index.html">T</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Ends chain with context from <a href="end-chain.html">state</a>. In case when <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of <a href="end-chain.html">state</a> is absent, <a href="end-chain.html">state</a> should be just ignored</p></div></div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -78,16 +81,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="get-active-states.html"><span class="token function">getActiveStates</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">open suspend override fun <a href="get-active-states.html">getActiveStates</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="index.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -98,16 +96,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="start-chain.html"><span class="token function">startChain</span></a><span class="token punctuation">(</span>state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Starts chain with <a href="start-chain.html">state</a> as first <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>. May returns false in case of <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of <a href="start-chain.html">state</a> is already busy by the other <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a></p></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">open suspend override fun <a href="start-chain.html">startChain</a>(state: <a href="index.html">T</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Starts chain with <a href="start-chain.html">state</a> as first <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a>. May returns false in case of <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a> of <a href="start-chain.html">state</a> is already busy by the other <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/index.html">State</a></p></div></div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -118,16 +111,11 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
+                      <div class="title">
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span>old<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span>new<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Must set current set using <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a></p></div></div>                        </div>
                       </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace">open suspend override fun <a href="update.html">update</a>(old: <a href="index.html">T</a>, new: <a href="index.html">T</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Must set current set using <a href="../../dev.inmo.micro_utils.fsm.common/[android]-state/context.html">State.context</a></p></div></div>
-</div>
                     </div>
                   </div>
                 </div>
@@ -140,11 +128,10 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
-                      </div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="1517250172%2FProperties%2F-1837788132" anchor-label="onChainStateUpdated" id="1517250172%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace">open override val <a href="on-chain-state-updated.html">onChainStateUpdated</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a>&lt;<a href="index.html">T</a>, <a href="index.html">T</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="1517250172%2FProperties%2F-1837788132" anchor-label="onChainStateUpdated" id="1517250172%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="on-chain-state-updated.html">onChainStateUpdated</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
                     </div>
                   </div>
@@ -156,11 +143,10 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
-                      </div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-2041168915%2FProperties%2F-1837788132" anchor-label="onEndChain" id="-2041168915%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace">open override val <a href="on-end-chain.html">onEndChain</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="index.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-2041168915%2FProperties%2F-1837788132" anchor-label="onEndChain" id="-2041168915%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="on-end-chain.html">onEndChain</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
                     </div>
                   </div>
@@ -172,11 +158,10 @@
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag jvm-like">android</div>
-                      </div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-950000716%2FProperties%2F-1837788132" anchor-label="onStartChain" id="-950000716%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace">open override val <a href="on-start-chain.html">onStartChain</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="index.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-950000716%2FProperties%2F-1837788132" anchor-label="onStartChain" id="-950000716%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="on-start-chain.html">onStartChain</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                        </div>
                       </div>
                     </div>
                   </div>
@@ -185,7 +170,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>
