@@ -12,8 +12,8 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
 ) : ReadStandardKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
-    protected val keyColumn: Column<Key> = keyColumnAllocator()
-    protected val valueColumn: Column<Value> = valueColumnAllocator()
+    val keyColumn: Column<Key> = keyColumnAllocator()
+    val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
 
     init { initTable() }

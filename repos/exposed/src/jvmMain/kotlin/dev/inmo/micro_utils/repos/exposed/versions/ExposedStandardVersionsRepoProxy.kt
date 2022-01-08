@@ -18,8 +18,8 @@ inline fun versionsRepo(database: Database): VersionsRepo<Database> = StandardVe
 class ExposedStandardVersionsRepoProxy(
     override val database: Database
 ) : StandardVersionsRepoProxy<Database>, Table("ExposedVersionsProxy"), ExposedRepo {
-    private val tableNameColumn = text("tableName")
-    private val tableVersionColumn = integer("tableName")
+    val tableNameColumn = text("tableName")
+    val tableVersionColumn = integer("tableName")
 
     init {
         initTable()
