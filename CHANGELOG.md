@@ -2,6 +2,13 @@
 
 ## 0.9.1
 
+* `Repos`:
+    * `Exposed`:
+        * Default realizations of standard interfaces for exposed DB are using public fields for now:
+            * `ExposedReadKeyValueRepo`
+            * `ExposedReadOneToManyKeyValueRepo`
+            * `ExposedStandardVersionsRepoProxy`
+
 ## 0.9.0
 
 * `Versions`:

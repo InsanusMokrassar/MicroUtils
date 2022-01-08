@@ -12,8 +12,8 @@ open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
 ) : ReadOneToManyKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
-    protected val keyColumn: Column<Key> = keyColumnAllocator()
-    protected val valueColumn: Column<Value> = valueColumnAllocator()
+    val keyColumn: Column<Key> = keyColumnAllocator()
+    val valueColumn: Column<Value> = valueColumnAllocator()
 
     init { initTable() }
 
