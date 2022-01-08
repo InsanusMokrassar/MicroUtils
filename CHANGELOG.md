@@ -8,6 +8,9 @@
             * `ExposedReadKeyValueRepo`
             * `ExposedReadOneToManyKeyValueRepo`
             * `ExposedStandardVersionsRepoProxy`
+        * New typealiases for one to many exposed realizations:
+            * `ExposedReadKeyValuesRepo`
+            * `ExposedKeyValuesRepo`
 
 ## 0.9.0
 

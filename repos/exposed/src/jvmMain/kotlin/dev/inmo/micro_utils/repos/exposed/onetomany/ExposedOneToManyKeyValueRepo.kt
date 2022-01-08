@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
+typealias ExposedKeyValuesRepo<Key, Value> = ExposedOneToManyKeyValueRepo<Key, Value>
 open class ExposedOneToManyKeyValueRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
