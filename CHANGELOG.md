@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.3
+
+* `Versions`:
+    * `UUID`: `0.3.1` -> `0.4.0`
+
 ## 0.9.2
 
 * `Versions`:
