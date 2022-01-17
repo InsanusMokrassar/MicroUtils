@@ -5,6 +5,11 @@
 * `Pagination`:
     * `Common`:
         * Add several `optionallyReverse` functions
+* `Common`:
+    * Changes in `Either`:
+        * Now `Either` uses `optionalT1` and `optionalT2` as main properties
+        * `Either#t1` and `Either#t2` are deprecated
+        * New extensions `Either#mapOnFirst` and `Either#mapOnSecond`
 
 ## 0.9.3
 
