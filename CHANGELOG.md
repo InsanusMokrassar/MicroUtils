@@ -2,6 +2,10 @@
 
 ## 0.9.4
 
+* `Pagination`:
+    * `Common`:
+        * Add several `optionallyReverse` functions
+
 ## 0.9.3
 
 * `Versions`:

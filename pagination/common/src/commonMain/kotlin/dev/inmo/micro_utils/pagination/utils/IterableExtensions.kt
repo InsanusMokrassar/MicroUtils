@@ -38,3 +38,17 @@ fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
         size.toLong()
     )
 }
+
+fun <T> Iterable<T>.optionallyReverse(reverse: Boolean) = if (reverse) {
+    reversed()
+} else {
+    this
+}
+
+inline fun <reified T> Array<T>.optionallyReverse(reverse: Boolean) = if (reverse) {
+    Array(size) {
+        get(lastIndex - it)
+    }
+} else {
+    this
+}
