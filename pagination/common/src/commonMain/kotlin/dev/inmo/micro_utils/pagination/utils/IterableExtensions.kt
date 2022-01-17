@@ -39,8 +39,22 @@ fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
     )
 }
 
-fun <T> Iterable<T>.optionallyReverse(reverse: Boolean) = if (reverse) {
+fun <T> Iterable<T>.optionallyReverse(reverse: Boolean): Iterable<T> = when (this) {
+    is List<T> -> optionallyReverse(reverse)
+    is Set<T> -> optionallyReverse(reverse)
+    else -> if (reverse) {
+        reversed()
+    } else {
+        this
+    }
+}
+fun <T> List<T>.optionallyReverse(reverse: Boolean): List<T> = if (reverse) {
     reversed()
+} else {
+    this
+}
+fun <T> Set<T>.optionallyReverse(reverse: Boolean): Set<T> = if (reverse) {
+    reversed().toSet()
 } else {
     this
 }
