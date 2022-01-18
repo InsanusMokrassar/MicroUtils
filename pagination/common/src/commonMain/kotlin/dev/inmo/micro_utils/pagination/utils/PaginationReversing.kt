@@ -26,3 +26,15 @@ fun Pagination.reverse(datasetSize: Long): SimplePagination {
  * Shortcut for [reverse]
  */
 fun Pagination.reverse(objectsCount: Int) = reverse(objectsCount.toLong())
+
+fun Pagination.optionallyReverse(objectsCount: Int, reverse: Boolean) = if (reverse) {
+    reverse(objectsCount)
+} else {
+    this
+}
+
+fun Pagination.optionallyReverse(objectsCount: Long, reverse: Boolean) = if (reverse) {
+    reverse(objectsCount)
+} else {
+    this
+}

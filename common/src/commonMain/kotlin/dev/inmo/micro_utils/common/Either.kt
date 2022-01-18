@@ -6,7 +6,7 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 /**
- * Realization of this interface will contains at least one not null - [t1] or [t2]
+ * Realization of this interface will contains at least one not null - [optionalT1] or [optionalT2]
  *
  * @see EitherFirst
  * @see EitherSecond
@@ -14,11 +14,19 @@ import kotlinx.serialization.encoding.*
  * @see Either.Companion.second
  * @see Either.onFirst
  * @see Either.onSecond
+ * @see Either.mapOnFirst
+ * @see Either.mapOnSecond
  */
 @Serializable(EitherSerializer::class)
 sealed interface Either<T1, T2> {
+    val optionalT1: Optional<T1>
+    val optionalT2: Optional<T2>
+    @Deprecated("Use optionalT1 instead", ReplaceWith("optionalT1"))
     val t1: T1?
+        get() = optionalT1.dataOrNull()
+    @Deprecated("Use optionalT2 instead", ReplaceWith("optionalT2"))
     val t2: T2?
+        get() = optionalT2.dataOrNull()
 
     companion object {
         fun <T1, T2> serializer(
@@ -93,25 +101,25 @@ class EitherSerializer<T1, T2>(
 }
 
 /**
- * This type [Either] will always have not nullable [t1]
+ * This type [Either] will always have not nullable [optionalT1]
  */
 @Serializable
 data class EitherFirst<T1, T2>(
     override val t1: T1
 ) : Either<T1, T2> {
-    override val t2: T2?
-        get() = null
+    override val optionalT1: Optional<T1> = t1.optional
+    override val optionalT2: Optional<T2> = Optional.absent()
 }
 
 /**
- * This type [Either] will always have not nullable [t2]
+ * This type [Either] will always have not nullable [optionalT2]
  */
 @Serializable
 data class EitherSecond<T1, T2>(
     override val t2: T2
 ) : Either<T1, T2> {
-    override val t1: T1?
-        get() = null
+    override val optionalT1: Optional<T1> = Optional.absent()
+    override val optionalT2: Optional<T2> = t2.optional
 }
 
 /**
@@ -124,21 +132,33 @@ inline fun <T1, T2> Either.Companion.first(t1: T1): Either<T1, T2> = EitherFirst
 inline fun <T1, T2> Either.Companion.second(t2: T2): Either<T1, T2> = EitherSecond(t2)
 
 /**
- * Will call [block] in case when [Either.t1] of [this] is not null
+ * Will call [block] in case when [this] is [EitherFirst]
  */
 inline fun <T1, T2, E : Either<T1, T2>> E.onFirst(block: (T1) -> Unit): E {
-    val t1 = t1
-    t1 ?.let(block)
+    optionalT1.onPresented(block)
     return this
 }
 
 /**
- * Will call [block] in case when [Either.t2] of [this] is not null
+ * Will call [block] in case when [this] is [EitherSecond]
  */
 inline fun <T1, T2, E : Either<T1, T2>> E.onSecond(block: (T2) -> Unit): E {
-    val t2 = t2
-    t2 ?.let(block)
+    optionalT2.onPresented(block)
     return this
+}
+
+/**
+ * @return Result of [block] if [this] is [EitherFirst]
+ */
+inline fun <T1, R> Either<T1, *>.mapOnFirst(block: (T1) -> R): R? {
+    return optionalT1.mapOnPresented(block)
+}
+
+/**
+ * @return Result of [block] if [this] is [EitherSecond]
+ */
+inline fun <T2, R> Either<*, T2>.mapOnSecond(block: (T2) -> R): R? {
+    return optionalT2.mapOnPresented(block)
 }
 
 inline fun <reified T1, reified T2> Any.either() = when (this) {
