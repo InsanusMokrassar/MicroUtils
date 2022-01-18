@@ -7,12 +7,12 @@ const savedDarkMode = storage ? JSON.parse(storage) : false
 if(savedDarkMode === true){
     document.getElementsByTagName("html")[0].classList.add("theme-dark")
 }</script>
-<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script><script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>  </head>
   <body>
     <div class="navigation-wrapper" id="navigation-wrapper">
       <div id="leftToggler"><span class="icon-toggler"></span></div>
       <div class="library-name"><a href="../../../index.html">micro_utils.dokka</a></div>
-      <div>0.9.3</div>
+      <div>0.9.4</div>
       <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
 <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
@@ -23,7 +23,7 @@ if(savedDarkMode === true){
       <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
-      <div id="main"><script type="text/javascript" src="../../../scripts/main.js"></script>
+      <div id="main">
         <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.selector/MultipleSelector///PointingToDeclaration//-1837788132">
           <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a>/<a href="../index.html">dev.inmo.micro_utils.selector</a>/<a href="index.html">[android]MultipleSelector</a></div>
           <div class="cover ">
@@ -39,13 +39,15 @@ if(savedDarkMode === true){
               <div data-togglable="Parameters">
                 <div class="platform-hinted WithExtraAttributes with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Parameters">
                   <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><span>safe</span><wbr></wbr><span><span>Changes</span></span></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Set to false to disable using of <span data-unresolved-link="dev.inmo.micro_utils.selector/MultipleSelector/mutex/#/PointingToDeclaration/">mutex</span> for synchronizing changes on <a href="toggle-selection.html">toggleSelection</a></p></div></div></div></div></div></div></div></div>                </div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span>safe</span><wbr></wbr><span><span>Changes</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">Set to false to disable using of <span data-unresolved-link="dev.inmo.micro_utils.selector/MultipleSelector/mutex/#/PointingToDeclaration/">mutex</span> for synchronizing changes on <a href="toggle-selection.html">toggleSelection</a></p></div></div></div></div></div></div></div></div>                </div>
               </div>
               <h2 class="tabbedcontent">Constructors</h2>
               <div class="table" data-togglable="Constructors"><a data-name="1483168924%2FConstructors%2F-1837788132" anchor-label="MultipleSelector" id="1483168924%2FConstructors%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-multiple-selector.html">MultipleSelector</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1483168924%2FConstructors%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-multiple-selector.html"><span>Multiple</span><wbr></wbr><span><span>Selector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1483168924%2FConstructors%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -62,7 +64,9 @@ if(savedDarkMode === true){
               <div class="table" data-togglable="Functions"><a data-name="-474842872%2FFunctions%2F-1837788132" anchor-label="clearSelection" id="-474842872%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="clear-selection.html"><span>clear</span><wbr></wbr><span><span>Selection</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-474842872%2FFunctions%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="clear-selection.html"><span>clear</span><wbr></wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-474842872%2FFunctions%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -77,7 +81,9 @@ if(savedDarkMode === true){
 <a data-name="75884563%2FFunctions%2F-1837788132" anchor-label="forceDeselect" id="75884563%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="force-deselect.html"><span>force</span><wbr></wbr><span><span>Deselect</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75884563%2FFunctions%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="force-deselect.html"><span>force</span><wbr></wbr><span><span>Deselect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75884563%2FFunctions%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -92,7 +98,9 @@ if(savedDarkMode === true){
 <a data-name="1507893394%2FFunctions%2F-1837788132" anchor-label="forceSelect" id="1507893394%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="force-select.html"><span>force</span><wbr></wbr><span><span>Select</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1507893394%2FFunctions%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="force-select.html"><span>force</span><wbr></wbr><span><span>Select</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1507893394%2FFunctions%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -107,7 +115,9 @@ if(savedDarkMode === true){
 <a data-name="421075299%2FFunctions%2F-1837788132" anchor-label="toggleSelection" id="421075299%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="toggle-selection.html"><span>toggle</span><wbr></wbr><span><span>Selection</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="421075299%2FFunctions%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="toggle-selection.html"><span>toggle</span><wbr></wbr><span><span>Selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="421075299%2FFunctions%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -124,7 +134,9 @@ if(savedDarkMode === true){
               <div class="table" data-togglable="Properties"><a data-name="946015577%2FProperties%2F-1837788132" anchor-label="itemSelected" id="946015577%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="item-selected.html">itemSelected</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="946015577%2FProperties%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="item-selected.html">itemSelected</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="946015577%2FProperties%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -139,7 +151,9 @@ if(savedDarkMode === true){
 <a data-name="-364487648%2FProperties%2F-1837788132" anchor-label="itemUnselected" id="-364487648%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="item-unselected.html">itemUnselected</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-364487648%2FProperties%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="item-unselected.html">itemUnselected</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-364487648%2FProperties%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
@@ -154,7 +168,9 @@ if(savedDarkMode === true){
 <a data-name="610857486%2FProperties%2F-1837788132" anchor-label="selectedItems" id="610857486%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
                 <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="selected-items.html">selectedItems</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="610857486%2FProperties%2F-1837788132"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="selected-items.html">selectedItems</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="610857486%2FProperties%2F-1837788132"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
