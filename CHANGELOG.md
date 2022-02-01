@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.5
+
+* `Versions`:
+    * `Klock`: `2.4.12` -> `2.4.13`
+
 ## 0.9.4
 
 * `Pagination`:
