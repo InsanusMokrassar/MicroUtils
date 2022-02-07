@@ -48,7 +48,7 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
         transaction(database) {
             toRemove.keys.flatMap { k ->
                 toRemove[k] ?.mapNotNull { v ->
-                    if (deleteIgnoreWhere { keyColumn.eq(k).and(valueColumn.eq(v)) } > 0 ) {
+                    if (deleteWhere { keyColumn.eq(k).and(valueColumn.eq(v)) } > 0 ) {
                         k to v
                     } else {
                         null

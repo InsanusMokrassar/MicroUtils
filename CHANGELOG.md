@@ -2,6 +2,10 @@
 
 ## 0.9.6
 
+* `Repos`:
+    * `Exposed`:
+        * Fix in `ExposedOneToManyKeyValueRepo` - now it will not use `deleteIgnoreWhere`
+
 ## 0.9.5
 
 * `Versions`:
