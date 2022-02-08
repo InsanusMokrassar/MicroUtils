@@ -35,10 +35,15 @@ open class ExposedOneToManyKeyValueRepo<Key, Value>(
                     if (select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
                         return@mapNotNull null
                     }
-                    insertIgnore {
+                    val insertResult = insert {
                         it[keyColumn] = k
                         it[valueColumn] = v
-                    }.getOrNull(keyColumn) ?.let { k to v }
+                    }
+                    if (insertResult.insertedCount > 0) {
+                        k to v
+                    } else {
+                        null
+                    }
                 } ?: emptyList()
             }
         }.forEach { _onNewValue.emit(it) }
