@@ -2,6 +2,13 @@
 
 ## 0.9.7
 
+* `Repos`:
+    * `Exposed`:
+        * Fix in `ExposedOneToManyKeyValueRepo` - now it will not use `insertIgnore`
+* `Ktor`:
+    * `Server`:
+        * `Route#includeWebsocketHandling` now will check that `WebSockets` feature and install it if not
+
 ## 0.9.6
 
 * `Repos`:
