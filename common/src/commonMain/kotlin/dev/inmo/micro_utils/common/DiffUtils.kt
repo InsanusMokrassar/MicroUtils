@@ -165,10 +165,10 @@ fun <T> MutableList<T>.applyDiff(
     for (i in it.removed.indices.sortedDescending()) {
         removeAt(it.removed[i].index)
     }
-    it.replaced.forEach { (_, new) ->
-        set(new.index, new.value)
-    }
     it.added.forEach { (i, t) ->
         add(i, t)
+    }
+    it.replaced.forEach { (_, new) ->
+        set(new.index, new.value)
     }
 }
