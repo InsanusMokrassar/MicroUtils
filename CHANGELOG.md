@@ -6,6 +6,7 @@
     * `Klock`: `2.5.1` -> `2.5.2`
 * `Common`:
     * Add new diff tool - `applyDiff`
+    * Implementation of `IntersectionObserver` in JS part (copypaste of [this](https://youtrack.jetbrains.com/issue/KT-43157#focus=Comments-27-4498582.0-0) comment)
 
 ## 0.9.8
 
