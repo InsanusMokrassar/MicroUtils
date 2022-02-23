@@ -2,6 +2,11 @@
 
 ## 0.9.9
 
+* `Versions`:
+    * `Klock`: `2.5.1` -> `2.5.2`
+* `Common`:
+    * Add new diff tool - `applyDiff`
+
 ## 0.9.8
 
 * `Versions`:

@@ -153,3 +153,22 @@ inline fun <T> StrictDiff(old: Iterable<T>, new: Iterable<T>) = old.calculateDif
 inline fun <T> Iterable<T>.calculateStrictDiff(
     other: Iterable<T>
 ) = calculateDiff(other, strictComparison = true)
+
+/**
+ * This method call [calculateDiff] with strict mode [strictComparison] and then apply differences to [this]
+ * mutable list
+ */
+fun <T> MutableList<T>.applyDiff(
+    source: Iterable<T>,
+    strictComparison: Boolean = false
+) = calculateDiff(source, strictComparison).let {
+    for (i in it.removed.indices.sortedDescending()) {
+        removeAt(it.removed[i].index)
+    }
+    it.replaced.forEach { (_, new) ->
+        set(new.index, new.value)
+    }
+    it.added.forEach { (i, t) ->
+        add(i, t)
+    }
+}
