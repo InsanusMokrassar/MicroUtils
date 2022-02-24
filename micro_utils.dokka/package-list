@@ -46,6 +46,7 @@ $dokka.location:dev.inmo.micro_utils.android.recyclerview/StateFlowBasedRecycler
 $dokka.location:dev.inmo.micro_utils.common////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/index.html
 $dokka.location:dev.inmo.micro_utils.common//Diff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-diff.html
 $dokka.location:dev.inmo.micro_utils.common//StrictDiff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-strict-diff.html
+$dokka.location:dev.inmo.micro_utils.common//applyDiff/kotlin.collections.MutableList[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]apply-diff.html
 $dokka.location:dev.inmo.micro_utils.common//asAllocator/kotlin.ByteArray#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/as-allocator.html
 $dokka.location:dev.inmo.micro_utils.common//asAllocator/kotlin.coroutines.SuspendFunction0[kotlin.ByteArray]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]as-allocator.html
 $dokka.location:dev.inmo.micro_utils.common//asSuspendAllocator/kotlin.ByteArray#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/as-suspend-allocator.html
