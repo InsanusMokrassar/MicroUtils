@@ -54,7 +54,7 @@ class DiffUtilsTests {
         val oldList = (0 until 10).map { it.toString() }
         val withIndex = oldList.withIndex()
 
-        for (step in 0 until oldList.size) {
+        for (step in oldList.indices) {
             for ((i, v) in withIndex) {
                 val mutable = oldList.toMutableList()
                 val changes = (
@@ -70,6 +70,80 @@ class DiffUtilsTests {
                         replaced
                     )
                 }
+            }
+        }
+    }
+
+    @Test
+    fun testThatSimpleRemoveApplyWorks() {
+        val oldList = (0 until 10).toList()
+        val withIndex = oldList.withIndex()
+
+        for (count in 1 .. (floor(oldList.size.toFloat() / 2).toInt())) {
+            for ((i, _) in withIndex) {
+                if (i + count > oldList.lastIndex) {
+                    continue
+                }
+                val removedSublist = oldList.subList(i, i + count)
+                val mutableOldList = oldList.toMutableList()
+                val targetList = oldList - removedSublist
+
+                mutableOldList.applyDiff(targetList)
+
+                assertEquals(
+                    targetList,
+                    mutableOldList
+                )
+            }
+        }
+    }
+
+    @Test
+    fun testThatSimpleAddApplyWorks() {
+        val oldList = (0 until 10).map { it.toString() }
+        val withIndex = oldList.withIndex()
+
+        for (count in 1 .. (floor(oldList.size.toFloat() / 2).toInt())) {
+            for ((i, v) in withIndex) {
+                if (i + count > oldList.lastIndex) {
+                    continue
+                }
+                val addedSublist = oldList.subList(i, i + count).map { "added$it" }
+                val mutable = oldList.toMutableList()
+                mutable.addAll(i, addedSublist)
+                val mutableOldList = oldList.toMutableList()
+
+                mutableOldList.applyDiff(mutable)
+
+                assertEquals(
+                    mutable,
+                    mutableOldList
+                )
+            }
+        }
+    }
+
+    @Test
+    fun testThatSimpleChangesApplyWorks() {
+        val oldList = (0 until 10).map { it.toString() }
+        val withIndex = oldList.withIndex()
+
+        for (step in oldList.indices) {
+            for ((i, v) in withIndex) {
+                val mutable = oldList.toMutableList()
+                val changes = (
+                    if (step == 0) i until oldList.size else (i until oldList.size step step)
+                ).map { index ->
+                    IndexedValue(index, mutable[index]) to IndexedValue(index, "changed$index").also {
+                        mutable[index] = it.value
+                    }
+                }
+                val mutableOldList = oldList.toMutableList()
+                mutableOldList.applyDiff(mutable)
+                assertEquals(
+                    mutable,
+                    mutableOldList
+                )
             }
         }
     }
