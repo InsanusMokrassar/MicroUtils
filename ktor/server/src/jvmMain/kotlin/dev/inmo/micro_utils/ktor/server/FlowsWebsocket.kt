@@ -7,6 +7,7 @@ import io.ktor.application.install
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.Route
 import io.ktor.routing.application
+import io.ktor.websocket.WebSocketServerSession
 import io.ktor.websocket.webSocket
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.SerializationStrategy
@@ -14,7 +15,7 @@ import kotlinx.serialization.SerializationStrategy
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
-    converter: (T) -> StandardKtorSerialInputData
+    converter: suspend WebSocketServerSession.(T) -> StandardKtorSerialInputData?
 ) {
     application.apply {
         featureOrNull(io.ktor.websocket.WebSockets) ?: install(io.ktor.websocket.WebSockets)
@@ -22,7 +23,9 @@ fun <T> Route.includeWebsocketHandling(
     webSocket(suburl) {
         safely {
             flow.collect {
-                send(converter(it))
+                converter(it) ?.let { data ->
+                    send(data)
+                }
             }
         }
     }
@@ -32,10 +35,22 @@ fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
     serializer: SerializationStrategy<T>,
-    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    filter: (suspend WebSocketServerSession.(T) -> Boolean)? = null
 ) = includeWebsocketHandling(
     suburl,
-    flow
-) {
-    serialFormat.encodeDefault(serializer, it)
-}
+    flow,
+    converter = if (filter == null) {
+        {
+            serialFormat.encodeDefault(serializer, it)
+        }
+    } else {
+        {
+            if (filter(it)) {
+                serialFormat.encodeDefault(serializer, it)
+            } else {
+                null
+            }
+        }
+    }
+)

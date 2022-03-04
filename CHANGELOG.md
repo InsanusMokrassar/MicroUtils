@@ -5,6 +5,9 @@
 * Ktor:
     * Client:
         * New function `UnifiedRequester#createStandardWebsocketFlow` without `checkReconnection` arg
+    * Server:
+        * Now it is possible to filter data in `Route#includeWebsocketHandling`
+        * Callback in `Route#includeWebsocketHandling` is `suspend` since now
 
 ## 0.9.9
 
