@@ -85,9 +85,14 @@ class UnifiedRequester(
 
     fun <T> createStandardWebsocketFlow(
         url: String,
-        checkReconnection: (Throwable?) -> Boolean = { true },
+        checkReconnection: (Throwable?) -> Boolean,
         deserializer: DeserializationStrategy<T>
     ) = client.createStandardWebsocketFlow(url, checkReconnection, deserializer, serialFormat)
+
+    fun <T> createStandardWebsocketFlow(
+        url: String,
+        deserializer: DeserializationStrategy<T>
+    ) = createStandardWebsocketFlow(url, { true  }, deserializer)
 }
 
 val defaultRequester = UnifiedRequester()

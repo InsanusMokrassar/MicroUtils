@@ -2,6 +2,10 @@
 
 ## 0.9.10
 
+* Ktor:
+    * Client:
+        * New function `UnifiedRequester#createStandardWebsocketFlow` without `checkReconnection` arg
+
 ## 0.9.9
 
 * `Versions`:
