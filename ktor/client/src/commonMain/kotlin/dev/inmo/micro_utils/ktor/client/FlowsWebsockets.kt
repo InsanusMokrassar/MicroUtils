@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.features.websocket.ws
+import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.readBytes
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ import kotlinx.serialization.DeserializationStrategy
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },
+    noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
     crossinline conversation: suspend (StandardKtorSerialInputData) -> T
 ): Flow<T> {
     val correctedUrl = url.asCorrectWebSocketUrl
@@ -26,7 +28,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
         do {
             val reconnect = try {
                 safely {
-                    ws(correctedUrl) {
+                    ws(correctedUrl, requestBuilder) {
                         for (received in incoming) {
                             when (received) {
                                 is Frame.Binary -> producerScope.send(conversation(received.readBytes()))
@@ -65,10 +67,12 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: (Throwable?) -> Boolean = { true },
     deserializer: DeserializationStrategy<T>,
-    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
+    serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
+    noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
 ) = createStandardWebsocketFlow(
     url,
-    checkReconnection
+    checkReconnection,
+    requestBuilder
 ) {
     serialFormat.decodeDefault(deserializer, it)
 }

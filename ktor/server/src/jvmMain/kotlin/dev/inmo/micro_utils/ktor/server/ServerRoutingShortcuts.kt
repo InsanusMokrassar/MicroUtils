@@ -5,8 +5,7 @@ import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
+import io.ktor.http.*
 import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
 import io.ktor.request.receive
@@ -32,8 +31,9 @@ class UnifiedRouter(
         suburl: String,
         flow: Flow<T>,
         serializer: SerializationStrategy<T>,
+        protocol: URLProtocol = URLProtocol.WS,
         filter: (suspend WebSocketServerSession.(T) -> Boolean)? = null
-    ) = includeWebsocketHandling(suburl, flow, serializer, serialFormat, filter)
+    ) = includeWebsocketHandling(suburl, flow, serializer, serialFormat, protocol, filter)
 
     suspend fun <T> PipelineContext<*, ApplicationCall>.unianswer(
         answerSerializer: SerializationStrategy<T>,

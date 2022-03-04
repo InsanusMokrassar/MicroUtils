@@ -7,7 +7,8 @@
         * New function `UnifiedRequester#createStandardWebsocketFlow` without `checkReconnection` arg
     * Server:
         * Now it is possible to filter data in `Route#includeWebsocketHandling`
-        * Callback in `Route#includeWebsocketHandling` is `suspend` since now
+        * Callback in `Route#includeWebsocketHandling` and dependent methods is `suspend` since now
+        * Add `URLProtocol` support in `Route#includeWebsocketHandling` and dependent methods
 
 ## 0.9.9
 
