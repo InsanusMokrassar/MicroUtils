@@ -3,7 +3,7 @@
 ## 0.9.10
 
 * `Versions`:
-    * `Klock`: `2.5.2` -> `2.5.3`
+    * `Klock`: `2.5.2` -> `2.6.1`
 * Ktor:
     * Client:
         * New function `UnifiedRequester#createStandardWebsocketFlow` without `checkReconnection` arg
