@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.9.10
+
+* `Versions`:
+    * `Klock`: `2.5.2` -> `2.6.1`
+* Ktor:
+    * Client:
+        * New function `UnifiedRequester#createStandardWebsocketFlow` without `checkReconnection` arg
+    * Server:
+        * Now it is possible to filter data in `Route#includeWebsocketHandling`
+        * Callback in `Route#includeWebsocketHandling` and dependent methods is `suspend` since now
+        * Add `URLProtocol` support in `Route#includeWebsocketHandling` and dependent methods
+
 ## 0.9.9
 
 * `Versions`:
