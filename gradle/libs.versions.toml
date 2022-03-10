@@ -74,5 +74,4 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 
 [plugins]
 
-kt-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kt" }
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }

@@ -4,6 +4,13 @@
 
 * `Versions`:
     * `Klock`: `2.6.1` -> `2.6.2`
+* `Coroutines`:
+    * `Compose`:
+        * Created :)
+        * New extensions and function:
+            * `Composition#linkWithJob`
+            * `Composition#linkWithContext`
+            * `renderComposableAndLinkToContext`
 
 ## 0.9.10
 

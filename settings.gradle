@@ -23,6 +23,7 @@ String[] includes = [
     ":ktor:common",
     ":ktor:client",
     ":coroutines",
+    ":coroutines:compose",
     ":android:recyclerview",
     ":android:alerts:common",
     ":android:alerts:recyclerview",
