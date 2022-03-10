@@ -12,7 +12,7 @@ kotlin {
             dependencies {
                 api internalProject("micro_utils.ktor.common")
                 api internalProject("micro_utils.coroutines")
-                api "io.ktor:ktor-client-core:$ktor_version"
+                api libs.ktor.client
             }
         }
     }

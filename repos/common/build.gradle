@@ -10,10 +10,10 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+                api libs.kt.coroutines
                 api internalProject("micro_utils.pagination.common")
 
-                api "com.benasher44:uuid:$uuidVersion"
+                api libs.uuid
             }
         }
 
@@ -24,7 +24,7 @@ kotlin {
         }
         androidMain {
             dependencies {
-                api "androidx.core:core-ktx:$core_ktx_version"
+                api libs.android.coreKtx
                 api internalProject("micro_utils.common")
                 api internalProject("micro_utils.coroutines")
             }

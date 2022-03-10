@@ -15,8 +15,8 @@ kotlin {
 
         jvmMain {
             dependencies {
-                api "io.ktor:ktor-server:$ktor_version"
-                api "io.ktor:ktor-server-host-common:$ktor_version"
+                api libs.ktor.server
+                api libs.ktor.server.host.common
             }
         }
     }

@@ -23,7 +23,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib')
-                api "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialisation_core_version"
+                implementation libs.kt.serialization
             }
         }
         commonTest {
@@ -46,8 +46,8 @@ kotlin {
         androidTest {
             dependencies {
                 implementation kotlin('test-junit')
-                implementation "androidx.test.ext:junit:$test_ext_junit_version"
-                implementation "androidx.test.espresso:espresso-core:$espresso_core"
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
             }
         }
     }

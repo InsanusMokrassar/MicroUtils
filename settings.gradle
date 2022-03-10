@@ -38,11 +38,13 @@ String[] includes = [
 
 
 includes.each { originalName ->
-    String projectDirectory = "${rootProject.projectDir.getAbsolutePath()}${originalName.replaceAll(":", File.separator)}"
-    String projectName = "${rootProject.name}${originalName.replaceAll(":", ".")}"
+    String projectDirectory = "${rootProject.projectDir.getAbsolutePath()}${originalName.replace(":", File.separator)}"
+    String projectName = "${rootProject.name}${originalName.replace(":", ".")}"
     String projectIdentifier = ":${projectName}"
     include projectIdentifier
     ProjectDescriptor project = project(projectIdentifier)
     project.name = projectName
     project.projectDir = new File(projectDirectory)
 }
+
+enableFeaturePreview("VERSION_CATALOGS")

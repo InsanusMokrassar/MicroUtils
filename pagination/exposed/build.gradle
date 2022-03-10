@@ -14,7 +14,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                api "org.jetbrains.exposed:exposed-core:$kotlin_exposed_version"
+                api libs.jb.exposed
             }
         }
     }

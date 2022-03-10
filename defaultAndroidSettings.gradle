@@ -26,12 +26,12 @@ ext {
 }
 
 android {
-    compileSdkVersion "$android_compileSdkVersion".toInteger()
-    buildToolsVersion "$android_buildToolsVersion"
+    compileSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
+    buildToolsVersion libs.versions.android.props.buildTools.get()
 
     defaultConfig {
-        minSdkVersion "$android_minSdkVersion".toInteger()
-        targetSdkVersion "$android_compileSdkVersion".toInteger()
+        minSdkVersion libs.versions.android.props.minSdk.get().toInteger()
+        targetSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
         versionCode "${android_code_version}".toInteger()
         versionName "$version"
     }
