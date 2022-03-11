@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.9.12
+
+* `Common`:
+    * `JS`:
+        * New function `openLink`
+        * New function `selectFile`
+        * New function `triggerDownloadFile`
+    * `Compose`:
+        * Created :)
+        * `Common`:
+            * `DefaultDisposableEffectResult` as a default realization of `DisposableEffectResult`
+        * `JS`:
+            * `openLink` on top of `openLink` with `String` target from common
+* `Coroutines`:
+    * `Compose`:
+        * `Common`:
+            * New extension `Flow.toMutableState`
+            * New extension `StateFlow.toMutableState`
+        * `JS`:
+            * New function `selectFileOrThrow` on top of `selectFile` from `common`
+            * New function `selectFileOrNull` on top of `selectFile` from `common`
+
 ## 0.9.11
 
 * `Versions`:
