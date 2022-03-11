@@ -19,7 +19,7 @@
             * New extension `Flow.toMutableState`
             * New extension `StateFlow.toMutableState`
         * `JS`:
-            * New function `selectFile` on top of `selectFile` from `common`
+            * New function `selectFileOrThrow` on top of `selectFile` from `common`
             * New function `selectFileOrNull` on top of `selectFile` from `common`
 
 ## 0.9.11
