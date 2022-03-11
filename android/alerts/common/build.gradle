@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         androidMain {
             dependencies {
-                api "androidx.appcompat:appcompat-resources:$appcompat_version"
+                api libs.android.appCompat.resources
             }
         }
     }

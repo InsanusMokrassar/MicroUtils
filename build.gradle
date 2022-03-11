@@ -7,12 +7,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
-        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$dexcount_version"
-        classpath "com.github.breadmoirai:github-release:$github_release_plugin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath libs.buildscript.kt.gradle
+        classpath libs.buildscript.kt.serialization
+        classpath libs.buildscript.jb.dokka
+        classpath libs.buildscript.gh.release
+        classpath libs.buildscript.android.gradle
+        classpath libs.buildscript.android.dexcount
     }
 }
 

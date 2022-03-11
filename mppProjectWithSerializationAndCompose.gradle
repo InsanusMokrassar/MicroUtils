@@ -24,6 +24,7 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib')
                 implementation libs.kt.serialization
+                implementation compose.runtime
             }
         }
         commonTest {
@@ -32,9 +33,19 @@ kotlin {
                 implementation kotlin('test-annotations-common')
             }
         }
+        jvmMain {
+            dependencies {
+                implementation compose.desktop.currentOs
+            }
+        }
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation compose.web.core
             }
         }
         jsTest {

@@ -10,12 +10,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+                api libs.kt.coroutines
             }
         }
         androidMain {
             dependencies {
-                api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
+                api libs.kt.coroutines.android
             }
         }
     }

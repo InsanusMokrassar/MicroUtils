@@ -2,17 +2,16 @@ plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
     id "com.android.library"
+    alias(libs.plugins.jb.compose)
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppProjectWithSerializationAndComposePresetPath"
 
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api internalProject("micro_utils.ktor.common")
-                api internalProject("micro_utils.coroutines")
-                api libs.ktor.client
+                api libs.kt.coroutines
             }
         }
     }

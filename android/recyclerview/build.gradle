@@ -10,13 +10,13 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+                api libs.kt.coroutines
                 api project(":micro_utils.common")
             }
         }
         androidMain {
             dependencies {
-                api "androidx.recyclerview:recyclerview:$androidx_recycler_version"
+                api libs.android.recyclerView
             }
         }
     }
