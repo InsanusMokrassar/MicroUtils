@@ -6,7 +6,7 @@ import kotlinx.coroutines.CompletableDeferred
 import org.w3c.dom.HTMLInputElement
 
 suspend fun selectFile(
-    inputSetup: HTMLInputElement.() -> Unit = {}
+    inputSetup: (HTMLInputElement) -> Unit = {}
 ): MPPFile {
     val result = CompletableDeferred<MPPFile>()
 
@@ -22,8 +22,8 @@ suspend fun selectFile(
     return result.await()
 }
 
-suspend fun selectOptionalFile(
-    inputSetup: HTMLInputElement.() -> Unit = {},
+suspend fun selectFileOrNull(
+    inputSetup: (HTMLInputElement) -> Unit = {},
     onFailure: (Throwable) -> Unit = {}
 ): MPPFile? {
     val result = CompletableDeferred<MPPFile?>()
