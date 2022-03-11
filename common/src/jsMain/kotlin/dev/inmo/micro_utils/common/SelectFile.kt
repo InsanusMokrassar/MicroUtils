@@ -13,6 +13,7 @@ fun selectFile(
 ) {
     (document.createElement("input") {
         (this as HTMLInputElement).apply {
+            type = "file"
             inputSetup(this)
             onchange = {
                 runCatching {
