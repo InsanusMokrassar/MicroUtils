@@ -14,7 +14,6 @@ fun selectFile(
     (document.createElement("input") {
         (this as HTMLInputElement).apply {
             type = "file"
-            inputSetup(this)
             onchange = {
                 runCatching {
                     files ?.get(0) ?: error("File must not be null")
@@ -24,6 +23,7 @@ fun selectFile(
                     onFailure(it)
                 }
             }
+            inputSetup(this)
         }
     } as HTMLElement).click()
 }
