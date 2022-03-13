@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.13
+
+* `Versions`:
+    * `Compose`: `1.1.0` -> `1.1.1`
+
 ## 0.9.12
 
 * `Common`:
