@@ -8,10 +8,10 @@ jb-compose = "1.1.1"
 jb-exposed = "0.37.3"
 jb-dokka = "1.6.10"
 
-klock = "2.6.2"
+klock = "2.6.3"
 uuid = "0.4.0"
 
-ktor = "1.6.7"
+ktor = "1.6.8"
 
 gh-release = "2.2.12"
 

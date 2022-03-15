@@ -94,7 +94,8 @@ class UnifiedRouter(
     }
 
     companion object {
-        val default = defaultUnifiedRouter
+        val default
+            get() = defaultUnifiedRouter
     }
 }
 
