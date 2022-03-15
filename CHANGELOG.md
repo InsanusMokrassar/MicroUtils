@@ -2,6 +2,9 @@
 
 ## 0.9.14
 
+* `Versions`:
+    * `Klock`: `2.6.2` -> `2.6.3`
+    * `Ktor`: `1.6.7` -> `1.6.8`
 * `Ktor`:
     * Add temporal files uploading functionality (for clients to upload and for server to receive)
 
