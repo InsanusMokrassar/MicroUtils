@@ -92,6 +92,10 @@ class UnifiedRouter(
             call.respond(HttpStatusCode.BadRequest, "Request query parameters must contains $field")
         }
     }
+
+    companion object {
+        val default = defaultUnifiedRouter
+    }
 }
 
 val defaultUnifiedRouter = UnifiedRouter()
