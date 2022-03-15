@@ -13,6 +13,7 @@ kotlin {
                 api internalProject("micro_utils.common")
                 api libs.kt.serialization.cbor
                 api libs.klock
+                api libs.uuid
             }
         }
     }
