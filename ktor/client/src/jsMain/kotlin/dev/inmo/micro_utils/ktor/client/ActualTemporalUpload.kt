@@ -28,22 +28,26 @@ suspend fun tempUpload(
         if (request.status == 200.toShort()) {
             answer.complete(TemporalFileId(request.responseText))
         } else {
-            answer.completeExceptionally(Exception("Something went wrong"))
+            answer.completeExceptionally(Exception("Something went wrong: $it"))
         }
     }
     request.onerror = {
-        answer.completeExceptionally(Exception("Something went wrong"))
+        answer.completeExceptionally(Exception("Something went wrong: $it"))
     }
     request.open("POST", fullTempUploadDraftPath, true)
     request.send(formData)
 
-    currentCoroutineContext().job.invokeOnCompletion {
+    val handle = currentCoroutineContext().job.invokeOnCompletion {
         runCatching {
             request.abort()
         }
     }
 
-    return answer.await()
+    return runCatching {
+        answer.await()
+    }.also {
+        handle.dispose()
+    }.getOrThrow()
 }
 
 
