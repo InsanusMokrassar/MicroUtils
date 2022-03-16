@@ -61,6 +61,7 @@ open class DefaultStatesManager<T : State>(
         when {
             stateByOldContext != old -> return@withLock
             stateByOldContext == null || old.context == new.context -> {
+                repo.removeState(old)
                 repo.set(new)
                 _onChainStateUpdated.emit(old to new)
             }

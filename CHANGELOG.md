@@ -5,6 +5,7 @@
 * `FSM`:
     * Rename `DefaultUpdatableStatesMachine#compare` to `DefaultUpdatableStatesMachine#shouldReplaceJob`
     * `DefaultStatesManager` now is extendable
+    * `DefaultStatesMachine` will stop all jobs of states which was removed from `statesManager`
 
 ## 0.9.14
 
