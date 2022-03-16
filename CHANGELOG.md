@@ -2,6 +2,10 @@
 
 ## 0.9.15
 
+* `FSM`:
+    * Rename `DefaultUpdatableStatesMachine#compare` to `DefaultUpdatableStatesMachine#shouldReplaceJob`
+    * `DefaultStatesManager` now is extendable
+
 ## 0.9.14
 
 * `Versions`:
