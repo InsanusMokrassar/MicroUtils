@@ -105,6 +105,16 @@ open class DefaultStatesMachine <T: State>(
         statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(this) {
             launch { performStateUpdate(Optional.presented(it.first), it.second, scope.LinkedSupervisorScope()) }
         }
+        statesManager.onEndChain.subscribeSafelyWithoutExceptions(this) { removedState ->
+            launch {
+                statesJobsMutex.withLock {
+                    val stateInMap = statesJobs.keys.firstOrNull { stateInMap -> stateInMap == removedState }
+                    if (stateInMap === removedState) {
+                        statesJobs[stateInMap] ?.cancel()
+                    }
+                }
+            }
+        }
 
         statesManager.getActiveStates().forEach {
             launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
