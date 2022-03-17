@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.16
+
+* `Common`:
+    * New extension `Node#onRemoved`
+    * `Compose`:
+        * New extension `Composition#linkWithRoot` for removing of composition with root element
+* `Coroutines`:
+    * `Compose`:
+        * New function `renderComposableAndLinkToContextAndRoot` with linking of composition to root element
+
 ## 0.9.15
 
 * `FSM`:
