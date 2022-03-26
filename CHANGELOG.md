@@ -2,6 +2,12 @@
 
 ## 0.9.17
 
+* `Common`:
+    * New extensions `Element#onVisibilityChanged`, `Element#onVisible` and `Element#onInvisible`
+* `Coroutines`:
+    * New extension `Element.visibilityFlow()` 
+
+
 ## 0.9.16
 
 * `Common`:
