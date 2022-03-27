@@ -5,8 +5,9 @@
 * `Common`:
     * New extensions `Element#onVisibilityChanged`, `Element#onVisible` and `Element#onInvisible`
 * `Coroutines`:
-    * New extension `Element.visibilityFlow()` 
-
+    * New extension `Element.visibilityFlow()`
+* `FSM`:
+    * Now it is possible to resolve conflicts on `startChain`
 
 ## 0.9.16
 
