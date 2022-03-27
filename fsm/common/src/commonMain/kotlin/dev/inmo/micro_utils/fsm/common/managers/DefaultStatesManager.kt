@@ -39,13 +39,16 @@ interface DefaultStatesManagerRepo<T : State> {
  * @param repo This repo will be used as repository for storing states. All operations with this repo will happen BEFORE
  * any event will be sent to [onChainStateUpdated], [onStartChain] or [onEndChain]. By default, will be used
  * [InMemoryDefaultStatesManagerRepo] or you may create custom [DefaultStatesManagerRepo] and pass as [repo] parameter
+ * @param onStartContextsConflictResolver Receive current [State] and the state passed with [startChain]. In case when
+ * this callback will return true, currently placed on the [State.context] [State] will be replaced by new state
+ * with [endChain] with current state
  * @param onUpdateContextsConflictResolver Receive old [State], new one and the state currently placed on new [State.context]
  * key. In case when this callback will returns true, the state placed on [State.context] of new will be replaced by
  * new state by using [endChain] with that state
  */
 open class DefaultStatesManager<T : State>(
     protected val repo: DefaultStatesManagerRepo<T> = InMemoryDefaultStatesManagerRepo(),
-    protected val onStartContextsConflictResolver: suspend (old: T, new: T) -> Boolean = { _, _ -> true },
+    protected val onStartContextsConflictResolver: suspend (current: T, new: T) -> Boolean = { _, _ -> true },
     protected val onUpdateContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> true }
 ) : StatesManager<T> {
     protected val _onChainStateUpdated = MutableSharedFlow<Pair<T, T>>(0)
