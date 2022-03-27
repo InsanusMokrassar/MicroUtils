@@ -10,6 +10,8 @@
 
 ## 0.9.16
 
+* `Versions`:
+    * `Klock`: `2.6.3` -> `2.7.0`
 * `Common`:
     * New extension `Node#onRemoved`
     * `Compose`:
