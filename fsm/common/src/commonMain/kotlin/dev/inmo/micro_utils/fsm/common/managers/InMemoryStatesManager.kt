@@ -12,5 +12,6 @@ import kotlinx.coroutines.flow.*
  */
 @Deprecated("Use DefaultStatesManager instead", ReplaceWith("DefaultStatesManager"))
 fun <T: State> InMemoryStatesManager(
-    onContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> true }
-) = DefaultStatesManager(onContextsConflictResolver = onContextsConflictResolver)
+    onStartContextsConflictResolver: suspend (old: T, new: T) -> Boolean = { _, _ -> true },
+    onUpdateContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> true }
+) = DefaultStatesManager(onStartContextsConflictResolver = onStartContextsConflictResolver, onUpdateContextsConflictResolver = onUpdateContextsConflictResolver)

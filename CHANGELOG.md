@@ -1,7 +1,18 @@
 # Changelog
 
+## 0.9.17
+
+* `Common`:
+    * New extensions `Element#onVisibilityChanged`, `Element#onVisible` and `Element#onInvisible`
+* `Coroutines`:
+    * New extension `Element.visibilityFlow()`
+* `FSM`:
+    * Now it is possible to resolve conflicts on `startChain`
+
 ## 0.9.16
 
+* `Versions`:
+    * `Klock`: `2.6.3` -> `2.7.0`
 * `Common`:
     * New extension `Node#onRemoved`
     * `Compose`:

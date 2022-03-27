@@ -39,13 +39,17 @@ interface DefaultStatesManagerRepo<T : State> {
  * @param repo This repo will be used as repository for storing states. All operations with this repo will happen BEFORE
  * any event will be sent to [onChainStateUpdated], [onStartChain] or [onEndChain]. By default, will be used
  * [InMemoryDefaultStatesManagerRepo] or you may create custom [DefaultStatesManagerRepo] and pass as [repo] parameter
- * @param onContextsConflictResolver Receive old [State], new one and the state currently placed on new [State.context]
+ * @param onStartContextsConflictResolver Receive current [State] and the state passed with [startChain]. In case when
+ * this callback will return true, currently placed on the [State.context] [State] will be replaced by new state
+ * with [endChain] with current state
+ * @param onUpdateContextsConflictResolver Receive old [State], new one and the state currently placed on new [State.context]
  * key. In case when this callback will returns true, the state placed on [State.context] of new will be replaced by
  * new state by using [endChain] with that state
  */
 open class DefaultStatesManager<T : State>(
     protected val repo: DefaultStatesManagerRepo<T> = InMemoryDefaultStatesManagerRepo(),
-    protected val onContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> true }
+    protected val onStartContextsConflictResolver: suspend (current: T, new: T) -> Boolean = { _, _ -> true },
+    protected val onUpdateContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> true }
 ) : StatesManager<T> {
     protected val _onChainStateUpdated = MutableSharedFlow<Pair<T, T>>(0)
     override val onChainStateUpdated: Flow<Pair<T, T>> = _onChainStateUpdated.asSharedFlow()
@@ -55,6 +59,14 @@ open class DefaultStatesManager<T : State>(
     override val onEndChain: Flow<T> = _onEndChain.asSharedFlow()
 
     protected val mapMutex = Mutex()
+
+    constructor(
+        repo: DefaultStatesManagerRepo<T>,
+        onContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean
+    ) : this (
+        repo,
+        onUpdateContextsConflictResolver = onContextsConflictResolver
+    )
 
     override suspend fun update(old: T, new: T) = mapMutex.withLock {
         val stateByOldContext: T? = repo.getContextState(old.context)
@@ -67,7 +79,7 @@ open class DefaultStatesManager<T : State>(
             }
             else -> {
                 val stateOnNewOneContext = repo.getContextState(new.context)
-                if (stateOnNewOneContext == null || onContextsConflictResolver(old, new, stateOnNewOneContext)) {
+                if (stateOnNewOneContext == null || onUpdateContextsConflictResolver(old, new, stateOnNewOneContext)) {
                     stateOnNewOneContext ?.let { endChainWithoutLock(it) }
                     repo.removeState(old)
                     repo.set(new)
@@ -78,7 +90,11 @@ open class DefaultStatesManager<T : State>(
     }
 
     override suspend fun startChain(state: T) = mapMutex.withLock {
-        if (!repo.contains(state.context)) {
+        val stateOnContext = repo.getContextState(state.context)
+        if (stateOnContext == null || onStartContextsConflictResolver(stateOnContext, state)) {
+            stateOnContext ?.let {
+                endChainWithoutLock(it)
+            }
             repo.set(state)
             _onStartChain.emit(state)
         }
