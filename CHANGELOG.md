@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.18
+
+* `Common`
+    * New extensions for `Element`: `Element#onActionOutside` and `Element#onClickOutside`
+
 ## 0.9.17
 
 * `Common`:
