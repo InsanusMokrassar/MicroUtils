@@ -27,13 +27,6 @@ sealed interface Either<T1, T2> {
     @Deprecated("Use optionalT2 instead", ReplaceWith("optionalT2"))
     val t2: T2?
         get() = optionalT2.dataOrNull()
-
-    companion object {
-        fun <T1, T2> serializer(
-            t1Serializer: KSerializer<T1>,
-            t2Serializer: KSerializer<T2>,
-        ): KSerializer<Either<T1, T2>> = EitherSerializer(t1Serializer, t2Serializer)
-    }
 }
 
 class EitherSerializer<T1, T2>(
@@ -51,7 +44,6 @@ class EitherSerializer<T1, T2>(
     private val t1EitherSerializer = EitherFirst.serializer(t1Serializer, t2Serializer)
     private val t2EitherSerializer = EitherSecond.serializer(t1Serializer, t2Serializer)
 
-    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun deserialize(decoder: Decoder): Either<T1, T2> {
         return decoder.decodeStructure(descriptor) {
             var type: String? = null
@@ -83,7 +75,6 @@ class EitherSerializer<T1, T2>(
     }
 
 
-    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: Either<T1, T2>) {
         encoder.encodeStructure(descriptor) {
             when (value) {
