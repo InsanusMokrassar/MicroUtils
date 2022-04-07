@@ -27,6 +27,13 @@ sealed interface Either<T1, T2> {
     @Deprecated("Use optionalT2 instead", ReplaceWith("optionalT2"))
     val t2: T2?
         get() = optionalT2.dataOrNull()
+
+    companion object {
+        fun <T1, T2> serializer(
+            t1Serializer: KSerializer<T1>,
+            t2Serializer: KSerializer<T2>,
+        ): KSerializer<Either<T1, T2>> = EitherSerializer(t1Serializer, t2Serializer)
+    }
 }
 
 class EitherSerializer<T1, T2>(
