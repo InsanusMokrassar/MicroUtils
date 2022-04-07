@@ -19,7 +19,7 @@ class ExposedStandardVersionsRepoProxy(
     override val database: Database
 ) : StandardVersionsRepoProxy<Database>, Table("ExposedVersionsProxy"), ExposedRepo {
     val tableNameColumn = text("tableName")
-    val tableVersionColumn = integer("tableName")
+    val tableVersionColumn = integer("tableVersion")
 
     init {
         initTable()
