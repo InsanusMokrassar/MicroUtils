@@ -13,12 +13,12 @@ interface VersionsRepo<T> : Repo {
      * By default, instance of this interface will check that version of table with name [tableName] is less than
      * [version] or is absent
      *
-     * * In case if [tableName] didn't found, will be called [onCreate] and version of table will be set up to [version]
-     * * In case if [tableName] have version less than parameter [version], it will increase version one-by-one
-     * until database version will be equal to [version]
+     * In case if [tableName] didn't found, will be called [onCreate]. Then in case if [tableName] have version less
+     * than parameter [version] or null, it will increase version one-by-one until database version will be equal to
+     * [version]
      *
      * @param version Current version of table
-     * @param onCreate This callback will be called in case when table have no information about table
+     * @param onCreate This callback will be called in case when repo have no information about table
      * @param onUpdate This callback will be called after **iterative** changing of version. It is expected that parameter
      * "to" will always be greater than "from"
      */
