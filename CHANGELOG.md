@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.19
+
+* `Versions`:
+    * `Coroutines`: `1.6.0` -> `1.6.1`
+* `Repos`:
+    * `Exposed`:
+        * Fixes in `ExposedStandardVersionsRepoProxy`
+
 ## 0.9.18
 
 * `Common`
