@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.20
+
+* `Repos`:
+    * `Common`:
+        * Fixes in `OneToManyAndroidRepo`
+        * New `CursorIterator`
+
 ## 0.9.19
 
 * `Versions`:

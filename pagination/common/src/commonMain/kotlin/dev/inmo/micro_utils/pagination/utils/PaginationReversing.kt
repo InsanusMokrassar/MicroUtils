@@ -6,7 +6,7 @@ import dev.inmo.micro_utils.pagination.*
  * Example:
  *
  * * `|__f__l_______________________|` will be transformed to `|_______________________f__l__|`
- * * `|__f__l_|` will be transformed to `|__f__l_|`
+ * * `|__f__l_|` will be transformed to `|_f__l__|`
  *
  * @return Reversed version of this [Pagination]
  */
