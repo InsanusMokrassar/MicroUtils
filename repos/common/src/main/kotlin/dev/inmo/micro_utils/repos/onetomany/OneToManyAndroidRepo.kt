@@ -143,12 +143,11 @@ class OneToManyAndroidRepo<Key, Value>(
     }.toLong()
 
     override suspend fun count(k: Key): Long = helper.blockingReadableTransaction {
-        select(
+        selectDistinct(
             tableName,
             columns = valueColumnArray,
             selection = "$idColumnName=?",
-            selectionArgs = arrayOf(k.keyAsString()),
-            limit = FirstPagePagination(1).limitClause()
+            selectionArgs = arrayOf(k.keyAsString())
         ).use {
             it.count
         }
