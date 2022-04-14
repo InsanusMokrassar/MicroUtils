@@ -17,13 +17,19 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 {
-    protected val newObjectsChannel = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
+    protected val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
+    protected val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
+    protected val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
+    @Deprecated("Renamed", ReplaceWith("_newObjectsFlow"))
+    protected val newObjectsChannel = _newObjectsFlow
+    @Deprecated("Renamed", ReplaceWith("_updatedObjectsFlow"))
+    protected val updateObjectsChannel = _updatedObjectsFlow
+    @Deprecated("Renamed", ReplaceWith("_deletedObjectsIdsFlow"))
+    protected val deleteObjectsIdsChannel = _deletedObjectsIdsFlow
 
-    override val newObjectsFlow: Flow<ObjectType> = newObjectsChannel.asSharedFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = updateObjectsChannel.asSharedFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = deleteObjectsIdsChannel.asSharedFlow()
+    override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
+    override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
+    override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
 
     protected abstract fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType
     abstract val selectByIds: SqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
@@ -43,7 +49,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         return transaction(db = database) {
             values.map { value -> createWithoutNotification(value) }
         }.onEach {
-            newObjectsChannel.emit(it)
+            _newObjectsFlow.emit(it)
         }
     }
 
@@ -74,7 +80,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         onBeforeUpdate(listOf(id to value))
         return updateWithoutNotification(id, value).also {
             if (it != null) {
-                updateObjectsChannel.emit(it)
+                _updatedObjectsFlow.emit(it)
             }
         }
     }
@@ -85,16 +91,25 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
                 values.map { (id, value) -> updateWithoutNotification(id, value) }
             }.filterNotNull()
         ).onEach {
-            updateObjectsChannel.emit(it)
+            _updatedObjectsFlow.emit(it)
         }
     }
     protected open suspend fun onBeforeDelete(ids: List<IdType>) {}
     override suspend fun deleteById(ids: List<IdType>) {
         onBeforeDelete(ids)
         transaction(db = database) {
-            deleteWhere(null, null) {
+            val deleted = deleteWhere(null, null) {
                 selectByIds(ids)
             }
+            if (deleted == ids.size) {
+                ids
+            } else {
+                ids.filter {
+                    select { selectById(it) }.limit(1).none()
+                }
+            }
+        }.forEach {
+            _deletedObjectsIdsFlow.emit(it)
         }
     }
 }

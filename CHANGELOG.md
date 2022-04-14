@@ -2,6 +2,10 @@
 
 ## 0.9.21
 
+* `Repos`:
+    * `Exposed`:
+        * fixes in `AbstractExposedWriteCRUDRepo`
+
 ## 0.9.20
 
 * `Repos`:
