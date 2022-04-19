@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.22
+
+* `Ktor`:
+    * `Server`:
+        * Now `createKtorServer` fun is fully customizable
+
 ## 0.9.21
 
 * `Repos`:
