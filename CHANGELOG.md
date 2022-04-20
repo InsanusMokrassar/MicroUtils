@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.23
+
+* `Repos`:
+    * `Exposed`:
+        * New property `ExposedRepo#selectAll` to retrieve all the rows in the table
+
 ## 0.9.22
 
 * `Ktor`:
