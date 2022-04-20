@@ -4,7 +4,7 @@
 
 * `Repos`:
     * `Exposed`:
-        * New property `ExposedCRUDRepo#selectAll` to retrieve all the rows in the table
+        * New property `ExposedRepo#selectAll` to retrieve all the rows in the table
 
 ## 0.9.22
 
