@@ -2,6 +2,10 @@
 
 ## 0.9.24
 
+* `Ktor`:
+    * `Common`:
+        * New extension fun `MPPFile#input`
+
 ## 0.9.23
 
 * `Repos`:
