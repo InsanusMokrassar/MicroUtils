@@ -39,6 +39,7 @@ kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", vers
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
 
 
+ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
 ktor-client = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
 ktor-server = { module = "io.ktor:ktor-server", version.ref = "ktor" }
