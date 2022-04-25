@@ -35,6 +35,8 @@ String[] includes = [
     ":fsm:common",
     ":fsm:repos:common",
 
+    ":handlers:common",
+
     ":dokka"
 ]
 
