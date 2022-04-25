@@ -9,9 +9,9 @@ import kotlinx.coroutines.*
  * @param defaultHandler If presented will be used in case where there are no any layer from [layers] with any handler
  * to handle data inside of [handle] method
  */
-class HandlersRegistrar<T>(
-    private val layers: Iterable<Iterable<Handler<T>>>,
-    private val defaultHandler: Handler<T>? = null
+open class HandlersRegistrar<T>(
+    protected val layers: Iterable<Iterable<Handler<T>>>,
+    protected val defaultHandler: Handler<T>? = null
 ) : Handler<T> {
     /**
      * Will iterate over the [layers]. On each layer (in face each [Iterable] of [Handler]s) ALL the handlers will be
