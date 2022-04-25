@@ -10,8 +10,8 @@ import kotlinx.coroutines.*
  * to handle data inside of [handle] method
  */
 open class HandlersRegistrar<T>(
-    protected val layers: Iterable<Iterable<Handler<T>>>,
-    protected val defaultHandler: Handler<T>? = null
+    protected open val layers: Iterable<Iterable<Handler<T>>>,
+    protected open val defaultHandler: Handler<T>? = null
 ) : Handler<T> {
     /**
      * Will iterate over the [layers]. On each layer (in face each [Iterable] of [Handler]s) ALL the handlers will be
