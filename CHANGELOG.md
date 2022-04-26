@@ -2,9 +2,6 @@
 
 ## 0.9.25
 
-* `Handlers`:
-    * Subproject has been created
-
 ## 0.9.24
 
 * `Ktor`:
