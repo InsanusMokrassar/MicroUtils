@@ -1,3 +1,5 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package dev.inmo.micro_utils.common
 
 @RequiresOptIn(

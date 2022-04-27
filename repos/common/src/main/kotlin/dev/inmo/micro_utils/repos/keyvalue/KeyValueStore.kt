@@ -16,6 +16,7 @@ fun <T : Any> Context.keyValueStore(
     name: String = "default",
     cacheValues: Boolean = false
 ): StandardKeyValueRepo<String, T> {
+    @Suppress("UNCHECKED_CAST")
     return cache.getOrPut(name) {
         KeyValueStore<T>(this, name, cacheValues)
     } as KeyValueStore<T>
@@ -62,6 +63,7 @@ class KeyValueStore<T : Any> internal constructor (
     }
 
     override suspend fun get(k: String): T? {
+        @Suppress("UNCHECKED_CAST")
         return (cachedData ?. get(k) ?: sharedPreferences.all[k]) as? T
     }
 
@@ -73,7 +75,10 @@ class KeyValueStore<T : Any> internal constructor (
             PaginationResult(
                 it.page,
                 it.pagesNumber,
-                it.results.map { it as T }.let { if (reversed) it.reversed() else it },
+                it.results.map {
+                    @Suppress("UNCHECKED_CAST")
+                    it as T
+                }.let { if (reversed) it.reversed() else it },
                 it.size
             )
         }

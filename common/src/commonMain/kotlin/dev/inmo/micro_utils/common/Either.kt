@@ -33,7 +33,7 @@ class EitherSerializer<T1, T2>(
     t1Serializer: KSerializer<T1>,
     t2Serializer: KSerializer<T2>,
 ) : KSerializer<Either<T1, T2>> {
-    @OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
+    @OptIn(InternalSerializationApi::class)
     override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TypedSerializer",
         SerialKind.CONTEXTUAL

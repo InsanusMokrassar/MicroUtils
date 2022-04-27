@@ -27,4 +27,5 @@ inline fun <T> PaginationResult<T>.thisPageIfNotEmpty(): PaginationResult<T>? = 
     null
 }
 
+@Suppress("NOTHING_TO_INLINE")
 inline fun <T> PaginationResult<T>.currentPageIfNotEmpty() = thisPageIfNotEmpty()

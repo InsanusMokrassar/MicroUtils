@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package dev.inmo.micro_utils.ktor.common
 
 import kotlinx.serialization.*

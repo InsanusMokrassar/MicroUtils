@@ -132,6 +132,7 @@ inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> 
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: OneToManyKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>

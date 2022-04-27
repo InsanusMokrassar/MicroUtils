@@ -126,9 +126,10 @@ inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> 
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 open class MapperStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: StandardKeyValueRepo<ToKey, ToValue>,
-    mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
+    private val mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ) : StandardKeyValueRepo<FromKey, FromValue>,
     MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper,
     ReadStandardKeyValueRepo<FromKey, FromValue> by MapperReadStandardKeyValueRepo(to, mapper),

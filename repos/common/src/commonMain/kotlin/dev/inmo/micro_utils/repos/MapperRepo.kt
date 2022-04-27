@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.repos
 
+@Suppress("UNCHECKED_CAST")
 interface MapperRepo<FromKey, FromValue, ToKey, ToValue> {
     suspend fun FromKey.toOutKey() = this as ToKey
     suspend fun FromValue.toOutValue() = this as ToValue
