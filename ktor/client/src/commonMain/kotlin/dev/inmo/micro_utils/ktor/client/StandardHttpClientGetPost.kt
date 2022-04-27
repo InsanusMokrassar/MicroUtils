@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
+import io.ktor.client.statement.readBytes
 import io.ktor.http.*
 import io.ktor.utils.io.core.ByteReadPacket
 import kotlinx.serialization.*
@@ -103,10 +104,10 @@ suspend fun <ResultType> HttpClient.uniget(
     url: String,
     resultDeserializer: DeserializationStrategy<ResultType>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
-) = get<StandardKtorSerialInputData>(
+) = get(
     url
 ).let {
-    serialFormat.decodeDefault(resultDeserializer, it)
+    serialFormat.decodeDefault(resultDeserializer, it.readBytes())
 }
 
 
@@ -123,10 +124,12 @@ suspend fun <BodyType, ResultType> HttpClient.unipost(
     bodyInfo: BodyPair<BodyType>,
     resultDeserializer: DeserializationStrategy<ResultType>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
-) = post<StandardKtorSerialInputData>(url) {
-    body = serialFormat.encodeDefault(bodyInfo.first, bodyInfo.second)
+) = post(url) {
+    setBody(
+        serialFormat.encodeDefault(bodyInfo.first, bodyInfo.second)
+    )
 }.let {
-    serialFormat.decodeDefault(resultDeserializer, it)
+    serialFormat.decodeDefault(resultDeserializer, it.readBytes())
 }
 
 suspend fun <ResultType> HttpClient.unimultipart(
@@ -139,7 +142,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
     dataHeadersBuilder: HeadersBuilder.() -> Unit = {},
     requestBuilder: HttpRequestBuilder.() -> Unit = {},
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
-): ResultType = submitFormWithBinaryData<StandardKtorSerialInputData>(
+): ResultType = submitFormWithBinaryData(
     url,
     formData = formData {
         append(
@@ -155,7 +158,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
     }
 ) {
     requestBuilder()
-}.let { serialFormat.decodeDefault(resultDeserializer, it) }
+}.let { serialFormat.decodeDefault(resultDeserializer, it.readBytes()) }
 
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,

@@ -3,10 +3,10 @@ package dev.inmo.micro_utils.ktor.client
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
-import io.ktor.client.features.websocket.ws
+import io.ktor.client.plugins.websocket.ws
 import io.ktor.client.request.HttpRequestBuilder
-import io.ktor.http.cio.websocket.Frame
-import io.ktor.http.cio.websocket.readBytes
+import io.ktor.websocket.Frame
+import io.ktor.websocket.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.serialization.DeserializationStrategy

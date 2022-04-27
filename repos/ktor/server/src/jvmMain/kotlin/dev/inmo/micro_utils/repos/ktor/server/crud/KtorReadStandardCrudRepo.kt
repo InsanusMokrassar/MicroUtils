@@ -7,10 +7,10 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
-import io.ktor.application.call
 import io.ktor.http.ContentType
-import io.ktor.routing.Route
-import io.ktor.routing.get
+import io.ktor.server.application.call
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 

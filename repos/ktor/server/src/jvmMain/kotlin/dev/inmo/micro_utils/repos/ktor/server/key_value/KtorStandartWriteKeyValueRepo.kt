@@ -6,8 +6,8 @@ import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.http.ContentType
-import io.ktor.routing.Route
-import io.ktor.routing.post
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.post
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 

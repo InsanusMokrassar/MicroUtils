@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.pagination
 
-import io.ktor.application.ApplicationCall
 import io.ktor.http.Parameters
+import io.ktor.server.application.ApplicationCall
 
 val Parameters.extractPagination: Pagination
     get() = SimplePagination(

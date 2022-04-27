@@ -4,9 +4,10 @@ import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.common.filename
 import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import io.ktor.client.HttpClient
-import io.ktor.client.features.onUpload
+import io.ktor.client.plugins.onUpload
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import java.net.URLConnection
@@ -20,7 +21,7 @@ actual suspend fun HttpClient.tempUpload(
     onUpload: (Long, Long) -> Unit
 ): TemporalFileId {
     val inputProvider = file.inputProvider()
-    val fileId = submitFormWithBinaryData<String>(
+    val fileId = submitFormWithBinaryData(
         fullTempUploadDraftPath,
         formData = formData {
             append(
@@ -34,6 +35,6 @@ actual suspend fun HttpClient.tempUpload(
         }
     ) {
         onUpload(onUpload)
-    }
+    }.bodyAsText()
     return TemporalFileId(fileId)
 }

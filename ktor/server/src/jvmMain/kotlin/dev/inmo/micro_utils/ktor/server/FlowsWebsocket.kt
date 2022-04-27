@@ -2,13 +2,13 @@ package dev.inmo.micro_utils.ktor.server
 
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
-import io.ktor.application.featureOrNull
-import io.ktor.application.install
 import io.ktor.http.URLProtocol
-import io.ktor.http.cio.websocket.*
-import io.ktor.routing.Route
-import io.ktor.routing.application
-import io.ktor.websocket.*
+import io.ktor.server.application.install
+import io.ktor.server.application.pluginOrNull
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.application
+import io.ktor.server.websocket.*
+import io.ktor.websocket.send
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.SerializationStrategy
 
@@ -19,7 +19,7 @@ fun <T> Route.includeWebsocketHandling(
     converter: suspend WebSocketServerSession.(T) -> StandardKtorSerialInputData?
 ) {
     application.apply {
-        featureOrNull(io.ktor.websocket.WebSockets) ?: install(io.ktor.websocket.WebSockets)
+        pluginOrNull(WebSockets) ?: install(WebSockets)
     }
     webSocket(suburl, protocol.name) {
         safely {

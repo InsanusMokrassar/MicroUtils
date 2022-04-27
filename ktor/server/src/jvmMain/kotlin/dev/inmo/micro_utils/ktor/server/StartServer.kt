@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.ktor.server
 
 import dev.inmo.micro_utils.ktor.server.configurators.KtorApplicationConfigurator
-import io.ktor.application.Application
+import io.ktor.server.application.Application
 import io.ktor.server.cio.CIO
 import io.ktor.server.cio.CIOApplicationEngine
 import io.ktor.server.engine.*
