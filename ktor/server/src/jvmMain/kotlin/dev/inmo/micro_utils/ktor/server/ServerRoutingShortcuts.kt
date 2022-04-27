@@ -14,8 +14,7 @@ import io.ktor.server.response.respondBytes
 import io.ktor.server.routing.Route
 import io.ktor.server.websocket.WebSocketServerSession
 import io.ktor.util.pipeline.PipelineContext
-import io.ktor.utils.io.core.Input
-import io.ktor.utils.io.core.use
+import io.ktor.utils.io.core.*
 import io.ktor.utils.io.streams.asInput
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.DeserializationStrategy
@@ -132,7 +131,7 @@ suspend fun ApplicationCall.uniloadMultipart(
             is PartData.FormItem -> onFormItem(it)
             is PartData.FileItem -> {
                 when (it.name) {
-                    "bytes" -> resultInput = it.streamProvider().asInput()
+                    "bytes" -> resultInput = it.provider()
                     else -> onCustomFileItem(it)
                 }
             }
@@ -154,7 +153,7 @@ suspend fun <T> ApplicationCall.uniloadMultipart(
         onFormItem,
         {
             if (it.name == "data") {
-                data = standardKtorSerialFormat.decodeDefault(deserializer, it.streamProvider().readBytes()).optional
+                data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
             } else {
                 onCustomFileItem(it)
             }
@@ -201,7 +200,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                             }
                         }
                     }
-                    "data" -> data = standardKtorSerialFormat.decodeDefault(deserializer, it.streamProvider().readBytes()).optional
+                    "data" -> data = standardKtorSerialFormat.decodeDefault(deserializer, it.provider().readBytes()).optional
                     else -> onCustomFileItem(it)
                 }
             }

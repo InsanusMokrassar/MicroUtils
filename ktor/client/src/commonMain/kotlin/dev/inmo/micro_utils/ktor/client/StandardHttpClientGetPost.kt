@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.common.filename
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.readBytes
@@ -104,10 +105,8 @@ suspend fun <ResultType> HttpClient.uniget(
     url: String,
     resultDeserializer: DeserializationStrategy<ResultType>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
-) = get(
-    url
-).let {
-    serialFormat.decodeDefault(resultDeserializer, it.readBytes())
+) = get(url).let {
+    serialFormat.decodeDefault(resultDeserializer, it.body<StandardKtorSerialInputData>())
 }
 
 
@@ -129,7 +128,7 @@ suspend fun <BodyType, ResultType> HttpClient.unipost(
         serialFormat.encodeDefault(bodyInfo.first, bodyInfo.second)
     )
 }.let {
-    serialFormat.decodeDefault(resultDeserializer, it.readBytes())
+    serialFormat.decodeDefault(resultDeserializer, it.body<StandardKtorSerialInputData>())
 }
 
 suspend fun <ResultType> HttpClient.unimultipart(
@@ -158,7 +157,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
     }
 ) {
     requestBuilder()
-}.let { serialFormat.decodeDefault(resultDeserializer, it.readBytes()) }
+}.let { serialFormat.decodeDefault(resultDeserializer, it.body<StandardKtorSerialInputData>()) }
 
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,
