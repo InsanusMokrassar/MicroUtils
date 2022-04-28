@@ -3,6 +3,8 @@ package dev.inmo.micro_utils.ktor.client
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.pluginOrNull
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.plugins.websocket.ws
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.websocket.Frame
@@ -21,6 +23,8 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
     noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
     crossinline conversation: suspend (StandardKtorSerialInputData) -> T
 ): Flow<T> {
+    pluginOrNull(WebSockets) ?: error("Plugin $WebSockets must be installed for using createStandardWebsocketFlow")
+
     val correctedUrl = url.asCorrectWebSocketUrl
 
     return channelFlow {
