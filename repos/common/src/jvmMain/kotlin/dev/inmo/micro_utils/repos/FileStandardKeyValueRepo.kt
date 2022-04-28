@@ -175,9 +175,11 @@ class FileWriteStandardKeyValueRepo(
 }
 
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class FileStandardKeyValueRepo(
     folder: File,
     filesChangedProcessingScope: CoroutineScope? = null
 ) : StandardKeyValueRepo<String, File>,
     WriteStandardKeyValueRepo<String, File> by FileWriteStandardKeyValueRepo(folder, filesChangedProcessingScope),
-    ReadStandardKeyValueRepo<String, File> by FileReadStandardKeyValueRepo(folder)
+    ReadStandardKeyValueRepo<String, File> by FileReadStandardKeyValueRepo(folder) {
+}

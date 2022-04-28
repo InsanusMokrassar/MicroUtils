@@ -5,10 +5,9 @@ import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
-import io.ktor.application.call
 import io.ktor.http.ContentType
-import io.ktor.routing.Route
-import io.ktor.routing.post
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.post
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 

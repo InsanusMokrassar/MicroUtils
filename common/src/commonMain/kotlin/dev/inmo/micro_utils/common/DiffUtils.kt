@@ -43,6 +43,7 @@ private inline fun <T> performChanges(
         if (oldOneEqualToNewObject || newOneEqualToOldObject) {
             changedList.addAll(
                 potentialChanges.take(i).mapNotNull {
+                    @Suppress("UNCHECKED_CAST")
                     if (it.first != null && it.second != null) it as Pair<IndexedValue<T>, IndexedValue<T>> else null
                 }
             )
@@ -121,7 +122,10 @@ fun <T> Iterable<T>.calculateDiff(
 
         when {
             oldObject === newObject || (oldObject == newObject && !strictComparison) -> {
-                changedObjects.addAll(potentiallyChangedObjects.map { it as Pair<IndexedValue<T>, IndexedValue<T>> })
+                changedObjects.addAll(potentiallyChangedObjects.map {
+                    @Suppress("UNCHECKED_CAST")
+                    it as Pair<IndexedValue<T>, IndexedValue<T>>
+                })
                 potentiallyChangedObjects.clear()
             }
             else -> {

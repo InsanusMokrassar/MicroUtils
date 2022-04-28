@@ -21,6 +21,7 @@ allprojects {
         mavenLocal()
         mavenCentral()
         google()
+        maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
     }
 
     // temporal crutch until legacy tests will be stabled or legacy target will be removed

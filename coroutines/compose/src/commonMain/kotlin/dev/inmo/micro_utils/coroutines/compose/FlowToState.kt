@@ -16,6 +16,7 @@ fun <T> Flow<T>.toMutableState(
     return state
 }
 
+@Suppress("NOTHING_TO_INLINE")
 inline fun <T> StateFlow<T>.toMutableState(
     scope: CoroutineScope
 ): MutableState<T> = toMutableState(value, scope)

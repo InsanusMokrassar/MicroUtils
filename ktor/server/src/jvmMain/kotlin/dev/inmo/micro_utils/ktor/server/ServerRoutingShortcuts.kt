@@ -3,25 +3,21 @@ package dev.inmo.micro_utils.ktor.server
 import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
-import io.ktor.application.ApplicationCall
-import io.ktor.application.call
 import io.ktor.http.*
-import io.ktor.http.content.PartData
-import io.ktor.http.content.forEachPart
-import io.ktor.request.receive
-import io.ktor.request.receiveMultipart
-import io.ktor.response.respond
-import io.ktor.response.respondBytes
-import io.ktor.routing.Route
-import io.ktor.util.asStream
-import io.ktor.util.cio.writeChannel
+import io.ktor.http.content.*
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.call
+import io.ktor.server.request.receive
+import io.ktor.server.request.receiveMultipart
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondBytes
+import io.ktor.server.routing.Route
+import io.ktor.server.websocket.WebSocketServerSession
 import io.ktor.util.pipeline.PipelineContext
 import io.ktor.utils.io.core.*
-import io.ktor.websocket.WebSocketServerSession
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.*
-import java.io.File
-import java.io.File.createTempFile
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.SerializationStrategy
 
 class UnifiedRouter(
     val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
@@ -31,7 +27,7 @@ class UnifiedRouter(
         suburl: String,
         flow: Flow<T>,
         serializer: SerializationStrategy<T>,
-        protocol: URLProtocol = URLProtocol.WS,
+        protocol: URLProtocol? = null,
         filter: (suspend WebSocketServerSession.(T) -> Boolean)? = null
     ) = includeWebsocketHandling(suburl, flow, serializer, serialFormat, protocol, filter)
 
@@ -197,7 +193,9 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                             ".${name.extension}"
                         ).apply {
                             outputStream().use { fileStream ->
-                                it.provider().asStream().copyTo(fileStream)
+                                it.streamProvider().use {
+                                    it.copyTo(fileStream)
+                                }
                             }
                         }
                     }
@@ -239,7 +237,9 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                         ".${name.extension}"
                     ).apply {
                         outputStream().use { fileStream ->
-                            it.provider().asStream().copyTo(fileStream)
+                            it.streamProvider().use {
+                                it.copyTo(fileStream)
+                            }
                         }
                     }
                 } else {

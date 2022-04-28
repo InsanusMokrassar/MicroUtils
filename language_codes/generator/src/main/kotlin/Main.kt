@@ -1,5 +1,6 @@
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
@@ -164,7 +165,7 @@ suspend fun main(vararg args: String) {
 
     val ietfLanguageCodes = json.decodeFromString(
         ListSerializer(LanguageCode.serializer()),
-        client.get(ietfLanguageCodesLink)
+        client.get(ietfLanguageCodesLink).bodyAsText()
     ).map {
         it.copy(
             title = it.title
@@ -175,7 +176,7 @@ suspend fun main(vararg args: String) {
     }
     val ietfLanguageCodesWithTagsMap = json.decodeFromString(
         ListSerializer(LanguageCodeWithTag.serializer()),
-        client.get(ietfLanguageCodesAdditionalTagsLink)
+        client.get(ietfLanguageCodesAdditionalTagsLink).bodyAsText()
     ).filter { it.withSubtag != it.tag }.groupBy { it.tag }
 
     val tags = ietfLanguageCodes.map {

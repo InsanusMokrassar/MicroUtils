@@ -6,8 +6,8 @@ import dev.inmo.micro_utils.ktor.server.UnifiedRouter
 import dev.inmo.micro_utils.ktor.server.standardKtorSerialFormatContentType
 import dev.inmo.micro_utils.repos.StandardCRUDRepo
 import io.ktor.http.ContentType
-import io.ktor.routing.Route
-import io.ktor.routing.route
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.route
 import kotlinx.serialization.KSerializer
 
 fun <ObjectType, IdType, InputValue> Route.configureStandardCrudRepoRoutes(

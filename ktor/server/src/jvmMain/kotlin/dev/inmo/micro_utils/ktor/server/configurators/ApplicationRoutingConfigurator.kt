@@ -1,8 +1,9 @@
 package dev.inmo.micro_utils.ktor.server.configurators
 
-import io.ktor.application.*
-import io.ktor.routing.Route
-import io.ktor.routing.Routing
+import dev.inmo.micro_utils.ktor.server.configurators.ApplicationRoutingConfigurator.Element
+import io.ktor.server.application.*
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
@@ -18,7 +19,7 @@ class ApplicationRoutingConfigurator(
     }
 
     override fun Application.configure() {
-        featureOrNull(Routing) ?.apply {
+        pluginOrNull(Routing) ?.apply {
             rootInstaller.apply { invoke() }
         } ?: install(Routing) {
             rootInstaller.apply { invoke() }

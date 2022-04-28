@@ -1,14 +1,18 @@
 package dev.inmo.micro_utils.ktor.client
 
+import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.coroutines.safely
 import dev.inmo.micro_utils.ktor.common.*
 import io.ktor.client.HttpClient
-import io.ktor.client.features.websocket.ws
+import io.ktor.client.plugins.pluginOrNull
+import io.ktor.client.plugins.websocket.WebSockets
+import io.ktor.client.plugins.websocket.ws
 import io.ktor.client.request.HttpRequestBuilder
-import io.ktor.http.cio.websocket.Frame
-import io.ktor.http.cio.websocket.readBytes
+import io.ktor.websocket.Frame
+import io.ktor.websocket.readBytes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.isActive
 import kotlinx.serialization.DeserializationStrategy
 
 /**
@@ -17,43 +21,41 @@ import kotlinx.serialization.DeserializationStrategy
  */
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
-    crossinline checkReconnection: (Throwable?) -> Boolean = { true },
+    crossinline checkReconnection: suspend (Throwable?) -> Boolean = { true },
     noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
     crossinline conversation: suspend (StandardKtorSerialInputData) -> T
 ): Flow<T> {
+    pluginOrNull(WebSockets) ?: error("Plugin $WebSockets must be installed for using createStandardWebsocketFlow")
+
     val correctedUrl = url.asCorrectWebSocketUrl
 
     return channelFlow {
-        val producerScope = this@channelFlow
         do {
-            val reconnect = try {
-                safely {
-                    ws(correctedUrl, requestBuilder) {
-                        for (received in incoming) {
-                            when (received) {
-                                is Frame.Binary -> producerScope.send(conversation(received.readBytes()))
-                                else -> {
-                                    producerScope.close()
-                                    return@ws
-                                }
+            val reconnect = runCatchingSafely {
+                ws(correctedUrl, requestBuilder) {
+                    for (received in incoming) {
+                        when (received) {
+                            is Frame.Binary -> send(conversation(received.data))
+                            else -> {
+                                close()
+                                return@ws
                             }
                         }
                     }
                 }
                 checkReconnection(null)
-            } catch (e: Throwable) {
+            }.getOrElse { e ->
                 checkReconnection(e).also {
                     if (!it) {
-                        producerScope.close(e)
+                        close(e)
                     }
                 }
             }
-        } while (reconnect)
-        if (!producerScope.isClosedForSend) {
-            safely(
-                { it.printStackTrace() }
-            ) {
-                producerScope.close()
+        } while (reconnect && isActive)
+
+        if (isActive) {
+            safely {
+                close()
             }
         }
     }
@@ -65,8 +67,8 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
  */
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
-    crossinline checkReconnection: (Throwable?) -> Boolean = { true },
     deserializer: DeserializationStrategy<T>,
+    crossinline checkReconnection: suspend (Throwable?) -> Boolean = { true },
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
     noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
 ) = createStandardWebsocketFlow(

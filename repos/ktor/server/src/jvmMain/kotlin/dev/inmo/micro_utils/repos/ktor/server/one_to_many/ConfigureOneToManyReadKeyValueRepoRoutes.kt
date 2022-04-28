@@ -6,15 +6,14 @@ import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
-import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
-import io.ktor.application.call
 import io.ktor.http.ContentType
-import io.ktor.routing.Route
-import io.ktor.routing.get
+import io.ktor.server.application.call
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 

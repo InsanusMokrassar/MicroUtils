@@ -32,7 +32,7 @@ class DiffUtilsTests {
         val withIndex = oldList.withIndex()
 
         for (count in 1 .. (floor(oldList.size.toFloat() / 2).toInt())) {
-            for ((i, v) in withIndex) {
+            for ((i, _) in withIndex) {
                 if (i + count > oldList.lastIndex) {
                     continue
                 }
@@ -55,7 +55,7 @@ class DiffUtilsTests {
         val withIndex = oldList.withIndex()
 
         for (step in oldList.indices) {
-            for ((i, v) in withIndex) {
+            for ((i, _) in withIndex) {
                 val mutable = oldList.toMutableList()
                 val changes = (
                     if (step == 0) i until oldList.size else (i until oldList.size step step)
@@ -104,7 +104,7 @@ class DiffUtilsTests {
         val withIndex = oldList.withIndex()
 
         for (count in 1 .. (floor(oldList.size.toFloat() / 2).toInt())) {
-            for ((i, v) in withIndex) {
+            for ((i, _) in withIndex) {
                 if (i + count > oldList.lastIndex) {
                     continue
                 }
@@ -129,15 +129,20 @@ class DiffUtilsTests {
         val withIndex = oldList.withIndex()
 
         for (step in oldList.indices) {
-            for ((i, v) in withIndex) {
+            for ((i, _) in withIndex) {
                 val mutable = oldList.toMutableList()
-                val changes = (
-                    if (step == 0) i until oldList.size else (i until oldList.size step step)
-                ).map { index ->
+
+                val newList = if (step == 0) {
+                    i until oldList.size
+                } else {
+                    i until oldList.size step step
+                }
+                newList.forEach { index ->
                     IndexedValue(index, mutable[index]) to IndexedValue(index, "changed$index").also {
                         mutable[index] = it.value
                     }
                 }
+
                 val mutableOldList = oldList.toMutableList()
                 mutableOldList.applyDiff(mutable)
                 assertEquals(
