@@ -27,7 +27,7 @@ class UnifiedRouter(
         suburl: String,
         flow: Flow<T>,
         serializer: SerializationStrategy<T>,
-        protocol: URLProtocol = URLProtocol.WS,
+        protocol: URLProtocol? = null,
         filter: (suspend WebSocketServerSession.(T) -> Boolean)? = null
     ) = includeWebsocketHandling(suburl, flow, serializer, serialFormat, protocol, filter)
 

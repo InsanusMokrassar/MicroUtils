@@ -15,13 +15,13 @@ import kotlinx.serialization.SerializationStrategy
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
-    protocol: URLProtocol = URLProtocol.WS,
+    protocol: URLProtocol? = null,
     converter: suspend WebSocketServerSession.(T) -> StandardKtorSerialInputData?
 ) {
     application.apply {
         pluginOrNull(WebSockets) ?: install(WebSockets)
     }
-    webSocket(suburl, protocol.name) {
+    webSocket(suburl, protocol ?.name) {
         safely {
             flow.collect {
                 converter(it) ?.let { data ->
@@ -37,7 +37,7 @@ fun <T> Route.includeWebsocketHandling(
     flow: Flow<T>,
     serializer: SerializationStrategy<T>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
-    protocol: URLProtocol = URLProtocol.WS,
+    protocol: URLProtocol? = null,
     filter: (suspend WebSocketServerSession.(T) -> Boolean)? = null
 ) = includeWebsocketHandling(
     suburl,
