@@ -65,8 +65,8 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
  */
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
-    crossinline checkReconnection: (Throwable?) -> Boolean = { true },
     deserializer: DeserializationStrategy<T>,
+    crossinline checkReconnection: (Throwable?) -> Boolean = { true },
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
     noinline requestBuilder: HttpRequestBuilder.() -> Unit = {},
 ) = createStandardWebsocketFlow(

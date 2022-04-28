@@ -90,7 +90,7 @@ class UnifiedRequester(
         checkReconnection: (Throwable?) -> Boolean,
         deserializer: DeserializationStrategy<T>,
         requestBuilder: HttpRequestBuilder.() -> Unit = {},
-    ) = client.createStandardWebsocketFlow(url, checkReconnection, deserializer, serialFormat, requestBuilder)
+    ) = client.createStandardWebsocketFlow(url, deserializer, checkReconnection, serialFormat, requestBuilder)
 
     fun <T> createStandardWebsocketFlow(
         url: String,
