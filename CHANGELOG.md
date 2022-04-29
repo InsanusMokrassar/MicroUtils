@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.1
+
+* `Versions`:
+    * `Ktor`: `2.0.0` -> `2.0.1`
+* `Crypto`:
+    * Add `hmacSha256`
+    * Add `hex`
+
 ## 0.10.0
 
 * `Versions`:
