@@ -10,6 +10,4 @@ external val CryptoJS: CryptoJs
 
 actual fun SourceString.hmacSha256(key: String) = CryptoJS.asDynamic().HmacSHA256(this, key).unsafeCast<String>()
 
-actual fun SourceBytes.hex() = CryptoJS.asDynamic().format.Hex(this).unsafeCast<String>()
-
 actual fun SourceString.hex() = CryptoJS.asDynamic().format.Hex(this).unsafeCast<String>()
