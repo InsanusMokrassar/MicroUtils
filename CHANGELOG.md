@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.2
+
+* `Versions`:
+    * `Compose`: `1.2.0-alpha01-dev675` -> `1.2.0-alpha01-dev682`
+
 ## 0.10.1
 
 * `Versions`:
