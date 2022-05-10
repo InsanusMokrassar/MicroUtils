@@ -6,11 +6,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlin.coroutines.cancellation.CancellationException
 
-private sealed interface AccumulatorFlowStep
-private data class DataRetrievedAccumulatorFlowStep(val data: Any) : AccumulatorFlowStep
-private data class SubscribeAccumulatorFlowStep(val channel: Channel<Any>) : AccumulatorFlowStep
-private data class UnsubscribeAccumulatorFlowStep(val channel: Channel<Any>) : AccumulatorFlowStep
+private sealed interface AccumulatorFlowStep<T>
+private data class DataRetrievedAccumulatorFlowStep<T>(val data: T) : AccumulatorFlowStep<T>
+private data class SubscribeAccumulatorFlowStep<T>(val channel: Channel<T>) : AccumulatorFlowStep<T>
+private data class UnsubscribeAccumulatorFlowStep<T>(val channel: Channel<T>) : AccumulatorFlowStep<T>
 
 /**
  * This [Flow] will have behaviour very similar to [SharedFlow], but there are several differences:
@@ -26,12 +27,12 @@ class AccumulatorFlow<T>(
     private val subscope = scope.LinkedSupervisorScope()
     private val activeData = ArrayDeque<T>()
     private val dataMutex = Mutex()
-    private val channelsForBroadcast = mutableListOf<Channel<Any>>()
+    private val channelsForBroadcast = mutableListOf<Channel<T>>()
     private val channelsMutex = Mutex()
-    private val steps = subscope.actor<AccumulatorFlowStep> { step ->
+    private val steps = subscope.actor<AccumulatorFlowStep<T>> { step ->
         when (step) {
             is DataRetrievedAccumulatorFlowStep -> {
-                if (activeData.first() === step.data) {
+                if (activeData.firstOrNull() === step.data) {
                     dataMutex.withLock {
                         activeData.removeFirst()
                     }
@@ -42,7 +43,7 @@ class AccumulatorFlow<T>(
                 dataMutex.withLock {
                     val dataToSend = activeData.toList()
                     safelyWithoutExceptions {
-                        dataToSend.forEach { step.channel.send(it as Any) }
+                        dataToSend.forEach { step.channel.send(it) }
                     }
                 }
             }
@@ -58,24 +59,29 @@ class AccumulatorFlow<T>(
         channelsMutex.withLock {
             channelsForBroadcast.forEach { channel ->
                 safelyWithResult {
-                    channel.send(it as Any)
+                    channel.send(it)
                 }
             }
         }
     }
 
     override suspend fun collectSafely(collector: FlowCollector<T>) {
-        val channel = Channel<Any>(Channel.UNLIMITED, BufferOverflow.SUSPEND)
+        val channel = Channel<T>(Channel.UNLIMITED, BufferOverflow.SUSPEND)
         steps.send(SubscribeAccumulatorFlowStep(channel))
-        for (data in channel) {
-            try {
-                collector.emit(data as T)
-                steps.send(DataRetrievedAccumulatorFlowStep(data))
-            } finally {
-                channel.cancel()
-                steps.send(UnsubscribeAccumulatorFlowStep(channel))
+        val result = runCatchingSafely {
+            for (data in channel) {
+                val emitResult = runCatchingSafely {
+                    collector.emit(data)
+                }
+                if (emitResult.isSuccess || emitResult.exceptionOrNull() is CancellationException) {
+                    steps.send(DataRetrievedAccumulatorFlowStep(data))
+                }
+                emitResult.getOrThrow()
             }
         }
+        channel.cancel()
+        steps.send(UnsubscribeAccumulatorFlowStep(channel))
+        result.getOrThrow()
     }
 }
 
