@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.4
+
+* `Versions`:
+    * `Serialization`: `1.3.2` -> `1.3.3`
+
 ## 0.10.3
 
 * `Versions`:
