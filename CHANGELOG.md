@@ -2,6 +2,10 @@
 
 ## 0.10.5
 
+* `Repos`
+    * `Android`:
+        * New function `SharedPreferencesKeyValueRepo`
+
 ## 0.10.4
 
 * `Versions`:

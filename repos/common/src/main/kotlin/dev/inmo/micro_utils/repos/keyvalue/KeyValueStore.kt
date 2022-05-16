@@ -160,3 +160,9 @@ class KeyValueStore<T : Any> internal constructor (
         }
     }
 }
+
+inline fun <T : Any> SharedPreferencesKeyValueRepo(
+    context: Context,
+    name: String = "default",
+    cacheValues: Boolean = false
+) = context.keyValueStore<T>(name, cacheValues)
