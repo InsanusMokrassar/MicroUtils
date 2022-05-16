@@ -16,7 +16,7 @@ ktor = "2.0.1"
 gh-release = "2.3.7"
 
 android-gradle = "7.0.4"
-dexcount = "3.0.1"
+dexcount = "3.1.0"
 
 android-coreKtx = "1.7.0"
 android-recyclerView = "1.2.1"
