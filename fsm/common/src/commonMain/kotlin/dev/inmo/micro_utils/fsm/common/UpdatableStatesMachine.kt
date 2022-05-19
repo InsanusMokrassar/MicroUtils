@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.fsm.common
 
 import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
+import dev.inmo.micro_utils.fsm.common.utils.defaultStateHandlingErrorHandler
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.withLock
 
@@ -20,9 +22,11 @@ interface UpdatableStatesMachine<T : State> : StatesMachine<T> {
 open class DefaultUpdatableStatesMachine<T : State>(
     statesManager: StatesManager<T>,
     handlers: List<CheckableHandlerHolder<in T, T>>,
+    onStateHandlingErrorHandler: StateHandlingErrorHandler<T> = defaultStateHandlingErrorHandler()
 ) : DefaultStatesMachine<T>(
     statesManager,
-    handlers
+    handlers,
+    onStateHandlingErrorHandler
 ), UpdatableStatesMachine<T> {
     protected val jobsStates = mutableMapOf<Job, T>()
 
@@ -34,7 +38,7 @@ open class DefaultUpdatableStatesMachine<T : State>(
      */
     override suspend fun performStateUpdate(previousState: Optional<T>, actualState: T, scope: CoroutineScope) {
         statesJobsMutex.withLock {
-            if (compare(previousState, actualState)) {
+            if (shouldReplaceJob(previousState, actualState)) {
                 statesJobs[actualState] ?.cancel()
             }
             val job = previousState.mapOnPresented {

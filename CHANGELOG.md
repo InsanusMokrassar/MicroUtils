@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.10.5
+
+* `Versions`
+    * `Compose`: `1.2.0-alpha01-dev683` -> `1.2.0-alpha01-dev686`
+* `Repos`
+    * `Android`:
+        * New function `SharedPreferencesKeyValueRepo`
+* `FSM`
+    * Add `StateHandlingErrorHandler` and opportunity to handle states handling errors
+
 ## 0.10.4
 
 * `Versions`:
