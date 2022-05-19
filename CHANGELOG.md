@@ -7,6 +7,8 @@
 * `Repos`
     * `Android`:
         * New function `SharedPreferencesKeyValueRepo`
+* `FSM`
+    * Add `StateHandlingErrorHandler` and opportunity to handle states handling errors
 
 ## 0.10.4
 

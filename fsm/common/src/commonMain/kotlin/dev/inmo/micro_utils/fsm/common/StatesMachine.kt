@@ -3,6 +3,8 @@ package dev.inmo.micro_utils.fsm.common
 import dev.inmo.micro_utils.common.Optional
 import dev.inmo.micro_utils.common.onPresented
 import dev.inmo.micro_utils.coroutines.*
+import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
+import dev.inmo.micro_utils.fsm.common.utils.defaultStateHandlingErrorHandler
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -15,11 +17,22 @@ import kotlinx.coroutines.sync.withLock
 interface StatesMachine<T : State> : StatesHandler<T, T> {
     suspend fun launchStateHandling(
         state: T,
+        handlers: List<CheckableHandlerHolder<in T, T>>,
+        onStateHandlingErrorHandler: StateHandlingErrorHandler<T>
+    ): T? {
+        return runCatchingSafely {
+            handlers.firstOrNull { it.checkHandleable(state) } ?.run {
+                handleState(state)
+            }
+        }.getOrElse {
+            onStateHandlingErrorHandler(state, it)
+        }
+    }
+    suspend fun launchStateHandling(
+        state: T,
         handlers: List<CheckableHandlerHolder<in T, T>>
     ): T? {
-        return handlers.firstOrNull { it.checkHandleable(state) } ?.run {
-            handleState(state)
-        }
+        return launchStateHandling(state, handlers, defaultStateHandlingErrorHandler())
     }
 
     /**
@@ -38,8 +51,9 @@ interface StatesMachine<T : State> : StatesHandler<T, T> {
          */
         operator fun <T: State> invoke(
             statesManager: StatesManager<T>,
-            handlers: List<CheckableHandlerHolder<in T, T>>
-        ) = DefaultStatesMachine(statesManager, handlers)
+            handlers: List<CheckableHandlerHolder<in T, T>>,
+            onStateHandlingErrorHandler: StateHandlingErrorHandler<T> = defaultStateHandlingErrorHandler()
+        ) = DefaultStatesMachine(statesManager, handlers, onStateHandlingErrorHandler)
     }
 }
 
@@ -52,11 +66,12 @@ interface StatesMachine<T : State> : StatesHandler<T, T> {
 open class DefaultStatesMachine <T: State>(
     protected val statesManager: StatesManager<T>,
     protected val handlers: List<CheckableHandlerHolder<in T, T>>,
+    protected val onStateHandlingErrorHandler: StateHandlingErrorHandler<T> = defaultStateHandlingErrorHandler()
 ) : StatesMachine<T> {
     /**
      * Will call [launchStateHandling] for state handling
      */
-    override suspend fun StatesMachine<in T>.handleState(state: T): T? = launchStateHandling(state, handlers)
+    override suspend fun StatesMachine<in T>.handleState(state: T): T? = launchStateHandling(state, handlers, onStateHandlingErrorHandler)
 
     /**
      * This
@@ -65,7 +80,7 @@ open class DefaultStatesMachine <T: State>(
     protected val statesJobsMutex = Mutex()
 
     protected open suspend fun performUpdate(state: T) {
-        val newState = launchStateHandling(state, handlers)
+        val newState = launchStateHandling(state, handlers, onStateHandlingErrorHandler)
         if (newState != null) {
             statesManager.update(state, newState)
         } else {
