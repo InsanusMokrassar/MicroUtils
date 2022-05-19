@@ -71,7 +71,11 @@ open class DefaultStatesMachine <T: State>(
     /**
      * Will call [launchStateHandling] for state handling
      */
-    override suspend fun StatesMachine<in T>.handleState(state: T): T? = launchStateHandling(state, handlers, onStateHandlingErrorHandler)
+    override suspend fun StatesMachine<in T>.handleState(state: T): T? = launchStateHandling(state, handlers)
+
+    override suspend fun launchStateHandling(state: T, handlers: List<CheckableHandlerHolder<in T, T>>): T? {
+        return launchStateHandling(state, handlers, onStateHandlingErrorHandler)
+    }
 
     /**
      * This
@@ -80,7 +84,7 @@ open class DefaultStatesMachine <T: State>(
     protected val statesJobsMutex = Mutex()
 
     protected open suspend fun performUpdate(state: T) {
-        val newState = launchStateHandling(state, handlers, onStateHandlingErrorHandler)
+        val newState = launchStateHandling(state, handlers)
         if (newState != null) {
             statesManager.update(state, newState)
         } else {
