@@ -2,6 +2,10 @@
 
 ## 0.10.6
 
+* `Common`
+    * `JS`:
+        * Add `ResizeObserver` functionality
+
 ## 0.10.5
 
 * `Versions`
