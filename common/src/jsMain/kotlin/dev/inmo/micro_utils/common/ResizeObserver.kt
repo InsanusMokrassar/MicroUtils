@@ -14,15 +14,17 @@ external class ResizeObserver(
     fun disconnect()
 }
 
-external class ResizeObserverEntry {
-    val borderBoxSize: Int?
-    val contentBoxSize: Int?
-    val devicePixelContentBoxSize: Int?
-    val contentRect: DOMRectReadOnly
+external interface ResizeObserverSize {
+    val blockSize: Float
+    val inlineSize: Float
 }
 
-fun ResizeObserverEntry.sizeOrThrow(): Int {
-    return contentBoxSize ?: borderBoxSize ?: devicePixelContentBoxSize ?: error("Unable to find default size in entry $this")
+external interface ResizeObserverEntry {
+    val borderBoxSize: Array<ResizeObserverSize>
+    val contentBoxSize: Array<ResizeObserverSize>
+    val devicePixelContentBoxSize: Array<ResizeObserverSize>
+    val contentRect: DOMRectReadOnly
+    val target: Element
 }
 
 fun ResizeObserver.observe(target: Element, options: ResizeObserverObserveOptions) = observe(
