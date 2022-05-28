@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.6
+
+* `Versions`
+    * `Ktor`: `2.0.1` -> `2.0.2`
+* `Common`
+    * `JS`:
+        * Add `ResizeObserver` functionality
+
 ## 0.10.5
 
 * `Versions`
