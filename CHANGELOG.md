@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.7
+
+* `Pagination`:
+    * Now it is possible to use `doForAll*` and `getForAll` functions in non suspend places
+
 ## 0.10.6
 
 * `Versions`
