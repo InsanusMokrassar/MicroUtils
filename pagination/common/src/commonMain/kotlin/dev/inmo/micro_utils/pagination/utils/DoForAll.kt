@@ -2,19 +2,19 @@ package dev.inmo.micro_utils.pagination.utils
 
 import dev.inmo.micro_utils.pagination.*
 
-suspend fun <T> doForAll(
+inline fun <T> doForAll(
     initialPagination: Pagination = FirstPagePagination(),
     paginationMapper: (PaginationResult<T>) -> Pagination?,
-    block: suspend (Pagination) -> PaginationResult<T>
+    block: (Pagination) -> PaginationResult<T>
 ) {
     doWithPagination(initialPagination) {
         block(it).let(paginationMapper)
     }
 }
 
-suspend fun <T> doForAllWithNextPaging(
+inline fun <T> doForAllWithNextPaging(
     initialPagination: Pagination = FirstPagePagination(),
-    block: suspend (Pagination) -> PaginationResult<T>
+    block: (Pagination) -> PaginationResult<T>
 ) {
     doForAll(
         initialPagination,
@@ -23,9 +23,9 @@ suspend fun <T> doForAllWithNextPaging(
     )
 }
 
-suspend fun <T> doAllWithCurrentPaging(
+inline fun <T> doAllWithCurrentPaging(
     initialPagination: Pagination = FirstPagePagination(),
-    block: suspend (Pagination) -> PaginationResult<T>
+    block: (Pagination) -> PaginationResult<T>
 ) {
     doForAll(
         initialPagination,
@@ -34,7 +34,7 @@ suspend fun <T> doAllWithCurrentPaging(
     )
 }
 
-suspend fun <T> doForAllWithCurrentPaging(
+inline fun <T> doForAllWithCurrentPaging(
     initialPagination: Pagination = FirstPagePagination(),
-    block: suspend (Pagination) -> PaginationResult<T>
+    block: (Pagination) -> PaginationResult<T>
 ) = doAllWithCurrentPaging(initialPagination, block)
