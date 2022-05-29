@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.8
+
+* `Common`
+    * Add `Element.isOverflow*` extension properties
+
 ## 0.10.7
 
 * `Pagination`:
