@@ -17,7 +17,7 @@ class KtorStandardCrudRepoClient<ObjectType, IdType, InputValue> (
     writeDelegate
 ) {
     companion object {
-        inline operator fun <reified ObjectType, reified IdType, reified InputValue>invoke(
+        inline operator fun <reified ObjectType, reified IdType, reified InputValue> invoke(
             baseUrl: String,
             httpClient: HttpClient,
             objectTypeInfo: TypeInfo,
@@ -38,7 +38,7 @@ class KtorStandardCrudRepoClient<ObjectType, IdType, InputValue> (
             )
         )
 
-        inline operator fun <reified ObjectType, reified IdType, reified InputValue>invoke(
+        inline operator fun <reified ObjectType, reified IdType, reified InputValue> invoke(
             baseUrl: String,
             subpart: String,
             httpClient: HttpClient,

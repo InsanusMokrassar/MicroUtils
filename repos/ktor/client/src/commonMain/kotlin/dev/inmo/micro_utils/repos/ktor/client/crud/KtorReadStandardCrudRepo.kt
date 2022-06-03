@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
@@ -39,9 +40,7 @@ class KtorReadStandardCrudRepo<ObjectType, IdType> (
         buildStandardUrl(
             baseUrl,
             getByIdRouting,
-            mapOf(
-                "id" to unifiedRequester.encodeUrlQueryValue(idsSerializer, id)
-            )
+            idParameterName to unifiedRequester.encodeUrlQueryValue(idsSerializer, id)
         ),
         objectsSerializerNullable
     )
@@ -50,9 +49,7 @@ class KtorReadStandardCrudRepo<ObjectType, IdType> (
         buildStandardUrl(
             baseUrl,
             containsRouting,
-            mapOf(
-                "id" to unifiedRequester.encodeUrlQueryValue(idsSerializer, id)
-            )
+            idParameterName to unifiedRequester.encodeUrlQueryValue(idsSerializer, id)
         ),
         Boolean.serializer()
     )

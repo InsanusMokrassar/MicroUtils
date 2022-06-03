@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -25,7 +26,7 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadStandardCrudR
 
     get(getByIdRouting) {
         val id = idDeserializer(
-            call.getQueryParameterOrSendError("id") ?: return@get
+            call.getQueryParameterOrSendError(idParameterName) ?: return@get
         )
 
         val result = originalRepo.getById(id)
@@ -39,7 +40,7 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadStandardCrudR
 
     get(containsRouting) {
         val id = idDeserializer(
-            call.getQueryParameterOrSendError("id") ?: return@get
+            call.getQueryParameterOrSendError(idParameterName) ?: return@get
         )
 
         call.respond(

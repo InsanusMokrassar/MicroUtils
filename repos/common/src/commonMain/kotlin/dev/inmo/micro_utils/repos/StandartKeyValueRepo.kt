@@ -50,3 +50,10 @@ interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value
     }
 }
 typealias KeyValueRepo<Key,Value> = StandardKeyValueRepo<Key, Value>
+
+class DelegateBasedStandardKeyValueRepo<Key, Value>(
+    readDelegate: ReadStandardKeyValueRepo<Key, Value>,
+    writeDelegate: WriteStandardKeyValueRepo<Key, Value>
+) : StandardKeyValueRepo<Key, Value>,
+    ReadStandardKeyValueRepo<Key, Value> by readDelegate,
+    WriteStandardKeyValueRepo<Key, Value> by writeDelegate

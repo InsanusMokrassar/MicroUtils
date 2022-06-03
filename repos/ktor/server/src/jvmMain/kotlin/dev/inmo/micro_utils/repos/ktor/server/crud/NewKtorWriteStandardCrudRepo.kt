@@ -26,11 +26,7 @@ inline fun <reified ObjectType : Any, reified IdType : Any, reified InputValue :
     )
 
     post(createRouting) {
-        call.respond(
-            originalRepo.create(
-                call.receive()
-            )
-        )
+        call.respond(originalRepo.create(call.receive()))
     }
 
     post(updateManyRouting) {

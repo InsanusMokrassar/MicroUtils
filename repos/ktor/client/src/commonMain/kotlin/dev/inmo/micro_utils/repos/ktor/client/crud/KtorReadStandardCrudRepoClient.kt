@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -30,7 +31,7 @@ class KtorReadStandardCrudRepoClient<ObjectType, IdType> (
             baseUrl,
             getByIdRouting,
             mapOf(
-                "id" to idSerializer(id)
+                idParameterName to idSerializer(id)
             )
         )
     ) {
@@ -42,7 +43,7 @@ class KtorReadStandardCrudRepoClient<ObjectType, IdType> (
             baseUrl,
             containsRouting,
             mapOf(
-                "id" to idSerializer(id)
+                idParameterName to idSerializer(id)
             )
         )
     ) {
