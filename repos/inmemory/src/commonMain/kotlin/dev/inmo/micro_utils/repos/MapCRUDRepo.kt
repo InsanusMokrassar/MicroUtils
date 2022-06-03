@@ -74,19 +74,24 @@ abstract class MapCRUDRepo<ObjectType, IdType, InputValueType>(
 
 fun <ObjectType, IdType, InputValueType> MapCRUDRepo(
     map: MutableMap<IdType, ObjectType>,
-    updateCallback: suspend (newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
-    createCallback: suspend (newValue: InputValueType) -> Pair<IdType, ObjectType>
+    updateCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
+    createCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType) -> Pair<IdType, ObjectType>
 ) = object : MapCRUDRepo<ObjectType, IdType, InputValueType>(map) {
     override suspend fun updateObject(
         newValue: InputValueType,
         id: IdType,
         old: ObjectType
-    ): ObjectType = updateCallback(newValue, id, old)
+    ): ObjectType = map.updateCallback(newValue, id, old)
 
-    override suspend fun createObject(newValue: InputValueType): Pair<IdType, ObjectType> = createCallback(newValue)
+    override suspend fun createObject(newValue: InputValueType): Pair<IdType, ObjectType> = map.createCallback(newValue)
 }
 
+fun <ObjectType, IdType, InputValueType> MapCRUDRepo(
+    updateCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
+    createCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType) -> Pair<IdType, ObjectType>
+) = MapCRUDRepo(mutableMapOf(), updateCallback, createCallback)
+
 fun <ObjectType, IdType, InputValueType> MutableMap<IdType, ObjectType>.asCrudRepo(
-    updateCallback: suspend (newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
-    createCallback: suspend (newValue: InputValueType) -> Pair<IdType, ObjectType>
+    updateCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType, id: IdType, old: ObjectType) -> ObjectType,
+    createCallback: suspend MutableMap<IdType, ObjectType>.(newValue: InputValueType) -> Pair<IdType, ObjectType>
 ) = MapCRUDRepo(this, updateCallback, createCallback)

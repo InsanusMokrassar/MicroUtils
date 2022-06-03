@@ -43,3 +43,10 @@ suspend fun <ObjectType, IdType, InputValueType> WriteStandardCRUDRepo<ObjectTyp
 interface StandardCRUDRepo<ObjectType, IdType, InputValueType> : ReadStandardCRUDRepo<ObjectType, IdType>,
     WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
 typealias CRUDRepo<ObjectType, IdType, InputValueType> = StandardCRUDRepo<ObjectType, IdType, InputValueType>
+
+class DelegateBasedStandardCRUDRepo<ObjectType, IdType, InputValueType>(
+    readDelegate: ReadStandardCRUDRepo<ObjectType, IdType>,
+    writeDelegate: WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
+) : StandardCRUDRepo<ObjectType, IdType, InputValueType>,
+    ReadStandardCRUDRepo<ObjectType, IdType> by readDelegate,
+    WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> by writeDelegate
