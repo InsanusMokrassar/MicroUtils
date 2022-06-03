@@ -1,11 +1,11 @@
-package dev.inmo.micro_utils.repos.ktor.client.key_value
+package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
-import dev.inmo.micro_utils.repos.ktor.common.containsRoute
-import dev.inmo.micro_utils.repos.ktor.common.key_value.*
+import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -15,55 +15,41 @@ import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.*
 
-class KtorReadStandardKeyValueRepoClient<Key, Value>(
+class KtorReadStandardKeyValuesRepoClient<Key, Value>(
     private val baseUrl: String,
     private val httpClient: HttpClient,
     private val contentType: ContentType,
-    private val objectType: TypeInfo,
-    private val paginationResultObjectsTypeInfo: TypeInfo,
-    private val paginationResultIdsTypeInfo: TypeInfo,
-    private val idSerializer: suspend (Key) -> String,
+    private val paginationResultValuesTypeInfo: TypeInfo,
+    private val paginationResultKeysTypeInfo: TypeInfo,
+    private val keySerializer: suspend (Key) -> String,
     private val valueSerializer: suspend (Value) -> String
-) : ReadStandardKeyValueRepo<Key, Value> {
-    override suspend fun get(k: Key): Value? = httpClient.get(
-        buildStandardUrl(
-            baseUrl,
-            getRoute,
-            mapOf(
-                idParameterName to idSerializer(k)
-            )
-        )
-    ) {
-        contentType(contentType)
-    }.takeIf { it.status != HttpStatusCode.NoContent } ?.body<Value>(objectType)
-
-    override suspend fun contains(key: Key): Boolean = httpClient.get(
-        buildStandardUrl(
-            baseUrl,
-            containsRoute,
-            idParameterName to idSerializer(key)
-        )
-    ) {
-        contentType(contentType)
-    }.body()
-
-    override suspend fun values(
+) : ReadOneToManyKeyValueRepo<Key, Value> {
+    override suspend fun get(
+        k: Key,
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Value> = httpClient.get(
-        buildStandardUrl(baseUrl, valuesRoute, pagination.asUrlQueryParts + (reversedParameterName to reversed.toString()))
+        buildStandardUrl(
+            baseUrl,
+            getRoute,
+            pagination.asUrlQueryParts + (reversedParameterName to reversed.toString()) + (keyParameterName to keySerializer(k))
+        )
     ) {
         contentType(contentType)
-    }.body(paginationResultObjectsTypeInfo)
+    }.body(paginationResultValuesTypeInfo)
 
     override suspend fun keys(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Key> = httpClient.get(
-        buildStandardUrl(baseUrl, keysRoute, pagination.asUrlQueryParts + (reversedParameterName to reversed.toString()))
+        buildStandardUrl(
+            baseUrl,
+            keysRoute,
+            pagination.asUrlQueryParts + (reversedParameterName to reversed.toString())
+        )
     ) {
         contentType(contentType)
-    }.body(paginationResultIdsTypeInfo)
+    }.body(paginationResultKeysTypeInfo)
 
     override suspend fun keys(
         v: Value,
@@ -77,43 +63,73 @@ class KtorReadStandardKeyValueRepoClient<Key, Value>(
         )
     ) {
         contentType(contentType)
-    }.body(paginationResultIdsTypeInfo)
+    }.body(paginationResultKeysTypeInfo)
+
+    override suspend fun contains(k: Key): Boolean = httpClient.get(
+        buildStandardUrl(
+            baseUrl,
+            containsRoute,
+            keyParameterName to keySerializer(k)
+        )
+    ) {
+        contentType(contentType)
+    }.body()
+
+    override suspend fun contains(k: Key, v: Value): Boolean = httpClient.get(
+        buildStandardUrl(
+            baseUrl,
+            containsRoute,
+            keyParameterName to keySerializer(k),
+            valueParameterName to valueSerializer(v)
+        )
+    ) {
+        contentType(contentType)
+    }.body()
 
     override suspend fun count(): Long = httpClient.get(
         buildStandardUrl(
             baseUrl,
-            dev.inmo.micro_utils.repos.ktor.common.countRoute
+            countRouting
+        )
+    ) {
+        contentType(contentType)
+    }.body()
+
+    override suspend fun count(k: Key): Long = httpClient.get(
+        buildStandardUrl(
+            baseUrl,
+            countRouting,
+            keyParameterName to keySerializer(k),
         )
     ) {
         contentType(contentType)
     }.body()
 }
 
-inline fun <reified Key, reified Value> KtorReadStandardKeyValueRepoClient(
+inline fun <reified Key, reified Value> KtorReadStandardKeyValuesRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     contentType: ContentType,
-    noinline idSerializer: suspend (Key) -> String,
+    noinline keySerializer: suspend (Key) -> String,
     noinline valueSerializer: suspend (Value) -> String
-) = KtorReadStandardKeyValueRepoClient<Key, Value>(
+) = KtorReadStandardKeyValuesRepoClient<Key, Value>(
     baseUrl,
     httpClient,
     contentType,
-    typeInfo<Value>(),
     typeInfo<PaginationResult<Value>>(),
     typeInfo<PaginationResult<Key>>(),
-    idSerializer,
+    keySerializer,
     valueSerializer
 )
 
-inline fun <reified Key, reified Value> KtorReadStandardKeyValueRepoClient(
+inline fun <reified Key, reified Value> KtorReadStandardKeyValuesRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     idsSerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
     serialFormat: StringFormat,
     contentType: ContentType,
-) = KtorReadStandardKeyValueRepoClient<Key, Value>(
+) = KtorReadStandardKeyValuesRepoClient<Key, Value>(
     baseUrl,
     httpClient,
     contentType,
@@ -124,14 +140,14 @@ inline fun <reified Key, reified Value> KtorReadStandardKeyValueRepoClient(
     serialFormat.encodeToString(valueSerializer, it).encodeURLQueryComponent()
 }
 
-inline fun <reified Key, reified Value> KtorReadStandardKeyValueRepoClient(
+inline fun <reified Key, reified Value> KtorReadStandardKeyValuesRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     idsSerializer: KSerializer<Key>,
     valuesSerializer: KSerializer<Value>,
     serialFormat: BinaryFormat,
     contentType: ContentType,
-) = KtorReadStandardKeyValueRepoClient<Key, Value>(
+) = KtorReadStandardKeyValuesRepoClient<Key, Value>(
     baseUrl,
     httpClient,
     contentType,

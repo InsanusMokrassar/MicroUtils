@@ -2,7 +2,8 @@ import dev.inmo.micro_utils.pagination.firstPageWithOneElementPagination
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.ktor.client.key_value.KtorStandardKeyValueRepoClient
-import dev.inmo.micro_utils.repos.ktor.server.key_value.configureStandardKeyValueRepoRoutes
+import dev.inmo.micro_utils.repos.ktor.client.one_to_many.KtorStandardKeyValuesRepoClient
+import dev.inmo.micro_utils.repos.ktor.server.one_to_many.configureStandardKeyValuesRepoRoutes
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
@@ -19,13 +20,13 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlin.test.*
 
-class KVTests {
+class KVsTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun testKVFunctions() {
+    fun testKVsFunctions() {
         runTest {
-            val map = mutableMapOf<Int, ComplexData>()
-            val repo = MapKeyValueRepo<Int, ComplexData>(map)
+            val map = mutableMapOf<Int, MutableList<ComplexData>>()
+            val repo = MapOneToManyKeyValueRepo(map)
             val server = io.ktor.server.engine.embeddedServer(
                 CIO,
                 23456,
@@ -38,7 +39,7 @@ class KVTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
                 routing {
-                    configureStandardKeyValueRepoRoutes(
+                    configureStandardKeyValuesRepoRoutes(
                         repo,
                         Int.serializer(),
                         ComplexData.serializer(),
@@ -55,7 +56,7 @@ class KVTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
             }
-            val crudClient = KtorStandardKeyValueRepoClient<Int, ComplexData>(
+            val crudClient = KtorStandardKeyValuesRepoClient(
                 "http://127.0.0.1:23456",
                 client,
                 ContentType.Application.Json,
@@ -69,37 +70,37 @@ class KVTests {
             val repeatCount = 3
 
             val dataList = listOf(
-                1 to dataInOneKey
+                1 to listOf(dataInOneKey)
             ) + (0 until repeatCount).map {
-                (it + 2) to dataInMultipleKeys
+                (it + 2) to listOf(dataInMultipleKeys)
             }
 
             dataList.forEachIndexed { i, (id, data) ->
                 crudClient.set(id, data)
-                assertEquals(map.size, i + 1)
+                assertEquals(i + 1, map.size)
                 assertEquals(map.size.toLong(), crudClient.count())
                 assertEquals(i + 1L, crudClient.count())
                 dataList.take(i + 1).forEach { (id, data) ->
-                    assertEquals(data, map[id])
-                    assertEquals(data, crudClient.get(id))
-                    assertEquals(map[id], crudClient.get(id))
+                    assertContentEquals(data, map[id])
+                    assertContentEquals(data, crudClient.getAll(id))
+                    assertContentEquals(map[id], crudClient.getAll(id))
                 }
             }
 
-            dataList.forEach { (id, data) ->
-                assertTrue(crudClient.contains(id))
-                assertEquals(data, crudClient.get(id))
+            dataList.forEach { (key, data) ->
+                assertTrue(crudClient.contains(key))
+                assertContentEquals(data, crudClient.getAll(key))
             }
 
             assertEquals(
-                dataList.mapNotNull { if (it.second == dataInMultipleKeys) it.first else null },
+                dataList.mapNotNull { if (it.second.contains(dataInMultipleKeys)) it.first else null },
                 getAllWithNextPaging(firstPageWithOneElementPagination) {
                     crudClient.keys(dataInMultipleKeys, it)
                 }
             )
 
             assertEquals(
-                dataList.mapNotNull { if (it.second == dataInOneKey) it.first else null },
+                dataList.mapNotNull { if (it.second.contains(dataInOneKey)) it.first else null },
                 getAllWithNextPaging(firstPageWithOneElementPagination) {
                     crudClient.keys(dataInOneKey, it)
                 }
@@ -113,21 +114,22 @@ class KVTests {
             )
 
             assertEquals(
-                dataList.map { it.second },
+                dataList.map { it.first },
                 getAllWithNextPaging(firstPageWithOneElementPagination) {
-                    crudClient.values(it)
+                    crudClient.keys(it)
                 }
             )
 
             assertEquals(dataList.size.toLong(), crudClient.count())
 
-            crudClient.unsetWithValues(dataInMultipleKeys)
+            crudClient.remove(dataList.filter { it.second.contains(dataInMultipleKeys) })
+            println(map)
             assertEquals(
-                dataList.filter { it.second == dataInOneKey }.size.toLong(),
+                dataList.filter { it.second.contains(dataInOneKey) }.size.toLong(),
                 crudClient.count()
             )
 
-            crudClient.unset(dataList.first { it.second == dataInOneKey }.first)
+            crudClient.remove(dataList.filter { it.second.contains(dataInOneKey) })
             assertEquals(
                 0,
                 crudClient.count()

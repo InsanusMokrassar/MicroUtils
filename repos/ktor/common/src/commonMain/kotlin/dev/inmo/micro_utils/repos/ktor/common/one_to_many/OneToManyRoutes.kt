@@ -5,7 +5,7 @@ const val keysRoute = "keys"
 const val containsByKeyRoute = "containsByKey"
 const val containsByKeyValueRoute = "containsByKeyValue"
 const val countByKeyRoute = "countByKey"
-const val countRoute = "count"
+const val countRoute = dev.inmo.micro_utils.repos.ktor.common.countRoute
 
 const val onNewValueRoute = "onNewValue"
 const val onValueRemovedRoute = "onValueRemoved"

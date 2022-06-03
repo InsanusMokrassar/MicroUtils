@@ -1,15 +1,13 @@
-package dev.inmo.micro_utils.repos.ktor.server.key_value
+package dev.inmo.micro_utils.repos.ktor.server.one_to_many
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
-import dev.inmo.micro_utils.repos.ktor.common.countRoute
-import dev.inmo.micro_utils.repos.ktor.common.key_value.*
-import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
+import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.http.*
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
@@ -20,8 +18,8 @@ import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.*
 
 @OptIn(InternalAPI::class)
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoRoutes (
-    originalRepo: ReadStandardKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes (
+    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
     noinline idDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
 ) {
@@ -30,20 +28,13 @@ inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoR
 
     get(getRoute) {
         val key = idDeserializer(
-            call.getQueryParameterOrSendError(idParameterName) ?: return@get
+            call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
-
-        originalRepo.get(key) ?.let {
-            call.respond(it)
-        } ?: call.respond(HttpStatusCode.NoContent)
-    }
-
-    get(valuesRoute) {
         val pagination = call.request.queryParameters.extractPagination
         val reversed = call.getQueryParameter(reversedParameterName) ?.toBoolean() ?: false
 
         call.respond(
-            originalRepo.values(pagination, reversed),
+            originalRepo.get(key, pagination, reversed),
             paginationWithValuesTypeInfo
         )
     }
@@ -63,23 +54,33 @@ inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoR
 
     get(containsRoute) {
         val key = idDeserializer(
-            call.getQueryParameterOrSendError(idParameterName) ?: return@get
+            call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
+        val value = call.getQueryParameter(valueParameterName) ?.let {
+            valueDeserializer(it)
+        }
 
-        call.respond(originalRepo.contains(key))
+        call.respond(
+            value ?.let { originalRepo.contains(key, value) } ?: originalRepo.contains(key)
+        )
     }
 
-    get(countRoute) {
-        call.respond(originalRepo.count())
+    get(dev.inmo.micro_utils.repos.ktor.common.countRoute) {
+        val id = call.getQueryParameter(keyParameterName) ?.let {
+            idDeserializer(it)
+        }
+        call.respond(
+            id ?.let { originalRepo.count(it) } ?: originalRepo.count()
+        )
     }
 }
 
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoRoutes(
-    originalRepo: ReadStandardKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes(
+    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: StringFormat
-) = configureReadStandardKeyValueRepoRoutes(
+) = configureReadStandardKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeFromString(idsSerializer, it.decodeURLQueryComponent())
@@ -89,12 +90,12 @@ inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoR
     }
 )
 
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValueRepoRoutes(
-    originalRepo: ReadStandardKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes(
+    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: BinaryFormat
-) = configureReadStandardKeyValueRepoRoutes(
+) = configureReadStandardKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeHex(idsSerializer, it)

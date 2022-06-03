@@ -104,6 +104,13 @@ interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Val
 }
 typealias KeyValuesRepo<Key,Value> = OneToManyKeyValueRepo<Key, Value>
 
+class DelegateBasedOneToManyKeyValueRepo<Key, Value>(
+    readDelegate: ReadOneToManyKeyValueRepo<Key, Value>,
+    writeDelegate: WriteOneToManyKeyValueRepo<Key, Value>
+) : OneToManyKeyValueRepo<Key, Value>,
+    ReadOneToManyKeyValueRepo<Key, Value> by readDelegate,
+    WriteOneToManyKeyValueRepo<Key, Value> by writeDelegate
+
 suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = remove(keysAndValues.toMap())

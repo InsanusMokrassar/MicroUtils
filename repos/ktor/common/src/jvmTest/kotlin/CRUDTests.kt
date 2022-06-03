@@ -21,7 +21,7 @@ class CRUDTests {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testCRUDFunctions() {
-        runTest() {
+        runTest {
             val map = mutableMapOf<Int, ComplexData>()
             val repo = MapCRUDRepo<ComplexData, Int, SimpleData>(
                 map,

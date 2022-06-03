@@ -1,21 +1,17 @@
 package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.ktor.client.createStandardWebsocketFlow
+import dev.inmo.micro_utils.ktor.client.throwOnUnsuccess
 import dev.inmo.micro_utils.ktor.common.*
-import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
-import dev.inmo.micro_utils.repos.ktor.common.*
-import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.http.*
 import io.ktor.util.InternalAPI
 import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.*
 
 class KtorWriteStandardKeyValueRepoClient<Key, Value>(
     private val baseUrl: String,
@@ -35,7 +31,7 @@ class KtorWriteStandardKeyValueRepoClient<Key, Value>(
             body = toUnset
             bodyType = objectsListTypeInfo
             contentType(contentType)
-        }.status
+        }.throwOnUnsuccess { "Unable to unset data with values $toUnset" }
     }
 
     @OptIn(InternalAPI::class)
@@ -46,7 +42,7 @@ class KtorWriteStandardKeyValueRepoClient<Key, Value>(
             body = toUnset
             bodyType = idsListTypeInfo
             contentType(contentType)
-        }.status
+        }.throwOnUnsuccess { "Unable to unset $toUnset" }
     }
 
     @OptIn(InternalAPI::class)
@@ -57,7 +53,7 @@ class KtorWriteStandardKeyValueRepoClient<Key, Value>(
             body = toSet
             bodyType = idsToObjectsMapTypeInfo
             contentType(contentType)
-        }.status
+        }.throwOnUnsuccess { "Unable to set $toSet" }
     }
 
     companion object {

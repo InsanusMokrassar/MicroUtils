@@ -80,6 +80,10 @@ class MapWriteOneToManyKeyValueRepo<Key, Value>(
                     _onValueRemoved.emit(k to v)
                 }
             }
+            if (map[k] ?.isEmpty() == true) {
+                map.remove(k)
+                _onDataCleared.emit(k)
+            }
         }
     }
 

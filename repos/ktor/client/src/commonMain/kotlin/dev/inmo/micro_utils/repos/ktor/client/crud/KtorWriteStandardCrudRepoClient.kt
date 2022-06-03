@@ -11,11 +11,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import io.ktor.util.reflect.TypeInfo
-import io.ktor.util.reflect.typeInfo
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.*
 
 class KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue> (
     private val baseUrl: String,
@@ -50,7 +46,7 @@ class KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue> (
             buildStandardUrl(baseUrl, deleteByIdRouting)
         ) {
             deleteByIdSetup(ids)
-        }.status
+        }.throwOnUnsuccess { "Unable to delete $ids" }
     }
 
     companion object {

@@ -2,6 +2,12 @@
 
 ## 0.11.0
 
+* `Ktor`
+  * 
+* `Repos`
+  * `Ktor`:
+    * Fully rewritten work with all declared repositories
+
 ## 0.10.8
 
 * `Common`
