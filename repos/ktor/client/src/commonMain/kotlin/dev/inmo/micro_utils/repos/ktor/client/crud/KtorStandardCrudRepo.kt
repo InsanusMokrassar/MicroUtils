@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 
+@Deprecated("Use KtorStandardCrudRepoClient instead")
 class KtorStandardCrudRepo<ObjectType, IdType, InputValue> (
     baseUrl: String,
     baseSubpart: String,

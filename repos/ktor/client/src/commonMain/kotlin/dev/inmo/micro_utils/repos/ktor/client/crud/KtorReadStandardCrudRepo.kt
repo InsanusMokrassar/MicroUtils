@@ -9,6 +9,7 @@ import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
+@Deprecated("Use KtorReadStandardCrudRepoClient instead")
 class KtorReadStandardCrudRepo<ObjectType, IdType> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,

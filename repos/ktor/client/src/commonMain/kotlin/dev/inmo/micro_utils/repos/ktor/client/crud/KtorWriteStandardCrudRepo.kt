@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
+@Deprecated("Use KtorWriteStandardCrudRepoClient instead")
 class KtorWriteStandardCrudRepo<ObjectType, IdType, InputValue> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
