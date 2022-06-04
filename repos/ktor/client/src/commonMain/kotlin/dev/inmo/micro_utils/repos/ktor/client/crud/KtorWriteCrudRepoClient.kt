@@ -34,7 +34,7 @@ class KtorWriteCrudRepoClient<ObjectType, IdType, InputValue> (
     override suspend fun update(
         values: List<UpdatedValuePair<IdType, InputValue>>
     ): List<ObjectType> = httpClient.post(
-        buildStandardUrl(baseUrl, updateManyRouting)
+        buildStandardUrl(baseUrl, updateRouting)
     ) {
         updateSetup(values)
     }.updateBodyGetter()

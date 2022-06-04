@@ -1,0 +1,196 @@
+swagger: "2.0"
+info:
+  description: "This is a template for the CRUD repositories from [microutils](https://github.com/InsanusMokrassar/MicroUtils/tree/master/repos/ktor/server/src/jvmMain/kotlin/dev/inmo/micro_utils/repos/ktor/server/crud)"
+  version: "0.11.0"
+  title: "CRUD Repo"
+  contact:
+    email: "ovsyannikov.alexey95@gmail.com"
+tags:
+  - name: "Read"
+    description: "Operations with `get` request in most cases"
+  - name: "Write"
+    description: "Operations with `post` request in most cases"
+
+parameters:
+  IdInQuery:
+    in: "query"
+    name: "id"
+    allOf:
+      - $ref: "#/definitions/Key"
+  IdsInBody:
+    in: "body"
+    name: "body"
+    type: array
+    items:
+      $ref: "#/definitions/Key"
+  NewValuesInBody:
+    in: "body"
+    name: "body"
+    type: array
+    allOf:
+      - $ref: "#/definitions/NewValues"
+  NewValuesWithIdsInBody:
+    in: "body"
+    name: "body"
+    type: array
+    items:
+      allOf:
+        - $ref: "#/definitions/Pair"
+        - properties:
+            first:
+              $ref: "#/definitions/Key"
+            second:
+              $ref: "#/definitions/NewValue"
+  PaginationInQueryPage:
+    in: "query"
+    type: integer
+    name: "ppage"
+    description: "Page of pagination"
+    required: false
+  PaginationInQuerySize:
+    in: "query"
+    type: integer
+    name: "psize"
+    description: "Size of each page in pagination"
+    required: false
+
+
+definitions:
+  Key:
+    type: integer
+    description: "REWRITE THIS TYPE AS KEY IN SWAGGER FILE"
+  Value:
+    type: integer
+    description: "REWRITE THIS TYPE AS VALUE IN SWAGGER FILE"
+  Values:
+    type: array
+    items:
+      $ref: "#/definitions/Value"
+  NewValue:
+    type: integer
+    description: "REWRITE THIS TYPE AS NEW VALUE IN SWAGGER FILE"
+  Pair:
+    type: object
+    description: "Pair of objects"
+    properties:
+      first:
+      second:
+  NewValues:
+    type: array
+    items:
+      $ref: "#/definitions/NewValue"
+  Pagination:
+    type: object
+    properties:
+      page:
+        type: integer
+        description: "Page of pagination"
+      size:
+        type: integer
+        description: "Size of each page in pagination"
+  PaginationResult:
+    type: object
+    properties:
+      page:
+        type: integer
+        description: "Page of pagination"
+      pagesNumber:
+        type: integer
+        description: "Count of pages with the size from this pagination"
+      size:
+        type: integer
+        description: "Size of each page in pagination"
+      results:
+        type: array
+        description: "Array of all elements on that page. Size of pagination and size of array can be different and it can be interpreted like current page is the last one"
+        items:
+          type: object
+
+paths:
+  /getByPagination:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/PaginationInQueryPage"
+        - $ref: "#/parameters/PaginationInQuerySize"
+      responses:
+        "200":
+          description: "Pagination of elements"
+          schema:
+            allOf:
+              - $ref: "#/definitions/PaginationResult"
+              - properties:
+                  results:
+                    items:
+                      $ref: "#/definitions/Value"
+  /getById:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/IdInQuery"
+          required: true
+      responses:
+        "200":
+          description: "Result object"
+          schema:
+            $ref: "#/definitions/Value"
+        "204":
+          description: "No value by id"
+  /contains:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/IdInQuery"
+          required: true
+      responses:
+        "200":
+          description: "Object with id availability in repo"
+          schema:
+            type: boolean
+  /count:
+    get:
+      tags:
+        - "Read"
+      responses:
+        "200":
+          description: "Amount of objects in repo"
+          schema:
+            type: integer
+
+
+  /create:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/NewValuesInBody"
+      responses:
+        "200":
+          description: "Objects has been created and saved"
+          schema:
+            $ref: "#/definitions/Values"
+  /update:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/NewValuesWithIdsInBody"
+      responses:
+        "200":
+          description: "Objects has been updated"
+          schema:
+            $ref: "#/definitions/Values"
+  /deleteById:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/IdsInBody"
+      responses:
+        "200":
+          description: "Objects has been updated"
+          schema:
+            $ref: "#/definitions/Values"

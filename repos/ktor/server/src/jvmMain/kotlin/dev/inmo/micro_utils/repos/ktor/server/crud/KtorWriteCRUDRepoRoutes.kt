@@ -3,6 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.server.crud
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -29,11 +30,12 @@ inline fun <reified ObjectType : Any, reified IdType : Any, reified InputValue :
         call.respond(originalRepo.create(call.receive()))
     }
 
-    post(updateManyRouting) {
+    post(updateRouting) {
         call.respond(originalRepo.update(call.receive()))
     }
 
     post(deleteByIdRouting) {
-        call.respond(originalRepo.deleteById(call.receive()))
+        originalRepo.deleteById(call.receive())
+        call.respond(HttpStatusCode.OK)
     }
 }
