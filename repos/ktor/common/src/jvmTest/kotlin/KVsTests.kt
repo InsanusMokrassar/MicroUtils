@@ -2,7 +2,7 @@ import dev.inmo.micro_utils.pagination.firstPageWithOneElementPagination
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.ktor.client.key.values.KtorKeyValuesRepoClient
-import dev.inmo.micro_utils.repos.ktor.server.one_to_many.configureKeyValuesRepoRoutes
+import dev.inmo.micro_utils.repos.ktor.server.key.values.configureKeyValuesRepoRoutes
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType

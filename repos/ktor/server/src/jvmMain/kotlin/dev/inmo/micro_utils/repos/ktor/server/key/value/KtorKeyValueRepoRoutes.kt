@@ -1,4 +1,4 @@
-package dev.inmo.micro_utils.repos.ktor.server.key_value
+package dev.inmo.micro_utils.repos.ktor.server.key.value
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.KeyValueRepo

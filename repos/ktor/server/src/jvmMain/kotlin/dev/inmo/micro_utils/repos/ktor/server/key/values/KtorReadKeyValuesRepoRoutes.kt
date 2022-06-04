@@ -1,4 +1,4 @@
-package dev.inmo.micro_utils.repos.ktor.server.one_to_many
+package dev.inmo.micro_utils.repos.ktor.server.key.values
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.ktor.server.*
