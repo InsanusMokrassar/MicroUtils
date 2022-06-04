@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.*
 
 class ReadMapCRUDRepo<ObjectType, IdType>(
     private val map: Map<IdType, ObjectType> = emptyMap()
-) : ReadStandardCRUDRepo<ObjectType, IdType> {
+) : ReadCRUDRepo<ObjectType, IdType> {
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> {
         return map.keys.drop(pagination.firstIndex).take(pagination.size).mapNotNull {
             map[it]
@@ -24,7 +24,7 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
 
 abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
     protected val map: MutableMap<IdType, ObjectType> = mutableMapOf()
-) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> {
+) : WriteCRUDRepo<ObjectType, IdType, InputValueType> {
     protected val _newObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
     override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
     protected val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
@@ -68,8 +68,8 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
 abstract class MapCRUDRepo<ObjectType, IdType, InputValueType>(
     map: MutableMap<IdType, ObjectType>
-) : StandardCRUDRepo<ObjectType, IdType, InputValueType>,
-    ReadStandardCRUDRepo<ObjectType, IdType> by ReadMapCRUDRepo(map),
+) : CRUDRepo<ObjectType, IdType, InputValueType>,
+    ReadCRUDRepo<ObjectType, IdType> by ReadMapCRUDRepo(map),
     WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(map)
 
 fun <ObjectType, IdType, InputValueType> MapCRUDRepo(

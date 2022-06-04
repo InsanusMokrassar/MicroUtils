@@ -11,7 +11,7 @@ import io.ktor.server.routing.post
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
-fun <K, V> Route.configureWriteValueRepoRoutes (
+fun <K, V> Route.configureWriteKeyValueRepoRoutes (
     originalRepo: WriteKeyValueRepo<K, V>,
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
@@ -67,4 +67,4 @@ fun <K, V> Route.configureWriteStandartKeyValueRepoRoutes (
     valueSerializer: KSerializer<V>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
     serialFormatContentType: ContentType = standardKtorSerialFormatContentType
-) = configureWriteValueRepoRoutes(originalRepo, keySerializer, valueSerializer, UnifiedRouter(serialFormat, serialFormatContentType))
+) = configureWriteKeyValueRepoRoutes(originalRepo, keySerializer, valueSerializer, UnifiedRouter(serialFormat, serialFormatContentType))

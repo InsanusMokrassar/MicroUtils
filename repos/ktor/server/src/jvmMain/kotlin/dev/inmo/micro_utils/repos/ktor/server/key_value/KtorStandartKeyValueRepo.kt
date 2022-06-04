@@ -26,7 +26,7 @@ fun <K, V> Route.configureKeyValueRepoRoutes(
             valueNullableSerializer,
             unifiedRouter
         )
-        configureWriteValueRepoRoutes(
+        configureWriteKeyValueRepoRoutes(
             originalRepo,
             keySerializer,
             valueSerializer,

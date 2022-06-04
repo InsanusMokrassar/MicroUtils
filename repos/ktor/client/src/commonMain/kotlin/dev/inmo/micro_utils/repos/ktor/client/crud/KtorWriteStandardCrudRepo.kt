@@ -3,14 +3,14 @@ package dev.inmo.micro_utils.repos.ktor.client.crud
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.UpdatedValuePair
-import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
+import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
-@Deprecated("Use KtorWriteStandardCrudRepoClient instead")
+@Deprecated("Use KtorWriteCRUDRepoClient instead")
 class KtorWriteStandardCrudRepo<ObjectType, IdType, InputValue> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
@@ -18,7 +18,7 @@ class KtorWriteStandardCrudRepo<ObjectType, IdType, InputValue> (
     private val objectsNullableSerializer: KSerializer<ObjectType?>,
     private val inputsSerializer: KSerializer<InputValue>,
     private val idsSerializer: KSerializer<IdType>
-) : WriteStandardCRUDRepo<ObjectType, IdType, InputValue> {
+) : WriteCRUDRepo<ObjectType, IdType, InputValue> {
     private val listObjectsSerializer = ListSerializer(objectsSerializer)
     private val listInputSerializer = ListSerializer(inputsSerializer)
     private val listIdsSerializer = ListSerializer(idsSerializer)

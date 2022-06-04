@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.client.crud
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
+import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.countRouting
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import dev.inmo.micro_utils.repos.ktor.common.idParameterName
@@ -11,14 +11,14 @@ import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
-@Deprecated("Use KtorReadStandardCrudRepoClient instead")
+@Deprecated("Use KtorReadCRUDRepoClient instead")
 class KtorReadStandardCrudRepo<ObjectType, IdType> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
     private val objectsSerializer: KSerializer<ObjectType>,
     private val objectsSerializerNullable: KSerializer<ObjectType?>,
     private val idsSerializer: KSerializer<IdType>
-) : ReadStandardCRUDRepo<ObjectType, IdType> {
+) : ReadCRUDRepo<ObjectType, IdType> {
     private val paginationResultSerializer = PaginationResult.serializer(objectsSerializer)
 
     constructor(

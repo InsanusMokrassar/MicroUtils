@@ -2,7 +2,7 @@ package dev.inmo.micro_utils.repos.ktor.client.crud
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
+import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.countRouting
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import dev.inmo.micro_utils.repos.ktor.common.idParameterName
@@ -14,13 +14,13 @@ import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.*
 
-class KtorReadStandardCrudRepoClient<ObjectType, IdType> (
+class KtorReadCRUDRepoClient<ObjectType, IdType> (
     private val baseUrl: String,
     private val httpClient: HttpClient,
     private val objectType: TypeInfo,
     private val contentType: ContentType,
     private val idSerializer: suspend (IdType) -> String
-) : ReadStandardCRUDRepo<ObjectType, IdType> {
+) : ReadCRUDRepo<ObjectType, IdType> {
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> = httpClient.get(
         buildStandardUrl(baseUrl, getByPaginationRouting, pagination.asUrlQueryParts)
     ) {
@@ -61,12 +61,12 @@ class KtorReadStandardCrudRepoClient<ObjectType, IdType> (
     }.body()
 }
 
-inline fun <reified ObjectType, IdType> KtorReadStandardCrudRepoClient(
+inline fun <reified ObjectType, IdType> KtorReadCRUDRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     contentType: ContentType,
     noinline idSerializer: suspend (IdType) -> String
-) = KtorReadStandardCrudRepoClient<ObjectType, IdType>(
+) = KtorReadCRUDRepoClient<ObjectType, IdType>(
     baseUrl,
     httpClient,
     typeInfo<ObjectType>(),
@@ -74,22 +74,22 @@ inline fun <reified ObjectType, IdType> KtorReadStandardCrudRepoClient(
     idSerializer
 )
 
-inline fun <reified ObjectType, IdType> KtorReadStandardCrudRepoClient(
+inline fun <reified ObjectType, IdType> KtorReadCRUDRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     idsSerializer: KSerializer<IdType>,
     serialFormat: StringFormat,
     contentType: ContentType,
-) = KtorReadStandardCrudRepoClient<ObjectType, IdType>(baseUrl, httpClient, contentType) {
+) = KtorReadCRUDRepoClient<ObjectType, IdType>(baseUrl, httpClient, contentType) {
     serialFormat.encodeToString(idsSerializer, it)
 }
 
-inline fun <reified ObjectType, IdType> KtorReadStandardCrudRepoClient(
+inline fun <reified ObjectType, IdType> KtorReadCRUDRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     idsSerializer: KSerializer<IdType>,
     serialFormat: BinaryFormat,
     contentType: ContentType,
-) = KtorReadStandardCrudRepoClient<ObjectType, IdType>(baseUrl, httpClient, contentType) {
+) = KtorReadCRUDRepoClient<ObjectType, IdType>(baseUrl, httpClient, contentType) {
     serialFormat.encodeHex(idsSerializer, it)
 }

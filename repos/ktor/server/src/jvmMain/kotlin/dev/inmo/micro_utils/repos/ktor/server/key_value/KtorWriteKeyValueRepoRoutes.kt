@@ -11,7 +11,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import io.ktor.util.reflect.typeInfo
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureWriteValueRepoRoutes (
+inline fun <reified Key : Any, reified Value : Any> Route.configureWriteKeyValueRepoRoutes (
     originalRepo: WriteKeyValueRepo<Key, Value>
 ) {
     includeWebsocketHandling(

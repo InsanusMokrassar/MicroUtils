@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.client.crud
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.UpdatedValuePair
-import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
+import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -13,7 +13,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import kotlinx.coroutines.flow.Flow
 
-class KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue> (
+class KtorWriteCrudRepoClient<ObjectType, IdType, InputValue> (
     private val baseUrl: String,
     private val httpClient: HttpClient,
     override val newObjectsFlow: Flow<ObjectType>,
@@ -24,7 +24,7 @@ class KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue> (
     private val deleteByIdSetup: suspend HttpRequestBuilder.(List<IdType>) -> Unit,
     private val createBodyGetter: suspend HttpResponse.() -> List<ObjectType>,
     private val updateBodyGetter: suspend HttpResponse.() -> List<ObjectType>
-) : WriteStandardCRUDRepo<ObjectType, IdType, InputValue> {
+) : WriteCRUDRepo<ObjectType, IdType, InputValue> {
     override suspend fun create(values: List<InputValue>): List<ObjectType> = httpClient.post(
         buildStandardUrl(baseUrl, createRouting)
     ) {
@@ -54,7 +54,7 @@ class KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue> (
             baseUrl: String,
             httpClient: HttpClient,
             contentType: ContentType
-        ) = KtorWriteStandardCrudRepoClient<ObjectType, IdType, InputValue>(
+        ) = KtorWriteCrudRepoClient<ObjectType, IdType, InputValue>(
             baseUrl,
             httpClient,
             httpClient.createStandardWebsocketFlow(

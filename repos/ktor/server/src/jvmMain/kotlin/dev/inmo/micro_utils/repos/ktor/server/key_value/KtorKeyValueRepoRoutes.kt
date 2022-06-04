@@ -12,7 +12,7 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValueRepoR
     noinline valueDeserializer: suspend (String) -> Value
 ) {
     configureReadKeyValueRepoRoutes(originalRepo, idDeserializer, valueDeserializer)
-    configureWriteValueRepoRoutes(originalRepo)
+    configureWriteKeyValueRepoRoutes(originalRepo)
 }
 
 inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValueRepoRoutes(

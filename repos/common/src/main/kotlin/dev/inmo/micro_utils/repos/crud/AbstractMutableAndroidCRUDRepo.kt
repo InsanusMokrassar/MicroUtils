@@ -9,9 +9,9 @@ abstract class AbstractMutableAndroidCRUDRepo<ObjectType, IdType, InputValueType
     helper: StandardSQLHelper,
     replyInFlows: Int = 0,
     extraBufferCapacityInFlows: Int = 64
-) : WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>,
+) : WriteCRUDRepo<ObjectType, IdType, InputValueType>,
     AbstractAndroidCRUDRepo<ObjectType, IdType>(helper),
-    StandardCRUDRepo<ObjectType, IdType, InputValueType> {
+    CRUDRepo<ObjectType, IdType, InputValueType> {
     protected val newObjectsChannel = MutableSharedFlow<ObjectType>(replyInFlows, extraBufferCapacityInFlows)
     protected val updateObjectsChannel = MutableSharedFlow<ObjectType>(replyInFlows, extraBufferCapacityInFlows)
     protected val deleteObjectsIdsChannel = MutableSharedFlow<IdType>(replyInFlows, extraBufferCapacityInFlows)

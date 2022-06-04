@@ -1,6 +1,6 @@
 import dev.inmo.micro_utils.repos.*
-import dev.inmo.micro_utils.repos.ktor.client.crud.KtorStandardCrudRepoClient
-import dev.inmo.micro_utils.repos.ktor.server.crud.configureStandardCrudRepoRoutes
+import dev.inmo.micro_utils.repos.ktor.client.crud.KtorCRUDRepoClient
+import dev.inmo.micro_utils.repos.ktor.server.crud.configureCRUDRepoRoutes
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
@@ -43,7 +43,7 @@ class CRUDTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
                 routing {
-                    configureStandardCrudRepoRoutes(
+                    configureCRUDRepoRoutes(
                         repo
                     ) {
                         it.toInt()
@@ -59,7 +59,7 @@ class CRUDTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
             }
-            val crudClient = KtorStandardCrudRepoClient<ComplexData, Int, SimpleData>(
+            val crudClient = KtorCRUDRepoClient<ComplexData, Int, SimpleData>(
                 "http://127.0.0.1:23456",
                 client,
                 ContentType.Application.Json

@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed
 
 import dev.inmo.micro_utils.repos.UpdatedValuePair
-import dev.inmo.micro_utils.repos.WriteStandardCRUDRepo
+import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.InsertStatement
@@ -15,7 +15,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
 ) :
     AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
-    WriteStandardCRUDRepo<ObjectType, IdType, InputValueType>
+    WriteCRUDRepo<ObjectType, IdType, InputValueType>
 {
     protected val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
     protected val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
