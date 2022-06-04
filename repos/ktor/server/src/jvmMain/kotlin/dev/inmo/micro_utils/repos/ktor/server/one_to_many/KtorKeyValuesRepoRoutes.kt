@@ -6,21 +6,21 @@ import io.ktor.http.*
 import io.ktor.server.routing.Route
 import kotlinx.serialization.*
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureStandardKeyValuesRepoRoutes (
-    originalRepo: OneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes (
+    originalRepo: KeyValuesRepo<Key, Value>,
     noinline idDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
 ) {
-    configureReadStandardKeyValuesRepoRoutes(originalRepo, idDeserializer, valueDeserializer)
-    configureWriteStandardKeyValuesRepoRoutes(originalRepo)
+    configureReadKeyValuesRepoRoutes(originalRepo, idDeserializer, valueDeserializer)
+    configureWriteKeyValuesRepoRoutes(originalRepo)
 }
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureStandardKeyValuesRepoRoutes(
-    originalRepo: OneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
+    originalRepo: KeyValuesRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: StringFormat
-) = configureStandardKeyValuesRepoRoutes(
+) = configureKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeFromString(idsSerializer, it.decodeURLQueryComponent())
@@ -30,12 +30,12 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureStandardKeyVa
     }
 )
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureStandardKeyValuesRepoRoutes(
-    originalRepo: OneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
+    originalRepo: KeyValuesRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: BinaryFormat
-) = configureStandardKeyValuesRepoRoutes(
+) = configureKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeHex(idsSerializer, it)

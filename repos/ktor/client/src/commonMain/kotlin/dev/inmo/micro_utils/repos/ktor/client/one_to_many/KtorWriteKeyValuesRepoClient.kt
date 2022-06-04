@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 import dev.inmo.micro_utils.ktor.client.createStandardWebsocketFlow
 import dev.inmo.micro_utils.ktor.client.throwOnUnsuccess
 import dev.inmo.micro_utils.ktor.common.*
-import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.WriteKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
@@ -13,7 +13,7 @@ import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
 import kotlinx.coroutines.flow.Flow
 
-class KtorWriteStandardKeyValuesRepoClient<Key : Any, Value : Any>(
+class KtorWriteKeyValuesRepoClient<Key : Any, Value : Any>(
     private val baseUrl: String,
     private val httpClient: HttpClient,
     private val contentType: ContentType,
@@ -23,7 +23,7 @@ class KtorWriteStandardKeyValuesRepoClient<Key : Any, Value : Any>(
     private val keyTypeInfo: TypeInfo,
     private val valueTypeInfo: TypeInfo,
     private val keyToValuesMapTypeInfo: TypeInfo
-) : WriteOneToManyKeyValueRepo<Key, Value> {
+) : WriteKeyValuesRepo<Key, Value> {
 
     @OptIn(InternalAPI::class)
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
@@ -85,7 +85,7 @@ class KtorWriteStandardKeyValuesRepoClient<Key : Any, Value : Any>(
             baseUrl: String,
             httpClient: HttpClient,
             contentType: ContentType
-        ) = KtorWriteStandardKeyValuesRepoClient<Key, Value>(
+        ) = KtorWriteKeyValuesRepoClient<Key, Value>(
             baseUrl,
             httpClient,
             contentType,

@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.server.one_to_many
 import dev.inmo.micro_utils.ktor.common.StandardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
-import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.WriteKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.http.ContentType
 import io.ktor.server.routing.Route
@@ -12,7 +12,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
 fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
-    originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
+    originalRepo: WriteKeyValuesRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
     unifiedRouter: UnifiedRouter
@@ -95,7 +95,7 @@ fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
 }
 
 fun <Key, Value> Route.configureOneToManyWriteKeyValueRepoRoutes(
-    originalRepo: WriteOneToManyKeyValueRepo<Key, Value>,
+    originalRepo: WriteKeyValuesRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,

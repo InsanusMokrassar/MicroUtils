@@ -4,7 +4,7 @@ import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
@@ -18,8 +18,8 @@ import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.*
 
 @OptIn(InternalAPI::class)
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes (
-    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
+    originalRepo: ReadKeyValuesRepo<Key, Value>,
     noinline idDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
 ) {
@@ -75,12 +75,12 @@ inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepo
     }
 }
 
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes(
-    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes(
+    originalRepo: ReadKeyValuesRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: StringFormat
-) = configureReadStandardKeyValuesRepoRoutes(
+) = configureReadKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeFromString(idsSerializer, it.decodeURLQueryComponent())
@@ -90,12 +90,12 @@ inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepo
     }
 )
 
-inline fun <reified Key, reified Value> Route.configureReadStandardKeyValuesRepoRoutes(
-    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes(
+    originalRepo: ReadKeyValuesRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: BinaryFormat
-) = configureReadStandardKeyValuesRepoRoutes(
+) = configureReadKeyValuesRepoRoutes(
     originalRepo,
     {
         serialFormat.decodeHex(idsSerializer, it)

@@ -5,7 +5,7 @@ import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
@@ -18,7 +18,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
 fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
-    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+    originalRepo: ReadKeyValuesRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
     unifiedRouter: UnifiedRouter
@@ -121,7 +121,7 @@ fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
 }
 
 inline fun <Key, Value> Route.configureOneToManyReadKeyValueRepoRoutes(
-    originalRepo: ReadOneToManyKeyValueRepo<Key, Value>,
+    originalRepo: ReadKeyValuesRepo<Key, Value>,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,

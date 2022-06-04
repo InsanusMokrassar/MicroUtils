@@ -7,20 +7,21 @@ import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 
+@Deprecated("Should be replaced with KtorKeyValuesRepoClient")
 class KtorOneToManyKeyValueRepo<Key, Value>(
     baseUrl: String,
     baseSubpart: String,
     unifiedRequester: UnifiedRequester,
     keySerializer: KSerializer<Key>,
     valueSerializer: KSerializer<Value>,
-) : OneToManyKeyValueRepo<Key, Value>,
-    ReadOneToManyKeyValueRepo<Key, Value> by KtorReadOneToManyKeyValueRepo<Key, Value> (
+) : KeyValuesRepo<Key, Value>,
+    ReadKeyValuesRepo<Key, Value> by KtorReadOneToManyKeyValueRepo<Key, Value> (
         "$baseUrl/$baseSubpart",
         unifiedRequester,
         keySerializer,
         valueSerializer,
     ),
-    WriteOneToManyKeyValueRepo<Key, Value> by KtorWriteOneToManyKeyValueRepo<Key, Value> (
+    WriteKeyValuesRepo<Key, Value> by KtorWriteOneToManyKeyValueRepo<Key, Value> (
         "$baseUrl/$baseSubpart",
         unifiedRequester,
         keySerializer,

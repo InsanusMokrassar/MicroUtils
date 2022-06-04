@@ -6,10 +6,12 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-open class MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
-    private val to: ReadOneToManyKeyValueRepo<ToKey, ToValue>,
+@Deprecated("Renamed", ReplaceWith("MapperReadKeyValuesRepo", "dev.inmo.micro_utils.repos.mappers.MapperReadKeyValuesRepo"))
+typealias MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperReadKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>
+open class MapperReadKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>(
+    private val to: ReadKeyValuesRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-) : ReadOneToManyKeyValueRepo<FromKey, FromValue>, MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper {
+) : ReadKeyValuesRepo<FromKey, FromValue>, MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper {
     override suspend fun get(
         k: FromKey,
         pagination: Pagination,
@@ -67,24 +69,26 @@ open class MapperReadOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <FromKey, FromValue, ToKey, ToValue> ReadOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <FromKey, FromValue, ToKey, ToValue> ReadKeyValuesRepo<ToKey, ToValue>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-): ReadOneToManyKeyValueRepo<FromKey, FromValue> = MapperReadOneToManyKeyValueRepo(this, mapper)
+): ReadKeyValuesRepo<FromKey, FromValue> = MapperReadKeyValuesRepo(this, mapper)
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadKeyValuesRepo<ToKey, ToValue>.withMapper(
     crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
     crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
     crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
     crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-): ReadOneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+): ReadKeyValuesRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
-open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
-    private val to: WriteOneToManyKeyValueRepo<ToKey, ToValue>,
+@Deprecated("Renamed", ReplaceWith("MapperWriteKeyValuesRepo", "dev.inmo.micro_utils.repos.mappers.MapperWriteKeyValuesRepo"))
+typealias MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperWriteKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>
+open class MapperWriteKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>(
+    private val to: WriteKeyValuesRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-) : WriteOneToManyKeyValueRepo<FromKey, FromValue>, MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper {
+) : WriteKeyValuesRepo<FromKey, FromValue>, MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper {
     override val onNewValue: Flow<Pair<FromKey, FromValue>> = to.onNewValue.map { (k, v) ->
         k.toInnerKey() to v.toInnerValue()
     }
@@ -118,40 +122,42 @@ open class MapperWriteOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <FromKey, FromValue, ToKey, ToValue> WriteOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <FromKey, FromValue, ToKey, ToValue> WriteKeyValuesRepo<ToKey, ToValue>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-): WriteOneToManyKeyValueRepo<FromKey, FromValue> = MapperWriteOneToManyKeyValueRepo(this, mapper)
+): WriteKeyValuesRepo<FromKey, FromValue> = MapperWriteKeyValuesRepo(this, mapper)
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> WriteOneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> WriteKeyValuesRepo<ToKey, ToValue>.withMapper(
     crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
     crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
     crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
     crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-): WriteOneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+): WriteKeyValuesRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
+@Deprecated("Renamed", ReplaceWith("MapperKeyValuesRepo", "dev.inmo.micro_utils.repos.mappers.MapperKeyValuesRepo"))
+typealias MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
-open class MapperOneToManyKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
-    private val to: OneToManyKeyValueRepo<ToKey, ToValue>,
+open class MapperKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>(
+    private val to: KeyValuesRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-) : OneToManyKeyValueRepo<FromKey, FromValue>,
+) : KeyValuesRepo<FromKey, FromValue>,
     MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper,
-    ReadOneToManyKeyValueRepo<FromKey, FromValue> by MapperReadOneToManyKeyValueRepo(to, mapper),
-    WriteOneToManyKeyValueRepo<FromKey, FromValue> by MapperWriteOneToManyKeyValueRepo(to, mapper)
+    ReadKeyValuesRepo<FromKey, FromValue> by MapperReadKeyValuesRepo(to, mapper),
+    WriteKeyValuesRepo<FromKey, FromValue> by MapperWriteKeyValuesRepo(to, mapper)
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <FromKey, FromValue, ToKey, ToValue> OneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <FromKey, FromValue, ToKey, ToValue> KeyValuesRepo<ToKey, ToValue>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
-): OneToManyKeyValueRepo<FromKey, FromValue> = MapperOneToManyKeyValueRepo(this, mapper)
+): KeyValuesRepo<FromKey, FromValue> = MapperKeyValuesRepo(this, mapper)
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> OneToManyKeyValueRepo<ToKey, ToValue>.withMapper(
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> KeyValuesRepo<ToKey, ToValue>.withMapper(
     crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
     crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
     crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
     crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-): OneToManyKeyValueRepo<FromKey, FromValue> = withMapper(
+): KeyValuesRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )

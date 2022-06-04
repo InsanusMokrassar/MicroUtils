@@ -1,20 +1,19 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.*
-import dev.inmo.micro_utils.repos.exposed.keyvalue.ExposedReadKeyValueRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-typealias ExposedReadKeyValuesRepo<Key, Value> = ExposedReadOneToManyKeyValueRepo<Key, Value>
+typealias ExposedReadOneToManyKeyValueRepo<Key, Value> = ExposedReadKeyValuesRepo<Key, Value>
 
-open class ExposedReadOneToManyKeyValueRepo<Key, Value>(
+open class ExposedReadKeyValuesRepo<Key, Value>(
     override val database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
-) : ReadOneToManyKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
+) : ReadKeyValuesRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
     val keyColumn: Column<Key> = keyColumnAllocator()
     val valueColumn: Column<Value> = valueColumnAllocator()
 

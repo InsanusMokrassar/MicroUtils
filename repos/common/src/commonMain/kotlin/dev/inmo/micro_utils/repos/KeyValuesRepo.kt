@@ -1,11 +1,10 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.pagination.utils.doForAllWithCurrentPaging
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import kotlinx.coroutines.flow.Flow
 
-interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
+interface ReadKeyValuesRepo<Key, Value> : Repo {
     suspend fun get(k: Key, pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
     suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
@@ -36,9 +35,9 @@ interface ReadOneToManyKeyValueRepo<Key, Value> : Repo {
         }
     }
 }
-typealias ReadKeyValuesRepo<Key,Value> = ReadOneToManyKeyValueRepo<Key, Value>
+typealias ReadOneToManyKeyValueRepo<Key,Value> = ReadKeyValuesRepo<Key, Value>
 
-interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
+interface WriteKeyValuesRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Pair<Key, Value>>
     val onDataCleared: Flow<Key>
@@ -55,41 +54,41 @@ interface WriteOneToManyKeyValueRepo<Key, Value> : Repo {
         add(toSet)
     }
 }
-typealias WriteKeyValuesRepo<Key,Value> = WriteOneToManyKeyValueRepo<Key, Value>
+typealias WriteOneToManyKeyValueRepo<Key,Value> = WriteKeyValuesRepo<Key, Value>
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.add(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = add(keysAndValues.toMap())
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.add(
+suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.add(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = add(keysAndValues.toMap())
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.add(
     k: Key, v: List<Value>
 ) = add(mapOf(k to v))
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.add(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.add(
     k: Key, vararg v: Value
 ) = add(k, v.toList())
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.set(
+suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.set(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = set(keysAndValues.toMap())
 
-suspend inline fun <Key, Value, REPO : WriteOneToManyKeyValueRepo<Key, Value>> REPO.set(
+suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.set(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = set(keysAndValues.toMap())
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.set(
     k: Key, v: List<Value>
 ) = set(mapOf(k to v))
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.set(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.set(
     k: Key, vararg v: Value
 ) = set(k, v.toList())
 
-interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Value>, WriteOneToManyKeyValueRepo<Key, Value> {
+interface KeyValuesRepo<Key, Value> : ReadKeyValuesRepo<Key, Value>, WriteKeyValuesRepo<Key, Value> {
     override suspend fun clearWithValue(v: Value) {
         doWithPagination {
             val keysResult = keys(v, it)
@@ -102,29 +101,29 @@ interface OneToManyKeyValueRepo<Key, Value> : ReadOneToManyKeyValueRepo<Key, Val
         }
     }
 }
-typealias KeyValuesRepo<Key,Value> = OneToManyKeyValueRepo<Key, Value>
+typealias OneToManyKeyValueRepo<Key,Value> = KeyValuesRepo<Key, Value>
 
-class DelegateBasedOneToManyKeyValueRepo<Key, Value>(
-    readDelegate: ReadOneToManyKeyValueRepo<Key, Value>,
-    writeDelegate: WriteOneToManyKeyValueRepo<Key, Value>
-) : OneToManyKeyValueRepo<Key, Value>,
-    ReadOneToManyKeyValueRepo<Key, Value> by readDelegate,
-    WriteOneToManyKeyValueRepo<Key, Value> by writeDelegate
+class DelegateBasedKeyValuesRepo<Key, Value>(
+    readDelegate: ReadKeyValuesRepo<Key, Value>,
+    writeDelegate: WriteKeyValuesRepo<Key, Value>
+) : KeyValuesRepo<Key, Value>,
+    ReadKeyValuesRepo<Key, Value> by readDelegate,
+    WriteKeyValuesRepo<Key, Value> by writeDelegate
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = remove(keysAndValues.toMap())
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = remove(keysAndValues.toMap())
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     k: Key,
     v: List<Value>
 ) = remove(mapOf(k to v))
 
-suspend inline fun <Key, Value> WriteOneToManyKeyValueRepo<Key, Value>.remove(
+suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     k: Key,
     vararg v: Value
 ) = remove(k, v.toList())

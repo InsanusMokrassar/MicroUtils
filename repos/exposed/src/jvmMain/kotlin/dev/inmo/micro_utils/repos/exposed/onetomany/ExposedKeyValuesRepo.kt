@@ -1,18 +1,18 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
-import dev.inmo.micro_utils.repos.OneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.KeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-typealias ExposedKeyValuesRepo<Key, Value> = ExposedOneToManyKeyValueRepo<Key, Value>
-open class ExposedOneToManyKeyValueRepo<Key, Value>(
+typealias ExposedOneToManyKeyValueRepo1<Key, Value> = ExposedKeyValuesRepo<Key, Value>
+open class ExposedKeyValuesRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
-) : OneToManyKeyValueRepo<Key, Value>, ExposedReadOneToManyKeyValueRepo<Key, Value>(
+) : KeyValuesRepo<Key, Value>, ExposedReadKeyValuesRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator,

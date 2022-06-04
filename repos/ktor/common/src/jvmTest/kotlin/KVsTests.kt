@@ -1,8 +1,8 @@
 import dev.inmo.micro_utils.pagination.firstPageWithOneElementPagination
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
-import dev.inmo.micro_utils.repos.ktor.client.one_to_many.KtorStandardKeyValuesRepoClient
-import dev.inmo.micro_utils.repos.ktor.server.one_to_many.configureStandardKeyValuesRepoRoutes
+import dev.inmo.micro_utils.repos.ktor.client.one_to_many.KtorKeyValuesRepoClient
+import dev.inmo.micro_utils.repos.ktor.server.one_to_many.configureKeyValuesRepoRoutes
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
@@ -25,7 +25,7 @@ class KVsTests {
     fun testKVsFunctions() {
         runTest {
             val map = mutableMapOf<Int, MutableList<ComplexData>>()
-            val repo = MapOneToManyKeyValueRepo(map)
+            val repo = MapKeyValuesRepo(map)
             val server = io.ktor.server.engine.embeddedServer(
                 CIO,
                 23456,
@@ -38,7 +38,7 @@ class KVsTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
                 routing {
-                    configureStandardKeyValuesRepoRoutes(
+                    configureKeyValuesRepoRoutes(
                         repo,
                         Int.serializer(),
                         ComplexData.serializer(),
@@ -55,7 +55,7 @@ class KVsTests {
                     contentConverter = KotlinxWebsocketSerializationConverter(Json)
                 }
             }
-            val crudClient = KtorStandardKeyValuesRepoClient(
+            val crudClient = KtorKeyValuesRepoClient(
                 "http://127.0.0.1:23456",
                 client,
                 ContentType.Application.Json,
