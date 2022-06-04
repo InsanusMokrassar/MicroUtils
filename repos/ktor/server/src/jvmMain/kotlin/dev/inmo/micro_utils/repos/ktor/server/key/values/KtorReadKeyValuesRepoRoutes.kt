@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
+import dev.inmo.micro_utils.repos.ktor.common.countRoute
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.http.*
 import io.ktor.server.application.call
@@ -20,14 +21,14 @@ import kotlinx.serialization.*
 @OptIn(InternalAPI::class)
 inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
     originalRepo: ReadKeyValuesRepo<Key, Value>,
-    noinline idDeserializer: suspend (String) -> Key,
+    noinline keyDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
 ) {
     val paginationWithValuesTypeInfo = typeInfo<PaginationResult<Value>>()
     val paginationWithKeysTypeInfo = typeInfo<PaginationResult<Key>>()
 
     get(getRoute) {
-        val key = idDeserializer(
+        val key = keyDeserializer(
             call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
         val pagination = call.request.queryParameters.extractPagination
@@ -53,7 +54,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
     }
 
     get(containsRoute) {
-        val key = idDeserializer(
+        val key = keyDeserializer(
             call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
         val value = call.getQueryParameter(valueParameterName) ?.let {
@@ -65,9 +66,9 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
         )
     }
 
-    get(dev.inmo.micro_utils.repos.ktor.common.countRoute) {
+    get(countRoute) {
         val id = call.getQueryParameter(keyParameterName) ?.let {
-            idDeserializer(it)
+            keyDeserializer(it)
         }
         call.respond(
             id ?.let { originalRepo.count(it) } ?: originalRepo.count()
@@ -77,13 +78,13 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
 
 inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes(
     originalRepo: ReadKeyValuesRepo<Key, Value>,
-    idsSerializer: DeserializationStrategy<Key>,
+    keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: StringFormat
 ) = configureReadKeyValuesRepoRoutes(
     originalRepo,
     {
-        serialFormat.decodeFromString(idsSerializer, it.decodeURLQueryComponent())
+        serialFormat.decodeFromString(keySerializer, it.decodeURLQueryComponent())
     },
     {
         serialFormat.decodeFromString(valueSerializer, it.decodeURLQueryComponent())
@@ -92,13 +93,13 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes(
 
 inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes(
     originalRepo: ReadKeyValuesRepo<Key, Value>,
-    idsSerializer: DeserializationStrategy<Key>,
+    keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: BinaryFormat
 ) = configureReadKeyValuesRepoRoutes(
     originalRepo,
     {
-        serialFormat.decodeHex(idsSerializer, it)
+        serialFormat.decodeHex(keySerializer, it)
     },
     {
         serialFormat.decodeHex(valueSerializer, it)

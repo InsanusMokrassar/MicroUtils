@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "This is a template for the KeyValue repositories from [microutils](https://github.com/InsanusMokrassar/MicroUtils/tree/master/repos/ktor/server/src/jvmMain/kotlin/dev/inmo/micro_utils/repos/ktor/server/key/value)"
+  description: "This is a template for the KeyValues repositories from [microutils](https://github.com/InsanusMokrassar/MicroUtils/tree/master/repos/ktor/server/src/jvmMain/kotlin/dev/inmo/micro_utils/repos/ktor/server/key/values)"
   version: "0.11.0"
-  title: "KeyValue Repo"
+  title: "KeyValues Repo"
   contact:
     email: "ovsyannikov.alexey95@gmail.com"
 tags:
@@ -15,6 +15,11 @@ parameters:
   KeyInQuery:
     in: "query"
     name: "key"
+    allOf:
+      - $ref: "#/definitions/Key"
+  KeyInBody:
+    in: "body"
+    name: "body"
     allOf:
       - $ref: "#/definitions/Key"
   KeysInBody:
@@ -50,6 +55,11 @@ parameters:
   ValueInQuery:
     in: "query"
     name: "value"
+    allOf:
+      - $ref: "#/definitions/Value"
+  ValueInBody:
+    in: "body"
+    name: "body"
     allOf:
       - $ref: "#/definitions/Value"
   MapInBody:
@@ -95,24 +105,12 @@ paths:
       parameters:
         - $ref: "#/parameters/KeyInQuery"
           required: true
-      responses:
-        "200":
-          description: "Element by key"
-          schema:
-            $ref: "#/definitions/Value"
-        "204":
-          description: "No value by id"
-  /values:
-    get:
-      tags:
-        - "Read"
-      parameters:
         - $ref: "#/parameters/PaginationInQueryPage"
         - $ref: "#/parameters/PaginationInQuerySize"
         - $ref: "#/parameters/ReversedInQuery"
       responses:
         "200":
-          description: "Pagination with elements"
+          description: "Elements by query"
           schema:
             allOf:
               - $ref: "#/definitions/PaginationResult"
@@ -147,9 +145,11 @@ paths:
       parameters:
         - $ref: "#/parameters/KeyInQuery"
           required: true
+        - $ref: "#/parameters/ValueInQuery"
+          required: false
       responses:
         "200":
-          description: "Object with id availability in repo"
+          description: "Object with key and optionally availability in repo"
           schema:
             type: boolean
   /count:
@@ -163,6 +163,19 @@ paths:
             type: integer
 
 
+  /add:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - allOf:
+            - $ref: "#/parameters/MapInBody"
+            - additionalProperties:
+                $ref: "#/definitions/Value"
+              description: "Map with new elements to add. Use keys as a keys of this map. That values will be added to the end of current data by their keys"
+      responses:
+        "200":
+          description: "Will return 200 if everything has been completed ok"
   /set:
     post:
       tags:
@@ -172,25 +185,38 @@ paths:
             - $ref: "#/parameters/MapInBody"
             - additionalProperties:
                 $ref: "#/definitions/Value"
-              description: "Map with new elements to set. Use keys as a keys of this map"
+              description: "Map with new elements to set. Use keys as a keys of this map. That values will overwrite all exists data by their keys"
       responses:
         "200":
           description: "Will return 200 if everything has been completed ok"
-  /unset:
+  /remove:
     post:
       tags:
         - "Write"
       parameters:
-        - $ref: "#/parameters/KeysInBody"
+        - allOf:
+            - $ref: "#/parameters/MapInBody"
+            - additionalProperties:
+                $ref: "#/definitions/Value"
+              description: "Map with data to remove. Removing will be processed by each value for its key"
       responses:
         "200":
-          description: "Objects with keys from body has been unset"
-  /unsetWithValues:
+          description: "Objects with keys and values from body has been unset"
+  /clear:
     post:
       tags:
         - "Write"
       parameters:
-        - $ref: "#/parameters/ValuesInBody"
+        - $ref: "#/parameters/KeyInBody"
       responses:
         "200":
-          description: "Objects with values from body has been unset"
+          description: "Data with corresponding key has been removed"
+  /clearWithValues:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/ValueInBody"
+      responses:
+        "200":
+          description: "Will remove value from all keys data"

@@ -8,22 +8,22 @@ import kotlinx.serialization.*
 
 inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes (
     originalRepo: KeyValuesRepo<Key, Value>,
-    noinline idDeserializer: suspend (String) -> Key,
+    noinline keyDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
 ) {
-    configureReadKeyValuesRepoRoutes(originalRepo, idDeserializer, valueDeserializer)
+    configureReadKeyValuesRepoRoutes(originalRepo, keyDeserializer, valueDeserializer)
     configureWriteKeyValuesRepoRoutes(originalRepo)
 }
 
 inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
     originalRepo: KeyValuesRepo<Key, Value>,
-    idsSerializer: DeserializationStrategy<Key>,
+    keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: StringFormat
 ) = configureKeyValuesRepoRoutes(
     originalRepo,
     {
-        serialFormat.decodeFromString(idsSerializer, it.decodeURLQueryComponent())
+        serialFormat.decodeFromString(keySerializer, it.decodeURLQueryComponent())
     },
     {
         serialFormat.decodeFromString(valueSerializer, it.decodeURLQueryComponent())
@@ -32,13 +32,13 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepo
 
 inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
     originalRepo: KeyValuesRepo<Key, Value>,
-    idsSerializer: DeserializationStrategy<Key>,
+    keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
     serialFormat: BinaryFormat
 ) = configureKeyValuesRepoRoutes(
     originalRepo,
     {
-        serialFormat.decodeHex(idsSerializer, it)
+        serialFormat.decodeHex(keySerializer, it)
     },
     {
         serialFormat.decodeHex(valueSerializer, it)
