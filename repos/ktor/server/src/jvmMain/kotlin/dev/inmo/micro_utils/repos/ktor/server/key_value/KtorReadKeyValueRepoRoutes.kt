@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
 import dev.inmo.micro_utils.repos.ktor.common.countRoute
+import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.http.*
@@ -30,7 +31,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes (
 
     get(getRoute) {
         val key = idDeserializer(
-            call.getQueryParameterOrSendError(idParameterName) ?: return@get
+            call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
 
         originalRepo.get(key) ?.let {
@@ -63,7 +64,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes (
 
     get(containsRoute) {
         val key = idDeserializer(
-            call.getQueryParameterOrSendError(idParameterName) ?: return@get
+            call.getQueryParameterOrSendError(keyParameterName) ?: return@get
         )
 
         call.respond(originalRepo.contains(key))

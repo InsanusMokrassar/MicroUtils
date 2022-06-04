@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
+import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.client.HttpClient
@@ -30,7 +31,7 @@ class KtorReadKeyValueRepoClient<Key, Value>(
             baseUrl,
             getRoute,
             mapOf(
-                idParameterName to idSerializer(k)
+                keyParameterName to idSerializer(k)
             )
         )
     ) {
@@ -41,7 +42,7 @@ class KtorReadKeyValueRepoClient<Key, Value>(
         buildStandardUrl(
             baseUrl,
             containsRoute,
-            idParameterName to idSerializer(key)
+            keyParameterName to idSerializer(key)
         )
     ) {
         contentType(contentType)
