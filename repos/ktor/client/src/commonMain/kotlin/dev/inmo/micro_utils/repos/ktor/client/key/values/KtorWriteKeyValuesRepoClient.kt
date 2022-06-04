@@ -1,4 +1,4 @@
-package dev.inmo.micro_utils.repos.ktor.client.one_to_many
+package dev.inmo.micro_utils.repos.ktor.client.key.values
 
 import dev.inmo.micro_utils.ktor.client.createStandardWebsocketFlow
 import dev.inmo.micro_utils.ktor.client.throwOnUnsuccess

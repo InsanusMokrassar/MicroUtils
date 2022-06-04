@@ -1,4 +1,4 @@
-package dev.inmo.micro_utils.repos.ktor.client.key_value
+package dev.inmo.micro_utils.repos.ktor.client.key.value
 
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
