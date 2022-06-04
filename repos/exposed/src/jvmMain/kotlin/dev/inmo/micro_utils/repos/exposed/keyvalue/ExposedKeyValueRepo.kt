@@ -1,9 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
-import dev.inmo.micro_utils.repos.StandardKeyValueRepo
+import dev.inmo.micro_utils.repos.KeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
-import dev.inmo.micro_utils.repos.exposed.initTable
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -13,7 +11,7 @@ open class ExposedKeyValueRepo<Key, Value>(
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
-) : StandardKeyValueRepo<Key, Value>, ExposedReadKeyValueRepo<Key, Value>(
+) : KeyValueRepo<Key, Value>, ExposedReadKeyValueRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator,

@@ -8,8 +8,6 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 open class ReadKeyValuesCacheRepo<Key,Value>(
     protected val parentRepo: ReadKeyValuesRepo<Key, Value>,

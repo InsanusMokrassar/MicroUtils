@@ -9,7 +9,7 @@ jb-exposed = "0.38.2"
 jb-dokka = "1.6.21"
 
 klock = "2.7.0"
-uuid = "0.4.0"
+uuid = "0.4.1"
 
 ktor = "2.0.2"
 
@@ -37,17 +37,24 @@ kt-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 
 kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kt-coroutines" }
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
+kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
 
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-java = { module = "io.ktor:ktor-client-java", version.ref = "ktor" }
+ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-server = { module = "io.ktor:ktor-server", version.ref = "ktor" }
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
 ktor-server-host-common = { module = "io.ktor:ktor-server-host-common", version.ref = "ktor" }
 ktor-websockets = { module = "io.ktor:ktor-websockets", version.ref = "ktor" }
 ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
 ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 
 
 klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "klock" }

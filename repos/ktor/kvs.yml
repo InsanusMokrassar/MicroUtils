@@ -1,0 +1,222 @@
+swagger: "2.0"
+info:
+  description: "This is a template for the KeyValues repositories from [microutils](https://github.com/InsanusMokrassar/MicroUtils/tree/master/repos/ktor/server/src/jvmMain/kotlin/dev/inmo/micro_utils/repos/ktor/server/key/values)"
+  version: "0.11.0"
+  title: "KeyValues Repo"
+  contact:
+    email: "ovsyannikov.alexey95@gmail.com"
+tags:
+  - name: "Read"
+    description: "Operations with `get` request in most cases"
+  - name: "Write"
+    description: "Operations with `post` request in most cases"
+
+parameters:
+  KeyInQuery:
+    in: "query"
+    name: "key"
+    allOf:
+      - $ref: "#/definitions/Key"
+  KeyInBody:
+    in: "body"
+    name: "body"
+    allOf:
+      - $ref: "#/definitions/Key"
+  KeysInBody:
+    in: "body"
+    name: "body"
+    type: array
+    items:
+      $ref: "#/definitions/Key"
+  ValuesInBody:
+    in: "body"
+    name: "body"
+    type: array
+    items:
+      $ref: "#/definitions/Value"
+  PaginationInQueryPage:
+    in: "query"
+    type: integer
+    name: "ppage"
+    description: "Page of pagination"
+    required: false
+  PaginationInQuerySize:
+    in: "query"
+    type: integer
+    name: "psize"
+    description: "Size of each page in pagination"
+    required: false
+  ReversedInQuery:
+    in: "query"
+    type: boolean
+    name: "reversed"
+    description: "If passed, will tell to reverse the result pages"
+    required: false
+  ValueInQuery:
+    in: "query"
+    name: "value"
+    allOf:
+      - $ref: "#/definitions/Value"
+  ValueInBody:
+    in: "body"
+    name: "body"
+    allOf:
+      - $ref: "#/definitions/Value"
+  MapInBody:
+    in: "body"
+    name: "body"
+    allOf:
+      - $ref: "#/definitions/Map"
+
+
+definitions:
+  Key:
+    type: integer
+    description: "REWRITE THIS TYPE AS KEY IN SWAGGER FILE"
+  Value:
+    type: integer
+    description: "REWRITE THIS TYPE AS VALUE IN SWAGGER FILE"
+  Map:
+    type: object
+    description: "Map of objects"
+  PaginationResult:
+    type: object
+    properties:
+      page:
+        type: integer
+        description: "Page of pagination"
+      pagesNumber:
+        type: integer
+        description: "Count of pages with the size from this pagination"
+      size:
+        type: integer
+        description: "Size of each page in pagination"
+      results:
+        type: array
+        description: "Array of all elements on that page. Size of pagination and size of array can be different and it can be interpreted like current page is the last one"
+        items:
+          type: object
+
+paths:
+  /get:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/KeyInQuery"
+          required: true
+        - $ref: "#/parameters/PaginationInQueryPage"
+        - $ref: "#/parameters/PaginationInQuerySize"
+        - $ref: "#/parameters/ReversedInQuery"
+      responses:
+        "200":
+          description: "Elements by query"
+          schema:
+            allOf:
+              - $ref: "#/definitions/PaginationResult"
+              - properties:
+                  results:
+                    items:
+                      $ref: "#/definitions/Value"
+  /keys:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/PaginationInQueryPage"
+        - $ref: "#/parameters/PaginationInQuerySize"
+        - $ref: "#/parameters/ReversedInQuery"
+        - $ref: "#/parameters/ValueInQuery"
+          required: false
+      responses:
+        "200":
+          description: "Pagination with elements"
+          schema:
+            allOf:
+              - $ref: "#/definitions/PaginationResult"
+              - properties:
+                  results:
+                    items:
+                      $ref: "#/definitions/Key"
+  /contains:
+    get:
+      tags:
+        - "Read"
+      parameters:
+        - $ref: "#/parameters/KeyInQuery"
+          required: true
+        - $ref: "#/parameters/ValueInQuery"
+          required: false
+      responses:
+        "200":
+          description: "Object with key and optionally availability in repo"
+          schema:
+            type: boolean
+  /count:
+    get:
+      tags:
+        - "Read"
+      responses:
+        "200":
+          description: "Amount of objects in repo"
+          schema:
+            type: integer
+
+
+  /add:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - allOf:
+            - $ref: "#/parameters/MapInBody"
+            - additionalProperties:
+                $ref: "#/definitions/Value"
+              description: "Map with new elements to add. Use keys as a keys of this map. That values will be added to the end of current data by their keys"
+      responses:
+        "200":
+          description: "Will return 200 if everything has been completed ok"
+  /set:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - allOf:
+            - $ref: "#/parameters/MapInBody"
+            - additionalProperties:
+                $ref: "#/definitions/Value"
+              description: "Map with new elements to set. Use keys as a keys of this map. That values will overwrite all exists data by their keys"
+      responses:
+        "200":
+          description: "Will return 200 if everything has been completed ok"
+  /remove:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - allOf:
+            - $ref: "#/parameters/MapInBody"
+            - additionalProperties:
+                $ref: "#/definitions/Value"
+              description: "Map with data to remove. Removing will be processed by each value for its key"
+      responses:
+        "200":
+          description: "Objects with keys and values from body has been unset"
+  /clear:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/KeyInBody"
+      responses:
+        "200":
+          description: "Data with corresponding key has been removed"
+  /clearWithValues:
+    post:
+      tags:
+        - "Write"
+      parameters:
+        - $ref: "#/parameters/ValueInBody"
+      responses:
+        "200":
+          description: "Will remove value from all keys data"

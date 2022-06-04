@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -11,7 +11,7 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
-) : ReadStandardKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
+) : ReadKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
     val keyColumn: Column<Key> = keyColumnAllocator()
     val valueColumn: Column<Value> = valueColumnAllocator()
     override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)

@@ -13,9 +13,12 @@ import java.nio.file.StandardWatchEventKinds.*
 private inline val String.isAbsolute
     get() = startsWith(File.separator)
 
-class FileReadStandardKeyValueRepo(
+@Deprecated("Renamed", ReplaceWith("FileReadKeyValueRepo", "dev.inmo.micro_utils.repos.FileReadKeyValueRepo"))
+typealias FileReadStandardKeyValueRepo = FileReadKeyValueRepo
+
+class FileReadKeyValueRepo(
     private val folder: File
-) : ReadStandardKeyValueRepo<String, File> {
+) : ReadKeyValueRepo<String, File> {
     init {
         folder.mkdirs()
     }
@@ -79,14 +82,17 @@ class FileReadStandardKeyValueRepo(
     override suspend fun count(): Long = folder.list() ?.size ?.toLong() ?: 0L
 }
 
+@Deprecated("Renamed", ReplaceWith("FileWriteKeyValueRepo", "dev.inmo.micro_utils.repos.FileWriteKeyValueRepo"))
+typealias FileWriteStandardKeyValueRepo = FileWriteKeyValueRepo
+
 /**
  * Files watching will not correctly works on Android with version of API lower than API 26
  */
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
-class FileWriteStandardKeyValueRepo(
+class FileWriteKeyValueRepo(
     private val folder: File,
     filesChangedProcessingScope: CoroutineScope? = null
-) : WriteStandardKeyValueRepo<String, File> {
+) : WriteKeyValueRepo<String, File> {
     private val _onNewValue = MutableSharedFlow<Pair<String, File>>()
     override val onNewValue: Flow<Pair<String, File>> = _onNewValue.asSharedFlow()
     private val _onValueRemoved = MutableSharedFlow<String>()
@@ -174,12 +180,15 @@ class FileWriteStandardKeyValueRepo(
     }
 }
 
+@Deprecated("Renamed", ReplaceWith("FileKeyValueRepo", "dev.inmo.micro_utils.repos.FileKeyValueRepo"))
+typealias FileStandardKeyValueRepo = FileKeyValueRepo
+
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
-class FileStandardKeyValueRepo(
+class FileKeyValueRepo(
     folder: File,
     filesChangedProcessingScope: CoroutineScope? = null
-) : StandardKeyValueRepo<String, File>,
-    WriteStandardKeyValueRepo<String, File> by FileWriteStandardKeyValueRepo(folder, filesChangedProcessingScope),
-    ReadStandardKeyValueRepo<String, File> by FileReadStandardKeyValueRepo(folder) {
+) : KeyValueRepo<String, File>,
+    WriteKeyValueRepo<String, File> by FileWriteKeyValueRepo(folder, filesChangedProcessingScope),
+    ReadKeyValueRepo<String, File> by FileReadKeyValueRepo(folder) {
 }

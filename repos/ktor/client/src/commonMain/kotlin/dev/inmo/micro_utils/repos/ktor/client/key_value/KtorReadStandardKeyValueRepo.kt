@@ -3,20 +3,25 @@ package dev.inmo.micro_utils.repos.ktor.client.key_value
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValueRepo
+import dev.inmo.micro_utils.repos.ktor.common.*
+import dev.inmo.micro_utils.repos.ktor.common.containsRoute
+import dev.inmo.micro_utils.repos.ktor.common.countRoute
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
-import dev.inmo.micro_utils.repos.ktor.common.valueParameterName
+import dev.inmo.micro_utils.repos.ktor.common.key_value.keyParameterName
+import dev.inmo.micro_utils.repos.ktor.common.key_value.reversedParameterName
 import io.ktor.client.HttpClient
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.serializer
 
+@Deprecated("Replaced with KtorReadKeyValueRepoClient")
 class KtorReadStandardKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
     private val keySerializer: KSerializer<Key>,
     private val valueSerializer: KSerializer<Value>,
     private val valueNullableSerializer: KSerializer<Value?>
-) : ReadStandardKeyValueRepo<Key, Value> {
+) : ReadKeyValueRepo<Key, Value> {
     constructor(
         baseUrl: String,
         client: HttpClient,

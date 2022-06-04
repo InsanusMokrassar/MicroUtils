@@ -5,9 +5,11 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.*
 
-class MapReadOneToManyKeyValueRepo<Key, Value>(
+@Deprecated("Renamed", ReplaceWith("MapReadKeyValuesRepo", "dev.inmo.micro_utils.repos.MapReadKeyValuesRepo"))
+typealias MapReadOneToManyKeyValueRepo<Key, Value> = MapReadKeyValuesRepo<Key, Value>
+class MapReadKeyValuesRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap()
-) : ReadOneToManyKeyValueRepo<Key, Value> {
+) : ReadKeyValuesRepo<Key, Value> {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
         val list = map[k] ?: return emptyPaginationResult()
 
@@ -53,9 +55,11 @@ class MapReadOneToManyKeyValueRepo<Key, Value>(
     override suspend fun count(): Long = map.size.toLong()
 }
 
-class MapWriteOneToManyKeyValueRepo<Key, Value>(
+@Deprecated("Renamed", ReplaceWith("MapWriteKeyValuesRepo", "dev.inmo.micro_utils.repos.MapWriteKeyValuesRepo"))
+typealias MapWriteOneToManyKeyValueRepo<Key, Value> = MapWriteKeyValuesRepo<Key, Value>
+class MapWriteKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
-) : WriteOneToManyKeyValueRepo<Key, Value> {
+) : WriteKeyValuesRepo<Key, Value> {
     private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
@@ -80,6 +84,10 @@ class MapWriteOneToManyKeyValueRepo<Key, Value>(
                     _onValueRemoved.emit(k to v)
                 }
             }
+            if (map[k] ?.isEmpty() == true) {
+                map.remove(k)
+                _onDataCleared.emit(k)
+            }
         }
     }
 
@@ -94,12 +102,17 @@ class MapWriteOneToManyKeyValueRepo<Key, Value>(
     }
 }
 
-class MapOneToManyKeyValueRepo<Key, Value>(
+@Deprecated("Renamed", ReplaceWith("MapKeyValuesRepo", "dev.inmo.micro_utils.repos.MapKeyValuesRepo"))
+typealias MapOneToManyKeyValueRepo1<Key, Value> = MapKeyValuesRepo<Key, Value>
+class MapKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
-) : OneToManyKeyValueRepo<Key, Value>,
-    ReadOneToManyKeyValueRepo<Key, Value> by MapReadOneToManyKeyValueRepo(map),
-    WriteOneToManyKeyValueRepo<Key, Value> by MapWriteOneToManyKeyValueRepo(map)
+) : KeyValuesRepo<Key, Value>,
+    ReadKeyValuesRepo<Key, Value> by MapReadKeyValuesRepo(map),
+    WriteKeyValuesRepo<Key, Value> by MapWriteKeyValuesRepo(map)
 
-fun <K, V> MutableMap<K, List<V>>.asOneToManyKeyValueRepo(): OneToManyKeyValueRepo<K, V> = MapOneToManyKeyValueRepo(
+fun <K, V> MutableMap<K, List<V>>.asKeyValuesRepo(): KeyValuesRepo<K, V> = MapKeyValuesRepo(
     map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap()
 )
+
+@Deprecated("Renamed", ReplaceWith("asKeyValuesRepo", "dev.inmo.micro_utils.repos.asKeyValuesRepo"))
+fun <K, V> MutableMap<K, List<V>>.asOneToManyKeyValueRepo(): KeyValuesRepo<K, V> = asKeyValuesRepo()

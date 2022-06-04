@@ -2,19 +2,20 @@ package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
-import dev.inmo.micro_utils.repos.WriteOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.WriteKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
+@Deprecated("Should be replaced with KtorWriteKeyValuesRepoClient")
 class KtorWriteOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
     private val keySerializer: KSerializer<Key>,
     private val valueSerializer: KSerializer<Value>
-) : WriteOneToManyKeyValueRepo<Key, Value> {
+) : WriteKeyValuesRepo<Key, Value> {
     private val keyValueSerializer = PairSerializer(keySerializer, valueSerializer)
     private val keyValueMapSerializer = MapSerializer(keySerializer, ListSerializer(valueSerializer))
 

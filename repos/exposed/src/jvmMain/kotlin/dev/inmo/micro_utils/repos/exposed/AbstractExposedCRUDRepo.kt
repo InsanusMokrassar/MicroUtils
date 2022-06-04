@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.repos.exposed
 
-import dev.inmo.micro_utils.repos.StandardCRUDRepo
+import dev.inmo.micro_utils.repos.CRUDRepo
 
 abstract class AbstractExposedCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = 0,
@@ -11,4 +11,4 @@ abstract class AbstractExposedCRUDRepo<ObjectType, IdType, InputValueType>(
         tableName
     ),
     ExposedCRUDRepo<ObjectType, IdType>,
-    StandardCRUDRepo<ObjectType, IdType, InputValueType>
+    CRUDRepo<ObjectType, IdType, InputValueType>

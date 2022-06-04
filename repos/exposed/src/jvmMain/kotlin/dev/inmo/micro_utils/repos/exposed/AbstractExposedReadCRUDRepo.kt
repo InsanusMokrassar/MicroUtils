@@ -1,14 +1,14 @@
 package dev.inmo.micro_utils.repos.exposed
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
+import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedReadCRUDRepo<ObjectType, IdType>(
     tableName: String
 ) :
-    ReadStandardCRUDRepo<ObjectType, IdType>,
+    ReadCRUDRepo<ObjectType, IdType>,
     ExposedCRUDRepo<ObjectType, IdType>,
     Table(tableName)
 {

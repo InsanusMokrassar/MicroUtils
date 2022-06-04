@@ -12,7 +12,7 @@ val <T> T.asId: String
 
 abstract class AbstractAndroidCRUDRepo<ObjectType, IdType>(
     protected val helper: StandardSQLHelper
-) : ReadStandardCRUDRepo<ObjectType, IdType> {
+) : ReadCRUDRepo<ObjectType, IdType> {
     protected abstract val tableName: String
     protected abstract val idColumnName: String
     protected abstract suspend fun Cursor.toObject(): ObjectType

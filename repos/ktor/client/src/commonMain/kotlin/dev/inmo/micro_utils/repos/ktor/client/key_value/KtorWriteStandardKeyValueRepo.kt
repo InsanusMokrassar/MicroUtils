@@ -2,19 +2,20 @@ package dev.inmo.micro_utils.repos.ktor.client.key_value
 
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
-import dev.inmo.micro_utils.repos.WriteStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.WriteKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.*
 
+@Deprecated("Replaced with KtorWriteKeyValueRepoClient")
 class KtorWriteStandardKeyValueRepo<K, V> (
     private var baseUrl: String,
     private var unifiedRequester: UnifiedRequester,
     private var keySerializer: KSerializer<K>,
     private var valueSerializer: KSerializer<V>,
-) : WriteStandardKeyValueRepo<K, V> {
+) : WriteKeyValueRepo<K, V> {
     private val keyValueMapSerializer = MapSerializer(keySerializer, valueSerializer)
     private val keysListSerializer = ListSerializer(keySerializer)
     private val valuesListSerializer = ListSerializer(valueSerializer)

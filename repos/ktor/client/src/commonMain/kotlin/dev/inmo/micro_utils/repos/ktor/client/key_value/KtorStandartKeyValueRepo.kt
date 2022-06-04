@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import kotlinx.serialization.*
 
+@Deprecated("Replaced with KtorKeyValueRepoClient")
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class KtorStandartKeyValueRepo<K, V> (
     baseUrl: String,
@@ -15,15 +16,15 @@ class KtorStandartKeyValueRepo<K, V> (
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
     valueNullableSerializer: KSerializer<V?>
-) : StandardKeyValueRepo<K, V>,
-    ReadStandardKeyValueRepo<K, V> by KtorReadStandardKeyValueRepo(
+) : KeyValueRepo<K, V>,
+    ReadKeyValueRepo<K, V> by KtorReadStandardKeyValueRepo(
         "$baseUrl/$baseSubpart",
         unifiedRequester,
         keySerializer,
         valueSerializer,
         valueNullableSerializer
     ),
-    WriteStandardKeyValueRepo<K, V> by KtorWriteStandardKeyValueRepo(
+    WriteKeyValueRepo<K, V> by KtorWriteStandardKeyValueRepo(
         "$baseUrl/$baseSubpart",
         unifiedRequester,
         keySerializer,

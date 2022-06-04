@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.repos.ktor.client.one_to_many
 import dev.inmo.micro_utils.ktor.client.*
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadOneToManyKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.ktor.common.keyParameterName
 import dev.inmo.micro_utils.repos.ktor.common.one_to_many.*
 import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
@@ -12,12 +12,13 @@ import io.ktor.client.HttpClient
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
+@Deprecated("Should be replaced with KtorReadKeyValuesRepoClient")
 class KtorReadOneToManyKeyValueRepo<Key, Value> (
     private val baseUrl: String,
     private val unifiedRequester: UnifiedRequester,
     private val keySerializer: KSerializer<Key>,
     private val valueSerializer: KSerializer<Value>
-) : ReadOneToManyKeyValueRepo<Key, Value> {
+) : ReadKeyValuesRepo<Key, Value> {
     private val paginationValueResultSerializer = PaginationResult.serializer(valueSerializer)
     private val paginationKeyResultSerializer = PaginationResult.serializer(keySerializer)
 

@@ -5,7 +5,8 @@ import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.ReadStandardCRUDRepo
+import dev.inmo.micro_utils.repos.ReadCRUDRepo
+import dev.inmo.micro_utils.repos.ktor.common.countRouting
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
 import io.ktor.http.ContentType
 import io.ktor.server.application.call
@@ -14,8 +15,8 @@ import io.ktor.server.routing.get
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
-fun <ObjectType, IdType> Route.configureReadStandardCrudRepoRoutes(
-    originalRepo: ReadStandardCRUDRepo<ObjectType, IdType>,
+fun <ObjectType, IdType> Route.configureReadCRUDRepoRoutes(
+    originalRepo: ReadCRUDRepo<ObjectType, IdType>,
     objectsSerializer: KSerializer<ObjectType>,
     objectsNullableSerializer: KSerializer<ObjectType?>,
     idsSerializer: KSerializer<IdType>,
@@ -72,11 +73,11 @@ fun <ObjectType, IdType> Route.configureReadStandardCrudRepoRoutes(
     }
 }
 
-inline fun <ObjectType, IdType> Route.configureReadStandardCrudRepoRoutes(
-    originalRepo: ReadStandardCRUDRepo<ObjectType, IdType>,
+inline fun <ObjectType, IdType> Route.configureReadCRUDRepoRoutes(
+    originalRepo: ReadCRUDRepo<ObjectType, IdType>,
     objectsSerializer: KSerializer<ObjectType>,
     objectsNullableSerializer: KSerializer<ObjectType?>,
     idsSerializer: KSerializer<IdType>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
     serialFormatContentType: ContentType = standardKtorSerialFormatContentType
-) = configureReadStandardCrudRepoRoutes(originalRepo, objectsSerializer, objectsNullableSerializer, idsSerializer, UnifiedRouter(serialFormat, serialFormatContentType))
+) = configureReadCRUDRepoRoutes(originalRepo, objectsSerializer, objectsNullableSerializer, idsSerializer, UnifiedRouter(serialFormat, serialFormatContentType))

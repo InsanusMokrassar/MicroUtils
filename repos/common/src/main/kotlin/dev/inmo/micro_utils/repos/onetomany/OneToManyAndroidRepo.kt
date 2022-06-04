@@ -9,7 +9,6 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 
@@ -26,7 +25,7 @@ class OneToManyAndroidRepo<Key, Value>(
     private val keyFromString: String.() -> Key,
     private val valueFromString: String.() -> Value,
     private val helper: SQLiteOpenHelper
-) : OneToManyKeyValueRepo<Key, Value> {
+) : KeyValuesRepo<Key, Value> {
     private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
