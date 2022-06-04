@@ -2,11 +2,18 @@
 
 ## 0.11.0
 
+* `Versions`
+    * `UUID`: `0.4.0` -> `0.4.1`
 * `Ktor`
-  * 
+  * `Client`:
+    * New extension fun `HttpResponse#throwOnUnsuccess`
+    * All old functions, classes and extensions has been rewritten with new ktor-way with types info and keeping `ContentNegotiation` in mind
+  * `Server`:
+      * All old functions, classes and extensions has been rewritten with new ktor-way with types info and keeping `ContentNegotiation` in mind
 * `Repos`
   * `Ktor`:
     * Fully rewritten work with all declared repositories
+    * All old functions, classes and extensions has been rewritten with new ktor-way with types info and keeping `ContentNegotiation` in mind
 
 ## 0.10.8
 

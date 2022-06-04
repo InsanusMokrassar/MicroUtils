@@ -9,7 +9,7 @@ jb-exposed = "0.38.2"
 jb-dokka = "1.6.21"
 
 klock = "2.7.0"
-uuid = "0.4.0"
+uuid = "0.4.1"
 
 ktor = "2.0.2"
 
