@@ -5,7 +5,7 @@ import dev.inmo.micro_utils.ktor.common.standardKtorSerialFormat
 import dev.inmo.micro_utils.ktor.server.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.extractPagination
-import dev.inmo.micro_utils.repos.ReadStandardKeyValueRepo
+import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ktor.common.*
 import dev.inmo.micro_utils.repos.ktor.common.containsRoute
 import dev.inmo.micro_utils.repos.ktor.common.countRoute
@@ -20,7 +20,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.serializer
 
 fun <K, V> Route.configureReadStandartKeyValueRepoRoutes (
-    originalRepo: ReadStandardKeyValueRepo<K, V>,
+    originalRepo: ReadKeyValueRepo<K, V>,
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
     valueNullableSerializer: KSerializer<V?>,
@@ -96,7 +96,7 @@ fun <K, V> Route.configureReadStandartKeyValueRepoRoutes (
 }
 
 inline fun <K, V> Route.configureReadStandartKeyValueRepoRoutes (
-    originalRepo: ReadStandardKeyValueRepo<K, V>,
+    originalRepo: ReadKeyValueRepo<K, V>,
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
     valueNullableSerializer: KSerializer<V?>,

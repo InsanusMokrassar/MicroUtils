@@ -7,7 +7,7 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
-import dev.inmo.micro_utils.repos.StandardKeyValueRepo
+import dev.inmo.micro_utils.repos.KeyValueRepo
 import kotlinx.coroutines.flow.*
 
 private val cache = HashMap<String, KeyValueStore<*>>()
@@ -15,7 +15,7 @@ private val cache = HashMap<String, KeyValueStore<*>>()
 fun <T : Any> Context.keyValueStore(
     name: String = "default",
     cacheValues: Boolean = false
-): StandardKeyValueRepo<String, T> {
+): KeyValueRepo<String, T> {
     @Suppress("UNCHECKED_CAST")
     return cache.getOrPut(name) {
         KeyValueStore<T>(this, name, cacheValues)
@@ -26,7 +26,7 @@ class KeyValueStore<T : Any> internal constructor (
     c: Context,
     preferencesName: String,
     useCache: Boolean = false
-) : SharedPreferences.OnSharedPreferenceChangeListener, StandardKeyValueRepo<String, T> {
+) : SharedPreferences.OnSharedPreferenceChangeListener, KeyValueRepo<String, T> {
     private val sharedPreferences = c.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
 
     private val cachedData = if (useCache) {

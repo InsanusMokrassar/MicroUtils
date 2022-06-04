@@ -7,10 +7,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.encodeURLQueryComponent
 import kotlinx.serialization.*
 
-class KtorStandardKeyValueRepoClient<Key, Value> (
-    readDelegate: ReadStandardKeyValueRepo<Key, Value>,
-    writeDelegate: WriteStandardKeyValueRepo<Key, Value>
-) : StandardKeyValueRepo<Key, Value> by DelegateBasedStandardKeyValueRepo(
+class KtorKeyValueRepoClient<Key, Value> (
+    readDelegate: ReadKeyValueRepo<Key, Value>,
+    writeDelegate: WriteKeyValueRepo<Key, Value>
+) : KeyValueRepo<Key, Value> by DelegateBasedKeyValueRepo(
     readDelegate,
     writeDelegate
 ) {
@@ -21,11 +21,11 @@ class KtorStandardKeyValueRepoClient<Key, Value> (
             contentType: ContentType,
             noinline idSerializer: suspend (Key) -> String,
             noinline valueSerializer: suspend (Value) -> String
-        ) = KtorStandardKeyValueRepoClient(
-            KtorReadStandardKeyValueRepoClient(
+        ) = KtorKeyValueRepoClient(
+            KtorReadKeyValueRepoClient(
                 baseUrl, httpClient, contentType, idSerializer, valueSerializer
             ),
-            KtorWriteStandardKeyValueRepoClient(
+            KtorWriteKeyValueRepoClient(
                 baseUrl,
                 httpClient,
                 contentType
@@ -38,7 +38,7 @@ class KtorStandardKeyValueRepoClient<Key, Value> (
             contentType: ContentType,
             noinline idSerializer: suspend (Key) -> String,
             noinline valueSerializer: suspend (Value) -> String
-        ) = KtorStandardKeyValueRepoClient(
+        ) = KtorKeyValueRepoClient(
             buildStandardUrl(baseUrl, subpart),
             httpClient,
             contentType,
@@ -48,14 +48,14 @@ class KtorStandardKeyValueRepoClient<Key, Value> (
     }
 }
 
-inline fun <reified Key, reified Value> KtorStandardKeyValueRepoClient(
+inline fun <reified Key, reified Value> KtorKeyValueRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     contentType: ContentType,
     idSerializer: SerializationStrategy<Key>,
     valueSerializer: SerializationStrategy<Value>,
     serialFormat: StringFormat,
-) = KtorStandardKeyValueRepoClient<Key, Value>(
+) = KtorKeyValueRepoClient<Key, Value>(
     baseUrl,
     httpClient,
     contentType,
@@ -66,14 +66,14 @@ inline fun <reified Key, reified Value> KtorStandardKeyValueRepoClient(
     serialFormat.encodeToString(valueSerializer, it).encodeURLQueryComponent()
 }
 
-inline fun <reified Key, reified Value> KtorStandardKeyValueRepoClient(
+inline fun <reified Key, reified Value> KtorKeyValueRepoClient(
     baseUrl: String,
     httpClient: HttpClient,
     contentType: ContentType,
     idSerializer: SerializationStrategy<Key>,
     valueSerializer: SerializationStrategy<Value>,
     serialFormat: BinaryFormat,
-) = KtorStandardKeyValueRepoClient<Key, Value>(
+) = KtorKeyValueRepoClient<Key, Value>(
     baseUrl,
     httpClient,
     contentType,

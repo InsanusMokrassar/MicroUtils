@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 class ReadMapKeyValueRepo<Key, Value>(
     protected val map: Map<Key, Value> = emptyMap()
-) : ReadStandardKeyValueRepo<Key, Value> {
+) : ReadKeyValueRepo<Key, Value> {
     override suspend fun get(k: Key): Value? = map[k]
 
     override suspend fun values(
@@ -58,7 +58,7 @@ class ReadMapKeyValueRepo<Key, Value>(
 
 class WriteMapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value> = mutableMapOf()
-) : WriteStandardKeyValueRepo<Key, Value> {
+) : WriteKeyValueRepo<Key, Value> {
     private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
@@ -89,8 +89,8 @@ class WriteMapKeyValueRepo<Key, Value>(
 
 class MapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value> = mutableMapOf()
-) : StandardKeyValueRepo<Key, Value>,
-    ReadStandardKeyValueRepo<Key, Value> by ReadMapKeyValueRepo(map),
-    WriteStandardKeyValueRepo<Key, Value> by WriteMapKeyValueRepo(map)
+) : KeyValueRepo<Key, Value>,
+    ReadKeyValueRepo<Key, Value> by ReadMapKeyValueRepo(map),
+    WriteKeyValueRepo<Key, Value> by WriteMapKeyValueRepo(map)
 
-fun <K, V> MutableMap<K, V>.asKeyValueRepo(): StandardKeyValueRepo<K, V> = MapKeyValueRepo(this)
+fun <K, V> MutableMap<K, V>.asKeyValueRepo(): KeyValueRepo<K, V> = MapKeyValueRepo(this)

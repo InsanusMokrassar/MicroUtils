@@ -4,7 +4,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.doAllWithCurrentPaging
 import kotlinx.coroutines.flow.Flow
 
-interface ReadStandardKeyValueRepo<Key, Value> : Repo {
+interface ReadKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
     suspend fun values(pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
@@ -12,9 +12,9 @@ interface ReadStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun contains(key: Key): Boolean
     suspend fun count(): Long
 }
-typealias ReadKeyValueRepo<Key,Value> = ReadStandardKeyValueRepo<Key, Value>
+typealias ReadStandardKeyValueRepo<Key,Value> = ReadKeyValueRepo<Key, Value>
 
-interface WriteStandardKeyValueRepo<Key, Value> : Repo {
+interface WriteKeyValueRepo<Key, Value> : Repo {
     val onNewValue: Flow<Pair<Key, Value>>
     val onValueRemoved: Flow<Key>
 
@@ -22,25 +22,25 @@ interface WriteStandardKeyValueRepo<Key, Value> : Repo {
     suspend fun unset(toUnset: List<Key>)
     suspend fun unsetWithValues(toUnset: List<Value>)
 }
-typealias WriteKeyValueRepo<Key,Value> = WriteStandardKeyValueRepo<Key, Value>
+typealias WriteStandardKeyValueRepo<Key,Value> = WriteKeyValueRepo<Key, Value>
 
-suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.set(
+suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     vararg toSet: Pair<Key, Value>
 ) = set(toSet.toMap())
 
-suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.set(
+suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     k: Key, v: Value
 ) = set(k to v)
 
-suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unset(
+suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.unset(
     vararg k: Key
 ) = unset(k.toList())
 
-suspend inline fun <Key, Value> WriteStandardKeyValueRepo<Key, Value>.unsetWithValues(
+suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.unsetWithValues(
     vararg v: Value
 ) = unsetWithValues(v.toList())
 
-interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value>, WriteStandardKeyValueRepo<Key, Value> {
+interface KeyValueRepo<Key, Value> : ReadKeyValueRepo<Key, Value>, WriteKeyValueRepo<Key, Value> {
     override suspend fun unsetWithValues(toUnset: List<Value>) = toUnset.forEach { v ->
         doAllWithCurrentPaging {
             keys(v, it).also {
@@ -49,11 +49,11 @@ interface StandardKeyValueRepo<Key, Value> : ReadStandardKeyValueRepo<Key, Value
         }
     }
 }
-typealias KeyValueRepo<Key,Value> = StandardKeyValueRepo<Key, Value>
+typealias StandardKeyValueRepo<Key,Value> = KeyValueRepo<Key, Value>
 
-class DelegateBasedStandardKeyValueRepo<Key, Value>(
-    readDelegate: ReadStandardKeyValueRepo<Key, Value>,
-    writeDelegate: WriteStandardKeyValueRepo<Key, Value>
-) : StandardKeyValueRepo<Key, Value>,
-    ReadStandardKeyValueRepo<Key, Value> by readDelegate,
-    WriteStandardKeyValueRepo<Key, Value> by writeDelegate
+class DelegateBasedKeyValueRepo<Key, Value>(
+    readDelegate: ReadKeyValueRepo<Key, Value>,
+    writeDelegate: WriteKeyValueRepo<Key, Value>
+) : KeyValueRepo<Key, Value>,
+    ReadKeyValueRepo<Key, Value> by readDelegate,
+    WriteKeyValueRepo<Key, Value> by writeDelegate
