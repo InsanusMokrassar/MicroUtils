@@ -1,7 +1,7 @@
-swagger: "2.0"
+openapi: "3.0.0"
 info:
   description: "This is a template for the KeyValue repositories from [microutils](https://github.com/InsanusMokrassar/MicroUtils/tree/master/repos/ktor/server/src/jvmMain/kotlin/dev/inmo/micro_utils/repos/ktor/server/key/value)"
-  version: "0.11.0"
+  version: "0.11.1"
   title: "KeyValue Repo"
   contact:
     email: "ovsyannikov.alexey95@gmail.com"
@@ -11,81 +11,63 @@ tags:
   - name: "Write"
     description: "Operations with `post` request in most cases"
 
-parameters:
-  KeyInQuery:
-    in: "query"
-    name: "key"
-    allOf:
-      - $ref: "#/definitions/Key"
-  KeysInBody:
-    in: "body"
-    name: "body"
-    type: array
-    items:
-      $ref: "#/definitions/Key"
-  ValuesInBody:
-    in: "body"
-    name: "body"
-    type: array
-    items:
-      $ref: "#/definitions/Value"
-  PaginationInQueryPage:
-    in: "query"
-    type: integer
-    name: "ppage"
-    description: "Page of pagination"
-    required: false
-  PaginationInQuerySize:
-    in: "query"
-    type: integer
-    name: "psize"
-    description: "Size of each page in pagination"
-    required: false
-  ReversedInQuery:
-    in: "query"
-    type: boolean
-    name: "reversed"
-    description: "If passed, will tell to reverse the result pages"
-    required: false
-  ValueInQuery:
-    in: "query"
-    name: "value"
-    allOf:
-      - $ref: "#/definitions/Value"
-  MapInBody:
-    in: "body"
-    name: "body"
-    allOf:
-      - $ref: "#/definitions/Map"
-
-
-definitions:
-  Key:
-    type: integer
-    description: "REWRITE THIS TYPE AS KEY IN SWAGGER FILE"
-  Value:
-    type: integer
-    description: "REWRITE THIS TYPE AS VALUE IN SWAGGER FILE"
-  Map:
-    type: object
-    description: "Map of objects"
-  PaginationResult:
-    type: object
-    properties:
-      page:
+components:
+  parameters:
+    KeyInQuery:
+      in: "query"
+      name: "key"
+      schema:
+        $ref: "#/components/schemas/Key"
+    PaginationInQueryPage:
+      in: "query"
+      name: "ppage"
+      description: "Page of pagination"
+      schema:
         type: integer
-        description: "Page of pagination"
-      pagesNumber:
+      required: false
+    PaginationInQuerySize:
+      in: "query"
+      name: "psize"
+      description: "Size of each page in pagination"
+      schema:
         type: integer
-        description: "Count of pages with the size from this pagination"
-      size:
-        type: integer
-        description: "Size of each page in pagination"
-      results:
-        type: array
-        description: "Array of all elements on that page. Size of pagination and size of array can be different and it can be interpreted like current page is the last one"
-        items:
-          type: object
+      required: false
+    ReversedInQuery:
+      in: "query"
+      name: "reversed"
+      description: "If passed, will tell to reverse the result pages"
+      schema:
+        type: boolean
+      required: false
+    ValueInQuery:
+      in: "query"
+      name: "value"
+      schema:
+        $ref: "#/components/schemas/Value"
+  schemas:
+    Key:
+      type: integer
+      description: "REWRITE THIS TYPE AS KEY IN SWAGGER FILE"
+    Value:
+      type: integer
+      description: "REWRITE THIS TYPE AS VALUE IN SWAGGER FILE"
+    PaginationResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: "Page of pagination"
+        pagesNumber:
+          type: integer
+          description: "Count of pages with the size from this pagination"
+        size:
+          type: integer
+          description: "Size of each page in pagination"
+        results:
+          type: array
+          description: "Array of all elements on that page. Size of pagination and size of array can be different and it can be interpreted like current page is the last one"
+          items:
+            type: object
 
 paths:
   /get:
@@ -93,13 +75,16 @@ paths:
       tags:
         - "Read"
       parameters:
-        - $ref: "#/parameters/KeyInQuery"
-          required: true
+        - allOf:
+            - $ref: "#/components/parameters/KeyInQuery"
+            - required: true
       responses:
         "200":
           description: "Element by key"
-          schema:
-            $ref: "#/definitions/Value"
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Value"
         "204":
           description: "No value by id"
   /values:
@@ -107,51 +92,57 @@ paths:
       tags:
         - "Read"
       parameters:
-        - $ref: "#/parameters/PaginationInQueryPage"
-        - $ref: "#/parameters/PaginationInQuerySize"
-        - $ref: "#/parameters/ReversedInQuery"
+        - $ref: "#/components/parameters/PaginationInQueryPage"
+        - $ref: "#/components/parameters/PaginationInQuerySize"
+        - $ref: "#/components/parameters/ReversedInQuery"
       responses:
         "200":
           description: "Pagination with elements"
-          schema:
-            allOf:
-              - $ref: "#/definitions/PaginationResult"
-              - properties:
-                  results:
-                    items:
-                      $ref: "#/definitions/Value"
+          content:
+            "*/*":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginationResult"
+                  - properties:
+                      results:
+                        items:
+                          $ref: "#/components/schemas/Value"
   /keys:
     get:
       tags:
         - "Read"
       parameters:
-        - $ref: "#/parameters/PaginationInQueryPage"
-        - $ref: "#/parameters/PaginationInQuerySize"
-        - $ref: "#/parameters/ReversedInQuery"
-        - $ref: "#/parameters/ValueInQuery"
+        - $ref: "#/components/parameters/PaginationInQueryPage"
+        - $ref: "#/components/parameters/PaginationInQuerySize"
+        - $ref: "#/components/parameters/ReversedInQuery"
+        - $ref: "#/components/parameters/ValueInQuery"
           required: false
       responses:
         "200":
           description: "Pagination with elements"
-          schema:
-            allOf:
-              - $ref: "#/definitions/PaginationResult"
-              - properties:
-                  results:
-                    items:
-                      $ref: "#/definitions/Key"
+          content:
+            "*/*":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginationResult"
+                  - properties:
+                      results:
+                        items:
+                          $ref: "#/components/schemas/Key"
   /contains:
     get:
       tags:
         - "Read"
       parameters:
-        - $ref: "#/parameters/KeyInQuery"
+        - $ref: "#/components/parameters/KeyInQuery"
           required: true
       responses:
         "200":
           description: "Object with id availability in repo"
-          schema:
-            type: boolean
+          content:
+            "*/*":
+              schema:
+                type: boolean
   /count:
     get:
       tags:
@@ -159,19 +150,23 @@ paths:
       responses:
         "200":
           description: "Amount of objects in repo"
-          schema:
-            type: integer
+          content:
+            "*/*":
+              schema:
+                type: integer
 
 
   /set:
     post:
       tags:
         - "Write"
-      parameters:
-        - allOf:
-            - $ref: "#/parameters/MapInBody"
-            - additionalProperties:
-                $ref: "#/definitions/Value"
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: object
+              additionalProperties:
+                $ref: "#/components/schemas/Value"
               description: "Map with new elements to set. Use keys as a keys of this map"
       responses:
         "200":
@@ -180,8 +175,13 @@ paths:
     post:
       tags:
         - "Write"
-      parameters:
-        - $ref: "#/parameters/KeysInBody"
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Key"
       responses:
         "200":
           description: "Objects with keys from body has been unset"
@@ -189,8 +189,13 @@ paths:
     post:
       tags:
         - "Write"
-      parameters:
-        - $ref: "#/parameters/ValuesInBody"
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Value"
       responses:
         "200":
           description: "Objects with values from body has been unset"

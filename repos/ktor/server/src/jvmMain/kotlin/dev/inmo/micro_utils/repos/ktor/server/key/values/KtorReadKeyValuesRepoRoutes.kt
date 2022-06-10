@@ -42,7 +42,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValuesRepoRoutes (
 
     get(keysRoute) {
         val pagination = call.request.queryParameters.extractPagination
-        val reversed = call.getQueryParameterOrSendError(reversedParameterName) ?.toBoolean() ?: false
+        val reversed = call.getQueryParameter(reversedParameterName) ?.toBoolean() ?: false
         val value = call.getQueryParameter(valueParameterName) ?.let {
             valueDeserializer(it)
         }
