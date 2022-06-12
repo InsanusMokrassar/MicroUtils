@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.1
+
+* `Repos`
+  * `Ktor`
+    * In `configureReadKeyValueRepoRoutes` and `configureReadKeyValuesRepoRoutes` configurators fixed requiring of `reversed` property
+
 ## 0.11.0
 
 * `Versions`

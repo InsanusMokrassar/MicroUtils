@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.ktor.client.crud
 
 import dev.inmo.micro_utils.ktor.common.*
+import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import io.ktor.client.HttpClient
 import io.ktor.http.ContentType
@@ -19,14 +20,14 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
         inline operator fun <reified ObjectType, reified IdType, reified InputValue> invoke(
             baseUrl: String,
             httpClient: HttpClient,
-            objectTypeInfo: TypeInfo,
             contentType: ContentType,
             noinline idSerializer: suspend (IdType) -> String
         ) = KtorCRUDRepoClient(
             KtorReadCRUDRepoClient(
                 baseUrl,
                 httpClient,
-                objectTypeInfo,
+                typeInfo<ObjectType>(),
+                typeInfo<PaginationResult<ObjectType>>(),
                 contentType,
                 idSerializer
             ),
@@ -41,32 +42,16 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
             baseUrl: String,
             subpart: String,
             httpClient: HttpClient,
-            objectTypeInfo: TypeInfo,
             contentType: ContentType,
             noinline idSerializer: suspend (IdType) -> String
         ) = KtorCRUDRepoClient<ObjectType, IdType, InputValue>(
             buildStandardUrl(baseUrl, subpart),
             httpClient,
-            objectTypeInfo,
             contentType,
             idSerializer
         )
     }
 }
-
-
-inline fun <reified ObjectType, reified IdType, reified InputValue> KtorCRUDRepoClient(
-    baseUrl: String,
-    httpClient: HttpClient,
-    contentType: ContentType,
-    noinline idSerializer: suspend (IdType) -> String
-) = KtorCRUDRepoClient<ObjectType, IdType, InputValue>(
-    baseUrl,
-    httpClient,
-    typeInfo<ObjectType>(),
-    contentType,
-    idSerializer
-)
 
 inline fun <reified ObjectType, reified IdType, reified InputValue> KtorCRUDRepoClient(
     baseUrl: String,
