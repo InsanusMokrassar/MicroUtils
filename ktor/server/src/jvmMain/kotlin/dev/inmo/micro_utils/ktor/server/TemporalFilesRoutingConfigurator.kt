@@ -13,6 +13,7 @@ import io.ktor.http.content.streamProvider
 import io.ktor.server.application.call
 import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import kotlinx.coroutines.*
@@ -111,7 +112,7 @@ class TemporalFilesRoutingConfigurator(
                     temporalFilesMutex.withLock {
                         temporalFilesMap[fileId] = file
                     }
-                    call.respond(fileId.string)
+                    call.respondText(fileId.string)
                     launchSafelyWithoutExceptions { filesFlow.emit(fileId) }
                 } ?: call.respond(HttpStatusCode.BadRequest)
             }
