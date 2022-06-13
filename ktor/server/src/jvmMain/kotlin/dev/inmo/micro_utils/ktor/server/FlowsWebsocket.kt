@@ -12,6 +12,7 @@ import io.ktor.websocket.send
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.SerializationStrategy
 
+@Deprecated("This method will be removed soon")
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
