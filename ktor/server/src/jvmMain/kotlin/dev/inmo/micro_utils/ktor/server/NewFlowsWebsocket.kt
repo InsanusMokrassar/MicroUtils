@@ -15,7 +15,8 @@ import kotlinx.serialization.SerializationStrategy
 inline fun <reified T : Any> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,
-    protocol: URLProtocol? = null
+    protocol: URLProtocol? = null,
+    noinline dataMapper: suspend WebSocketServerSession.(T) -> T? = { it }
 ) {
     application.apply {
         pluginOrNull(WebSockets) ?: install(WebSockets)
@@ -23,7 +24,7 @@ inline fun <reified T : Any> Route.includeWebsocketHandling(
     webSocket(suburl, protocol ?.name) {
         safely {
             flow.collect {
-                sendSerialized(it)
+                sendSerialized(dataMapper(it) ?: return@collect)
             }
         }
     }

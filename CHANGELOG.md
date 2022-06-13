@@ -2,6 +2,9 @@
 
 ## 0.11.2
 
+* `Ktor`:
+  * Support of `WebSockets` has been improved and added fixes inside of clients
+
 ## 0.11.1
 
 * `Repos`

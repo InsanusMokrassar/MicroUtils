@@ -19,7 +19,7 @@ import kotlinx.serialization.DeserializationStrategy
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
-inline fun <reified T> HttpClient.createStandardWebsocketFlow(
+inline fun <reified T : Any> HttpClient.createStandardWebsocketFlow(
     url: String,
     noinline checkReconnection: suspend (Throwable?) -> Boolean = { true },
     noinline requestBuilder: HttpRequestBuilder.() -> Unit = {}
@@ -32,8 +32,8 @@ inline fun <reified T> HttpClient.createStandardWebsocketFlow(
         do {
             val reconnect = runCatchingSafely {
                 ws(correctedUrl, requestBuilder) {
-                    for (received in incoming) {
-                        sendSerialized(received.data)
+                    while (isActive) {
+                        send(receiveDeserialized<T>())
                     }
                 }
                 checkReconnection(null)
