@@ -2,6 +2,11 @@
 
 ## 0.11.3
 
+* `Ktor`:
+    * Support of `WebSockets` has been improved
+      * `Client`:
+        * New extensions: `HttpClient#openBaseWebSocketFlow`, `HttpClient#openWebSocketFlow`, `HttpClient#openSecureWebSocketFlow`
+
 ## 0.11.2
 
 * `Ktor`:
