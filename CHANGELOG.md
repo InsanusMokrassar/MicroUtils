@@ -2,7 +2,9 @@
 
 ## 0.11.4
 
-* Add extension `StateFlow#toMutableListState`
+* `Coroutines`:
+  * `Compose`:
+    * Add extension `StateFlow#toMutableListState`
 
 ## 0.11.3
 
