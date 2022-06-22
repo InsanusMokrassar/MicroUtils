@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.4
+
+* `Coroutines`:
+  * `Compose`:
+    * Add extension `StateFlow#asMutableComposeListState` and `StateFlow#asComposeList`
+    * Add extension `StateFlow#asMutableComposeState`/`StateFlow#asComposeState`
+
 ## 0.11.3
 
 * `Ktor`:
