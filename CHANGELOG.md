@@ -4,7 +4,8 @@
 
 * `Coroutines`:
   * `Compose`:
-    * Add extension `StateFlow#toMutableListState`
+    * Add extension `StateFlow#asMutableComposeListState` and `StateFlow#asComposeList`
+    * Add extension `StateFlow#asMutableComposeState`/`StateFlow#asComposeState`
 
 ## 0.11.3
 
