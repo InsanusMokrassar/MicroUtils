@@ -2,6 +2,8 @@
 
 ## 0.11.4
 
+* Add extension `StateFlow#toMutableListState`
+
 ## 0.11.3
 
 * `Ktor`:
