@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.coroutines.*
 import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
 import dev.inmo.micro_utils.fsm.common.utils.defaultStateHandlingErrorHandler
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -85,10 +86,10 @@ open class DefaultStatesMachine <T: State>(
 
     protected open suspend fun performUpdate(state: T) {
         val newState = launchStateHandling(state, handlers)
-        if (newState != null) {
-            statesManager.update(state, newState)
-        } else {
+        if (newState == null) {
             statesManager.endChain(state)
+        } else {
+            statesManager.update(state, newState)
         }
     }
 
@@ -118,7 +119,7 @@ open class DefaultStatesMachine <T: State>(
      * [StatesManager.endChain].
      */
     override fun start(scope: CoroutineScope): Job = scope.launchSafelyWithoutExceptions {
-        statesManager.onStartChain.subscribeSafelyWithoutExceptions(this) {
+        (statesManager.getActiveStates().asFlow() + statesManager.onStartChain).subscribeSafelyWithoutExceptions(this) {
             launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
         }
         statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(this) {
@@ -133,10 +134,6 @@ open class DefaultStatesMachine <T: State>(
                     }
                 }
             }
-        }
-
-        statesManager.getActiveStates().forEach {
-            launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
         }
     }
 

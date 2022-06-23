@@ -52,6 +52,7 @@ open class DefaultUpdatableStatesMachine<T : State>(
                             statesJobs.remove(
                                 jobsStates[job] ?: return@withLock
                             )
+                            jobsStates.remove(job)
                         }
                     }
                 }

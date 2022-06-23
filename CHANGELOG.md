@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.6
+
+* `FSM`:
+  * `Common`
+    * Several fixes related to the jobs handling
+
 ## 0.11.5
 
 * `Coroutines`:
