@@ -7,6 +7,10 @@
     * Add extension `StateFlow#asMutableComposeListState` and `StateFlow#asComposeList`
     * Add extension `StateFlow#asMutableComposeState`/`StateFlow#asComposeState`
 
+## 0.11.4
+
+**THIS VERSION HAS BEEN BROKEN, DO NOT USE IT**
+
 ## 0.11.3
 
 * `Ktor`:
