@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.11.4
+## 0.11.5
 
 * `Coroutines`:
   * `Compose`:
