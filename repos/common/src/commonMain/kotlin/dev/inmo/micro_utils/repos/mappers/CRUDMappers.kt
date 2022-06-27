@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.repos.mappers
 
-import dev.inmo.micro_utils.common.SimpleSuspendableMapper
-import dev.inmo.micro_utils.common.simpleSuspendableMapper
+import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
@@ -62,18 +61,18 @@ open class MapperWriteCRUDRepo<FromId, FromRegistered, FromInput, ToId, ToRegist
         values: List<UpdatedValuePair<FromId, FromInput>>
     ): List<FromRegistered> = to.update(
         values.map {
-            it.first.toOutKey() to it.second.convert()
+            it.first.toOutKey() to convert(it.second)
         }
     ).map { it.toInnerValue() }
 
     override suspend fun update(
         id: FromId,
         value: FromInput
-    ): FromRegistered? = to.update(id.toOutKey(), value.convert()) ?.toInnerValue()
+    ): FromRegistered? = to.update(id.toOutKey(), convert(value)) ?.toInnerValue()
 
     override suspend fun create(values: List<FromInput>): List<FromRegistered> = to.create(
         values.map {
-            it.convert()
+            convert(it)
         }
     ).map {
         it.toInnerValue()
