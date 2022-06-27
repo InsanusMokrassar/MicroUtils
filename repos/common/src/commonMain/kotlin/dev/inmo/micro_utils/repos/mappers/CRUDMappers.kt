@@ -36,10 +36,10 @@ inline fun <FromKey, FromValue, ToKey, ToValue> ReadCRUDRepo<ToValue, ToKey>.wit
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadCRUDRepo<ToValue, ToKey>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
 ): ReadCRUDRepo<FromValue, FromKey> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
@@ -88,12 +88,12 @@ inline fun <FromKey, FromValue, FromInput, ToKey, ToValue, ToInput> WriteCRUDRep
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified FromInput, reified ToKey, reified ToValue, reified ToInput> WriteCRUDRepo<ToValue, ToKey, ToInput>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline inputFromToTo: suspend FromInput.() -> ToInput = { this as ToInput },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-    crossinline inputToToFrom: suspend ToInput.() -> FromInput = { this as FromInput },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline inputFromToTo: suspend FromInput.() -> ToInput = { this as ToInput },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline inputToToFrom: suspend ToInput.() -> FromInput = { this as FromInput },
 ): WriteCRUDRepo<FromValue, FromKey, FromInput> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom),
     simpleSuspendableMapper({ inputToToFrom(it) }, { inputFromToTo(it) })
@@ -118,12 +118,12 @@ inline fun <FromKey, FromValue, FromInput, ToKey, ToValue, ToInput> CRUDRepo<ToV
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified FromInput, reified ToKey, reified ToValue, reified ToInput> CRUDRepo<ToValue, ToKey, ToInput>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline inputFromToTo: suspend FromInput.() -> ToInput = { this as ToInput },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-    crossinline inputToToFrom: suspend ToInput.() -> FromInput = { this as FromInput },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline inputFromToTo: suspend FromInput.() -> ToInput = { this as ToInput },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline inputToToFrom: suspend ToInput.() -> FromInput = { this as FromInput },
 ): CRUDRepo<FromValue, FromKey, FromInput> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom),
     simpleSuspendableMapper({ inputToToFrom(it) }, { inputFromToTo(it) })
