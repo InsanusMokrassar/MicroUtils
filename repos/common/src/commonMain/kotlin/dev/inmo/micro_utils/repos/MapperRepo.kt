@@ -20,16 +20,32 @@ interface MapperRepo<FromKey, FromValue, ToKey, ToValue> {
 
     suspend fun ToKey.toInnerKey() = this as FromKey
     suspend fun ToValue.toInnerValue() = this as FromValue
+
+    companion object
 }
 
-inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> mapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
-) = object : MapperRepo<FromKey, FromValue, ToKey, ToValue> {
+class SimpleMapperRepo<FromKey, FromValue, ToKey, ToValue>(
+    private val keyFromToTo: suspend FromKey.() -> ToKey,
+    private val valueFromToTo: suspend FromValue.() -> ToValue,
+    private val keyToToFrom: suspend ToKey.() -> FromKey,
+    private val valueToToFrom: suspend ToValue.() -> FromValue
+) : MapperRepo<FromKey, FromValue, ToKey, ToValue> {
     override suspend fun FromKey.toOutKey(): ToKey = keyFromToTo()
     override suspend fun FromValue.toOutValue(): ToValue = valueFromToTo()
     override suspend fun ToKey.toInnerKey(): FromKey = keyToToFrom()
     override suspend fun ToValue.toInnerValue(): FromValue = valueToToFrom()
 }
+
+operator fun <FromKey, FromValue, ToKey, ToValue> MapperRepo.Companion.invoke(
+    keyFromToTo: suspend FromKey.() -> ToKey,
+    valueFromToTo: suspend FromValue.() -> ToValue,
+    keyToToFrom: suspend ToKey.() -> FromKey,
+    valueToToFrom: suspend ToValue.() -> FromValue
+) = SimpleMapperRepo(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
+
+inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> mapper(
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+) = MapperRepo(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
