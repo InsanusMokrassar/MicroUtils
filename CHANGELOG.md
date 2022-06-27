@@ -2,6 +2,10 @@
 
 ## 0.11.7
 
+* `Repos`:
+  * `Common`:
+    * Add mappers for `ReadCRUDRepo`
+
 ## 0.11.6
 
 * `FSM`:
