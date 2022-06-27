@@ -77,10 +77,10 @@ inline fun <FromKey, FromValue, ToKey, ToValue> ReadKeyValueRepo<ToKey, ToValue>
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadKeyValueRepo<ToKey, ToValue>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
 ): ReadKeyValueRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
@@ -122,10 +122,10 @@ inline fun <FromKey, FromValue, ToKey, ToValue> WriteKeyValueRepo<ToKey, ToValue
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> WriteKeyValueRepo<ToKey, ToValue>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
 ): WriteKeyValueRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
@@ -148,10 +148,10 @@ inline fun <FromKey, FromValue, ToKey, ToValue> KeyValueRepo<ToKey, ToValue>.wit
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> KeyValueRepo<ToKey, ToValue>.withMapper(
-    crossinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
-    crossinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
-    crossinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
-    crossinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
+    noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
+    noinline valueFromToTo: suspend FromValue.() -> ToValue = { this as ToValue },
+    noinline keyToToFrom: suspend ToKey.() -> FromKey = { this as FromKey },
+    noinline valueToToFrom: suspend ToValue.() -> FromValue = { this as FromValue },
 ): KeyValueRepo<FromKey, FromValue> = withMapper(
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
