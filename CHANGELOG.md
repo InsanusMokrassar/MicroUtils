@@ -2,9 +2,11 @@
 
 ## 0.11.7
 
+* `Common`:
+  * New abstractions `SimpleMapper` and `SimpleSuspendableMapper`
 * `Repos`:
   * `Common`:
-    * Add mappers for `ReadCRUDRepo`
+    * Add mappers for `CRUDRepo`
 
 ## 0.11.6
 

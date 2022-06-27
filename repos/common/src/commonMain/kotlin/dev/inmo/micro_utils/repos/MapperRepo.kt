@@ -1,7 +1,20 @@
 package dev.inmo.micro_utils.repos
 
+import dev.inmo.micro_utils.common.*
+
 @Suppress("UNCHECKED_CAST")
 interface MapperRepo<FromKey, FromValue, ToKey, ToValue> {
+    val keyMapper: SimpleSuspendableMapper<FromKey, ToKey>
+        get() = simpleSuspendableMapper(
+            { it.toInnerKey() },
+            { it.toOutKey() }
+        )
+    val valueMapper: SimpleSuspendableMapper<FromValue, ToValue>
+        get() = simpleSuspendableMapper(
+            { it.toInnerValue() },
+            { it.toOutValue() }
+        )
+
     suspend fun FromKey.toOutKey() = this as ToKey
     suspend fun FromValue.toOutValue() = this as ToValue
 
