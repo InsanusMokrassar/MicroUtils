@@ -2,6 +2,11 @@
 
 ## 0.11.9
 
+* `Versions`
+    * `Coroutines`: `1.6.1` -> `1.6.3`
+    * `Ktor`: `2.0.2` -> `2.0.3`
+    * `Compose`: `1.2.0-alpha01-dev686` -> `1.2.0-alpha01-dev729`
+
 ## 0.11.8
 
 * `Repos`:
