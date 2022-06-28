@@ -99,7 +99,9 @@ class FileWriteKeyValueRepo(
     override val onValueRemoved: Flow<String> = _onValueRemoved.asSharedFlow()
 
     init {
-        folder.mkdirs()
+        if (!folder.mkdirs() && !folder.exists()) {
+            error("Unable to create folder ${folder.absolutePath}")
+        }
         filesChangedProcessingScope ?.let {
             it.launch {
                 try {
@@ -144,15 +146,17 @@ class FileWriteKeyValueRepo(
     }
 
     override suspend fun set(toSet: Map<String, File>) {
-        supervisorScope {
-            toSet.map { (filename, fileSource) ->
-                launch {
-                    val file = File(folder, filename)
+        val scope = CoroutineScope(currentCoroutineContext())
+        toSet.map { (filename, fileSource) ->
+            scope.launch {
+                val file = File(folder, filename)
 
-                    file.delete()
-                    fileSource.copyTo(file, overwrite = true)
-                    _onNewValue.emit(filename to file)
+                file.delete()
+                fileSource.copyTo(file, overwrite = true)
+                if (!file.exists()) {
+                    error("Can't create file $file with new content")
                 }
+                _onNewValue.emit(filename to file)
             }
         }.joinAll()
     }

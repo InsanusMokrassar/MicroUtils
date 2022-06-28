@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.11.8
+
+* `Repos`:
+    * `Common`:
+        * Fixes in `FileKeyValueRepo`
+
 ## 0.11.7
 
 * `Common`:
