@@ -4,20 +4,19 @@ import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
-import dev.inmo.micro_utils.repos.cache.cache.UnlimitedKVCache
-import dev.inmo.micro_utils.repos.pagination.getAll
+import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class FullReadKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
-    protected open val kvCache: UnlimitedKVCache<Key, List<Value>>,
+    protected open val kvCache: FullKVCache<Key, List<Value>>,
 ) : ReadKeyValuesRepo<Key, Value> {
     protected inline fun <T> doOrTakeAndActualize(
-        action: UnlimitedKVCache<Key, List<Value>>.() -> Optional<T>,
+        action: FullKVCache<Key, List<Value>>.() -> Optional<T>,
         actionElse: ReadKeyValuesRepo<Key, Value>.() -> T,
-        actualize: UnlimitedKVCache<Key, List<Value>>.(T) -> Unit
+        actualize: FullKVCache<Key, List<Value>>.(T) -> Unit
     ): T {
         kvCache.action().onPresented {
             return it
@@ -107,7 +106,7 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
 
 open class FullWriteKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: WriteKeyValueRepo<Key, Value>,
-    protected open val kvCache: UnlimitedKVCache<Key, Value>,
+    protected open val kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : WriteKeyValueRepo<Key, Value> by parentRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
@@ -116,7 +115,7 @@ open class FullWriteKeyValuesCacheRepo<Key,Value>(
 
 open class FullKeyValuesCacheRepo<Key,Value>(
     parentRepo: KeyValueRepo<Key, Value>,
-    kvCache: UnlimitedKVCache<Key, Value>,
+    kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,

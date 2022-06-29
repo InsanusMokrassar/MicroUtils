@@ -5,9 +5,9 @@ import dev.inmo.micro_utils.repos.MapKeyValueRepo
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-open class SimpleUnlimitedKVCache<K, V>(
+open class SimpleFullKVCache<K, V>(
     private val kvParent: KeyValueRepo<K, V> = MapKeyValueRepo<K, V>()
-) : UnlimitedKVCache<K, V>, KeyValueRepo<K, V> by kvParent {
+) : FullKVCache<K, V>, KeyValueRepo<K, V> by kvParent {
     protected val syncMutex = Mutex()
 
     override suspend fun set(toSet: Map<K, V>) {

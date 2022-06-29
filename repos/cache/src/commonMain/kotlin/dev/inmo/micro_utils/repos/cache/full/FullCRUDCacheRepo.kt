@@ -6,22 +6,20 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
-import dev.inmo.micro_utils.repos.cache.cache.KVCache
-import dev.inmo.micro_utils.repos.cache.cache.UnlimitedKVCache
+import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 
 
 open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
-    protected open val kvCache: UnlimitedKVCache<IdType, ObjectType>,
+    protected open val kvCache: FullKVCache<IdType, ObjectType>,
     protected open val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType> {
     protected inline fun <T> doOrTakeAndActualize(
-        action: UnlimitedKVCache<IdType, ObjectType>.() -> Optional<T>,
+        action: FullKVCache<IdType, ObjectType>.() -> Optional<T>,
         actionElse: ReadCRUDRepo<ObjectType, IdType>.() -> T,
-        actualize: UnlimitedKVCache<IdType, ObjectType>.(T) -> Unit
+        actualize: FullKVCache<IdType, ObjectType>.(T) -> Unit
     ): T {
         kvCache.action().onPresented {
             return it
@@ -67,7 +65,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
 
 open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    kvCache: UnlimitedKVCache<IdType, ObjectType>,
+    kvCache: FullKVCache<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
