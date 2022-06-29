@@ -5,13 +5,14 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class ReadKeyValuesCacheRepo<Key,Value>(
-    protected val parentRepo: ReadKeyValuesRepo<Key, Value>,
-    protected val kvCache: KVCache<Key, List<Value>>
+    protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
+    protected open val kvCache: KVCache<Key, List<Value>>
 ) : ReadKeyValuesRepo<Key,Value> by parentRepo {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
         return kvCache.get(k) ?.paginate(
@@ -29,6 +30,10 @@ open class ReadKeyValuesCacheRepo<Key,Value>(
     override suspend fun contains(k: Key): Boolean = kvCache.contains(k) || parentRepo.contains(k)
 }
 
+fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
+    kvCache: KVCache<Key, List<Value>>
+) = ReadKeyValuesCacheRepo(this, kvCache)
+
 open class KeyValuesCacheRepo<Key,Value>(
     parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: KVCache<Key, List<Value>>,
@@ -38,3 +43,8 @@ open class KeyValuesCacheRepo<Key,Value>(
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.set(it.first, kvCache.get(it.first) ?.minus(it.second) ?: return@onEach) }.launchIn(scope)
     protected val onDataClearedJob = parentRepo.onDataCleared.onEach { kvCache.unset(it) }.launchIn(scope)
 }
+
+fun <Key, Value> KeyValuesRepo<Key, Value>.cached(
+    kvCache: KVCache<Key, List<Value>>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) = KeyValuesCacheRepo(this, kvCache, scope)

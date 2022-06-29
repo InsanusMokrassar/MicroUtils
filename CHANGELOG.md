@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.11.10
+
+* `Repos`:
+  * `Cache`:
+    * `KVCache` has been replaced to the package `dev.inmo.micro_utils.repos.cache`
+    * `SimpleKVCache` has been replaced to the package `dev.inmo.micro_utils.repos.cache`
+    * New `KVCache` subtype - `FullKVCache`
+    * Add `Full*` variants of standard repos
+    * Add `cached`/`caching` (for write repos) extensions for all standard types of repos
+
 ## 0.11.9
 
 * `Versions`
