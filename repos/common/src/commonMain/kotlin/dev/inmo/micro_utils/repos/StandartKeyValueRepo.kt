@@ -48,6 +48,10 @@ interface KeyValueRepo<Key, Value> : ReadKeyValueRepo<Key, Value>, WriteKeyValue
             }
         }
     }
+
+    suspend fun clear() {
+        doAllWithCurrentPaging { keys(it).also { unset(it.results) } }
+    }
 }
 typealias StandardKeyValueRepo<Key,Value> = KeyValueRepo<Key, Value>
 

@@ -41,6 +41,13 @@ data class Optional<T> internal constructor(
 inline val <T> T.optional
     get() = Optional.presented(this)
 
+inline val <T : Any> T?.optionalOrAbsentIfNull
+    get() = if (this == null) {
+        Optional.absent<T>()
+    } else {
+        Optional.presented(this)
+    }
+
 /**
  * Will call [block] when data presented ([Optional.dataPresented] == true)
  */
