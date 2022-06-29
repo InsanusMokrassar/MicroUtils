@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

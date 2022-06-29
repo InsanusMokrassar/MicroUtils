@@ -2,6 +2,12 @@
 
 ## 0.11.10
 
+* `Repos`:
+  * `Cache`:
+    * `KVCache` has been replaced to the package `dev.inmo.micro_utils.repos.cache`
+    * `SimpleKVCache` has been replaced to the package `dev.inmo.micro_utils.repos.cache`
+    * New `KVCache` - `UnlimitedKVCache`
+
 ## 0.11.9
 
 * `Versions`

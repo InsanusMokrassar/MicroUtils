@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.cache
 
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
