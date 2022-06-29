@@ -35,3 +35,8 @@ open class SimpleKVCache<K, V>(
         syncMutex.withLock { makeUnset(toUnset) }
     }
 }
+
+inline fun <K, V> KVCache(
+    cachedValuesCount: Int,
+    kvParent: KeyValueRepo<K, V> = MapKeyValueRepo<K, V>()
+) = SimpleKVCache<K, V>(cachedValuesCount, kvParent)

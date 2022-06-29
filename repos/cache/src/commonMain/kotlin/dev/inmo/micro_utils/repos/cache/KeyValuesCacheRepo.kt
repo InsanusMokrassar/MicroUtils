@@ -30,6 +30,10 @@ open class ReadKeyValuesCacheRepo<Key,Value>(
     override suspend fun contains(k: Key): Boolean = kvCache.contains(k) || parentRepo.contains(k)
 }
 
+fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
+    kvCache: KVCache<Key, List<Value>>
+) = ReadKeyValuesCacheRepo(this, kvCache)
+
 open class KeyValuesCacheRepo<Key,Value>(
     parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: KVCache<Key, List<Value>>,
@@ -39,3 +43,8 @@ open class KeyValuesCacheRepo<Key,Value>(
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.set(it.first, kvCache.get(it.first) ?.minus(it.second) ?: return@onEach) }.launchIn(scope)
     protected val onDataClearedJob = parentRepo.onDataCleared.onEach { kvCache.unset(it) }.launchIn(scope)
 }
+
+fun <Key, Value> KeyValuesRepo<Key, Value>.cached(
+    kvCache: KVCache<Key, List<Value>>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) = KeyValuesCacheRepo(this, kvCache, scope)

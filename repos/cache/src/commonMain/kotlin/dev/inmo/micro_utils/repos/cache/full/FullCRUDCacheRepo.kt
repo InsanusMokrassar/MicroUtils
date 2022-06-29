@@ -7,9 +7,9 @@ import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-
 
 open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
@@ -58,10 +58,17 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         { if (it) parentRepo.getById(id) ?.let { set(id, it) } }
     )
 
-    override suspend fun getById(id: IdType): ObjectType? {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getById(id: IdType): ObjectType? = doOrTakeAndActualize(
+        { get(id) ?.optional ?: Optional.absent() },
+        { getById(id) },
+        { it ?.let { set(idGetter(it), it) } }
+    )
 }
+
+fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
+    kvCache: FullKVCache<IdType, ObjectType>,
+    idGetter: (ObjectType) -> IdType
+) = FullReadCRUDCacheRepo(this, kvCache, idGetter)
 
 open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
@@ -80,3 +87,9 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
         idGetter
     ),
     CRUDRepo<ObjectType, IdType, InputValueType>
+
+fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
+    kvCache: FullKVCache<IdType, ObjectType>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    idGetter: (ObjectType) -> IdType
+) = FullCRUDCacheRepo(this, kvCache, scope, idGetter)

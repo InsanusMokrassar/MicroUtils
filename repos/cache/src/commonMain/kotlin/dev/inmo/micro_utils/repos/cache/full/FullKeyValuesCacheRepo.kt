@@ -104,21 +104,51 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
 
 }
 
+fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
+    kvCache: FullKVCache<Key, List<Value>>
+) = FullReadKeyValuesCacheRepo(this, kvCache)
+
 open class FullWriteKeyValuesCacheRepo<Key,Value>(
-    protected open val parentRepo: WriteKeyValueRepo<Key, Value>,
-    protected open val kvCache: FullKVCache<Key, Value>,
+    protected open val parentRepo: WriteKeyValuesRepo<Key, Value>,
+    protected open val kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) : WriteKeyValueRepo<Key, Value> by parentRepo {
-    protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
-    protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
+) : WriteKeyValuesRepo<Key, Value> by parentRepo {
+    protected val onNewJob = parentRepo.onNewValue.onEach {
+        kvCache.set(
+            it.first,
+            kvCache.get(it.first) ?.plus(it.second) ?: listOf(it.second)
+        )
+    }.launchIn(scope)
+    protected val onRemoveJob = parentRepo.onValueRemoved.onEach {
+        kvCache.set(
+            it.first,
+            kvCache.get(it.first) ?.minus(it.second) ?: return@onEach
+        )
+    }.launchIn(scope)
 }
 
-open class FullKeyValuesCacheRepo<Key,Value>(
-    parentRepo: KeyValueRepo<Key, Value>,
-    kvCache: FullKVCache<Key, Value>,
+fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
+    kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
-    KeyValueRepo<Key,Value>,
-    ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(parentRepo, kvCache) {
-    override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
+) = FullWriteKeyValuesCacheRepo(this, kvCache, scope)
+
+open class FullKeyValuesCacheRepo<Key,Value>(
+    parentRepo: KeyValuesRepo<Key, Value>,
+    kvCache: FullKVCache<Key, List<Value>>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) : FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope),
+    KeyValuesRepo<Key, Value>,
+    ReadKeyValuesRepo<Key, Value> by FullReadKeyValuesCacheRepo(parentRepo, kvCache) {
+    override suspend fun clearWithValue(v: Value) {
+        doAllWithCurrentPaging {
+            keys(v, it).also {
+                remove(it.results.associateWith { listOf(v) })
+            }
+        }
+    }
 }
+
+fun <Key, Value> KeyValuesRepo<Key, Value>.caching(
+    kvCache: FullKVCache<Key, List<Value>>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) = FullKeyValuesCacheRepo(this, kvCache, scope)

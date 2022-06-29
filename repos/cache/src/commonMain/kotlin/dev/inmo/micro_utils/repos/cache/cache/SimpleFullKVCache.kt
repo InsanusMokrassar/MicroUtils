@@ -22,3 +22,7 @@ open class SimpleFullKVCache<K, V>(
         }
     }
 }
+
+inline fun <K, V> FullKVCache(
+    kvParent: KeyValueRepo<K, V> = MapKeyValueRepo<K, V>()
+) = SimpleFullKVCache<K, V>(kvParent)

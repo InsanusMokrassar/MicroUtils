@@ -18,8 +18,13 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
     override suspend fun contains(id: IdType): Boolean = kvCache.contains(id) || parentRepo.contains(id)
 }
 
+fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
+    kvCache: KVCache<IdType, ObjectType>,
+    idGetter: (ObjectType) -> IdType
+) = ReadCRUDCacheRepo(this, kvCache, idGetter)
+
 open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
-    protected open val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
+    protected open val parentRepo: WriteCRUDRepo<ObjectType, IdType, InputValueType>,
     protected open val kvCache: KVCache<IdType, ObjectType>,
     protected open val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected open val idGetter: (ObjectType) -> IdType
@@ -61,6 +66,12 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     }
 }
 
+fun <ObjectType, IdType, InputType> WriteCRUDRepo<ObjectType, IdType, InputType>.caching(
+    kvCache: KVCache<IdType, ObjectType>,
+    scope: CoroutineScope,
+    idGetter: (ObjectType) -> IdType
+) = WriteCRUDCacheRepo(this, kvCache, scope, idGetter)
+
 
 open class CRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
@@ -79,3 +90,9 @@ open class CRUDCacheRepo<ObjectType, IdType, InputValueType>(
     idGetter
 ),
     CRUDRepo<ObjectType, IdType, InputValueType>
+
+fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
+    kvCache: KVCache<IdType, ObjectType>,
+    scope: CoroutineScope,
+    idGetter: (ObjectType) -> IdType
+) = CRUDCacheRepo(this, kvCache, scope, idGetter)
