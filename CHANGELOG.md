@@ -2,6 +2,10 @@
 
 ## 0.11.11
 
+* `Ktor`:
+  * `Client`:
+    * `BodyPair` has been deprecated
+
 ## 0.11.10
 
 * `Repos`:

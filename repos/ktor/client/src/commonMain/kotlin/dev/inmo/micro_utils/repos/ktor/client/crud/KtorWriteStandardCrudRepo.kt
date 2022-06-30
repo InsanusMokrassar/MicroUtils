@@ -56,25 +56,25 @@ class KtorWriteStandardCrudRepo<ObjectType, IdType, InputValue> (
 
     override suspend fun create(values: List<InputValue>): List<ObjectType> = unifiedRequester.unipost(
         buildStandardUrl(baseUrl, createRouting),
-        BodyPair(listInputSerializer, values),
+        Pair(listInputSerializer, values),
         listObjectsSerializer
     )
 
     override suspend fun update(id: IdType, value: InputValue): ObjectType? = unifiedRequester.unipost(
         buildStandardUrl(baseUrl, updateRouting),
-        BodyPair(inputUpdateSerializer, id to value),
+        Pair(inputUpdateSerializer, id to value),
         objectsNullableSerializer
     )
 
     override suspend fun update(values: List<UpdatedValuePair<IdType, InputValue>>): List<ObjectType> = unifiedRequester.unipost(
         buildStandardUrl(baseUrl, updateManyRouting),
-        BodyPair(listInputUpdateSerializer, values),
+        Pair(listInputUpdateSerializer, values),
         listObjectsSerializer
     )
 
     override suspend fun deleteById(ids: List<IdType>) = unifiedRequester.unipost(
         buildStandardUrl(baseUrl, deleteByIdRouting),
-        BodyPair(listIdsSerializer, ids),
+        Pair(listIdsSerializer, ids),
         Unit.serializer()
     )
 }
