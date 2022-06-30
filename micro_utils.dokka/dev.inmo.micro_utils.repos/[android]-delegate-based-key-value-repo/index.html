@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>[android]DelegateBasedKeyValueRepo</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>micro_utils.dokka</span>
+            </a>
+    </div>
+    <div>
+0.11.11    </div>
+    <div class="pull-right d-flex">
+            <div class="filter-section" id="filter-section">
+                    <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button>
+            </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.repos/DelegateBasedKeyValueRepo///PointingToDeclaration//-1837788132">
+  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.repos</a><span class="delimiter">/</span><a href="index.html">[android]DelegateBasedKeyValueRepo</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Delegate</span><wbr></wbr><span>Based</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></h1>
+    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DelegateBasedKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">readDelegate<span class="token operator">: </span><a href="../[android]-read-key-value-repo/index.html">ReadKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">writeDelegate<span class="token operator">: </span><a href="../[android]-write-key-value-repo/index.html">WriteKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../[android]-key-value-repo/index.html">KeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt; </span>, <a href="../[android]-read-key-value-repo/index.html">ReadKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt; </span>, <a href="../[android]-write-key-value-repo/index.html">WriteKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>    </div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="tabbedcontent">Constructors</h2>
+      <div class="table" data-togglable="Constructors"><a data-name="-2008869564%2FConstructors%2F-1837788132" anchor-label="DelegateBasedKeyValueRepo" id="-2008869564%2FConstructors%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue TabbedContent">
+            <div class=""><span class="inline-flex">
+                <div><a href="-delegate-based-key-value-repo.html"><span>Delegate</span><wbr></wbr><span>Based</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2008869564%2FConstructors%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt; </span><a href="-delegate-based-key-value-repo.html"><span class="token function">DelegateBasedKeyValueRepo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">readDelegate<span class="token operator">: </span><a href="../[android]-read-key-value-repo/index.html">ReadKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">writeDelegate<span class="token operator">: </span><a href="../[android]-write-key-value-repo/index.html">WriteKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-1002599289%2FFunctions%2F-1837788132" anchor-label="clear" id="-1002599289%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-key-value-repo/clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1002599289%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../[android]-key-value-repo/clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1840888703%2FFunctions%2F-1837788132" anchor-label="contains" id="-1840888703%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-read-key-value-repo/contains.html"><span><span>contains</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1840888703%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="index.html">Key</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-690010481%2FFunctions%2F-1837788132" anchor-label="count" id="-690010481%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-read-key-value-repo/count.html"><span><span>count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-690010481%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/count.html"><span class="token function">count</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-97603946%2FFunctions%2F-1837788132" anchor-label="get" id="-97603946%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-read-key-value-repo/get.html"><span><span>get</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-97603946%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/get.html"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="index.html">Key</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Value</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="991985883%2FFunctions%2F-1837788132" anchor-label="keys" id="991985883%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-read-key-value-repo/keys.html"><span><span>keys</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="991985883%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/keys.html"><span class="token function">keys</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pagination<span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination/index.html">Pagination</a><span class="token punctuation">, </span></span><span class="parameter ">reversed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination-result/index.html">PaginationResult</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/keys.html"><span class="token function">keys</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;v<span class="token operator">: </span><a href="index.html">Value</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;pagination<span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination/index.html">Pagination</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;reversed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination-result/index.html">PaginationResult</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1323989281%2FFunctions%2F-1837788132" anchor-label="set" id="1323989281%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-write-key-value-repo/set.html"><span><span>set</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1323989281%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-write-key-value-repo/set.html"><span class="token function">set</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toSet<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1962352452%2FFunctions%2F-1837788132" anchor-label="unset" id="1962352452%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-write-key-value-repo/unset.html"><span><span>unset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1962352452%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-write-key-value-repo/unset.html"><span class="token function">unset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toUnset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-532377133%2FFunctions%2F-1837788132" anchor-label="unsetWithValues" id="-532377133%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-key-value-repo/unset-with-values.html"><span>unset</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532377133%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-key-value-repo/unset-with-values.html"><span class="token function">unsetWithValues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toUnset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-687681294%2FFunctions%2F-1837788132" anchor-label="values" id="-687681294%2FFunctions%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-read-key-value-repo/values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-687681294%2FFunctions%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="../[android]-read-key-value-repo/values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pagination<span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination/index.html">Pagination</a><span class="token punctuation">, </span></span><span class="parameter ">reversed<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.pagination/[android]-pagination-result/index.html">PaginationResult</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="2132221517%2FProperties%2F-1837788132" anchor-label="onNewValue" id="2132221517%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-write-key-value-repo/on-new-value.html">onNewValue</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2132221517%2FProperties%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="2132221517%2FProperties%2F-1837788132" anchor-label="onNewValue" id="2132221517%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../[android]-write-key-value-repo/on-new-value.html">onNewValue</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1739615631%2FProperties%2F-1837788132" anchor-label="onValueRemoved" id="1739615631%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../[android]-write-key-value-repo/on-value-removed.html">onValueRemoved</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1739615631%2FProperties%2F-1837788132"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="1739615631%2FProperties%2F-1837788132" anchor-label="onValueRemoved" id="1739615631%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../[android]-write-key-value-repo/on-value-removed.html">onValueRemoved</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
