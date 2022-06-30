@@ -15,7 +15,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
     protected open val kvCache: FullKVCache<IdType, ObjectType>,
     protected open val idGetter: (ObjectType) -> IdType
-) : ReadCRUDRepo<ObjectType, IdType> {
+) : ReadCRUDRepo<ObjectType, IdType>, FullCacheRepo {
     protected inline fun <T> doOrTakeAndActualize(
         action: FullKVCache<IdType, ObjectType>.() -> Optional<T>,
         actionElse: ReadCRUDRepo<ObjectType, IdType>.() -> T,
@@ -31,7 +31,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         error("The result should be returned above")
     }
 
-    protected suspend fun actualizeAll() {
+    protected open suspend fun actualizeAll() {
         kvCache.clear()
         doForAllWithNextPaging {
             parentRepo.getByPagination(it).also {

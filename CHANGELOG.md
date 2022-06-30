@@ -7,6 +7,11 @@
 * `Ktor`:
   * `Client`:
     * `BodyPair` has been deprecated
+* `Repos`:
+    * `Cache`:
+      * New interface `CacheRepo`
+      * New interface `FullCacheRepo`
+      * `actualize*` methods inside of full cache repos now open for overriding
 
 ## 0.11.10
 

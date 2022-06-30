@@ -10,7 +10,7 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
     protected open val kvCache: KVCache<IdType, ObjectType>,
     protected open val idGetter: (ObjectType) -> IdType
-) : ReadCRUDRepo<ObjectType, IdType> by parentRepo {
+) : ReadCRUDRepo<ObjectType, IdType> by parentRepo, CacheRepo {
     override suspend fun getById(id: IdType): ObjectType? = kvCache.get(id) ?: (parentRepo.getById(id) ?.also {
         kvCache.set(id, it)
     })
@@ -28,7 +28,7 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     protected open val kvCache: KVCache<IdType, ObjectType>,
     protected open val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected open val idGetter: (ObjectType) -> IdType
-) : WriteCRUDRepo<ObjectType, IdType, InputValueType> {
+) : WriteCRUDRepo<ObjectType, IdType, InputValueType>, CacheRepo {
     override val newObjectsFlow: Flow<ObjectType> by parentRepo::newObjectsFlow
     override val updatedObjectsFlow: Flow<ObjectType> by parentRepo::updatedObjectsFlow
     override val deletedObjectsIdsFlow: Flow<IdType> by parentRepo::deletedObjectsIdsFlow
