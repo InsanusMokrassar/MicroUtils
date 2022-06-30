@@ -15,7 +15,7 @@ jobs:
         continue-on-error: true
         run: cd /usr/local/lib/android/sdk/build-tools/32.0.0/ && mv d8 dx && cd lib  && mv d8.jar dx.jar
       - name: Build
-        run: ./gradlew dokkaHtml
+        run: ./gradlew build && ./gradlew dokkaHtml
       - name: Publish KDocs
         uses: peaceiris/actions-gh-pages@v3
         with:
