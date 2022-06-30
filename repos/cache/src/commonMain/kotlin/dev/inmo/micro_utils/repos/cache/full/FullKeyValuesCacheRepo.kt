@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.*
 open class FullReadKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
     protected open val kvCache: FullKVCache<Key, List<Value>>,
-) : ReadKeyValuesRepo<Key, Value> {
+) : ReadKeyValuesRepo<Key, Value>, FullCacheRepo {
     protected inline fun <T> doOrTakeAndActualize(
         action: FullKVCache<Key, List<Value>>.() -> Optional<T>,
         actionElse: ReadKeyValuesRepo<Key, Value>.() -> T,
@@ -28,11 +28,11 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
         error("The result should be returned above")
     }
 
-    protected suspend fun actualizeKey(k: Key) {
+    protected open suspend fun actualizeKey(k: Key) {
         kvCache.set(k, parentRepo.getAll(k))
     }
 
-    protected suspend fun actualizeAll() {
+    protected open suspend fun actualizeAll() {
         doAllWithCurrentPaging { kvCache.keys(it).also { kvCache.unset(it.results) } }
         kvCache.set(parentRepo.getAll())
     }
@@ -112,7 +112,7 @@ open class FullWriteKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: WriteKeyValuesRepo<Key, Value>,
     protected open val kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) : WriteKeyValuesRepo<Key, Value> by parentRepo {
+) : WriteKeyValuesRepo<Key, Value> by parentRepo, FullCacheRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach {
         kvCache.set(
             it.first,

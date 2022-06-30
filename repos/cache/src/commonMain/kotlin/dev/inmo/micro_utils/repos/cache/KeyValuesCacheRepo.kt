@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.*
 open class ReadKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
     protected open val kvCache: KVCache<Key, List<Value>>
-) : ReadKeyValuesRepo<Key,Value> by parentRepo {
+) : ReadKeyValuesRepo<Key,Value> by parentRepo, CacheRepo {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
         return kvCache.get(k) ?.paginate(
             pagination.let { if (reversed) it.reverse(count(k)) else it }
@@ -38,7 +38,7 @@ open class KeyValuesCacheRepo<Key,Value>(
     parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: KVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) : ReadKeyValuesCacheRepo<Key,Value>(parentRepo, kvCache), KeyValuesRepo<Key,Value>, WriteKeyValuesRepo<Key,Value> by parentRepo {
+) : ReadKeyValuesCacheRepo<Key,Value>(parentRepo, kvCache), KeyValuesRepo<Key,Value>, WriteKeyValuesRepo<Key,Value> by parentRepo, CacheRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, kvCache.get(it.first) ?.plus(it.second) ?: listOf(it.second)) }.launchIn(scope)
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.set(it.first, kvCache.get(it.first) ?.minus(it.second) ?: return@onEach) }.launchIn(scope)
     protected val onDataClearedJob = parentRepo.onDataCleared.onEach { kvCache.unset(it) }.launchIn(scope)
