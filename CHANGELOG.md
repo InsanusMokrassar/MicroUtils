@@ -2,6 +2,8 @@
 
 ## 0.11.11
 
+* `Crypto`:
+  * `hmacSha256` has been deprecated
 * `Ktor`:
   * `Client`:
     * `BodyPair` has been deprecated
