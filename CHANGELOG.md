@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.11
+
+* `Crypto`:
+  * `hmacSha256` has been deprecated
+* `Ktor`:
+  * `Client`:
+    * `BodyPair` has been deprecated
+
 ## 0.11.10
 
 * `Repos`:

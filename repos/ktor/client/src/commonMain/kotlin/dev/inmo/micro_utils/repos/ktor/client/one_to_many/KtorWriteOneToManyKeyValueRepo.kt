@@ -47,7 +47,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
             baseUrl,
             removeRoute,
         ),
-        BodyPair(keyValueMapSerializer, toRemove),
+        Pair(keyValueMapSerializer, toRemove),
         Unit.serializer(),
     )
 
@@ -56,7 +56,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
             baseUrl,
             addRoute,
         ),
-        BodyPair(keyValueMapSerializer, toAdd),
+        Pair(keyValueMapSerializer, toAdd),
         Unit.serializer(),
     )
     override suspend fun clear(k: Key) = unifiedRequester.unipost(
@@ -64,7 +64,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
             baseUrl,
             clearRoute,
         ),
-        BodyPair(keySerializer, k),
+        Pair(keySerializer, k),
         Unit.serializer(),
     )
 
@@ -73,7 +73,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
             baseUrl,
             clearWithValueRoute,
         ),
-        BodyPair(valueSerializer, v),
+        Pair(valueSerializer, v),
         Unit.serializer(),
     )
 
@@ -82,7 +82,7 @@ class KtorWriteOneToManyKeyValueRepo<Key, Value> (
             baseUrl,
             setRoute,
         ),
-        BodyPair(keyValueMapSerializer, toSet),
+        Pair(keyValueMapSerializer, toSet),
         Unit.serializer(),
     )
 }

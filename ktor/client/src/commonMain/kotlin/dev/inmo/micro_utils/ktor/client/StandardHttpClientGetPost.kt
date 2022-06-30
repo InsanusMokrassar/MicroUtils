@@ -12,6 +12,7 @@ import io.ktor.http.*
 import io.ktor.utils.io.core.ByteReadPacket
 import kotlinx.serialization.*
 
+@Deprecated("This class will be removed in next")
 typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
 
 class UnifiedRequester(
@@ -33,7 +34,7 @@ class UnifiedRequester(
 
     suspend fun <BodyType, ResultType> unipost(
         url: String,
-        bodyInfo: BodyPair<BodyType>,
+        bodyInfo: Pair<SerializationStrategy<BodyType>, BodyType>,
         resultDeserializer: DeserializationStrategy<ResultType>
     ) = client.unipost(url, bodyInfo, resultDeserializer, serialFormat)
 
@@ -52,7 +53,7 @@ class UnifiedRequester(
         url: String,
         filename: String,
         inputProvider: InputProvider,
-        otherData: BodyPair<BodyType>,
+        otherData: Pair<SerializationStrategy<BodyType>, BodyType>,
         resultDeserializer: DeserializationStrategy<ResultType>,
         mimetype: String = "*/*",
         additionalParametersBuilder: FormBuilder.() -> Unit = {},
@@ -75,7 +76,7 @@ class UnifiedRequester(
     suspend fun <BodyType, ResultType> unimultipart(
         url: String,
         mppFile: MPPFile,
-        otherData: BodyPair<BodyType>,
+        otherData: Pair<SerializationStrategy<BodyType>, BodyType>,
         resultDeserializer: DeserializationStrategy<ResultType>,
         mimetype: String = "*/*",
         additionalParametersBuilder: FormBuilder.() -> Unit = {},
@@ -120,7 +121,7 @@ fun <T> SerializationStrategy<T>.encodeUrlQueryValue(
 
 suspend fun <BodyType, ResultType> HttpClient.unipost(
     url: String,
-    bodyInfo: BodyPair<BodyType>,
+    bodyInfo: Pair<SerializationStrategy<BodyType>, BodyType>,
     resultDeserializer: DeserializationStrategy<ResultType>,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
 ) = post(url) {
@@ -162,7 +163,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,
     filename: String,
-    otherData: BodyPair<BodyType>,
+    otherData: Pair<SerializationStrategy<BodyType>, BodyType>,
     inputProvider: InputProvider,
     resultDeserializer: DeserializationStrategy<ResultType>,
     mimetype: String = "*/*",
@@ -220,7 +221,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,
     mppFile: MPPFile,
-    otherData: BodyPair<BodyType>,
+    otherData: Pair<SerializationStrategy<BodyType>, BodyType>,
     resultDeserializer: DeserializationStrategy<ResultType>,
     mimetype: String = "*/*",
     additionalParametersBuilder: FormBuilder.() -> Unit = {},

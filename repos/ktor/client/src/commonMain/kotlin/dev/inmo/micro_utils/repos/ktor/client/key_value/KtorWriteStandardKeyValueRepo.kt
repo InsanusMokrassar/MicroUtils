@@ -45,7 +45,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
             baseUrl,
             setRoute
         ),
-        BodyPair(keyValueMapSerializer, toSet),
+        Pair(keyValueMapSerializer, toSet),
         Unit.serializer()
     )
 
@@ -54,7 +54,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
             baseUrl,
             unsetRoute,
         ),
-        BodyPair(keysListSerializer, toUnset),
+        Pair(keysListSerializer, toUnset),
         Unit.serializer()
     )
 
@@ -63,7 +63,7 @@ class KtorWriteStandardKeyValueRepo<K, V> (
             baseUrl,
             unsetWithValuesRoute,
         ),
-        BodyPair(valuesListSerializer, toUnset),
+        Pair(valuesListSerializer, toUnset),
         Unit.serializer()
     )
 }
