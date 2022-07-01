@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.12
+
+* `Repos`:
+  * `Common`:
+    * `JVM`:
+      * Fixes in `ReadFileKeyValueRepo` methods (`values`/`keys`)
+
 ## 0.11.11
 
 * `Crypto`:
