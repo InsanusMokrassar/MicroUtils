@@ -34,7 +34,7 @@ class FileReadKeyValueRepo(
     override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<File> {
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
-        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndex) ?: return emptyPaginationResult()
+        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive) ?: return emptyPaginationResult()
         if (reversed) {
             filesPaths.reverse()
         }
@@ -47,7 +47,7 @@ class FileReadKeyValueRepo(
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<String> {
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
-        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndex) ?: return emptyPaginationResult()
+        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive) ?: return emptyPaginationResult()
         if (reversed) {
             filesPaths.reverse()
         }
