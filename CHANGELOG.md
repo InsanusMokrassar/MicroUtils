@@ -2,6 +2,9 @@
 
 ## 0.11.14
 
+* `Pagination`:
+    * `PaginationResult` got new field `objectsCount` which by default is a times between `pagesNumber` and `size`
+
 ## 0.11.13
 
 * `Versions`:

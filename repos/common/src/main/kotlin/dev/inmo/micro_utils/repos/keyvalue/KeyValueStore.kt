@@ -3,8 +3,7 @@ package dev.inmo.micro_utils.repos.keyvalue
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.KeyValueRepo
@@ -72,14 +71,11 @@ class KeyValueStore<T : Any> internal constructor (
         return sharedPreferences.all.values.paginate(
             resultPagination
         ).let {
-            PaginationResult(
-                it.page,
-                it.pagesNumber,
+            it.changeResultsUnchecked(
                 it.results.map {
                     @Suppress("UNCHECKED_CAST")
                     it as T
-                }.let { if (reversed) it.reversed() else it },
-                it.size
+                }.let { if (reversed) it.reversed() else it }
             )
         }
     }
@@ -89,11 +85,8 @@ class KeyValueStore<T : Any> internal constructor (
         return sharedPreferences.all.keys.paginate(
             resultPagination
         ).let {
-            PaginationResult(
-                it.page,
-                it.pagesNumber,
-                it.results.let { if (reversed) it.reversed() else it },
-                it.size
+            it.changeResultsUnchecked(
+                it.results.let { if (reversed) it.reversed() else it }
             )
         }
     }
@@ -103,11 +96,8 @@ class KeyValueStore<T : Any> internal constructor (
         return sharedPreferences.all.mapNotNull { (k, value) -> if (value == v) k else null }.paginate(
             resultPagination
         ).let {
-            PaginationResult(
-                it.page,
-                it.pagesNumber,
-                it.results.let { if (reversed) it.reversed() else it },
-                it.size
+            it.changeResultsUnchecked(
+                it.results.let { if (reversed) it.reversed() else it }
             )
         }
     }
