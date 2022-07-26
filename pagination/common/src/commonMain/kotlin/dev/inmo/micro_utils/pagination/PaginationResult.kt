@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.pagination
 
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import kotlin.math.ceil
 
 @Serializable
@@ -10,6 +10,7 @@ data class PaginationResult<T>(
     val results: List<T>,
     val objectsCount: Long
 ) : Pagination {
+    @EncodeDefault
     val pagesNumber: Int = ceil(objectsCount / size.toFloat()).toInt()
 
     constructor(
