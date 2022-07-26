@@ -3,15 +3,24 @@ package dev.inmo.micro_utils.pagination
 import kotlinx.serialization.*
 import kotlin.math.ceil
 
+/**
+ * @param page Current page number
+ * @param size Current page size. It can be greater than size of [results]
+ * @param results Result objects
+ * @param objectsNumber Count of all objects across all pages
+ */
 @Serializable
 data class PaginationResult<T>(
     override val page: Int,
     override val size: Int,
     val results: List<T>,
-    val objectsCount: Long
+    val objectsNumber: Long
 ) : Pagination {
+    /**
+     * Amount of pages for current pagination
+     */
     @EncodeDefault
-    val pagesNumber: Int = ceil(objectsCount / size.toFloat()).toInt()
+    val pagesNumber: Int = ceil(objectsNumber / size.toFloat()).toInt()
 
     constructor(
         page: Int,
@@ -45,7 +54,7 @@ fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
  */
 fun <I, O> PaginationResult<I>.changeResultsUnchecked(
     data: List<O>
-): PaginationResult<O> = PaginationResult(page, size, data, objectsCount)
+): PaginationResult<O> = PaginationResult(page, size, data, objectsNumber)
 /**
  * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
  */
