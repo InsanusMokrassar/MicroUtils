@@ -1,24 +1,50 @@
 package dev.inmo.micro_utils.pagination
 
 import kotlinx.serialization.Serializable
+import kotlin.math.ceil
 
 @Serializable
 data class PaginationResult<T>(
     override val page: Int,
-    val pagesNumber: Int,
-    val results: List<T>,
     override val size: Int,
-    val objectsCount: Long = pagesNumber * size.toLong()
-) : Pagination
+    val results: List<T>,
+    val objectsCount: Long
+) : Pagination {
+    val pagesNumber: Int = ceil(objectsCount / size.toFloat()).toInt()
 
-fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0)
+    constructor(
+        page: Int,
+        results: List<T>,
+        pagesNumber: Int,
+        size: Int
+    ) : this(
+        page,
+        size,
+        results,
+        (pagesNumber * size).toLong()
+    )
+    @Deprecated("Replace with The other order of incoming parameters or objectsCount parameter")
+    constructor(
+        page: Int,
+        pagesNumber: Int,
+        results: List<T>,
+        size: Int
+    ) : this(
+        page,
+        results,
+        pagesNumber,
+        size
+    )
+}
+
+fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
 
 /**
  * @return New [PaginationResult] with [data] without checking of data sizes equality
  */
 fun <I, O> PaginationResult<I>.changeResultsUnchecked(
     data: List<O>
-): PaginationResult<O> = PaginationResult(page, pagesNumber, data, size)
+): PaginationResult<O> = PaginationResult(page, size, data, objectsCount)
 /**
  * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
  */
@@ -34,12 +60,8 @@ fun <T> List<T>.createPaginationResult(
     commonObjectsNumber: Long
 ) = PaginationResult(
     pagination.page,
-    calculatePagesNumber(
-        commonObjectsNumber,
-        pagination.size
-    ),
-    this,
     pagination.size,
+    this,
     commonObjectsNumber
 )
 
@@ -48,12 +70,8 @@ fun <T> List<T>.createPaginationResult(
     commonObjectsNumber: Long
 ) = PaginationResult(
     calculatePage(firstIndex, size),
-    calculatePagesNumber(
-        commonObjectsNumber,
-        size
-    ),
-    this,
     size,
+    this,
     commonObjectsNumber
 )
 
