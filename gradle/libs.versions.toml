@@ -8,7 +8,7 @@ jb-compose = "1.2.0-alpha01-dev753"
 jb-exposed = "0.39.1"
 jb-dokka = "1.7.10"
 
-klock = "3.0.0-Beta7"
+klock = "3.0.0"
 uuid = "0.5.0"
 
 ktor = "2.0.3"
