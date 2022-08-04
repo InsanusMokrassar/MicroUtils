@@ -119,6 +119,7 @@ suspend fun <T> ApplicationCall.uniload(
 suspend fun ApplicationCall.uniloadMultipart(
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {}
 ) = safely {
     val multipartData = receiveMultipart()
@@ -135,6 +136,7 @@ suspend fun ApplicationCall.uniloadMultipart(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
@@ -145,6 +147,7 @@ suspend fun <T> ApplicationCall.uniloadMultipart(
     deserializer: DeserializationStrategy<T>,
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {}
 ): Pair<Input, T> {
     var data: Optional<T>? = null
@@ -157,6 +160,7 @@ suspend fun <T> ApplicationCall.uniloadMultipart(
                 onCustomFileItem(it)
             }
         },
+        onBinaryChannelItem,
         onBinaryContent
     )
 
@@ -168,6 +172,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
     deserializer: DeserializationStrategy<T>,
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {},
 ) = safely {
     val multipartData = receiveMultipart()
@@ -204,6 +209,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
@@ -214,6 +220,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
 suspend fun ApplicationCall.uniloadMultipartFile(
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {},
 ) = safely {
     val multipartData = receiveMultipart()
@@ -247,6 +254,7 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
