@@ -5,7 +5,7 @@ kt-serialization = "1.3.3"
 kt-coroutines = "1.6.4"
 
 jb-compose = "1.2.0-alpha01-dev753"
-jb-exposed = "0.39.1"
+jb-exposed = "0.39.2"
 jb-dokka = "1.7.10"
 
 klock = "3.0.0"
