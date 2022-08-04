@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.12.0-beta
+
+* `Versions`
+  * `Kotlin`: `1.6.21` -> `1.7.0`
+  * `Coroutines`: `1.6.3` -> `1.6.4`
+  * `Exposed`: `0.38.2` -> `0.39.2`
+  * `Compose`: `1.2.0-alpha01-dev729` -> `1.2.0-alpha01-dev753`
+  * `Klock`: `2.7.0` -> `3.0.0`
+  * `uuid`: `0.4.1` -> `0.5.0`
+
 ## 0.11.12
 
 * `Repos`:
