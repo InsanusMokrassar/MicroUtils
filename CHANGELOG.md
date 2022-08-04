@@ -18,6 +18,17 @@
 * `Ktor`:
   * All previously standard functions related to work with binary data by default have been deprecated
 
+## 0.11.14
+
+* `Pagination`:
+    * `PaginationResult` got new field `objectsNumber` which by default is a times between `pagesNumber` and `size`
+
+## 0.11.13
+
+* `Versions`:
+    * `Coroutines`: `1.6.3` -> `1.6.4`
+    * `Compose`: `1.2.0-alpha01-dev629` -> `1.2.0-alpha01-dev731`
+
 ## 0.11.12
 
 * `Repos`:
