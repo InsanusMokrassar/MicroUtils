@@ -52,6 +52,7 @@ inline val <T : Any> T?.optionalOrAbsentIfNull
  * Will call [block] when data presented ([Optional.dataPresented] == true)
  */
 inline fun <T> Optional<T>.onPresented(block: (T) -> Unit): Optional<T> = apply {
+    @OptIn(Warning::class)
     if (dataPresented) { @Suppress("UNCHECKED_CAST") block(data as T) }
 }
 
@@ -59,6 +60,7 @@ inline fun <T> Optional<T>.onPresented(block: (T) -> Unit): Optional<T> = apply 
  * Will call [block] when data presented ([Optional.dataPresented] == true)
  */
 inline fun <T, R> Optional<T>.mapOnPresented(block: (T) -> R): R? = run {
+    @OptIn(Warning::class)
     if (dataPresented) { @Suppress("UNCHECKED_CAST") block(data as T) } else null
 }
 
@@ -66,6 +68,7 @@ inline fun <T, R> Optional<T>.mapOnPresented(block: (T) -> R): R? = run {
  * Will call [block] when data absent ([Optional.dataPresented] == false)
  */
 inline fun <T> Optional<T>.onAbsent(block: () -> Unit): Optional<T> = apply {
+    @OptIn(Warning::class)
     if (!dataPresented) { block() }
 }
 
@@ -73,27 +76,28 @@ inline fun <T> Optional<T>.onAbsent(block: () -> Unit): Optional<T> = apply {
  * Will call [block] when data presented ([Optional.dataPresented] == true)
  */
 inline fun <T, R> Optional<T>.mapOnAbsent(block: () -> R): R? = run {
-    if (!dataPresented) { @Suppress("UNCHECKED_CAST") block() } else null
+    @OptIn(Warning::class)
+    if (!dataPresented) { block() } else null
 }
 
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or null otherwise
  */
-fun <T> Optional<T>.dataOrNull() = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else null
+fun <T> Optional<T>.dataOrNull() = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else null
 
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or throw [throwable] otherwise
  */
-fun <T> Optional<T>.dataOrThrow(throwable: Throwable) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else throw throwable
+fun <T> Optional<T>.dataOrThrow(throwable: Throwable) = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else throw throwable
 
 
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
  */
-inline fun <T> Optional<T>.dataOrElse(block: () -> T) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
+inline fun <T> Optional<T>.dataOrElse(block: () -> T) = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
 
 /**
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
  */
 @Deprecated("dataOrElse now is inline", ReplaceWith("dataOrElse", "dev.inmo.micro_utils.common.dataOrElse"))
-suspend fun <T> Optional<T>.dataOrElseSuspendable(block: suspend () -> T) = if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
+suspend fun <T> Optional<T>.dataOrElseSuspendable(block: suspend () -> T) = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
