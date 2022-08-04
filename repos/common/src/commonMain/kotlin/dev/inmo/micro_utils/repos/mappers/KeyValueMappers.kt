@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.repos.mappers
 
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -23,11 +22,8 @@ open class MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         pagination,
         reversed
     ).let {
-        PaginationResult(
-            it.page,
-            it.pagesNumber,
-            it.results.map { it.toInnerValue() },
-            it.size
+        it.changeResultsUnchecked(
+            it.results.map { it.toInnerValue() }
         )
     }
 
@@ -38,11 +34,8 @@ open class MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         pagination,
         reversed
     ).let {
-        PaginationResult(
-            it.page,
-            it.pagesNumber,
-            it.results.map { it.toInnerKey() },
-            it.size
+        it.changeResultsUnchecked(
+            it.results.map { it.toInnerKey() }
         )
     }
 
@@ -55,11 +48,8 @@ open class MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         pagination,
         reversed
     ).let {
-        PaginationResult(
-            it.page,
-            it.pagesNumber,
-            it.results.map { it.toInnerKey() },
-            it.size
+        it.changeResultsUnchecked(
+            it.results.map { it.toInnerKey() }
         )
     }
 

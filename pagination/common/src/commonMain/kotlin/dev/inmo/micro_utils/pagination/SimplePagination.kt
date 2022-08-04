@@ -26,6 +26,10 @@ inline fun Pagination.nextPage() =
         size
     )
 
+/**
+ * @param page Current page number
+ * @param size Current page size
+ */
 @Serializable
 data class SimplePagination(
     override val page: Int,
