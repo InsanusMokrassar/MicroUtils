@@ -1,7 +1,6 @@
 import dev.inmo.micro_utils.fsm.common.*
 import dev.inmo.micro_utils.fsm.common.dsl.buildFSM
 import dev.inmo.micro_utils.fsm.common.managers.DefaultStatesManager
-import dev.inmo.micro_utils.fsm.common.managers.InMemoryStatesManager
 import kotlinx.coroutines.*
 
 sealed interface TrafficLightState : State {
