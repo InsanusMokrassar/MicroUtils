@@ -7,8 +7,3 @@ external interface CryptoJs {
 @JsModule("crypto-js")
 @JsNonModule
 external val CryptoJS: CryptoJs
-
-@Deprecated("Deprecated due to incorrect of work sometimes and redundancy. Can be replaced by korlibs krypto")
-actual fun SourceString.hmacSha256(key: String): String {
-    return CryptoJS.asDynamic().HmacSHA256(this, key).toString().unsafeCast<String>()
-}

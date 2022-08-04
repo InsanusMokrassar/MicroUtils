@@ -1,3 +1,5 @@
+@file:Suppress("unused", "NOTHING_TO_INLINE")
+
 package dev.inmo.micro_utils.common
 
 import kotlinx.serialization.*
@@ -21,11 +23,10 @@ import kotlinx.serialization.encoding.*
 sealed interface Either<T1, T2> {
     val optionalT1: Optional<T1>
     val optionalT2: Optional<T2>
-    @Deprecated("Use optionalT1 instead", ReplaceWith("optionalT1"))
-    val t1: T1?
+
+    val t1OrNull: T1?
         get() = optionalT1.dataOrNull()
-    @Deprecated("Use optionalT2 instead", ReplaceWith("optionalT2"))
-    val t2: T2?
+    val t2OrNull: T2?
         get() = optionalT2.dataOrNull()
 }
 
@@ -33,7 +34,7 @@ class EitherSerializer<T1, T2>(
     t1Serializer: KSerializer<T1>,
     t2Serializer: KSerializer<T2>,
 ) : KSerializer<Either<T1, T2>> {
-    @OptIn(InternalSerializationApi::class)
+    @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
     override val descriptor: SerialDescriptor = buildSerialDescriptor(
         "TypedSerializer",
         SerialKind.CONTEXTUAL
@@ -96,7 +97,7 @@ class EitherSerializer<T1, T2>(
  */
 @Serializable
 data class EitherFirst<T1, T2>(
-    override val t1: T1
+    val t1: T1
 ) : Either<T1, T2> {
     override val optionalT1: Optional<T1> = t1.optional
     override val optionalT2: Optional<T2> = Optional.absent()
@@ -107,7 +108,7 @@ data class EitherFirst<T1, T2>(
  */
 @Serializable
 data class EitherSecond<T1, T2>(
-    override val t2: T2
+    val t2: T2
 ) : Either<T1, T2> {
     override val optionalT1: Optional<T1> = Optional.absent()
     override val optionalT2: Optional<T2> = t2.optional

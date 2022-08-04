@@ -95,9 +95,3 @@ fun <T> Optional<T>.dataOrThrow(throwable: Throwable) = @OptIn(Warning::class) i
  * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
  */
 inline fun <T> Optional<T>.dataOrElse(block: () -> T) = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()
-
-/**
- * Returns [Optional.data] if [Optional.dataPresented] of [this] is true, or call [block] and returns the result of it
- */
-@Deprecated("dataOrElse now is inline", ReplaceWith("dataOrElse", "dev.inmo.micro_utils.common.dataOrElse"))
-suspend fun <T> Optional<T>.dataOrElseSuspendable(block: suspend () -> T) = @OptIn(Warning::class) if (dataPresented) @Suppress("UNCHECKED_CAST") (data as T) else block()

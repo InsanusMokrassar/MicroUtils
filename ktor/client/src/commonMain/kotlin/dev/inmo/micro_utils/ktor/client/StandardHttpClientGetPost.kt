@@ -12,9 +12,7 @@ import io.ktor.http.*
 import io.ktor.utils.io.core.ByteReadPacket
 import kotlinx.serialization.*
 
-@Deprecated("This class will be removed in next")
-typealias BodyPair<T> = Pair<SerializationStrategy<T>, T>
-
+@Deprecated("This class will be removed soon. It is now recommended to use built-in ktor features instead")
 class UnifiedRequester(
     val client: HttpClient = HttpClient(),
     val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
@@ -100,8 +98,10 @@ class UnifiedRequester(
     ) = createStandardWebsocketFlow(url, { true }, deserializer, requestBuilder)
 }
 
+@Deprecated("This property will be removed soon. It is now recommended to use built-in ktor features instead")
 val defaultRequester = UnifiedRequester()
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <ResultType> HttpClient.uniget(
     url: String,
     resultDeserializer: DeserializationStrategy<ResultType>,
@@ -111,6 +111,7 @@ suspend fun <ResultType> HttpClient.uniget(
 }
 
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 fun <T> SerializationStrategy<T>.encodeUrlQueryValue(
     value: T,
     serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat
@@ -119,6 +120,7 @@ fun <T> SerializationStrategy<T>.encodeUrlQueryValue(
     value
 )
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <BodyType, ResultType> HttpClient.unipost(
     url: String,
     bodyInfo: Pair<SerializationStrategy<BodyType>, BodyType>,
@@ -132,6 +134,7 @@ suspend fun <BodyType, ResultType> HttpClient.unipost(
     serialFormat.decodeDefault(resultDeserializer, it.body<StandardKtorSerialInputData>())
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <ResultType> HttpClient.unimultipart(
     url: String,
     filename: String,
@@ -160,6 +163,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
     requestBuilder()
 }.let { serialFormat.decodeDefault(resultDeserializer, it.body<StandardKtorSerialInputData>()) }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,
     filename: String,
@@ -197,6 +201,7 @@ suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     serialFormat
 )
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <ResultType> HttpClient.unimultipart(
     url: String,
     mppFile: MPPFile,
@@ -218,6 +223,7 @@ suspend fun <ResultType> HttpClient.unimultipart(
     serialFormat
 )
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <BodyType, ResultType> HttpClient.unimultipart(
     url: String,
     mppFile: MPPFile,

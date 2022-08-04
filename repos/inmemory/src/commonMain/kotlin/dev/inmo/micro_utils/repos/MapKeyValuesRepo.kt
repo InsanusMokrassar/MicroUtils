@@ -5,8 +5,6 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.*
 
-@Deprecated("Renamed", ReplaceWith("MapReadKeyValuesRepo", "dev.inmo.micro_utils.repos.MapReadKeyValuesRepo"))
-typealias MapReadOneToManyKeyValueRepo<Key, Value> = MapReadKeyValuesRepo<Key, Value>
 class MapReadKeyValuesRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap()
 ) : ReadKeyValuesRepo<Key, Value> {
@@ -55,8 +53,6 @@ class MapReadKeyValuesRepo<Key, Value>(
     override suspend fun count(): Long = map.size.toLong()
 }
 
-@Deprecated("Renamed", ReplaceWith("MapWriteKeyValuesRepo", "dev.inmo.micro_utils.repos.MapWriteKeyValuesRepo"))
-typealias MapWriteOneToManyKeyValueRepo<Key, Value> = MapWriteKeyValuesRepo<Key, Value>
 class MapWriteKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
 ) : WriteKeyValuesRepo<Key, Value> {
@@ -102,8 +98,7 @@ class MapWriteKeyValuesRepo<Key, Value>(
     }
 }
 
-@Deprecated("Renamed", ReplaceWith("MapKeyValuesRepo", "dev.inmo.micro_utils.repos.MapKeyValuesRepo"))
-typealias MapOneToManyKeyValueRepo1<Key, Value> = MapKeyValuesRepo<Key, Value>
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class MapKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
 ) : KeyValuesRepo<Key, Value>,
@@ -113,6 +108,3 @@ class MapKeyValuesRepo<Key, Value>(
 fun <K, V> MutableMap<K, List<V>>.asKeyValuesRepo(): KeyValuesRepo<K, V> = MapKeyValuesRepo(
     map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap()
 )
-
-@Deprecated("Renamed", ReplaceWith("asKeyValuesRepo", "dev.inmo.micro_utils.repos.asKeyValuesRepo"))
-fun <K, V> MutableMap<K, List<V>>.asOneToManyKeyValueRepo(): KeyValuesRepo<K, V> = asKeyValuesRepo()
