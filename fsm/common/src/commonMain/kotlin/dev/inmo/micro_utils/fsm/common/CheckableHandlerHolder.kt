@@ -47,23 +47,10 @@ fun <I : O, O : State> CheckableHandlerHolder(
     }
 )
 
-@Deprecated("Renamed", ReplaceWith("CheckableHandlerHolder"))
-fun <I : O, O : State> StateHandlerHolder(
-    inputKlass: KClass<I>,
-    strict: Boolean = false,
-    delegateTo: StatesHandler<I, O>
-) = CheckableHandlerHolder(inputKlass, strict, delegateTo)
-
 inline fun <reified I : O, O : State> CheckableHandlerHolder(
     strict: Boolean = false,
     delegateTo: StatesHandler<I, O>
 ) = CheckableHandlerHolder(I::class, strict, delegateTo)
-
-@Deprecated("Renamed", ReplaceWith("CheckableHandlerHolder"))
-inline fun <reified I : O, O : State> StateHandlerHolder(
-    strict: Boolean = false,
-    delegateTo: StatesHandler<I, O>
-) = CheckableHandlerHolder(strict, delegateTo)
 
 inline fun <reified I : O, O: State> StatesHandler<I, O>.holder(
     strict: Boolean = true

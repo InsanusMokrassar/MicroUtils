@@ -87,6 +87,7 @@ class WriteMapKeyValueRepo<Key, Value>(
     }
 }
 
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class MapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value> = mutableMapOf()
 ) : KeyValueRepo<Key, Value>,

@@ -68,9 +68,6 @@ open class DefaultUpdatableStatesMachine<T : State>(
      */
     protected open suspend fun shouldReplaceJob(previous: Optional<T>, new: T): Boolean = previous.dataOrNull() != new
 
-    @Deprecated("Overwrite shouldReplaceJob instead")
-    protected open suspend fun compare(previous: Optional<T>, new: T): Boolean = shouldReplaceJob(previous, new)
-
     override suspend fun updateChain(currentState: T, newState: T) {
         statesManager.update(currentState, newState)
     }

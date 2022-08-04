@@ -19,6 +19,7 @@ import kotlinx.serialization.DeserializationStrategy
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     crossinline checkReconnection: suspend (Throwable?) -> Boolean = { true },
@@ -65,6 +66,7 @@ inline fun <T> HttpClient.createStandardWebsocketFlow(
  * @param checkReconnection This lambda will be called when it is required to reconnect to websocket to establish
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 inline fun <T> HttpClient.createStandardWebsocketFlow(
     url: String,
     deserializer: DeserializationStrategy<T>,

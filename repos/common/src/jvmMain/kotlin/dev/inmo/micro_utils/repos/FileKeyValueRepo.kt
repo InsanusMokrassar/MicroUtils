@@ -13,9 +13,6 @@ import java.nio.file.StandardWatchEventKinds.*
 private inline val String.isAbsolute
     get() = startsWith(File.separator)
 
-@Deprecated("Renamed", ReplaceWith("FileReadKeyValueRepo", "dev.inmo.micro_utils.repos.FileReadKeyValueRepo"))
-typealias FileReadStandardKeyValueRepo = FileReadKeyValueRepo
-
 class FileReadKeyValueRepo(
     private val folder: File
 ) : ReadKeyValueRepo<String, File> {
@@ -81,9 +78,6 @@ class FileReadKeyValueRepo(
 
     override suspend fun count(): Long = folder.list() ?.size ?.toLong() ?: 0L
 }
-
-@Deprecated("Renamed", ReplaceWith("FileWriteKeyValueRepo", "dev.inmo.micro_utils.repos.FileWriteKeyValueRepo"))
-typealias FileWriteStandardKeyValueRepo = FileWriteKeyValueRepo
 
 /**
  * Files watching will not correctly works on Android with version of API lower than API 26
@@ -183,9 +177,6 @@ class FileWriteKeyValueRepo(
         unset(keys)
     }
 }
-
-@Deprecated("Renamed", ReplaceWith("FileKeyValueRepo", "dev.inmo.micro_utils.repos.FileKeyValueRepo"))
-typealias FileStandardKeyValueRepo = FileKeyValueRepo
 
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")

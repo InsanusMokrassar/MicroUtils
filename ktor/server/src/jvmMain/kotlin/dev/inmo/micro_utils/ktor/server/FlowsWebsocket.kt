@@ -33,6 +33,7 @@ fun <T> Route.includeWebsocketHandling(
     }
 }
 
+@Deprecated("This method will be removed soon")
 fun <T> Route.includeWebsocketHandling(
     suburl: String,
     flow: Flow<T>,

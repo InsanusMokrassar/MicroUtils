@@ -20,12 +20,6 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     protected val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
     protected val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
     protected val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
-    @Deprecated("Renamed", ReplaceWith("_newObjectsFlow"))
-    protected val newObjectsChannel = _newObjectsFlow
-    @Deprecated("Renamed", ReplaceWith("_updatedObjectsFlow"))
-    protected val updateObjectsChannel = _updatedObjectsFlow
-    @Deprecated("Renamed", ReplaceWith("_deletedObjectsIdsFlow"))
-    protected val deleteObjectsIdsChannel = _deletedObjectsIdsFlow
 
     override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
     override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()

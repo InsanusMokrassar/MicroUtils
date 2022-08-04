@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.12.0-beta
+
+**OLD DEPRECATIONS HAVE BEEN REMOVED**
+
+**MINIMAL ANDROID API HAS BEEN ENLARGED UP TO API 21 (Android 5.0)**
+
+* `Versions`
+  * `Kotlin`: `1.6.21` -> `1.7.0`
+  * `Coroutines`: `1.6.3` -> `1.6.4`
+  * `Exposed`: `0.38.2` -> `0.39.2`
+  * `Compose`: `1.2.0-alpha01-dev729` -> `1.2.0-alpha01-dev753`
+  * `Klock`: `2.7.0` -> `3.0.0`
+  * `uuid`: `0.4.1` -> `0.5.0`
+  * `Android Core KTX`: `1.7.0` -> `1.8.0`
+  * `Android AppCompat`: `1.4.1` -> `1.4.2`
+* `Ktor`:
+  * All previously standard functions related to work with binary data by default have been deprecated
+
 ## 0.11.14
 
 * `Pagination`:

@@ -1,30 +1,30 @@
 [versions]
 
-kt = "1.6.21"
-kt-serialization = "1.3.3"
+kt = "1.7.0"
+kt-serialization = "1.4.0-RC"
 kt-coroutines = "1.6.4"
 
-jb-compose = "1.2.0-alpha01-dev731"
-jb-exposed = "0.38.2"
-jb-dokka = "1.6.21"
+jb-compose = "1.2.0-alpha01-dev753"
+jb-exposed = "0.39.2"
+jb-dokka = "1.7.0"
 
-klock = "2.7.0"
-uuid = "0.4.1"
+klock = "3.0.0"
+uuid = "0.5.0"
 
 ktor = "2.0.3"
 
 gh-release = "2.4.1"
 
-android-gradle = "7.0.4"
+android-gradle = "7.2.2"
 dexcount = "3.1.0"
 
-android-coreKtx = "1.7.0"
+android-coreKtx = "1.8.0"
 android-recyclerView = "1.2.1"
-android-appCompat = "1.4.1"
-android-espresso = "3.3.0"
-android-test = "1.1.2"
+android-appCompat = "1.4.2"
+android-espresso = "3.4.0"
+android-test = "1.1.3"
 
-android-props-minSdk = "19"
+android-props-minSdk = "21"
 android-props-compileSdk = "32"
 android-props-buildTools = "32.0.0"
 

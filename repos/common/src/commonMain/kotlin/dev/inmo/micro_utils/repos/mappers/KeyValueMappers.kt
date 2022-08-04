@@ -5,8 +5,6 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-@Deprecated("Renamed", ReplaceWith("MapperReadKeyValueRepo", "dev.inmo.micro_utils.repos.mappers.MapperReadKeyValueRepo"))
-typealias MapperReadStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>
 open class MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: ReadKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -75,8 +73,6 @@ inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> 
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
-@Deprecated("Renamed", ReplaceWith("MapperWriteKeyValueRepo", "dev.inmo.micro_utils.repos.mappers.MapperWriteKeyValueRepo"))
-typealias MapperWriteStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperWriteKeyValueRepo<FromKey, FromValue, ToKey, ToValue>
 open class MapperWriteKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: WriteKeyValueRepo<ToKey, ToValue>,
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
@@ -120,8 +116,6 @@ inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> 
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
-@Deprecated("Renamed", ReplaceWith("MapperKeyValueRepo", "dev.inmo.micro_utils.repos.mappers.MapperKeyValueRepo"))
-typealias MapperStandardKeyValueRepo<FromKey, FromValue, ToKey, ToValue> = MapperKeyValueRepo<FromKey, FromValue, ToKey, ToValue>
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 open class MapperKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
     private val to: KeyValueRepo<ToKey, ToValue>,

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 
+@Deprecated("This class method will be removed soon. It is now recommended to use built-in ktor features instead")
 class UnifiedRouter(
     val serialFormat: StandardKtorSerialFormat = standardKtorSerialFormat,
     val serialFormatContentType: ContentType = standardKtorSerialFormatContentType
@@ -97,6 +98,7 @@ class UnifiedRouter(
 
 val defaultUnifiedRouter = UnifiedRouter()
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <T> ApplicationCall.unianswer(
     answerSerializer: SerializationStrategy<T>,
     answer: T
@@ -107,6 +109,7 @@ suspend fun <T> ApplicationCall.unianswer(
     )
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <T> ApplicationCall.uniload(
     deserializer: DeserializationStrategy<T>
 ) = safely {
@@ -119,6 +122,7 @@ suspend fun <T> ApplicationCall.uniload(
 suspend fun ApplicationCall.uniloadMultipart(
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {}
 ) = safely {
     val multipartData = receiveMultipart()
@@ -135,16 +139,19 @@ suspend fun ApplicationCall.uniloadMultipart(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
     resultInput ?: error("Bytes has not been received")
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <T> ApplicationCall.uniloadMultipart(
     deserializer: DeserializationStrategy<T>,
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {}
 ): Pair<Input, T> {
     var data: Optional<T>? = null
@@ -157,6 +164,7 @@ suspend fun <T> ApplicationCall.uniloadMultipart(
                 onCustomFileItem(it)
             }
         },
+        onBinaryChannelItem,
         onBinaryContent
     )
 
@@ -164,10 +172,12 @@ suspend fun <T> ApplicationCall.uniloadMultipart(
     return resultInput to (completeData.dataOrNull().let { it as T })
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <T> ApplicationCall.uniloadMultipartFile(
     deserializer: DeserializationStrategy<T>,
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {},
 ) = safely {
     val multipartData = receiveMultipart()
@@ -204,6 +214,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
@@ -214,6 +225,7 @@ suspend fun <T> ApplicationCall.uniloadMultipartFile(
 suspend fun ApplicationCall.uniloadMultipartFile(
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {},
 ) = safely {
     val multipartData = receiveMultipart()
@@ -247,6 +259,7 @@ suspend fun ApplicationCall.uniloadMultipartFile(
                 }
             }
             is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
         }
     }
 
@@ -273,6 +286,7 @@ suspend fun ApplicationCall.getQueryParameterOrSendError(
     }
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 fun <T> ApplicationCall.decodeUrlQueryValue(
     field: String,
     deserializer: DeserializationStrategy<T>
@@ -283,6 +297,7 @@ fun <T> ApplicationCall.decodeUrlQueryValue(
     )
 }
 
+@Deprecated("This method will be removed soon. It is now recommended to use built-in ktor features instead")
 suspend fun <T> ApplicationCall.decodeUrlQueryValueOrSendError(
     field: String,
     deserializer: DeserializationStrategy<T>
