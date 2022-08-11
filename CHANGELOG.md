@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.12.0-beta
+## 0.12.1
+
+* `Versions`:
+  * `Ktor`: `2.0.3` -> `2.1.0`
+
+## 0.12.0
 
 **OLD DEPRECATIONS HAVE BEEN REMOVED**
 
