@@ -11,7 +11,7 @@ jb-dokka = "1.7.0"
 klock = "3.0.0"
 uuid = "0.5.0"
 
-ktor = "2.0.3"
+ktor = "2.1.0"
 
 gh-release = "2.4.1"
 
