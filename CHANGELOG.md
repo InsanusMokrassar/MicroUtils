@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.2
+
+* `Versions`:
+  * `Serialization`: `1.4.0-RC` -> `1.4.0`
+  * `Compose`: `1.2.0-alpha01-dev753` -> `1.2.0-alpha01-dev755`
+
 ## 0.12.1
 
 * `Versions`:
