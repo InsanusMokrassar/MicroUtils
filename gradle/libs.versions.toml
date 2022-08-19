@@ -4,7 +4,7 @@ kt = "1.7.0"
 kt-serialization = "1.4.0"
 kt-coroutines = "1.6.4"
 
-jb-compose = "1.2.0-alpha01-dev753"
+jb-compose = "1.2.0-alpha01-dev755"
 jb-exposed = "0.39.2"
 jb-dokka = "1.7.0"
 
