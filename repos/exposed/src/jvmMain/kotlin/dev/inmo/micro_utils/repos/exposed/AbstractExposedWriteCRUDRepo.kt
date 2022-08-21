@@ -26,7 +26,6 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
 
     protected abstract fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType
-    abstract val selectByIds: SqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
 
     protected abstract fun insert(value: InputValueType, it: InsertStatement<Number>)
     protected abstract fun update(id: IdType, value: InputValueType, it: UpdateStatement)
