@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.3
+
+* `Repos`:
+  * `Exposed`:
+    * Add abstract exposed variants of `KeyValue` and `KeyValues` repos
+    * Add new extension `Query#selectPaginated`
+
 ## 0.12.2
 
 * `Versions`:
