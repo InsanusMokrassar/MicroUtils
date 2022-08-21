@@ -12,7 +12,7 @@ interface CommonExposedRepo<IdType, ObjectType> : ExposedRepo {
             } else {
                 var op = selectById(list.first())
                 (1 until list.size).forEach {
-                    op = op.and(selectById(list[it]))
+                    op = op.or(selectById(list[it]))
                 }
                 op
             }
