@@ -3,9 +3,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
-import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 open class ExposedReadKeyValueRepo<Key, Value>(

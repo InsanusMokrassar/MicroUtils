@@ -15,13 +15,13 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
 ) {
     protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onNewValue: Flow<Pair<Key, Value>>
-        get() = _onNewValue
+        get() = _onNewValue.asSharedFlow()
     protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
     override val onValueRemoved: Flow<Pair<Key, Value>>
-        get() = _onValueRemoved
+        get() = _onValueRemoved.asSharedFlow()
     protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
     override val onDataCleared: Flow<Key>
-        get() = _onDataCleared
+        get() = _onDataCleared.asSharedFlow()
 
     protected abstract fun insert(k: Key, v: Value, it: InsertStatement<Number>)
 
