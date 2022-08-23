@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.4
+
+* `Versions`:
+    * `Kotlin`: `1.7.0` -> `1.7.10`
+    * `Compose`: `1.2.0-alpha01-dev755` -> `1.2.0-alpha01-dev764`
+
 ## 0.12.3
 
 * `Repos`:
