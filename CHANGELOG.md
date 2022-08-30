@@ -2,6 +2,10 @@
 
 ## 0.12.5
 
+* `Repos`:
+  * `Exposed`:
+    * Fixes in `paginate` extensions
+
 ## 0.12.4
 
 * `Versions`:
