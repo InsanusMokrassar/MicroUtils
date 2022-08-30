@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.12.6
+
+* `MimeeTypes>`:
+  * Fixed absence of `image/*` in known mime types
+
 ## 0.12.5
 
 * `Repos`:

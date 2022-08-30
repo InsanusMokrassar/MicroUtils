@@ -2017,6 +2017,7 @@ internal val knownMimeTypes: Set<MimeType> = setOf(
     KnownMimeTypes.Chemical.XCml,
     KnownMimeTypes.Chemical.XCsml,
     KnownMimeTypes.Chemical.XXyz,
+    KnownMimeTypes.Image.Any,
     KnownMimeTypes.Image.Bmp,
     KnownMimeTypes.Image.Cgm,
     KnownMimeTypes.Image.G3fax,
