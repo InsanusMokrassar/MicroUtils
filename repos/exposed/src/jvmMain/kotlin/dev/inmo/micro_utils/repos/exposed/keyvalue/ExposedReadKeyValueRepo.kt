@@ -3,6 +3,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
+import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -29,24 +30,32 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     override suspend fun count(): Long = transaction(database) { selectAll().count() }
 
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
-        selectAll().paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
+        selectAll().selectPaginated(
+            pagination,
+            keyColumn,
+            reversed
+        ) {
             it[keyColumn]
         }
-    }.createPaginationResult(pagination, count())
+    }
 
     override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
-        select { valueColumn.eq(v) }.let {
-            it.count() to it.paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
-                it[keyColumn]
-            }
+        select { valueColumn.eq(v) }.selectPaginated(
+            pagination,
+            keyColumn,
+            reversed
+        ) {
+            it[keyColumn]
         }
-    }.let { (count, list) ->
-        list.createPaginationResult(pagination, count)
     }
 
     override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = transaction(database) {
-        selectAll().paginate(pagination, keyColumn to if (reversed) SortOrder.DESC else SortOrder.ASC).map {
+        selectAll().selectPaginated(
+            pagination,
+            keyColumn,
+            reversed
+        ) {
             it[valueColumn]
         }
-    }.createPaginationResult(pagination, count())
+    }
 }

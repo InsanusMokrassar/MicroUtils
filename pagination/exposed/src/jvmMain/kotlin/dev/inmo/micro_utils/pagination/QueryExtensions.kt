@@ -4,11 +4,7 @@ import org.jetbrains.exposed.sql.*
 
 fun Query.paginate(with: Pagination, orderBy: Pair<Expression<*>, SortOrder>? = null) = limit(
     with.size,
-    (if (orderBy ?.second == SortOrder.DESC) {
-        with.lastIndex
-    } else {
-        with.firstIndex
-    }).toLong()
+    with.firstIndex.toLong()
 ).let {
     if (orderBy != null) {
         it.orderBy(
