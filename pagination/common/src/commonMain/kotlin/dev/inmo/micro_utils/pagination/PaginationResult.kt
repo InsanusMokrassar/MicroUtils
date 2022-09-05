@@ -48,6 +48,14 @@ data class PaginationResult<T>(
 }
 
 fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
+fun <T> emptyPaginationResult(
+    basePagination: Pagination
+) = PaginationResult<T>(
+    basePagination.page,
+    basePagination.size,
+    emptyList(),
+    0L
+)
 
 /**
  * @return New [PaginationResult] with [data] without checking of data sizes equality

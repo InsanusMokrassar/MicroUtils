@@ -33,6 +33,14 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val updatedObjectsFlow: Flow<ObjectType> by parentRepo::updatedObjectsFlow
     override val deletedObjectsIdsFlow: Flow<IdType> by parentRepo::deletedObjectsIdsFlow
 
+    val createdObjectsFlowJob = parentRepo.newObjectsFlow.onEach {
+        kvCache.set(idGetter(it), it)
+    }.launchIn(scope)
+
+    val updatedObjectsFlowJob = parentRepo.updatedObjectsFlow.onEach {
+        kvCache.set(idGetter(it), it)
+    }.launchIn(scope)
+
     val deletedObjectsFlowJob = parentRepo.deletedObjectsIdsFlow.onEach {
         kvCache.unset(it)
     }.launchIn(scope)
