@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.12.7
+
+* `Repos`:
+  * `Cache`:
+    * Force `WriteCRUDCacheRepo` to subscribe on new and updated objects of parent repo
+* `Pagination`:
+  * New function `changeResultsUnchecked(Pagination)`
+
 ## 0.12.6
 
 * `MimeeTypes>`:
