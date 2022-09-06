@@ -4,14 +4,14 @@ kt = "1.7.10"
 kt-serialization = "1.4.0"
 kt-coroutines = "1.6.4"
 
-jb-compose = "1.2.0-alpha01-dev764"
+jb-compose = "1.2.0-alpha01-dev774"
 jb-exposed = "0.39.2"
 jb-dokka = "1.7.10"
 
 klock = "3.0.0"
 uuid = "0.5.0"
 
-ktor = "2.1.0"
+ktor = "2.1.1"
 
 gh-release = "2.4.1"
 
