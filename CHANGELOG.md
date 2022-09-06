@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.12.8
+
+* `Versions`:
+    * `Ktor`: `2.1.0` -> `2.1.1`
+    * `Compose`: `1.2.0-alpha01-dev764` -> `1.2.0-alpha01-dev774`
+* `Ktor`:
+  * `Client`:
+    * New extension `HttpClient#bodyOrNull` which returns `null` in case when server responded with `No Content` (204)
+  * `Server`:
+    * New extension `ApplicationCall#respondOrNoContent` which responds `No Content` (204) when passed data is null
+
 ## 0.12.7
 
 * `Repos`:
