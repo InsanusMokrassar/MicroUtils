@@ -2,6 +2,9 @@
 
 ## 0.12.8
 
+* `Versions`:
+    * `Ktor`: `2.1.0` -> `2.1.1`
+    * `Compose`: `1.2.0-alpha01-dev764` -> `1.2.0-alpha01-dev774`
 * `Ktor`:
   * `Client`:
     * New extension `HttpClient#bodyOrNull` which returns `null` in case when server responded with `No Content` (204)
