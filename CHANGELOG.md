@@ -2,6 +2,12 @@
 
 ## 0.12.8
 
+* `Ktor`:
+  * `Client`:
+    * New extension `HttpClient#bodyOrNull` which returns `null` in case when server responded with `No Content` (204)
+  * `Server`:
+    * New extension `ApplicationCall#respondOrNoContent` which responds `No Content` (204) when passed data is null
+
 ## 0.12.7
 
 * `Repos`:
