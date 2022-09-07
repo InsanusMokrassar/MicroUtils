@@ -13,10 +13,8 @@ open class ReadKeyValuesCacheRepo<Key,Value>(
     protected open val kvCache: KVCache<Key, List<Value>>
 ) : ReadKeyValuesRepo<Key,Value> by parentRepo, CacheRepo {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
-        val count = count(k)
-        return getAll(k, reversed).createPaginationResult(
-            pagination,
-            count
+        return getAll(k, reversed).paginate(
+            pagination
         )
     }
     override suspend fun getAll(k: Key, reversed: Boolean): List<Value> {
