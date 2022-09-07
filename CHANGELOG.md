@@ -2,6 +2,8 @@
 
 ## 0.12.9
 
+* `Versions`:
+  * `Klock`: `3.0.0` -> `3.1.0`
 * `Repos`:
     * `Cache`:
       * Fixes in key values cache
