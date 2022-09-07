@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.9
+
+* `Repos`:
+    * `Cache`:
+      * Fixes in key values cache
+
 ## 0.12.8
 
 * `Versions`:
