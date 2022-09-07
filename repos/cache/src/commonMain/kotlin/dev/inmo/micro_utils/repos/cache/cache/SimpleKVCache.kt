@@ -25,6 +25,9 @@ open class SimpleKVCache<K, V>(
                         kvParent.unset(it)
                     }
                 }
+                do {
+                    val removed = cacheQueue.remove(k)
+                } while (removed)
                 cacheQueue.addLast(k)
                 kvParent.set(k, v)
             }
