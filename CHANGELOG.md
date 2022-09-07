@@ -2,6 +2,10 @@
 
 ## 0.12.10
 
+* `Repos`:
+    * `Cache`:
+        * Hotfix in key values `get`
+
 ## 0.12.9
 
 * `Versions`:
