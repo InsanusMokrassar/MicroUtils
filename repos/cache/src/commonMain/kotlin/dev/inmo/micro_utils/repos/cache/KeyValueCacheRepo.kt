@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.repos.cache
 
-import dev.inmo.micro_utils.pagination.Pagination
-import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import kotlinx.coroutines.CoroutineScope
@@ -14,6 +13,16 @@ open class ReadKeyValueCacheRepo<Key,Value>(
 ) : ReadKeyValueRepo<Key,Value> by parentRepo, CacheRepo {
     override suspend fun get(k: Key): Value? = kvCache.get(k) ?: parentRepo.get(k) ?.also { kvCache.set(k, it) }
     override suspend fun contains(key: Key): Boolean = kvCache.contains(key) || parentRepo.contains(key)
+
+    override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
+        return keys(pagination, reversed).let {
+            it.changeResultsUnchecked(
+                it.results.mapNotNull {
+                    get(it)
+                }
+            )
+        }
+    }
 }
 
 fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(

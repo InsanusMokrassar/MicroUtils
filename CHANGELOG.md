@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.12.11
+
+* `Repos`:
+    * `Cache`:
+        * Override `KeyValue` cache method `values`
+
 ## 0.12.10
 
 * `Repos`:
