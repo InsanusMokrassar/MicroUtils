@@ -2,6 +2,11 @@
 
 ## 0.12.12
 
+* `Common`:
+  * `Compose`:
+    * `JS`:
+      * Add `SkeletonAnimation` stylesheet
+
 ## 0.12.11
 
 * `Repos`:
