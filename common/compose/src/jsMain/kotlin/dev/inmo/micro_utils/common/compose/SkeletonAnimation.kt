@@ -7,12 +7,14 @@ object SkeletonAnimation : StyleSheet() {
         to { backgroundPosition("-20% 0") }
     }
 
-    fun CSSBuilder.createSkeletonStyle(
+    fun CSSBuilder.includeSkeletonStyle(
         duration: CSSSizeValue<out CSSUnitTime> = 2.s,
         timingFunction: AnimationTimingFunction = AnimationTimingFunction.EaseInOut,
         iterationCount: Int? = null,
         direction: AnimationDirection = AnimationDirection.Normal,
-        keyFrames: CSSNamedKeyframes = skeletonKeyFrames
+        keyFrames: CSSNamedKeyframes = skeletonKeyFrames,
+        hideChildren: Boolean = true,
+        hideText: Boolean = hideChildren
     ) {
         backgroundImage("linear-gradient(110deg, rgb(236, 236, 236) 40%, rgb(245, 245, 245) 50%, rgb(236, 236, 236) 65%)")
         backgroundSize("200% 100%")
@@ -23,15 +25,19 @@ object SkeletonAnimation : StyleSheet() {
             iterationCount(iterationCount)
             direction(direction)
         }
-        property("color", "${Color.transparent} !important")
+        if (hideText) {
+            property("color", "${Color.transparent} !important")
+        }
 
-        child(self, universal) style {
-            property("visibility", "hidden")
+        if (hideChildren) {
+            child(self, universal) style {
+                property("visibility", "hidden")
+            }
         }
     }
 
     val skeleton by style {
-        createSkeletonStyle()
+        includeSkeletonStyle()
     }
 }
 
