@@ -2,6 +2,9 @@
 
 ## 0.12.13
 
+* `Koin`:
+  * Module inited :)
+
 ## 0.12.12
 
 * `Common`:
