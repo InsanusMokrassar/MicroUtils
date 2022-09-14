@@ -19,7 +19,7 @@ inline fun <T> CoroutineScope.safeActorAsync(
     noinline onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
     noinline markerFactory: suspend (T) -> Any? = { null },
     crossinline block: suspend (T) -> Unit
-): Channel<T> = actor(
+): Channel<T> = actorAsync(
     channelCapacity,
     markerFactory
 ) {
