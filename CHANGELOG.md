@@ -6,6 +6,9 @@
   * Add opportunity to use markers in actors (solution of [#160](https://github.com/InsanusMokrassar/MicroUtils/issues/160))
 * `Koin`:
   * Module inited :)
+* `Repos`:
+  * `Android`:
+    * Add typealias `KeyValueSPRepo` and opportunity to create shared preferences `KeyValue` repo with `KeyValueStore(...)` (fix of [#155](https://github.com/InsanusMokrassar/MicroUtils/issues/155))
 
 ## 0.12.12
 

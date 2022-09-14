@@ -19,5 +19,10 @@ kotlin {
                 api libs.kt.reflect
             }
         }
+        androidMain {
+            dependencies {
+                api libs.kt.reflect
+            }
+        }
     }
 }
