@@ -2,6 +2,8 @@
 
 ## 0.12.13
 
+* `Coroutines`:
+  * Add opportunity to use markers in actors (solution of [#160](https://github.com/InsanusMokrassar/MicroUtils/issues/160))
 * `Koin`:
   * Module inited :)
 
