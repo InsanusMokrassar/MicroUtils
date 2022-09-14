@@ -17,7 +17,7 @@ fun <T : Any> Context.keyValueStore(
 ): KeyValueRepo<String, T> {
     @Suppress("UNCHECKED_CAST")
     return cache.getOrPut(name) {
-        KeyValueStore<T>(this, name, cacheValues)
+        KeyValueStore<T>(c = this, preferencesName = name, useCache = cacheValues)
     } as KeyValueStore<T>
 }
 
@@ -149,6 +149,14 @@ class KeyValueStore<T : Any> internal constructor (
             _onValueRemovedFlow.emit(it)
         }
     }
+
+    companion object {
+        operator fun <T : Any> invoke(
+            context: Context,
+            name: String = "default",
+            cacheValues: Boolean = false
+        ) = context.keyValueStore<T>(name, cacheValues)
+    }
 }
 
 inline fun <T : Any> SharedPreferencesKeyValueRepo(
@@ -156,3 +164,5 @@ inline fun <T : Any> SharedPreferencesKeyValueRepo(
     name: String = "default",
     cacheValues: Boolean = false
 ) = context.keyValueStore<T>(name, cacheValues)
+
+typealias KeyValueSPRepo<T> = KeyValueStore<T>
