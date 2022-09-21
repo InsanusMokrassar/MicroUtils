@@ -2,6 +2,9 @@
 
 ## 0.12.14
 
+* `Coroutines`:
+  * Rewrite `awaitFirstWithDeferred` onto `CompletableDeferred` instead of coroutines suspending
+
 ## 0.12.13
 
 * `Coroutines`:

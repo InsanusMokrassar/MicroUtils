@@ -6,23 +6,19 @@ import kotlin.coroutines.*
 suspend fun <T> Iterable<Deferred<T>>.awaitFirstWithDeferred(
     scope: CoroutineScope,
     cancelOnResult: Boolean = true
-): Pair<Deferred<T>, T> = suspendCoroutine<Pair<Deferred<T>, T>> { continuation ->
-    scope.launch(SupervisorJob()) {
-        val scope = this
-        forEach {
-            scope.launch {
-                continuation.resume(it to it.await())
-                scope.cancel()
-            }
+): Pair<Deferred<T>, T> {
+    val resultDeferred = CompletableDeferred<Pair<Deferred<T>, T>>()
+    val scope = scope.LinkedSupervisorScope()
+    forEach {
+        scope.launch {
+            resultDeferred.complete(it to it.await())
+            scope.cancel()
         }
     }
-}.also {
-    if (cancelOnResult) {
-        forEach {
-            try {
-                it.cancel()
-            } catch (e: IllegalStateException) {
-                e.printStackTrace()
+    return resultDeferred.await().also {
+        if (cancelOnResult) {
+            forEach {
+                runCatchingSafely { it.cancel() }
             }
         }
     }
