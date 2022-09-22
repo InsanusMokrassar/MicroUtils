@@ -7,6 +7,9 @@
   * `Android AppCompat`: `1.4.2` -> `1.5.1`
   * Android Compile SDK: 32 -> 33
   * Android Build Tools: 32.0.0 -> 33.0.0
+* `Common`:
+  * `Android`:
+    * Add `argumentOrNull`/`argumentOrThrow` delegates for fragments
 * `Coroutines`:
   * Rewrite `awaitFirstWithDeferred` onto `CompletableDeferred` instead of coroutines suspending
 
