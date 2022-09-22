@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.14
+
+* `Versions`:
+  * `Android CoreKTX`: `1.8.0` -> `1.9.0`
+  * `Android AppCompat`: `1.4.2` -> `1.5.1`
+  * Android Compile SDK: 32 -> 33
+  * Android Build Tools: 32.0.0 -> 33.0.0
+* `Common`:
+  * `Android`:
+    * Add `argumentOrNull`/`argumentOrThrow` delegates for fragments
+* `Coroutines`:
+  * Rewrite `awaitFirstWithDeferred` onto `CompletableDeferred` instead of coroutines suspending
+
 ## 0.12.13
 
 * `Coroutines`:

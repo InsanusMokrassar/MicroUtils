@@ -16,6 +16,7 @@ kotlin {
         androidMain {
             dependencies {
                 api project(":micro_utils.coroutines")
+                api libs.android.fragment
             }
         }
     }
