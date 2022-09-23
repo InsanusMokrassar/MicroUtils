@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.12.15
+
+* `Common`:
+    * `applyDiff` will return `Diff` object since this release
+    * `Android`:
+      * New functions/extensions `findViewsByTag` and `findViewsByTagInActivity`
+* `Coroutines`:
+    * Add `Flow` extensions `flatMap`, `flatMapNotNull` and `flatten`
+    * Add `Flow` extensions `takeNotNull` and `filterNotNull`
+
 ## 0.12.14
 
 * `Versions`:
