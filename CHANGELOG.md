@@ -3,7 +3,8 @@
 ## 0.12.15
 
 * `Coroutines`:
-    * Add `Flow` extensions `flatMap` and `flatten`
+    * Add `Flow` extensions `flatMap`, `flatMapNotNull` and `flatten`
+    * Add `Flow` extensions `takeNotNull` and `filterNotNull`
 
 ## 0.12.14
 

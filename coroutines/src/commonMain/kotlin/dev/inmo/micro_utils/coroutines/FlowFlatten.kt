@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.flow.*
+import kotlin.js.JsName
+import kotlin.jvm.JvmName
 
 inline fun <T, R> Flow<Flow<T>>.flatMap(
     crossinline mapper: suspend (T) -> R
@@ -12,6 +14,8 @@ inline fun <T, R> Flow<Flow<T>>.flatMap(
     }
 }
 
+@JsName("flatMapIterable")
+@JvmName("flatMapIterable")
 inline fun <T, R> Flow<Iterable<T>>.flatMap(
     crossinline mapper: suspend (T) -> R
 ) = map {
@@ -20,12 +24,16 @@ inline fun <T, R> Flow<Iterable<T>>.flatMap(
 
 inline fun <T, R> Flow<Flow<T>>.flatMapNotNull(
     crossinline mapper: suspend (T) -> R
-) = flatMap(mapper).filterNot { it == null }
+) = flatMap(mapper).takeNotNull()
 
+@JsName("flatMapNotNullIterable")
+@JvmName("flatMapNotNullIterable")
 inline fun <T, R> Flow<Iterable<T>>.flatMapNotNull(
     crossinline mapper: suspend (T) -> R
-) = flatMap(mapper).filterNot { it == null }
-
-fun <T> Flow<Iterable<T>>.flatten() = flatMap { it }
+) = flatMap(mapper).takeNotNull()
 
 fun <T> Flow<Flow<T>>.flatten() = flatMap { it }
+
+@JsName("flattenIterable")
+@JvmName("flattenIterable")
+fun <T> Flow<Iterable<T>>.flatten() = flatMap { it }
