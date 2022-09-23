@@ -14,6 +14,14 @@ private inline fun <T> getObject(
 /**
  * Diff object which contains information about differences between two [Iterable]s
  *
+ * See tests for more info
+ *
+ * @param removed The objects which has been presented in the old collection but absent in new one. Index here is the index in the old collection
+ * @param added The object which appear in new collection only. Indexes here show the index in the new collection
+ * @param replaced Pair of old-new changes. First object has been presented in the old collection on its
+ * [IndexedValue.index] place, the second one is the object in new collection. Both have indexes due to the fact that in
+ * case when some value has been replaced after adds or removes in original collection the object index will be changed
+ *
  * @see calculateDiff
  */
 data class Diff<T> internal constructor(
