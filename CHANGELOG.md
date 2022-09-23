@@ -2,6 +2,9 @@
 
 ## 0.12.15
 
+* `Coroutines`:
+    * Add `Flow` extensions `flatMap` and `flatten`
+
 ## 0.12.14
 
 * `Versions`:
