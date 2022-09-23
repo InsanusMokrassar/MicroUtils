@@ -2,6 +2,8 @@
 
 ## 0.12.15
 
+* `Common`:
+    * `applyDiff` will return `Diff` object since this release
 * `Coroutines`:
     * Add `Flow` extensions `flatMap`, `flatMapNotNull` and `flatten`
     * Add `Flow` extensions `takeNotNull` and `filterNotNull`

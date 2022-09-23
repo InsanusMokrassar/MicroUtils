@@ -173,7 +173,7 @@ inline fun <T> Iterable<T>.calculateStrictDiff(
 fun <T> MutableList<T>.applyDiff(
     source: Iterable<T>,
     strictComparison: Boolean = false
-) = calculateDiff(source, strictComparison).let {
+): Diff<T> = calculateDiff(source, strictComparison).also {
     for (i in it.removed.indices.sortedDescending()) {
         removeAt(it.removed[i].index)
     }
