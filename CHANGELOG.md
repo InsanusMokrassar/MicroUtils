@@ -2,6 +2,11 @@
 
 ## 0.12.16
 
+* `Coroutines`:
+  * `Android`:
+    * Add class `FlowOnHierarchyChangeListener`
+    * Add `ViewGroup#setOnHierarchyChangeListenerRecursively(OnHierarchyChangeListener)`
+
 ## 0.12.15
 
 * `Common`:
