@@ -12,6 +12,6 @@ fun ViewGroup.setOnHierarchyChangeListenerRecursively(
 ) {
     setOnHierarchyChangeListener(listener)
     (0 until childCount).forEach {
-        (getChildAt(it) as? ViewGroup) ?.setOnHierarchyChangeListener(listener)
+        (getChildAt(it) as? ViewGroup) ?.setOnHierarchyChangeListenerRecursively(listener)
     }
 }
