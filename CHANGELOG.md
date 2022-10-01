@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.17
+
+* `Versions`:
+    * `JB Compose`: `1.2.0-alpha01-dev774` -> `1.2.0-beta02`
+    * `Ktor`: `2.1.1` -> `2.1.2`
+    * `Koin`: `3.2.0` -> `3.2.2`
+
 ## 0.12.16
 
 * `Coroutines`:
