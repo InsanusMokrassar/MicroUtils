@@ -33,18 +33,6 @@ data class PaginationResult<T>(
         results,
         (pagesNumber * size).toLong()
     )
-    @Deprecated("Replace with The other order of incoming parameters or objectsCount parameter")
-    constructor(
-        page: Int,
-        pagesNumber: Int,
-        results: List<T>,
-        size: Int
-    ) : this(
-        page,
-        results,
-        pagesNumber,
-        size
-    )
 }
 
 fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)

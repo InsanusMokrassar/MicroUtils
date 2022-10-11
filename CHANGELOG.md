@@ -2,6 +2,8 @@
 
 ## 0.13.0
 
+**ALL DEPRECATIONS HAVE BEEN REMOVED**
+
 * `Repos`:
   * `Exposed`:
     * `AbstractExposedWriteCRUDRepo` got two new methods: `update` with `it` as `UpdateBuilder<Int>` and `createAndInsertId`
