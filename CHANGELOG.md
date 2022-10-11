@@ -3,6 +3,7 @@
 ## 0.13.0
 
 **ALL DEPRECATIONS HAVE BEEN REMOVED**
+**A LOT OF KTOR METHODS RELATED TO UnifierRouter/UnifiedRequester HAVE BEEN REMOVED**
 
 * `Repos`:
   * `Exposed`:

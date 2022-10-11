@@ -26,7 +26,6 @@ import java.nio.file.attribute.FileTime
 
 class TemporalFilesRoutingConfigurator(
     private val subpath: String = DefaultTemporalFilesSubPath,
-    private val unifiedRouter: UnifiedRouter = UnifiedRouter.default,
     private val temporalFilesUtilizer: TemporalFilesUtilizer = TemporalFilesUtilizer
 ) : ApplicationRoutingConfigurator.Element {
     interface TemporalFilesUtilizer {
@@ -80,42 +79,40 @@ class TemporalFilesRoutingConfigurator(
 
     override fun Route.invoke() {
         post(subpath) {
-            unifiedRouter.apply {
-                val multipart = call.receiveMultipart()
+            val multipart = call.receiveMultipart()
 
-                var fileInfo: Pair<TemporalFileId, MPPFile>? = null
-                var part = multipart.readPart()
+            var fileInfo: Pair<TemporalFileId, MPPFile>? = null
+            var part = multipart.readPart()
 
-                while (part != null) {
-                    if (part is PartData.FileItem) {
-                        break
-                    }
-                    part = multipart.readPart()
+            while (part != null) {
+                if (part is PartData.FileItem) {
+                    break
                 }
-
-                part ?.let {
-                    if (it is PartData.FileItem) {
-                        val fileId = TemporalFileId(uuid4().toString())
-                        val fileName = it.originalFileName ?.let { FileName(it) } ?: return@let
-                        fileInfo = fileId to File.createTempFile(fileId.string, ".${fileName.extension}").apply {
-                            outputStream().use { outputStream ->
-                                it.streamProvider().use {
-                                    it.copyTo(outputStream)
-                                }
-                            }
-                            deleteOnExit()
-                        }
-                    }
-                }
-
-                fileInfo ?.also { (fileId, file) ->
-                    temporalFilesMutex.withLock {
-                        temporalFilesMap[fileId] = file
-                    }
-                    call.respondText(fileId.string)
-                    launchSafelyWithoutExceptions { filesFlow.emit(fileId) }
-                } ?: call.respond(HttpStatusCode.BadRequest)
+                part = multipart.readPart()
             }
+
+            part ?.let {
+                if (it is PartData.FileItem) {
+                    val fileId = TemporalFileId(uuid4().toString())
+                    val fileName = it.originalFileName ?.let { FileName(it) } ?: return@let
+                    fileInfo = fileId to File.createTempFile(fileId.string, ".${fileName.extension}").apply {
+                        outputStream().use { outputStream ->
+                            it.streamProvider().use {
+                                it.copyTo(outputStream)
+                            }
+                        }
+                        deleteOnExit()
+                    }
+                }
+            }
+
+            fileInfo ?.also { (fileId, file) ->
+                temporalFilesMutex.withLock {
+                    temporalFilesMap[fileId] = file
+                }
+                call.respondText(fileId.string)
+                launchSafelyWithoutExceptions { filesFlow.emit(fileId) }
+            } ?: call.respond(HttpStatusCode.BadRequest)
         }
     }
 

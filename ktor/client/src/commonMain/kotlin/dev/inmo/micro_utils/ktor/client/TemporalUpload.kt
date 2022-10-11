@@ -9,11 +9,3 @@ expect suspend fun HttpClient.tempUpload(
     file: MPPFile,
     onUpload: (uploaded: Long, count: Long) -> Unit = { _, _ -> }
 ): TemporalFileId
-
-suspend fun UnifiedRequester.tempUpload(
-    fullTempUploadDraftPath: String,
-    file: MPPFile,
-    onUpload: (uploaded: Long, count: Long) -> Unit = { _, _ -> }
-): TemporalFileId = client.tempUpload(
-    fullTempUploadDraftPath, file, onUpload
-)
