@@ -2,6 +2,15 @@
 
 ## 0.13.0
 
+* `Repos`:
+  * `Exposed`:
+    * `AbstractExposedWriteCRUDRepo` got two new methods: `update` with `it` as `UpdateBuilder<Int>` and `createAndInsertId`
+      * Old `update` method has been deprecated and not recommended to override anymore in realizations
+      * Old `insert` method now is `open` instead of `abstract` and can be omitted
+    * `AbstractExposedKeyValueRepo` got two new methods: `update` with `it` as `UpdateBuilder<Int>` and `insertKey`
+      * Old `update` method has been deprecated and not recommended to override anymore
+      * Old `insert` method now is `open` instead of `abstract` and can be omitted in realizations
+
 ## 0.12.17
 
 * `Versions`:
