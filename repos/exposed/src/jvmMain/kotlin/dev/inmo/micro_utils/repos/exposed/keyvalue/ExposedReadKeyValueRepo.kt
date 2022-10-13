@@ -5,57 +5,27 @@ import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
 import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.statements.InsertStatement
+import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.transactions.transaction
 
 open class ExposedReadKeyValueRepo<Key, Value>(
-    override val database: Database,
+    database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
     tableName: String? = null
-) : ReadKeyValueRepo<Key, Value>, ExposedRepo, Table(tableName ?: "") {
-    val keyColumn: Column<Key> = keyColumnAllocator()
+) : ReadKeyValueRepo<Key, Value>, ExposedRepo, AbstractExposedReadKeyValueRepo<Key, Value>(database, tableName) {
+
+    override val keyColumn: Column<Key> = keyColumnAllocator()
     val valueColumn: Column<Value> = valueColumnAllocator()
-    override val primaryKey: PrimaryKey = PrimaryKey(keyColumn, valueColumn)
+    override val ResultRow.asKey: Key
+        get() = get(keyColumn)
+    override val selectByValue: SqlExpressionBuilder.(Value) -> Op<Boolean> = { valueColumn.eq(it) }
+    override val ResultRow.asObject: Value
+        get() = get(valueColumn)
+    override val selectById: SqlExpressionBuilder.(Key) -> Op<Boolean> = { keyColumn.eq(it) }
+    override val primaryKey: Table.PrimaryKey
+        get() = PrimaryKey(keyColumn, valueColumn)
 
     init { initTable() }
-
-    override suspend fun get(k: Key): Value? = transaction(database) {
-        select { keyColumn.eq(k) }.limit(1).firstOrNull() ?.getOrNull(valueColumn)
-    }
-
-    override suspend fun contains(key: Key): Boolean = transaction(database) {
-        select { keyColumn.eq(key) }.limit(1).any()
-    }
-
-    override suspend fun count(): Long = transaction(database) { selectAll().count() }
-
-    override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
-        selectAll().selectPaginated(
-            pagination,
-            keyColumn,
-            reversed
-        ) {
-            it[keyColumn]
-        }
-    }
-
-    override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> = transaction(database) {
-        select { valueColumn.eq(v) }.selectPaginated(
-            pagination,
-            keyColumn,
-            reversed
-        ) {
-            it[keyColumn]
-        }
-    }
-
-    override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = transaction(database) {
-        selectAll().selectPaginated(
-            pagination,
-            keyColumn,
-            reversed
-        ) {
-            it[valueColumn]
-        }
-    }
 }

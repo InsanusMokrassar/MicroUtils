@@ -3,8 +3,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 import dev.inmo.micro_utils.repos.KeyValueRepo
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.InsertStatement
-import org.jetbrains.exposed.sql.statements.UpdateStatement
+import org.jetbrains.exposed.sql.statements.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedKeyValueRepo<Key, Value>(
@@ -20,13 +19,27 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
 
-    protected abstract fun update(k: Key, v: Value, it: UpdateStatement)
-    protected abstract fun insert(k: Key, v: Value, it: InsertStatement<Number>)
+    protected abstract fun update(k: Key, v: Value, it: UpdateBuilder<Int>)
+    protected abstract fun insertKey(k: Key, v: Value, it: InsertStatement<Number>)
+
+    protected open fun insert(k: Key, v: Value, it: InsertStatement<Number>) {
+        insertKey(k, v, it)
+        update(k, v, it as UpdateBuilder<Int>)
+    }
+
+    @Deprecated(
+        "Replace its \"it\" parameter type with \"UpdateBuilder<Int>\" to actualize method signature. Method with current signature will be removed soon and do not recommended to override anymore"
+    )
+    protected open fun update(k: Key, v: Value, it: UpdateStatement) = update(
+        k,
+        v,
+        it as UpdateBuilder<Int>
+    )
 
     override suspend fun set(toSet: Map<Key, Value>) {
         transaction(database) {
             toSet.mapNotNull { (k, v) ->
-                if (update({ selectById(k) }) { update(k, v, it) } > 0) {
+                if (update({ selectById(k) }) { update(k, v, it as UpdateBuilder<Int>) } > 0) {
                     k to v
                 } else {
                     val inserted = insert {
