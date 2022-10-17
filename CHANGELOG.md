@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.13.1
+
 ## 0.13.0
 
 **ALL DEPRECATIONS HAVE BEEN REMOVED**
