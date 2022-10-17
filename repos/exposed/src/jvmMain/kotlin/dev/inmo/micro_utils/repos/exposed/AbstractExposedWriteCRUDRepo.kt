@@ -27,8 +27,24 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
 
     protected abstract fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType
 
-    protected abstract fun update(id: IdType, value: InputValueType, it: UpdateBuilder<Int>)
-    protected abstract fun createAndInsertId(value: InputValueType, it: InsertStatement<Number>): IdType
+    /**
+     * @param id Can be null only if [createAndInsertId] have returned null (it can be useful when you have
+     * autoincrement identifier)
+     * @param it Will be [UpdateStatement] when it is called from [update] method or [InsertStatement] from the [create]
+     * one. Anyway, it is main method where you should put the logic of table filling by [value] data
+     *
+     * @see createAndInsertId
+     */
+    protected abstract fun update(id: IdType?, value: InputValueType, it: UpdateBuilder<Int>)
+
+    /**
+     * Override this method to interact with [it] ([InsertStatement]) and put there new id with [IdType].
+     *
+     * By default, have null value due to the fact that in the most cases users have [autoIncrement]ing id columns
+     *
+     * @return In case when id for the model has been created new [IdType] should be returned
+     */
+    protected open fun createAndInsertId(value: InputValueType, it: InsertStatement<Number>): IdType? = null
 
     protected open fun insert(value: InputValueType, it: InsertStatement<Number>) {
         val id = createAndInsertId(value, it)

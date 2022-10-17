@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.13.1
+
+* `Repos`:
+    * `Exposed`:
+      * `AbstractExposedWriteCRUDRepo#createAndInsertId` now is optional and returns nullable value
+
 ## 0.13.0
 
 **ALL DEPRECATIONS HAVE BEEN REMOVED**
