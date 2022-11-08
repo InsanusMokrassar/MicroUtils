@@ -4,6 +4,8 @@ import dev.inmo.micro_utils.repos.KeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
 import org.jetbrains.exposed.sql.transactions.transaction
 
 open class ExposedKeyValueRepo<Key, Value>(
@@ -47,9 +49,9 @@ open class ExposedKeyValueRepo<Key, Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
-            toUnset.mapNotNull {
-                if (deleteWhere { keyColumn.eq(it) } > 0) {
-                    it
+            toUnset.mapNotNull { item ->
+                if (deleteWhere { keyColumn.eq(item) } > 0) {
+                    item
                 } else {
                     null
                 }

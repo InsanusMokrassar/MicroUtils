@@ -16,7 +16,7 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
     Table(tableName ?: "") {
     abstract val keyColumn: Column<*>
     abstract val ResultRow.asKey: Key
-    abstract val selectByValue: SqlExpressionBuilder.(Value) -> Op<Boolean>
+    abstract val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean>
 
     override suspend fun get(k: Key): Value? = transaction(database) {
         select { selectById(k) }.limit(1).firstOrNull() ?.asObject

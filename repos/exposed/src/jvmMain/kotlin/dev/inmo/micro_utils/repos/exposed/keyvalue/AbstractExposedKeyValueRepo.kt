@@ -59,9 +59,9 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
-            toUnset.mapNotNull {
-                if (deleteWhere { selectById(it) } > 0) {
-                    it
+            toUnset.mapNotNull { item ->
+                if (deleteWhere { selectById(it, item) } > 0) {
+                    item
                 } else {
                     null
                 }
@@ -75,7 +75,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         transaction(database) {
             toUnset.flatMap {
                 val keys = select { selectByValue(it) }.mapNotNull { it.asKey }
-                deleteWhere { selectByIds(keys) }
+                deleteWhere { selectByIds(it, keys) }
                 keys
             }
         }.distinct().forEach {

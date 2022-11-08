@@ -4,8 +4,8 @@ import org.jetbrains.exposed.sql.*
 
 interface CommonExposedRepo<IdType, ObjectType> : ExposedRepo {
     val ResultRow.asObject: ObjectType
-    val selectById: SqlExpressionBuilder.(IdType) -> Op<Boolean>
-    val selectByIds: SqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
+    val selectById: ISqlExpressionBuilder.(IdType) -> Op<Boolean>
+    val selectByIds: ISqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
         get() = { list ->
             if (list.isEmpty()) {
                 Op.FALSE

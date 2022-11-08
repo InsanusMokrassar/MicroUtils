@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.repos.KeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 typealias ExposedOneToManyKeyValueRepo1<Key, Value> = ExposedKeyValuesRepo<Key, Value>
