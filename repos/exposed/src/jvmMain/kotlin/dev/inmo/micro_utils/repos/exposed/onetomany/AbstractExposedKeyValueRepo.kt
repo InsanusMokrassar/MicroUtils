@@ -49,7 +49,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
         transaction(database) {
             toRemove.keys.flatMap { k ->
                 toRemove[k] ?.mapNotNull { v ->
-                    if (deleteWhere { selectById(k).and(selectByValue(v)) } > 0 ) {
+                    if (deleteWhere { selectById(it, k).and(SqlExpressionBuilder.selectByValue(v)) } > 0 ) {
                         k to v
                     } else {
                         null
@@ -63,7 +63,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun clear(k: Key) {
         transaction(database) {
-            deleteWhere { selectById(k) }
+            deleteWhere { selectById(it, k) }
         }.also { _onDataCleared.emit(k) }
     }
 }

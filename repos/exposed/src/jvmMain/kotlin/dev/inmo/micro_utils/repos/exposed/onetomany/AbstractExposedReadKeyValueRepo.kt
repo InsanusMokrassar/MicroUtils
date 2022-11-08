@@ -17,7 +17,7 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
     Table(tableName ?: "") {
     abstract val keyColumn: Column<*>
     abstract val ResultRow.asKey: Key
-    abstract val selectByValue: SqlExpressionBuilder.(Value) -> Op<Boolean>
+    abstract val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean>
 
     override suspend fun count(k: Key): Long = transaction(database) { select { selectById(k) }.count() }
 

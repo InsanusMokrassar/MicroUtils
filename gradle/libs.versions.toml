@@ -1,14 +1,14 @@
 [versions]
 
-kt = "1.7.10"
+kt = "1.7.20"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
-jb-compose = "1.2.0"
-jb-exposed = "0.39.2"
-jb-dokka = "1.7.10"
+jb-compose = "1.2.1"
+jb-exposed = "0.40.1"
+jb-dokka = "1.7.20"
 
-klock = "3.3.0"
+klock = "3.3.1"
 uuid = "0.5.0"
 
 ktor = "2.1.3"

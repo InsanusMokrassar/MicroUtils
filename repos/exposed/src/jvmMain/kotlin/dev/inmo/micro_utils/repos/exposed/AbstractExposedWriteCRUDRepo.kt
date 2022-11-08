@@ -50,14 +50,6 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         val id = createAndInsertId(value, it)
         update(id, value, it as UpdateBuilder<Int>)
     }
-    @Deprecated(
-        "Replace its \"it\" parameter type with \"UpdateBuilder<Int>\" to actualize method signature. Method with current signature will be removed soon and do not recommended to override anymore"
-    )
-    protected open fun update(id: IdType, value: InputValueType, it: UpdateStatement) = update(
-        id,
-        value,
-        it as UpdateBuilder<Int>
-    )
 
     protected open suspend fun onBeforeCreate(value: List<InputValueType>) {}
 
@@ -137,9 +129,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override suspend fun deleteById(ids: List<IdType>) {
         onBeforeDelete(ids)
         transaction(db = database) {
-            val deleted = deleteWhere(null, null) {
-                selectByIds(ids)
-            }
+            val deleted = deleteWhere(null, null) { selectByIds(it, ids) }
             if (deleted == ids.size) {
                 ids
             } else {

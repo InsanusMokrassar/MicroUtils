@@ -27,15 +27,6 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         update(k, v, it as UpdateBuilder<Int>)
     }
 
-    @Deprecated(
-        "Replace its \"it\" parameter type with \"UpdateBuilder<Int>\" to actualize method signature. Method with current signature will be removed soon and do not recommended to override anymore"
-    )
-    protected open fun update(k: Key, v: Value, it: UpdateStatement) = update(
-        k,
-        v,
-        it as UpdateBuilder<Int>
-    )
-
     override suspend fun set(toSet: Map<Key, Value>) {
         transaction(database) {
             toSet.mapNotNull { (k, v) ->
@@ -59,9 +50,9 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
-            toUnset.mapNotNull {
-                if (deleteWhere { selectById(it) } > 0) {
-                    it
+            toUnset.mapNotNull { item ->
+                if (deleteWhere { selectById(it, item) } > 0) {
+                    item
                 } else {
                     null
                 }
@@ -75,7 +66,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         transaction(database) {
             toUnset.flatMap {
                 val keys = select { selectByValue(it) }.mapNotNull { it.asKey }
-                deleteWhere { selectByIds(keys) }
+                deleteWhere { selectByIds(it, keys) }
                 keys
             }
         }.distinct().forEach {

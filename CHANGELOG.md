@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.14.0
+
+**ALL DEPRECATIONS HAVE BEEN REMOVED**
+
+* `Versions`:
+    * `Kotlin`: `1.7.10` -> `1.7.20`
+    * `Klock`: `3.3.0` -> `3.3.1`
+    * `Compose`: `1.2.0` -> `1.2.1`
+    * `Exposed`: `0.39.2` -> `0.40.1`
+
 ## 0.13.2
 
 * `Versions`:

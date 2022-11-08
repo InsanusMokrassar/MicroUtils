@@ -20,10 +20,10 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     val valueColumn: Column<Value> = valueColumnAllocator()
     override val ResultRow.asKey: Key
         get() = get(keyColumn)
-    override val selectByValue: SqlExpressionBuilder.(Value) -> Op<Boolean> = { valueColumn.eq(it) }
+    override val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean> = { valueColumn.eq(it) }
     override val ResultRow.asObject: Value
         get() = get(valueColumn)
-    override val selectById: SqlExpressionBuilder.(Key) -> Op<Boolean> = { keyColumn.eq(it) }
+    override val selectById: ISqlExpressionBuilder.(Key) -> Op<Boolean> = { keyColumn.eq(it) }
     override val primaryKey: Table.PrimaryKey
         get() = PrimaryKey(keyColumn, valueColumn)
 
