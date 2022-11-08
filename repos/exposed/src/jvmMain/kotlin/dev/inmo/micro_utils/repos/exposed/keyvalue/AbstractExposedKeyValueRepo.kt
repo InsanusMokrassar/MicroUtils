@@ -27,15 +27,6 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         update(k, v, it as UpdateBuilder<Int>)
     }
 
-    @Deprecated(
-        "Replace its \"it\" parameter type with \"UpdateBuilder<Int>\" to actualize method signature. Method with current signature will be removed soon and do not recommended to override anymore"
-    )
-    protected open fun update(k: Key, v: Value, it: UpdateStatement) = update(
-        k,
-        v,
-        it as UpdateBuilder<Int>
-    )
-
     override suspend fun set(toSet: Map<Key, Value>) {
         transaction(database) {
             toSet.mapNotNull { (k, v) ->
