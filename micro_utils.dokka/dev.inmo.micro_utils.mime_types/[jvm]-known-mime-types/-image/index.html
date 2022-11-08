@@ -6,10 +6,18 @@
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../../styles/style.css" rel="Stylesheet">
 <link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
@@ -31,7 +40,7 @@ if(savedDarkMode === true){
             </a>
     </div>
     <div>
-0.13.2    </div>
+0.14.0    </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button>
@@ -48,12 +57,12 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.mime_types/KnownMimeTypes.Image///PointingToDeclaration//-1052446920">
-  <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../../index.html">dev.inmo.micro_utils.mime_types</a><span class="delimiter">/</span><a href="../index.html">[jvm]KnownMimeTypes</a><span class="delimiter">/</span><a href="index.html">Image</a></div>
+  <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../../index.html">dev.inmo.micro_utils.mime_types</a><span class="delimiter">/</span><a href="../index.html">[jvm]KnownMimeTypes</a><span class="delimiter">/</span><span class="current">Image</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Image</span></span></h1>
     <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Image</a> : <a href="../index.html">KnownMimeTypes</a>, <a href="../../[jvm]-mime-type/index.html">MimeType</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>    </div>
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Image</a> : <a href="../index.html">KnownMimeTypes</a>, <a href="../../[jvm]-mime-type/index.html">MimeType</a></div></div>    </div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
@@ -70,8 +79,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -87,8 +96,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-bmp/index.html">Bmp</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-bmp/index.html">Bmp</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -104,8 +113,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-cgm/index.html">Cgm</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-cgm/index.html">Cgm</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -121,8 +130,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-g3fax/index.html">G3fax</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-g3fax/index.html">G3fax</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -138,8 +147,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gif/index.html">Gif</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-gif/index.html">Gif</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -155,8 +164,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-ief/index.html">Ief</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-ief/index.html">Ief</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -172,8 +181,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-jpeg/index.html">Jpeg</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-jpeg/index.html">Jpeg</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -189,8 +198,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-ktx/index.html">Ktx</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-ktx/index.html">Ktx</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -206,8 +215,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-pjpeg/index.html">Pjpeg</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-pjpeg/index.html">Pjpeg</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -223,8 +232,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-png/index.html">Png</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-png/index.html">Png</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -240,8 +249,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-prs-btif/index.html">PrsBtif</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-prs-btif/index.html">PrsBtif</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -257,8 +266,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-svg-xml/index.html">SvgXml</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-svg-xml/index.html">SvgXml</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -274,8 +283,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-tiff/index.html">Tiff</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-tiff/index.html">Tiff</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -291,8 +300,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-adobe-photoshop/index.html">VndAdobePhotoshop</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-adobe-photoshop/index.html">VndAdobePhotoshop</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -308,8 +317,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dece-graphic/index.html">VndDeceGraphic</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dece-graphic/index.html">VndDeceGraphic</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -325,8 +334,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-djvu/index.html">VndDjvu</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-djvu/index.html">VndDjvu</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -342,8 +351,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dvb-subtitle/index.html">VndDvbSubtitle</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dvb-subtitle/index.html">VndDvbSubtitle</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -359,8 +368,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dwg/index.html">VndDwg</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dwg/index.html">VndDwg</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -376,8 +385,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dxf/index.html">VndDxf</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-dxf/index.html">VndDxf</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -393,8 +402,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fastbidsheet/index.html">VndFastbidsheet</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fastbidsheet/index.html">VndFastbidsheet</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -410,8 +419,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fpx/index.html">VndFpx</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fpx/index.html">VndFpx</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -427,8 +436,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fst/index.html">VndFst</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fst/index.html">VndFst</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -444,8 +453,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fujixerox-edmics-mmr/index.html">VndFujixeroxEdmicsMmr</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fujixerox-edmics-mmr/index.html">VndFujixeroxEdmicsMmr</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -461,8 +470,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fujixerox-edmics-rlc/index.html">VndFujixeroxEdmicsRlc</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-fujixerox-edmics-rlc/index.html">VndFujixeroxEdmicsRlc</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -478,8 +487,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-ms-modi/index.html">VndMsModi</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-ms-modi/index.html">VndMsModi</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -495,8 +504,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-net-fpx/index.html">VndNetFpx</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-net-fpx/index.html">VndNetFpx</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -512,8 +521,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-wap-wbmp/index.html">VndWapWbmp</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-wap-wbmp/index.html">VndWapWbmp</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -529,8 +538,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-xiff/index.html">VndXiff</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-vnd-xiff/index.html">VndXiff</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -546,8 +555,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-webp/index.html">Webp</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-webp/index.html">Webp</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -563,8 +572,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-citrix-jpeg/index.html">XCitrixJpeg</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-citrix-jpeg/index.html">XCitrixJpeg</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -580,8 +589,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-citrix-png/index.html">XCitrixPng</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-citrix-png/index.html">XCitrixPng</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -597,8 +606,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-cmu-raster/index.html">XCmuRaster</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-cmu-raster/index.html">XCmuRaster</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -614,8 +623,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-cmx/index.html">XCmx</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-cmx/index.html">XCmx</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -631,8 +640,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-freehand/index.html">XFreehand</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-freehand/index.html">XFreehand</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -648,8 +657,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-icon/index.html">XIcon</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-icon/index.html">XIcon</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -665,8 +674,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-pcx/index.html">XPcx</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-pcx/index.html">XPcx</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -682,8 +691,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-pict/index.html">XPict</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-pict/index.html">XPict</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -699,8 +708,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-png/index.html">XPng</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-png/index.html">XPng</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -716,8 +725,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-anymap/index.html">XPortableAnymap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-anymap/index.html">XPortableAnymap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -733,8 +742,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-bitmap/index.html">XPortableBitmap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-bitmap/index.html">XPortableBitmap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -750,8 +759,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-graymap/index.html">XPortableGraymap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-graymap/index.html">XPortableGraymap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -767,8 +776,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-pixmap/index.html">XPortablePixmap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-portable-pixmap/index.html">XPortablePixmap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -784,8 +793,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-rgb/index.html">XRgb</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-rgb/index.html">XRgb</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -801,8 +810,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xbitmap/index.html">XXbitmap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xbitmap/index.html">XXbitmap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -818,8 +827,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xpixmap/index.html">XXpixmap</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xpixmap/index.html">XXpixmap</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -835,8 +844,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xwindowdump/index.html">XXwindowdump</a> : <a href="index.html">KnownMimeTypes.Image</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-x-xwindowdump/index.html">XXwindowdump</a> : <a href="index.html">KnownMimeTypes.Image</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -854,8 +863,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><a data-name="575580059%2FProperties%2F-1052446920" anchor-label="raw" id="575580059%2FProperties%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../../[jvm]-mime-type/raw.html">raw</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jvmMain"><a data-name="575580059%2FProperties%2F-1052446920" anchor-label="raw" id="575580059%2FProperties%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../../[jvm]-mime-type/raw.html">raw</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div>                </div>
               </div>
             </div>
           </div>

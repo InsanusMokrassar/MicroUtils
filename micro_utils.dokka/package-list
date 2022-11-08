@@ -188,7 +188,6 @@ $dokka.location:dev.inmo.micro_utils.common/Optional///PointingToDeclaration/mi
 $dokka.location:dev.inmo.micro_utils.common/Optional/data/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/data.html
 $dokka.location:dev.inmo.micro_utils.common/Optional/dataPresented/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-optional/data-presented.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/index.html
-$dokka.location:dev.inmo.micro_utils.common/PreviewFeature/PreviewFeature/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/-preview-feature.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature/message/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-preview-feature/message.html
 $dokka.location:dev.inmo.micro_utils.common/SimpleMapper///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-simple-mapper/index.html
 $dokka.location:dev.inmo.micro_utils.common/SimpleMapper/convertToT1/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-simple-mapper/convert-to-t1.html
@@ -205,7 +204,6 @@ $dokka.location:dev.inmo.micro_utils.common/SimpleSuspendableMapperImpl/SimpleSu
 $dokka.location:dev.inmo.micro_utils.common/SimpleSuspendableMapperImpl/convertToT1/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-simple-suspendable-mapper-impl/convert-to-t1.html
 $dokka.location:dev.inmo.micro_utils.common/SimpleSuspendableMapperImpl/convertToT2/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-simple-suspendable-mapper-impl/convert-to-t2.html
 $dokka.location:dev.inmo.micro_utils.common/Warning///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-warning/index.html
-$dokka.location:dev.inmo.micro_utils.common/Warning/Warning/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-warning/-warning.html
 $dokka.location:dev.inmo.micro_utils.common/Warning/message/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[jvm]-warning/message.html
 $dokka.location:dev.inmo.micro_utils.coroutines.compose////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/index.html
 $dokka.location:dev.inmo.micro_utils.coroutines.compose//asComposeList/kotlinx.coroutines.flow.Flow[kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]]#kotlinx.coroutines.CoroutineScope/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/[jvm]as-compose-list.html

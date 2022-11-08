@@ -6,10 +6,18 @@
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
@@ -31,7 +40,7 @@ if(savedDarkMode === true){
             </a>
     </div>
     <div>
-0.13.2    </div>
+0.14.0    </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button>
@@ -48,12 +57,12 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.repos/MapperRepo///PointingToDeclaration//-1837788132">
-  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.repos</a><span class="delimiter">/</span><a href="index.html">[android]MapperRepo</a></div>
+  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.repos</a><span class="delimiter">/</span><span class="current">[android]MapperRepo</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Mapper</span><wbr></wbr><span><span>Repo</span></span></h1>
     <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">MapperRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToValue</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>    </div>
+      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">MapperRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToValue</a><span class="token operator">&gt;</span></div></div>    </div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
@@ -70,8 +79,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -89,8 +98,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">ToKey</a><span class="token punctuation">.</span><a href="to-inner-key.html"><span class="token function">toInnerKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FromKey</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">ToKey</a><span class="token punctuation">.</span><a href="to-inner-key.html"><span class="token function">toInnerKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FromKey</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -106,8 +115,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">ToValue</a><span class="token punctuation">.</span><a href="to-inner-value.html"><span class="token function">toInnerValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FromValue</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">ToValue</a><span class="token punctuation">.</span><a href="to-inner-value.html"><span class="token function">toInnerValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FromValue</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -123,8 +132,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">FromKey</a><span class="token punctuation">.</span><a href="to-out-key.html"><span class="token function">toOutKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ToKey</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">FromKey</a><span class="token punctuation">.</span><a href="to-out-key.html"><span class="token function">toOutKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ToKey</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -140,8 +149,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">FromValue</a><span class="token punctuation">.</span><a href="to-out-value.html"><span class="token function">toOutValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ToValue</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">FromValue</a><span class="token punctuation">.</span><a href="to-out-value.html"><span class="token function">toOutValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ToValue</a></div></div>                </div>
               </div>
             </div>
           </div>
@@ -159,8 +168,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-734933659%2FProperties%2F-1837788132" anchor-label="keyMapper" id="-734933659%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="key-mapper.html">keyMapper</a><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.common/[android]-simple-suspendable-mapper/index.html">SimpleSuspendableMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToKey</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="-734933659%2FProperties%2F-1837788132" anchor-label="keyMapper" id="-734933659%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="key-mapper.html">keyMapper</a><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.common/[android]-simple-suspendable-mapper/index.html">SimpleSuspendableMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToKey</a><span class="token operator">&gt;</span></div></div>                </div>
               </div>
             </div>
           </div>
@@ -176,8 +185,8 @@ if(savedDarkMode === true){
             <div>
               <div class="title">
                 <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark jvm-like" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="672779795%2FProperties%2F-1837788132" anchor-label="valueMapper" id="672779795%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="value-mapper.html">valueMapper</a><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.common/[android]-simple-suspendable-mapper/index.html">SimpleSuspendableMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToValue</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/androidMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/androidMain">android</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/androidMain"><a data-name="672779795%2FProperties%2F-1837788132" anchor-label="valueMapper" id="672779795%2FProperties%2F-1837788132" data-filterable-set=":micro_utils.dokka:dokkaHtml/androidMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="value-mapper.html">valueMapper</a><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.common/[android]-simple-suspendable-mapper/index.html">SimpleSuspendableMapper</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">ToValue</a><span class="token operator">&gt;</span></div></div>                </div>
               </div>
             </div>
           </div>
