@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.1
+
+* `Versions`:
+    * `Kotlin`: `1.7.20` -> `1.7.21`
+    * `Klock`: `3.3.1` -> `3.4.0`
+    * `UUID`: `0.5.0` -> `0.6.0`
+    * `Koin`: `3.2.2` -> `3.3.0`
+
 ## 0.14.0
 
 **ALL DEPRECATIONS HAVE BEEN REMOVED**

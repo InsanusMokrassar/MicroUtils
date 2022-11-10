@@ -1,6 +1,6 @@
 [versions]
 
-kt = "1.7.20"
+kt = "1.7.21"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
@@ -8,14 +8,14 @@ jb-compose = "1.2.1"
 jb-exposed = "0.40.1"
 jb-dokka = "1.7.20"
 
-klock = "3.3.1"
-uuid = "0.5.0"
+klock = "3.4.0"
+uuid = "0.6.0"
 
 ktor = "2.1.3"
 
 gh-release = "2.4.1"
 
-koin = "3.2.2"
+koin = "3.3.0"
 
 android-gradle = "7.2.2"
 dexcount = "3.1.0"
