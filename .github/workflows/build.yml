@@ -21,4 +21,4 @@ jobs:
         continue-on-error: true
         run: ./gradlew publishAllPublicationsToGiteaRepository
         env:
-          GITEA_TOKEN: ${{ github.GITEA_TOKEN }}
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
