@@ -20,9 +20,8 @@ jobs:
           mv gradle.properties.tmp gradle.properties
       - name: Build
         run: ./gradlew build
-#      - name: Publish
-#        continue-on-error: true
-#        run: ./gradlew --no-parallel publishAllPublicationsToGithubPackagesRepository
-#        env:
-#          GITHUBPACKAGES_USER: ${{ github.actor }}
-#          GITHUBPACKAGES_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        continue-on-error: true
+        run: ./gradlew publishAllPublicationsToGiteaRepository
+        env:
+          GITEA_TOKEN: ${{ github.GITEA_TOKEN }}
