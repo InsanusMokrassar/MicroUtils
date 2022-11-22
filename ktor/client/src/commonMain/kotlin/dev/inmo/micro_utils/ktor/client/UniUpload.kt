@@ -21,7 +21,7 @@ data class UniUploadFileInfo(
  * [dev.inmo.micro_utils.common.MPPFile] (File from JS or JVM platform). Also you may pass [UniUploadFileInfo] as value
  * in case you wish to pass other source of multipart binary data than regular file
  */
-expect suspend fun <T> HttpClient.uniupload(
+expect suspend fun <T> HttpClient.uniUpload(
     url: String,
     data: Map<String, Any>,
     resultDeserializer: DeserializationStrategy<T>,

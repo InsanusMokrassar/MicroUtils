@@ -25,7 +25,7 @@ import org.w3c.xhr.XMLHttpRequestResponseType
  * [dev.inmo.micro_utils.common.MPPFile] (File from JS or JVM platform). Also you may pass [UniUploadFileInfo] as value
  * in case you wish to pass other source of multipart binary data than regular file
  */
-actual suspend fun <T> HttpClient.uniupload(
+actual suspend fun <T> HttpClient.uniUpload(
     url: String,
     data: Map<String, Any>,
     resultDeserializer: DeserializationStrategy<T>,
@@ -55,6 +55,9 @@ actual suspend fun <T> HttpClient.uniupload(
     }
 
     val request = XMLHttpRequest()
+    headers.forEach { s, strings ->
+        request.setRequestHeader(s, strings.joinToString())
+    }
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
         onUpload(it.loaded.toLong(), it.total.toLong())

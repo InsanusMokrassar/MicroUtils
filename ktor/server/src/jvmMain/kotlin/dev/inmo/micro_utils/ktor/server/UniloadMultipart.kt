@@ -7,29 +7,46 @@ import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receiveMultipart
 import io.ktor.utils.io.core.*
 
+/**
+ * Server-side part which receives [dev.inmo.micro_utils.ktor.client.uniUpload] request
+ */
+suspend fun ApplicationCall.handleUniUpload(
+    onFormItem: (PartData.FormItem) -> Unit = {},
+    onFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {}
+) {
+    val multipartData = receiveMultipart()
+
+    multipartData.forEachPart {
+        when (it) {
+            is PartData.FormItem -> onFormItem(it)
+            is PartData.FileItem -> onFileItem(it)
+            is PartData.BinaryItem -> onBinaryContent(it)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
+        }
+    }
+}
+
 suspend fun ApplicationCall.uniloadMultipart(
     onFormItem: (PartData.FormItem) -> Unit = {},
     onCustomFileItem: (PartData.FileItem) -> Unit = {},
     onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
     onBinaryContent: (PartData.BinaryItem) -> Unit = {}
 ) = safely {
-    val multipartData = receiveMultipart()
-
     var resultInput: Input? = null
 
-    multipartData.forEachPart {
-        when (it) {
-            is PartData.FormItem -> onFormItem(it)
-            is PartData.FileItem -> {
-                when (it.name) {
-                    "bytes" -> resultInput = it.provider()
-                    else -> onCustomFileItem(it)
-                }
+    handleUniUpload(
+        onFormItem,
+        {
+            when (it.name) {
+                "bytes" -> resultInput = it.provider()
+                else -> onCustomFileItem(it)
             }
-            is PartData.BinaryItem -> onBinaryContent(it)
-            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
-        }
-    }
+        },
+        onBinaryChannelItem,
+        onBinaryContent
+    )
 
     resultInput ?: error("Bytes has not been received")
 }

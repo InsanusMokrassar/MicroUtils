@@ -2,11 +2,14 @@ package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.Progress
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.mergeHeaders
 import io.ktor.client.plugins.onUpload
+import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.InputProvider
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.forms.submitFormWithBinaryData
+import io.ktor.client.request.headers
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
@@ -25,7 +28,7 @@ import java.io.File
  * [dev.inmo.micro_utils.common.MPPFile] (File from JS or JVM platform). Also you may pass [UniUploadFileInfo] as value
  * in case you wish to pass other source of multipart binary data than regular file
  */
-actual suspend fun <T> HttpClient.uniupload(
+actual suspend fun <T> HttpClient.uniUpload(
     url: String,
     data: Map<String, Any>,
     resultDeserializer: DeserializationStrategy<T>,
@@ -62,15 +65,21 @@ actual suspend fun <T> HttpClient.uniupload(
         }
     }
 
+    val requestBuilder: HttpRequestBuilder.() -> Unit = {
+        headers {
+            appendAll(headers)
+        }
+        onUpload { bytesSentTotal, contentLength ->
+            onUpload(bytesSentTotal, contentLength)
+        }
+    }
+
     val response = if (withBinary) {
         submitFormWithBinaryData(
             url,
-            formData
-        ) {
-            onUpload { bytesSentTotal, contentLength ->
-                onUpload(bytesSentTotal, contentLength)
-            }
-        }
+            formData,
+            block = requestBuilder
+        )
     } else {
         submitForm(
             url,
@@ -79,12 +88,9 @@ actual suspend fun <T> HttpClient.uniupload(
                     val formItem = (it as PartData.FormItem)
                     append(it.name!!, it.value)
                 }
-            }
-        ) {
-            onUpload { bytesSentTotal, contentLength ->
-                onUpload(bytesSentTotal, contentLength)
-            }
-        }
+            },
+            block = requestBuilder
+        )
     }
 
     return if (response.status == HttpStatusCode.OK) {
