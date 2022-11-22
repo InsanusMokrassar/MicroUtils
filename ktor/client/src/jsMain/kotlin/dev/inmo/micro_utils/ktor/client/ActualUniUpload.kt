@@ -2,10 +2,14 @@ package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.common.Progress
+import dev.inmo.micro_utils.coroutines.LinkedSupervisorJob
+import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
 import io.ktor.client.HttpClient
 import io.ktor.http.Headers
 import io.ktor.utils.io.core.readBytes
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.job
 import kotlinx.serialization.DeserializationStrategy
@@ -35,6 +39,7 @@ actual suspend fun <T> HttpClient.uniUpload(
 ): T? {
     val formData = FormData()
     val answer = CompletableDeferred<T?>(currentCoroutineContext().job)
+    val subscope = CoroutineScope(currentCoroutineContext().LinkedSupervisorJob())
 
     data.forEach { (k, v) ->
         when (v) {
@@ -60,7 +65,7 @@ actual suspend fun <T> HttpClient.uniUpload(
     }
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
-        onUpload(it.loaded.toLong(), it.total.toLong())
+        subscope.launchSafelyWithoutExceptions { onUpload(it.loaded.toLong(), it.total.toLong()) }
     }
     request.onload = {
         if (request.status == 200.toShort()) {
@@ -85,5 +90,7 @@ actual suspend fun <T> HttpClient.uniUpload(
         }
     }
 
-    return answer.await()
+    return answer.await().also {
+        subscope.cancel()
+    }
 }

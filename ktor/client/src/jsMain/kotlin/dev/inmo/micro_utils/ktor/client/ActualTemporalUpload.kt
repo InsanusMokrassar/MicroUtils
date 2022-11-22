@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.MPPFile
+import dev.inmo.micro_utils.coroutines.LinkedSupervisorJob
+import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
 import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.*
@@ -12,10 +14,11 @@ import org.w3c.xhr.XMLHttpRequest.Companion.DONE
 suspend fun tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: (Long, Long) -> Unit
+    onUpload: OnUploadCallback
 ): TemporalFileId {
     val formData = FormData()
     val answer = CompletableDeferred<TemporalFileId>(currentCoroutineContext().job)
+    val subscope = CoroutineScope(currentCoroutineContext().LinkedSupervisorJob())
 
     formData.append(
         "data",
@@ -25,7 +28,7 @@ suspend fun tempUpload(
     val request = XMLHttpRequest()
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
-        onUpload(it.loaded.toLong(), it.total.toLong())
+        subscope.launchSafelyWithoutExceptions { onUpload(it.loaded.toLong(), it.total.toLong()) }
     }
     request.onload = {
         if (request.status == 200.toShort()) {
@@ -48,7 +51,9 @@ suspend fun tempUpload(
         }
     }
 
-    return answer.await()
+    return answer.await().also {
+        subscope.cancel()
+    }
 }
 
 
