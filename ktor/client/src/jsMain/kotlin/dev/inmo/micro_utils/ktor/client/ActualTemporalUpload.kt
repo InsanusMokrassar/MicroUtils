@@ -55,5 +55,5 @@ suspend fun tempUpload(
 actual suspend fun HttpClient.tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: (uploaded: Long, count: Long) -> Unit
+    onUpload: OnUploadCallback
 ): TemporalFileId = dev.inmo.micro_utils.ktor.client.tempUpload(fullTempUploadDraftPath, file, onUpload)

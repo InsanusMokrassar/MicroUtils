@@ -4,7 +4,6 @@ import dev.inmo.micro_utils.common.FileName
 import dev.inmo.micro_utils.ktor.common.LambdaInputProvider
 import io.ktor.client.HttpClient
 import io.ktor.http.Headers
-import io.ktor.utils.io.core.Input
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
@@ -27,5 +26,6 @@ expect suspend fun <T> HttpClient.uniupload(
     data: Map<String, Any>,
     resultDeserializer: DeserializationStrategy<T>,
     headers: Headers = Headers.Empty,
-    stringFormat: StringFormat = Json.Default
+    stringFormat: StringFormat = Json,
+    onUpload: OnUploadCallback = { _, _ -> }
 ): T?

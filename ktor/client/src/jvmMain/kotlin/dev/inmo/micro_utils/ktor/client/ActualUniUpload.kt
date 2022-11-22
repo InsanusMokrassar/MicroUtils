@@ -1,7 +1,8 @@
 package dev.inmo.micro_utils.ktor.client
 
-import dev.inmo.micro_utils.ktor.common.input
+import dev.inmo.micro_utils.common.Progress
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.onUpload
 import io.ktor.client.request.forms.InputProvider
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitForm
@@ -13,10 +14,8 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.Parameters
 import io.ktor.http.content.PartData
 import kotlinx.serialization.DeserializationStrategy
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.serializer
 import java.io.File
 
 /**
@@ -26,13 +25,13 @@ import java.io.File
  * [dev.inmo.micro_utils.common.MPPFile] (File from JS or JVM platform). Also you may pass [UniUploadFileInfo] as value
  * in case you wish to pass other source of multipart binary data than regular file
  */
-@OptIn(InternalSerializationApi::class)
 actual suspend fun <T> HttpClient.uniupload(
     url: String,
     data: Map<String, Any>,
     resultDeserializer: DeserializationStrategy<T>,
     headers: Headers,
-    stringFormat: StringFormat
+    stringFormat: StringFormat,
+    onUpload: OnUploadCallback
 ): T? {
     val withBinary = data.values.any { it is File || it is UniUploadFileInfo }
 
@@ -67,7 +66,11 @@ actual suspend fun <T> HttpClient.uniupload(
         submitFormWithBinaryData(
             url,
             formData
-        )
+        ) {
+            onUpload { bytesSentTotal, contentLength ->
+                onUpload(bytesSentTotal, contentLength)
+            }
+        }
     } else {
         submitForm(
             url,
@@ -77,7 +80,11 @@ actual suspend fun <T> HttpClient.uniupload(
                     append(it.name!!, it.value)
                 }
             }
-        )
+        ) {
+            onUpload { bytesSentTotal, contentLength ->
+                onUpload(bytesSentTotal, contentLength)
+            }
+        }
     }
 
     return if (response.status == HttpStatusCode.OK) {
