@@ -1,15 +1,18 @@
 package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.FileName
+import dev.inmo.micro_utils.ktor.common.LambdaInputProvider
 import io.ktor.client.HttpClient
 import io.ktor.http.Headers
 import io.ktor.utils.io.core.Input
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.StringFormat
+import kotlinx.serialization.json.Json
 
 data class UniUploadFileInfo(
     val fileName: FileName,
-    val bytesAllocator: Input
+    val mimeType: String,
+    val inputAllocator: LambdaInputProvider
 )
 
 /**
@@ -22,7 +25,7 @@ data class UniUploadFileInfo(
 expect suspend fun <T> HttpClient.uniupload(
     url: String,
     data: Map<String, Any>,
-    stringFormat: StringFormat,
     resultDeserializer: DeserializationStrategy<T>,
-    headers: Headers = Headers.Empty
+    headers: Headers = Headers.Empty,
+    stringFormat: StringFormat = Json.Default
 ): T?
