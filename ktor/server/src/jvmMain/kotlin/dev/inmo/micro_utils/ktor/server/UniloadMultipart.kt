@@ -6,24 +6,27 @@ import io.ktor.http.content.*
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receiveMultipart
 import io.ktor.utils.io.core.*
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 
 /**
  * Server-side part which receives [dev.inmo.micro_utils.ktor.client.uniUpload] request
  */
-suspend fun ApplicationCall.handleUniUpload(
+suspend inline fun ApplicationCall.handleUniUpload(
     onFormItem: (PartData.FormItem) -> Unit = {},
-    onFileItem: (PartData.FileItem) -> Unit = {},
+    onBinaryContent: (PartData.BinaryItem) -> Unit = {},
     onBinaryChannelItem: (PartData.BinaryChannelItem) -> Unit = {},
-    onBinaryContent: (PartData.BinaryItem) -> Unit = {}
+    onFileItem: (PartData.FileItem) -> Unit = {}
 ) {
     val multipartData = receiveMultipart()
 
-    multipartData.forEachPart {
-        when (it) {
-            is PartData.FormItem -> onFormItem(it)
-            is PartData.FileItem -> onFileItem(it)
-            is PartData.BinaryItem -> onBinaryContent(it)
-            is PartData.BinaryChannelItem -> onBinaryChannelItem(it)
+    while (currentCoroutineContext().isActive) {
+        val partData = multipartData.readPart() ?: break
+        when (partData) {
+            is PartData.FormItem -> onFormItem(partData)
+            is PartData.FileItem -> onFileItem(partData)
+            is PartData.BinaryItem -> onBinaryContent(partData)
+            is PartData.BinaryChannelItem -> onBinaryChannelItem(partData)
         }
     }
 }
@@ -38,15 +41,14 @@ suspend fun ApplicationCall.uniloadMultipart(
 
     handleUniUpload(
         onFormItem,
-        {
-            when (it.name) {
-                "bytes" -> resultInput = it.provider()
-                else -> onCustomFileItem(it)
-            }
-        },
-        onBinaryChannelItem,
-        onBinaryContent
-    )
+        onBinaryContent,
+        onBinaryChannelItem
+    ) {
+        when (it.name) {
+            "bytes" -> resultInput = it.provider()
+            else -> onCustomFileItem(it)
+        }
+    }
 
     resultInput ?: error("Bytes has not been received")
 }
