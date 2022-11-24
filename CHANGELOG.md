@@ -9,6 +9,7 @@
         * New universal `uniUpload` extension for `HttpClient`
     * `Server`:
         * New universal `handleUniUpload` extension for `ApplicationCall`
+        * Add extensions `download` and `downloadToTemporalFile`
 
 ## 0.14.2
 
