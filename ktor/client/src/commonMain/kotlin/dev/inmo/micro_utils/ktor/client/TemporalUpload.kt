@@ -7,5 +7,5 @@ import io.ktor.client.HttpClient
 expect suspend fun HttpClient.tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: (uploaded: Long, count: Long) -> Unit = { _, _ -> }
+    onUpload: OnUploadCallback = { _, _ -> }
 ): TemporalFileId
