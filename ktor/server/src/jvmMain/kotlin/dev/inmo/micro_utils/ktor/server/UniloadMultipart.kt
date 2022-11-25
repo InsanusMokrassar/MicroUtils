@@ -28,6 +28,7 @@ suspend inline fun ApplicationCall.handleUniUpload(
             is PartData.BinaryItem -> onBinaryContent(partData)
             is PartData.BinaryChannelItem -> onBinaryChannelItem(partData)
         }
+        partData.dispose()
     }
 }
 
