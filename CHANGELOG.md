@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.14.4
+
+* `Ktor`:
+    * `Server`:
+        * Small fix in `handleUniUpload`
+
 ## 0.14.3
 
 * `Common`:
