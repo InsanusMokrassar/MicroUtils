@@ -5,6 +5,9 @@
 * `Ktor`:
     * `Server`:
         * Small fix in `handleUniUpload`
+        * `ApplicationCall#uniloadMultipartFile` now uses `uniloadMultipart`
+    * `Client`:
+        * New extensions on top of `uniUpload`
 
 ## 0.14.3
 
