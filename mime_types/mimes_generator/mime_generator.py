@@ -17,10 +17,11 @@ def fix_name(category, raw_name):
         result += out1
     return result
 
+# https://www.freeformatter.com/mime-types-list.html
 if __name__ == '__main__':
     df = pd.read_html(open('table.html', 'r'))
     mimes = []
-    for row in df[0].iterrows():
+    for row in df[0].drop_duplicates(subset=['MIME Type / Internet Media Type'], keep='first').iterrows():
         mime = row[1][1]
         mime_category = mime.split('/', 1)[0]
         mime_name = mime.split('/', 1)[1]
@@ -37,7 +38,7 @@ if __name__ == '__main__':
     code2 = 'internal val knownMimeTypes: Set<MimeType> = setOf(\n'
     code2 += '    KnownMimeTypes.Any,\n'
     for key, group in grouped:
-        group_name = key.capitalize()
+        group_name = fix_name(group, key)
         code += '@Serializable(MimeTypeSerializer::class)\nsealed class %s(raw: String) : MimeType, KnownMimeTypes(raw) {\n' % group_name
         code += '    @Serializable(MimeTypeSerializer::class)\n    object Any: %s ("%s/*")\n' % (group_name, key)
         for mime in group:

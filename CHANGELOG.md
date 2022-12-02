@@ -13,6 +13,10 @@
         * `Ktor`:
             * `Client`:
                 * `KtorReadCRUDRepoClient` now requires `paginationIdType`
+* `LanguageCodes`:
+    * Updates and fixes in generation
+* `MimeTypes`:
+    * Updates and fixes in generation
 
 ## 0.14.4
 
