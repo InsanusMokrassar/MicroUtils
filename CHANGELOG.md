@@ -2,6 +2,18 @@
 
 ## 0.15.0
 
+* `Repos`:
+    * `CRUD`:
+        * `Common`:
+            * New method `ReadCRUDRepo#getIdsByPagination`
+        * `Android`:
+            * `AbstractAndroidCRUDRepo` got new abstract method `toId`
+        * `Exposed`:
+            * `CommonExposedRepo` new abstract property `asId`
+        * `Ktor`:
+            * `Client`:
+                * `KtorReadCRUDRepoClient` now requires `paginationIdType`
+
 ## 0.14.4
 
 * `Common`:

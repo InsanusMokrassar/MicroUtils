@@ -15,7 +15,13 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
     CommonExposedRepo<Key, Value>,
     Table(tableName ?: "") {
     abstract val keyColumn: Column<*>
+
+    /**
+     * Same as [asId] in context of KeyValue repo
+     */
     abstract val ResultRow.asKey: Key
+    override val ResultRow.asId: Key
+        get() = asKey
     abstract val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean>
 
     override suspend fun get(k: Key): Value? = transaction(database) {

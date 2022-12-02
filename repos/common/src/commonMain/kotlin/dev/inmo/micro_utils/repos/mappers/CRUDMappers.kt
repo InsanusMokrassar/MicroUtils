@@ -20,6 +20,14 @@ open class MapperReadCRUDRepo<FromId, FromRegistered, ToId, ToRegistered>(
         )
     }
 
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<FromId> = to.getIdsByPagination(
+        pagination
+    ).let {
+        it.changeResultsUnchecked(
+            it.results.map { it.toInnerKey() }
+        )
+    }
+
     override suspend fun count(): Long = to.count()
 
     override suspend fun contains(id: FromId): Boolean = to.contains(id.toOutKey())

@@ -22,6 +22,17 @@ abstract class AbstractExposedReadCRUDRepo<ObjectType, IdType>(
             )
         }
     }
+
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> {
+        return transaction(db = database) {
+            selectAll().paginate(pagination).map {
+                it.asId
+            }.createPaginationResult(
+                pagination,
+                selectAll().count()
+            )
+        }
+    }
     override suspend fun getById(id: IdType): ObjectType? {
         return transaction(db = database) {
             select {

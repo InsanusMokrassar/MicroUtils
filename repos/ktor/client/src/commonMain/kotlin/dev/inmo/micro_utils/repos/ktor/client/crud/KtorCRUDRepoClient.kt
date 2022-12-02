@@ -28,6 +28,7 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
                 httpClient,
                 typeInfo<ObjectType>(),
                 typeInfo<PaginationResult<ObjectType>>(),
+                typeInfo<PaginationResult<IdType>>(),
                 contentType,
                 idSerializer
             ),
