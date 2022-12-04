@@ -17,7 +17,7 @@ kotlin {
 //        browser()
 //        nodejs()
 //    }
-    android {}
+    android()
 
     sourceSets {
         commonMain {
@@ -30,8 +30,8 @@ kotlin {
                         && it.hasProperty("kotlin")
                         && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
 //                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
                         api it
                     }
@@ -62,7 +62,7 @@ kotlin {
                     if (
                         it != project
                         && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                         && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
                     ) {
                         api it
@@ -78,9 +78,12 @@ kotlin {
                     if (
                         it != project
                         && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+//                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                         && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
+                        it.kotlin.sourceSets.forEach {
+                            println(it.dependsOn)
+                        }
                         api it
                     }
                 }
@@ -100,7 +103,7 @@ private List<SourceDirectorySet> findSourcesWithName(String... approximateNames)
             }.collect { it.kotlin }
 }
 
-tasks.dokkaHtml {
+dokkaHtml {
     dokkaSourceSets {
         configureEach {
             skipDeprecated.set(true)
@@ -121,11 +124,11 @@ tasks.dokkaHtml {
 //        }
 
         named("jvmMain") {
-            sourceRoots.setFrom(findSourcesWithName("jvmMain", "commonMain"))
+            sourceRoots.setFrom(findSourcesWithName("jvmMain"))
         }
 
         named("androidMain") {
-            sourceRoots.setFrom(findSourcesWithName("androidMain", "commonMain"))
+            sourceRoots.setFrom(findSourcesWithName("androidMain"))
         }
     }
 }
