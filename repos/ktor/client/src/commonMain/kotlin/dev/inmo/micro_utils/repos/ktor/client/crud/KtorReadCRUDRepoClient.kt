@@ -19,6 +19,7 @@ class KtorReadCRUDRepoClient<ObjectType, IdType> (
     private val httpClient: HttpClient,
     private val objectType: TypeInfo,
     private val paginationObjectType: TypeInfo,
+    private val paginationIdType: TypeInfo,
     private val contentType: ContentType,
     private val idSerializer: suspend (IdType) -> String
 ) : ReadCRUDRepo<ObjectType, IdType> {
@@ -27,6 +28,11 @@ class KtorReadCRUDRepoClient<ObjectType, IdType> (
     ) {
         contentType(contentType)
     }.body(paginationObjectType)
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> = httpClient.get(
+        buildStandardUrl(baseUrl, getIdsByPaginationRouting, pagination.asUrlQueryParts)
+    ) {
+        contentType(contentType)
+    }.body(paginationIdType)
 
     override suspend fun getById(id: IdType): ObjectType? = httpClient.get(
         buildStandardUrl(
@@ -72,6 +78,7 @@ inline fun <reified ObjectType, IdType> KtorReadCRUDRepoClient(
     httpClient,
     typeInfo<ObjectType>(),
     typeInfo<PaginationResult<ObjectType>>(),
+    typeInfo<PaginationResult<IdType>>(),
     contentType,
     idSerializer
 )

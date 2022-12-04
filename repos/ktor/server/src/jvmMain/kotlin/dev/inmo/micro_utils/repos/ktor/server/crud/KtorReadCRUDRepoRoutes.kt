@@ -23,6 +23,11 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoute
 
         call.respond(originalRepo.getByPagination(pagination))
     }
+    get(getIdsByPaginationRouting) {
+        val pagination = call.request.queryParameters.extractPagination
+
+        call.respond(originalRepo.getIdsByPagination(pagination))
+    }
 
     get(getByIdRouting) {
         val id = idDeserializer(

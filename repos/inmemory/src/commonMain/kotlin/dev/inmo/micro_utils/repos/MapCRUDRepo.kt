@@ -15,6 +15,13 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
         )
     }
 
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> {
+        return map.keys.drop(pagination.firstIndex).take(pagination.size).createPaginationResult(
+            pagination,
+            count()
+        )
+    }
+
     override suspend fun getById(id: IdType): ObjectType? = map[id]
 
     override suspend fun contains(id: IdType): Boolean = map.containsKey(id)

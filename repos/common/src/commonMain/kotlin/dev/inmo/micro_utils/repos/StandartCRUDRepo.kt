@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReadCRUDRepo<ObjectType, IdType> : Repo {
     suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType>
+    suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType>
     suspend fun getById(id: IdType): ObjectType?
     suspend fun contains(id: IdType): Boolean
     suspend fun count(): Long

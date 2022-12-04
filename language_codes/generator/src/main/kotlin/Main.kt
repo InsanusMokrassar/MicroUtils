@@ -78,12 +78,14 @@ private fun printLanguageCodeAndTags(
     indents: String = "    "
 ): String = if (tag.subtags.isEmpty()) {
 """${indents}${baseClassSerializerAnnotationName}
-${indents}object ${tag.title} : ${parent ?.title ?: baseClassName}() { override val code: String = "${tag.tag}" }"""
+${indents}object ${tag.title} : ${parent ?.title ?: baseClassName}() { override val code: String = "${tag.tag}"; override val withoutDialect: String get() = ${parent ?.title ?.let { "$it.code" } ?: "code"} }"""
 } else {
 """
 ${indents}${baseClassSerializerAnnotationName}
 ${indents}sealed class ${tag.title} : ${parent ?.title ?: baseClassName}() {
 ${indents}    override val code: String = "${tag.tag}"
+${indents}    override val withoutDialect: String
+${indents}        get() = code
 
 ${tag.subtags.joinToString("\n") { printLanguageCodeAndTags(it, tag, "${indents}    ") }}
 
@@ -104,11 +106,14 @@ import kotlinx.serialization.Serializable
 ${baseClassSerializerAnnotationName}
 sealed class $baseClassName {
     abstract val code: String
+    abstract val withoutDialect: String
 
 ${tags.joinToString("\n") { printLanguageCodeAndTags(it, indents = "    ") } }
 
     $baseClassSerializerAnnotationName
-    data class $unknownBaseClassName (override val code: String) : $baseClassName()
+    data class $unknownBaseClassName (override val code: String) : $baseClassName() {
+        override val withoutDialect: String = code.takeWhile { it != '-' }
+    }
 
     override fun toString() = code
 }

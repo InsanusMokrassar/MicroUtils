@@ -16,6 +16,7 @@ abstract class AbstractAndroidCRUDRepo<ObjectType, IdType>(
     protected abstract val tableName: String
     protected abstract val idColumnName: String
     protected abstract suspend fun Cursor.toObject(): ObjectType
+    protected abstract suspend fun Cursor.toId(): IdType
     protected fun SQLiteDatabase.count(): Long = select(tableName).use {
         it.count
     }.toLong()
@@ -60,6 +61,25 @@ abstract class AbstractAndroidCRUDRepo<ObjectType, IdType>(
                     resultList.createPaginationResult(pagination, count())
                 } else {
                     emptyList<ObjectType>().createPaginationResult(pagination, 0)
+                }
+            }
+        }
+    }
+
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> {
+        return helper.readableTransaction {
+            select(
+                tableName,
+                limit = pagination.limitClause()
+            ).use {
+                if (it.moveToFirst()) {
+                    val resultList = mutableListOf(it.toId())
+                    while (it.moveToNext()) {
+                        resultList.add(it.toId())
+                    }
+                    resultList.createPaginationResult(pagination, count())
+                } else {
+                    emptyList<IdType>().createPaginationResult(pagination, 0)
                 }
             }
         }

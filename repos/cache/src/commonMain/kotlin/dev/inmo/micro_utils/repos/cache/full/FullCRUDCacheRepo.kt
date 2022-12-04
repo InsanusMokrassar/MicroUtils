@@ -46,6 +46,12 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
 
+    override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> = doOrTakeAndActualize(
+        { keys(pagination).takeIf { it.results.isNotEmpty() }.optionalOrAbsentIfNull },
+        { getIdsByPagination(pagination) },
+        { if (it.results.isNotEmpty()) actualizeAll() }
+    )
+
     override suspend fun count(): Long = doOrTakeAndActualize(
         { count().takeIf { it != 0L }.optionalOrAbsentIfNull },
         { count() },
