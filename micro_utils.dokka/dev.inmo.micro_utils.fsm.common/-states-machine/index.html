@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>StatesMachine</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>micro_utils.dokka</span>
+            </a>
+    </div>
+    <div>
+0.15.0    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.fsm.common/StatesMachine///PointingToDeclaration//-1478683138">
+  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.fsm.common</a><span class="delimiter">/</span><span class="current">StatesMachine</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>States</span><wbr></wbr><span><span>Machine</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">StatesMachine</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator"> : </span><a href="../-state/index.html">State</a><span class="token operator">&gt;</span> : <a href="../-states-handler/index.html">StatesHandler</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt; </span></div><p class="paragraph">Default <a href="index.html">StatesMachine</a> may <a href="start-chain.html">startChain</a> and use inside logic for handling <a href="../-state/index.html">State</a>s. By default you may use <a href="../-default-states-machine/index.html">DefaultStatesMachine</a> or build it with <a href="../../dev.inmo.micro_utils.fsm.common.dsl/build-f-s-m.html">dev.inmo.micro_utils.fsm.common.dsl.buildFSM</a>. Implementers MUST NOT start handling until <a href="start.html">start</a> method will be called</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Types</h2>
+      <div class="table" data-togglable="Types"><a data-name="-1949305378%2FClasslikes%2F-1478683138" anchor-label="Companion" id="-1949305378%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1949305378%2FClasslikes%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="1210167093%2FFunctions%2F-1478683138" anchor-label="handleState" id="1210167093%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-states-handler/handle-state.html"><span>handle</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1210167093%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">StatesMachine</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../-states-handler/handle-state.html"><span class="token function">handleState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">T</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Main handling of <a href="../-states-handler/handle-state.html">state</a>. In case when this <a href="../-states-handler/handle-state.html">state</a> leads to another <a href="../-state/index.html">State</a> and <a href="../-states-handler/handle-state.html">handleState</a> returns not null <a href="../-state/index.html">State</a> it is assumed that chain is not completed.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1776780703%2FFunctions%2F-1478683138" anchor-label="launchStateHandling" id="1776780703%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="launch-state-handling.html"><span>launch</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Handling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1776780703%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="launch-state-handling.html"><span class="token function">launchStateHandling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">handlers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-checkable-handler-holder/index.html">CheckableHandlerHolder</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">T</a><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="launch-state-handling.html"><span class="token function">launchStateHandling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">handlers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-checkable-handler-holder/index.html">CheckableHandlerHolder</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">onStateHandlingErrorHandler<span class="token operator">: </span><a href="../../dev.inmo.micro_utils.fsm.common.utils/index.html#1655009510%2FClasslikes%2F-1478683138">StateHandlingErrorHandler</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">T</a><span class="token operator">?</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1816937877%2FFunctions%2F-1478683138" anchor-label="start" id="1816937877%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="start.html"><span><span>start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816937877%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Starts handling of <a href="../-state/index.html">State</a>s</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1903622856%2FFunctions%2F-1478683138" anchor-label="startChain" id="-1903622856%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="start-chain.html"><span>start</span><wbr></wbr><span><span>Chain</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1903622856%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="start-chain.html"><span class="token function">startChain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Start chain of <a href="../-state/index.html">State</a>s witn <a href="start-chain.html">state</a></p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="-695753955%2FInheritors%2F-1478683138" anchor-label="DefaultStatesMachine" id="-695753955%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-default-states-machine/index.html">DefaultStatesMachine</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-695753955%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="155986834%2FInheritors%2F-1478683138" anchor-label="UpdatableStatesMachine" id="155986834%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-updatable-states-machine/index.html">UpdatableStatesMachine</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="155986834%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="1180048627%2FExtensions%2F-1478683138" anchor-label="holder" id="1180048627%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../holder.html"><span><span>holder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1180048627%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">I</a><span class="token operator"> : </span><a href="../holder.html">O</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator"> : </span><a href="../-state/index.html">State</a><span class="token operator">&gt; </span><a href="../-states-handler/index.html">StatesHandler</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">I</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../holder.html"><span class="token function">holder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">strict<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-customizable-handler-holder/index.html">CustomizableHandlerHolder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">I</a><span class="token operator"> : </span><a href="../holder.html">O</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator"> : </span><a href="../-state/index.html">State</a><span class="token operator">&gt; </span><a href="../-states-handler/index.html">StatesHandler</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">I</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../holder.html"><span class="token function">holder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>filter<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span>state<span class="token operator">: </span><a href="../-state/index.html">State</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-customizable-handler-holder/index.html">CustomizableHandlerHolder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../holder.html">O</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
