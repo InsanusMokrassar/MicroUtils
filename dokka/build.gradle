@@ -121,11 +121,11 @@ tasks.dokkaHtml {
 //        }
 
         named("jvmMain") {
-            sourceRoots.setFrom(findSourcesWithName("jvmMain", "commonMain"))
+            sourceRoots.setFrom(findSourcesWithName("jvmMain"))
         }
 
         named("androidMain") {
-            sourceRoots.setFrom(findSourcesWithName("androidMain", "commonMain"))
+            sourceRoots.setFrom(findSourcesWithName("androidMain"))
         }
     }
 }
