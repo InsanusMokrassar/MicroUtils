@@ -81,6 +81,9 @@ kotlin {
 //                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                         && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
+                        it.kotlin.sourceSets.forEach {
+                            println(it.dependsOn)
+                        }
                         api it
                     }
                 }
