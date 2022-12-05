@@ -27,6 +27,7 @@ import java.io.File
  * @param data [Map] where keys will be used as names for multipart parts and values as values. If you will pass
  * [dev.inmo.micro_utils.common.MPPFile] (File from JS or JVM platform). Also you may pass [UniUploadFileInfo] as value
  * in case you wish to pass other source of multipart binary data than regular file
+ * @suppress
  */
 actual suspend fun <T> HttpClient.uniUpload(
     url: String,
