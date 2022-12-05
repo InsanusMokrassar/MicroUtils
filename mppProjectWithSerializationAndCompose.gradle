@@ -23,7 +23,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib')
-                implementation libs.kt.serialization
+                api libs.kt.serialization
                 implementation compose.runtime
             }
         }
