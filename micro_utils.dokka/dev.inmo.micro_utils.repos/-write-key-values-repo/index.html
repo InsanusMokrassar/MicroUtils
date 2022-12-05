@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>WriteKeyValuesRepo</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>micro_utils.dokka</span>
+            </a>
+    </div>
+    <div>
+0.15.0    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.repos/WriteKeyValuesRepo///PointingToDeclaration//-1478683138">
+  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.repos</a><span class="delimiter">/</span><span class="current">WriteKeyValuesRepo</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Write</span><wbr></wbr><span>Key</span><wbr></wbr><span>Values</span><wbr></wbr><span><span>Repo</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span> : <a href="../-repo/index.html">Repo</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-195360701%2FFunctions%2F-1478683138" anchor-label="add" id="-195360701%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add.html"><span><span>add</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-195360701%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="add.html"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toAdd<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1463470457%2FFunctions%2F-1478683138" anchor-label="clear" id="-1463470457%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1463470457%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="index.html">Key</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1166766246%2FFunctions%2F-1478683138" anchor-label="clearWithValue" id="1166766246%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="clear-with-value.html"><span>clear</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1166766246%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="clear-with-value.html"><span class="token function">clearWithValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">v<span class="token operator">: </span><a href="index.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1858848302%2FFunctions%2F-1478683138" anchor-label="remove" id="-1858848302%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="remove.html"><span><span>remove</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1858848302%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toRemove<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1595966046%2FFunctions%2F-1478683138" anchor-label="set" id="-1595966046%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="set.html"><span><span>set</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1595966046%2FFunctions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="set.html"><span class="token function">set</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">toSet<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="1097593697%2FProperties%2F-1478683138" anchor-label="onDataCleared" id="1097593697%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="on-data-cleared.html"><span>on</span><wbr></wbr><span>Data</span><wbr></wbr><span><span>Cleared</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1097593697%2FProperties%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><a data-name="1097593697%2FProperties%2F-1478683138" anchor-label="onDataCleared" id="1097593697%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="on-data-cleared.html">onDataCleared</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="336265446%2FProperties%2F-1478683138" anchor-label="onNewValue" id="336265446%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="on-new-value.html"><span>on</span><wbr></wbr><span>New</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="336265446%2FProperties%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><a data-name="336265446%2FProperties%2F-1478683138" anchor-label="onNewValue" id="336265446%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="on-new-value.html">onNewValue</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1001432152%2FProperties%2F-1478683138" anchor-label="onValueRemoved" id="-1001432152%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="on-value-removed.html"><span>on</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1001432152%2FProperties%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><a data-name="-1001432152%2FProperties%2F-1478683138" anchor-label="onValueRemoved" id="-1001432152%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="on-value-removed.html">onValueRemoved</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="-905790798%2FInheritors%2F-1478683138" anchor-label="KeyValuesRepo" id="-905790798%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-key-values-repo/index.html">KeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-905790798%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="2092631256%2FInheritors%2F-1478683138" anchor-label="DelegateBasedKeyValuesRepo" id="2092631256%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-delegate-based-key-values-repo/index.html">DelegateBasedKeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2092631256%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-991359883%2FInheritors%2F-1478683138" anchor-label="MapWriteKeyValuesRepo" id="-991359883%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-map-write-key-values-repo/index.html">MapWriteKeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-991359883%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="1604459910%2FInheritors%2F-1478683138" anchor-label="MapKeyValuesRepo" id="1604459910%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-map-key-values-repo/index.html">MapKeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1604459910%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-2001792866%2FInheritors%2F-1478683138" anchor-label="KeyValuesCacheRepo" id="-2001792866%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.cache/-key-values-cache-repo/index.html">KeyValuesCacheRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2001792866%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="2136036495%2FInheritors%2F-1478683138" anchor-label="FullWriteKeyValuesCacheRepo" id="2136036495%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.cache.full/-full-write-key-values-cache-repo/index.html">FullWriteKeyValuesCacheRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136036495%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-487177428%2FInheritors%2F-1478683138" anchor-label="MapperWriteKeyValuesRepo" id="-487177428%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.mappers/-mapper-write-key-values-repo/index.html">MapperWriteKeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-487177428%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="509431919%2FInheritors%2F-1478683138" anchor-label="MapperKeyValuesRepo" id="509431919%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.mappers/-mapper-key-values-repo/index.html">MapperKeyValuesRepo</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="509431919%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="680389212%2FInheritors%2F-1478683138" anchor-label="KtorWriteKeyValuesRepoClient" id="680389212%2FInheritors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.ktor.client.key.values/-ktor-write-key-values-repo-client/index.html">KtorWriteKeyValuesRepoClient</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="680389212%2FInheritors%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="631850494%2FExtensions%2F-1478683138" anchor-label="add" id="631850494%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../add.html"><span><span>add</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="631850494%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../add.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../add.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../add.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../add.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../add.html"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../add.html">Key</a><span class="token punctuation">, </span></span><span class="parameter ">v<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../add.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../add.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../add.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../add.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../add.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../add.html"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../add.html">Key</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>v<span class="token operator">: </span><a href="../add.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1952363333%2FExtensions%2F-1478683138" anchor-label="caching" id="1952363333%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html"><span><span>caching</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952363333%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html"><span class="token function">caching</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">kvCache<span class="token operator">: </span><a href="../../dev.inmo.micro_utils.repos.cache.cache/-full-k-v-cache/index.html">FullKVCache</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token operator"> = </span>CoroutineScope(Dispatchers.Default)</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.inmo.micro_utils.repos.cache.full/-full-write-key-values-cache-repo/index.html">FullWriteKeyValuesCacheRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.cache.full/caching.html">Value</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-553105878%2FExtensions%2F-1478683138" anchor-label="remove" id="-553105878%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../remove.html"><span><span>remove</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-553105878%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keysAndValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>keysAndValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../remove.html">Key</a><span class="token punctuation">, </span></span><span class="parameter ">v<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../remove.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../remove.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../remove.html"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../remove.html">Key</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>v<span class="token operator">: </span><a href="../remove.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1957199010%2FExtensions%2F-1478683138" anchor-label="set" id="-1957199010%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../set.html"><span><span>set</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1957199010%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../set.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../set.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../set.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../set.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../set.html"><span class="token function">set</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../set.html">Key</a><span class="token punctuation">, </span></span><span class="parameter ">v<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../set.html">Value</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../set.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../set.html">Value</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../set.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../set.html">Value</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../set.html"><span class="token function">set</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">k<span class="token operator">: </span><a href="../set.html">Key</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>v<span class="token operator">: </span><a href="../set.html">Value</a></span></span><span class="token punctuation">)</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="701872565%2FExtensions%2F-1478683138" anchor-label="withMapper" id="701872565%2FExtensions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html"><span>with</span><wbr></wbr><span><span>Mapper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="701872565%2FExtensions%2F-1478683138"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html"><span class="token function">withMapper</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mapper<span class="token operator">: </span><a href="../-mapper-repo/index.html">MapperRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator">&gt; </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html"><span class="token function">withMapper</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>keyFromToTo<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token operator"> = </span>{ this as ToKey }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>valueFromToTo<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token operator"> = </span>{ this as ToValue }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>keyToToFrom<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToKey</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token operator"> = </span>{ this as FromKey }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>valueToToFrom<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">ToValue</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token operator"> = </span>{ this as FromValue }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromKey</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../dev.inmo.micro_utils.repos.mappers/with-mapper.html">FromValue</a><span class="token operator">&gt;</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
