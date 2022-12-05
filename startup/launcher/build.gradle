@@ -10,7 +10,6 @@ kotlin {
         commonMain {
             dependencies {
                 api internalProject("micro_utils.startup.plugin")
-                api libs.kslog
             }
         }
     }

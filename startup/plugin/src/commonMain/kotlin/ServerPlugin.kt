@@ -14,7 +14,7 @@ import org.koin.core.module.Module
 interface ServerPlugin {
     fun Module.setupDI(config: JsonObject) {}
 
-    suspend fun Koin.startPlugin() {}
+    suspend fun startPlugin(koin: Koin) {}
 
     companion object : KSerializer<ServerPlugin> {
         override val descriptor: SerialDescriptor

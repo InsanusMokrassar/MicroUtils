@@ -11,6 +11,8 @@ kotlin {
             dependencies {
                 api libs.koin
                 api libs.kt.serialization
+                api libs.kslog
+                api project(":micro_utils.coroutines")
             }
         }
     }
