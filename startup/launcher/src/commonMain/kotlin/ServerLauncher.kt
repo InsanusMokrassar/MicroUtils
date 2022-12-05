@@ -7,11 +7,7 @@ import org.koin.core.Koin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-class ServerLauncher : ServerPlugin {
-    val defaultJson = Json {
-        ignoreUnknownKeys = true
-    }
-
+object ServerLauncher : ServerPlugin {
     override fun Module.setupDI(config: JsonObject) {
         val pluginsConfig = defaultJson.decodeFromJsonElement(Config.serializer(), config)
 
