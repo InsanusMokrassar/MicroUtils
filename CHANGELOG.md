@@ -2,6 +2,13 @@
 
 ## 0.15.1
 
+* `Startup`:
+    * Inited :)
+    * `Plugin`:
+        * Inited :)
+    * `Launcher`:
+        * Inited :)
+
 ## 0.15.0
 
 * `Repos`:
