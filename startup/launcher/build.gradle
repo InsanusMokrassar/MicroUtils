@@ -1,6 +1,7 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
+    id "application"
 }
 
 apply from: "$mppJavaProjectPresetPath"
@@ -13,4 +14,13 @@ kotlin {
             }
         }
     }
+}
+
+application {
+    mainClassName = "dev.inmo.micro_utils.startup.launcher.ServerLauncherKt"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

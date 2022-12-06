@@ -14,7 +14,7 @@ import org.koin.core.Koin
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-object StartupLauncher : ServerPlugin {
+object StartupLauncherPlugin : ServerPlugin {
     internal val logger = taggedLogger(this)
     override fun Module.setupDI(config: JsonObject) {
         val pluginsConfig = defaultJson.decodeFromJsonElement(Config.serializer(), config)

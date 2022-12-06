@@ -12,6 +12,7 @@ kotlin {
                 api libs.koin
                 api libs.kt.serialization
                 api libs.kslog
+                api libs.kt.reflect
                 api project(":micro_utils.coroutines")
             }
         }
