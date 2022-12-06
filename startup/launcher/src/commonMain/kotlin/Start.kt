@@ -6,8 +6,15 @@ import org.koin.core.KoinApplication
 import org.koin.core.context.GlobalContext
 import org.koin.dsl.module
 
+/**
+ * Will create [KoinApplication], init, load modules using [StartLauncherPlugin] and start plugins using the same base
+ * plugin
+ *
+ * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config] ([StartLauncherPlugin] will
+ * deserialize it in its [StartLauncherPlugin.setupDI]
+ */
 suspend fun start(rawConfig: JsonObject) {
-    with(StartupLauncherPlugin) {
+    with(StartLauncherPlugin) {
         logger.i("Start initialization")
         val koinApp = KoinApplication.init()
         koinApp.modules(
