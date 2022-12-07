@@ -15,7 +15,7 @@ class StartupLaunchingTests {
     fun resetGlobalKoinContext() {
         kotlin.runCatching { GlobalContext.stopKoin() }
     }
-    @Test(timeout = 1000L)
+    @Test(timeout = 60000L)
     fun CheckThatEmptyPluginsListLeadsToEndOfMain() {
         val emptyJson = defaultJson.encodeToJsonElement(
             Config.serializer(),
@@ -29,7 +29,7 @@ class StartupLaunchingTests {
             job.join()
         }
     }
-    @Test(timeout = 1000L)
+    @Test(timeout = 60000L)
     fun CheckThatHelloWorldPluginsListLeadsToEndOfMain() {
         val emptyJson = defaultJson.encodeToJsonElement(
             Config.serializer(),
