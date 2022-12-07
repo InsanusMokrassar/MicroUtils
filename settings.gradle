@@ -32,6 +32,8 @@ String[] includes = [
     ":serialization:base64",
     ":serialization:encapsulator",
     ":serialization:typed_serializer",
+    ":startup:plugin",
+    ":startup:launcher",
 
     ":fsm:common",
     ":fsm:repos:common",

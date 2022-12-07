@@ -4,6 +4,8 @@ kt = "1.7.20"
 kt-serialization = "1.4.1"
 kt-coroutines = "1.6.4"
 
+kslog = "0.5.4"
+
 jb-compose = "1.2.1"
 jb-exposed = "0.41.1"
 jb-dokka = "1.7.20"
@@ -60,6 +62,7 @@ ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.re
 ktor-server-statusPages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 
+kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
 klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "klock" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
