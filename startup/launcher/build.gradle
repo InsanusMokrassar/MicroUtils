@@ -22,7 +22,7 @@ kotlin {
 }
 
 application {
-    mainClassName = "dev.inmo.micro_utils.startup.launcher.ServerLauncherKt"
+    mainClassName = "dev.inmo.micro_utils.startup.launcher.MainKt"
 }
 
 java {
