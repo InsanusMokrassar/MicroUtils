@@ -4,10 +4,17 @@ import dev.inmo.micro_utils.startup.launcher.HelloWorldPlugin
 import dev.inmo.micro_utils.startup.launcher.defaultJson
 import dev.inmo.micro_utils.startup.launcher.start
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.jsonObject
+import org.koin.core.context.GlobalContext
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class StartupLaunchingTests {
+    @BeforeTest
+    fun resetGlobalKoinContext() {
+        kotlin.runCatching { GlobalContext.stopKoin() }
+    }
     @Test(timeout = 1000L)
     fun CheckThatEmptyPluginsListLeadsToEndOfMain() {
         val emptyJson = defaultJson.encodeToJsonElement(
@@ -15,7 +22,7 @@ class StartupLaunchingTests {
             Config(emptyList())
         ).jsonObject
 
-        launchSynchronously {
+        runTest {
             val  job = launch {
                 start(emptyJson)
             }
@@ -29,7 +36,7 @@ class StartupLaunchingTests {
             Config(listOf(HelloWorldPlugin))
         ).jsonObject
 
-        launchSynchronously {
+        runTest {
             val  job = launch {
                 start(emptyJson)
             }

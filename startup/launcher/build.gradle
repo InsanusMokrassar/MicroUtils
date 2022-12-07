@@ -13,6 +13,11 @@ kotlin {
                 api internalProject("micro_utils.startup.plugin")
             }
         }
+        jvmTest {
+            dependencies {
+                implementation libs.kt.coroutines.test
+            }
+        }
     }
 }
 
