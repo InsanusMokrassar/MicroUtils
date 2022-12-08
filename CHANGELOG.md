@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0
+
+* `Versions`:
+    * `Ktor`: `2.1.3` -> `2.2.1`
+    * `Android Fragment`: `1.5.3` -> `1.5.5`
+
 ## 0.15.1
 
 * `Startup`:
