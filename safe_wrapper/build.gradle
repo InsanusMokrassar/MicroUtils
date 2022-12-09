@@ -5,3 +5,13 @@ plugins {
 }
 
 apply from: "$mppProjectWithSerializationPresetPath"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api project(":micro_utils.coroutines")
+            }
+        }
+    }
+}
