@@ -2,6 +2,11 @@
 
 ## 0.16.1
 
+* `Coroutines`:
+    * New `runCatchingSafely`/`safelyWithResult` with receivers
+* `SafeWrapper`:
+    * Module inited
+
 ## 0.16.0
 
 * `Versions`:
