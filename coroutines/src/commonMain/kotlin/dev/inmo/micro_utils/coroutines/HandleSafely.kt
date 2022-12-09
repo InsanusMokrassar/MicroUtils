@@ -115,9 +115,20 @@ suspend inline fun <T> runCatchingSafely(
     safely(onException, block)
 }
 
+suspend inline fun <T, R> T.runCatchingSafely(
+    noinline onException: ExceptionHandler<R> = defaultSafelyExceptionHandler,
+    noinline block: suspend T.() -> R
+): Result<R> = runCatching {
+    safely(onException) { block() }
+}
+
 suspend inline fun <T> safelyWithResult(
     noinline block: suspend CoroutineScope.() -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
+
+suspend inline fun <T, R> T.safelyWithResult(
+    noinline block: suspend T.() -> R
+): Result<R> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
 /**
  * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
