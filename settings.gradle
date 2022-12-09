@@ -4,6 +4,7 @@ String[] includes = [
     ":common",
     ":common:compose",
     ":matrix",
+    ":safe_wrapper",
     ":crypto",
     ":koin",
     ":selector:common",
