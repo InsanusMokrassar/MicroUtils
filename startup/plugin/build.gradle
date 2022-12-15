@@ -16,5 +16,10 @@ kotlin {
                 api project(":micro_utils.coroutines")
             }
         }
+        jsMain {
+            dependencies {
+                api libs.uuid
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ plugins {
     id "application"
 }
 
-apply from: "$mppJavaProjectPresetPath"
+apply from: "$mppJsAndJavaProjectPresetPath"
 
 kotlin {
     sourceSets {
@@ -13,7 +13,7 @@ kotlin {
                 api internalProject("micro_utils.startup.plugin")
             }
         }
-        jvmTest {
+        commonTest {
             dependencies {
                 implementation libs.kt.coroutines.test
             }
