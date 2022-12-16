@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.startup.launcher.start
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.jsonObject
+import org.koin.core.context.stopKoin
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
