@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.2
+
+* `Versions`:
+    * `Compose`: `1.2.1` -> `1.2.2`
+* `Startup`:
+    * Module become available on `JS` target
+
 ## 0.16.1
 
 * `Coroutines`:

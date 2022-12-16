@@ -26,7 +26,7 @@ import java.io.File
  */
 suspend fun main(args: Array<String>) {
 
-    KSLog.default = KSLog("ServerLauncher")
+    KSLog.default = KSLog("Launcher")
     val (configPath) = args
     val file = File(configPath)
     KSLog.i("Start read config from ${file.absolutePath}")

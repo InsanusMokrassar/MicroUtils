@@ -1,0 +1,49 @@
+project.version = "$version"
+project.group = "$group"
+
+apply from: "$publishGradlePath"
+
+kotlin {
+    jvm {
+        compilations.main {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
+    js (IR) {
+        browser()
+        nodejs()
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib')
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+                implementation kotlin('test-junit')
+            }
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
