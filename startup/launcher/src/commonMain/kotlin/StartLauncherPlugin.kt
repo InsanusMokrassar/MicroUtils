@@ -82,7 +82,7 @@ object StartLauncherPlugin : StartPlugin {
                         startPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to load bot part of $plugin", e)
+                    logger.w("Unable to start plugin $plugin", e)
                 }.onSuccess {
                     logger.i("Complete loading of $plugin")
                 }
