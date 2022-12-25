@@ -5,6 +5,7 @@ import dev.inmo.kslog.common.i
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 
+@Deprecated("Useless due to including of the same functionality in StrtLauncherPlugin")
 object PluginsStarter {
     init {
         KSLog.default = KSLog("Launcher")
@@ -15,19 +16,10 @@ object PluginsStarter {
      * app inside of [dev.inmo.micro_utils.startup.plugin.StartPluginSerializer] using its
      * [dev.inmo.micro_utils.startup.plugin.StartPluginSerializer.registerPlugin] method
      */
-    suspend fun startPlugins(json: JsonObject) {
-        start(json)
-    }
+    suspend fun startPlugins(json: JsonObject) = StartLauncherPlugin.start(json)
     /**
      * Will convert [config] to [JsonObject] with auto registration of [dev.inmo.micro_utils.startup.plugin.StartPlugin]s
      * in [dev.inmo.micro_utils.startup.plugin.StartPluginSerializer]
      */
-    suspend fun startPlugins(config: Config) {
-
-        KSLog.i("Start convert config to JSON")
-        val json = defaultJson.encodeToJsonElement(Config.serializer(), config).jsonObject
-        KSLog.i("Config has been read")
-
-        start(json)
-    }
+    suspend fun startPlugins(config: Config) = StartLauncherPlugin.start(config)
 }
