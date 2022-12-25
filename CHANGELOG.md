@@ -2,6 +2,10 @@
 
 ## 0.16.3
 
+* `Startup`:
+    * `Launcher`:
+        * All starting API have been moved into `StartLauncherPlugin` and do not require serialize/deserialize cycle for now
+
 ## 0.16.2
 
 * `Versions`:

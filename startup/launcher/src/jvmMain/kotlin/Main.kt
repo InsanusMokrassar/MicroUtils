@@ -33,5 +33,5 @@ suspend fun main(args: Array<String>) {
     val json = defaultJson.parseToJsonElement(file.readText()).jsonObject
     KSLog.i("Config has been read")
 
-    start(json)
+    StartLauncherPlugin.start(json)
 }
