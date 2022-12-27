@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.16.4
+
+* `Coroutines`:
+    * Create `launchInCurrentThread`
+
 ## 0.16.3
 
 * `Startup`:
