@@ -2,6 +2,8 @@
 
 ## 0.16.3
 
+* `Coroutines`:
+    * Create `launchInCurrentThread`
 * `Startup`:
     * `Launcher`:
         * All starting API have been moved into `StartLauncherPlugin` and do not require serialize/deserialize cycle for now

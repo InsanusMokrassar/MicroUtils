@@ -6,7 +6,7 @@ fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T
     var result: Result<T>? = null
     val objectToSynchronize = Object()
     synchronized(objectToSynchronize) {
-        launch {
+        launch(start = CoroutineStart.UNDISPATCHED) {
             result = safelyWithResult(block)
         }.invokeOnCompletion {
             synchronized(objectToSynchronize) {
