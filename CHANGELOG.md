@@ -2,6 +2,10 @@
 
 ## 0.16.6
 
+* `Startup`:
+    * `Launcher`:
+        * Improvements in `StartLauncherPlugin#start` methods
+
 ## 0.16.5
 
 * `Versions`:
