@@ -10,6 +10,8 @@
     * `Ktor`:
         * `Client`:
             * All clients repos got opportunity to customize their flows
+    * `Exposed`:
+        * Extensions `eqOrIsNull` and `neqOrIsNotNull` for `Column`
 
 ## 0.16.5
 
