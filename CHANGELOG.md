@@ -5,6 +5,7 @@
 * `Startup`:
     * `Launcher`:
         * Improvements in `StartLauncherPlugin#start` methods
+        * Add opportunity to pass second argument on `JVM` platform as log level
 * `Repos`:
     * `Ktor`:
         * `Client`:
