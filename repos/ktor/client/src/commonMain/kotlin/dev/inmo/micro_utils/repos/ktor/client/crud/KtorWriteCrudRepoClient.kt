@@ -53,19 +53,22 @@ class KtorWriteCrudRepoClient<ObjectType, IdType, InputValue> (
         inline operator fun <reified ObjectType, reified IdType, reified InputValue> invoke(
             baseUrl: String,
             httpClient: HttpClient,
-            contentType: ContentType
+            contentType: ContentType,
+            newObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, newObjectsFlowRouting),
+            ),
+            updatedObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, updatedObjectsFlowRouting),
+            ),
+            deletedObjectsIdsFlow: Flow<IdType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, deletedObjectsIdsFlowRouting),
+            ),
         ) = KtorWriteCrudRepoClient<ObjectType, IdType, InputValue>(
             baseUrl,
             httpClient,
-            httpClient.createStandardWebsocketFlow(
-                buildStandardUrl(baseUrl, newObjectsFlowRouting),
-            ),
-            httpClient.createStandardWebsocketFlow(
-                buildStandardUrl(baseUrl, updatedObjectsFlowRouting),
-            ),
-            httpClient.createStandardWebsocketFlow(
-                buildStandardUrl(baseUrl, deletedObjectsIdsFlowRouting),
-            ),
+            newObjectsFlow,
+            updatedObjectsFlow,
+            deletedObjectsIdsFlow,
             {
                 contentType(contentType)
                 setBody(it)

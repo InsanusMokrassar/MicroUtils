@@ -1,12 +1,17 @@
 package dev.inmo.micro_utils.repos.ktor.client.crud
 
+import dev.inmo.micro_utils.ktor.client.createStandardWebsocketFlow
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.ktor.common.crud.deletedObjectsIdsFlowRouting
+import dev.inmo.micro_utils.repos.ktor.common.crud.newObjectsFlowRouting
+import dev.inmo.micro_utils.repos.ktor.common.crud.updatedObjectsFlowRouting
 import io.ktor.client.HttpClient
 import io.ktor.http.ContentType
 import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 
 class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
@@ -21,6 +26,15 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
             baseUrl: String,
             httpClient: HttpClient,
             contentType: ContentType,
+            newObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, newObjectsFlowRouting),
+            ),
+            updatedObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, updatedObjectsFlowRouting),
+            ),
+            deletedObjectsIdsFlow: Flow<IdType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, deletedObjectsIdsFlowRouting),
+            ),
             noinline idSerializer: suspend (IdType) -> String
         ) = KtorCRUDRepoClient(
             KtorReadCRUDRepoClient(
@@ -35,7 +49,10 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
             KtorWriteCrudRepoClient<ObjectType, IdType, InputValue>(
                 baseUrl,
                 httpClient,
-                contentType
+                contentType,
+                newObjectsFlow,
+                updatedObjectsFlow,
+                deletedObjectsIdsFlow
             )
         )
 
@@ -44,11 +61,23 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
             subpart: String,
             httpClient: HttpClient,
             contentType: ContentType,
+            newObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, newObjectsFlowRouting),
+            ),
+            updatedObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, updatedObjectsFlowRouting),
+            ),
+            deletedObjectsIdsFlow: Flow<IdType> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, deletedObjectsIdsFlowRouting),
+            ),
             noinline idSerializer: suspend (IdType) -> String
         ) = KtorCRUDRepoClient<ObjectType, IdType, InputValue>(
             buildStandardUrl(baseUrl, subpart),
             httpClient,
             contentType,
+            newObjectsFlow,
+            updatedObjectsFlow,
+            deletedObjectsIdsFlow,
             idSerializer
         )
     }
@@ -80,11 +109,23 @@ inline fun <reified ObjectType, reified IdType, reified InputValue> KtorCRUDRepo
     subpart: String,
     httpClient: HttpClient,
     contentType: ContentType,
+    newObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+        buildStandardUrl(baseUrl, newObjectsFlowRouting),
+    ),
+    updatedObjectsFlow: Flow<ObjectType> = httpClient.createStandardWebsocketFlow(
+        buildStandardUrl(baseUrl, updatedObjectsFlowRouting),
+    ),
+    deletedObjectsIdsFlow: Flow<IdType> = httpClient.createStandardWebsocketFlow(
+        buildStandardUrl(baseUrl, deletedObjectsIdsFlowRouting),
+    ),
     noinline idSerializer: suspend (IdType) -> String
 ) = KtorCRUDRepoClient<ObjectType, IdType, InputValue>(
     buildStandardUrl(baseUrl, subpart),
     httpClient,
     contentType,
+    newObjectsFlow,
+    updatedObjectsFlow,
+    deletedObjectsIdsFlow,
     idSerializer
 )
 

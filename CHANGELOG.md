@@ -5,6 +5,10 @@
 * `Startup`:
     * `Launcher`:
         * Improvements in `StartLauncherPlugin#start` methods
+* `Repos`:
+    * `Ktor`:
+        * `Client`:
+            * All clients repos got opportunity to customize their flows
 
 ## 0.16.5
 

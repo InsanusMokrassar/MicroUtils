@@ -60,17 +60,19 @@ class KtorWriteKeyValueRepoClient<Key, Value>(
         inline operator fun <reified Key, reified Value> invoke(
             baseUrl: String,
             httpClient: HttpClient,
-            contentType: ContentType
+            contentType: ContentType,
+            onNewValue: Flow<Pair<Key, Value>> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onNewValueRoute),
+            ),
+            onValueRemoved: Flow<Key> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onValueRemovedRoute),
+            ),
         ) = KtorWriteKeyValueRepoClient<Key, Value>(
             baseUrl,
             httpClient,
             contentType,
-            httpClient.createStandardWebsocketFlow(
-                buildStandardUrl(baseUrl, onNewValueRoute),
-            ),
-            httpClient.createStandardWebsocketFlow(
-                buildStandardUrl(baseUrl, onValueRemovedRoute),
-            ),
+            onNewValue,
+            onValueRemoved,
             typeInfo<List<Key>>(),
             typeInfo<List<Value>>(),
             typeInfo<Map<Key, Value>>()
