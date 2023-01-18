@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.SerialFormat
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
@@ -93,18 +94,19 @@ object StartLauncherPlugin : StartPlugin {
 
     /**
      * Will create [KoinApplication], init, load modules using [StartLauncherPlugin] and start plugins using the same base
-     * plugin
+     * plugin. It is basic [start] method which accepts both [config] and [rawConfig] which suppose to be the same or
+     * at least [rawConfig] must contain serialized variant of [config]
      *
      * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config] ([StartLauncherPlugin] will
      * deserialize it in its [StartLauncherPlugin.setupDI]
      */
-    suspend fun start(rawConfig: JsonObject) {
+    suspend fun start(config: Config, rawConfig: JsonObject) {
 
         logger.i("Start initialization")
         val koinApp = KoinApplication.init()
         koinApp.modules(
             module {
-                setupDI(rawConfig)
+                setupDI(config, rawConfig)
             }
         )
         logger.i("Modules loaded")
@@ -116,26 +118,26 @@ object StartLauncherPlugin : StartPlugin {
     }
 
     /**
-     * Will create [KoinApplication], init, load modules using [StartLauncherPlugin] and start plugins using the same base
-     * plugin
+     * Call [start] with deserialized [Config] as config and [rawConfig] as is
      *
-     * @param config In difference with other [start] method here config is already deserialized and this config will
-     * be converted to [JsonObject] as raw config. That means that all plugins from [config] will receive
-     * serialized version of [config] in [StartPlugin.setupDI] method
+     * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config]
+     */
+    suspend fun start(rawConfig: JsonObject) {
+
+        start(defaultJson.decodeFromJsonElement(Config.serializer(), rawConfig), rawConfig)
+
+    }
+
+    /**
+     * Call [start] with deserialized [Config] as is and serialize it to [JsonObject] to pass as the first parameter
+     * to the basic [start] method
+     *
+     * @param config Will be converted to [JsonObject] as raw config. That means that all plugins from [config] will
+     * receive serialized version of [config] in [StartPlugin.setupDI] method
      */
     suspend fun start(config: Config) {
 
-        logger.i("Start initialization")
-        val koinApp = KoinApplication.init()
-        logger.i("Koin app created")
-        koinApp.modules(
-            module {
-                setupDI(config)
-            }
-        )
-        startKoin(koinApp)
-        logger.i("Koin started")
-        startPlugin(koinApp.koin)
+        start(config, defaultJson.encodeToJsonElement(Config.serializer(), config).jsonObject)
 
     }
 }

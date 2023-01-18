@@ -1,10 +1,14 @@
 package dev.inmo.micro_utils.repos.ktor.client.key.value
 
+import dev.inmo.micro_utils.ktor.client.createStandardWebsocketFlow
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.ktor.common.key_value.onNewValueRoute
+import dev.inmo.micro_utils.repos.ktor.common.key_value.onValueRemovedRoute
 import io.ktor.client.HttpClient
 import io.ktor.http.ContentType
 import io.ktor.http.encodeURLQueryComponent
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 
 class KtorKeyValueRepoClient<Key, Value> (
@@ -20,6 +24,12 @@ class KtorKeyValueRepoClient<Key, Value> (
             httpClient: HttpClient,
             contentType: ContentType,
             noinline idSerializer: suspend (Key) -> String,
+            onNewValue: Flow<Pair<Key, Value>> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onNewValueRoute),
+            ),
+            onValueRemoved: Flow<Key> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onValueRemovedRoute),
+            ),
             noinline valueSerializer: suspend (Value) -> String
         ) = KtorKeyValueRepoClient(
             KtorReadKeyValueRepoClient(
@@ -28,7 +38,9 @@ class KtorKeyValueRepoClient<Key, Value> (
             KtorWriteKeyValueRepoClient(
                 baseUrl,
                 httpClient,
-                contentType
+                contentType,
+                onNewValue,
+                onValueRemoved
             )
         )
         inline operator fun <reified Key, reified Value> invoke(
@@ -37,12 +49,20 @@ class KtorKeyValueRepoClient<Key, Value> (
             httpClient: HttpClient,
             contentType: ContentType,
             noinline idSerializer: suspend (Key) -> String,
+            onNewValue: Flow<Pair<Key, Value>> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onNewValueRoute),
+            ),
+            onValueRemoved: Flow<Key> = httpClient.createStandardWebsocketFlow(
+                buildStandardUrl(baseUrl, onValueRemovedRoute),
+            ),
             noinline valueSerializer: suspend (Value) -> String
         ) = KtorKeyValueRepoClient(
             buildStandardUrl(baseUrl, subpart),
             httpClient,
             contentType,
             idSerializer,
+            onNewValue,
+            onValueRemoved,
             valueSerializer
         )
     }

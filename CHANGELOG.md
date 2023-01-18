@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.16.6
+
+* `Startup`:
+    * `Launcher`:
+        * Improvements in `StartLauncherPlugin#start` methods
+        * Add opportunity to pass second argument on `JVM` platform as log level
+* `Repos`:
+    * `Ktor`:
+        * `Client`:
+            * All clients repos got opportunity to customize their flows
+    * `Exposed`:
+        * Extensions `eqOrIsNull` and `neqOrIsNotNull` for `Column`
+
 ## 0.16.5
 
 * `Versions`:

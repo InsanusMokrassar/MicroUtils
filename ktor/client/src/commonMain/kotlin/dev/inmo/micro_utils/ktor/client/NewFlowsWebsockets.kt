@@ -19,7 +19,7 @@ import kotlinx.coroutines.isActive
  * connection. Must return true in case if must be reconnected. By default always reconnecting
  */
 @Warning("This feature is internal and should not be used directly. It is can be changed without any notification and warranty on compile-time or other guaranties")
-inline fun <reified T : Any> openBaseWebSocketFlow(
+inline fun <T : Any> openBaseWebSocketFlow(
     noinline checkReconnection: suspend (Throwable?) -> Boolean = { true },
     noinline webSocketSessionRequest: suspend SendChannel<T>.() -> Unit
 ): Flow<T> {
@@ -57,7 +57,7 @@ inline fun <reified T : Any> HttpClient.openWebSocketFlow(
 ): Flow<T> {
     pluginOrNull(WebSockets) ?: error("Plugin $WebSockets must be installed for using createStandardWebsocketFlow")
 
-    return openBaseWebSocketFlow<T>(checkReconnection) {
+    return openBaseWebSocketFlow(checkReconnection) {
         val block: suspend DefaultClientWebSocketSession.() -> Unit = {
             while (isActive) {
                 send(receiveDeserialized<T>())
