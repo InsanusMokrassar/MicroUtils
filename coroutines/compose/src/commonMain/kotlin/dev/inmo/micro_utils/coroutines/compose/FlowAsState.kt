@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.coroutines.compose
 
 import androidx.compose.runtime.*
+import dev.inmo.micro_utils.coroutines.doInUI
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,7 @@ fun <T> Flow<T>.asMutableComposeState(
     scope: CoroutineScope
 ): MutableState<T> {
     val state = mutableStateOf(initial)
-    subscribeSafelyWithoutExceptions(scope) { state.value = it }
+    subscribeSafelyWithoutExceptions(scope) { doInUI { state.value = it } }
     return state
 }
 
