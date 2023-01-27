@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -97,7 +98,7 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    parentRepo: KeyValueRepo<Key, Value>,
+    override val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
@@ -106,7 +107,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
 
     override suspend fun invalidate() {
-        super<ReadKeyValueRepo>.invalidate()
+        kvCache.actualizeAll(parentRepo)
     }
 }
 

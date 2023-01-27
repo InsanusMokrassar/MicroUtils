@@ -94,6 +94,10 @@ suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
 ) = set(toSet.toMap())
 
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
+    toSet: List<Pair<Key, Value>>
+) = set(toSet.toMap())
+
+suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     k: Key, v: Value
 ) = set(k to v)
 

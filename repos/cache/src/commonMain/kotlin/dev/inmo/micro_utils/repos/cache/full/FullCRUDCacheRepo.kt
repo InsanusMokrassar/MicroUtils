@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -32,12 +33,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     }
 
     protected open suspend fun actualizeAll() {
-        kvCache.clear()
-        doForAllWithNextPaging {
-            parentRepo.getByPagination(it).also {
-                kvCache.set(it.results.associateBy { idGetter(it) })
-            }
-        }
+        kvCache.actualizeAll(parentRepo)
     }
 
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> = doOrTakeAndActualize(
