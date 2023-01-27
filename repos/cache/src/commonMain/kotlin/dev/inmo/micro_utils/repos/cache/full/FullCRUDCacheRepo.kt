@@ -69,6 +69,10 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         { getById(id) },
         { it ?.let { set(idGetter(it), it) } }
     )
+
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }
 
 fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
@@ -92,7 +96,11 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
         scope,
         idGetter
     ),
-    CRUDRepo<ObjectType, IdType, InputValueType>
+    CRUDRepo<ObjectType, IdType, InputValueType> {
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
+}
 
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
     kvCache: FullKVCache<IdType, ObjectType>,

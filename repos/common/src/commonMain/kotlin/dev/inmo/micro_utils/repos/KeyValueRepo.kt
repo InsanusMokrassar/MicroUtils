@@ -125,7 +125,11 @@ interface KeyValueRepo<Key, Value> : ReadKeyValueRepo<Key, Value>, WriteKeyValue
      * By default, will remove all the data of current repo using [doAllWithCurrentPaging], [keys] and [unset]
      */
     suspend fun clear() {
-        doAllWithCurrentPaging { keys(it).also { unset(it.results) } }
+        var count: Int
+        do {
+            count = count().takeIf { it < Int.MAX_VALUE } ?.toInt() ?: Int.MAX_VALUE
+            keys(FirstPagePagination(count)).also { unset(it.results) }
+        } while(count > 0)
     }
 }
 typealias StandardKeyValueRepo<Key,Value> = KeyValueRepo<Key, Value>

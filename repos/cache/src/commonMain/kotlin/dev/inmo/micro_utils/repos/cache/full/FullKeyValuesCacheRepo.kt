@@ -102,6 +102,9 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
 
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }
 
 fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
@@ -125,6 +128,10 @@ open class FullWriteKeyValuesCacheRepo<Key,Value>(
             kvCache.get(it.first) ?.minus(it.second) ?: return@onEach
         )
     }.launchIn(scope)
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
@@ -145,6 +152,10 @@ open class FullKeyValuesCacheRepo<Key,Value>(
                 remove(it.results.associateWith { listOf(v) })
             }
         }
+    }
+
+    override suspend fun invalidate() {
+        super<ReadKeyValuesRepo>.invalidate()
     }
 }
 

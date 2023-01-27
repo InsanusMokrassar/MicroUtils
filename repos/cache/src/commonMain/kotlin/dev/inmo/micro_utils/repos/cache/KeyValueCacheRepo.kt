@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
 open class ReadKeyValueCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
     protected open val kvCache: KVCache<Key, Value>,
-) : ReadKeyValueRepo<Key,Value> by parentRepo, CacheRepo {
+) : ReadKeyValueRepo<Key,Value> by parentRepo, CommonCacheRepo {
     override suspend fun get(k: Key): Value? = kvCache.get(k) ?: parentRepo.get(k) ?.also { kvCache.set(k, it) }
     override suspend fun contains(key: Key): Boolean = kvCache.contains(key) || parentRepo.contains(key)
 
@@ -23,6 +23,8 @@ open class ReadKeyValueCacheRepo<Key,Value>(
             )
         }
     }
+
+    override suspend fun invalidate() = kvCache.clear()
 }
 
 fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
@@ -33,9 +35,11 @@ open class KeyValueCacheRepo<Key,Value>(
     parentRepo: KeyValueRepo<Key, Value>,
     kvCache: KVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) : ReadKeyValueCacheRepo<Key,Value>(parentRepo, kvCache), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CacheRepo {
+) : ReadKeyValueCacheRepo<Key,Value>(parentRepo, kvCache), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CommonCacheRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
+
+    override suspend fun invalidate() = kvCache.clear()
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.cached(

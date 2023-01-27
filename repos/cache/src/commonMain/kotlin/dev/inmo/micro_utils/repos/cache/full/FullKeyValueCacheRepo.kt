@@ -68,6 +68,10 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         { parentRepo.keys(v, pagination, reversed) },
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
+
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }
 
 fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
@@ -81,6 +85,10 @@ open class FullWriteKeyValueCacheRepo<Key,Value>(
 ) : WriteKeyValueRepo<Key, Value> by parentRepo, FullCacheRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
@@ -96,6 +104,10 @@ open class FullKeyValueCacheRepo<Key,Value>(
     KeyValueRepo<Key,Value>,
     ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(parentRepo, kvCache) {
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
+
+    override suspend fun invalidate() {
+        super<ReadKeyValueRepo>.invalidate()
+    }
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.cached(
