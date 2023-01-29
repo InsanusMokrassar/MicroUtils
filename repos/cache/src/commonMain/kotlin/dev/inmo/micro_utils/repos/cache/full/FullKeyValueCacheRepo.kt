@@ -9,6 +9,7 @@ import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 
 open class FullReadKeyValueCacheRepo<Key,Value>(
@@ -80,7 +81,7 @@ fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
 ) = FullReadKeyValueCacheRepo(this, kvCache)
 
 open class FullWriteKeyValueCacheRepo<Key,Value>(
-    protected open val parentRepo: WriteKeyValueRepo<Key, Value>,
+    parentRepo: WriteKeyValueRepo<Key, Value>,
     protected open val kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : WriteKeyValueRepo<Key, Value> by parentRepo, FullCacheRepo {
@@ -98,7 +99,7 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    override val parentRepo: KeyValueRepo<Key, Value>,
+    protected open val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
