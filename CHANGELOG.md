@@ -18,7 +18,6 @@
     * `Cache`:
         * New type `FullCacheRepo`
         * New type `CommonCacheRepo`
-        * New type `FallbackCacheRepo`
         * `CacheRepo` got `invalidate` method. It will fully reload `FullCacheRepo` and just clear `CommonCacheRepo`
         * New extensions `KVCache.actualizeAll`
 
