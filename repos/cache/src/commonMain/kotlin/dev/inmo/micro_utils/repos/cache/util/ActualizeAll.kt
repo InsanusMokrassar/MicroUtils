@@ -12,17 +12,25 @@ suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
     getAll: () -> Map<K, V>
 ) {
     clear()
-    set(getAll())
+    set(
+        getAll().also {
+            clear()
+        }
+    )
 }
 
 suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
     repo: ReadKeyValueRepo<K, V>
 ) {
-    clear()
+    var cleared = false
     val count = repo.count().takeIf { it < Int.MAX_VALUE } ?.toInt() ?: Int.MAX_VALUE
     val initPagination = FirstPagePagination(count)
     doForAllWithNextPaging(initPagination) {
         keys(it).also {
+            if (!cleared) {
+                clear()
+                cleared = true
+            }
             set(
                 it.results.mapNotNull { k -> repo.get(k) ?.let { k to it } }
             )
@@ -33,11 +41,15 @@ suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
 suspend inline fun <K, V> KVCache<K, List<V>>.actualizeAll(
     repo: ReadKeyValuesRepo<K, V>
 ) {
-    clear()
+    var cleared = false
     val count = repo.count().takeIf { it < Int.MAX_VALUE } ?.toInt() ?: Int.MAX_VALUE
     val initPagination = FirstPagePagination(count)
     doForAllWithNextPaging(initPagination) {
         keys(it).also {
+            if (!cleared) {
+                clear()
+                cleared = true
+            }
             set(
                 it.results.associateWith { k -> repo.getAll(k) }
             )
@@ -48,11 +60,15 @@ suspend inline fun <K, V> KVCache<K, List<V>>.actualizeAll(
 suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
     repo: ReadCRUDRepo<V, K>
 ) {
-    clear()
+    var cleared = false
     val count = repo.count().takeIf { it < Int.MAX_VALUE } ?.toInt() ?: Int.MAX_VALUE
     val initPagination = FirstPagePagination(count)
     doForAllWithNextPaging(initPagination) {
         keys(it).also {
+            if (!cleared) {
+                clear()
+                cleared = true
+            }
             set(
                 it.results.mapNotNull { k -> repo.getById(k) ?.let { k to it } }
             )
