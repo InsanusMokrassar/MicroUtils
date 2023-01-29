@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -68,6 +69,10 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         { parentRepo.keys(v, pagination, reversed) },
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
+
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }
 
 fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
@@ -81,6 +86,10 @@ open class FullWriteKeyValueCacheRepo<Key,Value>(
 ) : WriteKeyValueRepo<Key, Value> by parentRepo, FullCacheRepo {
     protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
@@ -89,13 +98,17 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    parentRepo: KeyValueRepo<Key, Value>,
+    override val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: FullKVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
     ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(parentRepo, kvCache) {
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
+
+    override suspend fun invalidate() {
+        kvCache.actualizeAll(parentRepo)
+    }
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.cached(

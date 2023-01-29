@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.16.7
+
+* `Common`:
+    * New extensions `ifTrue`/`ifFalse`/`alsoIfTrue`/`alsoIfFalse`/`letIfTrue`/`letIfFalse`
+    * `Diff` now is serializable
+    * Add `IndexedValue` serializer
+    * `repeatOnFailure` extending: now you may pass any lambda to check if continue to try/do something
+    * `Compose`:
+        * New extension `MutableState.asState`
+* `Coroutines`:
+    * `Compose`:
+        * All the `Flow` conversations to compose `State`/`MutableState`/`SnapshotStateList`/`List` got several new
+        parameters
+        * `Flow.toMutableState` now is deprecated in favor to `asMutableComposeState`
+* `Repos`:
+    * `Cache`:
+        * New type `FullCacheRepo`
+        * New type `CommonCacheRepo`
+        * `CacheRepo` got `invalidate` method. It will fully reload `FullCacheRepo` and just clear `CommonCacheRepo`
+        * New extensions `KVCache.actualizeAll`
+
 ## 0.16.6
 
 * `Startup`:

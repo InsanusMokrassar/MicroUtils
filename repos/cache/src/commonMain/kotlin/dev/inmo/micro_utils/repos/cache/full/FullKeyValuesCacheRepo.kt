@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -33,8 +34,7 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
     }
 
     protected open suspend fun actualizeAll() {
-        doAllWithCurrentPaging { kvCache.keys(it).also { kvCache.unset(it.results) } }
-        kvCache.set(parentRepo.getAll())
+        kvCache.actualizeAll(parentRepo)
     }
 
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
@@ -102,6 +102,9 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
 
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }
 
 fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
@@ -125,6 +128,10 @@ open class FullWriteKeyValuesCacheRepo<Key,Value>(
             kvCache.get(it.first) ?.minus(it.second) ?: return@onEach
         )
     }.launchIn(scope)
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
@@ -133,7 +140,7 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
 ) = FullWriteKeyValuesCacheRepo(this, kvCache, scope)
 
 open class FullKeyValuesCacheRepo<Key,Value>(
-    parentRepo: KeyValuesRepo<Key, Value>,
+    override val parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope),
@@ -145,6 +152,10 @@ open class FullKeyValuesCacheRepo<Key,Value>(
                 remove(it.results.associateWith { listOf(v) })
             }
         }
+    }
+
+    override suspend fun invalidate() {
+        kvCache.actualizeAll(parentRepo)
     }
 }
 

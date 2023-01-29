@@ -10,12 +10,14 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
     protected open val kvCache: KVCache<IdType, ObjectType>,
     protected open val idGetter: (ObjectType) -> IdType
-) : ReadCRUDRepo<ObjectType, IdType> by parentRepo, CacheRepo {
+) : ReadCRUDRepo<ObjectType, IdType> by parentRepo, CommonCacheRepo {
     override suspend fun getById(id: IdType): ObjectType? = kvCache.get(id) ?: (parentRepo.getById(id) ?.also {
         kvCache.set(id, it)
     })
 
     override suspend fun contains(id: IdType): Boolean = kvCache.contains(id) || parentRepo.contains(id)
+
+    override suspend fun invalidate() = kvCache.clear()
 }
 
 fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
@@ -28,7 +30,7 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     protected open val kvCache: KVCache<IdType, ObjectType>,
     protected open val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected open val idGetter: (ObjectType) -> IdType
-) : WriteCRUDRepo<ObjectType, IdType, InputValueType>, CacheRepo {
+) : WriteCRUDRepo<ObjectType, IdType, InputValueType>, CommonCacheRepo {
     override val newObjectsFlow: Flow<ObjectType> by parentRepo::newObjectsFlow
     override val updatedObjectsFlow: Flow<ObjectType> by parentRepo::updatedObjectsFlow
     override val deletedObjectsIdsFlow: Flow<IdType> by parentRepo::deletedObjectsIdsFlow
@@ -72,6 +74,8 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
 
         return created
     }
+
+    override suspend fun invalidate() = kvCache.clear()
 }
 
 fun <ObjectType, IdType, InputType> WriteCRUDRepo<ObjectType, IdType, InputType>.caching(

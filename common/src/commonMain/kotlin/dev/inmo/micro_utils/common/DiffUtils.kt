@@ -2,6 +2,8 @@
 
 package dev.inmo.micro_utils.common
 
+import kotlinx.serialization.Serializable
+
 private inline fun <T> getObject(
     additional: MutableList<T>,
     iterator: Iterator<T>
@@ -24,13 +26,14 @@ private inline fun <T> getObject(
  *
  * @see calculateDiff
  */
+@Serializable
 data class Diff<T> internal constructor(
-    val removed: List<IndexedValue<T>>,
+    val removed: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>,
     /**
      * Old-New values pairs
      */
-    val replaced: List<Pair<IndexedValue<T>, IndexedValue<T>>>,
-    val added: List<IndexedValue<T>>
+    val replaced: List<Pair<@Serializable(IndexedValueSerializer::class) IndexedValue<T>, @Serializable(IndexedValueSerializer::class) IndexedValue<T>>>,
+    val added: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>
 )
 
 private inline fun <T> performChanges(
