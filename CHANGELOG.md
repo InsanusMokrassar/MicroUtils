@@ -7,6 +7,8 @@
     * `Diff` now is serializable
     * Add `IndexedValue` serializer
     * `repeatOnFailure` extending: now you may pass any lambda to check if continue to try/do something
+    * `Compose`:
+        * New extension `MutableState.asState`
 * `Coroutines`:
     * `Compose`:
         * `asMutableComposeState` and all depending functions now use `doInUI` to guarantee state changin in Main Dispatcher
