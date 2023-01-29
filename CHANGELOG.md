@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.8
+
+* `Repos`:
+    * `Cache`:
+        * Fixes in `Write*` variants of cached repos
+
 ## 0.16.7
 
 * `Common`:
