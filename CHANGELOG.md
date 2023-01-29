@@ -11,7 +11,16 @@
         * New extension `MutableState.asState`
 * `Coroutines`:
     * `Compose`:
-        * `asMutableComposeState` and all depending functions now use `doInUI` to guarantee state changin in Main Dispatcher
+        * All the `Flow` conversations to compose `State`/`MutableState`/`SnapshotStateList`/`List` got several new
+        parameters
+        * `Flow.toMutableState` now is deprecated in favor to `asMutableComposeState`
+* `Repos`:
+    * `Cache`:
+        * New type `FullCacheRepo`
+        * New type `CommonCacheRepo`
+        * New type `FallbackCacheRepo`
+        * `CacheRepo` got `invalidate` method. It will fully reload `FullCacheRepo` and just clear `CommonCacheRepo`
+        * New extensions `KVCache.actualizeAll`
 
 ## 0.16.6
 
