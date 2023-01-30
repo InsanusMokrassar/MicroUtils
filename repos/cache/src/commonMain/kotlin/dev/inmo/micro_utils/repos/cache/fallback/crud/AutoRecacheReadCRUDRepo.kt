@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
+import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import dev.inmo.micro_utils.repos.set
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -21,7 +22,7 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,
     protected val actionWrapper: ActionWrapper = ActionWrapper.Direct,
     protected val idGetter: (RegisteredObject) -> Id
-) : ReadCRUDRepo<RegisteredObject, Id> {
+) : ReadCRUDRepo<RegisteredObject, Id>, FallbackCacheRepo {
     val autoUpdateJob = scope.launch {
         while (isActive) {
             runCatchingSafely {
