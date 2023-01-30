@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import dev.inmo.micro_utils.repos.set
 import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +19,7 @@ open class AutoRecacheWriteCRUDRepo<RegisteredObject, Id, InputObject>(
     protected val scope: CoroutineScope,
     protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
     protected val idGetter: (RegisteredObject) -> Id
-) : WriteCRUDRepo<RegisteredObject, Id, InputObject> {
+) : WriteCRUDRepo<RegisteredObject, Id, InputObject>, FallbackCacheRepo {
     override val deletedObjectsIdsFlow: Flow<Id>
         get() = (originalRepo.deletedObjectsIdsFlow + kvCache.onValueRemoved).distinctUntilChanged()
     override val newObjectsFlow: Flow<RegisteredObject>
