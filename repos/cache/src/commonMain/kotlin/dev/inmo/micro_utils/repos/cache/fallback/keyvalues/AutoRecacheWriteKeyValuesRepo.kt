@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.pagination.FirstPagePagination
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.WriteKeyValuesRepo
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import dev.inmo.micro_utils.repos.set
 import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +17,7 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
     protected val originalRepo: WriteKeyValuesRepo<Id, RegisteredObject>,
     protected val scope: CoroutineScope,
     protected val kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache()
-) : WriteKeyValuesRepo<Id, RegisteredObject> {
+) : WriteKeyValuesRepo<Id, RegisteredObject>, FallbackCacheRepo {
     override val onValueRemoved: Flow<Pair<Id, RegisteredObject>>
         get() = originalRepo.onValueRemoved
 
