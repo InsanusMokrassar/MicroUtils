@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.coroutines.plus
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import dev.inmo.micro_utils.repos.WriteKeyValueRepo
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import dev.inmo.micro_utils.repos.set
 import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +15,7 @@ open class AutoRecacheWriteKeyValueRepo<Id, RegisteredObject>(
     protected val originalRepo: WriteKeyValueRepo<Id, RegisteredObject>,
     protected val scope: CoroutineScope,
     protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache()
-) : WriteKeyValueRepo<Id, RegisteredObject> {
+) : WriteKeyValueRepo<Id, RegisteredObject>, FallbackCacheRepo {
     override val onValueRemoved: Flow<Id>
         get() = (originalRepo.onValueRemoved + kvCache.onValueRemoved).distinctUntilChanged()
 
