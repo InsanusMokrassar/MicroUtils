@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
-    protected val originalRepo: ReadCRUDRepo<RegisteredObject, Id>,
+    protected open val originalRepo: ReadCRUDRepo<RegisteredObject, Id>,
     protected val scope: CoroutineScope,
     protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,
@@ -25,9 +25,7 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
 ) : ReadCRUDRepo<RegisteredObject, Id>, FallbackCacheRepo {
     val autoUpdateJob = scope.launch {
         while (isActive) {
-            runCatchingSafely {
-                kvCache.actualizeAll(originalRepo)
-            }
+            actualizeAll()
 
             delay(recacheDelay)
         }
@@ -41,6 +39,12 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
         recacheDelay: Long = 60.seconds.inWholeMilliseconds,
         idGetter: (RegisteredObject) -> Id
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)
+
+    protected suspend fun actualizeAll(): Result<Unit> {
+        return runCatchingSafely {
+            kvCache.actualizeAll(originalRepo)
+        }
+    }
 
     override suspend fun contains(id: Id): Boolean = actionWrapper.wrap {
         originalRepo.contains(id)
@@ -75,4 +79,8 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
     }.getOrNull() ?.also {
         kvCache.set(idGetter(it), it)
     } ?: kvCache.get(id)
+
+    override suspend fun invalidate() {
+        actualizeAll()
+    }
 }

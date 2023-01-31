@@ -32,9 +32,7 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
 ) : ReadKeyValuesRepo<Id, RegisteredObject>, FallbackCacheRepo {
     val autoUpdateJob = scope.launch {
         while (isActive) {
-            runCatchingSafely {
-                kvCache.actualizeAll(originalRepo)
-            }
+            actualizeAll()
 
             delay(recacheDelay)
         }
@@ -48,6 +46,12 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         recacheDelay: Long = 60.seconds.inWholeMilliseconds,
         idGetter: (RegisteredObject) -> Id
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)
+
+    protected suspend fun actualizeAll(): Result<Unit> {
+        return runCatchingSafely {
+            kvCache.actualizeAll(originalRepo)
+        }
+    }
 
     override suspend fun contains(k: Id): Boolean = actionWrapper.wrap {
         originalRepo.contains(k)
@@ -135,5 +139,9 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         }.getOrNull() ?.also {
             kvCache.set(k, ((kvCache.get(k) ?: return@also) + v).distinct())
         }) ?: (kvCache.get(k) ?.contains(v) == true)
+    }
+
+    override suspend fun invalidate() {
+        actualizeAll()
     }
 }

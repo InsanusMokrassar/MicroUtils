@@ -58,4 +58,8 @@ open class AutoRecacheWriteCRUDRepo<RegisteredObject, Id, InputObject>(
     override suspend fun create(values: List<InputObject>): List<RegisteredObject> = originalRepo.create(values).onEach {
         kvCache.set(idGetter(it), it)
     }
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }

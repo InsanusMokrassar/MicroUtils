@@ -79,4 +79,8 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
             kvCache.set(k, (kvCache.get(k) ?: return@forEach) + v)
         }
     }
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }

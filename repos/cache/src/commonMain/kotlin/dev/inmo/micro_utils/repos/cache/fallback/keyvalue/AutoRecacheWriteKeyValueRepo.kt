@@ -47,4 +47,8 @@ open class AutoRecacheWriteKeyValueRepo<Id, RegisteredObject>(
     ).also {
         kvCache.set(toSet)
     }
+
+    override suspend fun invalidate() {
+        kvCache.clear()
+    }
 }
