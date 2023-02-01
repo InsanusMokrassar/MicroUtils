@@ -27,8 +27,7 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
     protected val scope: CoroutineScope,
     protected val kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,
-    protected val actionWrapper: ActionWrapper = ActionWrapper.Direct,
-    protected val idGetter: (RegisteredObject) -> Id
+    protected val actionWrapper: ActionWrapper = ActionWrapper.Direct
 ) : ReadKeyValuesRepo<Id, RegisteredObject>, FallbackCacheRepo {
     val autoUpdateJob = scope.launch {
         while (isActive) {
@@ -43,9 +42,8 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         scope: CoroutineScope,
         originalCallTimeoutMillis: Long,
         kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
-        recacheDelay: Long = 60.seconds.inWholeMilliseconds,
-        idGetter: (RegisteredObject) -> Id
-    ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)
+        recacheDelay: Long = 60.seconds.inWholeMilliseconds
+    ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis))
 
     protected suspend fun actualizeAll(): Result<Unit> {
         return runCatchingSafely {

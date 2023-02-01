@@ -12,15 +12,13 @@ open class AutoRecacheKeyValuesRepo<Id, RegisteredObject>(
     scope: CoroutineScope,
     kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
     recacheDelay: Long = 60.seconds.inWholeMilliseconds,
-    actionWrapper: ActionWrapper = ActionWrapper.Direct,
-    idGetter: (RegisteredObject) -> Id
+    actionWrapper: ActionWrapper = ActionWrapper.Direct
 ) : AutoRecacheReadKeyValuesRepo<Id, RegisteredObject> (
     originalRepo,
     scope,
     kvCache,
     recacheDelay,
-    actionWrapper,
-    idGetter
+    actionWrapper
 ),
     WriteKeyValuesRepo<Id, RegisteredObject> by AutoRecacheWriteKeyValuesRepo(originalRepo, scope, kvCache),
     KeyValuesRepo<Id, RegisteredObject> {
@@ -30,9 +28,8 @@ open class AutoRecacheKeyValuesRepo<Id, RegisteredObject>(
         scope: CoroutineScope,
         originalCallTimeoutMillis: Long,
         kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
-        recacheDelay: Long = 60.seconds.inWholeMilliseconds,
-        idGetter: (RegisteredObject) -> Id
-    ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)
+        recacheDelay: Long = 60.seconds.inWholeMilliseconds
+    ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis))
 
     override suspend fun clearWithValue(v: RegisteredObject) {
         super.clearWithValue(v)

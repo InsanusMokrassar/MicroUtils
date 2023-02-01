@@ -61,7 +61,7 @@ open class AutoRecacheReadKeyValueRepo<Id, RegisteredObject>(
     override suspend fun get(k: Id): RegisteredObject? = actionWrapper.wrap {
         originalRepo.get(k)
     }.getOrNull() ?.also {
-        kvCache.set(idGetter(it), it)
+        kvCache.set(k, it)
     } ?: kvCache.get(k)
 
     override suspend fun values(
