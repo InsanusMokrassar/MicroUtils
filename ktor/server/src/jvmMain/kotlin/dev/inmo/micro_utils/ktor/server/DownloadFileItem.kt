@@ -10,8 +10,8 @@ import java.io.File
 
 fun PartData.FileItem.download(target: File) {
     provider().use { input ->
-        target.outputStream().use {
-            input.copyTo(it.asOutput())
+        target.outputStream().asOutput().use {
+            input.copyTo(it)
         }
     }
 }
