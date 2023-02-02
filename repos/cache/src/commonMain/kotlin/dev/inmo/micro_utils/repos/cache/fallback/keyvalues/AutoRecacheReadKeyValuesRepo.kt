@@ -45,7 +45,7 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         recacheDelay: Long = 60.seconds.inWholeMilliseconds
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis))
 
-    protected suspend fun actualizeAll(): Result<Unit> {
+    protected open suspend fun actualizeAll(): Result<Unit> {
         return runCatchingSafely {
             kvCache.actualizeAll(originalRepo)
         }
