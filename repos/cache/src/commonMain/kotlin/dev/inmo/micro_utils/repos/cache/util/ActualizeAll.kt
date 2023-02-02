@@ -11,35 +11,41 @@ import dev.inmo.micro_utils.repos.pagination.getAll
 import dev.inmo.micro_utils.repos.set
 
 suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
+    clear: Boolean = true,
     getAll: () -> Map<K, V>
 ) {
     set(
         getAll().also {
-            clear()
+            if (clear) {
+                clear()
+            }
         }
     )
 }
 
 suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
-    repo: ReadKeyValueRepo<K, V>
+    repo: ReadKeyValueRepo<K, V>,
+    clear: Boolean = true,
 ) {
-    actualizeAll {
+    actualizeAll(clear) {
         repo.getAll { keys(it) }.toMap()
     }
 }
 
 suspend inline fun <K, V> KVCache<K, List<V>>.actualizeAll(
-    repo: ReadKeyValuesRepo<K, V>
+    repo: ReadKeyValuesRepo<K, V>,
+    clear: Boolean = true,
 ) {
-    actualizeAll {
+    actualizeAll(clear) {
         repo.getAll { keys(it) }.toMap()
     }
 }
 
 suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
-    repo: ReadCRUDRepo<V, K>
+    repo: ReadCRUDRepo<V, K>,
+    clear: Boolean = true,
 ) {
-    actualizeAll {
+    actualizeAll(clear) {
         repo.getAllByWithNextPaging {
             getIdsByPagination(it)
         }.mapNotNull { it to (repo.getById(it) ?: return@mapNotNull null) }.toMap()
