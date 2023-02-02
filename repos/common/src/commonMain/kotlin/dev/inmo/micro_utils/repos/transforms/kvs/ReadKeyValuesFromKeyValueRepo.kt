@@ -70,5 +70,3 @@ open class ReadKeyValuesFromKeyValueRepo<Key, Value, ValuesIterable : Iterable<V
         }
     }
 }
-
-fun <K, V, VI : Iterable<V>> ReadKeyValueRepo<K, VI>.asReadKeyValuesRepo() = ReadKeyValuesFromKeyValueRepo(this)

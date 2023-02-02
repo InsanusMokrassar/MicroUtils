@@ -65,5 +65,3 @@ open class ReadKeyValueFromKeyValuesRepo<Key, Value>(
         }
     }
 }
-
-fun <K, V> ReadKeyValuesRepo<K, V>.asReadKeyValueRepo() = ReadKeyValueFromKeyValuesRepo(this)
