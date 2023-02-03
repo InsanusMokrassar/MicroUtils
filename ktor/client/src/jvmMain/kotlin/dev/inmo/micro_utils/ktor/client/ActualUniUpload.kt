@@ -17,8 +17,11 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.Parameters
 import io.ktor.http.content.PartData
 import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.serializer
 import java.io.File
 
 /**
@@ -29,6 +32,7 @@ import java.io.File
  * in case you wish to pass other source of multipart binary data than regular file
  * @suppress
  */
+@OptIn(InternalSerializationApi::class)
 actual suspend fun <T> HttpClient.uniUpload(
     url: String,
     data: Map<String, Any>,
@@ -60,7 +64,7 @@ actual suspend fun <T> HttpClient.uniUpload(
                 )
                 else -> append(
                     k,
-                    stringFormat.encodeToString(v)
+                    stringFormat.encodeToString(v::class.serializer() as SerializationStrategy<in Any>, v)
                 )
             }
         }

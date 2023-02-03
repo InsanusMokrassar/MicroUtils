@@ -31,11 +31,19 @@ class FileReadKeyValueRepo(
     override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<File> {
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
-        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive) ?: return emptyPaginationResult()
-        if (reversed) {
-            filesPaths.reverse()
+        val filesList = folder.list()
+        val files: Array<String> = if (resultPagination.firstIndex < count) {
+            val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size))
+
+            if (reversed) {
+                filesPaths.reversedArray()
+            } else {
+                filesPaths
+            }
+        } else {
+            emptyArray<String>()
         }
-        return filesPaths.map { File(folder, it) }.createPaginationResult(
+        return files.map { File(folder, it) }.createPaginationResult(
             resultPagination,
             count
         )
@@ -44,11 +52,21 @@ class FileReadKeyValueRepo(
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<String> {
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
-        val filesPaths = folder.list() ?.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive) ?: return emptyPaginationResult()
-        if (reversed) {
-            filesPaths.reverse()
+        val filesList = folder.list()
+
+        val files: Array<String> = if (resultPagination.firstIndex < count) {
+            val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size))
+
+            if (reversed) {
+                filesPaths.reversedArray()
+            } else {
+                filesPaths
+            }
+        } else {
+            emptyArray<String>()
         }
-        return filesPaths.toList().createPaginationResult(
+
+        return files.toList().createPaginationResult(
             resultPagination,
             count
         )

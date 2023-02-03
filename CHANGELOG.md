@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.16.8
+
+* `Versions`:
+    * `Ktor`: `2.2.2` -> `2.2.3`
+* `Ktor`:
+    * `Client`
+        * Fixes in `HttpClient.uniUpload`
+    * `Server`
+        * Fixes in `PartData.FileItem.download`
+* `Repos`:
+    * `Cache`:
+        * New type of caches: `FallbackCacheRepo`
+        * Fixes in `Write*` variants of cached repos
+        * New type `ActionWrapper`
+        * New `AutoRecache*` classes for all types of repos as `FallbackCacheRepo`s
+    * `Common`:
+        * New transformations for key-value and key-values vice-verse
+        * Fixes in `FileReadKeyValueRepo`
+
 ## 0.16.7
 
 * `Common`:

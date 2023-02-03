@@ -112,7 +112,7 @@ fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
 ) = FullReadKeyValuesCacheRepo(this, kvCache)
 
 open class FullWriteKeyValuesCacheRepo<Key,Value>(
-    protected open val parentRepo: WriteKeyValuesRepo<Key, Value>,
+    parentRepo: WriteKeyValuesRepo<Key, Value>,
     protected open val kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : WriteKeyValuesRepo<Key, Value> by parentRepo, FullCacheRepo {
@@ -140,7 +140,7 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
 ) = FullWriteKeyValuesCacheRepo(this, kvCache, scope)
 
 open class FullKeyValuesCacheRepo<Key,Value>(
-    override val parentRepo: KeyValuesRepo<Key, Value>,
+    protected open val parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope),
