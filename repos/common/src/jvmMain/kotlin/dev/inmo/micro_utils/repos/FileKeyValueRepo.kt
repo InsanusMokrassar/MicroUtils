@@ -32,11 +32,18 @@ class FileReadKeyValueRepo(
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
         val filesList = folder.list()
-        val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size)) ?: return emptyPaginationResult()
-        if (reversed) {
-            filesPaths.reverse()
+        val files: Array<String> = if (resultPagination.firstIndex < count) {
+            val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size))
+
+            if (reversed) {
+                filesPaths.reversedArray()
+            } else {
+                filesPaths
+            }
+        } else {
+            emptyArray<String>()
         }
-        return filesPaths.map { File(folder, it) }.createPaginationResult(
+        return files.map { File(folder, it) }.createPaginationResult(
             resultPagination,
             count
         )
@@ -46,11 +53,20 @@ class FileReadKeyValueRepo(
         val count = count()
         val resultPagination = if (reversed) pagination.reverse(count) else pagination
         val filesList = folder.list()
-        val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size)) ?: return emptyPaginationResult()
-        if (reversed) {
-            filesPaths.reverse()
+
+        val files: Array<String> = if (resultPagination.firstIndex < count) {
+            val filesPaths = filesList.copyOfRange(resultPagination.firstIndex, resultPagination.lastIndexExclusive.coerceAtMost(filesList.size))
+
+            if (reversed) {
+                filesPaths.reversedArray()
+            } else {
+                filesPaths
+            }
+        } else {
+            emptyArray<String>()
         }
-        return filesPaths.toList().createPaginationResult(
+
+        return files.toList().createPaginationResult(
             resultPagination,
             count
         )
