@@ -2,6 +2,10 @@
 
 ## 0.16.9
 
+* `Ktor`:
+    * `Client`
+        * `HttpResponse.bodyOrNull` now retrieve callback to check if body should be received or null
+
 ## 0.16.8
 
 * `Versions`:
