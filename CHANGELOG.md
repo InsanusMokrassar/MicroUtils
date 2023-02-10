@@ -5,6 +5,7 @@
 * `Ktor`:
     * `Client`
         * `HttpResponse.bodyOrNull` now retrieve callback to check if body should be received or null
+        * New extension `HttpResponse.bodyOrNullOnNoContent`
 
 ## 0.16.8
 
