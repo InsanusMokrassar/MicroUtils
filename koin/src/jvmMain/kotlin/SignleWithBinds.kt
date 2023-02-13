@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.koin
 
 import org.koin.core.definition.Definition
+import org.koin.core.definition.KoinDefinition
 import org.koin.core.instance.InstanceFactory
 import org.koin.core.module.Module
 import org.koin.core.qualifier.Qualifier
@@ -14,7 +15,7 @@ inline fun <reified T : Any> Module.singleWithBinds(
     createdAtStart: Boolean = false,
     bindFilter: (KClass<*>) -> Boolean = { true },
     noinline definition: Definition<T>
-): Pair<Module, InstanceFactory<*>> {
+): KoinDefinition<*> {
     return single(qualifier, createdAtStart, definition) binds (T::class.allSuperclasses.filter(bindFilter).toTypedArray())
 }
 
@@ -24,7 +25,7 @@ inline fun <reified T : Any> Module.singleWithBinds(
     createdAtStart: Boolean = false,
     bindFilter: (KClass<*>) -> Boolean = { true },
     noinline definition: Definition<T>
-): Pair<Module, InstanceFactory<*>> {
+): KoinDefinition<*> {
     return single(qualifier, createdAtStart, definition) binds (T::class.allSuperclasses.filter(bindFilter).toTypedArray())
 }
 
