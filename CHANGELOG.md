@@ -2,6 +2,9 @@
 
 ## 0.16.9
 
+* `Versions`:
+    * `Koin`: `3.2.2` -> `3.3.2`
+    * `AppCompat`: `1.5.1` -> `1.6.0`
 * `Ktor`:
     * `Client`
         * `HttpResponse.bodyOrNull` now retrieve callback to check if body should be received or null
