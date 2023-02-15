@@ -2,6 +2,10 @@
 
 ## 0.16.10
 
+* `Repos`:
+    * `Cache`:
+        * New transformer type: `ReadCRUDFromKeyValueRepo`
+
 ## 0.16.9
 
 * `Versions`:
