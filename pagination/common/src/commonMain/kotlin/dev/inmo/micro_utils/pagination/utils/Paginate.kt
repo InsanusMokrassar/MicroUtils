@@ -32,6 +32,24 @@ fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
     )
 }
 
+fun <T> List<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<T> {
+    val actualPagination = with.optionallyReverse(
+        size,
+        reversed
+    )
+
+    val firstIndex = maxOf(actualPagination.firstIndex, 0)
+    val lastIndex = minOf(actualPagination.lastIndexExclusive, size)
+    if (firstIndex > lastIndex) {
+        return emptyPaginationResult()
+    }
+
+    return subList(firstIndex, lastIndex).optionallyReverse(reversed).createPaginationResult(
+        with,
+        size.toLong()
+    )
+}
+
 fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
     return this.drop(with.firstIndex).take(with.size).createPaginationResult(
         with,
@@ -39,30 +57,20 @@ fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
     )
 }
 
-fun <T> Iterable<T>.optionallyReverse(reverse: Boolean): Iterable<T> = when (this) {
-    is List<T> -> optionallyReverse(reverse)
-    is Set<T> -> optionallyReverse(reverse)
-    else -> if (reverse) {
-        reversed()
-    } else {
-        this
-    }
-}
-fun <T> List<T>.optionallyReverse(reverse: Boolean): List<T> = if (reverse) {
-    reversed()
-} else {
-    this
-}
-fun <T> Set<T>.optionallyReverse(reverse: Boolean): Set<T> = if (reverse) {
-    reversed().toSet()
-} else {
-    this
-}
+fun <T> Set<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<T> {
+    val actualPagination = with.optionallyReverse(
+        size,
+        reversed
+    )
 
-inline fun <reified T> Array<T>.optionallyReverse(reverse: Boolean) = if (reverse) {
-    Array(size) {
-        get(lastIndex - it)
+    val firstIndex = maxOf(actualPagination.firstIndex, 0)
+    val lastIndex = minOf(actualPagination.lastIndexExclusive, size)
+    if (firstIndex > lastIndex) {
+        return emptyPaginationResult()
     }
-} else {
-    this
+
+    return this.drop(firstIndex).take(lastIndex - firstIndex).optionallyReverse(reversed).createPaginationResult(
+        with,
+        size.toLong()
+    )
 }
