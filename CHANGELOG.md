@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.16.10
+
+* `Repos`:
+    * `Cache`:
+        * New transformer type: `ReadCRUDFromKeyValueRepo`
+        * New transformer type: `ReadKeyValueFromCRUDRepo`
+* `Pagination`:
+    * New `paginate` extensions with `reversed` support for `List`/`Set`
+
 ## 0.16.9
 
 * `Versions`:

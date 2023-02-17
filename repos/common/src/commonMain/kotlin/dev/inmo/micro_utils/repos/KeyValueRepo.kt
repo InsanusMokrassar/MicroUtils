@@ -2,6 +2,8 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.doAllWithCurrentPaging
+import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
+import dev.inmo.micro_utils.pagination.utils.paginate
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -17,24 +19,32 @@ interface ReadKeyValueRepo<Key, Value> : Repo {
     suspend fun get(k: Key): Value?
 
     /**
-     * This method should use sorted by [Key]s search and take the [PaginationResult]. By default, it should use
+     * This method should use sorted by [Key]s search and return the [PaginationResult]. By default, it should use
      * ascending sort for [Key]s
      */
     suspend fun values(pagination: Pagination, reversed: Boolean = false): PaginationResult<Value>
 
     /**
-     * This method should use sorted by [Key]s search and take the [PaginationResult]. By default, it should use
+     * This method should use sorted by [Key]s search and return the [PaginationResult]. By default, it should use
      * ascending sort for [Key]s
      */
     suspend fun keys(pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
 
     /**
-     * This method should use sorted by [Key]s search and take the [PaginationResult]. By default, it should use
-     * ascending sort for [Key]s
+     * This method should use sorted by [Key]s search and return the [PaginationResult]. By default, it should use
+     * ascending sort for [Key]s.
+     *
+     * **DEFAULT REALIZATION IS NOT OPTIMAL AND HAS BEEN ADDED TO COVER CASES OF DIFFERENT COMMON MAPPINGS AND TRANSFORMATIONS**
      *
      * @param v This value should be used to exclude from search the items with different [Value]s
      */
-    suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean = false): PaginationResult<Key>
+    suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean = false): PaginationResult<Key> {
+        return getAllWithNextPaging {
+            keys(it)
+        }.filter {
+            get(it) == v
+        }.paginate(pagination, reversed)
+    }
 
     /**
      * @return true if [key] is presented in current collection or false otherwise
