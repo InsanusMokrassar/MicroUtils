@@ -605,6 +605,9 @@ $dokka.location:dev.inmo.micro_utils.language_codes////PointingToDeclaration/mi
 $dokka.location:dev.inmo.micro_utils.language_codes//IetfLanguageCode/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/-ietf-language-code.html
 $dokka.location:dev.inmo.micro_utils.language_codes//asIetfLanguageCode/kotlin.String#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/as-ietf-language-code.html
 $dokka.location:dev.inmo.micro_utils.language_codes//convertToIetfLanguageCode/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/convert-to-ietf-language-code.html
+$dokka.location:dev.inmo.micro_utils.language_codes//toIetfLanguageCode/java.util.Locale#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/[jvm]to-ietf-language-code.html
+$dokka.location:dev.inmo.micro_utils.language_codes//toJavaLocale/dev.inmo.micro_utils.language_codes.IetfLanguageCode#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/[jvm]to-java-locale.html
+$dokka.location:dev.inmo.micro_utils.language_codes//toJavaLocaleOrDefault/dev.inmo.micro_utils.language_codes.IetfLanguageCode?#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/[jvm]to-java-locale-or-default.html
 $dokka.location:dev.inmo.micro_utils.language_codes/IetfLanguageCode.Abkhazian///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/-ietf-language-code/-abkhazian/index.html
 $dokka.location:dev.inmo.micro_utils.language_codes/IetfLanguageCode.Abkhazian/code/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/-ietf-language-code/-abkhazian/code.html
 $dokka.location:dev.inmo.micro_utils.language_codes/IetfLanguageCode.Abkhazian/withoutDialect/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.language_codes/-ietf-language-code/-abkhazian/without-dialect.html
