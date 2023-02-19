@@ -5,3 +5,11 @@ plugins {
 }
 
 apply from: "$mppProjectWithSerializationPresetPath"
+
+kotlin {
+    sourceSets {
+        jvmMain {
+            dependsOn androidMain
+        }
+    }
+}
