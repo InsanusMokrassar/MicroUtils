@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.11
+
+* `LanguageCodes`:
+    * In android and JVM targets now available `toJavaLocale` and from Java `Locale` conversations from/to
+      `IetfLanguageCode`
+
 ## 0.16.10
 
 * `Repos`:
