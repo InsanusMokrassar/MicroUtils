@@ -8,8 +8,8 @@ apply from: "$mppProjectWithSerializationPresetPath"
 
 kotlin {
     sourceSets {
-        jvmMain {
-            dependsOn androidMain
+        androidMain {
+            dependsOn jvmMain
         }
     }
 }
