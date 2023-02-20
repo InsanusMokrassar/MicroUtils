@@ -2,6 +2,10 @@
 
 ## 0.16.12
 
+* `Repos`:
+    * `Exposed`:
+        * `CommonExposedRepo.selectByIds` uses `foldRight` by default instead of raw foreach
+
 ## 0.16.11
 
 * `LanguageCodes`:
