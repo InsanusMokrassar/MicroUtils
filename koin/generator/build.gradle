@@ -1,0 +1,15 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+apply from: "$publishJvmOnlyPath"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api project(":micro_utils.koin")
+    api libs.kotlin.poet
+    api libs.ksp
+}
