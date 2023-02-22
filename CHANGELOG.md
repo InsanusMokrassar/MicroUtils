@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.16.12
+
+* `Repos`:
+    * `Exposed`:
+        * `CommonExposedRepo.selectByIds` uses `foldRight` by default instead of raw foreach
+* `Koin`:
+    * `Generator`:
+        * Module has been created
+
 ## 0.16.11
 
 * `LanguageCodes`:

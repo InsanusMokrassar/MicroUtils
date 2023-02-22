@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath libs.buildscript.kt.gradle
         classpath libs.buildscript.kt.serialization
+        classpath libs.buildscript.kt.ksp
         classpath libs.buildscript.jb.dokka
         classpath libs.buildscript.gh.release
         classpath libs.buildscript.android.gradle

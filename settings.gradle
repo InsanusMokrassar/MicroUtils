@@ -7,6 +7,8 @@ String[] includes = [
     ":safe_wrapper",
     ":crypto",
     ":koin",
+    ":koin:generator",
+    ":koin:generator:test",
     ":selector:common",
     ":pagination:common",
     ":pagination:exposed",

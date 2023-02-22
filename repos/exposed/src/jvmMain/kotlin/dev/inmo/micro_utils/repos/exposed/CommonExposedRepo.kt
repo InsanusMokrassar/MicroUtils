@@ -7,15 +7,9 @@ interface CommonExposedRepo<IdType, ObjectType> : ExposedRepo {
     val ResultRow.asId: IdType
     val selectById: ISqlExpressionBuilder.(IdType) -> Op<Boolean>
     val selectByIds: ISqlExpressionBuilder.(List<IdType>) -> Op<Boolean>
-        get() = { list ->
-            if (list.isEmpty()) {
-                Op.FALSE
-            } else {
-                var op = selectById(list.first())
-                (1 until list.size).forEach {
-                    op = op.or(selectById(list[it]))
-                }
-                op
-            }
+        get() = {
+            it.foldRight<IdType, Op<Boolean>?>(null) { id, acc ->
+                acc ?.or(selectById(id)) ?: selectById(id)
+            } ?: Op.FALSE
         }
 }
