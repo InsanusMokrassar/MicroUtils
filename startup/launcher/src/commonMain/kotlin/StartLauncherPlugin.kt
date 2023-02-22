@@ -39,14 +39,18 @@ object StartLauncherPlugin : StartPlugin {
 
         includes(
             config.plugins.mapNotNull {
+                val pluginName = it::class.simpleName ?: it.toString()
                 runCatching {
+                    logger.i { "Start koin module registration for $pluginName" }
                     module {
                         with(it) {
                             setupDI(rawJsonObject)
                         }
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to load DI part of $it", e)
+                    logger.w("Unable to register koin module of $pluginName", e)
+                }.onSuccess {
+                    logger.i("Successfully registered koin module of $pluginName")
                 }.getOrNull()
             }
         )
@@ -76,16 +80,17 @@ object StartLauncherPlugin : StartPlugin {
         logger.i("Start starting of subplugins")
         val scope = koin.get<CoroutineScope>()
         koin.get<Config>().plugins.map { plugin ->
+            val pluginName = plugin::class.simpleName ?: plugin.toString()
             scope.launch {
                 runCatchingSafely {
-                    logger.i("Start loading of $plugin")
+                    logger.i("Start loading of $pluginName")
                     with(plugin) {
                         startPlugin(koin)
                     }
                 }.onFailure { e ->
-                    logger.w("Unable to start plugin $plugin", e)
+                    logger.w("Unable to start plugin $pluginName", e)
                 }.onSuccess {
-                    logger.i("Complete loading of $plugin")
+                    logger.i("Complete loading of $pluginName")
                 }
             }
         }.joinAll()
