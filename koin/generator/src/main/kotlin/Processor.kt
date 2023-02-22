@@ -80,6 +80,11 @@ class Processor(
                                 it.name,
                                 targetType,
                             ).apply {
+                                addKdoc(
+                                    """
+                                        @return Definition by key "${it.name}"
+                                    """.trimIndent()
+                                )
                                 getter(
                                     FunSpec.getterBuilder().apply {
                                         addCode(
@@ -102,6 +107,11 @@ class Processor(
                     if (it.generateSingle) {
                         addFunction(
                             FunSpec.builder("${it.name}Single").apply {
+                                addKdoc(
+                                    """
+                                        Will register [definition] with [org.koin.core.module.Module.single] and key "${it.name}"
+                                    """.trimIndent()
+                                )
                                 receiver(Module::class)
                                 addParameter(
                                     ParameterSpec.builder(
@@ -128,6 +138,11 @@ class Processor(
                     if (it.generateFactory) {
                         addFunction(
                             FunSpec.builder("${it.name}Factory").apply {
+                                addKdoc(
+                                    """
+                                        Will register [definition] with [org.koin.core.module.Module.factory] and key "${it.name}"
+                                    """.trimIndent()
+                                )
                                 receiver(Module::class)
                                 addParameter(
                                     ParameterSpec.builder(
