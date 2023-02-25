@@ -1,0 +1,16 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+apply from: "$publishJvmOnlyPath"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api libs.kt.reflect
+    api project(":micro_utils.repos.common")
+    api libs.kotlin.poet
+    api libs.ksp
+}

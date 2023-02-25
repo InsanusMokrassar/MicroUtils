@@ -2,6 +2,10 @@
 
 ## 0.16.13
 
+* `Repos`:
+    * `Generator`:
+        * Module has been created
+
 ## 0.16.12
 
 * `Repos`:

@@ -18,6 +18,8 @@ String[] includes = [
     ":language_codes",
     ":language_codes:generator",
     ":repos:common",
+    ":repos:generator",
+    ":repos:generator:test",
     ":repos:cache",
     ":repos:exposed",
     ":repos:inmemory",
