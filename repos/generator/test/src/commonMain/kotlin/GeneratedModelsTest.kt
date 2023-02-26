@@ -13,6 +13,7 @@ import kotlinx.serialization.Serializable
 public data class NewTest(
   public override val property1: String,
   public override val property2: Int,
+  public override val parent: ParentTypeId?,
 ) : Test
 
 @Serializable
@@ -21,8 +22,10 @@ public data class RegisteredTest(
   public override val id: TestId,
   public override val property1: String,
   public override val property2: Int,
+  public override val parent: ParentTypeId?,
 ) : Test, IRegisteredTest
 
-public fun Test.asNew(): NewTest = NewTest(property1, property2)
+public fun Test.asNew(): NewTest = NewTest(property1, property2, parent)
 
-public fun Test.asRegistered(id: TestId): RegisteredTest = RegisteredTest(id, property1, property2)
+public fun Test.asRegistered(id: TestId): RegisteredTest = RegisteredTest(id, property1, property2,
+    parent)

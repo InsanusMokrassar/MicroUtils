@@ -11,10 +11,13 @@ value class TestId(
     val long: Long
 )
 
+typealias ParentTypeId = TestId
+
 @GenerateCRUDModel(IRegisteredTest::class)
 sealed interface Test {
     val property1: String
     val property2: Int
+    val parent: ParentTypeId?
 
     @GenerateCRUDModelExcludeOverride
     val excludedProperty: String
