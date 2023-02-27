@@ -33,10 +33,4 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-
-//    sourceSets {
-//        String sep = File.separator
-//        main.java.srcDirs += "src${sep}main${sep}kotlin"
-////        enableIncludingJvmCodeInAndroidPart()
-//    }
 }
