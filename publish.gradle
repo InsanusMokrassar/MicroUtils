@@ -89,17 +89,17 @@ publishing {
 }
 
 if (project.hasProperty("signing.gnupg.keyName")) {
-//    apply plugin: 'signing'
-//
-//    signing {
-//        useGpgCmd()
-//
-//        sign publishing.publications
-//    }
-//
-//    task signAll {
-//        tasks.withType(Sign).forEach {
-//            dependsOn(it)
-//        }
-//    }
+    apply plugin: 'signing'
+
+    signing {
+        useGpgCmd()
+
+        sign publishing.publications
+    }
+
+    task signAll {
+        tasks.withType(Sign).forEach {
+            dependsOn(it)
+        }
+    }
 }
