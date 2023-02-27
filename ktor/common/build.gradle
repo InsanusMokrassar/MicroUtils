@@ -17,5 +17,8 @@ kotlin {
                 api libs.ktor.io
             }
         }
+        androidMain {
+            dependsOn jvmMain
+        }
     }
 }
