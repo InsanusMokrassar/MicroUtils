@@ -3617,6 +3617,12 @@ $dokka.location:dev.inmo.micro_utils.pagination/SimplePagination///PointingToDec
 $dokka.location:dev.inmo.micro_utils.pagination/SimplePagination/SimplePagination/#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/-simple-pagination/-simple-pagination.html
 $dokka.location:dev.inmo.micro_utils.pagination/SimplePagination/page/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/-simple-pagination/page.html
 $dokka.location:dev.inmo.micro_utils.pagination/SimplePagination/size/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.pagination/-simple-pagination/size.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/index.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations/GenerateCRUDModel///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/-generate-c-r-u-d-model/index.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations/GenerateCRUDModel/generateSerialName/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/-generate-c-r-u-d-model/generate-serial-name.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations/GenerateCRUDModel/registeredSupertypes/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/-generate-c-r-u-d-model/registered-supertypes.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations/GenerateCRUDModel/serializable/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/-generate-c-r-u-d-model/serializable.html
+$dokka.location:dev.inmo.micro_utils.repos.annotations/GenerateCRUDModelExcludeOverride///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/-generate-c-r-u-d-model-exclude-override/index.html
 $dokka.location:dev.inmo.micro_utils.repos.cache.cache////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.cache.cache/index.html
 $dokka.location:dev.inmo.micro_utils.repos.cache.cache//FullKVCache/#dev.inmo.micro_utils.repos.KeyValueRepo[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.cache.cache/-full-k-v-cache.html
 $dokka.location:dev.inmo.micro_utils.repos.cache.cache//KVCache/#kotlin.Int#dev.inmo.micro_utils.repos.KeyValueRepo[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.cache.cache/-k-v-cache.html
@@ -3966,6 +3972,31 @@ $dokka.location:dev.inmo.micro_utils.repos.exposed/ExposedCRUDRepo///PointingToD
 $dokka.location:dev.inmo.micro_utils.repos.exposed/ExposedRepo///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.exposed/-exposed-repo/index.html
 $dokka.location:dev.inmo.micro_utils.repos.exposed/ExposedRepo/database/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.exposed/-exposed-repo/database.html
 $dokka.location:dev.inmo.micro_utils.repos.exposed/ExposedRepo/selectAll/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.exposed/-exposed-repo/select-all.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test//asNew/dev.inmo.micro_utils.repos.generator.test.Test#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/as-new.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test//asRegistered/dev.inmo.micro_utils.repos.generator.test.Test#dev.inmo.micro_utils.repos.generator.test.TestId/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/as-registered.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/IRegisteredTest///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-i-registered-test/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/IRegisteredTest/excludedProperty2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-i-registered-test/excluded-property2.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/IRegisteredTest/id/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-i-registered-test/id.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/NewTest///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-new-test/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/NewTest/NewTest/#kotlin.String#kotlin.Int#dev.inmo.micro_utils.repos.generator.test.TestId?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-new-test/-new-test.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/NewTest/parent/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-new-test/parent.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/NewTest/property1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-new-test/property1.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/NewTest/property2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-new-test/property2.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest/RegisteredTest/#dev.inmo.micro_utils.repos.generator.test.TestId#kotlin.String#kotlin.Int#dev.inmo.micro_utils.repos.generator.test.TestId?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/-registered-test.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest/id/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/id.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest/parent/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/parent.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest/property1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/property1.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/RegisteredTest/property2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-registered-test/property2.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/Test///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/Test/excludedProperty/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test/excluded-property.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/Test/parent/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test/parent.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/Test/property1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test/property1.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/Test/property2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test/property2.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/TestId///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test-id/index.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/TestId/TestId/#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test-id/-test-id.html
+$dokka.location:dev.inmo.micro_utils.repos.generator.test/TestId/long/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/-test-id/long.html
 $dokka.location:dev.inmo.micro_utils.repos.keyvalue////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.keyvalue/index.html
 $dokka.location:dev.inmo.micro_utils.repos.keyvalue//SharedPreferencesKeyValueRepo/#android.content.Context#kotlin.String#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.keyvalue/-shared-preferences-key-value-repo.html
 $dokka.location:dev.inmo.micro_utils.repos.keyvalue//keyValueStore/android.content.Context#kotlin.String#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.repos.keyvalue/key-value-store.html
@@ -4700,6 +4731,7 @@ dev.inmo.micro_utils.mime_types
 dev.inmo.micro_utils.pagination
 dev.inmo.micro_utils.pagination.utils
 dev.inmo.micro_utils.repos
+dev.inmo.micro_utils.repos.annotations
 dev.inmo.micro_utils.repos.cache
 dev.inmo.micro_utils.repos.cache.cache
 dev.inmo.micro_utils.repos.cache.fallback
@@ -4714,6 +4746,7 @@ dev.inmo.micro_utils.repos.exposed.keyvalue
 dev.inmo.micro_utils.repos.exposed.onetomany
 dev.inmo.micro_utils.repos.exposed.utils
 dev.inmo.micro_utils.repos.exposed.versions
+dev.inmo.micro_utils.repos.generator.test
 dev.inmo.micro_utils.repos.keyvalue
 dev.inmo.micro_utils.repos.ktor.client.crud
 dev.inmo.micro_utils.repos.ktor.client.key.value
