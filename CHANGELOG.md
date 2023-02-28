@@ -2,6 +2,10 @@
 
 ## 0.17.1
 
+* **Hotfix** for absence of jvm dependencies in android modules
+* `Versions`:
+    * `Ktor`: `2.2.3` -> `2.2.4`
+
 ## 0.17.0
 
 * `Versions`:
