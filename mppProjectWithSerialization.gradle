@@ -50,6 +50,8 @@ kotlin {
                 implementation libs.android.espresso
             }
         }
+
+        androidMain.dependsOn jvmMain
     }
 }
 
