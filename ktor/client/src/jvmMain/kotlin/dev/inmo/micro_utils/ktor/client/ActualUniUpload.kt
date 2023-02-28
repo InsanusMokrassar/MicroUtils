@@ -44,7 +44,8 @@ actual suspend fun <T> HttpClient.uniUpload(
     val withBinary = data.values.any { it is File || it is UniUploadFileInfo }
 
     val formData = formData {
-        data.forEach { (k, v) ->
+        for (k in data.keys) {
+            val v = data[k] ?: continue
             when (v) {
                 is File -> append(
                     k,
@@ -89,7 +90,7 @@ actual suspend fun <T> HttpClient.uniUpload(
         submitForm(
             url,
             Parameters.build {
-                formData.forEach {
+                for (it in formData) {
                     val formItem = (it as PartData.FormItem)
                     append(it.name!!, it.value)
                 }

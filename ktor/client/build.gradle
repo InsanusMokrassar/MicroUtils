@@ -15,7 +15,6 @@ kotlin {
                 api libs.ktor.client
             }
         }
-
         androidMain {
             dependsOn jvmMain
         }

@@ -18,6 +18,7 @@ kotlin {
                 api project(":micro_utils.coroutines")
                 api libs.android.fragment
             }
+            dependsOn jvmMain
         }
     }
 }
