@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.17.2
+
+* `FSM`:
+    * `DefaultStatesManager.onUpdateContextsConflictResolver` and `DefaultStatesManager.onStartContextsConflictResolver` now return `false` by default
+
 ## 0.17.1
 
 * **Hotfix** for absence of jvm dependencies in android modules
