@@ -48,7 +48,7 @@ interface DefaultStatesManagerRepo<T : State> {
  */
 open class DefaultStatesManager<T : State>(
     protected val repo: DefaultStatesManagerRepo<T> = InMemoryDefaultStatesManagerRepo(),
-    protected val onStartContextsConflictResolver: suspend (current: T, new: T) -> Boolean = { _, _ -> true },
+    protected val onStartContextsConflictResolver: suspend (current: T, new: T) -> Boolean = { _, _ -> false },
     protected val onUpdateContextsConflictResolver: suspend (old: T, new: T, currentNew: T) -> Boolean = { _, _, _ -> false }
 ) : StatesManager<T> {
     protected val _onChainStateUpdated = MutableSharedFlow<Pair<T, T>>(0)
