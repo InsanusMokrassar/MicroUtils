@@ -34,7 +34,9 @@ data class Diff<T> internal constructor(
      */
     val replaced: List<Pair<@Serializable(IndexedValueSerializer::class) IndexedValue<T>, @Serializable(IndexedValueSerializer::class) IndexedValue<T>>>,
     val added: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>
-)
+) {
+    fun isEmpty(): Boolean = removed.isEmpty() && replaced.isEmpty() && added.isEmpty()
+}
 
 fun <T> emptyDiff(): Diff<T> = Diff(emptyList(), emptyList(), emptyList())
 
