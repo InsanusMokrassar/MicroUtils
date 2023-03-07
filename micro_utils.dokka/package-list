@@ -52,10 +52,12 @@ $dokka.location:dev.inmo.micro_utils.common.compose/DefaultDisposableEffectResul
 $dokka.location:dev.inmo.micro_utils.common.compose/DefaultDisposableEffectResult/dispose/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common.compose/-default-disposable-effect-result/dispose.html
 $dokka.location:dev.inmo.micro_utils.common////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/index.html
 $dokka.location:dev.inmo.micro_utils.common//Diff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff.html
+$dokka.location:dev.inmo.micro_utils.common//FixedSignsRange/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-fixed-signs-range.html
 $dokka.location:dev.inmo.micro_utils.common//StrictDiff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-strict-diff.html
 $dokka.location:dev.inmo.micro_utils.common//alsoIfFalse/kotlin.Boolean#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/also-if-false.html
 $dokka.location:dev.inmo.micro_utils.common//alsoIfTrue/kotlin.Boolean#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/also-if-true.html
 $dokka.location:dev.inmo.micro_utils.common//applyDiff/kotlin.collections.MutableList[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/apply-diff.html
+$dokka.location:dev.inmo.micro_utils.common//applyDiff/kotlin.collections.MutableList[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function2[TypeParam(bounds=[kotlin.Any?])?,TypeParam(bounds=[kotlin.Any?])?,kotlin.Boolean]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/apply-diff.html
 $dokka.location:dev.inmo.micro_utils.common//argumentOrNull/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/argument-or-null.html
 $dokka.location:dev.inmo.micro_utils.common//argumentOrThrow/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/argument-or-throw.html
 $dokka.location:dev.inmo.micro_utils.common//asAllocator/kotlin.ByteArray#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/as-allocator.html
@@ -67,6 +69,7 @@ $dokka.location:dev.inmo.micro_utils.common//bytesAllocator/dev.inmo.micro_utils
 $dokka.location:dev.inmo.micro_utils.common//bytesAllocatorSync/dev.inmo.micro_utils.common.MPPFile#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/bytes-allocator-sync.html
 $dokka.location:dev.inmo.micro_utils.common//bytesSync/dev.inmo.micro_utils.common.MPPFile#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/bytes-sync.html
 $dokka.location:dev.inmo.micro_utils.common//calculateDiff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/calculate-diff.html
+$dokka.location:dev.inmo.micro_utils.common//calculateDiff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function2[TypeParam(bounds=[kotlin.Any?])?,TypeParam(bounds=[kotlin.Any?])?,kotlin.Boolean]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/calculate-diff.html
 $dokka.location:dev.inmo.micro_utils.common//calculateStrictDiff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/calculate-strict-diff.html
 $dokka.location:dev.inmo.micro_utils.common//changeVisibility/android.view.View#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/change-visibility.html
 $dokka.location:dev.inmo.micro_utils.common//collapse/android.view.View#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/collapse.html
@@ -78,6 +81,7 @@ $dokka.location:dev.inmo.micro_utils.common//dataOrElse/dev.inmo.micro_utils.com
 $dokka.location:dev.inmo.micro_utils.common//dataOrNull/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/data-or-null.html
 $dokka.location:dev.inmo.micro_utils.common//dataOrThrow/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Throwable/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/data-or-throw.html
 $dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/diff.html
+$dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function2[TypeParam(bounds=[kotlin.Any?])?,TypeParam(bounds=[kotlin.Any?])?,kotlin.Boolean]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/diff.html
 $dokka.location:dev.inmo.micro_utils.common//disable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disable.html
 $dokka.location:dev.inmo.micro_utils.common//disabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disabled.html
 $dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
@@ -88,6 +92,7 @@ $dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Pro
 $dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
 $dokka.location:dev.inmo.micro_utils.common//downloadToTempFile/java.io.InputStream#kotlin.String#kotlin.String?#java.io.File?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/download-to-temp-file.html
 $dokka.location:dev.inmo.micro_utils.common//either/kotlin.Any#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/either.html
+$dokka.location:dev.inmo.micro_utils.common//emptyDiff/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/empty-diff.html
 $dokka.location:dev.inmo.micro_utils.common//enable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enable.html
 $dokka.location:dev.inmo.micro_utils.common//enabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enabled.html
 $dokka.location:dev.inmo.micro_utils.common//expand/android.view.View#kotlin.Long#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/expand.html
@@ -106,6 +111,8 @@ $dokka.location:dev.inmo.micro_utils.common//findViewsByTagInActivity/androidx.f
 $dokka.location:dev.inmo.micro_utils.common//findViewsByTagInActivity/androidx.fragment.app.Fragment#kotlin.Int#kotlin.Any?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/find-views-by-tag-in-activity.html
 $dokka.location:dev.inmo.micro_utils.common//first/[Error type: Unresolved type for Either.Companion]#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/first.html
 $dokka.location:dev.inmo.micro_utils.common//firstNotNull/kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/first-not-null.html
+$dokka.location:dev.inmo.micro_utils.common//fixed/kotlin.Double#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/fixed.html
+$dokka.location:dev.inmo.micro_utils.common//fixed/kotlin.Float#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/fixed.html
 $dokka.location:dev.inmo.micro_utils.common//getDp/android.content.res.Resources#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/get-dp.html
 $dokka.location:dev.inmo.micro_utils.common//getSp/android.content.res.Resources#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/get-sp.html
 $dokka.location:dev.inmo.micro_utils.common//gone/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/gone.html
@@ -186,6 +193,7 @@ $dokka.location:dev.inmo.micro_utils.common/ByteArrayAllocatorSerializer/deseria
 $dokka.location:dev.inmo.micro_utils.common/ByteArrayAllocatorSerializer/serialize/#kotlinx.serialization.encoding.Encoder#kotlin.Function0[kotlin.ByteArray]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-byte-array-allocator-serializer/serialize.html
 $dokka.location:dev.inmo.micro_utils.common/Diff///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff/index.html
 $dokka.location:dev.inmo.micro_utils.common/Diff/added/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff/added.html
+$dokka.location:dev.inmo.micro_utils.common/Diff/isEmpty/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff/is-empty.html
 $dokka.location:dev.inmo.micro_utils.common/Diff/removed/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff/removed.html
 $dokka.location:dev.inmo.micro_utils.common/Diff/replaced/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff/replaced.html
 $dokka.location:dev.inmo.micro_utils.common/Either///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-either/index.html
