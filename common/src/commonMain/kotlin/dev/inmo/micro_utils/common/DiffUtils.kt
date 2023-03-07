@@ -174,7 +174,7 @@ fun <T> Iterable<T>.calculateDiff(
         }
     } else {
         { t1, t2 ->
-            t1 == t2
+            t1 === t2 || t1 == t2 // small optimization for cases when t1 and t2 are the same - comparison will be faster potentially
         }
     }
 )
