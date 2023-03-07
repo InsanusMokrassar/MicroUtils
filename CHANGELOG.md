@@ -2,6 +2,10 @@
 
 ## 0.17.3
 
+* `Common`:
+    * New function `emptyDiff`
+    * Now you may pass custom `comparisonFun` to all `diff` functions
+
 ## 0.17.2
 
 * `FSM`:

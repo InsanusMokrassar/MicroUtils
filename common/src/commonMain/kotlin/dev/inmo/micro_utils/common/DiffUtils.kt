@@ -36,6 +36,8 @@ data class Diff<T> internal constructor(
     val added: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>
 )
 
+fun <T> emptyDiff(): Diff<T> = Diff(emptyList(), emptyList(), emptyList())
+
 private inline fun <T> performChanges(
     potentialChanges: MutableList<Pair<IndexedValue<T>?, IndexedValue<T>?>>,
     additionsInOld: MutableList<T>,
@@ -43,14 +45,14 @@ private inline fun <T> performChanges(
     changedList: MutableList<Pair<IndexedValue<T>, IndexedValue<T>>>,
     removedList: MutableList<IndexedValue<T>>,
     addedList: MutableList<IndexedValue<T>>,
-    strictComparison: Boolean
+    comparisonFun: (T?, T?) -> Boolean
 ) {
     var i = -1
     val (oldObject, newObject) = potentialChanges.lastOrNull() ?: return
     for ((old, new) in potentialChanges.take(potentialChanges.size - 1)) {
         i++
-        val oldOneEqualToNewObject = old ?.value === newObject ?.value || (old ?.value == newObject ?.value && !strictComparison)
-        val newOneEqualToOldObject = new ?.value === oldObject ?.value || (new ?.value == oldObject ?.value && !strictComparison)
+        val oldOneEqualToNewObject = comparisonFun(old ?.value, newObject ?.value)
+        val newOneEqualToOldObject = comparisonFun(new ?.value, oldObject ?.value)
         if (oldOneEqualToNewObject || newOneEqualToOldObject) {
             changedList.addAll(
                 potentialChanges.take(i).mapNotNull {
@@ -104,7 +106,7 @@ private inline fun <T> performChanges(
  */
 fun <T> Iterable<T>.calculateDiff(
     other: Iterable<T>,
-    strictComparison: Boolean = false
+    comparisonFun: (T?, T?) -> Boolean
 ): Diff<T> {
     var i = -1
     var j = -1
@@ -132,7 +134,7 @@ fun <T> Iterable<T>.calculateDiff(
         }
 
         when {
-            oldObject === newObject || (oldObject == newObject && !strictComparison) -> {
+            comparisonFun(oldObject, newObject) -> {
                 changedObjects.addAll(potentiallyChangedObjects.map {
                     @Suppress("UNCHECKED_CAST")
                     it as Pair<IndexedValue<T>, IndexedValue<T>>
@@ -143,23 +145,49 @@ fun <T> Iterable<T>.calculateDiff(
                 potentiallyChangedObjects.add(oldObject ?.let { IndexedValue(i, oldObject) } to newObject ?.let { IndexedValue(j, newObject) })
                 val previousOldsAdditionsSize = additionalInOld.size
                 val previousNewsAdditionsSize = additionalInNew.size
-                performChanges(potentiallyChangedObjects, additionalInOld, additionalInNew, changedObjects, removedObjects, addedObjects, strictComparison)
+                performChanges(potentiallyChangedObjects, additionalInOld, additionalInNew, changedObjects, removedObjects, addedObjects, comparisonFun)
                 i -= (additionalInOld.size - previousOldsAdditionsSize)
                 j -= (additionalInNew.size - previousNewsAdditionsSize)
             }
         }
     }
     potentiallyChangedObjects.add(null to null)
-    performChanges(potentiallyChangedObjects, additionalInOld, additionalInNew, changedObjects, removedObjects, addedObjects, strictComparison)
+    performChanges(potentiallyChangedObjects, additionalInOld, additionalInNew, changedObjects, removedObjects, addedObjects, comparisonFun)
 
     return Diff(removedObjects.toList(), changedObjects.toList(), addedObjects.toList())
 }
+
+/**
+ * Calculating [Diff] object
+ *
+ * @param strictComparison If this parameter set to true, objects which are not equal by links will be used as different
+ * objects. For example, in case of two "Example" string they will be equal by value, but CAN be different by links
+ */
+fun <T> Iterable<T>.calculateDiff(
+    other: Iterable<T>,
+    strictComparison: Boolean = false
+): Diff<T> = calculateDiff(
+    other,
+    comparisonFun = if (strictComparison) {
+        { t1, t2 ->
+            t1 === t2
+        }
+    } else {
+        { t1, t2 ->
+            t1 == t2
+        }
+    }
+)
 inline fun <T> Iterable<T>.diff(
     other: Iterable<T>,
     strictComparison: Boolean = false
 ): Diff<T> = calculateDiff(other, strictComparison)
+inline fun <T> Iterable<T>.diff(
+    other: Iterable<T>,
+    noinline comparisonFun: (T?, T?) -> Boolean
+): Diff<T> = calculateDiff(other, comparisonFun)
 
-inline fun <T> Diff(old: Iterable<T>, new: Iterable<T>) = old.calculateDiff(new)
+inline fun <T> Diff(old: Iterable<T>, new: Iterable<T>) = old.calculateDiff(new, strictComparison = false)
 inline fun <T> StrictDiff(old: Iterable<T>, new: Iterable<T>) = old.calculateDiff(new, true)
 
 /**
@@ -177,6 +205,25 @@ fun <T> MutableList<T>.applyDiff(
     source: Iterable<T>,
     strictComparison: Boolean = false
 ): Diff<T> = calculateDiff(source, strictComparison).also {
+    for (i in it.removed.indices.sortedDescending()) {
+        removeAt(it.removed[i].index)
+    }
+    it.added.forEach { (i, t) ->
+        add(i, t)
+    }
+    it.replaced.forEach { (_, new) ->
+        set(new.index, new.value)
+    }
+}
+
+/**
+ * This method call [calculateDiff] with strict mode [strictComparison] and then apply differences to [this]
+ * mutable list
+ */
+fun <T> MutableList<T>.applyDiff(
+    source: Iterable<T>,
+    comparisonFun: (T?, T?) -> Boolean
+): Diff<T> = calculateDiff(source, comparisonFun).also {
     for (i in it.removed.indices.sortedDescending()) {
         removeAt(it.removed[i].index)
     }
