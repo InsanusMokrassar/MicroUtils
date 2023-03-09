@@ -2,6 +2,10 @@
 
 ## 0.17.4
 
+* `Serialization`:
+    * `Mapper`:
+        * Module inited
+
 ## 0.17.3
 
 * `Common`:
