@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.4
+
+* `Serialization`:
+    * `Mapper`:
+        * Module inited
+* `Versions`:
+    * `Compose`: `1.3.1-rc02` -> `1.3.1`
+
 ## 0.17.3
 
 * `Common`:
