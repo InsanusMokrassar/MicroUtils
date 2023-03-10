@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.cache
 
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -14,6 +15,12 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
     override suspend fun getById(id: IdType): ObjectType? = kvCache.get(id) ?: (parentRepo.getById(id) ?.also {
         kvCache.set(id, it)
     })
+
+    override suspend fun getAll(): Map<IdType, ObjectType> {
+        return kvCache.getAll().takeIf { it.size.toLong() == count() } ?: parentRepo.getAll().also {
+            kvCache.actualizeAll(true) { it }
+        }
+    }
 
     override suspend fun contains(id: IdType): Boolean = kvCache.contains(id) || parentRepo.contains(id)
 

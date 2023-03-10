@@ -32,6 +32,18 @@ abstract class AbstractAndroidCRUDRepo<ObjectType, IdType>(
         }
     }
 
+    override suspend fun getAll(): Map<IdType, ObjectType> = helper.readableTransaction {
+        select(
+            tableName,
+            null,
+            ""
+        ).use {
+            it.map {
+                it.toId() to it.toObject()
+            }
+        }
+    }.toMap()
+
     override suspend fun getById(id: IdType): ObjectType? = helper.readableTransaction {
         select(
             tableName,

@@ -55,6 +55,10 @@ open class MapperReadKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
         key.toOutKey()
     )
 
+    override suspend fun getAll(): Map<FromKey, FromValue> = to.getAll().map { (k, v) ->
+        k.toInnerKey() to v.toInnerValue()
+    }.toMap()
+
     override suspend fun count(): Long = to.count()
 }
 

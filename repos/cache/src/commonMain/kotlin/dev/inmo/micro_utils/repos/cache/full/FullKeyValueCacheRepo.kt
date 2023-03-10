@@ -9,7 +9,6 @@ import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 
 open class FullReadKeyValueCacheRepo<Key,Value>(
@@ -57,6 +56,12 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         { contains(key).takeIf { it }.optionalOrAbsentIfNull },
         { contains(key) },
         { if (it) parentRepo.get(key) ?.also { kvCache.set(key, it) } }
+    )
+
+    override suspend fun getAll(): Map<Key, Value> = doOrTakeAndActualize(
+        { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
+        { getAll() },
+        { kvCache.actualizeAll(clear = true) { it } }
     )
 
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = doOrTakeAndActualize(

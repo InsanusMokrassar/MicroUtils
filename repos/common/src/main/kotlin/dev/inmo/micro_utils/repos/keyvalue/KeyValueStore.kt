@@ -104,6 +104,15 @@ class KeyValueStore<T : Any> internal constructor (
 
     override suspend fun contains(key: String): Boolean = sharedPreferences.contains(key)
 
+    override suspend fun getAll(): Map<String, T> {
+        val resultMap = mutableMapOf<String, T>()
+        for ((k, v) in sharedPreferences.all) {
+            @Suppress("UNCHECKED_CAST")
+            resultMap[k] = (v as? T) ?: continue
+        }
+        return resultMap.toMap()
+    }
+
     override suspend fun count(): Long = sharedPreferences.all.size.toLong()
 
     override suspend fun set(toSet: Map<String, T>) {

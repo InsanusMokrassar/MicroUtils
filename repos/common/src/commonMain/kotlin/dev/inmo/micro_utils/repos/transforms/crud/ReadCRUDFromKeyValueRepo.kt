@@ -12,6 +12,8 @@ open class ReadCRUDFromKeyValueRepo<RegisteredType, IdType>(
 
     override suspend fun count(): Long = original.count()
 
+    override suspend fun getAll(): Map<IdType, RegisteredType> = original.getAll()
+
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<RegisteredType> = original.values(pagination)
 
     override suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType> = original.keys(pagination)

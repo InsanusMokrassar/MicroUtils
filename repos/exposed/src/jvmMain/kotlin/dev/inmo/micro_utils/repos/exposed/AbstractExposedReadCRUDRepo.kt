@@ -45,5 +45,9 @@ abstract class AbstractExposedReadCRUDRepo<ObjectType, IdType>(
         select { selectById(id) }.limit(1).any()
     }
 
+    override suspend fun getAll(): Map<IdType, ObjectType> = transaction(database) {
+        selectAll().associate { it.asId to it.asObject }
+    }
+
     override suspend fun count(): Long = transaction(db = database) { selectAll().count() }
 }

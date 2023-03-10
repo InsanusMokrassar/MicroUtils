@@ -52,6 +52,14 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
         kvCache.contains(id)
     }
 
+    override suspend fun getAll(): Map<Id, RegisteredObject> = actionWrapper.wrap {
+        originalRepo.getAll()
+    }.onSuccess {
+        kvCache.actualizeAll(clear = true) { it }
+    }.getOrElse {
+        kvCache.getAll()
+    }
+
     override suspend fun count(): Long = actionWrapper.wrap {
         originalRepo.count()
     }.getOrElse {

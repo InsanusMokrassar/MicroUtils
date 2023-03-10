@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.common.Warning
+import dev.inmo.micro_utils.common.filename
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.*
@@ -93,6 +94,8 @@ class FileReadKeyValueRepo(
     override suspend fun contains(key: String): Boolean {
         return File(folder, key).exists()
     }
+
+    override suspend fun getAll(): Map<String, File> = (folder.listFiles() ?.toList() ?: emptyList()).associateBy { it.filename.name }
 
     override suspend fun count(): Long = folder.list() ?.size ?.toLong() ?: 0L
 }

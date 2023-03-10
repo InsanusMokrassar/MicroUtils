@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.countRouting
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.getAllRoute
 import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -21,6 +22,7 @@ class KtorReadCRUDRepoClient<ObjectType, IdType> (
     private val paginationObjectType: TypeInfo,
     private val paginationIdType: TypeInfo,
     private val contentType: ContentType,
+    private val mapTypeInfo: TypeInfo,
     private val idSerializer: suspend (IdType) -> String
 ) : ReadCRUDRepo<ObjectType, IdType> {
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> = httpClient.get(
@@ -58,6 +60,15 @@ class KtorReadCRUDRepoClient<ObjectType, IdType> (
         contentType(contentType)
     }.body()
 
+    override suspend fun getAll(): Map<IdType, ObjectType> = httpClient.get(
+        buildStandardUrl(
+            baseUrl,
+            getAllRoute
+        )
+    ) {
+        contentType(contentType)
+    }.body(mapTypeInfo)
+
     override suspend fun count(): Long = httpClient.get(
         buildStandardUrl(
             baseUrl,
@@ -80,6 +91,7 @@ inline fun <reified ObjectType, IdType> KtorReadCRUDRepoClient(
     typeInfo<PaginationResult<ObjectType>>(),
     typeInfo<PaginationResult<IdType>>(),
     contentType,
+    typeInfo<Map<IdType, ObjectType>>(),
     idSerializer
 )
 

@@ -44,6 +44,7 @@ class KtorCRUDRepoClient<ObjectType, IdType, InputValue> (
                 typeInfo<PaginationResult<ObjectType>>(),
                 typeInfo<PaginationResult<IdType>>(),
                 contentType,
+                typeInfo<Map<IdType, ObjectType>>(),
                 idSerializer
             ),
             KtorWriteCrudRepoClient<ObjectType, IdType, InputValue>(

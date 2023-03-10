@@ -32,6 +32,10 @@ open class MapperReadCRUDRepo<FromId, FromRegistered, ToId, ToRegistered>(
 
     override suspend fun contains(id: FromId): Boolean = to.contains(id.toOutKey())
 
+    override suspend fun getAll(): Map<FromId, FromRegistered> = to.getAll().asSequence().associate { (k, v) ->
+        k.toInnerKey() to v.toInnerValue()
+    }
+
     override suspend fun getById(id: FromId): FromRegistered? = to.getById(
         id.toOutKey()
     ) ?.toInnerValue()

@@ -133,6 +133,8 @@ class KVTests {
                 crudClient.count()
             )
 
+            assertEquals(map, crudClient.getAll())
+
             server.stop()
         }
     }

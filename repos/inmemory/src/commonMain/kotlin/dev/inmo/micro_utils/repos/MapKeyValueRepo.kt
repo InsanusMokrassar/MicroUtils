@@ -51,6 +51,8 @@ class ReadMapKeyValueRepo<Key, Value>(
         }
     }
 
+    override suspend fun getAll(): Map<Key, Value> = map.toMap()
+
     override suspend fun contains(key: Key): Boolean = map.containsKey(key)
 
     override suspend fun count(): Long = map.size.toLong()

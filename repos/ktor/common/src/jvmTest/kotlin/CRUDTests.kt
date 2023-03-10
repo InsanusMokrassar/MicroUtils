@@ -83,6 +83,9 @@ class CRUDTests {
             assertEquals(map.size, 0)
             assertEquals(map.size.toLong(), crudClient.count())
             assertEquals(0, crudClient.count())
+
+            assertEquals(map, crudClient.getAll())
+
             server.stop()
         }
     }

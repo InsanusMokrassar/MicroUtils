@@ -5,7 +5,6 @@ import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
 import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
@@ -31,6 +30,8 @@ abstract class AbstractExposedReadKeyValueRepo<Key, Value>(
     override suspend fun contains(key: Key): Boolean = transaction(database) {
         select { selectById(key) }.limit(1).any()
     }
+
+    override suspend fun getAll(): Map<Key, Value> = transaction(database) { selectAll().associate { it.asKey to it.asObject } }
 
     override suspend fun count(): Long = transaction(database) { selectAll().count() }
 

@@ -58,6 +58,12 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         { if (it) parentRepo.getById(id) ?.let { set(id, it) } }
     )
 
+    override suspend fun getAll(): Map<IdType, ObjectType> = doOrTakeAndActualize(
+        { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
+        { getAll() },
+        { kvCache.actualizeAll(clear = true) { it } }
+    )
+
     override suspend fun getById(id: IdType): ObjectType? = doOrTakeAndActualize(
         { get(id) ?.optional ?: Optional.absent() },
         { getById(id) },

@@ -2,6 +2,9 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.pagination.changeResultsUnchecked
+import dev.inmo.micro_utils.pagination.utils.getAllWithCurrentPaging
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.flow.Flow
 
 interface ReadCRUDRepo<ObjectType, IdType> : Repo {
@@ -9,6 +12,14 @@ interface ReadCRUDRepo<ObjectType, IdType> : Repo {
     suspend fun getIdsByPagination(pagination: Pagination): PaginationResult<IdType>
     suspend fun getById(id: IdType): ObjectType?
     suspend fun contains(id: IdType): Boolean
+    suspend fun getAll(): Map<IdType, ObjectType> = getAllWithCurrentPaging(maxPagePagination()) {
+        getIdsByPagination(it).let {
+            it.changeResultsUnchecked(
+                it.results.mapNotNull { it to (getById(it) ?: return@mapNotNull null) }
+            )
+        }
+    }.toMap()
+
     suspend fun count(): Long
 }
 typealias ReadStandardCRUDRepo<ObjectType, IdType> = ReadCRUDRepo<ObjectType, IdType>

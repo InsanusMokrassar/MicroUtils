@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.17.5
+
+* `Common`:
+    * Conversations of number primitives with bounds care
+* `Repos`:
+    * `Common`:
+        * By default, `getAll` for repos will take all the size of repo as page size
+        * New extension for all built-in repos `maxPagePagination`
+    * All the repos got `getAll` functions
+
 ## 0.17.4
 
 * `Serialization`:
