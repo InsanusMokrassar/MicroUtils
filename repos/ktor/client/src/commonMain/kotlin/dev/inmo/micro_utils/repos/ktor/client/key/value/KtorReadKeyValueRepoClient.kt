@@ -23,6 +23,7 @@ class KtorReadKeyValueRepoClient<Key, Value>(
     private val objectType: TypeInfo,
     private val paginationResultObjectsTypeInfo: TypeInfo,
     private val paginationResultIdsTypeInfo: TypeInfo,
+    private val mapKeyValueTypeInfo: TypeInfo,
     private val idSerializer: suspend (Key) -> String,
     private val valueSerializer: suspend (Value) -> String
 ) : ReadKeyValueRepo<Key, Value> {
@@ -55,7 +56,7 @@ class KtorReadKeyValueRepoClient<Key, Value>(
         )
     ) {
         contentType(contentType)
-    }.body()
+    }.body(mapKeyValueTypeInfo)
 
     override suspend fun values(
         pagination: Pagination,
@@ -112,6 +113,7 @@ inline fun <reified Key, reified Value> KtorReadKeyValueRepoClient(
     typeInfo<Value>(),
     typeInfo<PaginationResult<Value>>(),
     typeInfo<PaginationResult<Key>>(),
+    typeInfo<Map<Key, Value>>(),
     idSerializer,
     valueSerializer
 )
