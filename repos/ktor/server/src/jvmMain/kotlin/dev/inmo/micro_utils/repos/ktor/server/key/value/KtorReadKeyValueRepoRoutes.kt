@@ -70,6 +70,10 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes (
         call.respond(originalRepo.contains(key))
     }
 
+    get(getAllRoute) {
+        call.respond(originalRepo.getAll())
+    }
+
     get(countRoute) {
         call.respond(originalRepo.count())
     }

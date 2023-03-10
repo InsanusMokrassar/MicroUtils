@@ -11,6 +11,7 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
+import dev.inmo.micro_utils.repos.pagination.getAll
 import dev.inmo.micro_utils.repos.transforms.kvs.ReadKeyValuesFromKeyValueRepo
 import kotlin.jvm.JvmInline
 
@@ -39,6 +40,8 @@ value class ReadKeyValueFromCRUDRepo<Key, Value>(
             it
         }
     }
+
+    override suspend fun getAll(): Map<Key, Value> = original.getAll()
 
     override suspend fun count(): Long = original.count()
 

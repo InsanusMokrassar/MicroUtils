@@ -21,4 +21,4 @@ suspend inline fun <Key, Value, REPO : ReadKeyValuesRepo<Key, Value>> REPO.getAl
 suspend inline fun <Key, Value, REPO : ReadKeyValuesRepo<Key, Value>> REPO.getAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     crossinline methodCaller: suspend REPO.(Pagination) -> PaginationResult<Key>
-): List<Pair<Key, List<Value>>> = getAll(FirstPagePagination(count().toCoercedInt()), methodCaller)
+): List<Pair<Key, List<Value>>> = getAll(maxPagePagination(), methodCaller)

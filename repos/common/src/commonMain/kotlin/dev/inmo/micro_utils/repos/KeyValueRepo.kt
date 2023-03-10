@@ -2,8 +2,10 @@ package dev.inmo.micro_utils.repos
 
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.doAllWithCurrentPaging
+import dev.inmo.micro_utils.pagination.utils.getAllByWithNextPaging
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.pagination.utils.paginate
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -50,6 +52,16 @@ interface ReadKeyValueRepo<Key, Value> : Repo {
      * @return true if [key] is presented in current collection or false otherwise
      */
     suspend fun contains(key: Key): Boolean
+
+    suspend fun getAll(): Map<Key, Value> = getAllByWithNextPaging(maxPagePagination()) {
+        keys(it).let {
+            it.changeResultsUnchecked(
+                it.results.mapNotNull {
+                    it to (get(it) ?: return@mapNotNull null)
+                }
+            )
+        }
+    }.toMap()
 
     /**
      * @return count of all collection objects

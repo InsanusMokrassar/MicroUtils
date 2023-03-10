@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.pagination.extractPagination
 import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ktor.common.countRouting
 import dev.inmo.micro_utils.repos.ktor.common.crud.*
+import dev.inmo.micro_utils.repos.ktor.common.getAllRoute
 import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
@@ -51,6 +52,10 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoute
         call.respond(
             originalRepo.contains(id)
         )
+    }
+
+    get(getAllRoute) {
+        call.respond(originalRepo.getAll())
     }
 
     get(countRouting) {

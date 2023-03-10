@@ -26,6 +26,8 @@ class ReadMapCRUDRepo<ObjectType, IdType>(
 
     override suspend fun contains(id: IdType): Boolean = map.containsKey(id)
 
+    override suspend fun getAll(): Map<IdType, ObjectType> = map.toMap()
+
     override suspend fun count(): Long = map.size.toLong()
 }
 

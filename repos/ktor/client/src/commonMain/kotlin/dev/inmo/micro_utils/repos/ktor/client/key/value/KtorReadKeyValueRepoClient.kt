@@ -48,6 +48,15 @@ class KtorReadKeyValueRepoClient<Key, Value>(
         contentType(contentType)
     }.body()
 
+    override suspend fun getAll(): Map<Key, Value> = httpClient.get(
+        buildStandardUrl(
+            baseUrl,
+            getAllRoute
+        )
+    ) {
+        contentType(contentType)
+    }.body()
+
     override suspend fun values(
         pagination: Pagination,
         reversed: Boolean

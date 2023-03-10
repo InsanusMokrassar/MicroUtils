@@ -16,4 +16,4 @@ suspend inline fun <T, ID, REPO : ReadCRUDRepo<T, ID>> REPO.getAll(
 suspend inline fun <T, ID, REPO : ReadCRUDRepo<T, ID>> REPO.getAll(
     @Suppress("REDUNDANT_INLINE_SUSPEND_FUNCTION_TYPE")
     crossinline methodCaller: suspend REPO.(Pagination) -> PaginationResult<T>
-): List<T> = getAll(FirstPagePagination(count().toCoercedInt()), methodCaller)
+): List<T> = getAll(maxPagePagination(), methodCaller)

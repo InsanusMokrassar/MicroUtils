@@ -41,6 +41,8 @@ open class ReadKeyValueFromKeyValuesRepo<Key, Value>(
         return original.contains(key)
     }
 
+    override suspend fun getAll(): Map<Key, List<Value>> = original.getAll()
+
     override suspend fun keys(v: List<Value>, pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
         val keys = mutableSetOf<Key>()
 

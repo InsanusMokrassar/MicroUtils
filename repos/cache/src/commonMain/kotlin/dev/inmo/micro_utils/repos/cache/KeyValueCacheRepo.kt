@@ -24,6 +24,12 @@ open class ReadKeyValueCacheRepo<Key,Value>(
         }
     }
 
+    override suspend fun getAll(): Map<Key, Value> = kvCache.getAll().takeIf {
+        it.size.toLong() == count()
+    } ?: parentRepo.getAll().also {
+        kvCache.set(it)
+    }
+
     override suspend fun invalidate() = kvCache.clear()
 }
 
