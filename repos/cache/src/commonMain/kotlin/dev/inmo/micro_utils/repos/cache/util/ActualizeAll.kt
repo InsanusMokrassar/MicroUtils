@@ -28,7 +28,7 @@ suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
     clear: Boolean = true,
 ) {
     actualizeAll(clear) {
-        repo.getAll { keys(it) }.toMap()
+        repo.getAll()
     }
 }
 
@@ -37,7 +37,7 @@ suspend inline fun <K, V> KVCache<K, List<V>>.actualizeAll(
     clear: Boolean = true,
 ) {
     actualizeAll(clear) {
-        repo.getAll { keys(it) }.toMap()
+        repo.getAll()
     }
 }
 
@@ -46,8 +46,6 @@ suspend inline fun <K, V> KVCache<K, V>.actualizeAll(
     clear: Boolean = true,
 ) {
     actualizeAll(clear) {
-        repo.getAllByWithNextPaging {
-            getIdsByPagination(it)
-        }.mapNotNull { it to (repo.getById(it) ?: return@mapNotNull null) }.toMap()
+        repo.getAll()
     }
 }
