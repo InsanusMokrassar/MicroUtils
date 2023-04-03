@@ -5,4 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable(MimeTypeSerializer::class)
 interface MimeType {
     val raw: String
+    val extensions: Array<String>
+        get() = emptyArray()
 }

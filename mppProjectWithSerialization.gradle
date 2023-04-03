@@ -54,7 +54,11 @@ kotlin {
         }
         mingwX64Test {
             dependencies {
-                implementation kotlin('test-js')
+                implementation kotlin('test-junit')
+            }
+        }
+        linuxX64Test {
+            dependencies {
                 implementation kotlin('test-junit')
             }
         }

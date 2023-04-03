@@ -20,5 +20,16 @@ kotlin {
             }
             dependsOn jvmMain
         }
+
+        linuxX64Main {
+            dependencies {
+                api libs.okio
+            }
+        }
+        mingwX64Main {
+            dependencies {
+                api libs.okio
+            }
+        }
     }
 }
