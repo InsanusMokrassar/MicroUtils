@@ -18,5 +18,17 @@ kotlin {
         androidMain {
             dependsOn jvmMain
         }
+
+        linuxX64Main {
+            dependencies {
+                api internalProject("micro_utils.mime_types")
+            }
+        }
+
+        mingwX64Main {
+            dependencies {
+                api internalProject("micro_utils.mime_types")
+            }
+        }
     }
 }

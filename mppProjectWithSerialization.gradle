@@ -18,6 +18,8 @@ kotlin {
     android {
         publishAllLibraryVariants()
     }
+    linuxX64()
+    mingwX64()
 
     sourceSets {
         commonMain {
@@ -48,6 +50,16 @@ kotlin {
                 implementation kotlin('test-junit')
                 implementation libs.android.test.junit
                 implementation libs.android.espresso
+            }
+        }
+        mingwX64Test {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+        linuxX64Test {
+            dependencies {
+                implementation kotlin('test-junit')
             }
         }
 

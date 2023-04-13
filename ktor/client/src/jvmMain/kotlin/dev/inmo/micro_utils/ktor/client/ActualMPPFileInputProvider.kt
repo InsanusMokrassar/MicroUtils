@@ -7,5 +7,3 @@ import io.ktor.utils.io.streams.asInput
 fun MPPFile.inputProviderSync(): InputProvider = InputProvider(length()) {
     inputStream().asInput()
 }
-
-actual suspend fun MPPFile.inputProvider(): InputProvider = inputProviderSync()

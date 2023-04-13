@@ -1,34 +1,36 @@
 [versions]
 
-kt = "1.8.10"
+kt = "1.8.20"
 kt-serialization = "1.5.0"
 kt-coroutines = "1.6.4"
 
-kslog = "1.0.0"
+kslog = "1.1.1"
 
-jb-compose = "1.3.1"
+jb-compose = "1.4.0"
 jb-exposed = "0.41.1"
 jb-dokka = "1.8.10"
 
-klock = "3.4.0"
+korlibs = "3.4.0"
 uuid = "0.7.0"
 
 ktor = "2.2.4"
 
 gh-release = "2.4.1"
 
-koin = "3.3.2"
+koin = "3.4.0"
 
-ksp = "1.8.10-1.0.9"
-kotlin-poet = "1.12.0"
+okio = "3.3.0"
+
+ksp = "1.8.20-1.0.10"
+kotlin-poet = "1.13.0"
 
 android-gradle = "7.3.1"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.9.0"
-android-recyclerView = "1.2.1"
+android-recyclerView = "1.3.0"
 android-appCompat = "1.6.1"
-android-fragment = "1.5.5"
+android-fragment = "1.5.6"
 android-espresso = "3.5.1"
 android-test = "1.1.5"
 
@@ -67,7 +69,8 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 
 kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
-klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "klock" }
+klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "korlibs" }
+krypto = { module = "com.soywiz.korlibs.krypto:krypto", version.ref = "korlibs" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
@@ -90,6 +93,8 @@ kt-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref
 
 kotlin-poet = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin-poet" }
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 
 # Buildscript
 
