@@ -2,6 +2,15 @@
 
 ## 0.17.6
 
+* `Versions`:
+    * `Kotlin`: `1.8.10` -> `1.8.20`
+    * `KSLog`: `1.0.0` -> `1.1.1`
+    * `Compose`: `1.3.1` -> `1.4.0`
+    * `Koin`: `3.3.2` -> `3.4.0`
+    * `RecyclerView`: `1.2.1` -> `1.3.0`
+    * `Fragment`: `1.5.5` -> `1.5.6`
+* Experimentally (`!!!`) add `linuxX64` and `mingwX64` targets
+
 ## 0.17.5
 
 * `Common`:
