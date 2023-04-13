@@ -2809,8 +2809,11 @@ $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/row/#/PointingToDeclarati
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/unaryPlus/TypeParam(bounds=[kotlin.Any?])#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/unary-plus.html
 $dokka.location:dev.inmo.micro_utils.mime_types////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/index.html
 $dokka.location:dev.inmo.micro_utils.mime_types//findBuiltinMimeType/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/find-builtin-mime-type.html
+$dokka.location:dev.inmo.micro_utils.mime_types//getMimeType/#kotlin.String#kotlin.Function1[kotlin.Array[dev.inmo.micro_utils.mime_types.MimeType],dev.inmo.micro_utils.mime_types.MimeType?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/get-mime-type.html
+$dokka.location:dev.inmo.micro_utils.mime_types//getMimeTypeOrAny/#kotlin.String#kotlin.Function1[kotlin.Array[dev.inmo.micro_utils.mime_types.MimeType],dev.inmo.micro_utils.mime_types.MimeType?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/get-mime-type-or-any.html
 $dokka.location:dev.inmo.micro_utils.mime_types//knownMimeTypesMap/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/known-mime-types-map.html
 $dokka.location:dev.inmo.micro_utils.mime_types//mimeType/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/mime-type.html
+$dokka.location:dev.inmo.micro_utils.mime_types//mimeTypesByExtensions/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/mime-types-by-extensions.html
 $dokka.location:dev.inmo.micro_utils.mime_types/CustomMimeType///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-custom-mime-type/index.html
 $dokka.location:dev.inmo.micro_utils.mime_types/CustomMimeType/CustomMimeType/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-custom-mime-type/-custom-mime-type.html
 $dokka.location:dev.inmo.micro_utils.mime_types/CustomMimeType/raw/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-custom-mime-type/raw.html
@@ -3534,8 +3537,10 @@ $dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes.XConference.Any//
 $dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes.XConference.XCooltalk///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-known-mime-types/-x-conference/-x-cooltalk/index.html
 $dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes.XConference///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-known-mime-types/-x-conference/index.html
 $dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-known-mime-types/index.html
+$dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes/extensions/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-known-mime-types/extensions.html
 $dokka.location:dev.inmo.micro_utils.mime_types/KnownMimeTypes/raw/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-known-mime-types/raw.html
 $dokka.location:dev.inmo.micro_utils.mime_types/MimeType///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-mime-type/index.html
+$dokka.location:dev.inmo.micro_utils.mime_types/MimeType/extensions/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-mime-type/extensions.html
 $dokka.location:dev.inmo.micro_utils.mime_types/MimeType/raw/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-mime-type/raw.html
 $dokka.location:dev.inmo.micro_utils.mime_types/MimeTypeSerializer///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-mime-type-serializer/index.html
 $dokka.location:dev.inmo.micro_utils.mime_types/MimeTypeSerializer/descriptor/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.mime_types/-mime-type-serializer/descriptor.html
