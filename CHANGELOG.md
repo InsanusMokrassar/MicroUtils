@@ -2,6 +2,8 @@
 
 ## 0.17.7
 
+* `Versions`:
+    * `Android CoreKtx`: `1.9.0` -> `1.10.0`
 * `Startup`:
     * Add support of `linuxX64` and `mingwX64` platforms
 
