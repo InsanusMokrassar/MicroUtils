@@ -2,6 +2,9 @@
 
 ## 0.17.7
 
+* `Startup`:
+    * Add support of `linuxX64` and `mingwX64` platforms
+
 ## 0.17.6
 
 * `Versions`:

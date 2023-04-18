@@ -4,7 +4,7 @@ plugins {
     id "application"
 }
 
-apply from: "$mppJsAndJavaProjectPresetPath"
+apply from: "$mppJvmJsLinuxMingwProjectPresetPath"
 
 kotlin {
     sourceSets {
