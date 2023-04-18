@@ -3,7 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply from: "$mppJsAndJavaProjectPresetPath"
+apply from: "$mppJvmJsLinuxMingwProjectPresetPath"
 
 kotlin {
     sourceSets {
@@ -17,6 +17,16 @@ kotlin {
             }
         }
         jsMain {
+            dependencies {
+                api libs.uuid
+            }
+        }
+        linuxX64Main {
+            dependencies {
+                api libs.uuid
+            }
+        }
+        mingwX64Main {
             dependencies {
                 api libs.uuid
             }
