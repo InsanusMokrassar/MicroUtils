@@ -13,7 +13,7 @@ jb-dokka = "1.8.10"
 korlibs = "3.4.0"
 uuid = "0.7.0"
 
-ktor = "2.2.4"
+ktor = "2.3.0"
 
 gh-release = "2.4.1"
 
