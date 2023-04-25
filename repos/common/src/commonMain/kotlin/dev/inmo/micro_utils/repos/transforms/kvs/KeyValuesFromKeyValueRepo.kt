@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.pagination.FirstPagePagination
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.KeyValueRepo
 import dev.inmo.micro_utils.repos.KeyValuesRepo
+import dev.inmo.micro_utils.repos.set
 import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -58,6 +59,24 @@ open class KeyValuesFromKeyValueRepo<Key, Value, ValuesIterable : Iterable<Value
                 _onValueRemoved.emit(k to it)
             }
         }
+    }
+
+    override suspend fun removeWithValue(v: Value) {
+        val toRemove = mutableMapOf<Key, List<Value>>()
+
+        doForAllWithNextPaging {
+            original.keys(it).also {
+                it.results.forEach {
+                    val data = original.get(it) ?: return@forEach
+
+                    if (v in data) {
+                        toRemove[it] = listOf(v)
+                    }
+                }
+            }
+        }
+
+        remove(toRemove)
     }
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {

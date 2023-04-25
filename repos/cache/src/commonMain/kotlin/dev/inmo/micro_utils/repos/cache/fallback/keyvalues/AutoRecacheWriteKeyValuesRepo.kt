@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.WriteKeyValuesRepo
 import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import dev.inmo.micro_utils.repos.set
 import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.CoroutineScope
@@ -50,7 +51,7 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
 
     override suspend fun clearWithValue(v: RegisteredObject) {
         originalRepo.clearWithValue(v)
-        doForAllWithNextPaging(FirstPagePagination(kvCache.count().takeIf { it < Int.MAX_VALUE } ?.toInt() ?: Int.MAX_VALUE)) {
+        doForAllWithNextPaging(kvCache.maxPagePagination()) {
             kvCache.keys(it).also {
                 it.results.forEach { id ->
                     kvCache.get(id) ?.takeIf { it.contains(v) } ?.let {
@@ -70,6 +71,19 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
         originalRepo.remove(toRemove)
         toRemove.forEach { (k, v) ->
             kvCache.set(k, (kvCache.get(k) ?: return@forEach) - v)
+        }
+    }
+
+    override suspend fun removeWithValue(v: RegisteredObject) {
+        originalRepo.removeWithValue(v)
+        doForAllWithNextPaging(kvCache.maxPagePagination()) {
+            kvCache.keys(it).also {
+                it.results.forEach { id ->
+                    kvCache.get(id) ?.takeIf { it.contains(v) } ?.let {
+                        kvCache.set(id, it - v)
+                    }
+                }
+            }
         }
     }
 

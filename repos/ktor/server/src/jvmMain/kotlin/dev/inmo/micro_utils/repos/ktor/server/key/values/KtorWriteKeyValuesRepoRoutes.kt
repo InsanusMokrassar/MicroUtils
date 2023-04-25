@@ -46,6 +46,11 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureWriteKeyValue
         call.respond(HttpStatusCode.OK)
     }
 
+    post(removeWithValueRoute) {
+        originalRepo.removeWithValue(call.receive())
+        call.respond(HttpStatusCode.OK)
+    }
+
     post(clearRoute) {
         originalRepo.clear(call.receive())
         call.respond(HttpStatusCode.OK)

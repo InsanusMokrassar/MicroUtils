@@ -13,6 +13,7 @@ const val onDataClearedRoute = "onDataCleared"
 
 const val addRoute = "add"
 const val removeRoute = "remove"
+const val removeWithValueRoute = "removeWithValue"
 const val clearRoute = "clear"
 const val clearWithValueRoute = "clearWithValue"
 const val setRoute = "set"

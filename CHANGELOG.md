@@ -6,6 +6,8 @@
     * `Server`:
         * Now it is possible to take query parameters as list
 * `Repos`:
+    * `Common`:
+        * New `WriteKeyValuesRepo.removeWithValue`
     * `Cache`:
         * Rename full caching factories functions to `fullyCached`
 

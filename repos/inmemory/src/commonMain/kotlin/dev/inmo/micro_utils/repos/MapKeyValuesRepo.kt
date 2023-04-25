@@ -87,13 +87,27 @@ class MapWriteKeyValuesRepo<Key, Value>(
         }
     }
 
+    override suspend fun removeWithValue(v: Value) {
+        map.forEach { (k, values) ->
+            if (values.remove(v)) {
+                _onValueRemoved.emit(k to v)
+            }
+        }
+    }
+
     override suspend fun clear(k: Key) {
         map.remove(k) ?.also { _onDataCleared.emit(k) }
     }
 
     override suspend fun clearWithValue(v: Value) {
-        map.forEach { (k, values) ->
-            if (values.remove(v)) _onValueRemoved.emit(k to v)
+        map.filter { (_, values) ->
+            values.contains(v)
+        }.forEach {
+            map.remove(it.key) ?.onEach { v ->
+                _onValueRemoved.emit(it.key to v)
+            } ?.also { _ ->
+                _onDataCleared.emit(it.key)
+            }
         }
     }
 }

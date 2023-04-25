@@ -157,6 +157,10 @@ open class FullKeyValuesCacheRepo<Key,Value>(
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo)
     }
+
+    override suspend fun removeWithValue(v: Value) {
+        super<FullWriteKeyValuesCacheRepo>.removeWithValue(v)
+    }
 }
 
 fun <Key, Value> KeyValuesRepo<Key, Value>.fullyCached(

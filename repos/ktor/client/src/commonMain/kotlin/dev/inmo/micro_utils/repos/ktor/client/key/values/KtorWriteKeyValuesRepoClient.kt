@@ -48,6 +48,17 @@ class KtorWriteKeyValuesRepoClient<Key : Any, Value : Any>(
     }
 
     @OptIn(InternalAPI::class)
+    override suspend fun removeWithValue(v: Value) {
+        httpClient.post(
+            buildStandardUrl(baseUrl, removeWithValueRoute)
+        ) {
+            body = v
+            bodyType = valueTypeInfo
+            contentType(contentType)
+        }.throwOnUnsuccess { "Unable to remove $v" }
+    }
+
+    @OptIn(InternalAPI::class)
     override suspend fun clear(k: Key) {
         httpClient.post(
             buildStandardUrl(baseUrl, clearRoute)
