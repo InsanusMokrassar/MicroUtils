@@ -5,6 +5,9 @@
 * `Ktor`:
     * `Server`:
         * Now it is possible to take query parameters as list
+* `Repos`:
+    * `Cache`:
+        * Rename full caching factories functions to `fullyCached`
 
 ## 0.17.8
 

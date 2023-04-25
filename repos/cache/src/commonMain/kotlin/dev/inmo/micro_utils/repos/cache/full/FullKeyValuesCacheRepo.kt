@@ -159,6 +159,12 @@ open class FullKeyValuesCacheRepo<Key,Value>(
     }
 }
 
+fun <Key, Value> KeyValuesRepo<Key, Value>.fullyCached(
+    kvCache: FullKVCache<Key, List<Value>>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) = FullKeyValuesCacheRepo(this, kvCache, scope)
+
+@Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
 fun <Key, Value> KeyValuesRepo<Key, Value>.caching(
     kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)

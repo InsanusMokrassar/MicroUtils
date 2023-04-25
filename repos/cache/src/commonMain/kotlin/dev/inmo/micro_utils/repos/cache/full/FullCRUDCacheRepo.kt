@@ -102,8 +102,15 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     }
 }
 
-fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
+fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.fullyCached(
     kvCache: FullKVCache<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     idGetter: (ObjectType) -> IdType
 ) = FullCRUDCacheRepo(this, kvCache, scope, idGetter)
+
+@Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope, idGetter)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
+fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
+    kvCache: FullKVCache<IdType, ObjectType>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    idGetter: (ObjectType) -> IdType
+) = fullyCached(kvCache, scope, idGetter)
