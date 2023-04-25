@@ -2,6 +2,10 @@
 
 ## 0.18.0
 
+* `Ktor`:
+    * `Server`:
+        * Now it is possible to take query parameters as list
+
 ## 0.17.8
 
 * `Versions`:
