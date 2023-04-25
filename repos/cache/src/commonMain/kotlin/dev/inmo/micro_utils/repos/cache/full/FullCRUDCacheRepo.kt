@@ -103,7 +103,7 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
 }
 
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.fullyCached(
-    kvCache: FullKVCache<IdType, ObjectType>,
+    kvCache: FullKVCache<IdType, ObjectType> = FullKVCache(),
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     idGetter: (ObjectType) -> IdType
 ) = FullCRUDCacheRepo(this, kvCache, scope, idGetter)

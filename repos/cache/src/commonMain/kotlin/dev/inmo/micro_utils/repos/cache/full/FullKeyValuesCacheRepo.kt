@@ -160,7 +160,7 @@ open class FullKeyValuesCacheRepo<Key,Value>(
 }
 
 fun <Key, Value> KeyValuesRepo<Key, Value>.fullyCached(
-    kvCache: FullKVCache<Key, List<Value>>,
+    kvCache: FullKVCache<Key, List<Value>> = FullKVCache(),
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) = FullKeyValuesCacheRepo(this, kvCache, scope)
 
