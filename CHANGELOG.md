@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.18.0
+
+**ALL PREVIOUSLY DEPRECATED FUNCTIONALITY HAVE BEEN REMOVED**
+
+* `Versions`:
+    * `Android Fragments`: `1.5.6` -> `1.5.7`
+* `Ktor`:
+    * `Server`:
+        * Now it is possible to take query parameters as list
+* `Repos`:
+    * `Common`:
+        * New `WriteKeyValuesRepo.removeWithValue`
+    * `Cache`:
+        * Rename full caching factories functions to `fullyCached`
+
 ## 0.17.8
 
 * `Versions`:

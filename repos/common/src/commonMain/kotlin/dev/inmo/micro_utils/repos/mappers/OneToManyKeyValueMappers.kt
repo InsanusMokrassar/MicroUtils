@@ -97,6 +97,8 @@ open class MapperWriteKeyValuesRepo<FromKey, FromValue, ToKey, ToValue>(
         }.toMap()
     )
 
+    override suspend fun removeWithValue(v: FromValue) = to.removeWithValue(v.toOutValue())
+
     override suspend fun set(toSet: Map<FromKey, List<FromValue>>) {
         to.set(
             toSet.map { (k, vs) -> k.toOutKey() to vs.map { v -> v.toOutValue() } }.toMap()

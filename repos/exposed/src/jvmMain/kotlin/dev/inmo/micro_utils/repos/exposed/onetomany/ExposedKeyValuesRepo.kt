@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
 import org.jetbrains.exposed.sql.transactions.transaction
 
 typealias ExposedOneToManyKeyValueRepo1<Key, Value> = ExposedKeyValuesRepo<Key, Value>
@@ -66,9 +67,36 @@ open class ExposedKeyValuesRepo<Key, Value>(
         }
     }
 
+    override suspend fun removeWithValue(v: Value) {
+        transaction(database) {
+            val keys = select { selectByValue(v) }.map { it.asKey }
+            deleteWhere { SqlExpressionBuilder.selectByValue(v) }
+            keys
+        }.forEach {
+            _onValueRemoved.emit(it to v)
+        }
+    }
+
     override suspend fun clear(k: Key) {
         transaction(database) {
             deleteWhere { keyColumn.eq(k) }
         }.also { _onDataCleared.emit(k) }
+    }
+
+    override suspend fun clearWithValue(v: Value) {
+        transaction(database) {
+            val toClear = select { selectByValue(v) }
+                .asSequence()
+                .map { it.asKey to it.asObject }
+                .groupBy { it.first }
+                .mapValues { it.value.map { it.second } }
+            deleteWhere { keyColumn.inList(toClear.keys) }
+            toClear
+        }.forEach {
+            it.value.forEach { v ->
+                _onValueRemoved.emit(it.key to v)
+            }
+            _onDataCleared.emit(it.key)
+        }
     }
 }

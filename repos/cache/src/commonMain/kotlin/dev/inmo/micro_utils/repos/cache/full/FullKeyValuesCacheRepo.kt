@@ -157,8 +157,18 @@ open class FullKeyValuesCacheRepo<Key,Value>(
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo)
     }
+
+    override suspend fun removeWithValue(v: Value) {
+        super<FullWriteKeyValuesCacheRepo>.removeWithValue(v)
+    }
 }
 
+fun <Key, Value> KeyValuesRepo<Key, Value>.fullyCached(
+    kvCache: FullKVCache<Key, List<Value>> = FullKVCache(),
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) = FullKeyValuesCacheRepo(this, kvCache, scope)
+
+@Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
 fun <Key, Value> KeyValuesRepo<Key, Value>.caching(
     kvCache: FullKVCache<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)

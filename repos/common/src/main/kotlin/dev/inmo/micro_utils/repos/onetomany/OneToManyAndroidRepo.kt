@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.common.mapNotNullA
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.crud.asId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -257,6 +258,19 @@ class OneToManyAndroidRepo<Key, Value>(
                 }
             }
         }.forEach { (k, v) ->
+            _onValueRemoved.emit(k to v)
+        }
+    }
+
+    override suspend fun removeWithValue(v: Value) {
+        helper.blockingWritableTransaction {
+            val keys = select(tableName, idColumnArray, "$valueColumnName=?", arrayOf(v.valueAsString())).map {
+                it.asId.keyFromString()
+            }
+            keys.filter {
+                delete(tableName, "$idColumnName=? AND $valueColumnName=?", arrayOf(it.keyAsString(), v.valueAsString())) > 0
+            }
+        }.forEach { k ->
             _onValueRemoved.emit(k to v)
         }
     }
