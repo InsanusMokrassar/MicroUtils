@@ -2,6 +2,8 @@
 
 ## 0.18.0
 
+* `Versions`:
+    * `Android Fragments`: `1.5.6` -> `1.5.7`
 * `Ktor`:
     * `Server`:
         * Now it is possible to take query parameters as list
