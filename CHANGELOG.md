@@ -2,6 +2,8 @@
 
 ## 0.18.0
 
+**ALL PREVIOUSLY DEPRECATED FUNCTIONALITY HAVE BEEN REMOVED**
+
 * `Versions`:
     * `Android Fragments`: `1.5.6` -> `1.5.7`
 * `Ktor`:
