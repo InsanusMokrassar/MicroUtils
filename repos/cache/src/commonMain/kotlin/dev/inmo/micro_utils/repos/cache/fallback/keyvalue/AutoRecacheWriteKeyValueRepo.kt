@@ -17,10 +17,10 @@ open class AutoRecacheWriteKeyValueRepo<Id, RegisteredObject>(
     protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache()
 ) : WriteKeyValueRepo<Id, RegisteredObject>, FallbackCacheRepo {
     override val onValueRemoved: Flow<Id>
-        get() = (originalRepo.onValueRemoved + kvCache.onValueRemoved).distinctUntilChanged()
+        get() = (originalRepo.onValueRemoved).distinctUntilChanged()
 
     override val onNewValue: Flow<Pair<Id, RegisteredObject>>
-        get() = (originalRepo.onNewValue + kvCache.onNewValue).distinctUntilChanged()
+        get() = (originalRepo.onNewValue).distinctUntilChanged()
 
     private val onRemovingUpdatesListeningJob = originalRepo.onValueRemoved.subscribeSafelyWithoutExceptions(scope) {
         kvCache.unset(it)

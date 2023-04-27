@@ -21,9 +21,9 @@ open class AutoRecacheWriteCRUDRepo<RegisteredObject, Id, InputObject>(
     protected val idGetter: (RegisteredObject) -> Id
 ) : WriteCRUDRepo<RegisteredObject, Id, InputObject>, FallbackCacheRepo {
     override val deletedObjectsIdsFlow: Flow<Id>
-        get() = (originalRepo.deletedObjectsIdsFlow + kvCache.onValueRemoved).distinctUntilChanged()
+        get() = (originalRepo.deletedObjectsIdsFlow).distinctUntilChanged()
     override val newObjectsFlow: Flow<RegisteredObject>
-        get() = (originalRepo.newObjectsFlow + kvCache.onNewValue.map { it.second }).distinctUntilChanged()
+        get() = (originalRepo.newObjectsFlow).distinctUntilChanged()
     override val updatedObjectsFlow: Flow<RegisteredObject>
         get() = originalRepo.updatedObjectsFlow
 

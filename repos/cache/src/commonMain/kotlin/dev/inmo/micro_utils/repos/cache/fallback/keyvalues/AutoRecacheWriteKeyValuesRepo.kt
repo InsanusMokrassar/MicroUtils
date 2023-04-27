@@ -25,7 +25,7 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
     override val onNewValue: Flow<Pair<Id, RegisteredObject>>
         get() = originalRepo.onNewValue
     override val onDataCleared: Flow<Id>
-        get() = (originalRepo.onDataCleared + kvCache.onValueRemoved).distinctUntilChanged()
+        get() = (originalRepo.onDataCleared).distinctUntilChanged()
 
     private val onDataClearedListeningJob = originalRepo.onDataCleared.subscribeSafelyWithoutExceptions(scope) {
         kvCache.unset(it)
