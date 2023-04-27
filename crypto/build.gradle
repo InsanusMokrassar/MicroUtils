@@ -21,3 +21,11 @@ kotlin {
         }
     }
 }
+
+android {
+    sourceSets {
+        main {
+            java.srcDirs += [ "src/jvmMain/kotlin" ]
+        }
+    }
+}
