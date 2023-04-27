@@ -42,9 +42,6 @@ android-props-buildTools = "33.0.2"
 
 kt-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kt" }
 kt-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kt" }
-kt-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kt" }
-kt-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kt" }
-kt-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kt" }
 
 kt-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kt-serialization" }
 kt-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-cbor", version.ref = "kt-serialization" }
@@ -87,6 +84,10 @@ android-appCompat-resources = { module = "androidx.appcompat:appcompat-resources
 android-fragment = { module = "androidx.fragment:fragment", version.ref = "android-fragment" }
 android-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "android-espresso" }
 android-test-junit = { module = "androidx.test.ext:junit", version.ref = "android-test" }
+
+
+kt-test-js = { module = "org.jetbrains.kotlin:kotlin-test-js", version.ref = "kt" }
+kt-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kt" }
 
 # ksp dependencies
 

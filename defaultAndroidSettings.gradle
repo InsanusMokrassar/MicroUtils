@@ -1,7 +1,6 @@
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
-    namespace "${group}.${project.name}"
     compileSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
     buildToolsVersion libs.versions.android.props.buildTools.get()
 
