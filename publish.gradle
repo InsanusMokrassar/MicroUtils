@@ -1,7 +1,8 @@
 apply plugin: 'maven-publish'
 
 task javadocsJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier.convention("javadoc")
+    archiveClassifier.set("javadoc")
 }
 
 publishing {
