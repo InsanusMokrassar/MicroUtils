@@ -2,6 +2,8 @@
 
 ## 0.18.1
 
+* `Common`:
+    * Add `MapDiff`
 * `Coroutines`:
     * Add `SmartMutex`
 
