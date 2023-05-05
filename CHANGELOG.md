@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.18.1
+
+* `Common`:
+    * Add `MapDiff`
+* `Coroutines`:
+    * Add `SmartMutex`
+
 ## 0.18.0
 
 **ALL PREVIOUSLY DEPRECATED FUNCTIONALITY HAVE BEEN REMOVED**
