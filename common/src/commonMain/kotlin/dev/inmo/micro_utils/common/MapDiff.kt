@@ -76,6 +76,23 @@ fun <K, V> Map<K, V>.diff(
 )
 
 /**
+ * Will apply [mapDiff] to [this] [MutableMap]
+ */
+fun <K, V> MutableMap<K, V>.applyDiff(
+    mapDiff: MapDiff<K, V>
+) {
+    mapDiff.apply {
+        removed.keys.forEach { remove(it) }
+        changed.forEach { (k, oldNew) ->
+            put(k, oldNew.second)
+        }
+        added.forEach { (k, new) ->
+            put(k, new)
+        }
+    }
+}
+
+/**
  * Will apply changes with [from] map into [this] one
  *
  * @param compareFun Will be used to determine changed values
@@ -86,14 +103,8 @@ fun <K, V> MutableMap<K, V>.applyDiff(
     from: Map<K, V>,
     compareFun: (K, V, V) -> Boolean
 ): MapDiff<K, V> {
-    return diff(from, compareFun).apply {
-        removed.keys.forEach { remove(it) }
-        changed.forEach { (k, oldNew) ->
-            put(k, oldNew.second)
-        }
-        added.forEach { (k, new) ->
-            put(k, new)
-        }
+    return diff(from, compareFun).also {
+        applyDiff(it)
     }
 }
 
@@ -111,4 +122,14 @@ fun <K, V> MutableMap<K, V>.applyDiff(
 ): MapDiff<K, V> = applyDiff(
     from,
     compareFun = createCompareFun(strictComparison)
+)
+
+/**
+ * Reverse [this] [MapDiff]. Result will contain [MapDiff.added] on [MapDiff.removed] (and vice-verse), all the
+ * [MapDiff.changed] values will be reversed too
+ */
+fun <K, V> MapDiff<K, V>.reversed(): MapDiff<K, V> = MapDiff(
+    removed = added,
+    changed = changed.mapValues { (_, oldNew) -> oldNew.second to oldNew.first },
+    added = removed
 )
