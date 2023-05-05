@@ -200,20 +200,18 @@ inline fun <T> Iterable<T>.calculateStrictDiff(
 ) = calculateDiff(other, strictComparison = true)
 
 /**
- * This method call [calculateDiff] with strict mode [strictComparison] and then apply differences to [this]
- * mutable list
+ * Applies [diff] to [this] [MutableList]
  */
 fun <T> MutableList<T>.applyDiff(
-    source: Iterable<T>,
-    strictComparison: Boolean = false
-): Diff<T> = calculateDiff(source, strictComparison).also {
-    for (i in it.removed.indices.sortedDescending()) {
-        removeAt(it.removed[i].index)
+    diff: Diff<T>
+) {
+    for (i in diff.removed.indices.sortedDescending()) {
+        removeAt(diff.removed[i].index)
     }
-    it.added.forEach { (i, t) ->
+    diff.added.forEach { (i, t) ->
         add(i, t)
     }
-    it.replaced.forEach { (_, new) ->
+    diff.replaced.forEach { (_, new) ->
         set(new.index, new.value)
     }
 }
@@ -224,15 +222,28 @@ fun <T> MutableList<T>.applyDiff(
  */
 fun <T> MutableList<T>.applyDiff(
     source: Iterable<T>,
+    strictComparison: Boolean = false
+): Diff<T> = calculateDiff(source, strictComparison).also {
+    applyDiff(it)
+}
+
+/**
+ * This method call [calculateDiff] and then apply differences to [this]
+ * mutable list
+ */
+fun <T> MutableList<T>.applyDiff(
+    source: Iterable<T>,
     comparisonFun: (T?, T?) -> Boolean
 ): Diff<T> = calculateDiff(source, comparisonFun).also {
-    for (i in it.removed.indices.sortedDescending()) {
-        removeAt(it.removed[i].index)
-    }
-    it.added.forEach { (i, t) ->
-        add(i, t)
-    }
-    it.replaced.forEach { (_, new) ->
-        set(new.index, new.value)
-    }
+    applyDiff(it)
 }
+
+/**
+ * Reverse [this] [Diff]. Result will contain [Diff.added] on [Diff.removed] (and vice-verse), all the
+ * [Diff.replaced] values will be reversed too
+ */
+fun <T> Diff<T>.reversed() = Diff(
+    removed = added,
+    replaced = replaced.map { it.second to it.first },
+    added = removed
+)
