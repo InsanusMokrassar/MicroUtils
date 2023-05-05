@@ -82,7 +82,7 @@ fun <K, V> Map<K, V>.diff(
  */
 fun <K, V> MutableMap<K, V>.applyDiff(
     from: Map<K, V>,
-    compareFun: (K, V, V) -> Boolean = { _, first, second -> first == second }
+    compareFun: (K, V, V) -> Boolean
 ) {
     diff(from, compareFun).apply {
         removed.keys.forEach { remove(it) }
