@@ -76,15 +76,17 @@ fun <K, V> Map<K, V>.diff(
 )
 
 /**
- * Will apply changes with [other] map into [this] one
+ * Will apply changes with [from] map into [this] one
  *
  * @param compareFun Will be used to determine changed values
+ *
+ * @return [MapDiff] applied to [this] [MutableMap]
  */
 fun <K, V> MutableMap<K, V>.applyDiff(
     from: Map<K, V>,
     compareFun: (K, V, V) -> Boolean
-) {
-    diff(from, compareFun).apply {
+): MapDiff<K, V> {
+    return diff(from, compareFun).apply {
         removed.keys.forEach { remove(it) }
         changed.forEach { (k, oldNew) ->
             put(k, oldNew.second)
@@ -96,15 +98,17 @@ fun <K, V> MutableMap<K, V>.applyDiff(
 }
 
 /**
- * Will apply changes with [other] map into [this] one
+ * Will apply changes with [from] map into [this] one
  *
  * @param strictComparison If true, will use strict (===) comparison for the values' comparison. Otherwise, standard
  * `equals` will be used
+ *
+ * @return [MapDiff] applied to [this] [MutableMap]
  */
 fun <K, V> MutableMap<K, V>.applyDiff(
-    other: Map<K, V>,
+    from: Map<K, V>,
     strictComparison: Boolean = false
-) = applyDiff(
-    other,
+): MapDiff<K, V> = applyDiff(
+    from,
     compareFun = createCompareFun(strictComparison)
 )
