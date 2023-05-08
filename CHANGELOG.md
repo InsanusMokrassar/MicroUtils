@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.18.2
+
+* `Startup`:
+    * Now internal `Json` is fully customizable
+
 ## 0.18.1
 
 * `Common`:

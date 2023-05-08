@@ -1,9 +1,11 @@
+@file:GenerateKoinDefinition("baseJsonProvider", Json::class)
 package dev.inmo.micro_utils.startup.launcher
 
 import dev.inmo.kslog.common.i
 import dev.inmo.kslog.common.taggedLogger
 import dev.inmo.kslog.common.w
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
+import dev.inmo.micro_utils.koin.annotations.GenerateKoinDefinition
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin.setupDI
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin.startPlugin
 import dev.inmo.micro_utils.startup.plugin.StartPlugin
@@ -13,9 +15,10 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerialFormat
 import kotlinx.serialization.StringFormat
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.modules.SerializersModule
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -35,7 +38,19 @@ object StartLauncherPlugin : StartPlugin {
         single { rawJsonObject }
         single { config }
         single { CoroutineScope(Dispatchers.Default) }
-        single { defaultJson } binds arrayOf(StringFormat::class, SerialFormat::class)
+        single {
+            val serializersModules = getAll<SerializersModule>().distinct()
+            val baseJson = baseJsonProvider ?: defaultJson
+            if (serializersModules.isEmpty()) {
+                baseJson
+            } else {
+                Json(baseJson) {
+                    SerializersModule {
+                        serializersModules.forEach { include(it) }
+                    }
+                }
+            }
+        } binds arrayOf(StringFormat::class, SerialFormat::class)
 
         includes(
             config.plugins.mapNotNull {
