@@ -45,7 +45,8 @@ object StartLauncherPlugin : StartPlugin {
                 baseJson
             } else {
                 Json(baseJson) {
-                    SerializersModule {
+                    serializersModule = SerializersModule {
+                        include(baseJson.serializersModule)
                         serializersModules.forEach { include(it) }
                     }
                 }
