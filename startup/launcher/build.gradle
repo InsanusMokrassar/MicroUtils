@@ -2,6 +2,7 @@ plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
     id "application"
+    id "com.google.devtools.ksp"
 }
 
 apply from: "$mppJvmJsLinuxMingwProjectPresetPath"
@@ -11,6 +12,7 @@ kotlin {
         commonMain {
             dependencies {
                 api internalProject("micro_utils.startup.plugin")
+                api internalProject("micro_utils.koin")
             }
         }
         commonTest {
@@ -28,4 +30,11 @@ application {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    add("kspCommonMainMetadata", project(":micro_utils.koin.generator"))
+}
+
+ksp {
 }
