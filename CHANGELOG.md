@@ -2,6 +2,10 @@
 
 ## 0.18.3
 
+* `Versions`:
+    * `Serialization`: `1.5.0` -> `1.5.1`
+    * `Android Cor Ktx`: `1.10.0` -> `1.10.1`
+
 ## 0.18.2
 
 * `Startup`:
