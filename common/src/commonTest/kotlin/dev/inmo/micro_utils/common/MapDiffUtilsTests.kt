@@ -167,6 +167,45 @@ class MapDiffUtilsTests {
     }
 
     @Test
+    fun testApplyMapDiffRemovedStrictComparison() {
+        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
+        val newMap = mutableMapOf("a" to 1, "c" to 3, "d" to 4)
+
+        val diff = oldMap.applyDiff(newMap, true)
+
+        assertEquals(
+            mapOf("b" to 2),
+            diff.removed
+        )
+    }
+
+    @Test
+    fun testApplyMapDiffAddedStrictComparison() {
+        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
+        val newMap = mutableMapOf("a" to 1, "c" to 3, "d" to 4)
+
+        val diff = oldMap.applyDiff(newMap, true)
+
+        assertEquals(
+            mapOf("d" to 4),
+            diff.added
+        )
+    }
+
+    @Test
+    fun testApplyMapDiffChangedStrictComparison() {
+        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
+        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
+
+        val diff = oldMap.applyDiff(newMap, true)
+
+        assertEquals(
+            mapOf("c" to (3 to 5)),
+            diff.changed
+        )
+    }
+
+    @Test
     fun testApplyMapDiffRemovedWithCompareFun() {
         val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
         val oldMap = mutableMapOf<String, Int>()
@@ -212,34 +251,47 @@ class MapDiffUtilsTests {
     }
 
     @Test
-    @OptIn(Warning::class)
     fun testMapDiffMixed() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val diff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
+        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
+        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
+        val mapDiff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
 
-        originalMap.remove("b")
-        // change value
-        originalMap["c"] = 5
-        // add value
-        originalMap["d"] = 4
+        val diff = oldMap.diff(newMap)
 
         assertEquals(
-            mapOf("a" to 1, "c" to 5, "d" to 4),
-            originalMap
+            mapDiff.removed,
+            diff.removed
+        )
+        assertEquals(
+            mapDiff.changed,
+            diff.changed
+        )
+        assertEquals(
+            mapDiff.added,
+            diff.added
         )
     }
 
     @Test
-    @OptIn(Warning::class)
     fun testApplyMapDiffMixed() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val diff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
+        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
+        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
 
-        originalMap.applyDiff(diff)
+        val mapDiff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
+
+        val diff = oldMap.applyDiff(newMap)
 
         assertEquals(
-            mapOf("a" to 1, "c" to 5, "d" to 4),
-            originalMap
+            mapDiff.removed,
+            diff.removed
+        )
+        assertEquals(
+            mapDiff.changed,
+            diff.changed
+        )
+        assertEquals(
+            mapDiff.added,
+            diff.added
         )
     }
 
