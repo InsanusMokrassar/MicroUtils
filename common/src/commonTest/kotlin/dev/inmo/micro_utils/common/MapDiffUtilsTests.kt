@@ -24,7 +24,7 @@ class MapDiffUtilsTests {
     @Test
     fun testMapDiffAdded() {
         val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
+        val newMap = mapOf("a" to 1, "b" to 2, "c" to 3, "d" to 4)
 
         val diff = oldMap.diff(newMap)
 
@@ -37,7 +37,7 @@ class MapDiffUtilsTests {
     @Test
     fun testMapDiffChanged() {
         val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 5, "d" to 4)
+        val newMap = mapOf("a" to 1, "b" to 2, "c" to 5)
 
         val diff = oldMap.diff(newMap)
 
