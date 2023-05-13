@@ -11,7 +11,7 @@ class MapDiffUtilsTests {
     @Test
     fun testMapDiffRemoved() {
         val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
+        val newMap = mapOf("a" to 1, "c" to 3)
 
         val diff = oldMap.diff(newMap)
 
