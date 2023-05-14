@@ -57,7 +57,9 @@ class MapDiffUtilsTests {
     )
     private val compareFunWasCalled = booleanArrayOf(false)
 
-    private fun <K, V> compareFun(wasCalled: BooleanArray): (K, V, V) -> Boolean = { _, a, b ->
+    private fun <K, V> compareFun(
+        wasCalled: BooleanArray
+    ): (K, V, V) -> Boolean = { _, a, b ->
         wasCalled[0] = true
         a != b
     }
