@@ -8,343 +8,282 @@ class MapDiffUtilsTests {
 
     private fun <K, V> compareFun(): (K, V, V) -> Boolean = { _, a, b -> a == b }
 
+    private val originalMap = mapOf(
+        "a" to 1,
+        "b" to 2,
+        "c" to 3,
+    )
+    private val newMapRemoved = Pair(
+        mapOf(
+            "a" to 1,
+            "c" to 3,
+        ),
+        mapOf("b" to 2)
+    )
+    private val newMapAdded = Pair(
+        mapOf(
+            "a" to 1,
+            "b" to 2,
+            "c" to 3,
+            "d" to 4,
+        ),
+        mapOf("d" to 4)
+    )
+    private val newMapChanged = Pair(
+        mapOf(
+            "a" to 1,
+            "b" to 2,
+            "c" to 5,
+        ),
+        mapOf("c" to (3 to 5))
+    )
+    private val newMapMixed = Pair(
+        mapOf(
+            "a" to 1,
+            "c" to 5,
+            "d" to 4,
+        ),
+        MapDiff(
+            newMapRemoved.second,
+            newMapChanged.second,
+            newMapAdded.second,
+        )
+    )
+
     @Test
     fun testMapDiffRemoved() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3)
-
-        val diff = oldMap.diff(newMap)
+        val diff = originalMap.diff(newMapRemoved.first)
 
         assertEquals(
-            mapOf("b" to 2),
+            newMapRemoved.second,
             diff.removed
         )
     }
 
     @Test
     fun testMapDiffAdded() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "b" to 2, "c" to 3, "d" to 4)
-
-        val diff = oldMap.diff(newMap)
+        val diff = originalMap.diff(newMapAdded.first)
 
         assertEquals(
-            mapOf("d" to 4),
+            newMapAdded.second,
             diff.added
         )
     }
 
     @Test
     fun testMapDiffChanged() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "b" to 2, "c" to 5)
-
-        val diff = oldMap.diff(newMap)
+        val diff = originalMap.diff(newMapChanged.first)
 
         assertEquals(
-            mapOf("c" to (3 to 5)),
+            newMapChanged.second,
             diff.changed
         )
     }
 
     @Test
     fun testMapDiffRemovedWithCompareFun() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.diff(newMap, compareFun())
+        val diff = originalMap.diff(newMapRemoved.first, compareFun())
 
         assertEquals(
-            mapOf("b" to 2),
+            newMapRemoved.second,
             diff.removed
         )
     }
 
     @Test
     fun testMapDiffAddedWithCompareFun() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.diff(newMap, compareFun())
+        val diff = originalMap.diff(newMapAdded.first, compareFun())
 
         assertEquals(
-            mapOf("d" to 4),
+            newMapAdded.second,
             diff.added
         )
     }
 
     @Test
     fun testMapDiffChangedWithCompareFun() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 5, "d" to 4)
-
-        val diff = oldMap.diff(newMap) { _, v1, v2 -> v1 == v2 }
+        val diff = originalMap.diff(newMapChanged.first, compareFun())
 
         assertEquals(
-            mapOf("c" to (3 to 5)),
+            newMapChanged.second,
             diff.changed
         )
     }
 
     @Test
     fun testMapDiffRemovedStrictComparison() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.diff(newMap, true)
+        val diff = originalMap.diff(newMapRemoved.first, true)
 
         assertEquals(
-            mapOf("b" to 2),
+            newMapRemoved.second,
             diff.removed
         )
     }
 
     @Test
     fun testMapDiffAddedStrictComparison() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.diff(newMap, true)
+        val diff = originalMap.diff(newMapAdded.first, true)
 
         assertEquals(
-            mapOf("d" to 4),
+            newMapAdded.second,
             diff.added
         )
     }
 
     @Test
     fun testMapDiffChangedStrictComparison() {
-        val oldMap = mapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mapOf("a" to 1, "c" to 5, "d" to 4)
-
-        val diff = oldMap.diff(newMap, true)
+        val diff = originalMap.diff(newMapChanged.first, true)
 
         assertEquals(
-            mapOf("c" to (3 to 5)),
+            newMapChanged.second,
             diff.changed
         )
     }
 
     @Test
-    @OptIn(Warning::class)
     fun testApplyMapDiffRemoved() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val diff = MapDiff(mapOf("b" to 2), emptyMap(), emptyMap())
+        val originalMap = originalMap.toMutableMap()
+        val mapDiff = MapDiff.empty<String, Int>().copy(
+            removed = newMapRemoved.first
+        )
 
-        originalMap.applyDiff(diff)
+        originalMap.applyDiff(mapDiff)
 
         assertEquals(
-            mapOf("a" to 1, "c" to 3),
+            newMapRemoved.second,
             originalMap
         )
     }
     @Test
-    @OptIn(Warning::class)
     fun testApplyMapDiffAdded() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val diff = MapDiff(emptyMap(), emptyMap(), mapOf("d" to 4))
+        val originalMap = originalMap.toMutableMap()
+        val mapDiff = MapDiff.empty<String, Int>().copy(
+            added = newMapAdded.first
+        )
 
-        originalMap.applyDiff(diff)
+        originalMap.applyDiff(mapDiff)
 
         assertEquals(
-            mapOf("a" to 1, "b" to 2, "c" to 3, "d" to 4),
+            newMapAdded.first,
             originalMap
         )
     }
 
     @Test
-    @OptIn(Warning::class)
     fun testApplyMapDiffChanged() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val diff = MapDiff(emptyMap(), mapOf("b" to (2 to 4)), emptyMap())
+        val originalMap = originalMap.toMutableMap()
+        val mapDiff = MapDiff.empty<String, Int>().copy(
+            changed = newMapChanged.second
+        )
 
-        originalMap.applyDiff(diff)
+        originalMap.applyDiff(mapDiff)
 
         assertEquals(
-            mapOf("a" to 1, "b" to 4, "c" to 3),
+            newMapChanged.first,
             originalMap
         )
     }
 
     @Test
     fun testApplyMapDiffRemovedStrictComparison() {
-        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mutableMapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.applyDiff(newMap, true)
+        val originalMap = originalMap.toMutableMap()
+        val diff = originalMap.applyDiff(newMapRemoved.first, true)
 
         assertEquals(
-            mapOf("b" to 2),
+            newMapRemoved.second,
             diff.removed
         )
     }
 
     @Test
     fun testApplyMapDiffAddedStrictComparison() {
-        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mutableMapOf("a" to 1, "c" to 3, "d" to 4)
-
-        val diff = oldMap.applyDiff(newMap, true)
+        val originalMap = originalMap.toMutableMap()
+        val diff = originalMap.applyDiff(newMapAdded.first, true)
 
         assertEquals(
-            mapOf("d" to 4),
+            newMapAdded.second,
             diff.added
         )
     }
 
     @Test
     fun testApplyMapDiffChangedStrictComparison() {
-        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
-
-        val diff = oldMap.applyDiff(newMap, true)
+        val originalMap = originalMap.toMutableMap()
+        val diff = originalMap.applyDiff(newMapChanged.first, true)
 
         assertEquals(
-            mapOf("c" to (3 to 5)),
+            newMapChanged.second,
             diff.changed
         )
     }
 
     @Test
     fun testApplyMapDiffRemovedWithCompareFun() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val oldMap = mutableMapOf<String, Int>()
-        val newMap = mutableMapOf<String, Int>()
-
-        oldMap.putAll(originalMap)
-        newMap.putAll(originalMap)
-
-        val remove = mapOf("b" to 2)
-        newMap.remove(remove.keys.first())
-
-        val diff = oldMap.applyDiff(newMap, compareFun())
+        val oldMap = originalMap.toMutableMap()
+        val diff = oldMap.applyDiff(newMapRemoved.first, compareFun())
 
         assertEquals(
-            remove,
+            newMapRemoved.second,
             diff.removed
         )
     }
     @Test
     fun testApplyMapDiffAddedWithCompareFun() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val apply = mapOf("d" to 4)
-        val diff = originalMap.applyDiff(apply, compareFun())
+        val oldMap = originalMap.toMutableMap()
+        val diff = oldMap.applyDiff(newMapAdded.first, compareFun())
 
         assertEquals(
-            apply,
+            newMapAdded.second,
             diff.added
         )
     }
 
     @Test
     fun testApplyMapDiffChangedWithCompareFun() {
-        val originalMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-
-        val applyDiff = originalMap.applyDiff(mapOf("b" to 4), compareFun())
-
-        val changed = mapOf("b" to (2 to 4))
+        val oldMap = originalMap.toMutableMap()
+        val diff = oldMap.applyDiff(newMapChanged.first, compareFun())
 
         assertEquals(
-            changed,
-            applyDiff.changed
+            newMapChanged.second,
+            diff.changed
         )
     }
 
     @Test
     fun testMapDiffMixed() {
-        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
-        val mapDiff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
-
-        val diff = oldMap.diff(newMap)
+        val oldMap = originalMap.toMutableMap()
+        val diff = oldMap.applyDiff(newMapMixed.first)
 
         assertEquals(
-            mapDiff.removed,
+            newMapMixed.second.removed,
             diff.removed
         )
         assertEquals(
-            mapDiff.changed,
+            newMapMixed.second.changed,
             diff.changed
         )
         assertEquals(
-            mapDiff.added,
+            newMapMixed.second.added,
             diff.added
         )
     }
 
     @Test
     fun testApplyMapDiffMixed() {
-        val oldMap = mutableMapOf("a" to 1, "b" to 2, "c" to 3)
-        val newMap = mutableMapOf("a" to 1, "c" to 5, "d" to 4)
-
-        val mapDiff = MapDiff(mapOf("b" to 2), mapOf("c" to (3 to 5)), mapOf("d" to 4))
-
-        val diff = oldMap.applyDiff(newMap)
+        val oldMap = originalMap.toMutableMap()
+        val diff = oldMap.applyDiff(newMapMixed.first)
 
         assertEquals(
-            mapDiff.removed,
+            newMapMixed.second.removed,
             diff.removed
         )
         assertEquals(
-            mapDiff.changed,
+            newMapMixed.second.changed,
             diff.changed
         )
         assertEquals(
-            mapDiff.added,
+            newMapMixed.second.added,
             diff.added
-        )
-    }
-
-    @Test
-    @OptIn(Warning::class)
-    fun testMapDiffWorksStrictComparison() {
-        val oldMap = mutableMapOf<Int, String>()
-        val newMap = mutableMapOf<Int, String>()
-
-        for (i in 0 until 10) {
-            oldMap[i] = "old$i"
-            newMap[i] = "new$i"
-        }
-
-        oldMap[0] = "old0"
-        oldMap[2] = "old2"
-        oldMap[4] = "old4"
-
-        newMap[0] = "new0"
-        newMap[2] = "new2"
-        newMap[4] = "new4"
-        newMap[10] = "new10"
-        newMap[11] = "new11"
-
-        newMap.remove(1)
-        newMap.remove(3)
-
-        val mapDiff = oldMap.diff(newMap, true)
-
-        val removed = mapOf(
-            1 to "old1",
-            3 to "old3"
-        )
-        val added = mapOf(
-            10 to "new10",
-            11 to "new11"
-        )
-        val changed = oldMap.keys.intersect(newMap.keys).associateWith {
-            oldMap[it] to newMap[it]
-        }
-        val equalMapDiff = MapDiff(removed, changed, added)
-
-        assertEquals(
-            added,
-            mapDiff.added
-        )
-        assertEquals(
-            equalMapDiff.removed,
-            mapDiff.removed
-        )
-        assertEquals(
-            equalMapDiff.changed,
-            mapDiff.changed
         )
     }
 
@@ -360,6 +299,37 @@ class MapDiffUtilsTests {
         }
 
         val mapDiff = oldMap.diff(newMap, true)
+
+        val mergedValues = oldMap.keys.intersect(newMap.keys).associateWith {
+            oldMap[it] to newMap[it]
+        }
+
+        assertEquals(
+            mergedValues,
+            mapDiff.changed,
+        )
+        assertEquals(
+            emptyMap(),
+            mapDiff.removed
+        )
+        assertEquals(
+            emptyMap(),
+            mapDiff.added
+        )
+    }
+
+    @Test
+    fun testApplyMapDiffWorksWithEqualValuesStrictComparison() {
+        val oldMap = mutableMapOf<String, Int>()
+        val newMap = mutableMapOf<String, Int>()
+
+        for (i in 0 until 10) {
+            val value = Random.nextInt()
+            oldMap[i.toString()] = value
+            newMap[i.toString()] = value
+        }
+
+        val mapDiff = oldMap.applyDiff(newMap, true)
 
         val mergedValues = oldMap.keys.intersect(newMap.keys).associateWith {
             oldMap[it] to newMap[it]
