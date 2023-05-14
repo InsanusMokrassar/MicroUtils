@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.18.4
+
+* `Koin`:
+    * New extension `lazyInject`
+
 ## 0.18.3
 
 * `Versions`:
