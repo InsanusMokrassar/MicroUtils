@@ -3,10 +3,15 @@ package dev.inmo.micro_utils.common
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class MapDiffUtilsTests {
 
-    private fun <K, V> compareFun(): (K, V, V) -> Boolean = { _, a, b -> a == b }
+    private fun <K, V> compareFun(wasCalled: BooleanArray): (K, V, V) -> Boolean = { _, a, b ->
+        wasCalled[0] = true
+        a != b
+    }
+    private val compareFunWasCalled = booleanArrayOf(false)
 
     private val originalMap = mapOf(
         "a" to 1,
@@ -36,6 +41,13 @@ class MapDiffUtilsTests {
             "c" to 5,
         ),
         mapOf("c" to (3 to 5))
+    )
+    private val newMapChangedComparable = Pair(
+        newMapChanged.first,
+        mapOf(
+            "a" to (1 to 1),
+            "b" to (2 to 2),
+        )
     )
     private val newMapMixed = Pair(
         mapOf(
@@ -82,8 +94,10 @@ class MapDiffUtilsTests {
 
     @Test
     fun testMapDiffRemovedWithCompareFun() {
-        val diff = originalMap.diff(newMapRemoved.first, compareFun())
+        val wasCalled = compareFunWasCalled
+        val diff = originalMap.diff(newMapRemoved.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
             newMapRemoved.second,
             diff.removed
@@ -92,8 +106,10 @@ class MapDiffUtilsTests {
 
     @Test
     fun testMapDiffAddedWithCompareFun() {
-        val diff = originalMap.diff(newMapAdded.first, compareFun())
+        val wasCalled = compareFunWasCalled
+        val diff = originalMap.diff(newMapAdded.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
             newMapAdded.second,
             diff.added
@@ -102,10 +118,12 @@ class MapDiffUtilsTests {
 
     @Test
     fun testMapDiffChangedWithCompareFun() {
-        val diff = originalMap.diff(newMapChanged.first, compareFun())
+        val wasCalled = compareFunWasCalled
+        val diff = originalMap.diff(newMapChangedComparable.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
-            newMapChanged.second,
+            newMapChangedComparable.second,
             diff.changed
         )
     }
@@ -219,9 +237,11 @@ class MapDiffUtilsTests {
 
     @Test
     fun testApplyMapDiffRemovedWithCompareFun() {
+        val wasCalled = compareFunWasCalled
         val oldMap = originalMap.toMutableMap()
-        val diff = oldMap.applyDiff(newMapRemoved.first, compareFun())
+        val diff = oldMap.applyDiff(newMapRemoved.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
             newMapRemoved.second,
             diff.removed
@@ -229,9 +249,11 @@ class MapDiffUtilsTests {
     }
     @Test
     fun testApplyMapDiffAddedWithCompareFun() {
+        val wasCalled = compareFunWasCalled
         val oldMap = originalMap.toMutableMap()
-        val diff = oldMap.applyDiff(newMapAdded.first, compareFun())
+        val diff = oldMap.applyDiff(newMapAdded.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
             newMapAdded.second,
             diff.added
@@ -240,11 +262,13 @@ class MapDiffUtilsTests {
 
     @Test
     fun testApplyMapDiffChangedWithCompareFun() {
+        val wasCalled = compareFunWasCalled
         val oldMap = originalMap.toMutableMap()
-        val diff = oldMap.applyDiff(newMapChanged.first, compareFun())
+        val diff = oldMap.applyDiff(newMapChangedComparable.first, compareFun(wasCalled))
 
+        assertTrue(wasCalled[0])
         assertEquals(
-            newMapChanged.second,
+            newMapChangedComparable.second,
             diff.changed
         )
     }
