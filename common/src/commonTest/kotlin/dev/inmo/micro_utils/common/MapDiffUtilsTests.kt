@@ -7,12 +7,6 @@ import kotlin.test.assertTrue
 
 class MapDiffUtilsTests {
 
-    private fun <K, V> compareFun(wasCalled: BooleanArray): (K, V, V) -> Boolean = { _, a, b ->
-        wasCalled[0] = true
-        a != b
-    }
-    private val compareFunWasCalled = booleanArrayOf(false)
-
     private val originalMap = mapOf(
         "a" to 1,
         "b" to 2,
@@ -61,6 +55,12 @@ class MapDiffUtilsTests {
             newMapAdded.second,
         )
     )
+    private val compareFunWasCalled = booleanArrayOf(false)
+
+    private fun <K, V> compareFun(wasCalled: BooleanArray): (K, V, V) -> Boolean = { _, a, b ->
+        wasCalled[0] = true
+        a != b
+    }
 
     @Test
     fun testMapDiffRemoved() {
