@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.crypto
 
-import com.soywiz.krypto.md5
+import korlibs.crypto.md5
 
 typealias MD5 = String
 

@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.ktor.common
 
-import com.soywiz.klock.DateTime
+import korlibs.time.DateTime
 
 typealias FromToDateTime = Pair<DateTime?, DateTime?>
 
