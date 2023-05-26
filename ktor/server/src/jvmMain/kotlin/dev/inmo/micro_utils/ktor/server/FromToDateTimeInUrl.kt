@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.ktor.server
 
-import com.soywiz.klock.DateTime
+import korlibs.time.DateTime
 import dev.inmo.micro_utils.ktor.common.FromToDateTime
 import io.ktor.http.Parameters
 

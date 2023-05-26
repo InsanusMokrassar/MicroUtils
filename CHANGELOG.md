@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.19.0
+
+* `Versions`:
+    * `Korlibs`: `4.0.1`
+
 ## 0.18.4
 
 * `Koin`:
