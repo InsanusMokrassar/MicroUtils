@@ -1,9 +1,14 @@
 # Changelog
 
+## 0.19.1
+
+* `Versions`:
+    * `Korlibs`: `4.0.1` -> `4.0.3`
+
 ## 0.19.0
 
 * `Versions`:
-    * `Korlibs`: `4.0.1`
+    * `Korlibs`: `3.4.0` -> `4.0.1`
 
 ## 0.18.4
 
