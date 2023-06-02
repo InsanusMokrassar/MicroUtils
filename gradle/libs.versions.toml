@@ -13,16 +13,16 @@ jb-dokka = "1.8.10"
 korlibs = "4.0.3"
 uuid = "0.7.0"
 
-ktor = "2.3.0"
+ktor = "2.3.1"
 
 gh-release = "2.4.1"
 
-koin = "3.4.0"
+koin = "3.4.1"
 
 okio = "3.3.0"
 
 ksp = "1.8.20-1.0.11"
-kotlin-poet = "1.14.0"
+kotlin-poet = "1.14.2"
 
 android-gradle = "7.4.2"
 dexcount = "4.0.0"
