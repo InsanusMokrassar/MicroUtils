@@ -61,7 +61,7 @@
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">SmartMutex</a></div><p class="paragraph">It is interface which will work like classic <span data-unresolved-link="kotlinx.coroutines.sync/Mutex///PointingToDeclaration/">Mutex</span>, but in difference have <a href="lock-state-flow.html">lockStateFlow</a> for listening of the <a href="index.html">SmartMutex</a> state.</p><p class="paragraph">There is <a href="-mutable/index.html">Mutable</a> and <a href="-immutable/index.html">Immutable</a> realizations. In case you are owner and manager current state of lock, you need <a href="index.html">Mutable</a>. Otherwise, <a href="-immutable/index.html">Immutable</a>.</p><p class="paragraph">Any <a href="index.html">Mutable</a> may produce its <a href="-immutable/index.html">Immutable</a> variant which will contains <a href="lock-state-flow.html">lockStateFlow</a> equal to its <a href="-mutable/index.html">Mutable</a> creator</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-immutable/index.html">Immutable</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mutable/index.html">Mutable</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="TYPE">
         <h2 class="">Types</h2>
@@ -97,25 +97,6 @@
           </div>
         </div>
       </div>
-      <div data-togglable="EXTENSION_FUNCTION">
-        <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-2110023258%2FFunctions%2F-1478683138" anchor-label="waitUnlock" id="-2110023258%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../wait-unlock.html"><span>wait</span><wbr></wbr><span><span>Unlock</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110023258%2FFunctions%2F-1478683138"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">SmartMutex</a><span class="token punctuation">.</span><a href="../wait-unlock.html"><span class="token function">waitUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Will wait until the <a href="lock-state-flow.html">SmartMutex.lockStateFlow</a> of <span data-unresolved-link="dev.inmo.micro_utils.coroutines//&amp;lt;this&amp;gt;/#/PointingToCallableParameters(-1)/">this</span> instance will be false.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
         <div class="table"><a data-name="1010093630%2FProperties%2F-1478683138" anchor-label="isLocked" id="1010093630%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
@@ -144,6 +125,25 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="lock-state-flow.html">lockStateFlow</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-2110023258%2FFunctions%2F-1478683138" anchor-label="waitUnlock" id="-2110023258%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../wait-unlock.html"><span>wait</span><wbr></wbr><span><span>Unlock</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2110023258%2FFunctions%2F-1478683138"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">SmartMutex</a><span class="token punctuation">.</span><a href="../wait-unlock.html"><span class="token function">waitUnlock</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Will wait until the <a href="lock-state-flow.html">SmartMutex.lockStateFlow</a> of <span data-unresolved-link="dev.inmo.micro_utils.coroutines//&amp;lt;this&amp;gt;/#/PointingToCallableParameters(-1)/">this</span> instance will be false.</p></div></div></div>
                 </div>
               </div>
             </div>
