@@ -3,10 +3,10 @@
 // ORIGINAL FILE: Test.kt
 package dev.inmo.micro_utils.koin.generator.test
 
+import kotlin.Any
 import kotlin.Boolean
 import kotlin.Deprecated
 import kotlin.String
-import kotlin.Unit
 import org.koin.core.Koin
 import org.koin.core.definition.Definition
 import org.koin.core.definition.KoinDefinition
@@ -30,13 +30,13 @@ public val Koin.sampleInfo: Test<String>
 /**
  * @return Definition by key "sampleInfo" with [parameters]
  */
-public inline fun Scope.sampleInfo(noinline parameters: ParametersDefinition): Unit =
+public inline fun Scope.sampleInfo(noinline parameters: ParametersDefinition): Test<String> =
     get(named("sampleInfo"), parameters)
 
 /**
  * @return Definition by key "sampleInfo" with [parameters]
  */
-public inline fun Koin.sampleInfo(noinline parameters: ParametersDefinition): Unit =
+public inline fun Koin.sampleInfo(noinline parameters: ParametersDefinition): Test<String> =
     get(named("sampleInfo"), parameters)
 
 /**
@@ -72,3 +72,28 @@ public fun Module.sampleInfoFactory(definition: Definition<Test<String>>):
  */
 public fun Module.factorySampleInfo(definition: Definition<Test<String>>):
     KoinDefinition<Test<String>> = factory(named("sampleInfo"), definition = definition)
+
+/**
+ * @return Definition by key "test" with [parameters]
+ */
+public inline fun <reified T : Any> Scope.test(noinline parameters: ParametersDefinition? = null): T
+    = get(named("test"), parameters)
+
+/**
+ * @return Definition by key "test" with [parameters]
+ */
+public inline fun <reified T : Any> Koin.test(noinline parameters: ParametersDefinition? = null): T
+    = get(named("test"), parameters)
+
+/**
+ * Will register [definition] with [org.koin.core.module.Module.single] and key "test"
+ */
+public inline fun <reified T : Any> Module.singleTest(createdAtStart: Boolean = false, noinline
+    definition: Definition<T>): KoinDefinition<T> = single(named("test"), createdAtStart =
+    createdAtStart, definition = definition)
+
+/**
+ * Will register [definition] with [org.koin.core.module.Module.factory] and key "test"
+ */
+public inline fun <reified T : Any> Module.factoryTest(noinline definition: Definition<T>):
+    KoinDefinition<T> = factory(named("test"), definition = definition)
