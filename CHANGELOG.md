@@ -2,6 +2,12 @@
 
 ## 0.19.3
 
+* `Koin`
+    * `Generator`
+        * New getter methods now available with opportunity to use parameters
+        * Old notation `*Single` and `*Factory` is deprecated since this release. With old
+          will be generated new `single*` and `factory*` notations for new generations
+
 ## 0.19.2
 
 * `Versions`:

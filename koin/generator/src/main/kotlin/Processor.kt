@@ -9,12 +9,17 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSFile
+import com.google.devtools.ksp.symbol.Modifier
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
+import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeVariableName
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
@@ -22,6 +27,7 @@ import com.squareup.kotlinpoet.ksp.writeTo
 import dev.inmo.micro_utils.koin.annotations.GenerateKoinDefinition
 import org.koin.core.Koin
 import org.koin.core.module.Module
+import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.scope.Scope
 import java.io.File
 import kotlin.reflect.KClass
@@ -104,57 +110,142 @@ class Processor(
                     addGetterProperty(Scope::class)
                     addGetterProperty(Koin::class)
 
-                    if (it.generateSingle) {
+                    val parametersDefinitionClassName = ClassName(
+                        "org.koin.core.parameter",
+                        "ParametersDefinition"
+                    )
+                    fun addGetterMethod(
+                        receiver: KClass<*>
+                    ) {
                         addFunction(
-                            FunSpec.builder("${it.name}Single").apply {
+                            FunSpec.builder(
+                                it.name
+                            ).apply {
                                 addKdoc(
                                     """
-                                        Will register [definition] with [org.koin.core.module.Module.single] and key "${it.name}"
+                                        @return Definition by key "${it.name}" with [parameters]
                                     """.trimIndent()
                                 )
-                                receiver(Module::class)
+                                receiver(receiver)
                                 addParameter(
-                                    ParameterSpec.builder(
-                                        "createdAtStart",
-                                        Boolean::class
-                                    ).apply {
-                                        defaultValue("false")
-                                    }.build()
+                                    "parameters",
+                                    parametersDefinitionClassName,
+                                    KModifier.NOINLINE
                                 )
-                                addParameter(
-                                    ParameterSpec.builder(
-                                        "definition",
-                                        definitionClassName.parameterizedBy(targetType.copy(nullable = false))
-                                    ).build()
-                                )
-                                returns(koinDefinitionClassName.parameterizedBy(targetType.copy(nullable = false)))
+                                addModifiers(KModifier.INLINE)
                                 addCode(
-                                    "return single(named(\"${it.name}\"), createdAtStart = createdAtStart, definition = definition)"
+                                    "return " + (if (it.nullable) {
+                                        "getOrNull"
+                                    } else {
+                                        "get"
+                                    }) + "(named(\"${it.name}\"), parameters)"
                                 )
                             }.build()
                         )
                     }
 
-                    if (it.generateFactory) {
+                    addGetterMethod(Scope::class)
+                    addGetterMethod(Koin::class)
+
+                    if (it.generateSingle) {
+                        fun FunSpec.Builder.configure(
+                            useInstead: String? = null
+                        ) {
+                            addKdoc(
+                                """
+                                        Will register [definition] with [org.koin.core.module.Module.single] and key "${it.name}"
+                                    """.trimIndent()
+                            )
+                            receiver(Module::class)
+                            addParameter(
+                                ParameterSpec.builder(
+                                    "createdAtStart",
+                                    Boolean::class
+                                ).apply {
+                                    defaultValue("false")
+                                }.build()
+                            )
+                            addParameter(
+                                ParameterSpec.builder(
+                                    "definition",
+                                    definitionClassName.parameterizedBy(targetType.copy(nullable = false))
+                                ).build()
+                            )
+                            returns(koinDefinitionClassName.parameterizedBy(targetType.copy(nullable = false)))
+                            addCode(
+                                "return single(named(\"${it.name}\"), createdAtStart = createdAtStart, definition = definition)"
+                            )
+                            if (useInstead != null) {
+                                addAnnotation(
+                                    AnnotationSpec.builder(
+                                        Deprecated::class
+                                    ).apply {
+                                        addMember(
+                                            CodeBlock.of(
+                                                """
+                                                    "This definition is old style and should not be used anymore. Use $useInstead instead"
+                                                """.trimIndent()
+                                            )
+                                        )
+                                        addMember(CodeBlock.of("ReplaceWith(\"$useInstead\")"))
+                                    }.build()
+                                )
+                            }
+                        }
+
+                        val actualSingleName = "single${it.name.replaceFirstChar { it.uppercase() }}"
                         addFunction(
-                            FunSpec.builder("${it.name}Factory").apply {
-                                addKdoc(
-                                    """
+                            FunSpec.builder("${it.name}Single").apply { configure(actualSingleName) }.build()
+                        )
+
+                        addFunction(
+                            FunSpec.builder(actualSingleName).apply { configure() }.build()
+                        )
+                    }
+
+                    if (it.generateFactory) {
+                        fun FunSpec.Builder.configure(
+                            useInstead: String? = null
+                        ) {
+                            addKdoc(
+                                """
                                         Will register [definition] with [org.koin.core.module.Module.factory] and key "${it.name}"
                                     """.trimIndent()
+                            )
+                            receiver(Module::class)
+                            addParameter(
+                                ParameterSpec.builder(
+                                    "definition",
+                                    definitionClassName.parameterizedBy(targetType.copy(nullable = false))
+                                ).build()
+                            )
+                            returns(koinDefinitionClassName.parameterizedBy(targetType.copy(nullable = false)))
+                            addCode(
+                                "return factory(named(\"${it.name}\"), definition = definition)"
+                            )
+                            if (useInstead != null) {
+                                addAnnotation(
+                                    AnnotationSpec.builder(
+                                        Deprecated::class
+                                    ).apply {
+                                        addMember(
+                                            CodeBlock.of(
+                                                """
+                                                    "This definition is old style and should not be used anymore. Use $useInstead instead"
+                                                """.trimIndent()
+                                            )
+                                        )
+                                        addMember(CodeBlock.of("ReplaceWith(\"$useInstead\")"))
+                                    }.build()
                                 )
-                                receiver(Module::class)
-                                addParameter(
-                                    ParameterSpec.builder(
-                                        "definition",
-                                        definitionClassName.parameterizedBy(targetType.copy(nullable = false))
-                                    ).build()
-                                )
-                                returns(koinDefinitionClassName.parameterizedBy(targetType.copy(nullable = false)))
-                                addCode(
-                                    "return factory(named(\"${it.name}\"), definition = definition)"
-                                )
-                            }.build()
+                            }
+                        }
+                        val actualFactoryName = "factory${it.name.replaceFirstChar { it.uppercase() }}"
+                        addFunction(
+                            FunSpec.builder("${it.name}Factory").apply { configure(useInstead = actualFactoryName) }.build()
+                        )
+                        addFunction(
+                            FunSpec.builder(actualFactoryName).apply { configure() }.build()
                         )
                     }
                     addImport("org.koin.core.qualifier", "named")
