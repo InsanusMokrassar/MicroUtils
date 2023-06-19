@@ -97,3 +97,28 @@ public inline fun <reified T : Any> Module.singleTest(createdAtStart: Boolean = 
  */
 public inline fun <reified T : Any> Module.factoryTest(noinline definition: Definition<T>):
     KoinDefinition<T> = factory(named("test"), definition = definition)
+
+/**
+ * @return Definition by key "testNullable" with [parameters]
+ */
+public inline fun <reified T : Any> Scope.testNullable(noinline parameters: ParametersDefinition? =
+    null): T? = getOrNull(named("testNullable"), parameters)
+
+/**
+ * @return Definition by key "testNullable" with [parameters]
+ */
+public inline fun <reified T : Any> Koin.testNullable(noinline parameters: ParametersDefinition? =
+    null): T? = getOrNull(named("testNullable"), parameters)
+
+/**
+ * Will register [definition] with [org.koin.core.module.Module.single] and key "testNullable"
+ */
+public inline fun <reified T : Any> Module.singleTestNullable(createdAtStart: Boolean = false,
+    noinline definition: Definition<T>): KoinDefinition<T> = single(named("testNullable"),
+    createdAtStart = createdAtStart, definition = definition)
+
+/**
+ * Will register [definition] with [org.koin.core.module.Module.factory] and key "testNullable"
+ */
+public inline fun <reified T : Any> Module.factoryTestNullable(noinline definition: Definition<T>):
+    KoinDefinition<T> = factory(named("testNullable"), definition = definition)

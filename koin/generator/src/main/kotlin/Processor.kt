@@ -127,7 +127,7 @@ class Processor(
                     addModifiers(KModifier.INLINE)
                     targetTypeAsGenericType ?.let {
                         addTypeVariable(it)
-                        returns(it)
+                        returns(it.copy(nullable = nullable))
                     } ?: returns(targetType)
                     addCode(
                         "return " + (if (nullable) {
