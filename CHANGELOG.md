@@ -2,6 +2,10 @@
 
 ## 0.19.4
 
+* `Koin`
+    * `Generator`
+        * Fixes in new generic generator part
+
 ## 0.19.3
 
 * `Koin`
