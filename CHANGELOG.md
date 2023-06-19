@@ -2,6 +2,9 @@
 
 ## 0.19.4
 
+* `Versions`:
+    * `Koin`: `3.4.1` -> `3.4.2`
+    * `Android Fragments`: `1.5.7` -> `1.6.0`
 * `Koin`
     * `Generator`
         * Fixes in new generic generator part
