@@ -11,18 +11,20 @@ import kotlinx.serialization.Serializable
 @Serializable
 @SerialName(value = "NewTest")
 public data class NewTest(
-  public override val property1: String,
-  public override val property2: Int,
-  public override val parent: ParentTypeId?,
+  override val property1: String,
+  override val property2: Int,
+  @Serializable
+  override val parent: ParentTypeId?,
 ) : Test
 
 @Serializable
 @SerialName(value = "RegisteredTest")
 public data class RegisteredTest(
-  public override val id: TestId,
-  public override val property1: String,
-  public override val property2: Int,
-  public override val parent: ParentTypeId?,
+  override val id: TestId,
+  override val property1: String,
+  override val property2: Int,
+  @Serializable
+  override val parent: ParentTypeId?,
 ) : Test, IRegisteredTest
 
 public fun Test.asNew(): NewTest = NewTest(property1, property2, parent)

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.19.5
+
+* `Repos`:
+    * `Generator`:
+        * Fixes in new type generation
+
 ## 0.19.4
 
 * `Versions`:

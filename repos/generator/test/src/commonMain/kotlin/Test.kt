@@ -17,6 +17,7 @@ typealias ParentTypeId = TestId
 sealed interface Test {
     val property1: String
     val property2: Int
+    @Serializable
     val parent: ParentTypeId?
 
     @GenerateCRUDModelExcludeOverride
