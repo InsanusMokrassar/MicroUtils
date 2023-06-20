@@ -100,7 +100,11 @@ class Processor(
                         primaryConstructor(
                             FunSpec.constructorBuilder().apply {
                                 ksClassProperties.forEach {
-                                    addParameter(it.simpleName.getShortName(), it.typeName)
+                                    addParameter(
+                                        ParameterSpec.builder(it.simpleName.getShortName(), it.typeName).apply {
+                                            annotations += it.annotations.map { it.toAnnotationSpec() }
+                                        }.build()
+                                    )
                                     typeBuilder.addProperty(
                                         PropertySpec.builder(it.simpleName.getShortName(), it.typeName, KModifier.OVERRIDE).apply {
                                             initializer(it.simpleName.getShortName())
