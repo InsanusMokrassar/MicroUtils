@@ -24,6 +24,8 @@ okio = "3.3.0"
 ksp = "1.8.20-1.0.11"
 kotlin-poet = "1.14.2"
 
+versions = "0.47.0"
+
 android-gradle = "7.4.2"
 dexcount = "4.0.0"
 
@@ -109,3 +111,5 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 [plugins]
 
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
+
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }

@@ -17,6 +17,10 @@ buildscript {
     }
 }
 
+plugins {
+    alias(libs.plugins.versions)
+}
+
 allprojects {
     repositories {
         mavenLocal()
@@ -38,3 +42,4 @@ allprojects {
 
 apply from: "./extensions.gradle"
 apply from: "./github_release.gradle"
+apply from: "./versions_plugin_setup.gradle"
