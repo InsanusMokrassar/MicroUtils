@@ -2,18 +2,18 @@
 
 kt = "1.8.20"
 kt-serialization = "1.5.1"
-kt-coroutines = "1.6.4"
+kt-coroutines = "1.7.1"
 
 kslog = "1.1.1"
 
-jb-compose = "1.4.0"
+jb-compose = "1.4.1"
 jb-exposed = "0.41.1"
 jb-dokka = "1.8.20"
 
 korlibs = "4.0.3"
 uuid = "0.7.1"
 
-ktor = "2.3.1"
+ktor = "2.3.2"
 
 gh-release = "2.4.1"
 
@@ -23,6 +23,8 @@ okio = "3.3.0"
 
 ksp = "1.8.20-1.0.11"
 kotlin-poet = "1.14.2"
+
+versions = "0.47.0"
 
 android-gradle = "7.4.2"
 dexcount = "4.0.0"
@@ -109,3 +111,5 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 [plugins]
 
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
+
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
