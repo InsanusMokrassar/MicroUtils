@@ -2,7 +2,7 @@
 
 kt = "1.8.20"
 kt-serialization = "1.5.1"
-kt-coroutines = "1.6.4"
+kt-coroutines = "1.7.1"
 
 kslog = "1.1.1"
 
@@ -13,7 +13,7 @@ jb-dokka = "1.8.20"
 korlibs = "4.0.3"
 uuid = "0.7.1"
 
-ktor = "2.3.1"
+ktor = "2.3.2"
 
 gh-release = "2.4.1"
 
