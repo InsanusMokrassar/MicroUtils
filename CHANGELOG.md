@@ -2,6 +2,9 @@
 
 ## 0.19.8
 
+* `Repos`:
+    * Fixes In `KeyValueRepo.clear()` of almost all inheritors of `KeyValueRepo`
+
 ## 0.19.7
 
 * `Versions`:

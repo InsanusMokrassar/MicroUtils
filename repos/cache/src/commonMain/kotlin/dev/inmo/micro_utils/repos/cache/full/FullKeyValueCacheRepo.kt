@@ -115,6 +115,11 @@ open class FullKeyValueCacheRepo<Key,Value>(
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo)
     }
+
+    override suspend fun clear() {
+        parentRepo.clear()
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.fullyCached(

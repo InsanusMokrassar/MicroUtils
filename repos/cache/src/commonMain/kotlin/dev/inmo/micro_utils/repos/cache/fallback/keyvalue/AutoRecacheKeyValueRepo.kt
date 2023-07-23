@@ -39,4 +39,9 @@ open class AutoRecacheKeyValueRepo<Id, RegisteredObject>(
     ).also {
         kvCache.unsetWithValues(toUnset)
     }
+
+    override suspend fun clear() {
+        originalRepo.clear()
+        kvCache.clear()
+    }
 }

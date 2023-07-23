@@ -38,7 +38,7 @@ fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
 ) = ReadKeyValueCacheRepo(this, kvCache)
 
 open class KeyValueCacheRepo<Key,Value>(
-    parentRepo: KeyValueRepo<Key, Value>,
+    override val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: KVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : ReadKeyValueCacheRepo<Key,Value>(parentRepo, kvCache), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CommonCacheRepo {
@@ -46,6 +46,11 @@ open class KeyValueCacheRepo<Key,Value>(
     protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
 
     override suspend fun invalidate() = kvCache.clear()
+
+    override suspend fun clear() {
+        parentRepo.clear()
+        kvCache.clear()
+    }
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.cached(

@@ -202,9 +202,14 @@ class FileWriteKeyValueRepo(
 @Warning("Files watching will not correctly works on Android Platform with version of API lower than API 26")
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class FileKeyValueRepo(
-    folder: File,
+    private val folder: File,
     filesChangedProcessingScope: CoroutineScope? = null
 ) : KeyValueRepo<String, File>,
     WriteKeyValueRepo<String, File> by FileWriteKeyValueRepo(folder, filesChangedProcessingScope),
     ReadKeyValueRepo<String, File> by FileReadKeyValueRepo(folder) {
+    override suspend fun clear() {
+        withContext(Dispatchers.IO) {
+            folder.listFiles() ?.forEach { runCatching { it.deleteRecursively() } }
+        }
+    }
 }
