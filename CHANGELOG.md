@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.19.8
+
+* `Versions`:
+    * `Coroutines`: `1.7.2` -> `1.7.3`
+    * `Kotlin`: `1.8.20` -> `1.8.22`
+    * `Compose`: `1.4.1` -> `1.4.3`
+    * `Okio`: `3.3.0` -> `3.4.0`
+    * `RecyclerView`: `1.3.0` -> `1.3.1`
+    * `Fragment`: `1.6.0` -> `1.6.1`
+* `Repos`:
+    * Fixes In `KeyValueRepo.clear()` of almost all inheritors of `KeyValueRepo`
+    * `Cache`:
+        * All full caches got `skipStartInvalidate` property. By default, this property is `false` and fully caching repos
+          will be automatically invalidated on start of their work
+
 ## 0.19.7
 
 * `Versions`:

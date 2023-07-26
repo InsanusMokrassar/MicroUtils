@@ -94,6 +94,10 @@ class MapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value> = mutableMapOf()
 ) : KeyValueRepo<Key, Value>,
     ReadKeyValueRepo<Key, Value> by ReadMapKeyValueRepo(map),
-    WriteKeyValueRepo<Key, Value> by WriteMapKeyValueRepo(map)
+    WriteKeyValueRepo<Key, Value> by WriteMapKeyValueRepo(map) {
+    override suspend fun clear() {
+        map.clear()
+    }
+}
 
 fun <K, V> MutableMap<K, V>.asKeyValueRepo(): KeyValueRepo<K, V> = MapKeyValueRepo(this)

@@ -21,6 +21,12 @@ open class SimpleFullKVCache<K, V>(
             kvParent.unset(toUnset)
         }
     }
+
+    override suspend fun clear() {
+        syncMutex.withLock {
+            kvParent.clear()
+        }
+    }
 }
 
 inline fun <K, V> FullKVCache(

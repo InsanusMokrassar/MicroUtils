@@ -127,7 +127,11 @@ open class MapperKeyValueRepo<FromKey, FromValue, ToKey, ToValue>(
 ) : KeyValueRepo<FromKey, FromValue>,
     MapperRepo<FromKey, FromValue, ToKey, ToValue> by mapper,
     ReadKeyValueRepo<FromKey, FromValue> by MapperReadKeyValueRepo(to, mapper),
-    WriteKeyValueRepo<FromKey, FromValue> by MapperWriteKeyValueRepo(to, mapper)
+    WriteKeyValueRepo<FromKey, FromValue> by MapperWriteKeyValueRepo(to, mapper) {
+    override suspend fun clear() {
+        to.clear()
+    }
+}
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <FromKey, FromValue, ToKey, ToValue> KeyValueRepo<ToKey, ToValue>.withMapper(

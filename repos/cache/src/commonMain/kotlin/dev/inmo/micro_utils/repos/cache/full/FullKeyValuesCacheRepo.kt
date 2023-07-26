@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.cache.full
 
 import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
@@ -142,10 +143,17 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
 open class FullKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: FullKVCache<Key, List<Value>>,
-    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false
 ) : FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope),
     KeyValuesRepo<Key, Value>,
     ReadKeyValuesRepo<Key, Value> by FullReadKeyValuesCacheRepo(parentRepo, kvCache) {
+    init {
+        if (!skipStartInvalidate) {
+            scope.launchSafelyWithoutExceptions { invalidate() }
+        }
+    }
+
     override suspend fun clearWithValue(v: Value) {
         doAllWithCurrentPaging {
             keys(v, it).also {

@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import dev.inmo.micro_utils.repos.KeyValueRepo
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.flow.*
 
 private val cache = HashMap<String, KeyValueStore<*>>()
@@ -156,6 +157,24 @@ class KeyValueStore<T : Any> internal constructor (
         }
         keysToRemove.forEach {
             _onValueRemovedFlow.emit(it)
+        }
+    }
+
+    override suspend fun clear() {
+        val keys = mutableSetOf<String>()
+        doWithPagination(maxPagePagination()) {
+            keys(it).also {
+                keys.addAll(it.results)
+            }.nextPageIfNotEmpty()
+        }
+        val success = sharedPreferences.edit().apply {
+            clear()
+        }.commit()
+
+        if (success) {
+            keys.forEach {
+                _onValueRemovedFlow.emit(it)
+            }
         }
     }
 

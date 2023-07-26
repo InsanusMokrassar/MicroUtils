@@ -73,4 +73,18 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
             _onValueRemoved.emit(it)
         }
     }
+
+    override suspend fun clear() {
+        transaction(database) {
+            val keys = selectAll().map { it.asKey }
+
+            deleteAll()
+
+            keys
+        }.also {
+            it.forEach {
+                _onValueRemoved.emit(it)
+            }
+        }
+    }
 }

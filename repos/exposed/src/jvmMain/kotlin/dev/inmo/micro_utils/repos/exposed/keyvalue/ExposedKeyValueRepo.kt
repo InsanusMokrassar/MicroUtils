@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.inSubQuery
 import org.jetbrains.exposed.sql.transactions.transaction
 
 open class ExposedKeyValueRepo<Key, Value>(
@@ -70,6 +71,20 @@ open class ExposedKeyValueRepo<Key, Value>(
             }
         }.distinct().forEach {
             _onValueRemoved.emit(it)
+        }
+    }
+
+    override suspend fun clear() {
+        transaction(database) {
+            val keys = selectAll().map { it.asKey }
+
+            deleteAll()
+
+            keys
+        }.also {
+            it.forEach {
+                _onValueRemoved.emit(it)
+            }
         }
     }
 }
