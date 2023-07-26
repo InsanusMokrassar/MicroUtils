@@ -11,6 +11,9 @@
     * `Fragment`: `1.6.0` -> `1.6.1`
 * `Repos`:
     * Fixes In `KeyValueRepo.clear()` of almost all inheritors of `KeyValueRepo`
+    * `Cache`:
+        * All full caches got `skipStartInvalidate` property. By default, this property is `false` and fully caching repos
+          will be automatically invalidated on start of their work
 
 ## 0.19.7
 

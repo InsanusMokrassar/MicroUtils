@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.cache.full
 
 import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
@@ -84,6 +85,7 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
     kvCache: FullKVCache<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false,
     idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
     parentRepo,
@@ -97,6 +99,12 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
         idGetter
     ),
     CRUDRepo<ObjectType, IdType, InputValueType> {
+    init {
+        if (!skipStartInvalidate) {
+            scope.launchSafelyWithoutExceptions { invalidate() }
+        }
+    }
+
     override suspend fun invalidate() {
         actualizeAll()
     }
@@ -105,12 +113,14 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.fullyCached(
     kvCache: FullKVCache<IdType, ObjectType> = FullKVCache(),
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false,
     idGetter: (ObjectType) -> IdType
-) = FullCRUDCacheRepo(this, kvCache, scope, idGetter)
+) = FullCRUDCacheRepo(this, kvCache, scope, skipStartInvalidate, idGetter)
 
 @Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope, idGetter)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
     kvCache: FullKVCache<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false,
     idGetter: (ObjectType) -> IdType
-) = fullyCached(kvCache, scope, idGetter)
+) = fullyCached(kvCache, scope, skipStartInvalidate, idGetter)
