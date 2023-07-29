@@ -4,7 +4,7 @@ kt = "1.8.22"
 kt-serialization = "1.5.1"
 kt-coroutines = "1.7.3"
 
-kslog = "1.1.1"
+kslog = "1.2.0"
 
 jb-compose = "1.4.3"
 jb-exposed = "0.41.1"
