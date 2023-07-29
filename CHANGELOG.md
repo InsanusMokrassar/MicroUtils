@@ -2,6 +2,9 @@
 
 ## 0.19.9
 
+* `Startup`:
+    * Now it is possible to start application in synchronous way
+
 ## 0.19.8
 
 * `Versions`:
