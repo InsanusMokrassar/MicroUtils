@@ -4,7 +4,7 @@ project.group = "$group"
 apply from: "$publishGradlePath"
 
 kotlin {
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
 

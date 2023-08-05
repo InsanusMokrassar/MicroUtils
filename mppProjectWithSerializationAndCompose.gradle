@@ -15,7 +15,7 @@ kotlin {
         browser()
         nodejs()
     }
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
 

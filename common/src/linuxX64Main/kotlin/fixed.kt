@@ -1,12 +1,10 @@
 package dev.inmo.micro_utils.common
 
-import kotlinx.cinterop.ByteVar
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.toKString
+import kotlinx.cinterop.*
 import platform.posix.snprintf
 import platform.posix.sprintf
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun Float.fixed(signs: Int): Float {
     return memScoped {
         val buff = allocArray<ByteVar>(Float.SIZE_BYTES * 2)
@@ -16,6 +14,7 @@ actual fun Float.fixed(signs: Int): Float {
     }
 }
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun Double.fixed(signs: Int): Double {
     return memScoped {
         val buff = allocArray<ByteVar>(Double.SIZE_BYTES * 2)
