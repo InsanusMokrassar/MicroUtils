@@ -159,9 +159,7 @@ class Processor(
         }
 
         if (generateSingle) {
-            fun FunSpec.Builder.configure(
-                useInstead: String? = null
-            ) {
+            fun FunSpec.Builder.configure() {
                 addKdoc(
                     """
                         Will register [definition] with [org.koin.core.module.Module.single] and key "${name}"
@@ -185,30 +183,9 @@ class Processor(
                     addTypeVariable(it)
                     addModifiers(KModifier.INLINE)
                 }
-                if (useInstead != null) {
-                    addAnnotation(
-                        AnnotationSpec.builder(
-                            Deprecated::class
-                        ).apply {
-                            addMember(
-                                CodeBlock.of(
-                                    """
-                                        "This definition is old style and should not be used anymore. Use $useInstead instead"
-                                    """.trimIndent()
-                                )
-                            )
-                            addMember(CodeBlock.of("ReplaceWith(\"$useInstead\")"))
-                        }.build()
-                    )
-                }
             }
 
             val actualSingleName = "single${name.replaceFirstChar { it.uppercase() }}"
-            if (targetTypeAsGenericType == null) { // classic type
-                addFunction(
-                    FunSpec.builder("${name}Single").apply { configure(actualSingleName) }.build()
-                )
-            }
 
             addFunction(
                 FunSpec.builder(actualSingleName).apply { configure() }.build()
@@ -216,9 +193,7 @@ class Processor(
         }
 
         if (generateFactory) {
-            fun FunSpec.Builder.configure(
-                useInstead: String? = null
-            ) {
+            fun FunSpec.Builder.configure() {
                 addKdoc(
                     """
                         Will register [definition] with [org.koin.core.module.Module.factory] and key "${name}"
@@ -234,29 +209,8 @@ class Processor(
                     addTypeVariable(it)
                     addModifiers(KModifier.INLINE)
                 }
-                if (useInstead != null) {
-                    addAnnotation(
-                        AnnotationSpec.builder(
-                            Deprecated::class
-                        ).apply {
-                            addMember(
-                                CodeBlock.of(
-                                    """
-                                        "This definition is old style and should not be used anymore. Use $useInstead instead"
-                                    """.trimIndent()
-                                )
-                            )
-                            addMember(CodeBlock.of("ReplaceWith(\"$useInstead\")"))
-                        }.build()
-                    )
-                }
             }
             val actualFactoryName = "factory${name.replaceFirstChar { it.uppercase() }}"
-            if (targetTypeAsGenericType == null) { // classic type
-                addFunction(
-                    FunSpec.builder("${name}Factory").apply { configure(useInstead = actualFactoryName) }.build()
-                )
-            }
             addFunction(
                 FunSpec.builder(actualFactoryName).apply { configure() }.build()
             )
