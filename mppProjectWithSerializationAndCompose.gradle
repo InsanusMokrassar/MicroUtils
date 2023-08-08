@@ -15,7 +15,7 @@ kotlin {
         browser()
         nodejs()
     }
-    androidTarget {
+    android {
         publishAllLibraryVariants()
     }
 
@@ -54,7 +54,7 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
-        androidTest {
+        androidUnitTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation libs.android.test.junit

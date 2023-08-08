@@ -1,7 +1,12 @@
 #!/bin/bash
 
-for folder in $(find . -depth -type d -name "main");
-do
-    newFolder="`echo $folder | sed 's/main/androidMain/g'`"
-    mv $folder "$newFolder"
-done
+function renameFolders() {
+  for folder in $(find . -depth -type d -name "$1");
+  do
+      sedString="s/$1/$2/g"
+      newFolder="$(echo $folder | sed $sedString)"
+      echo $folder "$newFolder"
+  done
+}
+
+renameFolders "androidTest" "androidUnitTest"
