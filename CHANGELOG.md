@@ -2,6 +2,11 @@
 
 ## 0.20.1
 
+* `SmallTextField`:
+    * Module is initialized
+* `Pickers`:
+    * Module is initialized
+
 ## 0.20.0
 
 * `Versions`:
