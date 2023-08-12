@@ -80,9 +80,9 @@ sealed interface SmartSemaphore {
          */
         suspend fun tryAcquire(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (_permitsStateFlow.value >= checkedPermits) {
+            return if (_permitsStateFlow.value < checkedPermits) {
                 internalChangesMutex.withLock {
-                    if (_permitsStateFlow.value >= checkedPermits) {
+                    if (_permitsStateFlow.value < checkedPermits) {
                         _permitsStateFlow.value -= checkedPermits
                         true
                     } else {
@@ -100,10 +100,10 @@ sealed interface SmartSemaphore {
          */
         suspend fun release(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (this.permits - _permitsStateFlow.value > checkedPermits) {
+            return if (_permitsStateFlow.value < this.permits) {
                 internalChangesMutex.withLock {
-                    if (this.permits - _permitsStateFlow.value > checkedPermits) {
-                        _permitsStateFlow.value += checkedPermits
+                    if (_permitsStateFlow.value < this.permits) {
+                        _permitsStateFlow.value = minOf(_permitsStateFlow.value + checkedPermits, this.permits)
                         true
                     } else {
                         false

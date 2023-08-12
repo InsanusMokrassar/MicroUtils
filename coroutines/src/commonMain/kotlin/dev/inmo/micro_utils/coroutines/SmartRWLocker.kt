@@ -12,9 +12,9 @@ import kotlin.contracts.contract
  * * [lockWrite] will lock [writeMutex] and then await while all [readSemaphore] will be freed
  * * [unlockWrite] will just unlock [writeMutex]
  */
-class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE) {
+class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked: Boolean = false) {
     private val _readSemaphore = SmartSemaphore.Mutable(permits = readPermits, acquiredPermits = 0)
-    private val _writeMutex = SmartMutex.Mutable(locked = false)
+    private val _writeMutex = SmartMutex.Mutable(locked = writeIsLocked)
 
     val readSemaphore: SmartSemaphore.Immutable = _readSemaphore.immutable()
     val writeMutex: SmartMutex.Immutable = _writeMutex.immutable()
