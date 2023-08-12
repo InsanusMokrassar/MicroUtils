@@ -32,6 +32,8 @@ String[] includes = [
     ":coroutines",
     ":coroutines:compose",
     ":android:recyclerview",
+    ":android:pickers",
+    ":android:smalltextfield",
     ":android:alerts:common",
     ":android:alerts:recyclerview",
     ":serialization:base64",

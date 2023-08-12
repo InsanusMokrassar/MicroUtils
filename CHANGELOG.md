@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.20.1
+
+* `SmallTextField`:
+    * Module is initialized
+* `Pickers`:
+    * Module is initialized
+* `Coroutines`:
+    * Add `SmartSemaphore`
+    * Add `SmartRWLocker`
+
 ## 0.20.0
 
 * `Versions`:
