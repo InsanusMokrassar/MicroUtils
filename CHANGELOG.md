@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.20.2
+
+* All main repos uses `SmartRWLocker`
+
 ## 0.20.1
 
 * `SmallTextField`:
