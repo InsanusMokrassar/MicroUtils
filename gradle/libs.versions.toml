@@ -1,7 +1,7 @@
 [versions]
 
 kt = "1.9.0"
-kt-serialization = "1.5.1"
+kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
 kslog = "1.2.0"
