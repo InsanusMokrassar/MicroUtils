@@ -3,6 +3,10 @@
 ## 0.20.2
 
 * All main repos uses `SmartRWLocker`
+* `Versions`:
+    * `Serialization`: `1.5.1` -> `1.6.0`
+    * `Exposed`: `0.42.0` -> `0.42.1`
+* `Androis SDK`: `33` -> `34`
 
 ## 0.20.1
 
