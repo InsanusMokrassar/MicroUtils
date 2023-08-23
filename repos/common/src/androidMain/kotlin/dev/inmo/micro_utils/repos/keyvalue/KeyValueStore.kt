@@ -52,7 +52,9 @@ class KeyValueStore<T : Any> internal constructor (
         }
     }
 
-    override fun onSharedPreferenceChanged(sp: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sp: SharedPreferences?, key: String?) {
+        sp ?: return
+        key ?: return
         val value = sp.all[key]
         cachedData ?: return
         if (value != null) {
