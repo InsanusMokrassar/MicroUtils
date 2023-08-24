@@ -10,7 +10,7 @@ jb-compose = "1.4.3"
 jb-exposed = "0.42.1"
 jb-dokka = "1.8.20"
 
-korlibs = "4.0.9"
+korlibs = "4.0.10"
 uuid = "0.8.0"
 
 ktor = "2.3.3"

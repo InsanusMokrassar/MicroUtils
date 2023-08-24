@@ -6,6 +6,7 @@
 * `Versions`:
     * `Serialization`: `1.5.1` -> `1.6.0`
     * `Exposed`: `0.42.0` -> `0.42.1`
+    * `Korlibs`: `4.0.9` -> `4.0.10`
 * `Androis SDK`: `33` -> `34`
 
 ## 0.20.1
