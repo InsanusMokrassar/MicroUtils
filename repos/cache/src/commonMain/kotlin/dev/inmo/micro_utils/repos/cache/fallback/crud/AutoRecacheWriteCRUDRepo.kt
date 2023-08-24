@@ -1,23 +1,17 @@
 package dev.inmo.micro_utils.repos.cache.fallback.crud
 
-import dev.inmo.micro_utils.coroutines.plus
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
-import dev.inmo.micro_utils.repos.UpdatedValuePair
-import dev.inmo.micro_utils.repos.WriteCRUDRepo
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
-import dev.inmo.micro_utils.repos.set
-import dev.inmo.micro_utils.repos.unset
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
 open class AutoRecacheWriteCRUDRepo<RegisteredObject, Id, InputObject>(
     protected val originalRepo: WriteCRUDRepo<RegisteredObject, Id, InputObject>,
     protected val scope: CoroutineScope,
-    protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
+    protected val kvCache: KeyValueRepo<Id, RegisteredObject> = MapKeyValueRepo(),
     protected val idGetter: (RegisteredObject) -> Id
 ) : WriteCRUDRepo<RegisteredObject, Id, InputObject>, FallbackCacheRepo {
     override val deletedObjectsIdsFlow: Flow<Id>

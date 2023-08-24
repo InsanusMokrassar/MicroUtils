@@ -1,16 +1,16 @@
 [versions]
 
 kt = "1.9.0"
-kt-serialization = "1.5.1"
+kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
 kslog = "1.2.0"
 
 jb-compose = "1.4.3"
-jb-exposed = "0.42.0"
+jb-exposed = "0.42.1"
 jb-dokka = "1.8.20"
 
-korlibs = "4.0.9"
+korlibs = "4.0.10"
 uuid = "0.8.0"
 
 ktor = "2.3.3"
@@ -38,8 +38,8 @@ android-test = "1.1.5"
 android-compose-material3 = "1.1.1"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "33"
-android-props-buildTools = "33.0.2"
+android-props-compileSdk = "34"
+android-props-buildTools = "34.0.0"
 
 [libraries]
 

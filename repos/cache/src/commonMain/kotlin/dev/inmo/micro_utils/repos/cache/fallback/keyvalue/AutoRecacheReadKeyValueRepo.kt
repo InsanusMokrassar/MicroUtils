@@ -3,8 +3,9 @@ package dev.inmo.micro_utils.repos.cache.fallback.keyvalue
 import dev.inmo.micro_utils.coroutines.runCatchingSafely
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
+import dev.inmo.micro_utils.repos.KeyValueRepo
+import dev.inmo.micro_utils.repos.MapKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
@@ -18,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 open class AutoRecacheReadKeyValueRepo<Id, RegisteredObject>(
     protected open val originalRepo: ReadKeyValueRepo<Id, RegisteredObject>,
     protected val scope: CoroutineScope,
-    protected val kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
+    protected val kvCache: KeyValueRepo<Id, RegisteredObject> = MapKeyValueRepo(),
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,
     protected val actionWrapper: ActionWrapper = ActionWrapper.Direct,
     protected val idGetter: (RegisteredObject) -> Id
@@ -35,7 +36,7 @@ open class AutoRecacheReadKeyValueRepo<Id, RegisteredObject>(
         originalRepo: ReadKeyValueRepo<Id, RegisteredObject>,
         scope: CoroutineScope,
         originalCallTimeoutMillis: Long,
-        kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
+        kvCache: KeyValueRepo<Id, RegisteredObject> = MapKeyValueRepo(),
         recacheDelay: Long = 60.seconds.inWholeMilliseconds,
         idGetter: (RegisteredObject) -> Id
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)

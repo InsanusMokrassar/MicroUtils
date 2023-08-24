@@ -1,38 +1,39 @@
 package dev.inmo.micro_utils.repos.cache.full
 
 import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.withReadAcquire
+import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
-    protected open val kvCache: FullKVCache<IdType, ObjectType>,
+    protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val locker: SmartRWLocker = SmartRWLocker(),
     protected open val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType>, FullCacheRepo {
-    protected inline fun <T> doOrTakeAndActualize(
-        action: FullKVCache<IdType, ObjectType>.() -> Optional<T>,
+    protected suspend inline fun <T> doOrTakeAndActualize(
+        action: KeyValueRepo<IdType, ObjectType>.() -> Optional<T>,
         actionElse: ReadCRUDRepo<ObjectType, IdType>.() -> T,
-        actualize: FullKVCache<IdType, ObjectType>.(T) -> Unit
+        actualize: KeyValueRepo<IdType, ObjectType>.(T) -> Unit
     ): T {
-        kvCache.action().onPresented {
-            return it
-        }.onAbsent {
-            return parentRepo.actionElse().also {
-                kvCache.actualize(it)
-            }
+        locker.withReadAcquire {
+            kvCache.action().onPresented { return it }
         }
-        error("The result should be returned above")
+        return parentRepo.actionElse().also {
+            locker.withWriteLock { kvCache.actualize(it) }
+        }
     }
 
     protected open suspend fun actualizeAll() {
-        kvCache.actualizeAll(parentRepo)
+        locker.withWriteLock { kvCache.actualizeAll(parentRepo) }
     }
 
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> = doOrTakeAndActualize(
@@ -77,25 +78,29 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
 }
 
 fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
-    kvCache: FullKVCache<IdType, ObjectType>,
+    kvCache: KeyValueRepo<IdType, ObjectType>,
+    locker: SmartRWLocker = SmartRWLocker(),
     idGetter: (ObjectType) -> IdType
-) = FullReadCRUDCacheRepo(this, kvCache, idGetter)
+) = FullReadCRUDCacheRepo(this, kvCache, locker, idGetter)
 
 open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    kvCache: FullKVCache<IdType, ObjectType>,
+    kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker(),
     idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
     parentRepo,
     kvCache,
+    locker,
     idGetter
 ),
     WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
         parentRepo,
         kvCache,
         scope,
+        locker,
         idGetter
     ),
     CRUDRepo<ObjectType, IdType, InputValueType> {
@@ -111,16 +116,18 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
 }
 
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.fullyCached(
-    kvCache: FullKVCache<IdType, ObjectType> = FullKVCache(),
+    kvCache: KeyValueRepo<IdType, ObjectType> = MapKeyValueRepo(),
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker(),
     idGetter: (ObjectType) -> IdType
-) = FullCRUDCacheRepo(this, kvCache, scope, skipStartInvalidate, idGetter)
+) = FullCRUDCacheRepo(this, kvCache, scope, skipStartInvalidate, locker, idGetter)
 
 @Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope, idGetter)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
-    kvCache: FullKVCache<IdType, ObjectType>,
+    kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker(),
     idGetter: (ObjectType) -> IdType
-) = fullyCached(kvCache, scope, skipStartInvalidate, idGetter)
+) = fullyCached(kvCache, scope, skipStartInvalidate, locker, idGetter)

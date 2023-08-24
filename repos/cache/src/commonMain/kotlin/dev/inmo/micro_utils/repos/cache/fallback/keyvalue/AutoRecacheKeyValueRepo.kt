@@ -1,8 +1,8 @@
 package dev.inmo.micro_utils.repos.cache.fallback.keyvalue
 
 import dev.inmo.micro_utils.repos.KeyValueRepo
+import dev.inmo.micro_utils.repos.MapKeyValueRepo
 import dev.inmo.micro_utils.repos.WriteKeyValueRepo
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlin.time.Duration.Companion.seconds
@@ -10,7 +10,7 @@ import kotlin.time.Duration.Companion.seconds
 open class AutoRecacheKeyValueRepo<Id, RegisteredObject>(
     override val originalRepo: KeyValueRepo<Id, RegisteredObject>,
     scope: CoroutineScope,
-    kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
+    kvCache: KeyValueRepo<Id, RegisteredObject> = MapKeyValueRepo(),
     recacheDelay: Long = 60.seconds.inWholeMilliseconds,
     actionWrapper: ActionWrapper = ActionWrapper.Direct,
     idGetter: (RegisteredObject) -> Id
@@ -29,7 +29,7 @@ open class AutoRecacheKeyValueRepo<Id, RegisteredObject>(
         originalRepo: KeyValueRepo<Id, RegisteredObject>,
         scope: CoroutineScope,
         originalCallTimeoutMillis: Long,
-        kvCache: FullKVCache<Id, RegisteredObject> = FullKVCache(),
+        kvCache: KeyValueRepo<Id, RegisteredObject> = MapKeyValueRepo(),
         recacheDelay: Long = 60.seconds.inWholeMilliseconds,
         idGetter: (RegisteredObject) -> Id
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis), idGetter)

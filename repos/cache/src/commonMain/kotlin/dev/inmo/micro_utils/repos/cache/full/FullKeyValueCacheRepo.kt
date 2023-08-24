@@ -1,11 +1,13 @@
 package dev.inmo.micro_utils.repos.cache.full
 
 import dev.inmo.micro_utils.common.*
+import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.withReadAcquire
+import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
@@ -14,25 +16,26 @@ import kotlinx.coroutines.flow.*
 
 open class FullReadKeyValueCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
-    protected open val kvCache: FullKVCache<Key, Value>,
+    protected open val kvCache: KeyValueRepo<Key, Value>,
+    protected val locker: SmartRWLocker = SmartRWLocker()
 ) : ReadKeyValueRepo<Key, Value>, FullCacheRepo {
-    protected inline fun <T> doOrTakeAndActualize(
-        action: FullKVCache<Key, Value>.() -> Optional<T>,
+    protected suspend inline fun <T> doOrTakeAndActualize(
+        action: KeyValueRepo<Key, Value>.() -> Optional<T>,
         actionElse: ReadKeyValueRepo<Key, Value>.() -> T,
-        actualize: FullKVCache<Key, Value>.(T) -> Unit
+        actualize: KeyValueRepo<Key, Value>.(T) -> Unit
     ): T {
-        kvCache.action().onPresented {
-            return it
-        }.onAbsent {
-            return parentRepo.actionElse().also {
-                kvCache.actualize(it)
-            }
+        locker.withReadAcquire {
+            kvCache.action().onPresented { return it }
         }
-        error("The result should be returned above")
+        return parentRepo.actionElse().also {
+            locker.withWriteLock { kvCache.actualize(it) }
+        }
     }
     protected open suspend fun actualizeAll() {
-        kvCache.clear()
-        kvCache.set(parentRepo.getAll { keys(it) }.toMap())
+        locker.withWriteLock {
+            kvCache.clear()
+            kvCache.set(parentRepo.getAll { keys(it) }.toMap())
+        }
     }
 
     override suspend fun get(k: Key): Value? = doOrTakeAndActualize(
@@ -83,37 +86,51 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
 }
 
 fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
-    kvCache: FullKVCache<Key, Value>
-) = FullReadKeyValueCacheRepo(this, kvCache)
+    kvCache: KeyValueRepo<Key, Value>,
+    locker: SmartRWLocker = SmartRWLocker()
+) = FullReadKeyValueCacheRepo(this, kvCache, locker)
 
 open class FullWriteKeyValueCacheRepo<Key,Value>(
     parentRepo: WriteKeyValueRepo<Key, Value>,
-    protected open val kvCache: FullKVCache<Key, Value>,
-    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    protected open val kvCache: KeyValueRepo<Key, Value>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    protected val locker: SmartRWLocker = SmartRWLocker()
 ) : WriteKeyValueRepo<Key, Value> by parentRepo, FullCacheRepo {
-    protected val onNewJob = parentRepo.onNewValue.onEach { kvCache.set(it.first, it.second) }.launchIn(scope)
-    protected val onRemoveJob = parentRepo.onValueRemoved.onEach { kvCache.unset(it) }.launchIn(scope)
+    protected val onNewJob = parentRepo.onNewValue.onEach {
+        locker.withWriteLock {
+            kvCache.set(it.first, it.second)
+        }
+    }.launchIn(scope)
+    protected val onRemoveJob = parentRepo.onValueRemoved.onEach {
+        locker.withWriteLock {
+            kvCache.unset(it)
+        }
+    }.launchIn(scope)
 
     override suspend fun invalidate() {
-        kvCache.clear()
+        locker.withWriteLock {
+            kvCache.clear()
+        }
     }
 }
 
 fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
-    kvCache: FullKVCache<Key, Value>,
+    kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
     protected open val parentRepo: KeyValueRepo<Key, Value>,
-    kvCache: FullKVCache<Key, Value>,
+    kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
-    skipStartInvalidate: Boolean = false
+    skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker()
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
     ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(
         parentRepo,
-        kvCache
+        kvCache,
+        locker
 ) {
     init {
         if (!skipStartInvalidate) {
@@ -124,7 +141,9 @@ open class FullKeyValueCacheRepo<Key,Value>(
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
 
     override suspend fun invalidate() {
-        kvCache.actualizeAll(parentRepo)
+        locker.withWriteLock {
+            kvCache.actualizeAll(parentRepo)
+        }
     }
 
     override suspend fun clear() {
@@ -134,12 +153,16 @@ open class FullKeyValueCacheRepo<Key,Value>(
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.fullyCached(
-    kvCache: FullKVCache<Key, Value> = FullKVCache(),
-    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) = FullKeyValueCacheRepo(this, kvCache, scope)
+    kvCache: KeyValueRepo<Key, Value> = MapKeyValueRepo(),
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker()
+) = FullKeyValueCacheRepo(this, kvCache, scope, skipStartInvalidate, locker)
 
 @Deprecated("Renamed", ReplaceWith("this.fullyCached(kvCache, scope)", "dev.inmo.micro_utils.repos.cache.full.fullyCached"))
 fun <Key, Value> KeyValueRepo<Key, Value>.cached(
-    kvCache: FullKVCache<Key, Value>,
-    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
-) = fullyCached(kvCache, scope)
+    kvCache: KeyValueRepo<Key, Value>,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    skipStartInvalidate: Boolean = false,
+    locker: SmartRWLocker = SmartRWLocker()
+) = fullyCached(kvCache, scope, skipStartInvalidate, locker)
