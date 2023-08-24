@@ -10,6 +10,13 @@ import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
+/**
+ * [Map]-based [ReadKeyValueRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withReadAcquire])
+ *
+ * **Warning**: It is not recommended to use constructor with both [Map] and [SmartRWLocker]. Besides, in case you are
+ * using your own [Map] as a [map] you should be careful with operations on this [map]
+ */
 class ReadMapKeyValueRepo<Key, Value>(
     protected val map: Map<Key, Value>,
     private val locker: SmartRWLocker
@@ -70,6 +77,13 @@ class ReadMapKeyValueRepo<Key, Value>(
     override suspend fun count(): Long = locker.withReadAcquire { map.size.toLong() }
 }
 
+/**
+ * [MutableMap]-based [WriteKeyValueRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withWriteLock])
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 class WriteMapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value>,
     private val locker: SmartRWLocker
@@ -107,6 +121,12 @@ class WriteMapKeyValueRepo<Key, Value>(
     }
 }
 
+/**
+ * [MutableMap]-based [KeyValueRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class MapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value>,
@@ -120,4 +140,10 @@ class MapKeyValueRepo<Key, Value>(
     }
 }
 
+/**
+ * [MutableMap]-based [KeyValueRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [this] you should be careful with operations on this [this]
+ */
 fun <K, V> MutableMap<K, V>.asKeyValueRepo(locker: SmartRWLocker = SmartRWLocker()): KeyValueRepo<K, V> = MapKeyValueRepo(this, locker)

@@ -8,6 +8,13 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.*
 
+/**
+ * [Map]-based [ReadKeyValuesRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withReadAcquire])
+ *
+ * **Warning**: It is not recommended to use constructor with both [Map] and [SmartRWLocker]. Besides, in case
+ * you are using your own [Map] as a [map] you should be careful with operations on this [map]
+ */
 class MapReadKeyValuesRepo<Key, Value>(
     private val map: Map<Key, List<Value>> = emptyMap(),
     private val locker: SmartRWLocker = SmartRWLocker()
@@ -63,6 +70,13 @@ class MapReadKeyValuesRepo<Key, Value>(
     override suspend fun count(): Long = locker.withReadAcquire { map.size }.toLong()
 }
 
+/**
+ * [MutableMap]-based [WriteKeyValuesRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withWriteLock])
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 class MapWriteKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf(),
     private val locker: SmartRWLocker = SmartRWLocker()
@@ -133,6 +147,12 @@ class MapWriteKeyValuesRepo<Key, Value>(
     }
 }
 
+/**
+ * [MutableMap]-based [KeyValuesRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class MapKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf(),
@@ -141,6 +161,11 @@ class MapKeyValuesRepo<Key, Value>(
     ReadKeyValuesRepo<Key, Value> by MapReadKeyValuesRepo(map, locker),
     WriteKeyValuesRepo<Key, Value> by MapWriteKeyValuesRepo(map, locker)
 
+/**
+ * [MutableMap]-based [KeyValuesRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: In case you are using your own [MutableMap] as [this] receiver you should be careful with operations on [this] map
+ */
 fun <K, V> MutableMap<K, List<V>>.asKeyValuesRepo(locker: SmartRWLocker = SmartRWLocker()): KeyValuesRepo<K, V> = MapKeyValuesRepo(
     map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap(),
     locker
