@@ -28,9 +28,18 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
             kvCache.action().onPresented { return it }
         }
         return parentRepo.actionElse().also {
-            locker.withWriteLock { kvCache.actualize(it) }
+            kvCache.actualize(it)
         }
     }
+    protected suspend inline fun <T> doOrTakeAndActualizeWithWriteLock(
+        action: KeyValueRepo<Key, Value>.() -> Optional<T>,
+        actionElse: ReadKeyValueRepo<Key, Value>.() -> T,
+        actualize: KeyValueRepo<Key, Value>.(T) -> Unit
+    ): T = doOrTakeAndActualize(
+        action = action,
+        actionElse = actionElse,
+        actualize = { locker.withWriteLock { actualize(it) } }
+    )
     protected open suspend fun actualizeAll() {
         locker.withWriteLock {
             kvCache.clear()
@@ -38,10 +47,10 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         }
     }
 
-    override suspend fun get(k: Key): Value? = doOrTakeAndActualize(
+    override suspend fun get(k: Key): Value? = doOrTakeAndActualizeWithWriteLock(
         { get(k) ?.optional ?: Optional.absent() },
         { get(k) },
-        { set(k, it ?: return@doOrTakeAndActualize) }
+        { kvCache.set(k, it ?: return@doOrTakeAndActualizeWithWriteLock) }
     )
 
     override suspend fun values(pagination: Pagination, reversed: Boolean): PaginationResult<Value> = doOrTakeAndActualize(
@@ -56,13 +65,13 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         { if (it != 0L) actualizeAll() }
     )
 
-    override suspend fun contains(key: Key): Boolean = doOrTakeAndActualize(
+    override suspend fun contains(key: Key): Boolean = doOrTakeAndActualizeWithWriteLock(
         { contains(key).takeIf { it }.optionalOrAbsentIfNull },
         { contains(key) },
         { if (it) parentRepo.get(key) ?.also { kvCache.set(key, it) } }
     )
 
-    override suspend fun getAll(): Map<Key, Value> = doOrTakeAndActualize(
+    override suspend fun getAll(): Map<Key, Value> = doOrTakeAndActualizeWithWriteLock(
         { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
         { getAll() },
         { kvCache.actualizeAll(clear = true) { it } }

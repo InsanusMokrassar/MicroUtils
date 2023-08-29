@@ -28,9 +28,18 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
             kvCache.action().onPresented { return it }
         }
         return parentRepo.actionElse().also {
-            locker.withWriteLock { kvCache.actualize(it) }
+            kvCache.actualize(it)
         }
     }
+    protected suspend inline fun <T> doOrTakeAndActualizeWithWriteLock(
+        action: KeyValueRepo<IdType, ObjectType>.() -> Optional<T>,
+        actionElse: ReadCRUDRepo<ObjectType, IdType>.() -> T,
+        actualize: KeyValueRepo<IdType, ObjectType>.(T) -> Unit
+    ): T = doOrTakeAndActualize(
+        action = action,
+        actionElse = actionElse,
+        actualize = { locker.withWriteLock { actualize(it) } }
+    )
 
     protected open suspend fun actualizeAll() {
         locker.withWriteLock { kvCache.actualizeAll(parentRepo) }
@@ -54,22 +63,22 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
         { if (it != 0L) actualizeAll() }
     )
 
-    override suspend fun contains(id: IdType): Boolean = doOrTakeAndActualize(
+    override suspend fun contains(id: IdType): Boolean = doOrTakeAndActualizeWithWriteLock(
         { contains(id).takeIf { it }.optionalOrAbsentIfNull },
         { contains(id) },
-        { if (it) parentRepo.getById(id) ?.let { set(id, it) } }
+        { if (it) parentRepo.getById(id) ?.let { kvCache.set(id, it) } }
     )
 
-    override suspend fun getAll(): Map<IdType, ObjectType> = doOrTakeAndActualize(
+    override suspend fun getAll(): Map<IdType, ObjectType> = doOrTakeAndActualizeWithWriteLock(
         { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
         { getAll() },
         { kvCache.actualizeAll(clear = true) { it } }
     )
 
-    override suspend fun getById(id: IdType): ObjectType? = doOrTakeAndActualize(
+    override suspend fun getById(id: IdType): ObjectType? = doOrTakeAndActualizeWithWriteLock(
         { get(id) ?.optional ?: Optional.absent() },
         { getById(id) },
-        { it ?.let { set(idGetter(it), it) } }
+        { it ?.let { kvCache.set(idGetter(it), it) } }
     )
 
     override suspend fun invalidate() {

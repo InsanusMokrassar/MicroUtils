@@ -2,6 +2,10 @@
 
 ## 0.20.3
 
+* `Repos`:
+    * `Cache`:
+        * Fixes in locks of caches
+
 ## 0.20.2
 
 * All main repos uses `SmartRWLocker`
