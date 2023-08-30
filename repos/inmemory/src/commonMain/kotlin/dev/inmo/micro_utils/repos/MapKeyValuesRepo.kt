@@ -81,67 +81,93 @@ class MapWriteKeyValuesRepo<Key, Value>(
     private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf(),
     private val locker: SmartRWLocker = SmartRWLocker()
 ) : WriteKeyValuesRepo<Key, Value> {
-    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
-    override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
-    private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
-    override val onValueRemoved: Flow<Pair<Key, Value>> = _onValueRemoved.asSharedFlow()
-    private val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
-    override val onDataCleared: Flow<Key> = _onDataCleared.asSharedFlow()
+    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MapsReposDefaultMutableSharedFlow()
+    override val onNewValue: Flow<Pair<Key, Value>> by lazy {
+        _onNewValue.asSharedFlow()
+    }
+    private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MapsReposDefaultMutableSharedFlow()
+    override val onValueRemoved: Flow<Pair<Key, Value>> by lazy {
+        _onValueRemoved.asSharedFlow()
+    }
+    private val _onDataCleared: MutableSharedFlow<Key> = MapsReposDefaultMutableSharedFlow()
+    override val onDataCleared: Flow<Key> by lazy {
+        _onDataCleared.asSharedFlow()
+    }
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         locker.withWriteLock {
-            toAdd.keys.forEach { k ->
-                if (map.getOrPut(k) { mutableListOf() }.addAll(toAdd[k] ?: return@forEach)) {
-                    toAdd[k] ?.forEach { v ->
-                        _onNewValue.emit(k to v)
-                    }
+            toAdd.keys.mapNotNull { k ->
+                (k to toAdd[k]).takeIf {
+                    map.getOrPut(k) { mutableListOf() }.addAll(toAdd[k] ?: return@mapNotNull null)
                 }
+            }
+        }.forEach { (k, vs) ->
+            vs ?.forEach { v ->
+                _onNewValue.emit(k to v)
             }
         }
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
+        val removed = mutableListOf<Pair<Key, Value>>()
+        val cleared = mutableListOf<Key>()
         locker.withWriteLock {
             toRemove.keys.forEach { k ->
                 if (map[k]?.removeAll(toRemove[k] ?: return@forEach) == true) {
                     toRemove[k]?.forEach { v ->
-                        _onValueRemoved.emit(k to v)
+                        removed.add(k to v)
                     }
                 }
                 if (map[k]?.isEmpty() == true) {
                     map.remove(k)
-                    _onDataCleared.emit(k)
+                    cleared.add(k)
                 }
             }
+        }
+        removed.forEach {
+            _onValueRemoved.emit(it)
+        }
+        cleared.forEach {
+            _onDataCleared.emit(it)
         }
     }
 
     override suspend fun removeWithValue(v: Value) {
         locker.withWriteLock {
-            map.forEach { (k, values) ->
+            map.mapNotNull { (k, values) ->
                 if (values.remove(v)) {
-                    _onValueRemoved.emit(k to v)
+                    k to v
+                } else {
+                    null
                 }
             }
+        }.forEach {
+            _onValueRemoved.emit(it)
         }
     }
 
     override suspend fun clear(k: Key) {
         locker.withWriteLock {
-            map.remove(k) ?.also { _onDataCleared.emit(k) }
-        }
+            map.remove(k)
+        } ?.also { _onDataCleared.emit(k) }
     }
 
     override suspend fun clearWithValue(v: Value) {
         locker.withWriteLock {
             map.filter { (_, values) ->
                 values.contains(v)
-            }.forEach {
-                map.remove(it.key)?.onEach { v ->
-                    _onValueRemoved.emit(it.key to v)
-                }?.also { _ ->
-                    _onDataCleared.emit(it.key)
+            }.mapNotNull {
+                if (map.remove(it.key) != null) {
+                    it.toPair()
+                } else {
+                    null
                 }
+            }
+        }.forEach {
+            it.second.onEach { v ->
+                _onValueRemoved.emit(it.first to v)
+            }.also { _ ->
+                _onDataCleared.emit(it.first)
             }
         }
     }

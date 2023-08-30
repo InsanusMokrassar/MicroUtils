@@ -65,12 +65,12 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
     protected val map: MutableMap<IdType, ObjectType> = mutableMapOf(),
     protected val locker: SmartRWLocker = SmartRWLocker()
 ) : WriteCRUDRepo<ObjectType, IdType, InputValueType> {
-    protected val _newObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
-    override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
-    protected val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MutableSharedFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
-    protected val _deletedObjectsIdsFlow: MutableSharedFlow<IdType> = MutableSharedFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
+    protected open val _newObjectsFlow: MutableSharedFlow<ObjectType> = MapsReposDefaultMutableSharedFlow()
+    override val newObjectsFlow: Flow<ObjectType> by lazy { _newObjectsFlow.asSharedFlow() }
+    protected open val _updatedObjectsFlow: MutableSharedFlow<ObjectType> = MapsReposDefaultMutableSharedFlow()
+    override val updatedObjectsFlow: Flow<ObjectType> by lazy { _updatedObjectsFlow.asSharedFlow() }
+    protected open val _deletedObjectsIdsFlow: MutableSharedFlow<IdType> = MapsReposDefaultMutableSharedFlow()
+    override val deletedObjectsIdsFlow: Flow<IdType> by lazy { _deletedObjectsIdsFlow.asSharedFlow() }
 
     protected abstract suspend fun updateObject(newValue: InputValueType, id: IdType, old: ObjectType): ObjectType
     protected abstract suspend fun createObject(newValue: InputValueType): Pair<IdType, ObjectType>
@@ -80,10 +80,10 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
             values.map {
                 val (id, newObject) = createObject(it)
                 map[id] = newObject
-                newObject.also { _ ->
-                    _newObjectsFlow.emit(newObject)
-                }
+                newObject
             }
+        }.onEach {
+            _newObjectsFlow.emit(it)
         }
     }
 
@@ -93,8 +93,9 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
             newValue.also {
                 map[id] = it
-                _updatedObjectsFlow.emit(it)
             }
+        } ?.also {
+            _updatedObjectsFlow.emit(it)
         }
     }
 
@@ -104,10 +105,10 @@ abstract class WriteMapCRUDRepo<ObjectType, IdType, InputValueType>(
 
     override suspend fun deleteById(ids: List<IdType>) {
         locker.withWriteLock {
-            ids.forEach {
-                map.remove(it) ?.also { _ -> _deletedObjectsIdsFlow.emit(it) }
+            ids.mapNotNull {
+                it.takeIf { map.remove(it) != null }
             }
-        }
+        }.onEach { _deletedObjectsIdsFlow.emit(it) }
     }
 
 }

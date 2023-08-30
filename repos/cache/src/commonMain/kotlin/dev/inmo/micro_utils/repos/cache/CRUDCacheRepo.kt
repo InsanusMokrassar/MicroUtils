@@ -61,18 +61,28 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val deletedObjectsIdsFlow: Flow<IdType> by parentRepo::deletedObjectsIdsFlow
 
     val createdObjectsFlowJob = parentRepo.newObjectsFlow.onEach {
-        locker.withWriteLock { kvCache.set(idGetter(it), it) }
+        locker.withWriteLock {
+            kvCache.set(idGetter(it), it)
+        }
     }.launchIn(scope)
 
     val updatedObjectsFlowJob = parentRepo.updatedObjectsFlow.onEach {
-        locker.withWriteLock { kvCache.set(idGetter(it), it) }
+        locker.withWriteLock {
+            kvCache.set(idGetter(it), it)
+        }
     }.launchIn(scope)
 
     val deletedObjectsFlowJob = parentRepo.deletedObjectsIdsFlow.onEach {
-        locker.withWriteLock { kvCache.unset(it) }
+        locker.withWriteLock {
+            kvCache.unset(it)
+        }
     }.launchIn(scope)
 
-    override suspend fun deleteById(ids: List<IdType>) = parentRepo.deleteById(ids)
+    override suspend fun deleteById(ids: List<IdType>) = parentRepo.deleteById(ids).also {
+        locker.withWriteLock {
+            kvCache.unset(ids)
+        }
+    }
 
     override suspend fun update(values: List<UpdatedValuePair<IdType, InputValueType>>): List<ObjectType> {
         val updated = parentRepo.update(values)

@@ -43,7 +43,7 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
     protected open suspend fun actualizeAll() {
         locker.withWriteLock {
             kvCache.clear()
-            kvCache.set(parentRepo.getAll { keys(it) }.toMap())
+            kvCache.set(parentRepo.getAll())
         }
     }
 

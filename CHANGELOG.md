@@ -2,6 +2,9 @@
 
 ## 0.20.3
 
+* `Versions`:
+    * `Compose`: `1.4.3` -> `1.5.0`
+    * `Exposed`: `0.42.1` -> `0.43.0`
 * `Repos`:
     * `Cache`:
         * Fixes in locks of caches

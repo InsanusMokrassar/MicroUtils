@@ -42,11 +42,11 @@ sealed interface SmartSemaphore {
      * Mutable variant of [SmartSemaphore]. With that variant you may [lock] and [unlock]. Besides, you may create
      * [Immutable] variant of [this] instance with [immutable] factory
      *
-     * @param locked Preset state of [freePermits] and its internal [_permitsStateFlow]
+     * @param locked Preset state of [freePermits] and its internal [_freePermitsStateFlow]
      */
     class Mutable(private val permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
-        private val _permitsStateFlow = MutableStateFlow<Int>(permits - acquiredPermits)
-        override val permitsStateFlow: StateFlow<Int> = _permitsStateFlow.asStateFlow()
+        private val _freePermitsStateFlow = MutableStateFlow<Int>(permits - acquiredPermits)
+        override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex(false)
 
@@ -55,18 +55,44 @@ sealed interface SmartSemaphore {
         private fun checkedPermits(permits: Int) = permits.coerceIn(1 .. this.permits)
 
         /**
+         * Holds call until this [SmartSemaphore] will be re-locked. That means that current method will
+         */
+        suspend fun acquire(permits: Int = 1) {
+            var acquiredPermits = 0
+            val checkedPermits = checkedPermits(permits)
+            try {
+                do {
+                    val shouldContinue = internalChangesMutex.withLock {
+                        val requiredPermits = checkedPermits - acquiredPermits
+                        val acquiring = minOf(freePermits, requiredPermits).takeIf { it > 0 } ?: return@withLock true
+                        acquiredPermits += acquiring
+                        _freePermitsStateFlow.value -= acquiring
+
+                        acquiredPermits != checkedPermits
+                    }
+                    if (shouldContinue) {
+                        waitRelease()
+                    }
+                } while (shouldContinue && currentCoroutineContext().isActive)
+            } catch (e: Throwable) {
+                release(acquiredPermits)
+                throw e
+            }
+        }
+
+        /**
          * Holds call until this [SmartSemaphore] will be re-locked. That means that while [freePermits] == true, [holds] will
          * wait for [freePermits] == false and then try to lock
          */
-        suspend fun acquire(permits: Int = 1) {
+        suspend fun acquireByOne(permits: Int = 1) {
+            val checkedPermits = checkedPermits(permits)
             do {
-                val checkedPermits = checkedPermits(permits)
                 waitRelease(checkedPermits)
                 val shouldContinue = internalChangesMutex.withLock {
-                    if (_permitsStateFlow.value < checkedPermits) {
+                    if (_freePermitsStateFlow.value < checkedPermits) {
                         true
                     } else {
-                        _permitsStateFlow.value -= checkedPermits
+                        _freePermitsStateFlow.value -= checkedPermits
                         false
                     }
                 }
@@ -80,10 +106,10 @@ sealed interface SmartSemaphore {
          */
         suspend fun tryAcquire(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (_permitsStateFlow.value < checkedPermits) {
+            return if (_freePermitsStateFlow.value < checkedPermits) {
                 internalChangesMutex.withLock {
-                    if (_permitsStateFlow.value < checkedPermits) {
-                        _permitsStateFlow.value -= checkedPermits
+                    if (_freePermitsStateFlow.value < checkedPermits) {
+                        _freePermitsStateFlow.value -= checkedPermits
                         true
                     } else {
                         false
@@ -100,10 +126,10 @@ sealed interface SmartSemaphore {
          */
         suspend fun release(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (_permitsStateFlow.value < this.permits) {
+            return if (_freePermitsStateFlow.value < this.permits) {
                 internalChangesMutex.withLock {
-                    if (_permitsStateFlow.value < this.permits) {
-                        _permitsStateFlow.value = minOf(_permitsStateFlow.value + checkedPermits, this.permits)
+                    if (_freePermitsStateFlow.value < this.permits) {
+                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, this.permits)
                         true
                     } else {
                         false
