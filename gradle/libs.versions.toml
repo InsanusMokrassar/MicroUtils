@@ -8,7 +8,7 @@ kslog = "1.2.0"
 
 jb-compose = "1.5.0"
 jb-exposed = "0.43.0"
-jb-dokka = "1.8.20"
+jb-dokka = "1.9.0"
 
 korlibs = "4.0.10"
 uuid = "0.8.0"
