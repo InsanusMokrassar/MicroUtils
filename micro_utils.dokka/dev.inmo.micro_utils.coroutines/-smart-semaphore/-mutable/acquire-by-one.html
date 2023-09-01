@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>Companion</title>
+    <title>acquireByOne</title>
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -40,7 +40,7 @@
             </a>
     </div>
     <div>
-0.20.1    </div>
+0.20.3    </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
@@ -54,16 +54,12 @@
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.repos.cache.cache/FullKVCache.Companion///PointingToDeclaration//-1478683138">
-  <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../../index.html">dev.inmo.micro_utils.repos.cache.cache</a><span class="delimiter">/</span><a href="../index.html">FullKVCache</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/acquireByOne/#kotlin.Int/PointingToDeclaration//-1478683138">
+  <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../../index.html">dev.inmo.micro_utils.coroutines</a><span class="delimiter">/</span><a href="../index.html">SmartSemaphore</a><span class="delimiter">/</span><a href="index.html">Mutable</a><span class="delimiter">/</span><span class="current">acquireByOne</span></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>Companion</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+    <h1 class="cover"><span>acquire</span><wbr></wbr><span>By</span><wbr></wbr><span><span>One</span></span></h1>
   </div>
-  <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"></div>
-    <div class="tabs-section-body"></div>
-  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="acquire-by-one.html"><span class="token function">acquireByOne</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">permits<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Holds call until this <a href="../index.html">SmartSemaphore</a> will be re-locked. That means that while <span data-unresolved-link="dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/freePermits/#/PointingToDeclaration/">freePermits</span> == true, holds will wait for <span data-unresolved-link="dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/freePermits/#/PointingToDeclaration/">freePermits</span> == false and then try to lock</p></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
