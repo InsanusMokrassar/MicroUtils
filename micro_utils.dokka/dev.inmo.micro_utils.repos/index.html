@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>dev.inmo.micro_utils.repos</title>
     <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -18,12 +19,13 @@
         }
     }
     </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../styles/style.css" rel="Stylesheet">
-<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
 <link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
@@ -32,30 +34,35 @@
 <script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name">
-            <a href="../../index.html">
-                    <span>micro_utils.dokka</span>
-            </a>
-    </div>
-    <div>
-0.20.3    </div>
-    <div class="pull-right d-flex">
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../index.html">
+                            micro_utils.dokka
+                    </a>
+            </div>
+            <div class="library-version">
+0.20.3            </div>
+        </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/androidMain">android</button>
                 <button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button>
         </div>
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
     </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
-        <div id="sideMenu"></div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
     </div>
-    <div id="main">
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
 <div class="main-content" data-page-type="package" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.repos////PointingToDeclaration//1737121690">
   <div class="breadcrumbs"><a href="../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><span class="current">dev.inmo.micro_utils.repos</span></div>
   <div class="cover ">
@@ -335,13 +342,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#259361985%2FClasslikes%2F-1478683138"><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-one-to-many-key-value-repo/index.html"><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="259361985%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#259361985%2FClasslikes%2F-1478683138">OneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#259361985%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#259361985%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-key-values-repo/index.html">KeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#259361985%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#259361985%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-one-to-many-key-value-repo/index.html">OneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-key-values-repo/index.html">KeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -425,13 +432,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-12357129%2FClasslikes%2F-1478683138"><span>Read</span><wbr></wbr><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-read-one-to-many-key-value-repo/index.html"><span>Read</span><wbr></wbr><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-12357129%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-12357129%2FClasslikes%2F-1478683138">ReadOneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-12357129%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-12357129%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-key-values-repo/index.html">ReadKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-12357129%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-12357129%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-read-one-to-many-key-value-repo/index.html">ReadOneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-key-values-repo/index.html">ReadKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -440,13 +447,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1095461178%2FClasslikes%2F-1478683138"><span>Read</span><wbr></wbr><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
+                  <div><a href="-read-standard-c-r-u-d-repo/index.html"><span>Read</span><wbr></wbr><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1095461178%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1095461178%2FClasslikes%2F-1478683138">ReadStandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1095461178%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1095461178%2FClasslikes%2F-1478683138">IdType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-c-r-u-d-repo/index.html">ReadCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1095461178%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1095461178%2FClasslikes%2F-1478683138">IdType</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-read-standard-c-r-u-d-repo/index.html">ReadStandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-standard-c-r-u-d-repo/index.html">IdType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-c-r-u-d-repo/index.html">ReadCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-standard-c-r-u-d-repo/index.html">IdType</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -455,13 +462,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1328790022%2FClasslikes%2F-1478683138"><span>Read</span><wbr></wbr><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-read-standard-key-value-repo/index.html"><span>Read</span><wbr></wbr><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1328790022%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1328790022%2FClasslikes%2F-1478683138">ReadStandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1328790022%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1328790022%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-key-value-repo/index.html">ReadKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1328790022%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1328790022%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-read-standard-key-value-repo/index.html">ReadStandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-read-key-value-repo/index.html">ReadKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-read-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-read-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -500,13 +507,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1928476720%2FClasslikes%2F-1478683138"><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
+                  <div><a href="-standard-c-r-u-d-repo/index.html"><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1928476720%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">StandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">InputValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-c-r-u-d-repo/index.html">CRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1928476720%2FClasslikes%2F-1478683138">InputValueType</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-standard-c-r-u-d-repo/index.html">StandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">InputValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-c-r-u-d-repo/index.html">CRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-c-r-u-d-repo/index.html">InputValueType</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -515,13 +522,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1571938820%2FClasslikes%2F-1478683138"><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-standard-key-value-repo/index.html"><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1571938820%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-1571938820%2FClasslikes%2F-1478683138">StandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1571938820%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-1571938820%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-key-value-repo/index.html">KeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1571938820%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-1571938820%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-standard-key-value-repo/index.html">StandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-key-value-repo/index.html">KeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -564,13 +571,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1399384493%2FClasslikes%2F-1478683138"><span>Updated</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Pair</span></span></a></div>
+                  <div><a href="-updated-value-pair/index.html"><span>Updated</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Pair</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1399384493%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">ValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">ValueType</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-updated-value-pair/index.html">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-updated-value-pair/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-updated-value-pair/index.html">ValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-updated-value-pair/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-updated-value-pair/index.html">ValueType</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -654,13 +661,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1543465512%2FClasslikes%2F-1478683138"><span>Write</span><wbr></wbr><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-write-one-to-many-key-value-repo/index.html"><span>Write</span><wbr></wbr><span>One</span><wbr></wbr><span>To</span><wbr></wbr><span>Many</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1543465512%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-1543465512%2FClasslikes%2F-1478683138">WriteOneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1543465512%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-1543465512%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-key-values-repo/index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1543465512%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#-1543465512%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-write-one-to-many-key-value-repo/index.html">WriteOneToManyKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-key-values-repo/index.html">WriteKeyValuesRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-one-to-many-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-one-to-many-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -669,13 +676,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1772985529%2FClasslikes%2F-1478683138"><span>Write</span><wbr></wbr><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
+                  <div><a href="-write-standard-c-r-u-d-repo/index.html"><span>Write</span><wbr></wbr><span>Standard</span><wbr></wbr><span><span>CRUDRepo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1772985529%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">WriteStandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">InputValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-c-r-u-d-repo/index.html">WriteCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1772985529%2FClasslikes%2F-1478683138">InputValueType</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-write-standard-c-r-u-d-repo/index.html">WriteStandardCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">InputValueType</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-c-r-u-d-repo/index.html">WriteCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-c-r-u-d-repo/index.html">InputValueType</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -684,13 +691,13 @@
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1279399429%2FClasslikes%2F-1478683138"><span>Write</span><wbr></wbr><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
+                  <div><a href="-write-standard-key-value-repo/index.html"><span>Write</span><wbr></wbr><span>Standard</span><wbr></wbr><span>Key</span><wbr></wbr><span>Value</span><wbr></wbr><span><span>Repo</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1279399429%2FClasslikes%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1279399429%2FClasslikes%2F-1478683138">WriteStandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1279399429%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1279399429%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-key-value-repo/index.html">WriteKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1279399429%2FClasslikes%2F-1478683138">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1279399429%2FClasslikes%2F-1478683138">Value</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-write-standard-key-value-repo/index.html">WriteStandardKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span><span class="token operator"> = </span><a href="-write-key-value-repo/index.html">WriteKeyValueRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-write-standard-key-value-repo/index.html">Key</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-write-standard-key-value-repo/index.html">Value</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -726,7 +733,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">IdType</a><span class="token operator">&gt; </span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">IdType</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="id.html">id</a><span class="token operator">: </span><a href="id.html">IdType</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">IdType</a><span class="token operator">&gt; </span><a href="-updated-value-pair/index.html">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">IdType</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="id.html">id</a><span class="token operator">: </span><a href="id.html">IdType</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -775,7 +782,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="value.html">ValueType</a><span class="token operator">&gt; </span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="value.html">ValueType</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="value.html">value</a><span class="token operator">: </span><a href="value.html">ValueType</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="value.html">ValueType</a><span class="token operator">&gt; </span><a href="-updated-value-pair/index.html">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="value.html">ValueType</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="value.html">value</a><span class="token operator">: </span><a href="value.html">ValueType</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -1514,7 +1521,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt; </span><a href="-write-c-r-u-d-repo/index.html">WriteCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>values<span class="token operator">: </span><a href="index.html#1399384493%2FClasslikes%2F-1478683138">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt; </span><a href="-write-c-r-u-d-repo/index.html">WriteCRUDRepo</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>values<span class="token operator">: </span><a href="-updated-value-pair/index.html">UpdatedValuePair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">IdType</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="update.html">InputValueType</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="update.html">ObjectType</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -1546,7 +1553,8 @@
                 class="pull-right"><span>Generated by </span><a
                 href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
+            </div>
+        </div>
     </div>
-</div>
 </body>
 </html>
