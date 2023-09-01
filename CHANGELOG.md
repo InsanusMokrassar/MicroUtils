@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.20.3
+
+* `Versions`:
+    * `Compose`: `1.4.3` -> `1.5.0`
+    * `Exposed`: `0.42.1` -> `0.43.0`
+    * `Ktor`: `2.3.3` -> `2.3.4`
+* `Repos`:
+    * `Cache`:
+        * Fixes in locks of caches
+
 ## 0.20.2
 
 * All main repos uses `SmartRWLocker`

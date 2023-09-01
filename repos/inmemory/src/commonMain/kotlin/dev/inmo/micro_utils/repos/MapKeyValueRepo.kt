@@ -9,6 +9,7 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
 /**
  * [Map]-based [ReadKeyValueRepo]. All internal operations will be locked with [locker] (mostly with
@@ -88,12 +89,14 @@ class WriteMapKeyValueRepo<Key, Value>(
     private val map: MutableMap<Key, Value>,
     private val locker: SmartRWLocker
 ) : WriteKeyValueRepo<Key, Value> {
-    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
-    override val onNewValue: Flow<Pair<Key, Value>>
-        get() = _onNewValue
-    private val _onValueRemoved: MutableSharedFlow<Key> = MutableSharedFlow()
-    override val onValueRemoved: Flow<Key>
-        get() = _onValueRemoved
+    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MapsReposDefaultMutableSharedFlow()
+    override val onNewValue: Flow<Pair<Key, Value>> by lazy {
+        _onNewValue.asSharedFlow()
+    }
+    private val _onValueRemoved: MutableSharedFlow<Key> = MapsReposDefaultMutableSharedFlow()
+    override val onValueRemoved: Flow<Key> by lazy {
+        _onValueRemoved.asSharedFlow()
+    }
     constructor(map: MutableMap<Key, Value> = mutableMapOf()) : this(map, SmartRWLocker())
 
     override suspend fun set(toSet: Map<Key, Value>) {
@@ -103,10 +106,10 @@ class WriteMapKeyValueRepo<Key, Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         locker.withWriteLock {
-            toUnset.forEach { k ->
-                map.remove(k) ?.also { _ -> _onValueRemoved.emit(k) }
+            toUnset.mapNotNull { k ->
+                map.remove(k) ?.let { _ -> k }
             }
-        }
+        }.forEach { _onValueRemoved.emit(it) }
     }
 
     override suspend fun unsetWithValues(toUnset: List<Value>) {

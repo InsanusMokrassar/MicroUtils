@@ -27,9 +27,18 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
             kvCache.action().onPresented { return it }
         }
         return parentRepo.actionElse().also {
-            locker.withWriteLock { kvCache.actualize(it) }
+            kvCache.actualize(it)
         }
     }
+    protected suspend inline fun <T> doOrTakeAndActualizeWithWriteLock(
+        action: KeyValueRepo<Key, List<Value>>.() -> Optional<T>,
+        actionElse: ReadKeyValuesRepo<Key, Value>.() -> T,
+        actualize: KeyValueRepo<Key, List<Value>>.(T) -> Unit
+    ): T = doOrTakeAndActualize(
+        action = action,
+        actionElse = actionElse,
+        actualize = { locker.withWriteLock { actualize(it) } }
+    )
 
     protected open suspend fun actualizeKey(k: Key) {
         locker.withWriteLock {
