@@ -9,6 +9,7 @@ android {
         targetSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
         versionCode "${android_code_version}".toInteger()
         versionName "$version"
+        namespace "${project.group}.${project.name}"
     }
     buildTypes {
         release {
