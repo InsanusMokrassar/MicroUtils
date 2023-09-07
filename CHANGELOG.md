@@ -2,6 +2,10 @@
 
 ## 0.20.6
 
+* `Repos`:
+    * `Exposed`
+        * Fixes in exposed key-values repos
+
 ## 0.20.5
 
 * `Coroutines`:
