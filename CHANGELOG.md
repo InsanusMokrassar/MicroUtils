@@ -2,6 +2,9 @@
 
 ## 0.20.5
 
+* `Coroutines`:
+    * Fixes in `SmartRWLocker`
+
 ## 0.20.4
 
 * `Versions`:
