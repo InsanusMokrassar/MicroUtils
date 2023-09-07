@@ -1,12 +1,10 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.pagination.*
-import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.*
 import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
@@ -72,5 +70,27 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
 
     override suspend fun contains(k: Key, v: Value): Boolean = transaction(database) {
         select { selectById(k).and(selectByValue(v)) }.limit(1).any()
+    }
+
+    override suspend fun getAll(reverseLists: Boolean): Map<Key, List<Value>> = transaction(database) {
+        val query = if (reverseLists) {
+            selectAll().orderBy(keyColumn, SortOrder.DESC)
+        } else {
+            selectAll()
+        }
+        query.asSequence().map { it.asKey to it.asObject }.groupBy { it.first }.mapValues {
+            it.value.map { it.second }
+        }
+    }
+
+    override suspend fun getAll(k: Key, reverseLists: Boolean): List<Value> = transaction(database) {
+        val query = if (reverseLists) {
+            select { selectById(k) }.orderBy(keyColumn, SortOrder.DESC)
+        } else {
+            select { selectById(k) }
+        }
+        query.map {
+            it.asObject
+        }
     }
 }
