@@ -1,7 +1,7 @@
 [versions]
 
-kt = "1.9.20-Beta"
-compose-kotlin = "1.5.2.1-Beta"
+kt = "1.9.20-Beta2"
+compose-kotlin = "1.5.2.1-Beta2"
 kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
@@ -22,10 +22,10 @@ koin = "3.4.3"
 
 okio = "3.5.0"
 
-ksp = "1.9.20-Beta-1.0.13"
+ksp = "1.9.20-Beta2-1.0.13"
 kotlin-poet = "1.14.2"
 
-versions = "0.47.0"
+versions = "0.48.0"
 
 android-gradle = "7.4.2"
 dexcount = "4.0.0"
