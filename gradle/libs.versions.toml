@@ -7,7 +7,7 @@ kt-coroutines = "1.7.3"
 kslog = "1.2.1"
 
 jb-compose = "1.5.1"
-jb-exposed = "0.43.0"
+jb-exposed = "0.44.0"
 jb-dokka = "1.9.0"
 
 korlibs = "4.0.10"
