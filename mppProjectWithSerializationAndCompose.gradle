@@ -75,8 +75,8 @@ java {
 }
 
 
-compose {
-    if (composePluginKotlinVersion != null && !composePluginKotlinVersion.isEmpty()) {
-        kotlinCompilerPlugin.set(composePluginKotlinVersion)
-    }
-}
+//compose {
+//    if (composePluginKotlinVersion != null && !composePluginKotlinVersion.isEmpty()) {
+//        kotlinCompilerPlugin.set(composePluginKotlinVersion)
+//    }
+//}
