@@ -19,6 +19,12 @@ allprojects {
         }
 
         releaseMode = (project.hasProperty('RELEASE_MODE') && project.property('RELEASE_MODE') == "true") || System.getenv('RELEASE_MODE') == "true"
+//        String compilerPluginVersionFromProperties = (String) project.properties["compose.kotlinCompilerPluginVersion"]
+//        String compilerPluginVersionFromLibrariesVersions = libs.versions.compose.kotlin.get()
+//        composePluginKotlinVersion = compilerPluginVersionFromProperties
+//        if (compilerPluginVersionFromProperties == null) {
+//            composePluginKotlinVersion = compilerPluginVersionFromLibrariesVersions
+//        }
 
         mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerialization.gradle"
         mppProjectWithSerializationAndComposePresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerializationAndCompose.gradle"

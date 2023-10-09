@@ -15,7 +15,7 @@ kotlin {
         browser()
         nodejs()
     }
-    android {
+    androidTarget {
         publishAllLibraryVariants()
     }
 
@@ -73,3 +73,10 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
+
+//compose {
+//    if (composePluginKotlinVersion != null && !composePluginKotlinVersion.isEmpty()) {
+//        kotlinCompilerPlugin.set(composePluginKotlinVersion)
+//    }
+//}
