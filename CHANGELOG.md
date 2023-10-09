@@ -2,6 +2,18 @@
 
 ## 0.20.7
 
+**THIS VERSION CONTAINS UPDATES OF DEPENDENCIES UP TO BETA VERSIONS. USE WITH CAUTION**
+
+* `Versions`:
+    * `Kotlin`: `1.9.10` -> `1.9.20-Beta2`
+    * `Compose`: `1.5.1` -> `1.5.10-beta02`
+    * `Exposed`: `0.43.0` -> `0.44.0`
+    * `Ktor`: `2.3.4` -> `2.3.5`
+    * `Koin`: `3.4.3` -> `3.5.0`
+    * `Okio`: `3.5.0` -> `3.6.0`
+    * `Android Core`: `1.10.1` -> `1.12.0`
+    * `Android Compose Material`: `1.1.1` -> `1.1.2`
+
 ## 0.20.6
 
 * `Repos`:
