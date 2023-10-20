@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
 
 kotlin {
     sourceSets {
@@ -27,6 +27,11 @@ kotlin {
             }
         }
         mingwX64Main {
+            dependencies {
+                api libs.okio
+            }
+        }
+        linuxArm64Main {
             dependencies {
                 api libs.okio
             }

@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
 
 kotlin {
     sourceSets {
@@ -26,6 +26,12 @@ kotlin {
         }
 
         mingwX64Main {
+            dependencies {
+                api internalProject("micro_utils.mime_types")
+            }
+        }
+
+        linuxArm64Main {
             dependencies {
                 api internalProject("micro_utils.mime_types")
             }

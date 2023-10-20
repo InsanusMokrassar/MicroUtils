@@ -17,6 +17,7 @@ kotlin {
     }
     linuxX64()
     mingwX64()
+    linuxArm64()
 
     sourceSets {
         commonMain {
@@ -44,18 +45,6 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
-        mingwX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
-        }
-        linuxX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
-        }
-
-        androidMain.dependsOn jvmMain
     }
 }
 

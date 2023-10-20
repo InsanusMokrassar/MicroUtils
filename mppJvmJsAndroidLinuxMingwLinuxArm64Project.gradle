@@ -15,8 +15,12 @@ kotlin {
         browser()
         nodejs()
     }
+    androidTarget {
+        publishAllLibraryVariants()
+    }
     linuxX64()
     mingwX64()
+    linuxArm64()
 
     sourceSets {
         commonMain {
@@ -33,6 +37,13 @@ kotlin {
             }
         }
 
+        androidUnitTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
@@ -44,20 +55,10 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
-        mingwX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
-        }
-        linuxX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
-        }
-
-        androidMain.dependsOn jvmMain
     }
 }
+
+apply from: "$defaultAndroidSettingsPresetPath"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

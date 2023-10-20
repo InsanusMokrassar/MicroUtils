@@ -26,10 +26,12 @@ allprojects {
 //            composePluginKotlinVersion = compilerPluginVersionFromLibrariesVersions
 //        }
 
-        mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerialization.gradle"
+        mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsAndroidProject.gradle"
         mppProjectWithSerializationAndComposePresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerializationAndCompose.gradle"
         mppJavaProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJavaProject.gradle"
         mppJvmJsLinuxMingwProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwProject.gradle"
+        mppJvmJsLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwLinuxArm64Project.gradle"
+        mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsAndroidLinuxMingwLinuxArm64Project.gradle"
         mppAndroidProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppAndroidProject.gradle"
 
         defaultAndroidSettingsPresetPath = "${rootProject.projectDir.absolutePath}/defaultAndroidSettings.gradle"

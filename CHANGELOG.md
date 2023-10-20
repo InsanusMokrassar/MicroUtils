@@ -2,6 +2,8 @@
 
 ## 0.20.9
 
+* Most of common modules now supports `linuxArm64` target
+
 ## 0.20.8
 
 **THIS VERSION CONTAINS UPDATES OF DEPENDENCIES UP TO RC VERSIONS. USE WITH CAUTION**
