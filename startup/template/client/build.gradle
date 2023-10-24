@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
 
 kotlin {
     sourceSets {

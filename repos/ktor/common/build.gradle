@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
 
 kotlin {
     sourceSets {
