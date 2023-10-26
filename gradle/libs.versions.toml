@@ -1,15 +1,15 @@
 [versions]
 
-kt = "1.9.20-RC"
+kt = "1.9.20-RC2"
 #compose-kotlin = "1.5.10-beta02"
 kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
-kslog = "1.2.1"
+kslog = "1.2.2"
 
-jb-compose = "1.5.10-rc01"
+jb-compose = "1.5.10-rc02"
 jb-exposed = "0.44.0"
-jb-dokka = "1.9.0"
+jb-dokka = "1.9.10"
 
 korlibs = "4.0.10"
 uuid = "0.8.1"
@@ -22,7 +22,7 @@ koin = "3.5.0"
 
 okio = "3.6.0"
 
-ksp = "1.9.20-RC-1.0.13"
+ksp = "1.9.20-RC2-1.0.13"
 kotlin-poet = "1.14.2"
 
 versions = "0.49.0"
@@ -31,7 +31,7 @@ android-gradle = "7.4.2"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.12.0"
-android-recyclerView = "1.3.1"
+android-recyclerView = "1.3.2"
 android-appCompat = "1.6.1"
 android-fragment = "1.6.1"
 android-espresso = "3.5.1"
