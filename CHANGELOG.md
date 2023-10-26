@@ -2,6 +2,9 @@
 
 ## 0.20.11
 
+* `Coroutines`:
+  * `SmartRWLocker` now will wait first unlock of write mutex for acquiring read
+
 ## 0.20.10
 
 * `Versions`:
