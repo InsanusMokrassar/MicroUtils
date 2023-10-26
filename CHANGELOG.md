@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.10
+
+* `Versions`:
+    * `Kotlin`: `1.9.20-RC` -> `1.9.20-RC1`
+    * `KSLog`: `1.2.1` -> `1.2.2`
+    * `Compose`: `1.5.10-rc01` -> `1.5.10-rc02`
+    * `RecyclerView`: `1.3.1` -> `1.3.2`
+
 ## 0.20.9
 
 * Most of common modules now supports `linuxArm64` target
