@@ -1,6 +1,6 @@
 [versions]
 
-kt = "1.9.20-RC2"
+kt = "1.9.20"
 #compose-kotlin = "1.5.10-beta02"
 kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
