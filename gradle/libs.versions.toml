@@ -1,14 +1,14 @@
 [versions]
 
-kt = "1.9.20-RC2"
+kt = "1.9.20"
 #compose-kotlin = "1.5.10-beta02"
 kt-serialization = "1.6.0"
 kt-coroutines = "1.7.3"
 
 kslog = "1.2.2"
 
-jb-compose = "1.5.10-rc02"
-jb-exposed = "0.44.0"
+jb-compose = "1.5.10"
+jb-exposed = "0.44.1"
 jb-dokka = "1.9.10"
 
 korlibs = "4.0.10"
@@ -22,7 +22,7 @@ koin = "3.5.0"
 
 okio = "3.6.0"
 
-ksp = "1.9.20-RC2-1.0.13"
+ksp = "1.9.20-1.0.13"
 kotlin-poet = "1.14.2"
 
 versions = "0.49.0"
