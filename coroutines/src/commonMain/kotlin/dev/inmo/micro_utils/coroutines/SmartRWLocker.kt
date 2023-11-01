@@ -23,6 +23,7 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
      * Do lock in [readSemaphore] inside of [writeMutex] locking
      */
     suspend fun acquireRead() {
+        _writeMutex.waitUnlock()
         _readSemaphore.acquire()
     }
 
