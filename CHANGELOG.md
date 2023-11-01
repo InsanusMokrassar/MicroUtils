@@ -2,8 +2,12 @@
 
 ## 0.20.11
 
+* `Versions`:
+    * `Kotlin`: `1.9.20-RC2` -> `1.9.20`
+    * `Exposed`: `0.44.0` -> `0.44.1`
+    * `Compose`: `1.5.10-rc02` -> `1.5.10`
 * `Coroutines`:
-  * `SmartRWLocker` now will wait first unlock of write mutex for acquiring read
+    * `SmartRWLocker` now will wait first unlock of write mutex for acquiring read
 
 ## 0.20.10
 
