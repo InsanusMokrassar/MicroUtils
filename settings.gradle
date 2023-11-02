@@ -59,5 +59,3 @@ includes.each { originalName ->
     project.name = projectName
     project.projectDir = new File(projectDirectory)
 }
-
-enableFeaturePreview("VERSION_CATALOGS")
