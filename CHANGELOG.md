@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.12
+
+**It is experimental migration onto new gradle version. Be careful in use of this version**
+
+**This update have JDK 17 in `compatibility` and `target` versions**
+
 ## 0.20.11
 
 * `Versions`:
