@@ -11,7 +11,7 @@ jb-exposed = "0.44.1"
 jb-dokka = "1.9.10"
 
 korlibs = "4.0.10"
-uuid = "0.8.1"
+uuid = "0.8.2"
 
 ktor = "2.3.6"
 
@@ -21,7 +21,7 @@ koin = "3.5.0"
 
 okio = "3.6.0"
 
-ksp = "1.9.20-1.0.13"
+ksp = "1.9.20-1.0.14"
 kotlin-poet = "1.14.2"
 
 versions = "0.49.0"

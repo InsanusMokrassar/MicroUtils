@@ -2,6 +2,10 @@
 
 ## 0.20.13
 
+* `Versions`:
+    * `Ktor`: `2.3.5` -> `2.3.6`
+    * `UUID`: `0.8.1` -> `0.8.2`
+
 ## 0.20.12
 
 **It is experimental migration onto new gradle version. Be careful in use of this version**
