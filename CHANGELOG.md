@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.14
+
+* `Versions`:
+    * `Serialization`: `1.6.0` -> `1.6.1`
+    * `KSLog`: `1.2.4` -> `1.3.0`
+
 ## 0.20.13
 
 * `Versions`:
