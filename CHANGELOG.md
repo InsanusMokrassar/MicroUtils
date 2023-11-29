@@ -2,8 +2,12 @@
 
 ## 0.20.16
 
+* `Versions`:
+    * `Exposed`: `0.44.1` -> `0.45.0`
 * `Coroutines`:
-    * Add `SpecialStateFlow`
+    * Add `SpecialMutableStateFlow`
+    * `Compose`:
+        * Add `FlowState`
 
 ## 0.20.15
 
