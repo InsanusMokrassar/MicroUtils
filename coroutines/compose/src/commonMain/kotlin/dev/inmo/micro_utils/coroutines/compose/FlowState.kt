@@ -10,9 +10,9 @@ import kotlinx.coroutines.Dispatchers
 
 class FlowState<T>(
     initial: T,
-    internalScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
+    internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : MutableState<T>,
-    SpecialMutableStateFlow.Default<T>(initial, internalScope) {
+    SpecialMutableStateFlow<T>(initial, internalScope) {
     private var internalValue: T = initial
     override var value: T
         get() = internalValue
