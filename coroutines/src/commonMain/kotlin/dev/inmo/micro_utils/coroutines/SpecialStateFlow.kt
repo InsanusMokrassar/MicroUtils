@@ -10,27 +10,31 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface SpecialMutableStateFlow<T> : StateFlow<T>, FlowCollector<T>, MutableSharedFlow<T> {
-    class Default<T>(
+    open class Default<T>(
         initialValue: T,
         internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) : SpecialMutableStateFlow<T> {
-        private val internalSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
+        protected val internalSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
             replay = 0,
             extraBufferCapacity = 1,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
-        private val publicSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
+        protected val publicSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
             replay = 1,
             extraBufferCapacity = 1,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
 
-        override var value: T = initialValue
-            private set
-        private val job = internalSharedFlow.subscribe(internalScope) {
-            if (value != it) {
-                value = it
-                publicSharedFlow.emit(it)
+        protected var _value: T = initialValue
+        override val value: T
+            get() = _value
+        protected open suspend fun onChange(value: T) {
+            _value = value
+            publicSharedFlow.emit(value)
+        }
+        protected val job = internalSharedFlow.subscribeSafelyWithoutExceptions(internalScope) {
+            if (_value != it) {
+                onChange(it)
             }
         }
 
