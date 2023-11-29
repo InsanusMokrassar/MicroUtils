@@ -16,7 +16,7 @@ interface SpecialMutableStateFlow<T> : StateFlow<T>, FlowCollector<T>, MutableSh
     ) : SpecialMutableStateFlow<T> {
         protected val internalSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
             replay = 0,
-            extraBufferCapacity = 1,
+            extraBufferCapacity = 2,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
         protected val publicSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
@@ -32,7 +32,7 @@ interface SpecialMutableStateFlow<T> : StateFlow<T>, FlowCollector<T>, MutableSh
             _value = value
             publicSharedFlow.emit(value)
         }
-        protected val job = internalSharedFlow.subscribeSafelyWithoutExceptions(internalScope) {
+        protected val job = internalSharedFlow.subscribe(internalScope) {
             if (_value != it) {
                 onChange(it)
             }
