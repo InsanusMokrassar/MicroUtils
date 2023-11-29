@@ -1,12 +1,13 @@
 package dev.inmo.micro_utils.matrix
 
-class RowBuilder<T> {
+open class RowBuilder<T> {
     private val mutRow: MutableList<T> = ArrayList()
     val row: Row<T>
         get() = mutRow
 
-    fun column(t: T) = mutRow.add(t)
+    fun add(t: T) = mutRow.add(t)
     operator fun T.unaryPlus() = column(this)
+    fun column(t: T) = mutRow.add(t)
 }
 
 fun <T> row(block: RowBuilder<T>.() -> Unit): List<T> = RowBuilder<T>().also(block).row
