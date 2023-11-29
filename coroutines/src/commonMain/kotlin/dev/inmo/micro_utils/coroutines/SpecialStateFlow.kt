@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.internal.synchronized
 
-interface SpecialMutableStateFlow<T> : MutableStateFlow<T> {
+interface SpecialMutableStateFlow<T> : StateFlow<T>, FlowCollector<T>, MutableSharedFlow<T> {
     class Default<T>(
         initialValue: T,
         internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
@@ -21,22 +20,16 @@ interface SpecialMutableStateFlow<T> : MutableStateFlow<T> {
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
         private val publicSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
-            replay = 0,
+            replay = 1,
             extraBufferCapacity = 1,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
 
-        private var _value: T = initialValue
-        override var value: T
-            get() {
-                return _value
-            }
-            set(value) {
-                tryEmit(value)
-            }
+        override var value: T = initialValue
+            private set
         private val job = internalSharedFlow.subscribe(internalScope) {
-            if (_value != it) {
-                _value = it
+            if (value != it) {
+                value = it
                 publicSharedFlow.emit(it)
             }
         }
@@ -45,18 +38,6 @@ interface SpecialMutableStateFlow<T> : MutableStateFlow<T> {
             get() = publicSharedFlow.replayCache
         override val subscriptionCount: StateFlow<Int>
             get() = publicSharedFlow.subscriptionCount
-
-        init {
-            value = initialValue
-        }
-
-        override fun compareAndSet(expect: T, update: T): Boolean {
-            return if (value == expect) {
-                tryEmit(update)
-            } else {
-                false
-            }
-        }
 
         @ExperimentalCoroutinesApi
         override fun resetReplayCache() = publicSharedFlow.resetReplayCache()
