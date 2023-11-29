@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Works like [StateFlow], but guarantee that latest value update will always be delivered to
+ * each active subscriber
+ */
 open class SpecialMutableStateFlow<T>(
     initialValue: T,
     internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)

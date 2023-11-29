@@ -8,6 +8,10 @@ import dev.inmo.micro_utils.coroutines.doInUI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
+/**
+ * This type works like [MutableState], [kotlinx.coroutines.flow.StateFlow] and [kotlinx.coroutines.flow.MutableSharedFlow].
+ * Based on [SpecialMutableStateFlow]
+ */
 class FlowState<T>(
     initial: T,
     internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
