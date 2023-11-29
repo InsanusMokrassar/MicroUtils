@@ -2,6 +2,9 @@
 
 ## 0.20.16
 
+* `Coroutines`:
+    * Add `SpecialStateFlow`
+
 ## 0.20.15
 
 * `Versions`:
