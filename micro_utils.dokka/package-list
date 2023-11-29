@@ -405,6 +405,13 @@ $dokka.location:dev.inmo.micro_utils.coroutines.compose//linkWithContext/[Error 
 $dokka.location:dev.inmo.micro_utils.coroutines.compose//linkWithJob/[Error type: Unresolved type for Composition]#kotlinx.coroutines.Job/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/link-with-job.html
 $dokka.location:dev.inmo.micro_utils.coroutines.compose//renderComposableAndLinkToContext/#TypeParam(bounds=[org.w3c.dom.Element])#[Error type: Unresolved type for MonotonicFrameClock]#kotlin.Function1[[Error type: Unresolved type for DOMScope<TElement>][TypeParam(bounds=[org.w3c.dom.Element])],kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/render-composable-and-link-to-context.html
 $dokka.location:dev.inmo.micro_utils.coroutines.compose//renderComposableAndLinkToContextAndRoot/#TypeParam(bounds=[org.w3c.dom.Element])#[Error type: Unresolved type for MonotonicFrameClock]#kotlin.Function1[[Error type: Unresolved type for DOMScope<TElement>][TypeParam(bounds=[org.w3c.dom.Element])],kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/render-composable-and-link-to-context-and-root.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/index.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/FlowState/#TypeParam(bounds=[kotlin.Any?])#kotlinx.coroutines.CoroutineScope/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/-flow-state.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/component1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/component1.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/component2/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/component2.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/emit/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/emit.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/tryEmit/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/try-emit.html
+$dokka.location:dev.inmo.micro_utils.coroutines.compose/FlowState/value/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/-flow-state/value.html
 $dokka.location:dev.inmo.micro_utils.coroutines////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/index.html
 $dokka.location:dev.inmo.micro_utils.coroutines//CoroutineScope/#kotlin.coroutines.CoroutineContext#kotlin.coroutines.SuspendFunction1[kotlin.Throwable,kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-coroutine-scope.html
 $dokka.location:dev.inmo.micro_utils.coroutines//Default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-default.html
@@ -560,6 +567,15 @@ $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/tryAcquir
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/index.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore/freePermits/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/free-permits.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore/permitsStateFlow/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/permits-state-flow.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/index.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/SpecialMutableStateFlow/#TypeParam(bounds=[kotlin.Any?])#kotlinx.coroutines.CoroutineScope/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/-special-mutable-state-flow.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/collect/#kotlinx.coroutines.flow.FlowCollector[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/collect.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/emit/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/emit.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/replayCache/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/replay-cache.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/resetReplayCache/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/reset-replay-cache.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/subscriptionCount/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/subscription-count.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/tryEmit/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/try-emit.html
+$dokka.location:dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow/value/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-special-mutable-state-flow/value.html
 $dokka.location:dev.inmo.micro_utils.crypto////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.crypto/index.html
 $dokka.location:dev.inmo.micro_utils.crypto//CryptoJS/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.crypto/-crypto-j-s.html
 $dokka.location:dev.inmo.micro_utils.crypto//HEX_ARRAY/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.crypto/-h-e-x_-a-r-r-a-y.html
@@ -3017,12 +3033,16 @@ $dokka.location:dev.inmo.micro_utils.matrix//row/dev.inmo.micro_utils.matrix.Mat
 $dokka.location:dev.inmo.micro_utils.matrix/Matrix///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix/index.html
 $dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/index.html
 $dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/MatrixBuilder/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/-matrix-builder.html
+$dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/add/#kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/add.html
 $dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/matrix/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/matrix.html
+$dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/plus/#kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/plus.html
 $dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/row/#kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/row.html
+$dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/unaryPlus/TypeParam(bounds=[kotlin.Any?])#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/unary-plus.html
 $dokka.location:dev.inmo.micro_utils.matrix/MatrixBuilder/unaryPlus/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-matrix-builder/unary-plus.html
 $dokka.location:dev.inmo.micro_utils.matrix/Row///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row/index.html
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/index.html
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/RowBuilder/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/-row-builder.html
+$dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/add/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/add.html
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/column/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/column.html
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/row/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/row.html
 $dokka.location:dev.inmo.micro_utils.matrix/RowBuilder/unaryPlus/TypeParam(bounds=[kotlin.Any?])#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.matrix/-row-builder/unary-plus.html
