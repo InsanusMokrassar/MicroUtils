@@ -2,6 +2,9 @@
 
 ## 0.20.17
 
+* `Versions`:
+    * `Serialization`: `1.6.1` -> `1.6.2`
+
 ## 0.20.16
 
 * `Versions`:
