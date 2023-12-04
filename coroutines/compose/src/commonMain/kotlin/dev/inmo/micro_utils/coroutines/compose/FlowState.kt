@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
  * This type works like [MutableState], [kotlinx.coroutines.flow.StateFlow] and [kotlinx.coroutines.flow.MutableSharedFlow].
  * Based on [SpecialMutableStateFlow]
  */
+@Deprecated("Will be removed soon")
 class FlowState<T>(
     initial: T,
     internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)

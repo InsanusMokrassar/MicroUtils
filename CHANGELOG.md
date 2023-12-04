@@ -2,6 +2,10 @@
 
 ## 0.20.18
 
+* `Coroutines`:
+    * `Compose`:
+        * Deprecate `FlowState` due to its complexity in fixes
+
 ## 0.20.17
 
 * `Versions`:
