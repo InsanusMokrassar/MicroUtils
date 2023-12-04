@@ -22,7 +22,7 @@ koin = "3.5.0"
 okio = "3.6.0"
 
 ksp = "1.9.21-1.0.15"
-kotlin-poet = "1.15.2"
+kotlin-poet = "1.15.3"
 
 versions = "0.50.0"
 
