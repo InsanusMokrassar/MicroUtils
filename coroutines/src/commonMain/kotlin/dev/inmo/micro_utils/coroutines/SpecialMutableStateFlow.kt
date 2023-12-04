@@ -34,12 +34,19 @@ open class SpecialMutableStateFlow<T>(
     )
 
     protected var _value: T = initialValue
-    @OptIn(InternalCoroutinesApi::class)
     override var value: T
         get() = _value
         set(value) {
             doOnChangeAction(value)
         }
+    protected val job = internalSharedFlow.subscribe(internalScope) {
+        doOnChangeAction(it)
+    }
+
+    override val replayCache: List<T>
+        get() = publicSharedFlow.replayCache
+    override val subscriptionCount: StateFlow<Int>
+        get() = publicSharedFlow.subscriptionCount
 
     @OptIn(InternalCoroutinesApi::class)
     override fun compareAndSet(expect: T, update: T): Boolean {
@@ -63,14 +70,6 @@ open class SpecialMutableStateFlow<T>(
             }
         }
     }
-    protected val job = internalSharedFlow.subscribe(internalScope) {
-        doOnChangeAction(it)
-    }
-
-    override val replayCache: List<T>
-        get() = publicSharedFlow.replayCache
-    override val subscriptionCount: StateFlow<Int>
-        get() = publicSharedFlow.subscriptionCount
 
     @ExperimentalCoroutinesApi
     override fun resetReplayCache() = publicSharedFlow.resetReplayCache()
