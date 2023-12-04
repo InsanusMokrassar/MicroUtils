@@ -1,10 +1,7 @@
 package dev.inmo.micro_utils.coroutines.compose
 
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
 import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
-import dev.inmo.micro_utils.coroutines.doInUI
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -26,9 +23,9 @@ class FlowState<T>(
             tryEmit(value)
         }
 
-    override suspend fun onChange(value: T) {
+    override fun onChangeWithoutSync(value: T) {
         internalValue = value
-        super.onChange(value)
+        super.onChangeWithoutSync(value)
     }
 
     override fun component1(): T = value

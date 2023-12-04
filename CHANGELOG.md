@@ -3,6 +3,7 @@
 ## 0.20.18
 
 * `Coroutines`:
+    * `SpecialMutableStateFlow` now extends `MutableStateFlow`
     * `Compose`:
         * Deprecate `FlowState` due to its complexity in fixes
 
