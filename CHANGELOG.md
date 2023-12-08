@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.19
+
+* `Versions`:
+    * `Ktor`: `2.3.6` -> `2.3.7`
+
 ## 0.20.18
 
 * `Coroutines`:
