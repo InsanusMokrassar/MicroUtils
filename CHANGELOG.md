@@ -2,6 +2,10 @@
 
 ## 0.20.20
 
+* `Repos`:
+    * `Exposed`:
+        * Add opportunity for setup flows in `AbstractExposedCRUDRepo`
+
 ## 0.20.19
 
 * `Versions`:

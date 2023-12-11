@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.exposed
 
 import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteCRUDRepo
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.*
@@ -11,19 +12,26 @@ import java.util.Objects
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = 0,
     tableName: String = "",
-    replyCacheInFlows: Int = 0
+    replyCacheInFlows: Int = 0,
+    onBufferOverflowBehaviour: BufferOverflow = BufferOverflow.SUSPEND
 ) :
     AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteCRUDRepo<ObjectType, IdType, InputValueType>
 {
-    protected val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
+    protected open val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
+    protected open val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
+    protected open val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
 
-    override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
+    override val newObjectsFlow: Flow<ObjectType> by lazy {
+        _newObjectsFlow.asSharedFlow()
+    }
+    override val updatedObjectsFlow: Flow<ObjectType> by lazy {
+        _updatedObjectsFlow.asSharedFlow()
+    }
+    override val deletedObjectsIdsFlow: Flow<IdType> by lazy {
+        _deletedObjectsIdsFlow.asSharedFlow()
+    }
 
     protected abstract fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType
 
