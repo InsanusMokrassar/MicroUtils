@@ -13,5 +13,9 @@ kotlin {
                 api project(":micro_utils.language_codes")
             }
         }
+
+        androidMain {
+            dependsOn(jvmMain)
+        }
     }
 }
