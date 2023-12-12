@@ -5057,6 +5057,29 @@ $dokka.location:dev.inmo.micro_utils.startup.plugin/StartPluginSerializer/descri
 $dokka.location:dev.inmo.micro_utils.startup.plugin/StartPluginSerializer/deserialize/#kotlinx.serialization.encoding.Decoder/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.startup.plugin/-start-plugin-serializer/[jvm]deserialize.html
 $dokka.location:dev.inmo.micro_utils.startup.plugin/StartPluginSerializer/registerPlugin/#kotlin.String#dev.inmo.micro_utils.startup.plugin.StartPlugin/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.startup.plugin/-start-plugin-serializer/register-plugin.html
 $dokka.location:dev.inmo.micro_utils.startup.plugin/StartPluginSerializer/serialize/#kotlinx.serialization.encoding.Encoder#dev.inmo.micro_utils.startup.plugin.StartPlugin/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.startup.plugin/-start-plugin-serializer/[jvm]serialize.html
+$dokka.location:dev.inmo.micro_utils.strings////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/index.html
+$dokka.location:dev.inmo.micro_utils.strings//buildStringResource/#kotlin.String#kotlin.Function1[dev.inmo.micro_utils.strings.StringResource.Builder,kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/build-string-resource.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/android.content.Context#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/android.content.res.Configuration#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/android.content.res.Resources#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.Context/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.res.Configuration/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.res.Resources/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#java.util.Locale/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/java.util.Locale#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/index.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/Builder/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/-builder.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/build/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/build.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/default.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/dev.inmo.micro_utils.language_codes.IetfLanguageCode#kotlin.Lazy[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/dev.inmo.micro_utils.language_codes.IetfLanguageCode#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/kotlin.String#kotlin.Lazy[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/kotlin.String#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/index.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/StringResource/#kotlin.String#kotlin.collections.Map[dev.inmo.micro_utils.language_codes.IetfLanguageCode,kotlin.Lazy[kotlin.String]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-string-resource.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/default.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/map/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/map.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/translation/#dev.inmo.micro_utils.language_codes.IetfLanguageCode/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translation.html
 dev.inmo.micro_utils.android.alerts.common
 dev.inmo.micro_utils.android.alerts.recyclerview
 dev.inmo.micro_utils.android.pickers
@@ -5127,4 +5150,5 @@ dev.inmo.micro_utils.serialization.mapper
 dev.inmo.micro_utils.serialization.typed_serializer
 dev.inmo.micro_utils.startup.launcher
 dev.inmo.micro_utils.startup.plugin
+dev.inmo.micro_utils.strings
 
