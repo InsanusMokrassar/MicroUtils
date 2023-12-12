@@ -15,3 +15,7 @@ fun StringResource.translation(configuration: Configuration): String = translati
 )
 fun StringResource.translation(resources: Resources): String = translation(resources.configuration)
 fun StringResource.translation(context: Context): String = translation(context.resources)
+
+fun Configuration.translation(resource: StringResource): String = resource.translation(this)
+fun Resources.translation(resource: StringResource): String = configuration.translation(resource)
+fun Context.translation(resource: StringResource): String = resources.translation(resource)

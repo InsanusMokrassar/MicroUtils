@@ -6,3 +6,5 @@ import java.util.Locale
 fun StringResource.translation(locale: Locale): String {
     return translation(locale.toIetfLanguageCode())
 }
+
+fun Locale.translation(resource: StringResource): String = resource.translation(this)
