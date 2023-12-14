@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.22
+
+* `Common`:
+    * Add opportunity to create own `Diff` with base constructor
+
 ## 0.20.21
 
 * `Resources`:

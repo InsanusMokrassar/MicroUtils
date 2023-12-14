@@ -27,7 +27,7 @@ private inline fun <T> getObject(
  * @see calculateDiff
  */
 @Serializable
-data class Diff<T> internal constructor(
+data class Diff<T> @Warning(warning) constructor(
     val removed: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>,
     /**
      * Old-New values pairs
@@ -36,6 +36,10 @@ data class Diff<T> internal constructor(
     val added: List<@Serializable(IndexedValueSerializer::class) IndexedValue<T>>
 ) {
     fun isEmpty(): Boolean = removed.isEmpty() && replaced.isEmpty() && added.isEmpty()
+
+    companion object {
+        private const val warning = "This feature can be changed without any warranties. Use with caution and only in case you know what you are doing"
+    }
 }
 
 fun <T> emptyDiff(): Diff<T> = Diff(emptyList(), emptyList(), emptyList())
