@@ -45,6 +45,8 @@ String[] includes = [
 
     ":resources",
 
+    ":klock",
+
     ":fsm:common",
     ":fsm:repos:common",
 

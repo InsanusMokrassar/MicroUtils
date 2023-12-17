@@ -2,6 +2,9 @@
 
 ## 0.20.23
 
+* `Klock`:
+    * Inited as copypaste from [korlibs/korge](https://github.com/korlibs/korge) and [korlibs/korlibs4](https://github.com/korlibs/korlibs4)
+
 ## 0.20.22
 
 * `Common`:
