@@ -2,6 +2,12 @@
 
 ## 0.20.23
 
+* `LanguageCodes`:
+    * Fixes in intermediate language codes (like `Chinese.Hans`)
+    * Rename `IetfLanguageCode` to `IetfLang`
+        * Rename all subsequent functions (including serializer)
+    * New lazy properties `knownLanguageCodesMap`, `knownLanguageCodesMapByLowerCasedKeys` and several others
+
 ## 0.20.22
 
 * `Common`:
