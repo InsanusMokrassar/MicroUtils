@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
-import dev.inmo.micro_utils.language_codes.toIetfLanguageCode
 
 fun StringResource.translation(configuration: Configuration): String = translation(
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

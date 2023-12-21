@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.strings
 
-import dev.inmo.micro_utils.language_codes.IetfLanguageCode
+import dev.inmo.micro_utils.language_codes.IetfLang
 
 /**
  * Use this class as a type of your strings object fields. For example:
@@ -17,28 +17,29 @@ import dev.inmo.micro_utils.language_codes.IetfLanguageCode
  */
 class StringResource(
     val default: String,
-    val map: Map<IetfLanguageCode, Lazy<String>>
+    val map: Map<IetfLang, Lazy<String>>
 ) {
     class Builder(
         var default: String
     ) {
-        private val map = mutableMapOf<IetfLanguageCode, Lazy<String>>()
+        private val map = mutableMapOf<IetfLang, Lazy<String>>()
 
-        infix fun IetfLanguageCode.variant(value: Lazy<String>) {
+        infix fun IetfLang.variant(value: Lazy<String>) {
             map[this] = value
         }
-        infix fun IetfLanguageCode.variant(value: () -> String) = this variant lazy(value)
-        infix fun IetfLanguageCode.variant(value: String) = this variant lazyOf(value)
+
+        infix fun IetfLang.variant(value: () -> String) = this variant lazy(value)
+        infix fun IetfLang.variant(value: String) = this variant lazyOf(value)
 
 
-        infix fun String.variant(value: Lazy<String>) = IetfLanguageCode(this) variant value
-        infix fun String.variant(value: () -> String) = IetfLanguageCode(this) variant lazy(value)
+        infix fun String.variant(value: Lazy<String>) = IetfLang(this) variant value
+        infix fun String.variant(value: () -> String) = IetfLang(this) variant lazy(value)
         infix fun String.variant(value: String) = this variant lazyOf(value)
 
         fun build() = StringResource(default, map.toMap())
     }
 
-    fun translation(languageCode: IetfLanguageCode): String {
+    fun translation(languageCode: IetfLang): String {
         map[languageCode] ?.let { return it.value }
 
         return languageCode.parentLang ?.let {
