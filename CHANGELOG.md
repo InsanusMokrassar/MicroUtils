@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.20.23
+
+* `Versions`:
+    * `Koin`: `3.5.0` -> `3.5.3`
+    * `Okio`: `3.6.0` -> `3.7.0`
+* `LanguageCodes`:
+    * Fixes in intermediate language codes (like `Chinese.Hans`)
+    * Rename `IetfLanguageCode` to `IetfLang`
+        * Rename all subsequent functions (including serializer)
+    * New lazy properties `knownLanguageCodesMap`, `knownLanguageCodesMapByLowerCasedKeys` and several others
+
 ## 0.20.22
 
 * `Common`:
