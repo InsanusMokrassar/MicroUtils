@@ -1,11 +1,5 @@
 # MicroUtils
 
----
-
-**`Klock` module initial commit based on [korlibs/korge](https://github.com/korlibs/korge) and [korlibs/korlibs4](https://github.com/korlibs/korlibs4)**
-
----
-
 This is a library with collection of tools for working in Kotlin environment. First of all, this library collection is oriented to use next technologies:
 
 * [`Kotlin Coroutines`](https://github.com/Kotlin/kotlinx.coroutines)
