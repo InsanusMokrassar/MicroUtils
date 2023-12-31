@@ -2,6 +2,10 @@
 
 ## 0.20.24
 
+* `Serialization`:
+    * `Mapper`:
+        * `Mapper` pass decoder into callback of deserialization strategy
+
 ## 0.20.23
 
 * `Versions`:

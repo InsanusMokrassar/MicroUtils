@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.serialization.mapper
 
+import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
@@ -16,15 +18,15 @@ import kotlinx.serialization.encoding.Encoder
 open class MapperSerializer<I, O>(
     private val base: KSerializer<I>,
     private val serialize: (O) -> I,
-    private val deserialize: (I) -> O
-) : KSerializer<O> {
+    private val deserialize: (Decoder, I) -> O
+) : KSerializer<O>,
+    DeserializationStrategy<O> by MapperDeserializationStrategy<I, O>(base, deserialize),
+    SerializationStrategy<O> by MapperSerializationStrategy<I, O>(base, serialize) {
     override val descriptor: SerialDescriptor = base.descriptor
 
-    override fun deserialize(decoder: Decoder): O {
-        return deserialize(base.deserialize(decoder))
-    }
-
-    override fun serialize(encoder: Encoder, value: O) {
-        base.serialize(encoder, serialize(value))
-    }
+    constructor(
+        base: KSerializer<I>,
+        serialize: (O) -> I,
+        deserialize: (I) -> O
+    ) : this(base, serialize, { _, i -> deserialize(i) })
 }
