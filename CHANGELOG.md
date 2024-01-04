@@ -10,6 +10,7 @@
 * `Serialization`:
     * `Mapper`:
         * `Mapper` pass decoder into callback of deserialization strategy
+        * `Mapper` pass encoder into callback of serialization strategy
 
 ## 0.20.23
 
