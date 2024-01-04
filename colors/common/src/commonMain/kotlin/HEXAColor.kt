@@ -22,14 +22,16 @@ value class HEXAColor (
         get() = "#${uint.toString(16).padStart(8, '0')}"
     val hex: String
         get() = hexa.take(7)
+    val rgba: String
+        get() = "rgba($r,$g,$b,${aOfOne.toString().take(5)})"
+    val rgb: String
+        get() = "rgb($r,$g,$b)"
     val shortHex: String
         get() = "#${r.shortPart()}${g.shortPart()}${b.shortPart()}"
     val shortHexa: String
         get() = "$shortHex${a.shortPart()}"
     val rgbInt: Int
         get() = (uint shr 2).toInt()
-    val alphaOfOne: Float
-        get() = (uint and 0xffu).toFloat() / 256f
 
     val r: Int
         get() = ((uint and 0xff000000u) / 0x1000000u).toInt()
@@ -69,13 +71,13 @@ value class HEXAColor (
         g: Int = this.g,
         b: Int = this.b,
         aOfOne: Float = this.aOfOne
-    ) = HEXAColor(r, g, b, aOfOne)
+    ) = HEXAColor(r = r, g = g, b = b, aOfOne = aOfOne)
     fun copy(
         r: Int = this.r,
         g: Int = this.g,
         b: Int = this.b,
         a: Int
-    ) = HEXAColor(r, g, b, a)
+    ) = HEXAColor(r = r, g = g, b = b, a = a)
 
     companion object {
         /**
@@ -105,14 +107,15 @@ value class HEXAColor (
                 .removeSuffix(")")
                 .replace(Regex("\\s"), "")
                 .split(",")
-                .map { it.toInt().toString(16) }
-                .joinToString("", postfix = "ff")
+                .joinToString("", postfix = "ff") {
+                    it.toInt().toString(16).padStart(2, '0')
+                }
             color.startsWith("rgba(") -> color
                 .removePrefix("rgba(")
                 .removeSuffix(")")
                 .replace(Regex("\\s"), "")
                 .split(",").let {
-                    it.take(3).map { it.toInt().toString(16) } + (it.last().toFloat() * 0xff).toInt().toString(16)
+                    it.take(3).map { it.toInt().toString(16).padStart(2, '0') } + (it.last().toFloat() * 0xff).toInt().toString(16).padStart(2, '0')
                 }
                 .joinToString("")
             else -> color
