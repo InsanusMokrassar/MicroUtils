@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.20.24
+
+**Since this version depdendencies of klock and krypto replaced with `com.soywiz.korge:korlibs-time` and `com.soywiz.korge:korlibs-crypto`**
+
+* `Versions`:
+    * `Klock` (since now `KorlibsTime`): `4.0.10` -> `5.3.0`
+    * `Krypto` (since now `KorlibsCrypto`): `4.0.10` -> `5.3.0`
+* `Serialization`:
+    * `Mapper`:
+        * `Mapper` pass decoder into callback of deserialization strategy
+        * `Mapper` pass encoder into callback of serialization strategy
+
 ## 0.20.23
 
 * `Versions`:
