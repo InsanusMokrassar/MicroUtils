@@ -49,6 +49,31 @@ $dokka.location:dev.inmo.micro_utils.android.recyclerview/StateFlowBasedRecycler
 $dokka.location:dev.inmo.micro_utils.android.recyclerview/StateFlowBasedRecyclerViewAdapter/data/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.android.recyclerview/-state-flow-based-recycler-view-adapter/data.html
 $dokka.location:dev.inmo.micro_utils.android.smalltextfield////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.android.smalltextfield/index.html
 $dokka.location:dev.inmo.micro_utils.android.smalltextfield//SmallTextField/#kotlin.String#kotlin.Function1[kotlin.String,kotlin.Unit]#androidx.compose.ui.Modifier#kotlin.Boolean#kotlin.Boolean#androidx.compose.ui.text.TextStyle#androidx.compose.ui.graphics.Color#androidx.compose.ui.text.input.VisualTransformation#androidx.compose.foundation.text.KeyboardOptions#androidx.compose.foundation.text.KeyboardActions#kotlin.Boolean#kotlin.Int#kotlin.Int#androidx.compose.foundation.interaction.MutableInteractionSource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.android.smalltextfield/-small-text-field.html
+$dokka.location:dev.inmo.micro_utils.colors.common////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/index.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-companion/index.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor.Companion/invoke/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-companion/invoke.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor.Companion/parseStringColor/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-companion/parse-string-color.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/index.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/HEXAColor/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-h-e-x-a-color.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/HEXAColor/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-h-e-x-a-color.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/HEXAColor/#kotlin.UInt/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/-h-e-x-a-color.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/a/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/a.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/aOfOne/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/a-of-one.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/b/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/b.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/compareTo/#dev.inmo.micro_utils.colors.common.HEXAColor/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/compare-to.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/copy/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/copy.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/copy/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/copy.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/g/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/g.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/hex/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/hex.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/hexa/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/hexa.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/r/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/r.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/rgb/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/rgb.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/rgbInt/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/rgb-int.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/rgba/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/rgba.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/shortHex/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/short-hex.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/shortHexa/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/short-hexa.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/toString/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/to-string.html
+$dokka.location:dev.inmo.micro_utils.colors.common/HEXAColor/uint/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.colors.common/-h-e-x-a-color/uint.html
 $dokka.location:dev.inmo.micro_utils.common.compose////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common.compose/index.html
 $dokka.location:dev.inmo.micro_utils.common.compose//asState/[Error type: Unresolved type for MutableState<T>][TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common.compose/as-state.html
 $dokka.location:dev.inmo.micro_utils.common.compose//linkWithElement/[Error type: Unresolved type for Composition]#org.w3c.dom.Element/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common.compose/link-with-element.html
@@ -4915,6 +4940,7 @@ dev.inmo.micro_utils.android.alerts.recyclerview
 dev.inmo.micro_utils.android.pickers
 dev.inmo.micro_utils.android.recyclerview
 dev.inmo.micro_utils.android.smalltextfield
+dev.inmo.micro_utils.colors.common
 dev.inmo.micro_utils.common
 dev.inmo.micro_utils.common.compose
 dev.inmo.micro_utils.coroutines
