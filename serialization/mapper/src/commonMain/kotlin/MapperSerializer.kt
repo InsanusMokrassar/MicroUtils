@@ -17,7 +17,7 @@ import kotlinx.serialization.encoding.Encoder
  */
 open class MapperSerializer<I, O>(
     private val base: KSerializer<I>,
-    private val serialize: (O) -> I,
+    private val serialize: (Encoder, O) -> I,
     private val deserialize: (Decoder, I) -> O
 ) : KSerializer<O>,
     DeserializationStrategy<O> by MapperDeserializationStrategy<I, O>(base, deserialize),
@@ -28,5 +28,17 @@ open class MapperSerializer<I, O>(
         base: KSerializer<I>,
         serialize: (O) -> I,
         deserialize: (I) -> O
+    ) : this(base, { _, o -> serialize(o) }, { _, i -> deserialize(i) })
+
+    constructor(
+        base: KSerializer<I>,
+        serialize: (Encoder, O) -> I,
+        deserialize: (I) -> O
     ) : this(base, serialize, { _, i -> deserialize(i) })
+
+    constructor(
+        base: KSerializer<I>,
+        serialize: (O) -> I,
+        deserialize: (Decoder, I) -> O
+    ) : this(base, { _, o -> serialize(o) }, deserialize)
 }
