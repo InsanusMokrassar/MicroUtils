@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.25
+
+* `Colors`:
+    * `Common`:
+        * Module inited
+
 ## 0.20.24
 
 **Since this version depdendencies of klock and krypto replaced with `com.soywiz.korge:korlibs-time` and `com.soywiz.korge:korlibs-crypto`**
