@@ -10,7 +10,7 @@ jb-compose = "1.5.11"
 jb-exposed = "0.45.0"
 jb-dokka = "1.9.10"
 
-korlibs = "4.0.10"
+korlibs = "5.3.0"
 uuid = "0.8.2"
 
 ktor = "2.3.7"
@@ -21,7 +21,7 @@ koin = "3.5.3"
 
 okio = "3.7.0"
 
-ksp = "1.9.22-1.0.16"
+ksp = "1.9.21-1.0.16"
 kotlin-poet = "1.15.3"
 
 versions = "0.50.0"
@@ -72,8 +72,8 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 
 kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
-klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "korlibs" }
-krypto = { module = "com.soywiz.korlibs.krypto:krypto", version.ref = "korlibs" }
+klock = { module = "com.soywiz.korge:korlibs-time", version.ref = "korlibs" }
+krypto = { module = "com.soywiz.korge:korlibs-crypto", version.ref = "korlibs" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
