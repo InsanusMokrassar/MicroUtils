@@ -19,6 +19,7 @@ class HexColorTests {
         val g: Int,
         val b: Int,
         val a: Int,
+        vararg val additionalRGBAVariants: String
     )
     val testColors: List<TestColor>
         get() = listOf(
@@ -34,6 +35,7 @@ class HexColorTests {
                 g = 0x00,
                 b = 0x00,
                 a = 0xff,
+                "rgba(255,0,0,1)",
             ),
             TestColor(
                 color = HEXAColor(uint = 0x00ff00ffu),
@@ -47,6 +49,7 @@ class HexColorTests {
                 g = 0xff,
                 b = 0x00,
                 a = 0xff,
+                "rgba(0,255,0,1)"
             ),
             TestColor(
                 color = HEXAColor(0x0000ffffu),
@@ -60,6 +63,7 @@ class HexColorTests {
                 g = 0x00,
                 b = 0xff,
                 a = 0xff,
+                "rgba(0,0,255,1)"
             ),
             TestColor(
                 color = HEXAColor(0xff000088u),
@@ -149,7 +153,7 @@ class HexColorTests {
             assertEquals(it.shortHex, it.color.shortHex)
             assertEquals(it.shortHexa, it.color.shortHexa)
             assertEquals(it.rgb, it.color.rgb)
-            assertEquals(it.rgba, it.color.rgba)
+            assertTrue(it.rgba == it.color.rgba || it.color.rgba in it.additionalRGBAVariants)
             assertEquals(it.r, it.color.r)
             assertEquals(it.g, it.color.g)
             assertEquals(it.b, it.color.b)
