@@ -4915,10 +4915,12 @@ $dokka.location:dev.inmo.micro_utils.strings//buildStringResource/#kotlin.String
 $dokka.location:dev.inmo.micro_utils.strings//translation/android.content.Context#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/android.content.res.Configuration#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/android.content.res.Resources#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.Context/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.res.Configuration/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#android.content.res.Resources/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#java.util.Locale/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
+$dokka.location:dev.inmo.micro_utils.strings//translation/dev.inmo.micro_utils.strings.StringResource#org.w3c.dom.NavigatorLanguage/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings//translation/java.util.Locale#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/translation.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/index.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/Builder/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/-builder.html
@@ -4934,7 +4936,7 @@ $dokka.location:dev.inmo.micro_utils.strings/StringResource///PointingToDeclarat
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/StringResource/#kotlin.String#kotlin.collections.Map[dev.inmo.micro_utils.language_codes.IetfLang,kotlin.Lazy[kotlin.String]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-string-resource.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/default.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/map/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/map.html
-$dokka.location:dev.inmo.micro_utils.strings/StringResource/translation/#dev.inmo.micro_utils.language_codes.IetfLang/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translation.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/translation/#dev.inmo.micro_utils.language_codes.IetfLang?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translation.html
 dev.inmo.micro_utils.android.alerts.common
 dev.inmo.micro_utils.android.alerts.recyclerview
 dev.inmo.micro_utils.android.pickers
