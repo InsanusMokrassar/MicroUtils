@@ -101,7 +101,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         }.let {
             if (it > 0) {
                 transaction(db = database) {
-                    select {
+                    selectAll().where {
                         selectById(this, id)
                     }.limit(1).firstOrNull() ?.asObject
                 }
@@ -142,7 +142,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
                 ids
             } else {
                 ids.filter {
-                    select { selectById(it) }.limit(1).none()
+                    selectAll().where { selectById(it) }.limit(1).none()
                 }
             }
         }.forEach {

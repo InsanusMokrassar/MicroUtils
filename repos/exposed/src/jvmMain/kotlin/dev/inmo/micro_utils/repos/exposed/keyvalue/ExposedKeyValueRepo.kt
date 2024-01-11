@@ -65,7 +65,7 @@ open class ExposedKeyValueRepo<Key, Value>(
     override suspend fun unsetWithValues(toUnset: List<Value>) {
         transaction(database) {
             toUnset.flatMap {
-                val keys = select { valueColumn.eq(it) }.mapNotNull { it[keyColumn] }
+                val keys = selectAll().where { valueColumn.eq(it) }.mapNotNull { it[keyColumn] }
                 deleteWhere { keyColumn.inList(keys) }
                 keys
             }

@@ -2,6 +2,8 @@
 
 ## 0.20.26
 
+* `Versions`:
+    * `Exposed`: `0.45.0` -> `0.46.0`. **This update brinds new api deprecations in exposed**
 * `Resources`:
     * Add opportunity to get default translation by passing `null` as `IetfLang` argument
     * Add several useful extensions to get translations in `JS` target
