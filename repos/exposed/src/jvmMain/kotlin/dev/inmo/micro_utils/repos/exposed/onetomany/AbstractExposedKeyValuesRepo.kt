@@ -29,7 +29,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
         transaction(database) {
             toAdd.keys.flatMap { k ->
                 toAdd[k] ?.mapNotNull { v ->
-                    if (select { selectById(k).and(selectByValue(v)) }.limit(1).any()) {
+                    if (selectAll().where { selectById(k).and(selectByValue(v)) }.limit(1).any()) {
                         return@mapNotNull null
                     }
                     val insertResult = insert {

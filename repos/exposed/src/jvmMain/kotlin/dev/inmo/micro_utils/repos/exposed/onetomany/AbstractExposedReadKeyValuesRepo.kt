@@ -19,7 +19,7 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
         get() = asKey
     abstract val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean>
 
-    override suspend fun count(k: Key): Long = transaction(database) { select { selectById(k) }.count() }
+    override suspend fun count(k: Key): Long = transaction(database) { selectAll().where { selectById(k) }.count() }
 
     override suspend fun count(): Long = transaction(database) { selectAll().count() }
 
@@ -28,7 +28,7 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Value> = transaction(database) {
-        select { selectById(k) }.selectPaginated(
+        selectAll().where { selectById(k) }.selectPaginated(
             pagination,
             keyColumn,
             reversed
@@ -55,7 +55,7 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
         pagination: Pagination,
         reversed: Boolean
     ): PaginationResult<Key> = transaction(database) {
-        select { selectByValue(v) }.selectPaginated(
+        selectAll().where { selectByValue(v) }.selectPaginated(
             pagination,
             keyColumn,
             reversed
@@ -65,11 +65,11 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
     }
 
     override suspend fun contains(k: Key): Boolean = transaction(database) {
-        select { selectById(k) }.limit(1).any()
+        selectAll().where { selectById(k) }.limit(1).any()
     }
 
     override suspend fun contains(k: Key, v: Value): Boolean = transaction(database) {
-        select { selectById(k).and(selectByValue(v)) }.limit(1).any()
+        selectAll().where { selectById(k).and(selectByValue(v)) }.limit(1).any()
     }
 
     override suspend fun getAll(reverseLists: Boolean): Map<Key, List<Value>> = transaction(database) {
@@ -85,9 +85,9 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
 
     override suspend fun getAll(k: Key, reverseLists: Boolean): List<Value> = transaction(database) {
         val query = if (reverseLists) {
-            select { selectById(k) }.orderBy(keyColumn, SortOrder.DESC)
+            selectAll().where { selectById(k) }.orderBy(keyColumn, SortOrder.DESC)
         } else {
-            select { selectById(k) }
+            selectAll().where { selectById(k) }
         }
         query.map {
             it.asObject

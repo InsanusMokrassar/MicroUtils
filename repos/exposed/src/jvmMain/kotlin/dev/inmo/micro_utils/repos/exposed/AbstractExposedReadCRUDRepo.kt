@@ -35,14 +35,14 @@ abstract class AbstractExposedReadCRUDRepo<ObjectType, IdType>(
     }
     override suspend fun getById(id: IdType): ObjectType? {
         return transaction(db = database) {
-            select {
+            selectAll().where {
                 selectById(id)
             }.limit(1).firstOrNull() ?.asObject
         }
     }
 
     override suspend fun contains(id: IdType): Boolean = transaction(db = database) {
-        select { selectById(id) }.limit(1).any()
+        selectAll().where { selectById(id) }.limit(1).any()
     }
 
     override suspend fun getAll(): Map<IdType, ObjectType> = transaction(database) {

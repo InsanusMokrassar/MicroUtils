@@ -34,7 +34,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
         transaction(database) {
             toAdd.keys.flatMap { k ->
                 toAdd[k] ?.mapNotNull { v ->
-                    if (select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
+                    if (selectAll().where { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
                         return@mapNotNull null
                     }
                     val insertResult = insert {
@@ -69,7 +69,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun removeWithValue(v: Value) {
         transaction(database) {
-            val keys = select { selectByValue(v) }.map { it.asKey }
+            val keys = selectAll().where { selectByValue(v) }.map { it.asKey }
             deleteWhere { SqlExpressionBuilder.selectByValue(v) }
             keys
         }.forEach {
@@ -85,7 +85,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun clearWithValue(v: Value) {
         transaction(database) {
-            val toClear = select { selectByValue(v) }
+            val toClear = selectAll().where { selectByValue(v) }
                 .asSequence()
                 .map { it.asKey to it.asObject }
                 .groupBy { it.first }

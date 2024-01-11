@@ -26,7 +26,7 @@ class ExposedStandardVersionsRepoProxy(
     }
 
     override suspend fun getTableVersion(tableName: String): Int? = transaction(database) {
-        select { tableNameColumn.eq(tableName) }.limit(1).firstOrNull() ?.getOrNull(tableVersionColumn)
+        selectAll().where { tableNameColumn.eq(tableName) }.limit(1).firstOrNull() ?.getOrNull(tableVersionColumn)
     }
 
     override suspend fun updateTableVersion(tableName: String, version: Int) {
