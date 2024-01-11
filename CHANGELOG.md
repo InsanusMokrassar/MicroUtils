@@ -2,6 +2,10 @@
 
 ## 0.20.26
 
+* `Resources`:
+    * Add opportunity to get default translation by passing `null` as `IetfLang` argument
+    * Add several useful extensions to get translations in `JS` target
+
 ## 0.20.25
 
 * `Colors`:

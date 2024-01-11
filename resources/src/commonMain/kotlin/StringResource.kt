@@ -39,7 +39,10 @@ class StringResource(
         fun build() = StringResource(default, map.toMap())
     }
 
-    fun translation(languageCode: IetfLang): String {
+    fun translation(languageCode: IetfLang?): String {
+        if (languageCode == null) {
+            return default
+        }
         map[languageCode] ?.let { return it.value }
 
         return languageCode.parentLang ?.let {
