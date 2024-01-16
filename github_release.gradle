@@ -18,13 +18,13 @@ if (new File(projectDir, "secret.gradle").exists()) {
     githubRelease {
         token "${project.property('GITHUB_RELEASE_TOKEN')}"
 
-        owner "InsanusMokrassar"
-        repo "MicroUtils"
+        owner = "InsanusMokrassar"
+        repo = "MicroUtils"
 
-        tagName "v${project.version}"
-        releaseName "${project.version}"
-        targetCommitish "${project.version}"
+        tagName = "v${project.version}"
+        releaseName = "${project.version}"
+        targetCommitish = "${project.version}"
 
-        body getCurrentVersionChangelog()
+        body = getCurrentVersionChangelog()
     }
 }
