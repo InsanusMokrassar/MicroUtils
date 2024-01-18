@@ -2,6 +2,10 @@
 
 ## 0.20.28
 
+* `Versions`:
+    * `Kotlin`: `1.9.22` -> `1.9.21` (downgrade)
+    * `Compose`: `1.6.0-dev13691` -> `1.5.11` (downgrade)
+
 ## 0.20.27
 
 * `Versions`:
