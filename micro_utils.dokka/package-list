@@ -794,7 +794,7 @@ $dokka.location:dev.inmo.micro_utils.ktor.client/UniUploadFileInfo/mimeType/#/Po
 $dokka.location:dev.inmo.micro_utils.ktor.common////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/index.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//DefaultTemporalFilesSubPath/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/-default-temporal-files-sub-path.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//asCorrectWebSocketUrl/kotlin.String#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/as-correct-web-socket-url.html
-$dokka.location:dev.inmo.micro_utils.ktor.common//asFromToUrlPart/kotlin.Pair[korlibs.time.DateTime?,korlibs.time.DateTime?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/as-from-to-url-part.html
+$dokka.location:dev.inmo.micro_utils.ktor.common//asFromToUrlPart/kotlin.Pair[[Error type: Unresolved type for DateTime]?,[Error type: Unresolved type for DateTime]?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/as-from-to-url-part.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//asUrlQuery/kotlin.collections.List[kotlin.Pair[kotlin.String,kotlin.String?]]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/as-url-query.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//asUrlQuery/kotlin.collections.Map[kotlin.String,kotlin.String?]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/as-url-query.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//buildStandardUrl/#kotlin.String#kotlin.String#kotlin.Array[kotlin.Pair[kotlin.String,kotlin.String?]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/build-standard-url.html
