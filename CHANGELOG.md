@@ -2,6 +2,10 @@
 
 ## 0.20.32
 
+* `Resources`:
+    * Make `StringResource` serializable
+    * Add several variants of builder usages
+
 ## 0.20.31
 
 * `Versions`:
