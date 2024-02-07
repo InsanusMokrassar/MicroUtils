@@ -35,7 +35,7 @@ android-appCompat = "1.6.1"
 android-fragment = "1.6.2"
 android-espresso = "3.5.1"
 android-test = "1.1.5"
-android-compose-material3 = "1.1.2"
+android-compose-material3 = "1.2.0"
 
 android-props-minSdk = "21"
 android-props-compileSdk = "34"
