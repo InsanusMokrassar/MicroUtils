@@ -4926,17 +4926,25 @@ $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder///PointingTo
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/Builder/#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/-builder.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/build/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/build.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/default.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/invoke/dev.inmo.micro_utils.language_codes.IetfLang#kotlin.Function0[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/invoke.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/invoke/dev.inmo.micro_utils.language_codes.IetfLang#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/invoke.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/invoke/kotlin.String#kotlin.Function0[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/invoke.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/invoke/kotlin.String#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/invoke.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/dev.inmo.micro_utils.language_codes.IetfLang#kotlin.Function0[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/dev.inmo.micro_utils.language_codes.IetfLang#kotlin.Lazy[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/dev.inmo.micro_utils.language_codes.IetfLang#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/kotlin.String#kotlin.Function0[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/kotlin.String#kotlin.Lazy[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource.Builder/variant/kotlin.String#kotlin.String/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-builder/variant.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-companion/index.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Companion/descriptor/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-companion/descriptor.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Companion/deserialize/#kotlinx.serialization.encoding.Decoder/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-companion/deserialize.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource.Companion/serialize/#kotlinx.serialization.encoding.Encoder#dev.inmo.micro_utils.strings.StringResource/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-companion/serialize.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/index.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/StringResource/#kotlin.String#kotlin.collections.Map[dev.inmo.micro_utils.language_codes.IetfLang,kotlin.Lazy[kotlin.String]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/-string-resource.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/default.html
-$dokka.location:dev.inmo.micro_utils.strings/StringResource/map/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/map.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/translation/#dev.inmo.micro_utils.language_codes.IetfLang?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translation.html
+$dokka.location:dev.inmo.micro_utils.strings/StringResource/translations/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translations.html
 dev.inmo.micro_utils.android.alerts.common
 dev.inmo.micro_utils.android.alerts.recyclerview
 dev.inmo.micro_utils.android.pickers
