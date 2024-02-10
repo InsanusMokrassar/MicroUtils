@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.32
+
+* `Versions`:
+    * `Okio`: `3.7.0` -> `3.8.0`
+* `Resources`:
+    * Make `StringResource` serializable
+    * Add several variants of builder usages
+
 ## 0.20.31
 
 * `Versions`:
