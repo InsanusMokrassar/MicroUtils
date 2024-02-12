@@ -13,26 +13,26 @@ import kotlin.math.floor
  *
  * Anyway it is recommended to use
  *
- * @param uint rgba [UInt] in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
+ * @param hexaUInt rgba [UInt] in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
  */
 @Serializable
 @JvmInline
 value class HEXAColor (
-    val uint: UInt
+    val hexaUInt: UInt
 ) : Comparable<HEXAColor> {
     /**
-     * @returns [uint] as a string with format `#FFEEBBAA` where FF - red, EE - green, BB - blue and AA - alpha
+     * @returns [hexaUInt] as a string with format `#FFEEBBAA` where FF - red, EE - green, BB - blue and AA - alpha
      */
     val hexa: String
-        get() = "#${uint.toString(16).padStart(8, '0')}"
+        get() = "#${hexaUInt.toString(16).padStart(8, '0')}"
 
     /**
-     * @returns [uint] as a string with format `#FFEEBB` where FF - red, EE - green and BB - blue
+     * @returns [hexaUInt] as a string with format `#FFEEBB` where FF - red, EE - green and BB - blue
      */
     val hex: String
         get() = hexa.take(7)
     /**
-     * @returns [uint] as a string with format `#AAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue
+     * @returns [hexaUInt] as a string with format `#AAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue
      */
     val ahex: String
         get() = "#${a.toString(16).padStart(2, '2')}${hex.drop(1)}"
@@ -44,21 +44,25 @@ value class HEXAColor (
         get() = "#${r.shortPart()}${g.shortPart()}${b.shortPart()}"
     val shortHexa: String
         get() = "$shortHex${a.shortPart()}"
+    val rgbUInt: UInt
+        get() = (hexaUInt / 256u)
     val rgbInt: Int
-        get() = (uint shr 2).toInt()
+        get() = rgbUInt.toInt()
+    val ahexUInt
+        get() = (a * 0x1000000).toUInt() + rgbUInt
 
     val r: Int
-        get() = ((uint and 0xff000000u) / 0x1000000u).toInt()
+        get() = ((hexaUInt and 0xff000000u) / 0x1000000u).toInt()
     val g: Int
-        get() = ((uint and 0x00ff0000u) / 0x10000u).toInt()
+        get() = ((hexaUInt and 0x00ff0000u) / 0x10000u).toInt()
     val b: Int
-        get() = ((uint and 0x0000ff00u) / 0x100u).toInt()
+        get() = ((hexaUInt and 0x0000ff00u) / 0x100u).toInt()
     val a: Int
-        get() = ((uint and 0x000000ffu)).toInt()
+        get() = ((hexaUInt and 0x000000ffu)).toInt()
     val aOfOne: Float
         get() = a.toFloat() / (0xff)
     init {
-        require(uint in 0u ..0xffffffffu)
+        require(hexaUInt in 0u ..0xffffffffu)
     }
 
     constructor(r: Int, g: Int, b: Int, a: Int) : this(
@@ -78,7 +82,7 @@ value class HEXAColor (
         return hexa
     }
 
-    override fun compareTo(other: HEXAColor): Int = (uint - other.uint).coerceIn(Int.MIN_VALUE.toUInt(), Int.MAX_VALUE.toLong().toUInt()).toInt()
+    override fun compareTo(other: HEXAColor): Int = (hexaUInt - other.hexaUInt).coerceIn(Int.MIN_VALUE.toUInt(), Int.MAX_VALUE.toLong().toUInt()).toInt()
 
     fun copy(
         r: Int = this.r,
