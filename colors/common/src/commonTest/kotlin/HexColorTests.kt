@@ -13,6 +13,7 @@ class HexColorTests {
         val shortHexa: String,
         val hex: String,
         val hexa: String,
+        val ahex: String,
         val rgb: String,
         val rgba: String,
         val r: Int,
@@ -29,6 +30,7 @@ class HexColorTests {
                 shortHexa = "#f00f",
                 hex = "#ff0000",
                 hexa = "#ff0000ff",
+                ahex = "#ffff0000",
                 rgb = "rgb(255,0,0)",
                 rgba = "rgba(255,0,0,1.0)",
                 r = 0xff,
@@ -43,6 +45,7 @@ class HexColorTests {
                 shortHexa = "#0f0f",
                 hex = "#00ff00",
                 hexa = "#00ff00ff",
+                ahex = "#ff00ff00",
                 rgb = "rgb(0,255,0)",
                 rgba = "rgba(0,255,0,1.0)",
                 r = 0x00,
@@ -57,6 +60,7 @@ class HexColorTests {
                 shortHexa = "#00ff",
                 hex = "#0000ff",
                 hexa = "#0000ffff",
+                ahex = "#ff0000ff",
                 rgb = "rgb(0,0,255)",
                 rgba = "rgba(0,0,255,1.0)",
                 r = 0x00,
@@ -71,6 +75,7 @@ class HexColorTests {
                 shortHexa = "#f008",
                 hex = "#ff0000",
                 hexa = "#ff000088",
+                ahex = "#88ff0000",
                 rgb = "rgb(255,0,0)",
                 rgba = "rgba(255,0,0,0.533)",
                 r = 0xff,
@@ -84,6 +89,7 @@ class HexColorTests {
                 shortHexa = "#0f08",
                 hex = "#00ff00",
                 hexa = "#00ff0088",
+                ahex = "#8800ff00",
                 rgb = "rgb(0,255,0)",
                 rgba = "rgba(0,255,0,0.533)",
                 r = 0x00,
@@ -97,6 +103,7 @@ class HexColorTests {
                 shortHexa = "#00f8",
                 hex = "#0000ff",
                 hexa = "#0000ff88",
+                ahex = "#880000ff",
                 rgb = "rgb(0,0,255)",
                 rgba = "rgba(0,0,255,0.533)",
                 r = 0x00,
@@ -110,6 +117,7 @@ class HexColorTests {
                 shortHexa = "#f002",
                 hex = "#ff0000",
                 hexa = "#ff000022",
+                ahex = "#22ff0000",
                 rgb = "rgb(255,0,0)",
                 rgba = "rgba(255,0,0,0.133)",
                 r = 0xff,
@@ -123,6 +131,7 @@ class HexColorTests {
                 shortHexa = "#0f02",
                 hex = "#00ff00",
                 hexa = "#00ff0022",
+                ahex = "#2200ff00",
                 rgb = "rgb(0,255,0)",
                 rgba = "rgba(0,255,0,0.133)",
                 r = 0x00,
@@ -136,6 +145,7 @@ class HexColorTests {
                 shortHexa = "#00f2",
                 hex = "#0000ff",
                 hexa = "#0000ff22",
+                ahex = "#220000ff",
                 rgb = "rgb(0,0,255)",
                 rgba = "rgba(0,0,255,0.133)",
                 r = 0x00,
@@ -150,6 +160,7 @@ class HexColorTests {
         testColors.forEach {
             assertEquals(it.hex, it.color.hex)
             assertEquals(it.hexa, it.color.hexa)
+            assertEquals(it.ahex, it.color.ahex)
             assertEquals(it.shortHex, it.color.shortHex)
             assertEquals(it.shortHexa, it.color.shortHexa)
             assertEquals(it.rgb, it.color.rgb)

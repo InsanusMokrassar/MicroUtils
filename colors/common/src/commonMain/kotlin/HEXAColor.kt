@@ -12,16 +12,30 @@ import kotlin.math.floor
  * * Red (0.5 capacity): `0xff000088u`
  *
  * Anyway it is recommended to use
+ *
+ * @param uint rgba [UInt] in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
  */
 @Serializable
 @JvmInline
 value class HEXAColor (
     val uint: UInt
 ) : Comparable<HEXAColor> {
+    /**
+     * @returns [uint] as a string with format `#FFEEBBAA` where FF - red, EE - green, BB - blue and AA - alpha
+     */
     val hexa: String
         get() = "#${uint.toString(16).padStart(8, '0')}"
+
+    /**
+     * @returns [uint] as a string with format `#FFEEBB` where FF - red, EE - green and BB - blue
+     */
     val hex: String
         get() = hexa.take(7)
+    /**
+     * @returns [uint] as a string with format `#AAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue
+     */
+    val ahex: String
+        get() = "#${a.toString(16).padStart(2, '2')}${hex.drop(1)}"
     val rgba: String
         get() = "rgba($r,$g,$b,${aOfOne.toString().take(5)})"
     val rgb: String
@@ -120,6 +134,21 @@ value class HEXAColor (
                 .joinToString("")
             else -> color
         }.lowercase().toUInt(16).let(::HEXAColor)
+
+        /**
+         * Creates [HEXAColor] from [uint] presume it is in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
+         */
+        fun fromHexa(uint: UInt) = HEXAColor(uint)
+
+        /**
+         * Creates [HEXAColor] from [uint] presume it is in format `0xAAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue`
+         */
+        fun fromAhex(uint: UInt) = HEXAColor(
+            a = ((uint and 0xff000000u) / 0x1000000u).toInt(),
+            r = ((uint and 0x00ff0000u) / 0x10000u).toInt(),
+            g = ((uint and 0x0000ff00u) / 0x100u).toInt(),
+            b = ((uint and 0x000000ffu)).toInt()
+        )
 
         /**
          * Parsing color from [color]

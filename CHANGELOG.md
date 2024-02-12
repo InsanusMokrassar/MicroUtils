@@ -2,6 +2,10 @@
 
 ## 0.20.33
 
+* `Colors`
+    * `Common`:
+        * Add opportunity to use `HEXAColor` with `ahex` colors
+
 ## 0.20.32
 
 * `Versions`:
