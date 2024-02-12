@@ -191,6 +191,7 @@ class HexColorTests {
             assertEquals(it.g, it.color.g)
             assertEquals(it.b, it.color.b)
             assertEquals(it.a, it.color.a)
+            assertEquals(it.color, HEXAColor.fromAhex(it.ahexUInt))
         }
     }
 
