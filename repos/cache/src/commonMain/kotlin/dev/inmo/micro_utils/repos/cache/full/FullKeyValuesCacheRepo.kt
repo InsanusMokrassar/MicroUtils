@@ -192,6 +192,10 @@ open class FullKeyValuesCacheRepo<Key,Value>(
         }
     }
 
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        super<KeyValuesRepo>.set(toSet)
+    }
+
     override suspend fun removeWithValue(v: Value) {
         super<FullWriteKeyValuesCacheRepo>.removeWithValue(v)
     }
