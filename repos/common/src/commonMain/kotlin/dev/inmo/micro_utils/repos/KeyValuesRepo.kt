@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.repos
 
+import dev.inmo.micro_utils.common.diff
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
@@ -129,6 +130,14 @@ interface KeyValuesRepo<Key, Value> : ReadKeyValuesRepo<Key, Value>, WriteKeyVal
         }
 
         remove(toRemove)
+    }
+
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        toSet.forEach { (k, v) ->
+            val diff = getAll(k).diff(v)
+            remove(k, diff.removed.map { it.value })
+            add(k, diff.added.map { it.value })
+        }
     }
 }
 typealias OneToManyKeyValueRepo<Key,Value> = KeyValuesRepo<Key, Value>

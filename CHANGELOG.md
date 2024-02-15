@@ -2,6 +2,10 @@
 
 ## 0.20.34
 
+* `Repos`:
+    * `Common`:
+        * Improve default `set` realization of `KeyValuesRepo`
+
 ## 0.20.33
 
 * `Colors`
