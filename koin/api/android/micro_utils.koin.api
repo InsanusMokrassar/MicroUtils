@@ -1,0 +1,51 @@
+public final class dev/inmo/micro_utils/koin/GetWithDefinitionKt {
+	public static final fun get (Lorg/koin/core/Koin;Lorg/koin/core/definition/BeanDefinition;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun get (Lorg/koin/core/Koin;Lorg/koin/core/definition/KoinDefinition;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun get (Lorg/koin/core/Koin;Lorg/koin/core/instance/InstanceFactory;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun get (Lorg/koin/core/scope/Scope;Lorg/koin/core/definition/BeanDefinition;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun get (Lorg/koin/core/scope/Scope;Lorg/koin/core/definition/KoinDefinition;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun get (Lorg/koin/core/scope/Scope;Lorg/koin/core/instance/InstanceFactory;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/Koin;Lorg/koin/core/definition/BeanDefinition;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/Koin;Lorg/koin/core/definition/KoinDefinition;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/Koin;Lorg/koin/core/instance/InstanceFactory;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/scope/Scope;Lorg/koin/core/definition/BeanDefinition;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/scope/Scope;Lorg/koin/core/definition/KoinDefinition;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun get$default (Lorg/koin/core/scope/Scope;Lorg/koin/core/instance/InstanceFactory;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class dev/inmo/micro_utils/koin/LazyInjectKt {
+	public static final fun lazyInject (Lkotlin/jvm/functions/Function0;Lorg/koin/core/qualifier/Qualifier;Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;
+	public static final fun lazyInject (Lkotlin/reflect/KClass;Lorg/koin/core/qualifier/Qualifier;Lkotlin/jvm/functions/Function0;)Lkotlin/Lazy;
+	public static synthetic fun lazyInject$default (Lkotlin/jvm/functions/Function0;Lorg/koin/core/qualifier/Qualifier;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/Lazy;
+	public static synthetic fun lazyInject$default (Lkotlin/reflect/KClass;Lorg/koin/core/qualifier/Qualifier;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lkotlin/Lazy;
+}
+
+public final class dev/inmo/micro_utils/koin/RandomQualifierKt {
+	public static final fun RandomQualifier (Lkotlin/jvm/functions/Function0;)Lorg/koin/core/qualifier/StringQualifier;
+	public static synthetic fun RandomQualifier$default (Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lorg/koin/core/qualifier/StringQualifier;
+}
+
+public abstract interface annotation class dev/inmo/micro_utils/koin/annotations/GenerateGenericKoinDefinition : java/lang/annotation/Annotation {
+	public abstract fun generateFactory ()Z
+	public abstract fun generateSingle ()Z
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun nullable ()Z
+}
+
+public abstract interface annotation class dev/inmo/micro_utils/koin/annotations/GenerateGenericKoinDefinition$Container : java/lang/annotation/Annotation {
+	public abstract fun value ()[Ldev/inmo/micro_utils/koin/annotations/GenerateGenericKoinDefinition;
+}
+
+public abstract interface annotation class dev/inmo/micro_utils/koin/annotations/GenerateKoinDefinition : java/lang/annotation/Annotation {
+	public abstract fun generateFactory ()Z
+	public abstract fun generateSingle ()Z
+	public abstract fun name ()Ljava/lang/String;
+	public abstract fun nullable ()Z
+	public abstract fun type ()Ljava/lang/Class;
+	public abstract fun typeArgs ()[Ljava/lang/Class;
+}
+
+public abstract interface annotation class dev/inmo/micro_utils/koin/annotations/GenerateKoinDefinition$Container : java/lang/annotation/Annotation {
+	public abstract fun value ()[Ldev/inmo/micro_utils/koin/annotations/GenerateKoinDefinition;
+}
+
