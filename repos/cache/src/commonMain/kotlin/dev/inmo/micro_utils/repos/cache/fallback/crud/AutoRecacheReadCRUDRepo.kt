@@ -9,6 +9,7 @@ import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
+import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.set
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -56,7 +57,7 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
     override suspend fun getAll(): Map<Id, RegisteredObject> = actionWrapper.wrap {
         originalRepo.getAll()
     }.onSuccess {
-        kvCache.actualizeAll(clear = true) { it }
+        kvCache.actualizeAll(clearMode = ActualizeAllClearMode.BeforeSet) { it }
     }.getOrElse {
         kvCache.getAll()
     }

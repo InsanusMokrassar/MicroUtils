@@ -8,8 +8,8 @@ import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
-import dev.inmo.micro_utils.repos.pagination.getAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -41,10 +41,7 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
         actualize = { locker.withWriteLock { actualize(it) } }
     )
     protected open suspend fun actualizeAll() {
-        locker.withWriteLock {
-            kvCache.clear()
-            kvCache.set(parentRepo.getAll())
-        }
+        kvCache.actualizeAll(parentRepo, locker)
     }
 
     override suspend fun get(k: Key): Value? = doOrTakeAndActualizeWithWriteLock(
@@ -74,7 +71,7 @@ open class FullReadKeyValueCacheRepo<Key,Value>(
     override suspend fun getAll(): Map<Key, Value> = doOrTakeAndActualizeWithWriteLock(
         { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
         { getAll() },
-        { kvCache.actualizeAll(clear = true) { it } }
+        { kvCache.actualizeAll(clearMode = ActualizeAllClearMode.BeforeSet) { it } }
     )
 
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> = doOrTakeAndActualize(
@@ -150,9 +147,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
 
     override suspend fun invalidate() {
-        locker.withWriteLock {
-            kvCache.actualizeAll(parentRepo)
-        }
+        kvCache.actualizeAll(parentRepo, locker)
     }
 
     override suspend fun clear() {

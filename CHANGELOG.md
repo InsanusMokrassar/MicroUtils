@@ -2,6 +2,11 @@
 
 ## 0.20.36
 
+* `Repos`:
+    * `Cache`:
+        * Improve work and functionality of `actualizeAll` and subsequent functions
+        * All internal repos `invalidate`/`actualizeAll` now use common `actualizeAll` functions
+
 ## 0.20.35
 
 * `Versions`:

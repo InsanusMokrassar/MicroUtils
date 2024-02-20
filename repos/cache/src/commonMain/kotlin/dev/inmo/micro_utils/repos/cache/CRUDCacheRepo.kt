@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
+import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +30,7 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
             kvCache.getAll()
         }.takeIf { it.size.toLong() == count() } ?: parentRepo.getAll().also {
             locker.withWriteLock {
-                kvCache.actualizeAll(true) { it }
+                kvCache.actualizeAll(clearMode = ActualizeAllClearMode.BeforeSet) { it }
             }
         }
     }
@@ -148,7 +149,9 @@ open class CRUDCacheRepo<ObjectType, IdType, InputValueType>(
     locker,
     idGetter
 ),
-    CRUDRepo<ObjectType, IdType, InputValueType>
+    CRUDRepo<ObjectType, IdType, InputValueType> {
+    override suspend fun invalidate() = kvCache.actualizeAll(parentRepo, locker = locker)
+}
 
 fun <ObjectType, IdType, InputType> CRUDRepo<ObjectType, IdType, InputType>.cached(
     kvCache: KVCache<IdType, ObjectType>,
