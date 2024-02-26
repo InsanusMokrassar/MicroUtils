@@ -9,6 +9,7 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
+import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +43,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     )
 
     protected open suspend fun actualizeAll() {
-        locker.withWriteLock { kvCache.actualizeAll(parentRepo) }
+        kvCache.actualizeAll(parentRepo, locker = locker)
     }
 
     override suspend fun getByPagination(pagination: Pagination): PaginationResult<ObjectType> = doOrTakeAndActualize(
@@ -72,7 +73,7 @@ open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     override suspend fun getAll(): Map<IdType, ObjectType> = doOrTakeAndActualizeWithWriteLock(
         { getAll().takeIf { it.isNotEmpty() }.optionalOrAbsentIfNull },
         { getAll() },
-        { kvCache.actualizeAll(clear = true) { it } }
+        { kvCache.actualizeAll(clearMode = ActualizeAllClearMode.BeforeSet) { it } }
     )
 
     override suspend fun getById(id: IdType): ObjectType? = doOrTakeAndActualizeWithWriteLock(

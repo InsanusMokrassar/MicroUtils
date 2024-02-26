@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.20.36
+
+* `Versions`:
+    * `Serialization`: `1.6.2` -> `1.6.3`
+    * `Korlibs`: `5.3.1` -> `5.3.2`
+* `Repos`:
+    * `Cache`:
+        * Improve work and functionality of `actualizeAll` and subsequent functions
+        * All internal repos `invalidate`/`actualizeAll` now use common `actualizeAll` functions
+
 ## 0.20.35
 
 * `Versions`:

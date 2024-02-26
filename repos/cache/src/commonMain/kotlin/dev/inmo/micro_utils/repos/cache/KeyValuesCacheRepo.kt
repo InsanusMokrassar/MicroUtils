@@ -7,6 +7,7 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
+import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -47,9 +48,7 @@ open class ReadKeyValuesCacheRepo<Key,Value>(
         kvCache.contains(k)
     } || parentRepo.contains(k)
 
-    override suspend fun invalidate() = locker.withWriteLock {
-        kvCache.clear()
-    }
+    override suspend fun invalidate() = kvCache.actualizeAll(parentRepo, locker = locker)
 }
 
 fun <Key, Value> ReadKeyValuesRepo<Key, Value>.cached(
@@ -84,10 +83,6 @@ open class KeyValuesCacheRepo<Key,Value>(
             kvCache.unset(it)
         }
     }.launchIn(scope)
-
-    override suspend fun invalidate() = locker.withWriteLock {
-        kvCache.clear()
-    }
 }
 
 fun <Key, Value> KeyValuesRepo<Key, Value>.cached(
