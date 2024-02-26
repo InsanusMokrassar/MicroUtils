@@ -2,6 +2,9 @@
 
 ## 0.20.36
 
+* `Versions`:
+    * `Serialization`: `1.6.2` -> `1.6.3`
+    * `Korlibs`: `5.3.1` -> `5.3.2`
 * `Repos`:
     * `Cache`:
         * Improve work and functionality of `actualizeAll` and subsequent functions
