@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.37
+
+* `Versions`:
+    * `Compose`: `1.5.12` -> `1.6.0`
+    * `Exposed`: `0.47.0` -> `0.48.0`
+
 ## 0.20.36
 
 * `Versions`:
