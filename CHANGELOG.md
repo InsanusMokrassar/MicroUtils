@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.38
+
+* `Versions`:
+    * `Ktor`: `2.3.8` -> `2.3.9`
+
 ## 0.20.37
 
 * `Versions`:
