@@ -4,14 +4,14 @@ kt = "1.9.23"
 kt-serialization = "1.6.3"
 kt-coroutines = "1.8.0"
 
-kslog = "1.3.2"
+kslog = "1.3.3"
 
 jb-compose = "1.6.1"
-jb-exposed = "0.48.0"
+jb-exposed = "0.49.0"
 jb-dokka = "1.9.20"
 
 korlibs = "5.4.0"
-uuid = "0.8.2"
+uuid = "0.8.4"
 
 ktor = "2.3.9"
 
@@ -26,7 +26,7 @@ kotlin-poet = "1.16.0"
 
 versions = "0.51.0"
 
-android-gradle = "8.3.0"
+android-gradle = "8.3.1"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.12.0"
