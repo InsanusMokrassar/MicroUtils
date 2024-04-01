@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.41
+
+* `Repos`:
+    * `Exposed`:
+        * `AbstractExposedKeyValueRepo`, `ExposedKeyValueRepo`, `AbstractExposedKeyValuesRepo`, `ExposedKeyValuesRepo` got opportunity to setup some part of their flows
+
 ## 0.20.40
 
 * `Versions`:

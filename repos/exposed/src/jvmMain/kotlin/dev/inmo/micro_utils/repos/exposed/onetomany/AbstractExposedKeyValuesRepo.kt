@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.repos.KeyValuesRepo
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.InsertStatement
@@ -8,18 +9,20 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedKeyValuesRepo<Key, Value>(
     override val database: Database,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValuesRepo<Key, Value>, AbstractExposedReadKeyValuesRepo<Key, Value>(
     database,
     tableName
 ) {
-    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue.asSharedFlow()
-    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onValueRemoved: Flow<Pair<Key, Value>>
         get() = _onValueRemoved.asSharedFlow()
-    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
+    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared.asSharedFlow()
 

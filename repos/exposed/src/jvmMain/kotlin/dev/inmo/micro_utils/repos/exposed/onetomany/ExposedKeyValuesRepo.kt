@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.repos.KeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -13,20 +14,22 @@ open class ExposedKeyValuesRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValuesRepo<Key, Value>, ExposedReadKeyValuesRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator,
     tableName
 ) {
-    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
-    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onValueRemoved: Flow<Pair<Key, Value>>
         get() = _onValueRemoved
-    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
+    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
 

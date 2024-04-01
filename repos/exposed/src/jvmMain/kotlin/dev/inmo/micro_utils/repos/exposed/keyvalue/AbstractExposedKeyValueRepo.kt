@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.KeyValueRepo
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.*
@@ -8,13 +9,15 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val database: Database,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValueRepo<Key, Value>, AbstractExposedReadKeyValueRepo<Key, Value>(
     database,
     tableName
 ) {
-    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>()
-    protected val _onValueRemoved = MutableSharedFlow<Key>()
+    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
+    protected val _onValueRemoved = MutableSharedFlow<Key>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
 
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
