@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.KeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -13,15 +14,17 @@ open class ExposedKeyValueRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValueRepo<Key, Value>, ExposedReadKeyValueRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator,
     tableName
 ) {
-    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>()
-    protected val _onValueRemoved = MutableSharedFlow<Key>()
+    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
+    protected val _onValueRemoved = MutableSharedFlow<Key>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
 
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
