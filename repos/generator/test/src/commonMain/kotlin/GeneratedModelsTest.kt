@@ -14,6 +14,7 @@ public data class NewTest(
   override val property1: String,
   override val property2: Int,
   @Serializable
+  @SerialName(`value` = "custom_parent_name")
   override val parent: ParentTypeId?,
 ) : Test
 
@@ -24,6 +25,7 @@ public data class RegisteredTest(
   override val property1: String,
   override val property2: Int,
   @Serializable
+  @SerialName(`value` = "custom_parent_name")
   override val parent: ParentTypeId?,
 ) : Test, IRegisteredTest
 
