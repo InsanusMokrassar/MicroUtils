@@ -242,8 +242,6 @@ class Processor(
                         }
                     }
                 }
-            }.onFailure {
-                File("/home/aleksey/projects/own/MicroUtils/repos/generator/test/build/output.txt").writeText(it.stackTraceToString())
             }.isSuccess
         }.toList()
 
