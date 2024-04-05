@@ -1,8 +1,6 @@
 package dev.inmo.micro_utils.repos.generator
 
-import com.google.devtools.ksp.KspExperimental
-import com.google.devtools.ksp.getAnnotationsByType
-import com.google.devtools.ksp.isAnnotationPresent
+import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
@@ -36,6 +34,7 @@ import kotlinx.serialization.Serializable
 import java.io.File
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.jvmName
 
 private fun KSClassifierReference.quilifiedName(): String = "${qualifier ?.let { "${it.quilifiedName()}." } ?: ""}${referencedName()}"
 
@@ -75,16 +74,29 @@ class Processor(
                         ORIGINAL FILE: ${ksFile.fileName}
                     """.trimIndent()
                     )
+
                     val newName = "New${ksClassDeclaration.simpleName.getShortName()}"
                     val registeredName = "Registered${ksClassDeclaration.simpleName.getShortName()}"
 
                     val allKSClassProperties = ksClassDeclaration.getAllProperties()
-                    val excludedKSClassProperties = allKSClassProperties.filter {
-                        it.isAnnotationPresent(GenerateCRUDModelExcludeOverride::class)
+                    val excludedKSClassProperties = allKSClassProperties.filter { property ->
+                        property.isAnnotationPresent(GenerateCRUDModelExcludeOverride::class) || (property.findOverridee() ?.isAnnotationPresent(GenerateCRUDModelExcludeOverride::class) == true)
                     }
                     val excludedKSClassPropertiesNames = excludedKSClassProperties.map { it.simpleName.asString() }
                     val ksClassProperties = allKSClassProperties.filter {
                         it !in excludedKSClassProperties
+                    }.groupBy { it.simpleName.asString() }.map {
+                        var current = it.value.first()
+                        var currentType = current.type.resolve()
+                        it.value.forEach {
+                            val type = it.type.resolve()
+
+                            if (currentType.isAssignableFrom(type) && !type.isAssignableFrom(currentType)) {
+                                current = it
+                                currentType = type
+                            }
+                        }
+                        current
                     }
                     val ksClassPropertiesNames = ksClassProperties.map { it.simpleName.asString() }
                     val newNewType = TypeSpec.classBuilder(newName).apply {
@@ -99,17 +111,20 @@ class Processor(
                         }
                         primaryConstructor(
                             FunSpec.constructorBuilder().apply {
+                                val withoutDefaults = mutableListOf<Pair<ParameterSpec.Builder, PropertySpec.Builder>>()
                                 ksClassProperties.forEach {
-                                    addParameter(
-                                        ParameterSpec.builder(it.simpleName.getShortName(), it.typeName).apply {
-                                            annotations += it.annotations.map { it.toAnnotationSpec() }
-                                        }.build()
-                                    )
-                                    typeBuilder.addProperty(
-                                        PropertySpec.builder(it.simpleName.getShortName(), it.typeName, KModifier.OVERRIDE).apply {
-                                            initializer(it.simpleName.getShortName())
-                                        }.build()
-                                    )
+                                    val property = PropertySpec.builder(it.simpleName.getShortName(), it.type.toTypeName(), KModifier.OVERRIDE).apply {
+                                        initializer(it.simpleName.getShortName())
+                                    }
+                                    ParameterSpec.builder(it.simpleName.getShortName(), it.type.toTypeName()).apply {
+                                        withoutDefaults.add(this to property)
+                                        annotations += it.annotations.map { it.toAnnotationSpec() }
+                                    }
+                                }
+
+                                withoutDefaults.forEach {
+                                    addParameter(it.first.build())
+                                    addProperty(it.second.build())
                                 }
                             }.build()
                         )
@@ -125,14 +140,25 @@ class Processor(
                         (it.arguments.first().value as List<KSType>).map { it.declaration as KSClassDeclaration }
                     }.toList()
 
-
                     val registeredTypesProperties: List<KSPropertyDeclaration> = registeredSupertypes.flatMap { registeredType ->
                         registeredType.getAllProperties()
                     }.filter {
-                        it.simpleName.asString() !in excludedKSClassPropertiesNames && it.getAnnotationsByType(GenerateCRUDModelExcludeOverride::class).none()
+                        it.simpleName.asString() !in excludedKSClassPropertiesNames && !it.isAnnotationPresent(GenerateCRUDModelExcludeOverride::class)
                     }
-                    val allProperties: List<KSPropertyDeclaration> = ksClassProperties.toList() + registeredTypesProperties
-                    val propertiesToOverrideInRegistered = allProperties.distinctBy { it.simpleName.asString() }.sortedBy { property ->
+                    val allProperties: List<KSPropertyDeclaration> = registeredTypesProperties + ksClassProperties.toList()
+                    val propertiesToOverrideInRegistered = allProperties.groupBy { it.simpleName.asString() }.map {
+                        var current = it.value.first()
+                        var currentType = current.type.resolve()
+                        it.value.forEach {
+                            val type = it.type.resolve()
+
+                            if (currentType.isAssignableFrom(type) && !type.isAssignableFrom(currentType)) {
+                                current = it
+                                currentType = type
+                            }
+                        }
+                        current
+                    }.sortedBy { property ->
                         val name = property.simpleName.asString()
 
                         ksClassPropertiesNames.indexOf(name).takeIf { it > -1 } ?.let {
@@ -156,17 +182,20 @@ class Processor(
                         addModifiers(KModifier.DATA)
                         primaryConstructor(
                             FunSpec.constructorBuilder().apply {
+                                val withoutDefaults = mutableListOf<Pair<ParameterSpec.Builder, PropertySpec.Builder>>()
                                 propertiesToOverrideInRegistered.forEach {
-                                    addParameter(
-                                        ParameterSpec.builder(it.simpleName.getShortName(), it.typeName).apply {
-                                            annotations += it.annotations.map { it.toAnnotationSpec() }
-                                        }.build()
-                                    )
-                                    typeBuilder.addProperty(
-                                        PropertySpec.builder(it.simpleName.getShortName(), it.typeName, KModifier.OVERRIDE).apply {
-                                            initializer(it.simpleName.getShortName())
-                                        }.build()
-                                    )
+                                    val property = PropertySpec.builder(it.simpleName.getShortName(), it.type.toTypeName(), KModifier.OVERRIDE).apply {
+                                        initializer(it.simpleName.getShortName())
+                                    }
+                                    ParameterSpec.builder(it.simpleName.getShortName(), it.type.toTypeName()).apply {
+                                        withoutDefaults.add(this to property)
+                                        annotations += it.annotations.map { it.toAnnotationSpec() }
+                                    }
+                                }
+
+                                withoutDefaults.forEach {
+                                    addParameter(it.first.build())
+                                    addProperty(it.second.build())
                                 }
                             }.build()
                         )
@@ -191,7 +220,7 @@ class Processor(
                         FunSpec.builder("asRegistered").apply {
                             receiver(ksClassDeclaration.toClassName())
                             (registeredTypesProperties.filter { it.simpleName.asString() !in ksClassPropertiesNames }).forEach {
-                                addParameter(it.simpleName.asString(), it.typeName)
+                                addParameter(it.simpleName.asString(), it.type.toTypeName())
                             }
                             addCode(
                                 CodeBlock.of(

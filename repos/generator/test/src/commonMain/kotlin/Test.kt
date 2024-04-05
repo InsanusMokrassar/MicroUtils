@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.generator.test
 
 import dev.inmo.micro_utils.repos.annotations.GenerateCRUDModel
 import dev.inmo.micro_utils.repos.annotations.GenerateCRUDModelExcludeOverride
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -18,6 +19,7 @@ sealed interface Test {
     val property1: String
     val property2: Int
     @Serializable
+    @SerialName("custom_parent_name")
     val parent: ParentTypeId?
 
     @GenerateCRUDModelExcludeOverride

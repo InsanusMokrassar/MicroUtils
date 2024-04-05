@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.42
+
+* `Repos`:
+    * `Generator`:
+        * Improvements
+
 ## 0.20.41
 
 * `Repos`:
