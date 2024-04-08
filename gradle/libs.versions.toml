@@ -13,15 +13,15 @@ jb-dokka = "1.9.20"
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "2.3.9"
+ktor = "2.3.10"
 
 gh-release = "2.5.2"
 
-koin = "3.5.3"
+koin = "3.5.4"
 
 okio = "3.9.0"
 
-ksp = "1.9.23-1.0.19"
+ksp = "1.9.23-1.0.20"
 kotlin-poet = "1.16.0"
 
 versions = "0.51.0"
