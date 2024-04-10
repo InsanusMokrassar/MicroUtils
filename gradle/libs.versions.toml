@@ -26,7 +26,7 @@ kotlin-poet = "1.16.0"
 
 versions = "0.51.0"
 
-android-gradle = "8.3.1"
+android-gradle = "8.3.2"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.12.0"
