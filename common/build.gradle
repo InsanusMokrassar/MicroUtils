@@ -8,6 +8,11 @@ apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
 
 kotlin {
     sourceSets {
+        commonMain {
+            dependencies {
+                api libs.klock
+            }
+        }
         jvmMain {
             dependencies {
                 api project(":micro_utils.coroutines")

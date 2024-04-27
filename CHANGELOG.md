@@ -2,6 +2,10 @@
 
 ## 0.20.46
 
+* `Common`:
+    * Now this repo depends on `klock`
+    * Add new object-serializer `DateTimeSerializer` for `klock` serializer
+
 ## 0.20.45
 
 * `Versions`:
