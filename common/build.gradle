@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api libs.klock
+                api libs.kt.io.core
             }
         }
         jvmMain {
@@ -23,7 +24,6 @@ kotlin {
                 api project(":micro_utils.coroutines")
                 api libs.android.fragment
             }
-            dependsOn jvmMain
         }
 
         linuxX64Main {

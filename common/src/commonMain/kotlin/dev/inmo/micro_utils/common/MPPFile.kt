@@ -1,5 +1,9 @@
 package dev.inmo.micro_utils.common
 
+import kotlinx.io.RawSource
+import kotlinx.io.Source
+import kotlinx.io.buffered
+import kotlinx.io.readByteArray
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -23,12 +27,21 @@ value class FileName(val string: String) {
 }
 
 
-expect class MPPFile
+expect class MPPFile = File
 
+expect val MPPFile.rawSource: RawSource
+val MPPFile.source: Source
+    get() = rawSource.buffered()
 expect val MPPFile.filename: FileName
 expect val MPPFile.filesize: Long
-expect val MPPFile.bytesAllocatorSync: ByteArrayAllocator
-expect val MPPFile.bytesAllocator: SuspendByteArrayAllocator
+val MPPFile.bytesAllocatorSync: ByteArrayAllocator
+    get() = {
+        source.readByteArray()
+    }
+val MPPFile.bytesAllocator: SuspendByteArrayAllocator
+    get() = {
+        source.readByteArray()
+    }
 fun MPPFile.bytesSync() = bytesAllocatorSync()
 suspend fun MPPFile.bytes() = bytesAllocator()
 

@@ -18,20 +18,4 @@ actual val MPPFile.filename: FileName
  * @suppress
  */
 actual val MPPFile.filesize: Long
-    get() = length()
-/**
- * @suppress
- */
-actual val MPPFile.bytesAllocatorSync: ByteArrayAllocator
-    get() = ::readBytes
-/**
- * @suppress
- */
-actual val MPPFile.bytesAllocator: SuspendByteArrayAllocator
-    get() = {
-        doInIO {
-            doOutsideOfCoroutine {
-                readBytes()
-            }
-        }
-    }
+    get() = if (exists()) length() else -1L

@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.common
 
+import kotlinx.io.RawSource
 import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.ErrorEvent
 import org.w3c.files.*
@@ -40,15 +41,6 @@ actual val MPPFile.filename: FileName
  */
 actual val MPPFile.filesize: Long
     get() = size.toLong()
-/**
- * @suppress
- */
-@Warning("That is not optimized version of bytes allocator. Use asyncBytesAllocator everywhere you can")
-actual val MPPFile.bytesAllocatorSync: ByteArrayAllocator
-    get() = ::readBytes
-/**
- * @suppress
- */
-@Warning("That is not optimized version of bytes allocator. Use asyncBytesAllocator everywhere you can")
-actual val MPPFile.bytesAllocator: SuspendByteArrayAllocator
-    get() = ::dirtyReadBytes
+
+actual val MPPFile.rawSource: RawSource
+    get() =
