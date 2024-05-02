@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.20.48
+
+* `Versions`:
+    * `Android Core KTX`: `1.13.0` -> `1.13.1`
+    * `AndroidX Fragment`: `1.6.2` -> `1.7.0`
+
 ## 0.20.47
 
 * `Versions`:
