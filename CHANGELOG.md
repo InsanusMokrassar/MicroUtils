@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.49
+
+* `Repos`:
+    * `Common`:
+        * All `Repo`s get `diff` extensions
+        * `KeyValueRepo` and `KeyValuesRepo` get `applyDiff` extension
+        * Add new extensions `on*` flows for crud repos
+
 ## 0.20.48
 
 * `Versions`:

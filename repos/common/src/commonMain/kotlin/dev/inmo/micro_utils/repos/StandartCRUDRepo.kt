@@ -42,6 +42,22 @@ interface WriteCRUDRepo<ObjectType, IdType, InputValueType> : Repo {
 }
 typealias WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> = WriteCRUDRepo<ObjectType, IdType, InputValueType>
 
+/**
+ * Just mirroring [WriteCRUDRepo.newObjectsFlow] to be same as in KV repos
+ */
+val <ObjectType> WriteCRUDRepo<ObjectType, *, *>.onNewObjects: Flow<ObjectType>
+    get() = newObjectsFlow
+/**
+ * Just mirroring [WriteCRUDRepo.updatedObjectsFlow] to be same as in KV repos
+ */
+val <ObjectType> WriteCRUDRepo<ObjectType, *, *>.onUpdatedObjects: Flow<ObjectType>
+    get() = updatedObjectsFlow
+/**
+ * Just mirroring [WriteCRUDRepo.deletedObjectsIdsFlow] to be same as in KV repos
+ */
+val <IdType> WriteCRUDRepo<*, IdType, *>.onDeletedObjectsIds: Flow<IdType>
+    get() = deletedObjectsIdsFlow
+
 suspend fun <ObjectType, IdType, InputValueType> WriteCRUDRepo<ObjectType, IdType, InputValueType>.create(
     vararg values: InputValueType
 ): List<ObjectType> = create(values.toList())
