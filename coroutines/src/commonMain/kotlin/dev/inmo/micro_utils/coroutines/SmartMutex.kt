@@ -44,7 +44,7 @@ sealed interface SmartMutex {
      * @param locked Preset state of [isLocked] and its internal [_lockStateFlow]
      */
     class Mutable(locked: Boolean = false) : SmartMutex {
-        private val _lockStateFlow = MutableStateFlow<Boolean>(locked)
+        private val _lockStateFlow = SpecialMutableStateFlow<Boolean>(locked)
         override val lockStateFlow: StateFlow<Boolean> = _lockStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex()

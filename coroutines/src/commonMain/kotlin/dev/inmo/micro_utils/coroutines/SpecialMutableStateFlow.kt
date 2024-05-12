@@ -44,6 +44,10 @@ open class SpecialMutableStateFlow<T>(
     override val subscriptionCount: StateFlow<Int>
         get() = sharingFlow.subscriptionCount
 
+    init {
+        sharingFlow.tryEmit(initialValue)
+    }
+
     override fun compareAndSet(expect: T, update: T): Boolean {
         if (expect == value) {
             value = update
