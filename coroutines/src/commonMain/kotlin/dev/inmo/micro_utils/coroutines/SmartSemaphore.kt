@@ -45,7 +45,7 @@ sealed interface SmartSemaphore {
      * @param locked Preset state of [freePermits] and its internal [_freePermitsStateFlow]
      */
     class Mutable(private val permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
-        private val _freePermitsStateFlow = MutableStateFlow<Int>(permits - acquiredPermits)
+        private val _freePermitsStateFlow = SpecialMutableStateFlow<Int>(permits - acquiredPermits)
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex(false)

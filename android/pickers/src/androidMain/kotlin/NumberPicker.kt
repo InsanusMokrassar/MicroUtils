@@ -7,9 +7,6 @@ import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.IconButton
-import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -75,7 +72,7 @@ fun NumberPicker(
     }
     val coercedAnimatedOffset = animatedOffset.value % halvedNumbersColumnHeightPx
     val animatedStateValue = animatedStateValue(animatedOffset.value)
-    val disabledArrowsColor = arrowsColor.copy(alpha = ContentAlpha.disabled)
+    val disabledArrowsColor = arrowsColor.copy(alpha = 0f)
 
     val inputFieldShown = if (allowUseManualInput) {
         remember { mutableStateOf(false) }

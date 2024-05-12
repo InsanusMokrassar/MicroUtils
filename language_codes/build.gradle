@@ -5,11 +5,3 @@ plugins {
 }
 
 apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
-
-kotlin {
-    sourceSets {
-        androidMain {
-            dependsOn jvmMain
-        }
-    }
-}

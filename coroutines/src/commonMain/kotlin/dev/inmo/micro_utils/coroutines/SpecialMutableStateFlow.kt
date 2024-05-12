@@ -11,76 +11,60 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.internal.SynchronizedObject
 import kotlinx.coroutines.internal.synchronized
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Works like [StateFlow], but guarantee that latest value update will always be delivered to
  * each active subscriber
  */
 open class SpecialMutableStateFlow<T>(
-    initialValue: T,
-    internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    initialValue: T
 ) : MutableStateFlow<T>, FlowCollector<T>, MutableSharedFlow<T> {
     @OptIn(InternalCoroutinesApi::class)
     private val syncObject = SynchronizedObject()
-    protected val internalSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
-        replay = 0,
-        extraBufferCapacity = 2,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    protected val publicSharedFlow: MutableSharedFlow<T> = MutableSharedFlow(
+    protected val sharingFlow: MutableSharedFlow<T> = MutableSharedFlow(
         replay = 1,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
 
-    protected var _value: T = initialValue
-    override var value: T
-        get() = _value
+    @OptIn(InternalCoroutinesApi::class)
+    override var value: T = initialValue
         set(value) {
-            doOnChangeAction(value)
+            synchronized(syncObject) {
+                if (field != value) {
+                    field = value
+                    sharingFlow.tryEmit(value)
+                }
+            }
         }
-    protected val job = internalSharedFlow.subscribe(internalScope) {
-        doOnChangeAction(it)
-    }
 
     override val replayCache: List<T>
-        get() = publicSharedFlow.replayCache
+        get() = sharingFlow.replayCache
     override val subscriptionCount: StateFlow<Int>
-        get() = publicSharedFlow.subscriptionCount
+        get() = sharingFlow.subscriptionCount
 
-    @OptIn(InternalCoroutinesApi::class)
+    init {
+        sharingFlow.tryEmit(initialValue)
+    }
+
     override fun compareAndSet(expect: T, update: T): Boolean {
-        return synchronized(syncObject) {
-            if (expect == _value && update != _value) {
-                doOnChangeAction(update)
-            }
-            expect == _value
+        if (expect == value) {
+            value = update
         }
-    }
-
-    protected open fun onChangeWithoutSync(value: T) {
-        _value = value
-        publicSharedFlow.tryEmit(value)
-    }
-    @OptIn(InternalCoroutinesApi::class)
-    protected open fun doOnChangeAction(value: T) {
-        synchronized(syncObject) {
-            if (_value != value) {
-                onChangeWithoutSync(value)
-            }
-        }
+        return expect == value
     }
 
     @ExperimentalCoroutinesApi
-    override fun resetReplayCache() = publicSharedFlow.resetReplayCache()
+    override fun resetReplayCache() = sharingFlow.resetReplayCache()
 
     override fun tryEmit(value: T): Boolean {
-        return internalSharedFlow.tryEmit(value)
+        return compareAndSet(this.value, value)
     }
 
     override suspend fun emit(value: T) {
-        internalSharedFlow.emit(value)
+        compareAndSet(this.value, value)
     }
 
-    override suspend fun collect(collector: FlowCollector<T>) = publicSharedFlow.collect(collector)
+    override suspend fun collect(collector: FlowCollector<T>) = sharingFlow.collect(collector)
 }

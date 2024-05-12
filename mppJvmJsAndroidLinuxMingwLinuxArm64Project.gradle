@@ -60,6 +60,12 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
+        nativeMain.dependsOn commonMain
+        linuxX64Main.dependsOn nativeMain
+        mingwX64Main.dependsOn nativeMain
+        linuxArm64Main.dependsOn nativeMain
+
+        androidMain.dependsOn jvmMain
     }
 }
 
