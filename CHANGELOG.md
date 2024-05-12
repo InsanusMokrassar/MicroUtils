@@ -2,6 +2,16 @@
 
 ## 0.20.50
 
+* `Versions`:
+    * `Coroutines`: `1.8.0` -> `1.8.1`
+    * `KSLog`: `1.3.3` -> `1.3.4`
+    * `Exposed`: `0.50.0` -> `0.50.1`
+    * `Ktor`: `2.3.10` -> `2.3.11`
+* A lot of inline functions became common functions due to inline with only noinline callbacks in arguments leads to
+low performance
+* `Coroutines`:
+    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `SpecialMutableStateFlow`
+
 ## 0.20.49
 
 * `Repos`:
