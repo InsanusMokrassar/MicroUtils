@@ -28,8 +28,8 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib')
-                api libs.kt.serialization
                 implementation compose.runtime
+                api libs.kt.serialization
             }
         }
         commonTest {
@@ -47,6 +47,7 @@ kotlin {
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
+                implementation compose.uiTest
             }
         }
         jsMain {
@@ -61,6 +62,14 @@ kotlin {
             }
         }
         androidUnitTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+                implementation compose.uiTest
+            }
+        }
+        androidInstrumentedTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation libs.android.test.junit

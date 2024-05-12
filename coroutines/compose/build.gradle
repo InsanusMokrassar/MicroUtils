@@ -16,5 +16,19 @@ kotlin {
                 api project(":micro_utils.common.compose")
             }
         }
+//        androidUnitTest {
+//            dependencies {
+//                implementation libs.ui.test.junit4
+//                implementation libs.ui.test.manifest
+//                implementation libs.android.compose.material3
+//            }
+//        }
+//        jvmTest {
+//            dependencies {
+//                implementation libs.ui.test.junit4
+//                implementation libs.ui.test.manifest
+//                implementation libs.android.compose.material3
+//            }
+//        }
     }
 }
