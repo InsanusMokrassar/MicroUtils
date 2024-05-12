@@ -1,3 +1,5 @@
+@file:Suppress("SERIALIZER_TYPE_INCOMPATIBLE") // for suppressing of @Serializable(IetfLangSerializer::class) on inheritors of IetfLang
+
 package dev.inmo.micro_utils.language_codes
 
 import kotlinx.serialization.Serializable

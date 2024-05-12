@@ -55,6 +55,10 @@ kotlin {
             }
         }
 
+        nativeMain.dependsOn commonMain
+        linuxX64Main.dependsOn nativeMain
+        mingwX64Main.dependsOn nativeMain
+
         androidMain.dependsOn jvmMain
     }
 }

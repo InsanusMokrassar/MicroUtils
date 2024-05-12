@@ -5,7 +5,6 @@ import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -62,9 +61,7 @@ fun <T> SetPicker(
         (index - ceil(animatedOffset.value / halvedNumbersColumnHeightPx).toInt())
     }
     val coercedAnimatedOffset = animatedOffset.value % halvedNumbersColumnHeightPx
-    val boxOffset = (indexAnimatedOffset * halvedNumbersColumnHeightPx) - coercedAnimatedOffset
-    val disabledArrowsColor = arrowsColor.copy(alpha = ContentAlpha.disabled)
-    val scrollState = rememberScrollState()
+    val disabledArrowsColor = arrowsColor.copy(alpha = 0f)
 
     Column(
         modifier = modifier

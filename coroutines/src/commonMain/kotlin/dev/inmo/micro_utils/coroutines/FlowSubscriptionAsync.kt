@@ -85,32 +85,32 @@ fun <T, M> Flow<T>.subscribeAsync(
     return job
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelyAsync(
+fun <T, M> Flow<T>.subscribeSafelyAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
-    noinline block: suspend (T) -> Unit
+    markerFactory: suspend (T) -> M,
+    onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
+    block: suspend (T) -> Unit
 ) = subscribeAsync(scope, markerFactory) {
     safely(onException) {
         block(it)
     }
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelyWithoutExceptionsAsync(
+fun <T, M> Flow<T>.subscribeSafelyWithoutExceptionsAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
-    noinline block: suspend (T) -> Unit
+    markerFactory: suspend (T) -> M,
+    onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
+    block: suspend (T) -> Unit
 ) = subscribeAsync(scope, markerFactory) {
     safelyWithoutExceptions(onException) {
         block(it)
     }
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelySkippingExceptionsAsync(
+fun <T, M> Flow<T>.subscribeSafelySkippingExceptionsAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline block: suspend (T) -> Unit
+    markerFactory: suspend (T) -> M,
+    block: suspend (T) -> Unit
 ) = subscribeAsync(scope, markerFactory) {
     safelyWithoutExceptions({ /* do nothing */}) {
         block(it)

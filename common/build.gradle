@@ -20,23 +20,11 @@ kotlin {
         }
         androidMain {
             dependencies {
-                api project(":micro_utils.coroutines")
                 api libs.android.fragment
             }
-            dependsOn jvmMain
         }
 
-        linuxX64Main {
-            dependencies {
-                api libs.okio
-            }
-        }
-        mingwX64Main {
-            dependencies {
-                api libs.okio
-            }
-        }
-        linuxArm64Main {
+        nativeMain {
             dependencies {
                 api libs.okio
             }

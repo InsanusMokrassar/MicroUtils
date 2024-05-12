@@ -28,7 +28,6 @@ kotlin {
                 api internalProject("micro_utils.common")
                 api internalProject("micro_utils.coroutines")
             }
-            dependsOn jvmMain
         }
     }
 }

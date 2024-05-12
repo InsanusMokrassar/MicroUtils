@@ -51,7 +51,7 @@ class ContextSafelyExceptionHandler(
  * @see ContextSafelyExceptionHandler
  * @see ContextSafelyExceptionHandlerKey
  */
-suspend inline fun contextSafelyExceptionHandler() = coroutineContext[ContextSafelyExceptionHandlerKey]
+suspend fun contextSafelyExceptionHandler() = coroutineContext[ContextSafelyExceptionHandlerKey]
 
 /**
  * This method will set new [coroutineContext] with [ContextSafelyExceptionHandler]. In case if [coroutineContext]
@@ -96,9 +96,9 @@ suspend fun <T> safelyWithContextExceptionHandler(
  * @see safelyWithoutExceptions
  * @see safelyWithContextExceptionHandler
  */
-suspend inline fun <T> safely(
-    noinline onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
-    noinline block: suspend CoroutineScope.() -> T
+suspend fun <T> safely(
+    onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
+    block: suspend CoroutineScope.() -> T
 ): T {
     return try {
         supervisorScope(block)
@@ -108,26 +108,26 @@ suspend inline fun <T> safely(
     }
 }
 
-suspend inline fun <T> runCatchingSafely(
-    noinline onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
-    noinline block: suspend CoroutineScope.() -> T
+suspend fun <T> runCatchingSafely(
+    onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
+    block: suspend CoroutineScope.() -> T
 ): Result<T> = runCatching {
     safely(onException, block)
 }
 
-suspend inline fun <T, R> T.runCatchingSafely(
-    noinline onException: ExceptionHandler<R> = defaultSafelyExceptionHandler,
-    noinline block: suspend T.() -> R
+suspend fun <T, R> T.runCatchingSafely(
+    onException: ExceptionHandler<R> = defaultSafelyExceptionHandler,
+    block: suspend T.() -> R
 ): Result<R> = runCatching {
     safely(onException) { block() }
 }
 
-suspend inline fun <T> safelyWithResult(
-    noinline block: suspend CoroutineScope.() -> T
+suspend fun <T> safelyWithResult(
+    block: suspend CoroutineScope.() -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
-suspend inline fun <T, R> T.safelyWithResult(
-    noinline block: suspend T.() -> R
+suspend fun <T, R> T.safelyWithResult(
+    block: suspend T.() -> R
 ): Result<R> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
 /**
@@ -147,21 +147,21 @@ val defaultSafelyWithoutExceptionHandlerWithNull: ExceptionHandler<Nothing?> = {
  * Shortcut for [safely] with exception handler, that as expected must return null in case of impossible creating of
  * result from exception (instead of throwing it, by default always returns null)
  */
-suspend inline fun <T> safelyWithoutExceptions(
-    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
-    noinline block: suspend CoroutineScope.() -> T
+suspend fun <T> safelyWithoutExceptions(
+    onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
+    block: suspend CoroutineScope.() -> T
 ): T? = safely(onException, block)
 
-suspend inline fun <T> runCatchingSafelyWithoutExceptions(
-    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
-    noinline block: suspend CoroutineScope.() -> T
+suspend fun <T> runCatchingSafelyWithoutExceptions(
+    onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
+    block: suspend CoroutineScope.() -> T
 ): Result<T?> = runCatching {
     safelyWithoutExceptions(onException, block)
 }
 
-inline fun CoroutineScope(
+fun CoroutineScope(
     context: CoroutineContext,
-    noinline defaultExceptionsHandler: ExceptionHandler<Unit>
+    defaultExceptionsHandler: ExceptionHandler<Unit>
 ) = CoroutineScope(
     context + ContextSafelyExceptionHandler(defaultExceptionsHandler)
 )

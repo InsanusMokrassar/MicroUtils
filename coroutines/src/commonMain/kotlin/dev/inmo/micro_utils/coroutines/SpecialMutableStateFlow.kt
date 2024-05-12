@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.internal.SynchronizedObject
 import kotlinx.coroutines.internal.synchronized
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Works like [StateFlow], but guarantee that latest value update will always be delivered to
@@ -18,7 +19,7 @@ import kotlinx.coroutines.internal.synchronized
  */
 open class SpecialMutableStateFlow<T>(
     initialValue: T,
-    internalScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    internalScope: CoroutineScope
 ) : MutableStateFlow<T>, FlowCollector<T>, MutableSharedFlow<T> {
     @OptIn(InternalCoroutinesApi::class)
     private val syncObject = SynchronizedObject()
@@ -37,7 +38,7 @@ open class SpecialMutableStateFlow<T>(
     override var value: T
         get() = _value
         set(value) {
-            doOnChangeAction(value)
+            internalSharedFlow.tryEmit(value)
         }
     protected val job = internalSharedFlow.subscribe(internalScope) {
         doOnChangeAction(it)
@@ -47,6 +48,11 @@ open class SpecialMutableStateFlow<T>(
         get() = publicSharedFlow.replayCache
     override val subscriptionCount: StateFlow<Int>
         get() = publicSharedFlow.subscriptionCount
+
+    constructor(
+        initialValue: T,
+        internalContext: CoroutineContext = Dispatchers.Default
+    ) : this(initialValue, CoroutineScope(internalContext))
 
     @OptIn(InternalCoroutinesApi::class)
     override fun compareAndSet(expect: T, update: T): Boolean {
