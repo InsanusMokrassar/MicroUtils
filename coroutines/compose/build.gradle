@@ -3,6 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
     id "com.android.library"
     alias(libs.plugins.jb.compose)
+    alias(libs.plugins.kt.jb.compose)
 }
 
 apply from: "$mppProjectWithSerializationAndComposePresetPath"
