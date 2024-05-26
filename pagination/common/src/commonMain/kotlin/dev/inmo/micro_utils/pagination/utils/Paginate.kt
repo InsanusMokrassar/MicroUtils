@@ -38,7 +38,7 @@ fun <T> List<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<
         size,
         reversed
     )
-
+    val indices = indices
     val firstIndex = actualPagination.firstIndex.coerceIn(indices)
     val lastIndex = actualPagination.lastIndex.coerceIn(indices) + 1 // up to size
     if (firstIndex > lastIndex) {
