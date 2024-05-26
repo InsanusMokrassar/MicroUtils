@@ -1,11 +1,9 @@
 package dev.inmo.micro_utils.pagination.utils
 
-import dev.inmo.micro_utils.pagination.FirstPagePagination
-import dev.inmo.micro_utils.pagination.firstIndex
-import dev.inmo.micro_utils.pagination.isLastPage
-import dev.inmo.micro_utils.pagination.lastIndexExclusive
+import dev.inmo.micro_utils.pagination.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PaginationPaging {
@@ -30,5 +28,25 @@ class PaginationPaging {
         }
 
         assertTrue(lastPageHappened)
+    }
+    @Test
+    fun testEmptyPaginateOnList() {
+        val list = listOf<Int>()
+        val startPagination = FirstPagePagination(2)
+
+        var paginationHappend = false
+        doForAllWithNextPaging(startPagination) {
+            val resultPagination = list.paginate(it)
+
+            assertEquals(resultPagination, emptyPaginationResult(it))
+
+            assertFalse(paginationHappend)
+
+            paginationHappend = true
+
+            resultPagination
+        }
+
+        assertTrue(paginationHappend)
     }
 }

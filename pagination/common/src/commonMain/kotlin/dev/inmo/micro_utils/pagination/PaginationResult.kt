@@ -63,18 +63,32 @@ fun <T> emptyPaginationResult(
 /**
  * @return New [PaginationResult] with [data] without checking of data sizes equality
  */
+inline fun <I, O> PaginationResult<I>.changeResultsUnchecked(
+    block: PaginationResult<I>.() -> List<O>
+): PaginationResult<O> = PaginationResult(page, size, block(), objectsNumber)
+
+/**
+ * @return New [PaginationResult] with [data] without checking of data sizes equality
+ */
 fun <I, O> PaginationResult<I>.changeResultsUnchecked(
     data: List<O>
-): PaginationResult<O> = PaginationResult(page, size, data, objectsNumber)
+): PaginationResult<O> = changeResultsUnchecked { data }
+/**
+ * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
+ */
+inline fun <I, O> PaginationResult<I>.changeResults(
+    block: PaginationResult<I>.() -> List<O>
+): PaginationResult<O> {
+    val data = block()
+    require(data.size == results.size)
+    return changeResultsUnchecked(data)
+}
 /**
  * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
  */
 fun <I, O> PaginationResult<I>.changeResults(
     data: List<O>
-): PaginationResult<O> {
-    require(data.size == results.size)
-    return changeResultsUnchecked(data)
-}
+): PaginationResult<O> = changeResults { data }
 
 fun <T> List<T>.createPaginationResult(
     pagination: Pagination,

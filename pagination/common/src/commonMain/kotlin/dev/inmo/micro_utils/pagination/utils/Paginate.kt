@@ -21,34 +21,25 @@ fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
-    val indices = indices
-    val firstIndex = with.firstIndex.coerceIn(indices)
-    val lastIndex = with.lastIndex.coerceIn(indices) + 1 // up to size
-    if (firstIndex > lastIndex) {
-        return emptyPaginationResult()
+    if (with.firstIndex !in indices || with.lastIndex !in indices) {
+        return emptyPaginationResult(with)
     }
-    return subList(firstIndex, lastIndex).createPaginationResult(
+    return asSequence().drop(with.firstIndex).take(with.size).toList().createPaginationResult(
         with,
         size.toLong()
     )
 }
 
 fun <T> List<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<T> {
-    val actualPagination = with.optionallyReverse(
-        size,
-        reversed
-    )
-    val indices = indices
-    val firstIndex = actualPagination.firstIndex.coerceIn(indices)
-    val lastIndex = actualPagination.lastIndex.coerceIn(indices) + 1 // up to size
-    if (firstIndex > lastIndex) {
-        return emptyPaginationResult()
+    return if (reversed) {
+        val actualPagination = with.optionallyReverse(
+            size,
+            reversed
+        )
+        paginate(actualPagination).changeResultsUnchecked { results.reversed() }
+    } else {
+        paginate(with)
     }
-
-    return subList(firstIndex, lastIndex).optionallyReverse(reversed).createPaginationResult(
-        with,
-        size.toLong()
-    )
 }
 
 fun <T> Set<T>.paginate(with: Pagination): PaginationResult<T> {
