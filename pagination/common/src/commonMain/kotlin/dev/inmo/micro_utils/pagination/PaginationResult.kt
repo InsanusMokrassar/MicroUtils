@@ -20,7 +20,13 @@ data class PaginationResult<T>(
      * Amount of pages for current pagination
      */
     @EncodeDefault
-    val pagesNumber: Int = ceil(objectsNumber / size.toFloat()).toInt()
+    @SerialName("pagesNumber")
+    val pagesNumberLong: Long = ceil(objectsNumber / size.toFloat()).toLong()
+    /**
+     * Amount of pages for current pagination
+     */
+    @Transient
+    val pagesNumber: Int = pagesNumberLong.toInt()
 
     constructor(
         page: Int,
@@ -34,6 +40,15 @@ data class PaginationResult<T>(
         (pagesNumber * size).toLong()
     )
 }
+
+val PaginationResult<*>.lastPageLong
+    get() = pagesNumberLong - 1
+
+val PaginationResult<*>.lastPage
+    get() = lastPageLong.toInt()
+
+val PaginationResult<*>.isLastPage
+    get() = page.toLong() == lastPageLong
 
 fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
 fun <T> emptyPaginationResult(

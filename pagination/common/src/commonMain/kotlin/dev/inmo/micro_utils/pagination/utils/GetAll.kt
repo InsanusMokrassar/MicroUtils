@@ -31,7 +31,7 @@ inline fun <T> getAllWithNextPaging(
     block: (Pagination) -> PaginationResult<T>
 ): List<T> = getAll(
     initialPagination,
-    { it.nextPageIfNotEmpty() },
+    { it.nextPageIfNotEmptyOrLastPage() },
     block
 )
 
@@ -48,7 +48,7 @@ inline fun <T> getAllWithCurrentPaging(
     block: (Pagination) -> PaginationResult<T>
 ): List<T> = getAll(
     initialPagination,
-    { it.currentPageIfNotEmpty() },
+    { it.thisPageIfNotEmptyOrLastPage() },
     block
 )
 

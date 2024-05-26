@@ -21,8 +21,9 @@ fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
-    val firstIndex = maxOf(with.firstIndex, 0)
-    val lastIndex = minOf(with.lastIndexExclusive, size)
+    val indices = indices
+    val firstIndex = with.firstIndex.coerceIn(indices)
+    val lastIndex = with.lastIndex.coerceIn(indices) + 1 // up to size
     if (firstIndex > lastIndex) {
         return emptyPaginationResult()
     }
@@ -38,8 +39,8 @@ fun <T> List<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<
         reversed
     )
 
-    val firstIndex = maxOf(actualPagination.firstIndex, 0)
-    val lastIndex = minOf(actualPagination.lastIndexExclusive, size)
+    val firstIndex = actualPagination.firstIndex.coerceIn(indices)
+    val lastIndex = actualPagination.lastIndex.coerceIn(indices) + 1 // up to size
     if (firstIndex > lastIndex) {
         return emptyPaginationResult()
     }

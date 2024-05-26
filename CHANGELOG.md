@@ -2,6 +2,13 @@
 
 ## 0.20.51
 
+* `Pagination`:
+    * Add `Pagination.nextPageIfTrue` and `Pagination.thisPageIftrue` extensions to get the page according to condition
+    pass status
+    * Add `PaginationResult.nextPageIfNotEmptyOrLastPage` and `PaginationResult.thisPageIfNotEmptyOrLastPage`
+    * Change all `doForAll` and `getAll` extensions fo pagination to work basing on `nextPageIfNotEmptyOrLastPage` and
+    `thisPageIfNotEmptyOrLastPage`
+
 ## 0.20.50
 
 * `Versions`:
