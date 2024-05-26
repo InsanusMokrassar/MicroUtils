@@ -20,7 +20,13 @@ data class PaginationResult<T>(
      * Amount of pages for current pagination
      */
     @EncodeDefault
-    val pagesNumber: Int = ceil(objectsNumber / size.toFloat()).toInt()
+    @SerialName("pagesNumber")
+    val pagesNumberLong: Long = ceil(objectsNumber / size.toFloat()).toLong()
+    /**
+     * Amount of pages for current pagination
+     */
+    @Transient
+    val pagesNumber: Int = pagesNumberLong.toInt()
 
     constructor(
         page: Int,
@@ -35,31 +41,58 @@ data class PaginationResult<T>(
     )
 }
 
-fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
+val PaginationResult<*>.lastPageLong
+    get() = pagesNumberLong - 1
+
+val PaginationResult<*>.lastPage
+    get() = lastPageLong.toInt()
+
+val PaginationResult<*>.isLastPage
+    get() = page.toLong() == lastPageLong
+
 fun <T> emptyPaginationResult(
-    basePagination: Pagination
+    basePagination: Pagination,
+    objectsNumber: Number
 ) = PaginationResult<T>(
     basePagination.page,
     basePagination.size,
     emptyList(),
-    0L
+    objectsNumber.toLong()
 )
+fun <T> emptyPaginationResult(
+    basePagination: Pagination,
+) = emptyPaginationResult<T>(basePagination, 0)
+fun <T> emptyPaginationResult() = emptyPaginationResult<T>(FirstPagePagination(0))
+
+/**
+ * @return New [PaginationResult] with [data] without checking of data sizes equality
+ */
+inline fun <I, O> PaginationResult<I>.changeResultsUnchecked(
+    block: PaginationResult<I>.() -> List<O>
+): PaginationResult<O> = PaginationResult(page, size, block(), objectsNumber)
 
 /**
  * @return New [PaginationResult] with [data] without checking of data sizes equality
  */
 fun <I, O> PaginationResult<I>.changeResultsUnchecked(
     data: List<O>
-): PaginationResult<O> = PaginationResult(page, size, data, objectsNumber)
+): PaginationResult<O> = changeResultsUnchecked { data }
+/**
+ * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
+ */
+inline fun <I, O> PaginationResult<I>.changeResults(
+    block: PaginationResult<I>.() -> List<O>
+): PaginationResult<O> {
+    val data = block()
+    require(data.size == results.size)
+    return changeResultsUnchecked(data)
+}
 /**
  * @return New [PaginationResult] with [data] <b>with</b> checking of data sizes equality
  */
 fun <I, O> PaginationResult<I>.changeResults(
     data: List<O>
-): PaginationResult<O> {
-    require(data.size == results.size)
-    return changeResultsUnchecked(data)
-}
+): PaginationResult<O> = changeResults { data }
 
 fun <T> List<T>.createPaginationResult(
     pagination: Pagination,

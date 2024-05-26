@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.20.51
+
+* `Versions`:
+    * `Android Fragment`: `1.7.0` -> `1.7.1`
+* `Pagination`:
+    * Add `Pagination.nextPageIfTrue` and `Pagination.thisPageIftrue` extensions to get the page according to condition
+    pass status
+    * Add `PaginationResult.nextPageIfNotEmptyOrLastPage` and `PaginationResult.thisPageIfNotEmptyOrLastPage`
+    * Change all `doForAll` and `getAll` extensions fo pagination to work basing on `nextPageIfNotEmptyOrLastPage` and
+    `thisPageIfNotEmptyOrLastPage`
+
 ## 0.20.50
 
 * `Versions`:

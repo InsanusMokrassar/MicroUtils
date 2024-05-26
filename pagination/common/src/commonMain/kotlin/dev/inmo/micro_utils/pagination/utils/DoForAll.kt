@@ -18,7 +18,7 @@ inline fun <T> doForAllWithNextPaging(
 ) {
     doForAll(
         initialPagination,
-        { it.nextPageIfNotEmpty() },
+        { it.nextPageIfNotEmptyOrLastPage() },
         block
     )
 }
@@ -29,7 +29,7 @@ inline fun <T> doAllWithCurrentPaging(
 ) {
     doForAll(
         initialPagination,
-        { it.currentPageIfNotEmpty() },
+        { it.nextPageIfNotEmptyOrLastPage() },
         block
     )
 }
