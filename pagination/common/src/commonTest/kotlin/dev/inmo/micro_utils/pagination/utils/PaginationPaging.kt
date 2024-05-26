@@ -38,7 +38,27 @@ class PaginationPaging {
         doForAllWithNextPaging(startPagination) {
             val resultPagination = list.paginate(it)
 
-            assertEquals(resultPagination, emptyPaginationResult(it))
+            assertEquals(resultPagination, emptyPaginationResult(it, list.size))
+
+            assertFalse(paginationHappend)
+
+            paginationHappend = true
+
+            resultPagination
+        }
+
+        assertTrue(paginationHappend)
+    }
+    @Test
+    fun testRightOutPaginateOnList() {
+        val list = (0 until 7).toList()
+        val startPagination = SimplePagination(page = 4, size = 2)
+
+        var paginationHappend = false
+        doForAllWithNextPaging(startPagination) {
+            val resultPagination = list.paginate(it)
+
+            assertEquals(resultPagination, emptyPaginationResult(it, list.size))
 
             assertFalse(paginationHappend)
 

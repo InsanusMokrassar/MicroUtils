@@ -21,8 +21,8 @@ fun <T> Iterable<T>.paginate(with: Pagination): PaginationResult<T> {
 }
 
 fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
-    if (with.firstIndex !in indices || with.lastIndex !in indices) {
-        return emptyPaginationResult(with)
+    if (with.firstIndex >= size || with.lastIndex < 0) {
+        return emptyPaginationResult(with, size.toLong())
     }
     return asSequence().drop(with.firstIndex).take(with.size).toList().createPaginationResult(
         with,

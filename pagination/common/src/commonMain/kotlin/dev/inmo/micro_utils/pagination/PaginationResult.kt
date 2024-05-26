@@ -50,15 +50,19 @@ val PaginationResult<*>.lastPage
 val PaginationResult<*>.isLastPage
     get() = page.toLong() == lastPageLong
 
-fun <T> emptyPaginationResult() = PaginationResult<T>(0, 0, emptyList(), 0L)
 fun <T> emptyPaginationResult(
-    basePagination: Pagination
+    basePagination: Pagination,
+    objectsNumber: Number
 ) = PaginationResult<T>(
     basePagination.page,
     basePagination.size,
     emptyList(),
-    0L
+    objectsNumber.toLong()
 )
+fun <T> emptyPaginationResult(
+    basePagination: Pagination,
+) = emptyPaginationResult<T>(basePagination, 0)
+fun <T> emptyPaginationResult() = emptyPaginationResult<T>(FirstPagePagination(0))
 
 /**
  * @return New [PaginationResult] with [data] without checking of data sizes equality
