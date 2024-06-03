@@ -6,7 +6,7 @@ kt-coroutines = "1.8.1"
 
 kslog = "1.3.4"
 
-jb-compose = "1.6.2"
+jb-compose = "1.6.11"
 jb-exposed = "0.50.1"
 jb-dokka = "1.9.20"
 
