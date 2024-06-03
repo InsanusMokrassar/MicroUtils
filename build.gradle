@@ -29,15 +29,6 @@ allprojects {
         maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
         maven { url "https://nexus.inmo.dev/repository/maven-releases/" }
     }
-
-    // temporal crutch until legacy tests will be stabled or legacy target will be removed
-    if (it != rootProject.findProject("docs")) {
-        tasks.whenTaskAdded { task ->
-            if(task.name == "jsLegacyBrowserTest" || task.name == "jsLegacyNodeTest") {
-                task.enabled = false
-            }
-        }
-    }
 }
 
 apply from: "./extensions.gradle"
