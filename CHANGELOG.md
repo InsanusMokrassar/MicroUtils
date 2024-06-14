@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.52
+
+* `Coroutines`:
+    * Small rework of weak jobs: add `WeakScope` factory, rename old weal extensions and add kdocs
+
 ## 0.20.51
 
 * `Versions`:
