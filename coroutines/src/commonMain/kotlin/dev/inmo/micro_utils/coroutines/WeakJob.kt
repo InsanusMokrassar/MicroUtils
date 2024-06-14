@@ -4,19 +4,25 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-private fun CoroutineScope.createWeakSubScope() = CoroutineScope(coroutineContext.minusKey(Job) + Job()).also { newScope ->
+fun WeakScope(
+    context: CoroutineContext
+) = CoroutineScope(context.minusKey(Job) + Job()).also { newScope ->
     newScope.launch {
-        this@createWeakSubScope.coroutineContext.job.join()
+        context.job.join()
         newScope.cancel()
     }
 }
+
+fun WeakScope(
+    scope: CoroutineScope
+) = WeakScope(scope.coroutineContext)
 
 fun CoroutineScope.launchWeak(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
 ): Job {
-    val scope = createWeakSubScope()
+    val scope = WeakScope(this)
     val job = scope.launch(context, start, block)
     job.invokeOnCompletion { scope.cancel() }
     return job
@@ -27,7 +33,7 @@ fun <T> CoroutineScope.asyncWeak(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
 ): Deferred<T> {
-    val scope = createWeakSubScope()
+    val scope = WeakScope(this)
     val deferred = scope.async(context, start, block)
     deferred.invokeOnCompletion { scope.cancel() }
     return deferred
