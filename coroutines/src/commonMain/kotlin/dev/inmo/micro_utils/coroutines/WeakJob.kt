@@ -4,11 +4,14 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-private fun CoroutineScope.createWeakSubScope() = CoroutineScope(coroutineContext.minusKey(Job)).also { newScope ->
-    coroutineContext.job.invokeOnCompletion { newScope.cancel() }
+private fun CoroutineScope.createWeakSubScope() = CoroutineScope(coroutineContext.minusKey(Job) + Job()).also { newScope ->
+    newScope.launch {
+        this@createWeakSubScope.coroutineContext.job.join()
+        newScope.cancel()
+    }
 }
 
-fun CoroutineScope.weakLaunch(
+fun CoroutineScope.launchWeak(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
@@ -19,7 +22,7 @@ fun CoroutineScope.weakLaunch(
     return job
 }
 
-fun <T> CoroutineScope.weakAsync(
+fun <T> CoroutineScope.asyncWeak(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
@@ -29,3 +32,16 @@ fun <T> CoroutineScope.weakAsync(
     deferred.invokeOnCompletion { scope.cancel() }
     return deferred
 }
+@Deprecated("Renamed", ReplaceWith("launchWeak(context, start, block)", "dev.inmo.micro_utils.coroutines.launchWeak"))
+fun CoroutineScope.weakLaunch(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
+): Job = launchWeak(context, start, block)
+
+@Deprecated("Renamed", ReplaceWith("asyncWeak(context, start, block)", "dev.inmo.micro_utils.coroutines.asyncWeak"))
+fun <T> CoroutineScope.weakAsync(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> T
+): Deferred<T> = asyncWeak(context, start, block)
