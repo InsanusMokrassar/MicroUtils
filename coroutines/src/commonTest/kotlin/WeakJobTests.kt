@@ -1,9 +1,6 @@
 import dev.inmo.micro_utils.coroutines.asyncWeak
 import dev.inmo.micro_utils.coroutines.launchWeak
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -32,5 +29,36 @@ class WeakJobTests {
             return@runTest
         }
         error("Cancellation exception has not been thrown")
+    }
+    @Test
+    fun testThatWeakJobsWorksCorrectly() = runTest {
+        val scope = CoroutineScope(Dispatchers.Default)
+        lateinit var weakLaunchJob: Job
+        lateinit var weakAsyncJob: Job
+        val completeDeferred = Job()
+        coroutineScope {
+            weakLaunchJob = launchWeak {
+                while (isActive) {
+                    delay(100L)
+                }
+            }
+            weakAsyncJob = asyncWeak {
+                while (isActive) {
+                    delay(100L)
+                }
+            }
+
+            coroutineContext.job.invokeOnCompletion {
+                scope.launch {
+                    delay(1000L)
+                    completeDeferred.complete()
+                }
+            }
+            launch { delay(1000L); cancel() }
+        }
+        completeDeferred.join()
+
+        assertTrue(!weakLaunchJob.isActive)
+        assertTrue(!weakAsyncJob.isActive)
     }
 }
