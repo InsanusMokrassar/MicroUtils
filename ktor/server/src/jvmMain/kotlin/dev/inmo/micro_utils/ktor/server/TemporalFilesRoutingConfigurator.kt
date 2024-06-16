@@ -41,7 +41,7 @@ class TemporalFilesRoutingConfigurator(
                     filesMutex: Mutex,
                     onNewFileFlow: Flow<TemporalFileId>
                 ): Job = scope.launchSafelyWithoutExceptions {
-                    while (isActive) {
+                    while (currentCoroutineContext().isActive) {
                         val filesWithCreationInfo = filesMap.mapNotNull { (fileId, file) ->
                             fileId to ((Files.getAttribute(file.toPath(), "creationTime") as? FileTime) ?.toMillis() ?: return@mapNotNull null)
                         }

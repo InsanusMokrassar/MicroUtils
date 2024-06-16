@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.fsm.common
 
 import dev.inmo.micro_utils.common.Optional
-import dev.inmo.micro_utils.common.onPresented
 import dev.inmo.micro_utils.coroutines.*
 import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
 import dev.inmo.micro_utils.fsm.common.utils.defaultStateHandlingErrorHandler
@@ -118,23 +117,28 @@ open class DefaultStatesMachine <T: State>(
      * [launchStateHandling] will returns some [State] then [statesManager] [StatesManager.update] will be used, otherwise
      * [StatesManager.endChain].
      */
-    override fun start(scope: CoroutineScope): Job = scope.launchSafelyWithoutExceptions {
-        (statesManager.getActiveStates().asFlow() + statesManager.onStartChain).subscribeSafelyWithoutExceptions(this) {
-            launch { performStateUpdate(Optional.absent(), it, scope.LinkedSupervisorScope()) }
-        }
-        statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(this) {
-            launch { performStateUpdate(Optional.presented(it.first), it.second, scope.LinkedSupervisorScope()) }
-        }
-        statesManager.onEndChain.subscribeSafelyWithoutExceptions(this) { removedState ->
-            launch {
-                statesJobsMutex.withLock {
-                    val stateInMap = statesJobs.keys.firstOrNull { stateInMap -> stateInMap == removedState }
-                    if (stateInMap === removedState) {
-                        statesJobs[stateInMap] ?.cancel()
+    override fun start(scope: CoroutineScope): Job {
+        val supervisorScope = scope.LinkedSupervisorScope()
+        supervisorScope.launchSafelyWithoutExceptions {
+            (statesManager.getActiveStates().asFlow() + statesManager.onStartChain).subscribeSafelyWithoutExceptions(supervisorScope) {
+                supervisorScope.launch { performStateUpdate(Optional.absent(), it, supervisorScope) }
+            }
+            statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(supervisorScope) {
+                supervisorScope.launch { performStateUpdate(Optional.presented(it.first), it.second, supervisorScope) }
+            }
+            statesManager.onEndChain.subscribeSafelyWithoutExceptions(supervisorScope) { removedState ->
+                supervisorScope.launch {
+                    statesJobsMutex.withLock {
+                        val stateInMap = statesJobs.keys.firstOrNull { stateInMap -> stateInMap == removedState }
+                        if (stateInMap === removedState) {
+                            statesJobs[stateInMap] ?.cancel()
+                        }
                     }
                 }
             }
         }
+
+        return supervisorScope.coroutineContext.job
     }
 
     /**

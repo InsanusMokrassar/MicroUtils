@@ -10,8 +10,12 @@ fun CoroutineScope.LinkedSupervisorJob(
     additionalContext: CoroutineContext? = null
 ) = coroutineContext.LinkedSupervisorJob(additionalContext)
 
-fun CoroutineScope.LinkedSupervisorScope(
+
+fun CoroutineContext.LinkedSupervisorScope(
     additionalContext: CoroutineContext? = null
 ) = CoroutineScope(
-    coroutineContext + LinkedSupervisorJob(additionalContext)
+    this + LinkedSupervisorJob(additionalContext)
 )
+fun CoroutineScope.LinkedSupervisorScope(
+    additionalContext: CoroutineContext? = null
+) = coroutineContext.LinkedSupervisorScope(additionalContext)
