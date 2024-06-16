@@ -4,46 +4,17 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 
-typealias ExceptionHandler<T> = suspend (Throwable) -> T
-
 /**
- * This instance will be used in all calls of [safely] where exception handler has not been passed
- */
-var defaultSafelyExceptionHandler: ExceptionHandler<Nothing> = { throw it }
-
-/**
- * This instance will be used in all calls of [safelyWithoutExceptions] as an exception handler for [safely] call
- */
-var defaultSafelyWithoutExceptionHandler: ExceptionHandler<Unit> = {
-    try {
-        defaultSafelyExceptionHandler(it)
-    } catch (e: Throwable) {
-         // do nothing
-    }
-}
-
-/**
- * This key can (and will) be used to get [ContextSafelyExceptionHandler] from [coroutineContext] of suspend functions
- * and in [ContextSafelyExceptionHandler] for defining of its [CoroutineContext.Element.key]
+ * Launching [block] in [runCatching]. In case of failure, it will:
  *
- * @see safelyWithContextExceptionHandler
- * @see ContextSafelyExceptionHandler
- */
-object ContextSafelyExceptionHandlerKey : CoroutineContext.Key<ContextSafelyExceptionHandler>
-
-/**
- * [ExceptionHandler] wrapper which was created to make possible to use [handler] across all coroutines calls
+ * * Try to get [ContextSafelyExceptionHandler] from current [coroutineContext] and call its
+ * [ContextSafelyExceptionHandler.handler] invoke. **Thrown exception from its handler
+ * will pass out of [runCatchingSafely]**
+ * * Execute [onException] inside of new [runCatching] and return its result. Throws exception
+ * will be caught by [runCatching] and wrapped in [Result]
  *
- * @see safelyWithContextExceptionHandler
- * @see ContextSafelyExceptionHandlerKey
+ * @return [Result] with result of [block] if no exceptions or [Result] from [onException] execution
  */
-class ContextSafelyExceptionHandler(
-    val handler: ExceptionHandler<Unit>
-) : CoroutineContext.Element {
-    override val key: CoroutineContext.Key<*>
-        get() = ContextSafelyExceptionHandlerKey
-}
-
 suspend inline fun <T> runCatchingSafely(
     onException: ExceptionHandler<T>,
     block: suspend () -> T
@@ -58,9 +29,19 @@ suspend inline fun <T> runCatchingSafely(
     }
 }
 
+/**
+ * Launching [runCatchingSafely] with [defaultSafelyExceptionHandler] as `onException` parameter
+ */
 suspend inline fun <T> runCatchingSafely(
     block: suspend () -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
+
+//suspend inline fun <T, R> T.runCatchingSafely(
+//    onException: ExceptionHandler<R>,
+//    block: suspend T.() -> R
+//): Result<R> = runCatchingSafely(onException) {
+//    block()
+//}
 
 /**
  * @return [ContextSafelyExceptionHandler] from [coroutineContext] by key [ContextSafelyExceptionHandlerKey] if
@@ -96,23 +77,9 @@ suspend fun <T> safelyWithContextExceptionHandler(
 }
 
 /**
- * It will run [block] inside of [supervisorScope] to avoid problems with catching of exceptions
+ * Calls [runCatchingSafely] and getting the result via [Result.getOrThrow]
  *
- * Priorities of [ExceptionHandler]s:
- *
- * * [onException] In case if custom (will be used anyway if not [defaultSafelyExceptionHandler])
- * * [CoroutineContext.get] with [SafelyExceptionHandlerKey] as key
- * * [defaultSafelyExceptionHandler]
- *
- * Remember, that [ExceptionHandler] from [CoroutineContext.get] will be used anyway if it is available. After it will
- * be called [onException]
- *
- * @param [onException] Will be called when happen exception inside of [block]. By default will throw exception - this
- * exception will be available for catching
- *
- * @see defaultSafelyExceptionHandler
- * @see safelyWithoutExceptions
- * @see safelyWithContextExceptionHandler
+ * @see runCatchingSafely
  */
 suspend inline fun <T> safely(
     onException: ExceptionHandler<T>,
@@ -120,43 +87,18 @@ suspend inline fun <T> safely(
 ): T = runCatchingSafely(onException, block).getOrThrow()
 
 /**
- * It will run [block] inside of [supervisorScope] to avoid problems with catching of exceptions
+ * Calls [safely] with passing of [defaultSafelyExceptionHandler] as `onException`
  *
- * Priorities of [ExceptionHandler]s:
- *
- * * [onException] In case if custom (will be used anyway if not [defaultSafelyExceptionHandler])
- * * [CoroutineContext.get] with [SafelyExceptionHandlerKey] as key
- * * [defaultSafelyExceptionHandler]
- *
- * Remember, that [ExceptionHandler] from [CoroutineContext.get] will be used anyway if it is available. After it will
- * be called [onException]
- *
- * @param [onException] Will be called when happen exception inside of [block]. By default will throw exception - this
- * exception will be available for catching
- *
- * @see defaultSafelyExceptionHandler
- * @see safelyWithoutExceptions
- * @see safelyWithContextExceptionHandler
+ * @see runCatchingSafely
  */
 suspend inline fun <T> safely(
     block: suspend () -> T
 ): T = safely(defaultSafelyExceptionHandler, block)
 
-suspend fun <T, R> T.runCatchingSafely(
-    onException: ExceptionHandler<R> = defaultSafelyExceptionHandler,
-    block: suspend T.() -> R
-): Result<R> = runCatching {
-    safely(onException) { block() }
-}
-
 @Deprecated("Renamed", ReplaceWith("runCatchingSafely(block)", "dev.inmo.micro_utils.coroutines.runCatchingSafely"))
 suspend fun <T> safelyWithResult(
     block: suspend () -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
-
-suspend fun <T, R> T.safelyWithResult(
-    block: suspend T.() -> R
-): Result<R> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
 /**
  * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
