@@ -29,12 +29,25 @@ suspend inline fun <T> runCatchingSafely(
     }
 }
 
+suspend inline fun <T, R> R.runCatchingSafely(
+    onException: ExceptionHandler<T>,
+    block: suspend R.() -> T
+): Result<T> = runCatchingSafely<T>(onException) {
+    block()
+}
+
 /**
  * Launching [runCatchingSafely] with [defaultSafelyExceptionHandler] as `onException` parameter
  */
 suspend inline fun <T> runCatchingSafely(
     block: suspend () -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
+
+suspend inline fun <T, R> R.runCatchingSafely(
+    block: suspend R.() -> T
+): Result<T> = runCatchingSafely<T> {
+    block()
+}
 
 //suspend inline fun <T, R> T.runCatchingSafely(
 //    onException: ExceptionHandler<R>,
@@ -94,11 +107,18 @@ suspend inline fun <T> safely(
 suspend inline fun <T> safely(
     block: suspend () -> T
 ): T = safely(defaultSafelyExceptionHandler, block)
+suspend inline fun <T, R> R.safely(
+    block: suspend R.() -> T
+): T = safely<T> { block() }
 
 @Deprecated("Renamed", ReplaceWith("runCatchingSafely(block)", "dev.inmo.micro_utils.coroutines.runCatchingSafely"))
 suspend fun <T> safelyWithResult(
     block: suspend () -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
+@Deprecated("Renamed", ReplaceWith("this.runCatchingSafely(block)", "dev.inmo.micro_utils.coroutines.runCatchingSafely"))
+suspend fun <T, R> R.safelyWithResult(
+    block: suspend R.() -> T
+): Result<T> = safelyWithResult<T> { block() }
 
 /**
  * Use this handler in cases you wish to include handling of exceptions by [defaultSafelyWithoutExceptionHandler] and
