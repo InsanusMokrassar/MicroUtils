@@ -10,7 +10,9 @@ fun CoroutineScope.launchSafely(
     onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
     block: suspend CoroutineScope.() -> Unit
 ) = launch(context, start) {
-    safely(onException, block)
+    runCatchingSafely(onException) {
+        block()
+    }
 }
 
 fun CoroutineScope.launchSafelyWithoutExceptions(
@@ -19,7 +21,9 @@ fun CoroutineScope.launchSafelyWithoutExceptions(
     onException: ExceptionHandler<Unit?> = defaultSafelyWithoutExceptionHandlerWithNull,
     block: suspend CoroutineScope.() -> Unit
 ) = launch(context, start) {
-    safelyWithoutExceptions(onException, block)
+    runCatchingSafelyWithoutExceptions(onException) {
+        block()
+    }
 }
 
 fun <T> CoroutineScope.asyncSafely(
@@ -28,7 +32,9 @@ fun <T> CoroutineScope.asyncSafely(
     onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
     block: suspend CoroutineScope.() -> T
 ) = async(context, start) {
-    safely(onException, block)
+    runCatchingSafely(onException) {
+        block()
+    }
 }
 
 fun <T> CoroutineScope.asyncSafelyWithoutExceptions(
@@ -37,5 +43,7 @@ fun <T> CoroutineScope.asyncSafelyWithoutExceptions(
     onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
     block: suspend CoroutineScope.() -> T
 ) = async(context, start) {
-    safelyWithoutExceptions(onException, block)
+    runCatchingSafelyWithoutExceptions(onException) {
+        block()
+    }
 }

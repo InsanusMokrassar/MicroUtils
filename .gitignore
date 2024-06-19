@@ -17,3 +17,5 @@ publishing.sh
 
 local.*
 local/
+
+.kotlin/

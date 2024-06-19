@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.21.0
+
+**THIS UPDATE CONTAINS BREAKING CHANGES IN `safely*`-ORIENTED FUNCTIONS**
+
+* `Coroutines`:
+    * **All `safely` functions lost their `supervisorScope` in favor to wrapping `runCatching`**
+        * `runCatchingSafely` is the main handling function of all `safely` functions
+        * `launchSafely*` and `asyncSafely*` blocks lost `CoroutineScope` as their receiver
+
 ## 0.20.52
 
 * `Coroutines`:
