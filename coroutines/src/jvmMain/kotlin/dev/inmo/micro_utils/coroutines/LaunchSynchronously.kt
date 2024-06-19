@@ -2,12 +2,12 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.*
 
-fun <T> CoroutineScope.launchSynchronously(block: suspend () -> T): T {
+fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T): T {
     var result: Result<T>? = null
     val objectToSynchronize = Object()
     synchronized(objectToSynchronize) {
         launch(start = CoroutineStart.UNDISPATCHED) {
-            result = runCatchingSafely(block)
+            result = safelyWithResult(block)
         }.invokeOnCompletion {
             synchronized(objectToSynchronize) {
                 objectToSynchronize.notifyAll()
@@ -20,7 +20,7 @@ fun <T> CoroutineScope.launchSynchronously(block: suspend () -> T): T {
     return result!!.getOrThrow()
 }
 
-fun <T> launchSynchronously(block: suspend () -> T): T = CoroutineScope(Dispatchers.Default).launchSynchronously(block)
+fun <T> launchSynchronously(block: suspend CoroutineScope.() -> T): T = CoroutineScope(Dispatchers.Default).launchSynchronously(block)
 
-fun <T> CoroutineScope.doSynchronously(block: suspend () -> T): T = launchSynchronously(block)
-fun <T> doSynchronously(block: suspend () -> T): T = launchSynchronously(block)
+fun <T> CoroutineScope.doSynchronously(block: suspend CoroutineScope.() -> T): T = launchSynchronously(block)
+fun <T> doSynchronously(block: suspend CoroutineScope.() -> T): T = launchSynchronously(block)
