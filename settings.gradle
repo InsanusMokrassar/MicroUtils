@@ -49,6 +49,12 @@ String[] includes = [
     ":fsm:common",
     ":fsm:repos:common",
 
+    ":ksp:generator",
+
+    ":ksp:sealed",
+    ":ksp:sealed:generator",
+    ":ksp:sealed:generator:test",
+
     ":dokka"
 ]
 
