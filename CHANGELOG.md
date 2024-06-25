@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.21.1
+
 ## 0.21.0
 
 **THIS UPDATE CONTAINS BREAKING CHANGES IN `safely*`-ORIENTED FUNCTIONS**
