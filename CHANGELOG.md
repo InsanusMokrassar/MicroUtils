@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.21.1
+
+* `KSP`:
+    * Module has been initialized
+    * `Generator`:
+        * Module has been initialized
+    * `Sealed`:
+        * Module has been initialized
+
 ## 0.21.0
 
 **THIS UPDATE CONTAINS BREAKING CHANGES IN `safely*`-ORIENTED FUNCTIONS**
