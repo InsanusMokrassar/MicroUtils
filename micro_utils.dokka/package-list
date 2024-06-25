@@ -782,6 +782,13 @@ $dokka.location:dev.inmo.micro_utils.koin//singleWithBinds/java.lang.Module#[Err
 $dokka.location:dev.inmo.micro_utils.koin//singleWithBinds/java.lang.Module#kotlin.String#kotlin.Boolean#kotlin.Function1[kotlin.reflect.KClass[*],kotlin.Boolean]#[Error type: Unresolved type for Definition<T>][TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.koin/single-with-binds.html
 $dokka.location:dev.inmo.micro_utils.koin//singleWithRandomQualifier/[Error type: Unresolved type for Module]#kotlin.Boolean#[Error type: Unresolved type for Definition<T>][TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.koin/single-with-random-qualifier.html
 $dokka.location:dev.inmo.micro_utils.koin//singleWithRandomQualifierAndBinds/java.lang.Module#kotlin.Boolean#kotlin.Function1[kotlin.reflect.KClass[*],kotlin.Boolean]#[Error type: Unresolved type for Definition<T>][TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.koin/single-with-random-qualifier-and-binds.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test//values/dev.inmo.micro_utils.ksp.sealed.generator.test.Test.Companion#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/values.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.A///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-a/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.B///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-b/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.C///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-c/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-companion/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/index.html
 $dokka.location:dev.inmo.micro_utils.ktor.client////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/index.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//bodyOrNull/[Error type: Unresolved type for HttpResponse]#kotlin.Function1[[Error type: Unresolved type for HttpResponse],kotlin.Boolean]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/body-or-null.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//bodyOrNullOnNoContent/[Error type: Unresolved type for HttpResponse]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/body-or-null-on-no-content.html
@@ -5006,6 +5013,12 @@ $dokka.location:dev.inmo.micro_utils.strings/StringResource/StringResource/#kotl
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/default/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/default.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/translation/#dev.inmo.micro_utils.language_codes.IetfLang?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translation.html
 $dokka.location:dev.inmo.micro_utils.strings/StringResource/translations/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.strings/-string-resource/translations.html
+$dokka.location:dev.inmo.microutils.kps.sealed////PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/index.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Exclude///PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/-exclude/index.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Order///PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/-order/index.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Order/order/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/-order/order.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround///PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/index.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround/prefix/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/prefix.html
 dev.inmo.micro_utils.android.alerts.common
 dev.inmo.micro_utils.android.alerts.recyclerview
 dev.inmo.micro_utils.android.pickers
@@ -5025,6 +5038,7 @@ dev.inmo.micro_utils.fsm.repos.common
 dev.inmo.micro_utils.koin
 dev.inmo.micro_utils.koin.annotations
 dev.inmo.micro_utils.koin.generator.test
+dev.inmo.micro_utils.ksp.sealed.generator.test
 dev.inmo.micro_utils.ktor.client
 dev.inmo.micro_utils.ktor.common
 dev.inmo.micro_utils.ktor.server
@@ -5079,4 +5093,5 @@ dev.inmo.micro_utils.serialization.typed_serializer
 dev.inmo.micro_utils.startup.launcher
 dev.inmo.micro_utils.startup.plugin
 dev.inmo.micro_utils.strings
+dev.inmo.microutils.kps.sealed
 
