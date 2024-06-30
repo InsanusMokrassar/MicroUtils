@@ -32,14 +32,9 @@ private fun FileSpec.Builder.createTypeDefinition(ksClassDeclaration: KSClassDec
 
 internal fun FileSpec.Builder.fill(
     sourceKSClassDeclaration: KSClassDeclaration,
-    subtypesMap: Map<KSClassDeclaration, Set<KSClassDeclaration>>,
-    targetClassDeclaration: KSClassDeclaration = sourceKSClassDeclaration
+    subtypes: Set<KSClassDeclaration>
 ) {
-    if (sourceKSClassDeclaration == targetClassDeclaration) {
-        subtypesMap[sourceKSClassDeclaration] ?.forEach {
-            fill(sourceKSClassDeclaration, subtypesMap, it)
-        }
-    } else {
+    subtypes.forEach { targetClassDeclaration ->
         val sourceClassName = sourceKSClassDeclaration.toClassName()
         val targetClassClassName = targetClassDeclaration.toClassName()
         val targetClassTypeDefinition = createTypeDefinition(targetClassDeclaration)
@@ -91,16 +86,5 @@ internal fun FileSpec.Builder.fill(
                 addModifiers(KModifier.INLINE)
             }.build()
         )
-
-        subtypesMap[targetClassDeclaration] ?.let {
-            if (it.count { it.classKind == ClassKind.CLASS } > 1) {
-                it
-            } else {
-                it.filter { it.classKind != ClassKind.CLASS }
-            }
-        } ?.forEach {
-            fill(sourceKSClassDeclaration, subtypesMap, it)
-            fill(targetClassDeclaration, subtypesMap, it)
-        }
     }
 }

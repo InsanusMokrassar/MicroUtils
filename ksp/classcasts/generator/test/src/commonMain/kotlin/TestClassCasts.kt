@@ -30,3 +30,11 @@ public inline fun Test.cOrThrow(): Test.C = this as
     dev.inmo.micro_utils.ksp.classcasts.generator.test.Test.C
 
 public inline fun <T> Test.ifC(block: (Test.C) -> T): T? = cOrNull() ?.let(block)
+
+public inline fun Test.dOrNull(): Test.D? = this as?
+    dev.inmo.micro_utils.ksp.classcasts.generator.test.Test.D
+
+public inline fun Test.dOrThrow(): Test.D = this as
+    dev.inmo.micro_utils.ksp.classcasts.generator.test.Test.D
+
+public inline fun <T> Test.ifD(block: (Test.D) -> T): T? = dOrNull() ?.let(block)

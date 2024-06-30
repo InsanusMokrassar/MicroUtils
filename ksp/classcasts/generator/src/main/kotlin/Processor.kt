@@ -9,67 +9,72 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.ksp.toClassName
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.micro_utils.ksp.classcasts.ClassCastsExcluded
 import dev.inmo.micro_utils.ksp.classcasts.ClassCastsIncluded
+import java.io.File
 
 class Processor(
     private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
-    private val classCastsIncludedClassName = ClassCastsIncluded::class.asClassName()
-
     @OptIn(KspExperimental::class)
     private fun FileSpec.Builder.generateClassCasts(
         ksClassDeclaration: KSClassDeclaration,
         resolver: Resolver
     ) {
-        val classes = resolver.getSymbolsWithAnnotation(classCastsIncludedClassName.canonicalName).filterIsInstance<KSClassDeclaration>()
-        val classesRegexes: Map<KSClassDeclaration, Pair<Regex?, Regex?>> = classes.mapNotNull {
-            it to (it.getAnnotationsByType(ClassCastsIncluded::class).firstNotNullOfOrNull {
-                it.typesRegex.takeIf { it.isNotEmpty() } ?.let(::Regex) to it.excludeRegex.takeIf { it.isNotEmpty() } ?.let(::Regex)
-            } ?: return@mapNotNull null)
-        }.toMap()
+        val rootAnnotation = ksClassDeclaration.getAnnotationsByType(ClassCastsIncluded::class).first()
+        val (includeRegex: Regex?, excludeRegex: Regex?) = rootAnnotation.let {
+            it.typesRegex.takeIf { it.isNotEmpty() } ?.let(::Regex) to it.excludeRegex.takeIf { it.isNotEmpty() } ?.let(::Regex)
+        }
         val classesSubtypes = mutableMapOf<KSClassDeclaration, MutableSet<KSClassDeclaration>>()
 
-        resolver.getAllFiles().forEach {
-            it.declarations.forEach { potentialSubtype ->
-                if (
-                    potentialSubtype is KSClassDeclaration
-                    && potentialSubtype.isAnnotationPresent(ClassCastsExcluded::class).not()
-                ) {
-                    val allSupertypes = potentialSubtype.getAllSuperTypes().map { it.declaration }
-
-                    for (currentClass in classes) {
-                        val regexes = classesRegexes[currentClass]
-                        val simpleName = potentialSubtype.simpleName.getShortName()
-                        when {
-                            currentClass !in allSupertypes
-                                    || regexes ?.first ?.matches(simpleName) == false
-                                    || regexes ?.second ?.matches(simpleName) == true -> continue
-                            else -> {
-                                classesSubtypes.getOrPut(currentClass) { mutableSetOf() }.add(potentialSubtype)
-                            }
-                        }
-                    }
+        fun KSClassDeclaration.checkSupertypeLevel(levelsAllowed: Int?): Boolean {
+            val supertypes by lazy {
+                superTypes.map { it.resolve().declaration }
+            }
+            return when {
+                levelsAllowed == null -> true
+                levelsAllowed <= 0 -> false
+                supertypes.any { it == ksClassDeclaration } -> true
+                else -> supertypes.any {
+                    (it as? KSClassDeclaration) ?.checkSupertypeLevel(levelsAllowed - 1) == true
                 }
             }
         }
-        fun fillWithSealeds(source: KSClassDeclaration, current: KSClassDeclaration = source) {
-            val regexes = classesRegexes[source]
+
+        fun handleDeclaration(ksDeclarationContainer: KSDeclarationContainer) {
+            ksDeclarationContainer.declarations.forEach { potentialSubtype ->
+                val simpleName = potentialSubtype.simpleName.getShortName()
+                when {
+                    potentialSubtype === ksClassDeclaration -> {}
+                    potentialSubtype.isAnnotationPresent(ClassCastsExcluded::class) -> return@forEach
+                    potentialSubtype !is KSClassDeclaration || !potentialSubtype.checkSupertypeLevel(rootAnnotation.levelsToInclude.takeIf { it >= 0 }) -> return@forEach
+                    excludeRegex ?.matches(simpleName) == true -> return@forEach
+                    includeRegex ?.matches(simpleName) == false -> {}
+                    else -> classesSubtypes.getOrPut(ksClassDeclaration) { mutableSetOf() }.add(potentialSubtype)
+                }
+                handleDeclaration(potentialSubtype as? KSDeclarationContainer ?: return@forEach)
+            }
+        }
+        resolver.getAllFiles().forEach {
+            handleDeclaration(it)
+        }
+        fun fillWithSealeds(current: KSClassDeclaration) {
             current.getSealedSubclasses().forEach {
                 val simpleName = it.simpleName.getShortName()
                 if (
-                    regexes ?.first ?.matches(simpleName) == false
-                    || regexes ?.second ?.matches(simpleName) == true
+                    includeRegex ?.matches(simpleName) == false
+                    || excludeRegex ?.matches(simpleName) == true
                     || it.isAnnotationPresent(ClassCastsExcluded::class)
                 ) {
                     return@forEach
                 }
-                classesSubtypes.getOrPut(source) { mutableSetOf() }.add(it)
-                fillWithSealeds(source, it)
+                classesSubtypes.getOrPut(ksClassDeclaration) { mutableSetOf() }.add(it)
+                fillWithSealeds(it)
             }
         }
-        classes.forEach { fillWithSealeds(it) }
+        fillWithSealeds(ksClassDeclaration)
 
         addAnnotation(
             AnnotationSpec.builder(Suppress::class).apply {
@@ -82,12 +87,10 @@ class Processor(
                 useSiteTarget(AnnotationSpec.UseSiteTarget.FILE)
             }.build()
         )
-        classes.forEach {
-            fill(
-                it,
-                classesSubtypes.toMap()
-            )
-        }
+        fill(
+            ksClassDeclaration,
+            classesSubtypes.values.flatten().toSet()
+        )
     }
 
     @OptIn(KspExperimental::class)
