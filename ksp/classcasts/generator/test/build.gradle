@@ -1,0 +1,27 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+    id "com.google.devtools.ksp"
+}
+
+apply from: "$mppProjectWithSerializationPresetPath"
+
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api project(":micro_utils.ksp.classcasts")
+            }
+        }
+    }
+}
+
+
+dependencies {
+    add("kspCommonMainMetadata", project(":micro_utils.ksp.classcasts.generator"))
+}
+
+ksp {
+}
