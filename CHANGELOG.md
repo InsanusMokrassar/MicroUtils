@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.21.2
+
+* `KSP`:
+    * `ClassCasts`:
+        * Module has been initialized
+
 ## 0.21.1
 
 * `KSP`:
