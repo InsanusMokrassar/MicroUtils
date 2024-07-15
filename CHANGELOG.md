@@ -4,6 +4,10 @@
 
 * `Colors`:
     * Added as a module. It should be used by default in case you wish all the API currently realized for `HEXAColor`
+* `Coroutines`:
+    * Fix of [#374](https://github.com/InsanusMokrassar/MicroUtils/issues/374):
+        * Add vararg variants of `awaitFirst`
+        * Add `joinFirst`
 
 ## 0.21.2
 
