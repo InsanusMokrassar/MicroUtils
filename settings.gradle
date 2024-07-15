@@ -42,6 +42,8 @@ String[] includes = [
     ":serialization:mapper",
     ":startup:plugin",
     ":startup:launcher",
+
+    ":colors",
     ":colors:common",
 
     ":resources",

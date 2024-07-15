@@ -2,6 +2,9 @@
 
 ## 0.21.3
 
+* `Colors`:
+    * Added as a module. It should be used by default in case you wish all the API currently realized for `HEXAColor`
+
 ## 0.21.2
 
 * `KSP`:
