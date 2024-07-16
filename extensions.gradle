@@ -32,6 +32,7 @@ allprojects {
         mppJvmJsLinuxMingwProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwProject.gradle"
         mppJvmJsLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwLinuxArm64Project.gradle"
         mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsAndroidLinuxMingwLinuxArm64Project.gradle"
+        mppComposeJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppComposeJvmJsAndroidLinuxMingwLinuxArm64Project.gradle"
         mppAndroidProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppAndroidProject.gradle"
 
         defaultAndroidSettingsPresetPath = "${rootProject.projectDir.absolutePath}/defaultAndroidSettings.gradle"

@@ -2,6 +2,13 @@
 
 ## 0.21.4
 
+* `Common`:
+    * `Compose`:
+        * Add support of mingw, linux, arm64 targets
+* `Coroutines`:
+    * `Compose`:
+        * Add support of mingw, linux, arm64 targets
+
 ## 0.21.3
 
 * `Colors`:
