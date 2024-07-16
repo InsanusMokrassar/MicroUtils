@@ -8,6 +8,13 @@
 * `Coroutines`:
     * `Compose`:
         * Add support of mingw, linux, arm64 targets
+* `Koin`:
+    * Add support of mingw, linux, arm64 targets
+* `KSP`:
+    * `ClassCasts`:
+        * Add support of mingw, linux, arm64 targets
+    * `Sealed`:
+        * Add support of mingw, linux, arm64 targets
 
 ## 0.21.3
 
