@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api libs.klock
+                api libs.kt.io
             }
         }
         jvmMain {

@@ -4,6 +4,8 @@ kt = "1.9.23"
 kt-serialization = "1.6.3"
 kt-coroutines = "1.8.1"
 
+kt-io = "0.5.1"
+
 kslog = "1.3.4"
 
 jb-compose = "1.6.2"
@@ -53,6 +55,7 @@ kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", vers
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
 
+kt-io = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kt-io" }
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
