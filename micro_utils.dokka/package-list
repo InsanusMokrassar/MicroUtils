@@ -5195,6 +5195,7 @@ $dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Exclude/
 $dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Order///PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/-order/index.html
 $dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround.Order/order/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/-order/order.html
 $dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround///PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/index.html
+$dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround/includeNonSealedSubTypes/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/include-non-sealed-sub-types.html
 $dokka.location:dev.inmo.microutils.kps.sealed/GenerateSealedWorkaround/prefix/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.microutils.kps.sealed/-generate-sealed-workaround/prefix.html
 dev.inmo.micro_utils.android.alerts.common
 dev.inmo.micro_utils.android.alerts.recyclerview
