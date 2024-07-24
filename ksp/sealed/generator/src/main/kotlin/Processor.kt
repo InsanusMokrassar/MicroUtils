@@ -6,7 +6,6 @@ import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
-import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
@@ -16,18 +15,34 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
+import dev.inmo.micro_ksp.generator.findSubClasses
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround
+import java.io.File
 
 class Processor(
     private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
-    private fun KSClassDeclaration.resolveSubclasses(): List<KSClassDeclaration> {
-        return (getSealedSubclasses().flatMap {
-            it.resolveSubclasses()
-        }.ifEmpty {
-            sequenceOf(this)
-        }).toList()
+    private fun KSClassDeclaration.findSealedConnection(potentialSealedParent: KSClassDeclaration): Boolean {
+        val targetClassname = potentialSealedParent.qualifiedName ?.asString()
+        return superTypes.any {
+            targetClassname == ((it.resolve().declaration as? KSClassDeclaration) ?.qualifiedName ?.asString()) || (it is KSClassDeclaration && it.getSealedSubclasses().any() && it.findSealedConnection(potentialSealedParent))
+        }
+    }
+
+    private fun KSClassDeclaration.resolveSubclasses(
+        searchIn: Sequence<KSAnnotated>,
+        allowNonSealed: Boolean
+    ): Sequence<KSClassDeclaration> {
+        return findSubClasses(searchIn).let {
+            if (allowNonSealed) {
+                it
+            } else {
+                it.filter {
+                    it.findSealedConnection(this)
+                }
+            }
+        }
     }
 
     @OptIn(KspExperimental::class)
@@ -35,7 +50,11 @@ class Processor(
         ksClassDeclaration: KSClassDeclaration,
         resolver: Resolver
     ) {
-        val subClasses = ksClassDeclaration.resolveSubclasses().distinct()
+        val annotation = ksClassDeclaration.getAnnotationsByType(GenerateSealedWorkaround::class).first()
+        val subClasses = ksClassDeclaration.resolveSubclasses(
+            searchIn = resolver.getAllFiles(),
+            allowNonSealed = annotation.includeNonSealedSubTypes
+        ).distinct()
         val subClassesNames = subClasses.filter {
             when (it.classKind) {
                 ClassKind.ENUM_ENTRY,
@@ -51,7 +70,7 @@ class Processor(
             (it.getAnnotationsByType(GenerateSealedWorkaround.Order::class).firstOrNull()) ?.order ?: 0
         }.map {
             it.toClassName()
-        }
+        }.toList()
         val className = ksClassDeclaration.toClassName()
         val setType = Set::class.asTypeName().parameterizedBy(
             ksClassDeclaration.toClassName()

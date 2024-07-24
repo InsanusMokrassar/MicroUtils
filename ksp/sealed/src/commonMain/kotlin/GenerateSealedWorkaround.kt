@@ -3,7 +3,8 @@ package dev.inmo.microutils.kps.sealed
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS)
 annotation class GenerateSealedWorkaround(
-    val prefix: String = ""
+    val prefix: String = "",
+    val includeNonSealedSubTypes: Boolean = false
 ) {
     @Retention(AnnotationRetention.BINARY)
     @Target(AnnotationTarget.CLASS)
