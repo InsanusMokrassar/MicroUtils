@@ -2,6 +2,11 @@
 
 ## 0.21.5
 
+* `KSP`:
+    * Add utility functions `KSClassDeclaration.findSubClasses`
+    * `Sealed`:
+        * Improve generation
+
 ## 0.21.4
 
 * `Common`:
