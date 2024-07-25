@@ -13,6 +13,7 @@ kotlin {
                 api libs.kslog
                 api libs.kt.reflect
                 api project(":micro_utils.coroutines")
+                api libs.uuid
             }
         }
         jsMain {
