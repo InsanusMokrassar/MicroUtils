@@ -77,7 +77,6 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation kotlin('test-junit')
             }
         }
         nativeMain.dependsOn commonMain
