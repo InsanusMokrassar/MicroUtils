@@ -26,7 +26,8 @@ class Processor(
     private fun KSClassDeclaration.findSealedConnection(potentialSealedParent: KSClassDeclaration): Boolean {
         val targetClassname = potentialSealedParent.qualifiedName ?.asString()
         return superTypes.any {
-            targetClassname == ((it.resolve().declaration as? KSClassDeclaration) ?.qualifiedName ?.asString()) || (it is KSClassDeclaration && it.getSealedSubclasses().any() && it.findSealedConnection(potentialSealedParent))
+            val itAsDeclaration = it.resolve().declaration as? KSClassDeclaration ?: return@any false
+            targetClassname == (itAsDeclaration.qualifiedName ?.asString()) || (itAsDeclaration.getSealedSubclasses().any() && itAsDeclaration.findSealedConnection(potentialSealedParent))
         }
     }
 
