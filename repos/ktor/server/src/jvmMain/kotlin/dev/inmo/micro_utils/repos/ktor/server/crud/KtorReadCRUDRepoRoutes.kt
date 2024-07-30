@@ -11,11 +11,11 @@ import dev.inmo.micro_utils.repos.ktor.common.idParameterName
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import kotlinx.serialization.*
 
-inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoutes(
+inline fun <reified ObjectType, reified IdType> Routing.configureReadCRUDRepoRoutes(
     originalRepo: ReadCRUDRepo<ObjectType, IdType>,
     noinline idDeserializer: suspend (String) -> IdType
 ) {
@@ -65,7 +65,7 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoute
     }
 }
 
-inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoutes(
+inline fun <reified ObjectType, reified IdType> Routing.configureReadCRUDRepoRoutes(
     originalRepo: ReadCRUDRepo<ObjectType, IdType>,
     idsSerializer: KSerializer<IdType>,
     serialFormat: StringFormat
@@ -73,7 +73,7 @@ inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoute
     serialFormat.decodeFromString(idsSerializer, it)
 }
 
-inline fun <reified ObjectType, reified IdType> Route.configureReadCRUDRepoRoutes(
+inline fun <reified ObjectType, reified IdType> Routing.configureReadCRUDRepoRoutes(
     originalRepo: ReadCRUDRepo<ObjectType, IdType>,
     idsSerializer: KSerializer<IdType>,
     serialFormat: BinaryFormat

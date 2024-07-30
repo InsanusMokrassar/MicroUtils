@@ -3,10 +3,10 @@ package dev.inmo.micro_utils.repos.ktor.server.key.values
 import dev.inmo.micro_utils.ktor.common.*
 import dev.inmo.micro_utils.repos.*
 import io.ktor.http.*
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import kotlinx.serialization.*
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes (
+inline fun <reified Key : Any, reified Value : Any> Routing.configureKeyValuesRepoRoutes (
     originalRepo: KeyValuesRepo<Key, Value>,
     noinline keyDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
@@ -15,7 +15,7 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepo
     configureWriteKeyValuesRepoRoutes(originalRepo)
 }
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
+inline fun <reified Key : Any, reified Value : Any> Routing.configureKeyValuesRepoRoutes(
     originalRepo: KeyValuesRepo<Key, Value>,
     keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
@@ -30,7 +30,7 @@ inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepo
     }
 )
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureKeyValuesRepoRoutes(
+inline fun <reified Key : Any, reified Value : Any> Routing.configureKeyValuesRepoRoutes(
     originalRepo: KeyValuesRepo<Key, Value>,
     keySerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
