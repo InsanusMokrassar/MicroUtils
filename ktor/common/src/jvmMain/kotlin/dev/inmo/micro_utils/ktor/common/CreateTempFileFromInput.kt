@@ -1,8 +1,10 @@
 package dev.inmo.micro_utils.ktor.common
 
 import io.ktor.utils.io.core.Input
-import kotlinx.io.asSink
+import io.ktor.utils.io.core.copyTo
+import io.ktor.utils.io.streams.asOutput
 import java.io.File
+import java.io.InputStream
 import java.util.UUID
 
 fun Input.downloadToTempFile(
@@ -15,7 +17,7 @@ fun Input.downloadToTempFile(
     folder
 ).apply {
     outputStream().use {
-        this@downloadToTempFile.transferTo(it.asSink())
+        copyTo(it.asOutput())
     }
     deleteOnExit()
 }
