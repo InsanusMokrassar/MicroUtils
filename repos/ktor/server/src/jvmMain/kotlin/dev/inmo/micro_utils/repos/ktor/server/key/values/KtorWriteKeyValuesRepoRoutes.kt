@@ -7,11 +7,11 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import io.ktor.util.reflect.typeInfo
 
-inline fun <reified Key : Any, reified Value : Any> Route.configureWriteKeyValuesRepoRoutes (
+inline fun <reified Key : Any, reified Value : Any> Routing.configureWriteKeyValuesRepoRoutes (
     originalRepo: WriteKeyValuesRepo<Key, Value>
 ) {
     includeWebsocketHandling(

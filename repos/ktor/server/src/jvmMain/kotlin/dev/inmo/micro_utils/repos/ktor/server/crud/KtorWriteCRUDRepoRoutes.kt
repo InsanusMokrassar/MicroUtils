@@ -7,10 +7,10 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 
-inline fun <reified ObjectType : Any, reified IdType : Any, reified InputValue : Any> Route.configureWriteCRUDRepoRoutes(
+inline fun <reified ObjectType : Any, reified IdType : Any, reified InputValue : Any> Routing.configureWriteCRUDRepoRoutes(
     originalRepo: WriteCRUDRepo<ObjectType, IdType, InputValue>
 ) {
     includeWebsocketHandling(
