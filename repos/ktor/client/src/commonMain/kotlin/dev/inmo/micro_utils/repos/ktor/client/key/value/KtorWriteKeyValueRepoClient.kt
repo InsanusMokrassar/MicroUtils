@@ -8,7 +8,7 @@ import dev.inmo.micro_utils.repos.ktor.common.key_value.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.post
 import io.ktor.http.*
-import io.ktor.utils.io.InternalAPI
+import io.ktor.util.InternalAPI
 import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.typeInfo
 import kotlinx.coroutines.flow.Flow

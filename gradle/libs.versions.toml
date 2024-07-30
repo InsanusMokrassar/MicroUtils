@@ -1,19 +1,19 @@
 [versions]
 
-kt = "2.0.20-RC"
+kt = "2.0.0"
 kt-serialization = "1.7.1"
 kt-coroutines = "1.8.1"
 
 kslog = "1.3.4"
 
-jb-compose = "1.7.0-dev1750"
+jb-compose = "1.7.0-dev1742"
 jb-exposed = "0.51.1"
 jb-dokka = "1.9.20"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "3.0.0-beta-2"
+ktor = "2.3.11"
 
 gh-release = "2.5.2"
 
