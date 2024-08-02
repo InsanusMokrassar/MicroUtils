@@ -24,7 +24,9 @@ class ReadMapKeyValueRepo<Key, Value>(
 ) : ReadKeyValueRepo<Key, Value> {
     constructor(map: Map<Key, Value> = emptyMap()) : this(map, SmartRWLocker())
 
-    override suspend fun get(k: Key): Value? = locker.withReadAcquire { map[k] }
+    override suspend fun get(k: Key): Value? = locker.withReadAcquire {
+        map[k]
+    }
 
     override suspend fun values(
         pagination: Pagination,

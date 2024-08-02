@@ -10,6 +10,7 @@ import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -203,14 +204,19 @@ open class FullKeyValuesCacheRepo<Key,Value>(
     kvCache: KeyValueRepo<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(),
-) : //FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope, locker),
-    KeyValuesRepo<Key, Value>,
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+) : KeyValuesRepo<Key, Value>,
     FullReadKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, locker),
     WriteKeyValuesRepo<Key, Value> by parentRepo {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions { invalidate() }
+            scope.launchSafelyWithoutExceptions {
+                if (locker.writeMutex.isLocked) {
+                    initialInvalidate()
+                } else {
+                    invalidate()
+                }
+            }
         }
     }
 
@@ -222,6 +228,13 @@ open class FullKeyValuesCacheRepo<Key,Value>(
         }
     }
 
+    protected open suspend fun initialInvalidate() {
+        try {
+            kvCache.actualizeAll(parentRepo, locker = null)
+        } finally {
+            locker.unlockWrite()
+        }
+    }
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker = locker)
     }

@@ -3,6 +3,7 @@ package full
 import com.benasher44.uuid.uuid4
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.full.FullKeyValuesCacheRepo
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import korlibs.time.days
 import korlibs.time.years
 import kotlinx.coroutines.test.runTest
