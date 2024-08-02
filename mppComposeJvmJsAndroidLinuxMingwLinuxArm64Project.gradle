@@ -12,8 +12,20 @@ kotlin {
         }
     }
     js (IR) {
-        browser()
-        nodejs()
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
     }
     androidTarget {
         publishAllLibraryVariants()

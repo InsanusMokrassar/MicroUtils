@@ -126,14 +126,15 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    protected open val parentRepo: KeyValueRepo<Key, Value>,
+    override val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
     locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
-) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
+) : //FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
-    ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(
+    WriteKeyValueRepo<Key,Value> by parentRepo,
+    FullReadKeyValueCacheRepo<Key, Value>(
         parentRepo,
         kvCache,
         locker
@@ -170,7 +171,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
 
     override suspend fun set(toSet: Map<Key, Value>) {
         locker.withWriteLock {
-            super.set(toSet)
+            parentRepo.set(toSet)
             kvCache.set(
                 toSet.filter {
                     parentRepo.contains(it.key)
@@ -181,7 +182,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         locker.withWriteLock {
-            super.unset(toUnset)
+            parentRepo.unset(toUnset)
             kvCache.unset(
                 toUnset.filter {
                     !parentRepo.contains(it)
