@@ -108,6 +108,19 @@ class MapWriteKeyValuesRepo<Key, Value>(
         }
     }
 
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        locker.withWriteLock {
+            toSet.forEach {
+                map[it.key] = it.value.toMutableList()
+            }
+        }
+        toSet.forEach { (k, v) ->
+            v.forEach {
+                _onNewValue.emit(k to it)
+            }
+        }
+    }
+
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
         val removed = mutableListOf<Pair<Key, Value>>()
         val cleared = mutableListOf<Key>()
