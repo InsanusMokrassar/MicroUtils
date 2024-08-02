@@ -23,10 +23,10 @@ class FullCRUDCacheRepoTests {
     @Test
     fun creatingWorksProperly() = runTest {
         val testData = (0 until 1000).map {
-            (it.toString() + uuid4().toString())
+            ("$it-" + uuid4().toString())
         }
         val updatedTestData = (0 until 1000).map {
-            (it.toString() + uuid4().toString())
+            ("$it-" + uuid4().toString())
         }
         val kvCache = MapKeyValueRepo<String, Registered>()
         val crudRepo = MapCRUDRepo<Registered, String, New>(
