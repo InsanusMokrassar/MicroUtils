@@ -12,8 +12,20 @@ kotlin {
         }
     }
     js (IR) {
-        browser()
-        nodejs()
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
     }
     androidTarget {
         publishAllLibraryVariants()
@@ -36,7 +48,7 @@ kotlin {
         }
         commonTest {
             dependencies {
-                implementation kotlin('test-common')
+                implementation kotlin('test')
                 implementation kotlin('test-annotations-common')
                 implementation libs.kt.coroutines.test
             }
