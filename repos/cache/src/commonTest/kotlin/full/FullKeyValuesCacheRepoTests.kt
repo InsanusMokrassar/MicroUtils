@@ -10,7 +10,7 @@ import kotlin.test.*
 
 class FullKeyValuesCacheRepoTests {
     @Test
-    fun creatingWorksProperly() = runTest(timeout = 1.days) {
+    fun creatingWorksProperly() = runTest {
         val testData = (0 until 1000).associate {
             ("$it-" + uuid4().toString()) to (0 until 1000).map {
                 "$it-" + uuid4().toString()

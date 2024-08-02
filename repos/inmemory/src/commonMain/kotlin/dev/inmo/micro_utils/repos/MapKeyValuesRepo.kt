@@ -110,9 +110,9 @@ class MapWriteKeyValuesRepo<Key, Value>(
 
     override suspend fun set(toSet: Map<Key, List<Value>>) {
         locker.withWriteLock {
-            toSet.forEach {
-                map[it.key] = it.value.toMutableList()
-            }
+            map.putAll(
+                toSet.mapValues { it.value.toMutableList() }
+            )
         }
         toSet.forEach { (k, v) ->
             v.forEach {
