@@ -130,7 +130,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
     kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker()
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
     ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(
@@ -140,12 +140,25 @@ open class FullKeyValueCacheRepo<Key,Value>(
 ) {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions { invalidate() }
+            scope.launchSafelyWithoutExceptions {
+                if (locker.writeMutex.isLocked) {
+                    initialInvalidate()
+                } else {
+                    invalidate()
+                }
+            }
         }
     }
 
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
 
+    protected open suspend fun initialInvalidate() {
+        try {
+            kvCache.actualizeAll(parentRepo, locker = null)
+        } finally {
+            locker.unlockWrite()
+        }
+    }
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker)
     }

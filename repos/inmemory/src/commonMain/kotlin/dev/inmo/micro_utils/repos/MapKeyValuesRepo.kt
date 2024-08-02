@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.utils.optionallyReverse
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.*
@@ -31,6 +32,20 @@ class MapReadKeyValuesRepo<Key, Value>(
                 pagination
             }
         )
+    }
+
+    override suspend fun getAll(k: Key, reversed: Boolean): List<Value> {
+        return locker.withReadAcquire { map[k] ?.optionallyReverse(reversed) ?: return emptyList() }
+    }
+
+    override suspend fun getAll(reverseLists: Boolean): Map<Key, List<Value>> {
+        return locker.withReadAcquire {
+            if (reverseLists) {
+                map.mapValues { it.value.reversed() }
+            } else {
+                map.toMap()
+            }
+        }
     }
 
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
