@@ -154,6 +154,28 @@ open class FullKeyValueCacheRepo<Key,Value>(
         parentRepo.clear()
         kvCache.clear()
     }
+
+    override suspend fun set(toSet: Map<Key, Value>) {
+        locker.withWriteLock {
+            super.set(toSet)
+            kvCache.set(
+                toSet.filter {
+                    parentRepo.contains(it.key)
+                }
+            )
+        }
+    }
+
+    override suspend fun unset(toUnset: List<Key>) {
+        locker.withWriteLock {
+            super.unset(toUnset)
+            kvCache.unset(
+                toUnset.filter {
+                    !parentRepo.contains(it)
+                }
+            )
+        }
+    }
 }
 
 fun <Key, Value> KeyValueRepo<Key, Value>.fullyCached(
