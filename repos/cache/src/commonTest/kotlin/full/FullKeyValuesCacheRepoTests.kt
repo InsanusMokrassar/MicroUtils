@@ -12,17 +12,17 @@ class FullKeyValuesCacheRepoTests {
     @Test
     fun creatingWorksProperly() = runTest(timeout = 1.days) {
         val testData = (0 until 1000).associate {
-            (it.toString() + uuid4().toString()) to (0 until 1000).map {
-                uuid4().toString()
+            ("$it-" + uuid4().toString()) to (0 until 1000).map {
+                "$it-" + uuid4().toString()
             }.sorted()
         }
         val updatedTestData = testData.keys.associateWith {
             (0 until 1000).map {
-                uuid4().toString()
+                "$it-" + uuid4().toString()
             }.sorted()
         }
         val addedData = testData.keys.associateWith {
-            uuid4().toString()
+            "$it-" + uuid4().toString()
         }
         val kvCache = MapKeyValueRepo<String, List<String>>()
         val kvRepo = MapKeyValuesRepo<String, String>()

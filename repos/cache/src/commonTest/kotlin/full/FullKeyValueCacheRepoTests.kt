@@ -13,10 +13,10 @@ class FullKeyValueCacheRepoTests {
     @Test
     fun creatingWorksProperly() = runTest {
         val testData = (0 until 1000).associate {
-            (it.toString() + uuid4().toString()) to uuid4().toString()
+            ("$it-" + uuid4().toString()) to "$it-" + uuid4().toString()
         }
         val updatedTestData = testData.keys.associateWith {
-            uuid4().toString()
+            "$it-" + uuid4().toString()
         }
         val kvCache = MapKeyValueRepo<String, String>()
         val kvRepo = MapKeyValueRepo<String, String>()
