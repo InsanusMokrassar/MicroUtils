@@ -39,6 +39,7 @@ interface WriteCRUDRepo<ObjectType, IdType, InputValueType> : Repo {
     suspend fun update(id: IdType, value: InputValueType): ObjectType?
     suspend fun update(values: List<UpdatedValuePair<IdType, InputValueType>>): List<ObjectType>
     suspend fun deleteById(ids: List<IdType>)
+    suspend fun deleteById(vararg ids: IdType) = deleteById(ids.toList())
 }
 typealias WriteStandardCRUDRepo<ObjectType, IdType, InputValueType> = WriteCRUDRepo<ObjectType, IdType, InputValueType>
 
