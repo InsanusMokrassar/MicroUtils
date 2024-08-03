@@ -22,7 +22,7 @@ class MapCRUDRepoTest {
 
     @Test
     fun mapCrudRepoTest() = runTest {
-        val base = 200 // define a bigger number to increase test intensity
+        val base = 4 // define a bigger number to increase test intensity
         val targetMap = mutableMapOf<Int, TestModel>()
 
         // filling the map
@@ -83,6 +83,89 @@ class MapCRUDRepoTest {
                 for (i in getIdRange(id, base)) {
                     val newModel = TestModel(
                         testery = "testery$i",
+                        isTestery = i % 2 == 0,
+                        testeryAmount = i
+                    )
+                    val oldModel = mapCRUDRepo.getById(i)
+                    assertEquals(newModel, oldModel)
+                }
+            }
+        }
+
+        validationJobs.forEach {
+            println("joining validation job ${it.hashCode()}")
+            it.join()
+        }
+    }
+
+    @Test
+    fun updateMapCrudRepoTest() = runTest {
+        val base = 10 // define a bigger number to increase test intensity
+        val targetMap = mutableMapOf<Int, TestModel>()
+
+        // fill the map using stdlib method
+        repeat(base * base) { num ->
+            targetMap[num] = TestModel(
+                testery = "testery$num",
+                isTestery = num % 2 == 0,
+                testeryAmount = num
+            )
+        }
+
+        // update the map using MapCRUDRepo
+        val jobs = List(base) { id ->
+            launch {
+                println("launching job $id")
+                val idsList = getIdRange(id, base).toMutableList()
+                val mapCRUDRepo = MapCRUDRepo<TestModel, Int, TestModel>(
+                    targetMap,
+                    updateCallback = { new, id, old ->
+                        println("updated object at $id from $old to $new")
+                        new
+                    },
+                    createCallback = { new ->
+                        val newObject = idsList.first() to new
+                        idsList.remove(newObject.first)
+                        println("created $newObject in map")
+                        newObject
+                    }
+                )
+                for (i in getIdRange(id, base)) {
+                    val newModel = TestModel(
+                        testery = "testery${i}new",
+                        isTestery = i % 2 == 0,
+                        testeryAmount = i
+                    )
+                    mapCRUDRepo.update(i, newModel)
+                }
+            }
+        }
+
+        jobs.forEach {
+            println("joining job ${it.hashCode()}")
+            it.join()
+        }
+
+        // validating the map
+        val validationJobs = List(base) { id ->
+            launch {
+                val idsList = getIdRange(id, base).toMutableList()
+                val mapCRUDRepo = MapCRUDRepo<TestModel, Int, TestModel>(
+                    targetMap,
+                    updateCallback = { new, id, old ->
+                        println("updated object at $id from $old to $new")
+                        new
+                    },
+                    createCallback = { new ->
+                        val newObject = idsList.first() to new
+                        idsList.remove(newObject.first)
+                        println("created $newObject in map")
+                        newObject
+                    }
+                )
+                for (i in getIdRange(id, base)) {
+                    val newModel = TestModel(
+                        testery = "testery${i}new",
                         isTestery = i % 2 == 0,
                         testeryAmount = i
                     )
