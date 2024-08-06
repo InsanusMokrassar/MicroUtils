@@ -124,6 +124,8 @@ class MapWriteKeyValuesRepo<Key, Value>(
     }
 
     override suspend fun set(toSet: Map<Key, List<Value>>) {
+        if (toSet.isEmpty()) return
+
         locker.withWriteLock {
             map.putAll(
                 toSet.mapValues { it.value.toMutableList() }
@@ -137,6 +139,8 @@ class MapWriteKeyValuesRepo<Key, Value>(
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
+        if (toRemove.isEmpty()) return
+
         val removed = mutableListOf<Pair<Key, Value>>()
         val cleared = mutableListOf<Key>()
         locker.withWriteLock {

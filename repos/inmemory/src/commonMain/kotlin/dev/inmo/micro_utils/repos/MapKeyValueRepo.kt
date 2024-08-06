@@ -102,11 +102,13 @@ class WriteMapKeyValueRepo<Key, Value>(
     constructor(map: MutableMap<Key, Value> = mutableMapOf()) : this(map, SmartRWLocker())
 
     override suspend fun set(toSet: Map<Key, Value>) {
+        if (toSet.isEmpty()) return
         locker.withWriteLock { map.putAll(toSet) }
         toSet.forEach { (k, v) -> _onNewValue.emit(k to v) }
     }
 
     override suspend fun unset(toUnset: List<Key>) {
+        if (toUnset.isEmpty()) return
         locker.withWriteLock {
             toUnset.mapNotNull { k ->
                 map.remove(k) ?.let { _ -> k }
