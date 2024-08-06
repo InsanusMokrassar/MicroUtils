@@ -30,7 +30,8 @@ class FullKeyValuesCacheRepoTests {
 
         val cacheRepo = FullKeyValuesCacheRepo(
             kvRepo,
-            kvCache
+            kvCache,
+            skipStartInvalidate = true
         )
 
         testData.forEach {
