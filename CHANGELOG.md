@@ -2,6 +2,12 @@
 
 ## 0.22.0
 
+## 0.21.6
+
+* `KSP`:
+    * `Sealed`:
+        * Fixes in generation
+
 ## 0.21.5
 
 * `KSP`:
