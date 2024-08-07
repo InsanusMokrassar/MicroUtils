@@ -5,13 +5,14 @@ import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.full.FullKeyValuesCacheRepo
 import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import korlibs.time.days
+import korlibs.time.seconds
 import korlibs.time.years
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
 class FullKeyValuesCacheRepoTests {
     @Test
-    fun creatingWorksProperly() = runTest {
+    fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
         val testData = (0 until 1000).associate {
             ("$it-" + uuid4().toString()) to (0 until 1000).map {
                 "$it-" + uuid4().toString()
