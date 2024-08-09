@@ -40,8 +40,8 @@ android-test = "1.2.1"
 android-compose-material3 = "1.2.1"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "34"
-android-props-buildTools = "34.0.0"
+android-props-compileSdk = "35"
+android-props-buildTools = "35.0.0"
 
 [libraries]
 
