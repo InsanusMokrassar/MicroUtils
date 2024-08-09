@@ -10,6 +10,8 @@ jb-compose = "1.7.0-alpha02"
 jb-exposed = "0.53.0"
 jb-dokka = "1.9.20"
 
+sqlite = "3.46.0.1"
+
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
@@ -21,7 +23,7 @@ koin = "3.5.6"
 
 okio = "3.9.0"
 
-ksp = "2.0.0-1.0.23"
+ksp = "2.0.10-1.0.24"
 kotlin-poet = "1.18.0"
 
 versions = "0.51.0"
@@ -52,6 +54,7 @@ kt-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kt-coroutines" }
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
+kt-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kt-coroutines" }
 
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
@@ -79,6 +82,8 @@ koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 
 jb-exposed = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jb-exposed" }
+jb-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jb-exposed" }
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 
 
 android-coreKtx = { module = "androidx.core:core-ktx", version.ref = "android-coreKtx" }

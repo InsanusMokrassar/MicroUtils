@@ -14,5 +14,12 @@ kotlin {
                 api internalProject("micro_utils.pagination.exposed")
             }
         }
+        jvmTest {
+            dependencies {
+                api libs.sqlite
+                api libs.jb.exposed.jdbc
+                api project(":micro_utils.repos.common.tests")
+            }
+        }
     }
 }

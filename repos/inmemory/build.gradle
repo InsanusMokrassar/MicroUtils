@@ -14,5 +14,10 @@ kotlin {
                 api internalProject("micro_utils.coroutines")
             }
         }
+        commonTest {
+            dependencies {
+                api project(":micro_utils.repos.common.tests")
+            }
+        }
     }
 }
