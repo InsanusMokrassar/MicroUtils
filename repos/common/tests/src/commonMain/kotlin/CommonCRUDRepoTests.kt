@@ -1,21 +1,27 @@
+package dev.inmo.micro_utils.repos.common.tests
+
 import com.benasher44.uuid.uuid4
 import dev.inmo.micro_utils.repos.CRUDRepo
 import dev.inmo.micro_utils.repos.create
 import dev.inmo.micro_utils.repos.deleteById
 import korlibs.time.seconds
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.Serializable
 import kotlin.test.*
 
 abstract class CommonCRUDRepoTests : CommonRepoTests<CRUDRepo<CommonCRUDRepoTests.Registered, String, CommonCRUDRepoTests.New>>() {
+    @Serializable
     data class New(
         val data: String
     )
+    @Serializable
     data class Registered(
         val id: String,
         val data: String
     )
 
-    open fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
+    @Test
+    fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
         val crudRepo = repoCreator()
         val testData = (0 until testSequencesSize).map {
             ("$it-" + uuid4().toString())
@@ -53,7 +59,7 @@ abstract class CommonCRUDRepoTests : CommonRepoTests<CRUDRepo<CommonCRUDRepoTest
         }
     }
     @Test
-    open fun removingWorksProperly() = runTest {
+    fun removingWorksProperly() = runTest {
         val crudRepo = repoCreator()
         val testData = (0 until testSequencesSize).map {
             (it.toString() + uuid4().toString())

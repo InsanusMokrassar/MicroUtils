@@ -1,18 +1,17 @@
 package full
 
-import CommonKeyValueRepoTests
-import com.benasher44.uuid.uuid4
-import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.KeyValueRepo
+import dev.inmo.micro_utils.repos.common.tests.CommonKeyValueRepoTests
 import dev.inmo.micro_utils.repos.exposed.initTable
 import dev.inmo.micro_utils.repos.exposed.keyvalue.AbstractExposedKeyValueRepo
-import korlibs.time.seconds
-import kotlinx.coroutines.test.TestResult
-import kotlinx.coroutines.test.runTest
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.InsertStatement
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.ISqlExpressionBuilder
+import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import java.io.File
-import kotlin.test.*
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 
 class ExposedKeyValueRepoTests : CommonKeyValueRepoTests() {
     class Repo(override val database: Database) : AbstractExposedKeyValueRepo<String, String>(database) {
@@ -54,14 +53,4 @@ class ExposedKeyValueRepoTests : CommonKeyValueRepoTests() {
     }
 
     override val repoCreator: suspend () -> KeyValueRepo<String, String> = { Repo(database!!) }
-
-    @Test
-    override fun creatingWorksProperly(): TestResult {
-        return super.creatingWorksProperly()
-    }
-
-    @Test
-    override fun unsettingWorksProperly(): TestResult {
-        return super.unsettingWorksProperly()
-    }
 }

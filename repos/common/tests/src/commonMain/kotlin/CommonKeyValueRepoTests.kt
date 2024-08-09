@@ -1,13 +1,17 @@
+package dev.inmo.micro_utils.repos.common.tests
+
 import com.benasher44.uuid.uuid4
 import dev.inmo.micro_utils.repos.*
 import korlibs.time.seconds
 import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 abstract class CommonKeyValueRepoTests : CommonRepoTests<KeyValueRepo<String, String>>() {
-    open fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
+    @Test
+    fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
         val repo = repoCreator()
         val testData = (0 until testSequencesSize).associate {
             ("$it-" + uuid4().toString()) to "$it-" + uuid4().toString()
@@ -26,7 +30,8 @@ abstract class CommonKeyValueRepoTests : CommonRepoTests<KeyValueRepo<String, St
             assertEquals(repo.get(it.key), it.value)
         }
     }
-    open fun unsettingWorksProperly() = runTest {
+    @Test
+    fun unsettingWorksProperly() = runTest {
         val repo = repoCreator()
         val testData = (0 until testSequencesSize).associate {
             (it.toString() + uuid4().toString()) to uuid4().toString()

@@ -1,4 +1,4 @@
-import dev.inmo.micro_utils.repos.CRUDRepo
+package dev.inmo.micro_utils.repos.common.tests
 
 abstract class CommonRepoTests<T> {
     protected open val testSequencesSize = 1000

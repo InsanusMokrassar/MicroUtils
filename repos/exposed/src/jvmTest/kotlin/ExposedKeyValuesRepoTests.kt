@@ -1,17 +1,17 @@
 package full
 
-import CommonKeyValuesRepoTests
-import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.KeyValuesRepo
+import dev.inmo.micro_utils.repos.common.tests.CommonKeyValuesRepoTests
 import dev.inmo.micro_utils.repos.exposed.initTable
 import dev.inmo.micro_utils.repos.exposed.onetomany.AbstractExposedKeyValuesRepo
-import kotlinx.coroutines.test.TestResult
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.ISqlExpressionBuilder
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import java.io.File
-import kotlin.test.*
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 
 class ExposedKeyValuesRepoTests : CommonKeyValuesRepoTests() {
     override val testSequencesSize: Int = 100
@@ -49,9 +49,4 @@ class ExposedKeyValuesRepoTests : CommonKeyValuesRepoTests() {
     }
 
     override val repoCreator: suspend () -> KeyValuesRepo<String, String> = { Repo(database!!) }
-
-    @Test
-    override fun creatingWorksProperly(): TestResult {
-        super.creatingWorksProperly()
-    }
 }

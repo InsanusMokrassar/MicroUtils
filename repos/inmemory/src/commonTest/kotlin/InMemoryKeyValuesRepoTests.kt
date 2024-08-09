@@ -1,14 +1,9 @@
 package full
 
-import CommonKeyValuesRepoTests
-import dev.inmo.micro_utils.repos.*
-import kotlinx.coroutines.test.TestResult
-import kotlin.test.*
+import dev.inmo.micro_utils.repos.KeyValuesRepo
+import dev.inmo.micro_utils.repos.MapKeyValuesRepo
+import dev.inmo.micro_utils.repos.common.tests.CommonKeyValuesRepoTests
 
 class InMemoryKeyValuesRepoTests : CommonKeyValuesRepoTests() {
     override val repoCreator: suspend () -> KeyValuesRepo<String, String> = { MapKeyValuesRepo() }
-    @Test
-    override fun creatingWorksProperly(): TestResult {
-        return super.creatingWorksProperly()
-    }
 }

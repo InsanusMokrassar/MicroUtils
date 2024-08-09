@@ -1,3 +1,5 @@
+package dev.inmo.micro_utils.repos.common.tests
+
 import com.benasher44.uuid.uuid4
 import dev.inmo.micro_utils.repos.*
 import korlibs.time.seconds
@@ -7,7 +9,8 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.*
 
 abstract class CommonKeyValuesRepoTests : CommonRepoTests<KeyValuesRepo<String, String>>() {
-    open fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
+    @Test
+    fun creatingWorksProperly() = runTest(timeout = 120.seconds) {
         val repo = repoCreator()
         val testData = (0 until testSequencesSize).associate {
             ("$it-" + uuid4().toString()) to (0 until 1000).map {

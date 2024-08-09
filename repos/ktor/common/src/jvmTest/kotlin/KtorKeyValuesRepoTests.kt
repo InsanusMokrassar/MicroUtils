@@ -1,26 +1,59 @@
+package dev.inmo.micro_utils.repos.ktor
+
 import dev.inmo.micro_utils.pagination.firstPageWithOneElementPagination
 import dev.inmo.micro_utils.pagination.utils.getAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.common.tests.CommonKeyValuesRepoTests
 import dev.inmo.micro_utils.repos.ktor.client.key.values.KtorKeyValuesRepoClient
 import dev.inmo.micro_utils.repos.ktor.server.key.values.configureKeyValuesRepoRoutes
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.http.ContentType
-import io.ktor.serialization.kotlinx.KotlinxWebsocketSerializationConverter
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.application.install
-import io.ktor.server.cio.CIO
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.routing.routing
-import io.ktor.server.websocket.WebSockets
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import io.ktor.serialization.kotlinx.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.cio.*
+import io.ktor.server.engine.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlin.test.*
 
-class KVsTests {
-    @OptIn(ExperimentalCoroutinesApi::class)
+class KtorKeyValuesRepoTests : CommonKeyValuesRepoTests() {
+    private var engine: ApplicationEngine? = null
+    override val testSequencesSize: Int
+        get() = 100
+
+    override val repoCreator: suspend () -> KeyValuesRepo<String, String> = {
+        KtorKeyValuesRepoClient(
+            "http://127.0.0.1:23456",
+            KtorRepoTestsHelper.client(),
+            ContentType.Application.Json,
+            String.serializer(),
+            String.serializer(),
+            Json
+        )
+    }
+
+    @BeforeTest
+    fun beforeTest() {
+        engine = KtorRepoTestsHelper.beforeTest {
+            configureKeyValuesRepoRoutes(
+                MapKeyValuesRepo(),
+                String.serializer(),
+                String.serializer(),
+                Json
+            )
+        }
+    }
+    @AfterTest
+    fun afterTest() {
+        engine ?.let(KtorRepoTestsHelper::afterTest)
+    }
+
     @Test
     fun testKVsFunctions() {
         runTest {
@@ -28,7 +61,7 @@ class KVsTests {
             val repo = MapKeyValuesRepo(map)
             val server = io.ktor.server.engine.embeddedServer(
                 CIO,
-                23456,
+                34567,
                 "127.0.0.1"
             ) {
                 install(ContentNegotiation) {
@@ -42,7 +75,7 @@ class KVsTests {
                         repo,
                         Int.serializer(),
                         ComplexData.serializer(),
-                        Json {}
+                        Json
                     )
                 }
             }.start(false)
@@ -56,7 +89,7 @@ class KVsTests {
                 }
             }
             val crudClient = KtorKeyValuesRepoClient(
-                "http://127.0.0.1:23456",
+                "http://127.0.0.1:34567",
                 client,
                 ContentType.Application.Json,
                 Int.serializer(),
