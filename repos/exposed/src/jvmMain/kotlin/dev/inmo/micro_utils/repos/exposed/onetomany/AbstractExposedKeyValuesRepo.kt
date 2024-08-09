@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.InsertStatement
+import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.transactions.transaction
 
 abstract class AbstractExposedKeyValuesRepo<Key, Value>(
@@ -26,7 +27,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared.asSharedFlow()
 
-    protected abstract fun insert(k: Key, v: Value, it: InsertStatement<Number>)
+    protected abstract fun insert(k: Key, v: Value, it: UpdateBuilder<Int>)
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         transaction(database) {
@@ -44,6 +45,28 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
                         null
                     }
                 } ?: emptyList()
+            }
+        }.forEach { _onNewValue.emit(it) }
+    }
+
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        if (toSet.isEmpty()) return
+        val prepreparedData = toSet.flatMap { (k, vs) ->
+            vs.map { v ->
+                k to v
+            }
+        }
+
+        transaction(database) {
+            deleteWhere {
+                selectByIds(it, toSet.keys.toList())
+            }
+            batchInsert(
+                prepreparedData,
+            ) { (k, v) ->
+                insert(k, v, this)
+            }.map {
+                it.asKey to it.asObject
             }
         }.forEach { _onNewValue.emit(it) }
     }

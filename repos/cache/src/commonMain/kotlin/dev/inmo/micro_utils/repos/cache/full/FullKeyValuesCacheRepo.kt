@@ -10,6 +10,7 @@ import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
+import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -62,6 +63,42 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
             },
             { get(k, pagination, reversed) },
             { actualizeKey(k) }
+        )
+    }
+
+    override suspend fun getAll(k: Key, reversed: Boolean): List<Value> {
+        return doOrTakeAndActualizeWithWriteLock(
+            {
+                get(k) ?.optionallyReverse(reversed).optionalOrAbsentIfNull
+            },
+            { getAll(k, reversed) },
+            { kvCache.set(k, it.optionallyReverse(reversed)) }
+        )
+    }
+
+    override suspend fun getAll(reverseLists: Boolean): Map<Key, List<Value>> {
+        return doOrTakeAndActualizeWithWriteLock(
+            {
+                getAll().takeIf { it.isNotEmpty() } ?.let {
+                    if (reverseLists) {
+                        it.mapValues { it.value.reversed() }
+                    } else {
+                        it
+                    }
+                }.optionalOrAbsentIfNull
+            },
+            { getAll(reverseLists) },
+            {
+                kvCache.set(
+                    it.let {
+                        if (reverseLists) {
+                            it.mapValues { it.value.reversed() }
+                        } else {
+                            it
+                        }
+                    }
+                )
+            }
         )
     }
 
@@ -163,17 +200,23 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
 ) = FullWriteKeyValuesCacheRepo(this, kvCache, scope, locker)
 
 open class FullKeyValuesCacheRepo<Key,Value>(
-    protected open val parentRepo: KeyValuesRepo<Key, Value>,
+    override val parentRepo: KeyValuesRepo<Key, Value>,
     kvCache: KeyValueRepo<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(),
-) : FullWriteKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, scope, locker),
-    KeyValuesRepo<Key, Value>,
-    ReadKeyValuesRepo<Key, Value> by FullReadKeyValuesCacheRepo(parentRepo, kvCache, locker) {
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+) : KeyValuesRepo<Key, Value>,
+    FullReadKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, locker),
+    WriteKeyValuesRepo<Key, Value> by parentRepo {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions { invalidate() }
+            scope.launchSafelyWithoutExceptions {
+                if (locker.writeMutex.isLocked) {
+                    initialInvalidate()
+                } else {
+                    invalidate()
+                }
+            }
         }
     }
 
@@ -185,16 +228,75 @@ open class FullKeyValuesCacheRepo<Key,Value>(
         }
     }
 
+    protected open suspend fun initialInvalidate() {
+        try {
+            kvCache.actualizeAll(parentRepo, locker = null)
+        } finally {
+            locker.unlockWrite()
+        }
+    }
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker = locker)
     }
 
     override suspend fun set(toSet: Map<Key, List<Value>>) {
-        super<KeyValuesRepo>.set(toSet)
+        locker.withWriteLock {
+            parentRepo.set(toSet)
+            kvCache.set(
+                toSet.filter {
+                    parentRepo.contains(it.key)
+                }
+            )
+        }
     }
 
-    override suspend fun removeWithValue(v: Value) {
-        super<FullWriteKeyValuesCacheRepo>.removeWithValue(v)
+    override suspend fun add(toAdd: Map<Key, List<Value>>) {
+        locker.withWriteLock {
+            parentRepo.add(toAdd)
+            toAdd.forEach {
+                val filtered = it.value.filter { v ->
+                    parentRepo.contains(it.key, v)
+                }.ifEmpty {
+                    return@forEach
+                }
+                kvCache.set(
+                    it.key,
+                    (kvCache.get(it.key) ?: emptyList()) + filtered
+                )
+            }
+        }
+    }
+
+    override suspend fun remove(toRemove: Map<Key, List<Value>>) {
+        locker.withWriteLock {
+            parentRepo.remove(toRemove)
+            toRemove.forEach {
+                val filtered = it.value.filter { v ->
+                    !parentRepo.contains(it.key, v)
+                }.ifEmpty {
+                    return@forEach
+                }.toSet()
+                val resultList = (kvCache.get(it.key) ?: emptyList()) - filtered
+                if (resultList.isEmpty()) {
+                    kvCache.unset(it.key)
+                } else {
+                    kvCache.set(
+                        it.key,
+                        resultList
+                    )
+                }
+            }
+        }
+    }
+
+    override suspend fun clear(k: Key) {
+        locker.withWriteLock {
+            parentRepo.clear(k)
+            if (parentRepo.contains(k)) {
+                return@withWriteLock
+            }
+            kvCache.unset(k)
+        }
     }
 }
 

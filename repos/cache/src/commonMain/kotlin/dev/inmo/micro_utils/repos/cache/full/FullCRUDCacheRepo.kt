@@ -98,7 +98,7 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
     idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
     parentRepo,
@@ -116,10 +116,23 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     CRUDRepo<ObjectType, IdType, InputValueType> {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions { invalidate() }
+            scope.launchSafelyWithoutExceptions {
+                if (locker.writeMutex.isLocked) {
+                    initialInvalidate()
+                } else {
+                    invalidate()
+                }
+            }
         }
     }
 
+    protected open suspend fun initialInvalidate() {
+        try {
+            kvCache.actualizeAll(parentRepo, locker = null)
+        } finally {
+            locker.unlockWrite()
+        }
+    }
     override suspend fun invalidate() {
         actualizeAll()
     }

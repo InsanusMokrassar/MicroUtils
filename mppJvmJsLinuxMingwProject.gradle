@@ -12,8 +12,20 @@ kotlin {
         }
     }
     js (IR) {
-        browser()
-        nodejs()
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
     }
     linuxX64()
     mingwX64()
@@ -41,17 +53,6 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation kotlin('test-junit')
-            }
-        }
-        mingwX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
-            }
-        }
-        linuxX64Test {
-            dependencies {
-                implementation kotlin('test-junit')
             }
         }
 

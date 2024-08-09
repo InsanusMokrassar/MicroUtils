@@ -126,26 +126,40 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    protected open val parentRepo: KeyValueRepo<Key, Value>,
+    override val parentRepo: KeyValueRepo<Key, Value>,
     kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker()
-) : FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+) : //FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
-    ReadKeyValueRepo<Key, Value> by FullReadKeyValueCacheRepo(
+    WriteKeyValueRepo<Key,Value> by parentRepo,
+    FullReadKeyValueCacheRepo<Key, Value>(
         parentRepo,
         kvCache,
         locker
 ) {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions { invalidate() }
+            scope.launchSafelyWithoutExceptions {
+                if (locker.writeMutex.isLocked) {
+                    initialInvalidate()
+                } else {
+                    invalidate()
+                }
+            }
         }
     }
 
     override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
 
+    protected open suspend fun initialInvalidate() {
+        try {
+            kvCache.actualizeAll(parentRepo, locker = null)
+        } finally {
+            locker.unlockWrite()
+        }
+    }
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker)
     }
@@ -153,6 +167,28 @@ open class FullKeyValueCacheRepo<Key,Value>(
     override suspend fun clear() {
         parentRepo.clear()
         kvCache.clear()
+    }
+
+    override suspend fun set(toSet: Map<Key, Value>) {
+        locker.withWriteLock {
+            parentRepo.set(toSet)
+            kvCache.set(
+                toSet.filter {
+                    parentRepo.contains(it.key)
+                }
+            )
+        }
+    }
+
+    override suspend fun unset(toUnset: List<Key>) {
+        locker.withWriteLock {
+            parentRepo.unset(toUnset)
+            kvCache.unset(
+                toUnset.filter {
+                    !parentRepo.contains(it)
+                }
+            )
+        }
     }
 }
 

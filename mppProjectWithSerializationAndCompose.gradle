@@ -12,8 +12,20 @@ kotlin {
         }
     }
     js (IR) {
-        browser()
-        nodejs()
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "60000"
+                }
+            }
+        }
     }
     androidTarget {
         publishAllLibraryVariants()
@@ -58,7 +70,6 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
-                implementation kotlin('test-junit')
             }
         }
         androidUnitTest {
@@ -67,13 +78,6 @@ kotlin {
                 implementation libs.android.test.junit
                 implementation libs.android.espresso
                 implementation compose.uiTest
-            }
-        }
-        androidInstrumentedTest {
-            dependencies {
-                implementation kotlin('test-junit')
-                implementation libs.android.test.junit
-                implementation libs.android.espresso
             }
         }
     }

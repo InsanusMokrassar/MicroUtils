@@ -22,17 +22,24 @@ private const val baseClassSerializerAnnotationName = "@Serializable(${baseClass
 
 @Serializable
 private data class LanguageCode(
-    @SerialName("alpha2")
-    val tag: String,
     @SerialName("English")
-    val title: String
-)
+    val title: String,
+    @SerialName("alpha2")
+    val alpha: String? = null,
+    @SerialName("alpha3-b")
+    val alpha2: String? = null,
+    @SerialName("alpha3-t")
+    val alpha3: String? = null,
+) {
+    val tag: String
+        get() = alpha ?: alpha2 ?: alpha3!!
+}
 
-fun String.adaptAsTitle() = if (first().isDigit()) {
+fun String.adaptAsTitle() = (if (first().isDigit()) {
     "L$this"
 } else {
     this
-}
+}).replace(".", "_").replace("'", "_")
 
 fun String.normalized() = Normalizer.normalize(this, Normalizer.Form.NFD).replace(Regex("[^\\p{ASCII}]"), "")
 
@@ -73,7 +80,10 @@ data class Tag(
     val title: String,
     val tag: String,
     val subtags: List<Tag>
-)
+) {
+    val adaptedTitle
+        get() = title.adaptAsTitle()
+}
 
 private fun printLanguageCodeAndTags(
     tag: Tag,
@@ -81,17 +91,19 @@ private fun printLanguageCodeAndTags(
     indents: String = "    "
 ): String = if (tag.subtags.isEmpty()) {
 """${indents}${baseClassSerializerAnnotationName}
-${indents}object ${tag.title} : ${parent ?.title ?: baseClassName}() { override val code: String = "${tag.tag}"${parent ?.let { parent -> "; override val parentLang: ${parent.title} get() = ${parent.title};" } ?: ""} }"""
+${indents}object ${tag.adaptedTitle} : ${parent ?.adaptedTitle ?: baseClassName} { override val code: String = "${tag.tag}"${parent ?.let { parent -> "; override val parentLang: ${parent.adaptedTitle} get() = ${parent.adaptedTitle}" } ?: ""}; override fun toString() = code }"""
 } else {
 """
 ${indents}${baseClassSerializerAnnotationName}
-${indents}sealed class ${tag.title} : ${parent ?.title ?: baseClassName}() {
-${indents}    override val code: String = "${tag.tag}"${parent ?.let { parent -> "\n${indents}    override val parentLang: ${parent.title} get() = ${parent.title};" } ?: ""}
+${indents}sealed interface ${tag.adaptedTitle} : ${parent ?.adaptedTitle ?: baseClassName} {
 
 ${tag.subtags.joinToString("\n") { printLanguageCodeAndTags(it, tag, "${indents}    ") }}
 
 ${indents}    ${baseClassSerializerAnnotationName}
-${indents}    companion object : ${tag.title}()
+${indents}    companion object : ${tag.adaptedTitle} {
+${indents}        override val code: String = "${tag.tag}"${parent ?.let { parent -> "\n${indents}        override val parentLang: ${parent.adaptedTitle} get() = ${parent.adaptedTitle};" } ?: ""}
+${indents}        override fun toString() = code
+${indents}    }
 ${indents}}
 """
 }
@@ -105,23 +117,22 @@ import kotlinx.serialization.Serializable
  * https://datahub.io/core/language-codes/ files (base and tags) and create the whole hierarchy using it.
  */
 ${baseClassSerializerAnnotationName}
-sealed class $baseClassName {
-    abstract val code: String
-    open val parentLang: $baseClassName?
-        get() = null
-    open val withoutDialect: String
+sealed interface $baseClassName {
+    val code: String
+    val parentLang: $baseClassName?
+        get() = code.split("-").takeIf { it.size > 1 } ?.first() ?.let(::$unknownBaseClassName)
+    val withoutDialect: String
         get() = parentLang ?.code ?: code
 
 ${tags.joinToString("\n") { printLanguageCodeAndTags(it, indents = "    ") } }
 
     $baseClassSerializerAnnotationName
-    data class $unknownBaseClassName (override val code: String) : $baseClassName() {
+    data class $unknownBaseClassName (override val code: String) : $baseClassName {
         override val parentLang = code.dropLastWhile { it != '-' }.removeSuffix("-").takeIf { it.length > 0 } ?.let(::$unknownBaseClassName)
     }
     @Deprecated("Renamed", ReplaceWith("$baseClassName.$unknownBaseClassName", "${if (prePackage.isNotEmpty()) "$prePackage." else ""}$baseClassName.$unknownBaseClassName"))
-    val $oldUnknownBaseClassName = $unknownBaseClassName
-
-    override fun toString() = code
+    val $oldUnknownBaseClassName
+        get() = $unknownBaseClassName
 }
 @Deprecated("Renamed", ReplaceWith("$baseClassName", "${if (prePackage.isNotEmpty()) "$prePackage." else ""}$baseClassName"))
 typealias $oldBaseClassName = $baseClassName
@@ -133,7 +144,7 @@ fun createStringConverterCode(tags: List<Tag>, prePackage: String): String {
         pretitle: String = baseClassName,
         indents: String = "        "
     ): String {
-        val currentTitle = "$pretitle.${tag.title}"
+        val currentTitle = "$pretitle.${tag.adaptedTitle}"
         return """${indents}$currentTitle.code -> $currentTitle${if (tag.subtags.isNotEmpty()) tag.subtags.joinToString("\n", "\n") { createDeserializeVariantForTag(it, currentTitle, indents) } else ""}"""
     }
     fun createInheritorVariantForTag(
@@ -141,7 +152,7 @@ fun createStringConverterCode(tags: List<Tag>, prePackage: String): String {
         pretitle: String = baseClassName,
         indents: String = "        "
     ): String {
-        val currentTitle = "$pretitle.${tag.title}"
+        val currentTitle = "$pretitle.${tag.adaptedTitle}"
         val subtags = if (tag.subtags.isNotEmpty()) {
             tag.subtags.joinToString(",\n", ",\n") { createInheritorVariantForTag(it, currentTitle, "$indents    ") }
         } else {
@@ -155,7 +166,7 @@ fun createStringConverterCode(tags: List<Tag>, prePackage: String): String {
         indents: String = "        ",
         codeSuffix: String = ""
     ): String {
-        val currentTitle = "$pretitle.${tag.title}"
+        val currentTitle = "$pretitle.${tag.adaptedTitle}"
         val subtags = if (tag.subtags.isNotEmpty()) {
             tag.subtags.joinToString(",\n", ",\n") { createInheritorVariantForMapForTag(it, currentTitle, "$indents    ", codeSuffix) }
         } else {
@@ -266,7 +277,7 @@ suspend fun main(vararg args: String) {
     File(outputFolder, "LanguageCodes.kt").apply {
         delete()
         createNewFile()
-        writeText(targetPackagePrefix + buildKtFileContent(tags, targetPackage ?: ""))
+        writeText("@file:Suppress(\"SERIALIZER_TYPE_INCOMPATIBLE\")\n\n" + targetPackagePrefix + buildKtFileContent(tags, targetPackage ?: ""))
     }
 
     File(outputFolder, "StringToLanguageCodes.kt").apply {

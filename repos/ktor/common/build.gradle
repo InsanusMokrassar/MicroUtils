@@ -16,6 +16,7 @@ kotlin {
         jvmTest {
             dependencies {
                 implementation internalProject("micro_utils.repos.common")
+                implementation internalProject("micro_utils.repos.common.tests")
                 implementation internalProject("micro_utils.repos.ktor.client")
                 implementation internalProject("micro_utils.repos.ktor.server")
                 implementation internalProject("micro_utils.repos.inmemory")

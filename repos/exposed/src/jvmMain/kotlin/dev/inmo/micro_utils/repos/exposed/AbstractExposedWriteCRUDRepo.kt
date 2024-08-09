@@ -52,9 +52,9 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
      *
      * @return In case when id for the model has been created new [IdType] should be returned
      */
-    protected open fun createAndInsertId(value: InputValueType, it: InsertStatement<Number>): IdType? = null
+    protected open fun createAndInsertId(value: InputValueType, it: UpdateBuilder<Int>): IdType? = null
 
-    protected open fun insert(value: InputValueType, it: InsertStatement<Number>) {
+    protected open fun insert(value: InputValueType, it: UpdateBuilder<Int>) {
         val id = createAndInsertId(value, it)
         update(id, value, it as UpdateBuilder<Int>)
     }

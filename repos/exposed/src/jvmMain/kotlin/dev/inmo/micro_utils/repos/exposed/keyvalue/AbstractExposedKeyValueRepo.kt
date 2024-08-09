@@ -23,11 +23,11 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
 
     protected abstract fun update(k: Key, v: Value, it: UpdateBuilder<Int>)
-    protected abstract fun insertKey(k: Key, v: Value, it: InsertStatement<Number>)
+    protected abstract fun insertKey(k: Key, v: Value, it: UpdateBuilder<Int>)
 
-    protected open fun insert(k: Key, v: Value, it: InsertStatement<Number>) {
+    protected open fun insert(k: Key, v: Value, it: UpdateBuilder<Int>) {
         insertKey(k, v, it)
-        update(k, v, it as UpdateBuilder<Int>)
+        update(k, v, it)
     }
 
     override suspend fun set(toSet: Map<Key, Value>) {

@@ -13,7 +13,7 @@ import kotlin.contracts.contract
  * * [unlockWrite] will just unlock [writeMutex]
  */
 class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked: Boolean = false) {
-    private val _readSemaphore = SmartSemaphore.Mutable(permits = readPermits, acquiredPermits = 0)
+    private val _readSemaphore = SmartSemaphore.Mutable(permits = readPermits, acquiredPermits = if (writeIsLocked) readPermits else 0)
     private val _writeMutex = SmartMutex.Mutable(locked = writeIsLocked)
 
     val readSemaphore: SmartSemaphore.Immutable = _readSemaphore.immutable()
