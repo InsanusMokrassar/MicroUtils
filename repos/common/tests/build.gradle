@@ -1,0 +1,69 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+}
+
+project.version = "$version"
+project.group = "$group"
+
+kotlin {
+    jvm {
+        compilations.main {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+    js (IR) {
+        browser()
+        nodejs()
+    }
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+    linuxX64()
+    mingwX64()
+    linuxArm64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib')
+                api libs.kt.serialization
+                api kotlin('test')
+                api kotlin('test-annotations-common')
+                api libs.kt.coroutines.test
+                api project(":micro_utils.repos.common")
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+        jsMain {
+            dependencies {
+                implementation kotlin('test-js')
+            }
+        }
+        nativeMain.dependsOn commonMain
+        linuxX64Main.dependsOn nativeMain
+        mingwX64Main.dependsOn nativeMain
+        linuxArm64Main.dependsOn nativeMain
+
+        androidMain.dependsOn jvmMain
+    }
+}
+
+apply from: "$defaultAndroidSettingsPresetPath"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}

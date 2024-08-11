@@ -1,14 +1,16 @@
 [versions]
 
-kt = "1.9.23"
-kt-serialization = "1.6.3"
+kt = "2.0.10"
+kt-serialization = "1.7.1"
 kt-coroutines = "1.8.1"
 
-kslog = "1.3.4"
+kslog = "1.3.5"
 
-jb-compose = "1.6.2"
-jb-exposed = "0.50.1"
+jb-compose = "1.7.0-alpha02"
+jb-exposed = "0.53.0"
 jb-dokka = "1.9.20"
+
+sqlite = "3.46.0.1"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
@@ -21,25 +23,25 @@ koin = "3.5.6"
 
 okio = "3.9.0"
 
-ksp = "1.9.23-1.0.20"
-kotlin-poet = "1.16.0"
+ksp = "2.0.10-1.0.24"
+kotlin-poet = "1.18.1"
 
 versions = "0.51.0"
 
-android-gradle = "8.2.0"
+android-gradle = "8.2.2"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.13.1"
 android-recyclerView = "1.3.2"
-android-appCompat = "1.6.1"
-android-fragment = "1.7.1"
-android-espresso = "3.5.1"
-android-test = "1.1.5"
+android-appCompat = "1.7.0"
+android-fragment = "1.8.2"
+android-espresso = "3.6.1"
+android-test = "1.2.1"
 android-compose-material3 = "1.2.1"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "34"
-android-props-buildTools = "34.0.0"
+android-props-compileSdk = "35"
+android-props-buildTools = "35.0.0"
 
 [libraries]
 
@@ -52,6 +54,7 @@ kt-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kt-coroutines" }
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
+kt-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kt-coroutines" }
 
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
@@ -79,6 +82,8 @@ koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 
 jb-exposed = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jb-exposed" }
+jb-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jb-exposed" }
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 
 
 android-coreKtx = { module = "androidx.core:core-ktx", version.ref = "android-coreKtx" }
@@ -113,5 +118,6 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 [plugins]
 
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
+kt-jb-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kt" }
 
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }

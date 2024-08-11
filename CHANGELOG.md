@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.22.0
+
+**THIS UPDATE CONTAINS BREAKING CHANGES ACCORDING TO UPDATE UP TO KOTLIN 2.0**
+
+* `Versions`:
+    * `Kotlin`: `1.9.23` -> `2.0.10`
+    * `Serialization`: `1.6.3` -> `1.7.1`
+    * `KSLog`: `1.3.4` -> `1.3.5`
+    * `Compose`: `1.6.2` -> `1.7.0-alpha02`
+    * `Exposed`: `0.50.1` -> `0.53.0`
+    * `AndroidAppCompat`: `1.6.1` -> `1.7.0`
+    * `AndroidFragment`: `1.7.1` -> `1.8.2`
+
 ## 0.21.6
 
 * `KSP`:

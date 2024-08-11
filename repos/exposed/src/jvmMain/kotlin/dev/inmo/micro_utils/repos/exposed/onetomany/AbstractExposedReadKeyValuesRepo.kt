@@ -83,8 +83,8 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
         }
     }
 
-    override suspend fun getAll(k: Key, reverseLists: Boolean): List<Value> = transaction(database) {
-        val query = if (reverseLists) {
+    override suspend fun getAll(k: Key, reversed: Boolean): List<Value> = transaction(database) {
+        val query = if (reversed) {
             selectAll().where { selectById(k) }.orderBy(keyColumn, SortOrder.DESC)
         } else {
             selectAll().where { selectById(k) }

@@ -8,7 +8,7 @@ private inline fun <T> getObject(
     additional: MutableList<T>,
     iterator: Iterator<T>
 ): T? = when {
-    additional.isNotEmpty() -> additional.removeFirst()
+    additional.isNotEmpty() -> additional.removeAt(0)
     iterator.hasNext() -> iterator.next()
     else -> null
 }
