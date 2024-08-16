@@ -6,7 +6,7 @@ import io.ktor.http.URLProtocol
 import io.ktor.server.application.install
 import io.ktor.server.application.pluginOrNull
 import io.ktor.server.routing.Routing
-import io.ktor.server.routing.*
+import io.ktor.server.routing.application
 import io.ktor.server.websocket.*
 import io.ktor.websocket.send
 import kotlinx.coroutines.flow.Flow

@@ -1,10 +1,9 @@
 package dev.inmo.micro_utils.ktor.common
 
-import io.ktor.utils.io.core.*
+import io.ktor.utils.io.core.Input
 import kotlinx.io.asSink
 import java.io.File
 import java.util.UUID
-import kotlin.io.use
 
 fun Input.downloadToTempFile(
     fileName: String = UUID.randomUUID().toString(),
@@ -15,8 +14,8 @@ fun Input.downloadToTempFile(
     fileExtension,
     folder
 ).apply {
-    outputStream().use { output ->
-        this@downloadToTempFile.transferTo(output.asSink())
+    outputStream().use {
+        this@downloadToTempFile.transferTo(it.asSink())
     }
     deleteOnExit()
 }
