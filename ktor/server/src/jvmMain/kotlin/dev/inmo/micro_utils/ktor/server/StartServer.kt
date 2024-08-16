@@ -11,12 +11,12 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
     engine: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: ApplicationEnvironmentBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: TConfiguration.() -> Unit = {},
     block: Application.() -> Unit
 ): TEngine = embeddedServer(
     engine,
-    applicationEngineEnvironment {
+    applicationEnvironment {
         module(block)
         connector {
             this.host = host
@@ -35,7 +35,7 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
 fun createKtorServer(
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: ApplicationEnvironmentBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: CIOApplicationEngine.Configuration.() -> Unit = {},
     block: Application.() -> Unit
 ): CIOApplicationEngine = createKtorServer(
@@ -51,7 +51,7 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
     engine: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: ApplicationEnvironmentBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: TConfiguration.() -> Unit = {},
     configurators: List<KtorApplicationConfigurator>
 ): TEngine = createKtorServer(
@@ -73,6 +73,6 @@ fun createKtorServer(
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
     configurators: List<KtorApplicationConfigurator>,
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: ApplicationEnvironmentBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: CIOApplicationEngine.Configuration.() -> Unit = {},
 ): ApplicationEngine = createKtorServer(CIO, host, port, additionalEngineEnvironmentConfigurator, additionalConfigurationConfigurator, configurators)

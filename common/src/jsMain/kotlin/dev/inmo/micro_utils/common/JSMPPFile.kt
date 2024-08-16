@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.common
 
+import kotlinx.io.files.Path
 import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.ErrorEvent
 import org.w3c.files.*

@@ -5,16 +5,19 @@ import dev.inmo.micro_utils.coroutines.LinkedSupervisorJob
 import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
 import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import io.ktor.client.HttpClient
+import io.ktor.client.content.*
 import kotlinx.coroutines.*
+import kotlinx.io.files.SystemFileSystem
 import org.w3c.dom.mediasource.ENDED
 import org.w3c.dom.mediasource.ReadyState
+import org.w3c.files.File
 import org.w3c.xhr.*
 import org.w3c.xhr.XMLHttpRequest.Companion.DONE
 
 suspend fun tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: OnUploadCallback
+    onUpload: ProgressListener
 ): TemporalFileId {
     val formData = FormData()
     val answer = CompletableDeferred<TemporalFileId>(currentCoroutineContext().job)
@@ -28,7 +31,7 @@ suspend fun tempUpload(
     val request = XMLHttpRequest()
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
-        subscope.launchSafelyWithoutExceptions { onUpload(it.loaded.toLong(), it.total.toLong()) }
+        subscope.launchSafelyWithoutExceptions { onUpload.onProgress(it.loaded.toLong(), it.total.toLong()) }
     }
     request.onload = {
         if (request.status == 200.toShort()) {
@@ -60,5 +63,5 @@ suspend fun tempUpload(
 actual suspend fun HttpClient.tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: OnUploadCallback
+    onUpload: ProgressListener
 ): TemporalFileId = dev.inmo.micro_utils.ktor.client.tempUpload(fullTempUploadDraftPath, file, onUpload)

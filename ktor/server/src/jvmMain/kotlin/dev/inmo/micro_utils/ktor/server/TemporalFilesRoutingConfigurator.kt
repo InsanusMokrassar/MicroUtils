@@ -14,7 +14,7 @@ import io.ktor.server.application.call
 import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.post
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -77,7 +77,7 @@ class TemporalFilesRoutingConfigurator(
     private val filesFlow = MutableSharedFlow<TemporalFileId>()
     val utilizerJob = temporalFilesUtilizer.start(temporalFilesMap, temporalFilesMutex, filesFlow.asSharedFlow())
 
-    override fun Route.invoke() {
+    override fun Routing.invoke() {
         post(subpath) {
             val multipart = call.receiveMultipart()
 

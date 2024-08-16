@@ -1,5 +1,11 @@
 package dev.inmo.micro_utils.common
 
+import kotlinx.io.Buffer
+import kotlinx.io.Source
+import kotlinx.io.buffered
+import kotlinx.io.files.Path
+import kotlinx.io.files.SystemFileSystem
+import kotlinx.io.readByteArray
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -32,3 +38,17 @@ expect val MPPFile.bytesAllocator: SuspendByteArrayAllocator
 fun MPPFile.bytesSync() = bytesAllocatorSync()
 suspend fun MPPFile.bytes() = bytesAllocator()
 
+val Path.filename: FileName
+    get() = FileName(name)
+val Path.filesize: Long
+    get() = SystemFileSystem.metadataOrNull(this) ?.size ?.takeIf { it > -1 } ?: error("Path $filename does not exists or is folder")
+val Path.bytesAllocatorSync: ByteArrayAllocator
+    get() = {
+        source().buffered().readByteArray()
+    }
+val Path.bytesAllocator: SuspendByteArrayAllocator
+    get() = {
+        bytesAllocatorSync()
+    }
+
+fun Path.source(): Source = SystemFileSystem.source(this).buffered()

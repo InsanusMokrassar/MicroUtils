@@ -14,14 +14,14 @@ import dev.inmo.micro_utils.repos.ktor.common.reversedParameterName
 import io.ktor.http.*
 import io.ktor.server.application.call
 import io.ktor.server.response.respond
-import io.ktor.server.routing.Route
+import io.ktor.server.routing.Routing
 import io.ktor.server.routing.get
 import io.ktor.util.InternalAPI
 import io.ktor.util.reflect.typeInfo
 import kotlinx.serialization.*
 
 @OptIn(InternalAPI::class)
-inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes (
+inline fun <reified Key, reified Value> Routing.configureReadKeyValueRepoRoutes (
     originalRepo: ReadKeyValueRepo<Key, Value>,
     noinline idDeserializer: suspend (String) -> Key,
     noinline valueDeserializer: suspend (String) -> Value
@@ -79,7 +79,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes (
     }
 }
 
-inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes(
+inline fun <reified Key, reified Value> Routing.configureReadKeyValueRepoRoutes(
     originalRepo: ReadKeyValueRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
@@ -94,7 +94,7 @@ inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes(
     }
 )
 
-inline fun <reified Key, reified Value> Route.configureReadKeyValueRepoRoutes(
+inline fun <reified Key, reified Value> Routing.configureReadKeyValueRepoRoutes(
     originalRepo: ReadKeyValueRepo<Key, Value>,
     idsSerializer: DeserializationStrategy<Key>,
     valueSerializer: DeserializationStrategy<Value>,
