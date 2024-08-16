@@ -13,7 +13,7 @@ import io.ktor.server.websocket.*
 import kotlinx.serialization.json.Json
 
 object KtorRepoTestsHelper {
-    fun beforeTest(routingConfigurator: Routing.() -> Unit): ApplicationEngine {
+    fun beforeTest(routingConfigurator: Routing.() -> Unit): EmbeddedServer<CIOApplicationEngine, CIOApplicationEngine.Configuration> {
         return embeddedServer(
             CIO,
             23456,
@@ -28,7 +28,7 @@ object KtorRepoTestsHelper {
             routing(routingConfigurator)
         }.start(false)
     }
-    fun afterTest(engine: ApplicationEngine) {
+    fun afterTest(engine: EmbeddedServer<*, *>) {
         engine.stop()
     }
     fun client(): HttpClient = HttpClient {
