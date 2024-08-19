@@ -10,7 +10,7 @@ jb-compose = "1.7.0-alpha02"
 jb-exposed = "0.53.0"
 jb-dokka = "1.9.20"
 
-sqlite = "3.46.0.1"
+sqlite = "3.46.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
