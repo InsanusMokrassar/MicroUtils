@@ -130,4 +130,4 @@ tasks.dokkaHtml {
     }
 }
 
-apply from: "$defaultAndroidSettingsPresetPath"
+apply from: "$defaultAndroidSettings"

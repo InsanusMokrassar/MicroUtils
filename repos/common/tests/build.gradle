@@ -61,7 +61,7 @@ kotlin {
     }
 }
 
-apply from: "$defaultAndroidSettingsPresetPath"
+apply from: "$defaultAndroidSettings"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

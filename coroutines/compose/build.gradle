@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kt.jb.compose)
 }
 
-apply from: "$mppComposeJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
+apply from: "$mppComposeJvmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {

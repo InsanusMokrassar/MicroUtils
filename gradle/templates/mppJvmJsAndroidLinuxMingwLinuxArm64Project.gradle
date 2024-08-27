@@ -1,7 +1,7 @@
 project.version = "$version"
 project.group = "$group"
 
-apply from: "$publishGradlePath"
+apply from: "$publish"
 
 kotlin {
     jvm {
@@ -27,8 +27,17 @@ kotlin {
             }
         }
     }
+    androidTarget {
+        publishAllLibraryVariants()
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
     linuxX64()
     mingwX64()
+    linuxArm64()
 
     sourceSets {
         commonMain {
@@ -39,12 +48,19 @@ kotlin {
         }
         commonTest {
             dependencies {
-                implementation kotlin('test-common')
+                implementation kotlin('test')
                 implementation kotlin('test-annotations-common')
                 implementation libs.kt.coroutines.test
             }
         }
 
+        androidUnitTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
         jvmTest {
             dependencies {
                 implementation kotlin('test-junit')
@@ -55,14 +71,16 @@ kotlin {
                 implementation kotlin('test-js')
             }
         }
-
         nativeMain.dependsOn commonMain
         linuxX64Main.dependsOn nativeMain
         mingwX64Main.dependsOn nativeMain
+        linuxArm64Main.dependsOn nativeMain
 
         androidMain.dependsOn jvmMain
     }
 }
+
+apply from: "$defaultAndroidSettings"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

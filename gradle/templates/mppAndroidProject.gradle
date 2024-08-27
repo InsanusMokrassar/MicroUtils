@@ -1,7 +1,7 @@
 project.version = "$version"
 project.group = "$group"
 
-apply from: "$publishGradlePath"
+apply from: "$publish"
 
 kotlin {
     androidTarget {
@@ -29,7 +29,7 @@ kotlin {
     }
 }
 
-apply from: "$defaultAndroidSettingsPresetPath"
+apply from: "$defaultAndroidSettings"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

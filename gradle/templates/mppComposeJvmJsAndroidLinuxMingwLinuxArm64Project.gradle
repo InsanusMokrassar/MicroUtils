@@ -1,7 +1,7 @@
 project.version = "$version"
 project.group = "$group"
 
-apply from: "$publishGradlePath"
+apply from: "$publish"
 
 kotlin {
     jvm {
@@ -35,6 +35,9 @@ kotlin {
             }
         }
     }
+    linuxX64()
+    mingwX64()
+    linuxArm64()
 
     sourceSets {
         commonMain {
@@ -49,6 +52,22 @@ kotlin {
                 implementation kotlin('test-common')
                 implementation kotlin('test-annotations-common')
                 implementation libs.kt.coroutines.test
+            }
+        }
+
+        androidUnitTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+                implementation compose.uiTest
+            }
+        }
+        androidInstrumentedTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
             }
         }
         jvmMain {
@@ -72,27 +91,18 @@ kotlin {
                 implementation kotlin('test-js')
             }
         }
-        androidUnitTest {
-            dependencies {
-                implementation kotlin('test-junit')
-                implementation libs.android.test.junit
-                implementation libs.android.espresso
-                implementation compose.uiTest
-            }
-        }
+        nativeMain.dependsOn commonMain
+        linuxX64Main.dependsOn nativeMain
+        mingwX64Main.dependsOn nativeMain
+        linuxArm64Main.dependsOn nativeMain
+
+        androidMain.dependsOn jvmMain
     }
 }
 
-apply from: "$defaultAndroidSettingsPresetPath"
+apply from: "$defaultAndroidSettings"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-
-
-//compose {
-//    if (composePluginKotlinVersion != null && !composePluginKotlinVersion.isEmpty()) {
-//        kotlinCompilerPlugin.set(composePluginKotlinVersion)
-//    }
-//}

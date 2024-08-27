@@ -4,4 +4,4 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath"
+apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"

@@ -1,43 +1,32 @@
+File templatesFolder = new File("$rootProject.projectDir.absolutePath${File.separatorChar}gradle${File.separatorChar}templates")
+
+Map properties = new HashMap<String, String>()
+
+if (templatesFolder.exists() && templatesFolder.isDirectory()) {
+    templatesFolder.listFiles().each {
+        properties[it.name - ".gradle"] = it.absolutePath
+    }
+}
+
+properties["projectByName"] = { name ->
+    for (subproject in rootProject.subprojects) {
+        if (subproject.name == name) {
+            return subproject
+        }
+    }
+    return null
+}
+
+properties["internalProject"] = { name ->
+    projectByName("$name")
+}
+
 allprojects {
     ext {
-        projectByName = { name ->
-            for (subproject in rootProject.subprojects) {
-                if (subproject.name == name) {
-                    return subproject
-                }
-            }
-            return null
-        }
-
-        internalProject = { name ->
-//            if (releaseMode) {
-//                "$group:$name:$version"
-//            } else {
-//                projectByName("$name")
-//            }
-            projectByName("$name")
-        }
-
         releaseMode = (project.hasProperty('RELEASE_MODE') && project.property('RELEASE_MODE') == "true") || System.getenv('RELEASE_MODE') == "true"
-//        String compilerPluginVersionFromProperties = (String) project.properties["compose.kotlinCompilerPluginVersion"]
-//        String compilerPluginVersionFromLibrariesVersions = libs.versions.compose.kotlin.get()
-//        composePluginKotlinVersion = compilerPluginVersionFromProperties
-//        if (compilerPluginVersionFromProperties == null) {
-//            composePluginKotlinVersion = compilerPluginVersionFromLibrariesVersions
-//        }
 
-        mppProjectWithSerializationPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsAndroidProject.gradle"
-        mppProjectWithSerializationAndComposePresetPath = "${rootProject.projectDir.absolutePath}/mppProjectWithSerializationAndCompose.gradle"
-        mppJavaProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJavaProject.gradle"
-        mppJvmJsLinuxMingwProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwProject.gradle"
-        mppJvmJsLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsLinuxMingwLinuxArm64Project.gradle"
-        mppJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppJvmJsAndroidLinuxMingwLinuxArm64Project.gradle"
-        mppComposeJvmJsAndroidLinuxMingwLinuxArm64ProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppComposeJvmJsAndroidLinuxMingwLinuxArm64Project.gradle"
-        mppAndroidProjectPresetPath = "${rootProject.projectDir.absolutePath}/mppAndroidProject.gradle"
-
-        defaultAndroidSettingsPresetPath = "${rootProject.projectDir.absolutePath}/defaultAndroidSettings.gradle"
-
-        publishGradlePath = "${rootProject.projectDir.absolutePath}/publish.gradle"
-        publishJvmOnlyPath = "${rootProject.projectDir.absolutePath}/jvm.publish.gradle"
+        properties.forEach { k, v ->
+            it[k] = v
+        }
     }
 }

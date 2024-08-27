@@ -1,7 +1,7 @@
 project.version = "$version"
 project.group = "$group"
 
-apply from: "$publishGradlePath"
+apply from: "$publish"
 
 kotlin {
     jvm {
@@ -11,31 +11,11 @@ kotlin {
             }
         }
     }
-    js (IR) {
-        browser {
-            testTask {
-                useMocha {
-                    timeout = "60000"
-                }
-            }
-        }
-        nodejs {
-            testTask {
-                useMocha {
-                    timeout = "60000"
-                }
-            }
-        }
-    }
-    linuxX64()
-    mingwX64()
-    linuxArm64()
 
     sourceSets {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib')
-                api libs.kt.serialization
             }
         }
         commonTest {
@@ -51,18 +31,6 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
-        jsTest {
-            dependencies {
-                implementation kotlin('test-js')
-            }
-        }
-
-        nativeMain.dependsOn commonMain
-        linuxX64Main.dependsOn nativeMain
-        mingwX64Main.dependsOn nativeMain
-        linuxArm64Main.dependsOn nativeMain
-
-        androidMain.dependsOn jvmMain
     }
 }
 

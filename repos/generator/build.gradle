@@ -2,7 +2,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
 }
 
-apply from: "$publishJvmOnlyPath"
+apply from: "$publish_jvm"
 
 repositories {
     mavenCentral()
