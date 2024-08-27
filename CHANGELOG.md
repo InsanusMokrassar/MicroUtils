@@ -2,6 +2,9 @@
 
 ## 0.23.0
 
+* `Versions`:
+    * `Kotlin`: `2.0.10` -> `2.0.20`
+
 ## 0.22.0
 
 **THIS UPDATE CONTAINS BREAKING CHANGES ACCORDING TO UPDATE UP TO KOTLIN 2.0**
