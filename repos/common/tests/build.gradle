@@ -29,6 +29,11 @@ kotlin {
     linuxX64()
     mingwX64()
     linuxArm64()
+    wasm {
+        browser()
+        nodejs()
+        d8()
+    }
 
     sourceSets {
         commonMain {
@@ -56,6 +61,10 @@ kotlin {
         linuxX64Main.dependsOn nativeMain
         mingwX64Main.dependsOn nativeMain
         linuxArm64Main.dependsOn nativeMain
+
+        if (hasProperty("wasmDependsOnJs") && wasmDependsOnJs == true) {
+            wasmJs.dependsOn jsMain
+        }
 
         androidMain.dependsOn jvmMain
     }

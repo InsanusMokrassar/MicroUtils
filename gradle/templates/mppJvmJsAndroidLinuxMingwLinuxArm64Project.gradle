@@ -38,6 +38,11 @@ kotlin {
     linuxX64()
     mingwX64()
     linuxArm64()
+    wasm {
+        browser()
+        nodejs()
+        d8()
+    }
 
     sourceSets {
         commonMain {
