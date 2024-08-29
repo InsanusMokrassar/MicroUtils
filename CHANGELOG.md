@@ -2,6 +2,13 @@
 
 ## 0.22.1
 
+* `Versions`:
+    * `Kotlin`: `2.0.10` -> `2.0.20`
+    * `Serialization`: `1.7.1` -> `1.7.2`
+    * `KSLog`: `1.3.5` -> `1.3.6`
+    * `Compose`: `1.7.0-alpha02` -> `1.7.0-alpha03`
+    * `Ktor`: `2.3.11` -> `2.3.12`
+
 ## 0.22.0
 
 **THIS UPDATE CONTAINS BREAKING CHANGES ACCORDING TO UPDATE UP TO KOTLIN 2.0**
