@@ -10,6 +10,12 @@
   * `Okio`: `3.9.0` -> `3.9.1`
   * `AndroidFragment`: `1.8.2` -> `1.8.3`
   * `androidx.compose.material3:material3` has been replaced with `org.jetbrains.compose.material3:material3`
+* `Common`:
+  * `JS`:
+    * Add several useful extensions
+  * `Compose`:
+    * `JS`:
+      * Add several useful extensions
 
 ## 0.22.2
 
