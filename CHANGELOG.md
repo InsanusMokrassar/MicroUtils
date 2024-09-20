@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.22.3
+
+* `Versions`:
+  * `Serialization`: `1.7.2` -> `1.7.3`
+  * `Coroutines`: `1.8.1` -> `1.9.0`
+  * `Compose`: `1.7.0-alpha03` -> `1.7.0-beta02`
+  * `Koin`: `3.5.6` -> `4.0.0`
+  * `Okio`: `3.9.0` -> `3.9.1`
+  * `AndroidFragment`: `1.8.2` -> `1.8.3`
+  * `androidx.compose.material3:material3` has been replaced with `org.jetbrains.compose.material3:material3`
+* `Common`:
+  * `JS`:
+    * Add several useful extensions
+  * `Compose`:
+    * `JS`:
+      * Add several useful extensions
+
 ## 0.22.2
 
 * `Versions`:

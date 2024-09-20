@@ -12,7 +12,7 @@ kotlin {
     sourceSets {
         androidMain {
             dependencies {
-                api libs.android.compose.material3
+                api libs.jb.compose.material3
             }
         }
     }
