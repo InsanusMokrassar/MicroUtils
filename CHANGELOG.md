@@ -2,6 +2,9 @@
 
 ## 0.22.5
 
+* `Coroutines`:
+  * Add extension `Flow.debouncedBy`
+
 ## 0.22.4
 
 * `Versions`:
