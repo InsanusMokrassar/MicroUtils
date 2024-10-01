@@ -2,6 +2,8 @@
 
 ## 0.22.5
 
+* `Common`:
+  * Add extension `withReplacedAt`/`withReplaced` ([#489](https://github.com/InsanusMokrassar/MicroUtils/issues/489))
 * `Coroutines`:
   * Add extension `Flow.debouncedBy`
 
