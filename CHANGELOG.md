@@ -6,6 +6,9 @@
   * Add extension `withReplacedAt`/`withReplaced` ([#489](https://github.com/InsanusMokrassar/MicroUtils/issues/489))
 * `Coroutines`:
   * Add extension `Flow.debouncedBy`
+* `Ktor`:
+  * `Server`:
+    * Add `KtorApplicationConfigurator.Routing.Static` as solution for [#488](https://github.com/InsanusMokrassar/MicroUtils/issues/488)
 
 ## 0.22.4
 
