@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.22.5
+
+* `Versions`:
+  * `Compose`: `1.7.0-beta02` -> `1.7.0-rc01`
+  * `SQLite`: `3.46.1.2` -> `3.46.1.3`
+  * `AndroidXFragment`: `1.8.3` -> `1.8.4`
+* `Common`:
+  * Add extension `withReplacedAt`/`withReplaced` ([#489](https://github.com/InsanusMokrassar/MicroUtils/issues/489))
+* `Coroutines`:
+  * Add extension `Flow.debouncedBy`
+* `Ktor`:
+  * `Server`:
+    * Add `KtorApplicationConfigurator.Routing.Static` as solution for [#488](https://github.com/InsanusMokrassar/MicroUtils/issues/488)
+
 ## 0.22.4
 
 * `Versions`:
