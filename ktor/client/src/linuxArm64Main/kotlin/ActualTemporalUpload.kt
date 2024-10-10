@@ -18,7 +18,7 @@ internal val MPPFile.mimeType: String
 actual suspend fun HttpClient.tempUpload(
     fullTempUploadDraftPath: String,
     file: MPPFile,
-    onUpload: OnUploadCallback
+    onUpload: ProgressListener
 ): TemporalFileId {
     val inputProvider = file.inputProvider()
     val fileId = submitFormWithBinaryData(
