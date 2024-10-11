@@ -23,9 +23,7 @@ interface KtorApplicationConfigurator {
         }
 
         override fun Application.configure() {
-            pluginOrNull(io.ktor.server.routing.Routing) ?.apply {
-                rootInstaller.apply { invoke() }
-            } ?: install(io.ktor.server.routing.Routing) {
+            routing {
                 rootInstaller.apply { invoke() }
             }
         }

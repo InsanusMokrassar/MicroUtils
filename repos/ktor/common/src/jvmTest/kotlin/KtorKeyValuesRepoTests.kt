@@ -23,7 +23,7 @@ import kotlinx.serialization.json.Json
 import kotlin.test.*
 
 class KtorKeyValuesRepoTests : CommonKeyValuesRepoTests() {
-    private var engine: ApplicationEngine? = null
+    private var engine: EmbeddedServer<*, *>? = null
     override val testSequencesSize: Int
         get() = 100
 

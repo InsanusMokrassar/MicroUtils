@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.common.filename
 import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import dev.inmo.micro_utils.mime_types.getMimeTypeOrAny
 import io.ktor.client.HttpClient
+import io.ktor.client.content.*
 import io.ktor.client.plugins.onUpload
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData

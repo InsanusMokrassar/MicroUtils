@@ -7,8 +7,6 @@ import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import io.ktor.client.HttpClient
 import io.ktor.client.content.*
 import kotlinx.coroutines.*
-import org.w3c.dom.mediasource.ENDED
-import org.w3c.dom.mediasource.ReadyState
 import org.w3c.xhr.*
 import org.w3c.xhr.XMLHttpRequest.Companion.DONE
 
@@ -29,7 +27,7 @@ suspend fun tempUpload(
     val request = XMLHttpRequest()
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
-        subscope.launchSafelyWithoutExceptions { onUpload(it.loaded.toLong(), it.total.toLong()) }
+        subscope.launchSafelyWithoutExceptions { onUpload.onProgress(it.loaded.toLong(), it.total.toLong()) }
     }
     request.onload = {
         if (request.status == 200.toShort()) {
