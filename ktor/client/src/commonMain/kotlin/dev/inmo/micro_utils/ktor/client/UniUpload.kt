@@ -4,8 +4,8 @@ import dev.inmo.micro_utils.common.FileName
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.ktor.common.LambdaInputProvider
 import io.ktor.client.HttpClient
+import io.ktor.client.content.*
 import io.ktor.http.Headers
-import io.ktor.utils.io.core.Input
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
@@ -31,7 +31,7 @@ expect suspend fun <T> HttpClient.uniUpload(
     resultDeserializer: DeserializationStrategy<T>,
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T?
 
 /**
@@ -46,7 +46,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     additionalData + ("bytes" to file),
@@ -68,7 +68,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     additionalData + ("bytes" to info),
@@ -93,7 +93,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     UniUploadFileInfo(fileName, mimeType, inputAllocator),

@@ -17,6 +17,7 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -26,7 +27,10 @@ import java.nio.file.attribute.FileTime
 
 class TemporalFilesRoutingConfigurator(
     private val subpath: String = DefaultTemporalFilesSubPath,
-    private val temporalFilesUtilizer: TemporalFilesUtilizer = TemporalFilesUtilizer
+    private val temporalFilesUtilizer: TemporalFilesUtilizer = TemporalFilesUtilizer,
+    filesFlowReplay: Int = 0,
+    filesFlowExtraBufferCapacity: Int = Int.MAX_VALUE,
+    filesFlowOnBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : ApplicationRoutingConfigurator.Element {
     interface TemporalFilesUtilizer {
         fun start(filesMap: MutableMap<TemporalFileId, MPPFile>, filesMutex: Mutex, onNewFileFlow: Flow<TemporalFileId>): Job
@@ -74,7 +78,11 @@ class TemporalFilesRoutingConfigurator(
 
     private val temporalFilesMap = mutableMapOf<TemporalFileId, MPPFile>()
     private val temporalFilesMutex = Mutex()
-    private val filesFlow = MutableSharedFlow<TemporalFileId>()
+    private val filesFlow = MutableSharedFlow<TemporalFileId>(
+        replay = filesFlowReplay,
+        extraBufferCapacity = filesFlowExtraBufferCapacity,
+        onBufferOverflow = filesFlowOnBufferOverflow
+    )
     val utilizerJob = temporalFilesUtilizer.start(temporalFilesMap, temporalFilesMutex, filesFlow.asSharedFlow())
 
     override fun Route.invoke() {
@@ -111,7 +119,7 @@ class TemporalFilesRoutingConfigurator(
                     temporalFilesMap[fileId] = file
                 }
                 call.respondText(fileId.string)
-                launchSafelyWithoutExceptions { filesFlow.emit(fileId) }
+                filesFlow.emit(fileId)
             } ?: call.respond(HttpStatusCode.BadRequest)
         }
     }

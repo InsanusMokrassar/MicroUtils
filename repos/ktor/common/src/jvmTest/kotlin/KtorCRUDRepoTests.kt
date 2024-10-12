@@ -25,7 +25,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class KtorCRUDRepoTests : CommonCRUDRepoTests() {
-    private var engine: ApplicationEngine? = null
+    private var engine: EmbeddedServer<*, *>? = null
 
     @BeforeTest
     fun beforeTest() {

@@ -1,9 +1,8 @@
 package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.MPPFile
-import dev.inmo.micro_utils.common.Progress
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.mergeHeaders
+import io.ktor.client.content.*
 import io.ktor.client.plugins.onUpload
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.InputProvider
@@ -21,7 +20,6 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.StringFormat
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.serializer
 
 /**
@@ -39,7 +37,7 @@ actual suspend fun <T> HttpClient.uniUpload(
     resultDeserializer: DeserializationStrategy<T>,
     headers: Headers,
     stringFormat: StringFormat,
-    onUpload: OnUploadCallback
+    onUpload: ProgressListener
 ): T? {
     val withBinary = data.values.any { it is MPPFile || it is UniUploadFileInfo }
 
@@ -75,9 +73,7 @@ actual suspend fun <T> HttpClient.uniUpload(
         headers {
             appendAll(headers)
         }
-        onUpload { bytesSentTotal, contentLength ->
-            onUpload(bytesSentTotal, contentLength)
-        }
+        onUpload(onUpload)
     }
 
     val response = if (withBinary) {

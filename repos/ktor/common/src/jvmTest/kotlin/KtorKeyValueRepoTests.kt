@@ -27,7 +27,7 @@ import kotlinx.serialization.json.Json
 import kotlin.test.*
 
 class KtorKeyValueRepoTests : CommonKeyValueRepoTests() {
-    private var engine: ApplicationEngine? = null
+    private var engine: EmbeddedServer<*, *>? = null
 
     override val repoCreator: suspend () -> KeyValueRepo<String, String> = {
         KtorKeyValueRepoClient(
@@ -77,7 +77,7 @@ class KtorKeyValueRepoTests : CommonKeyValueRepoTests() {
                         repo,
                         Int.serializer(),
                         ComplexData.serializer(),
-                        Json {}
+                        Json
                     )
                 }
             }.start(false)
