@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.22.6
+
+* `KSP`:
+  * `Generator`:
+    * Add extension `KSClassDeclaration.buildSubFileName`
+    * Add extension `KSClassDeclaration.companion`
+    * Add extension `KSClassDeclaration.resolveSubclasses`
+  * `Sealed`:
+    * Improvements
+
 ## 0.22.5
 
 * `Versions`:
