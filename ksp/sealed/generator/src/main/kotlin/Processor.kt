@@ -15,6 +15,8 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
+import dev.inmo.micro_ksp.generator.buildSubFileName
+import dev.inmo.micro_ksp.generator.companion
 import dev.inmo.micro_ksp.generator.findSubClasses
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround
@@ -93,7 +95,10 @@ class Processor(
         )
         addFunction(
             FunSpec.builder("values").apply {
-                receiver(ClassName(className.packageName, *className.simpleNames.toTypedArray(), "Companion"))
+                val companion = ksClassDeclaration.takeIf { it.isCompanionObject } ?.toClassName()
+                    ?: ksClassDeclaration.companion ?.toClassName()
+                    ?: ClassName(className.packageName, *className.simpleNames.toTypedArray(), "Companion")
+                receiver(companion)
                 returns(setType)
                 addCode(
                     CodeBlock.of(
@@ -107,7 +112,9 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(GenerateSealedWorkaround::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = it.getAnnotationsByType(GenerateSealedWorkaround::class).first().prefix
+            val prefix = it.getAnnotationsByType(GenerateSealedWorkaround::class).first().prefix.takeIf {
+                it.isNotEmpty()
+            } ?: it.buildSubFileName.replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "SealedWorkaround") {
                 FileSpec.builder(
                     it.packageName.asString(),
