@@ -19,7 +19,7 @@ import dev.inmo.micro_ksp.generator.buildSubFileName
 import dev.inmo.micro_ksp.generator.companion
 import dev.inmo.micro_ksp.generator.findSubClasses
 import dev.inmo.micro_ksp.generator.writeFile
-import dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround
+import dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround
 import java.io.File
 
 class Processor(

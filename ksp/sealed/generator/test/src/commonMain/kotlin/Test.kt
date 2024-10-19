@@ -1,6 +1,6 @@
 package dev.inmo.micro_utils.ksp.sealed.generator.test
 
-import dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround
+import dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround
 
 @GenerateSealedWorkaround
 sealed interface Test {

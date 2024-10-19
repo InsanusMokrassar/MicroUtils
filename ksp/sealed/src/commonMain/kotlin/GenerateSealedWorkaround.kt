@@ -1,4 +1,4 @@
-package dev.inmo.microutils.kps.sealed
+package dev.inmo.micro_utils.ksp.sealed
 
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS)

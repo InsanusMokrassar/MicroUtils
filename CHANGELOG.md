@@ -2,6 +2,10 @@
 
 ## 0.22.7
 
+* `KSP`:
+  * `Sealed`:
+    * Change package of `GenerateSealedWorkaround`. Migration: replace `dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround` -> `dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround`
+
 ## 0.22.6
 
 * `KSP`:
