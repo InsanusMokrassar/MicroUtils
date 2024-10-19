@@ -2,6 +2,9 @@
 
 ## 0.22.7
 
+* `Versions`:
+  * `Kotlin`: `2.0.20` -> `2.0.21`
+  * `Compose`: `1.7.0-rc01` -> `1.7.0`
 * `KSP`:
   * `Sealed`:
     * Change package of `GenerateSealedWorkaround`. Migration: replace `dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround` -> `dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround`
