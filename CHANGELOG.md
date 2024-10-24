@@ -2,6 +2,10 @@
 
 ## 0.22.8
 
+* `Common`:
+  * Add `List.breakAsPairs` extension
+  * Add `Sequence.padWith`/`Sequence.padStart`/`Sequence.padEnd` and `List.padWith`/`List.padStart`/`List.padEnd` extensions
+
 ## 0.22.7
 
 * `Versions`:
