@@ -2,6 +2,31 @@
 
 ## 0.23.0
 
+## 0.22.8
+
+* `Common`:
+  * Add `List.breakAsPairs` extension
+  * Add `Sequence.padWith`/`Sequence.padStart`/`Sequence.padEnd` and `List.padWith`/`List.padStart`/`List.padEnd` extensions
+
+## 0.22.7
+
+* `Versions`:
+  * `Kotlin`: `2.0.20` -> `2.0.21`
+  * `Compose`: `1.7.0-rc01` -> `1.7.0`
+* `KSP`:
+  * `Sealed`:
+    * Change package of `GenerateSealedWorkaround`. Migration: replace `dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround` -> `dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround`
+
+## 0.22.6
+
+* `KSP`:
+  * `Generator`:
+    * Add extension `KSClassDeclaration.buildSubFileName`
+    * Add extension `KSClassDeclaration.companion`
+    * Add extension `KSClassDeclaration.resolveSubclasses`
+  * `Sealed`:
+    * Improvements
+
 ## 0.22.5
 
 * `Versions`:

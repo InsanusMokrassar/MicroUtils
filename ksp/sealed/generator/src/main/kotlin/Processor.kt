@@ -15,9 +15,11 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
+import dev.inmo.micro_ksp.generator.buildSubFileName
+import dev.inmo.micro_ksp.generator.companion
 import dev.inmo.micro_ksp.generator.findSubClasses
 import dev.inmo.micro_ksp.generator.writeFile
-import dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround
+import dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround
 import java.io.File
 
 class Processor(
@@ -51,10 +53,10 @@ class Processor(
         ksClassDeclaration: KSClassDeclaration,
         resolver: Resolver
     ) {
-        val annotation = ksClassDeclaration.getAnnotationsByType(GenerateSealedWorkaround::class).first()
+        val annotation = ksClassDeclaration.getGenerateSealedWorkaroundAnnotation
         val subClasses = ksClassDeclaration.resolveSubclasses(
             searchIn = resolver.getAllFiles(),
-            allowNonSealed = annotation.includeNonSealedSubTypes
+            allowNonSealed = annotation ?.includeNonSealedSubTypes ?: false
         ).distinct()
         val subClassesNames = subClasses.filter {
             when (it.classKind) {
@@ -93,7 +95,10 @@ class Processor(
         )
         addFunction(
             FunSpec.builder("values").apply {
-                receiver(ClassName(className.packageName, *className.simpleNames.toTypedArray(), "Companion"))
+                val companion = ksClassDeclaration.takeIf { it.isCompanionObject } ?.toClassName()
+                    ?: ksClassDeclaration.companion ?.toClassName()
+                    ?: ClassName(className.packageName, *className.simpleNames.toTypedArray(), "Companion")
+                receiver(companion)
                 returns(setType)
                 addCode(
                     CodeBlock.of(
@@ -107,7 +112,9 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(GenerateSealedWorkaround::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = it.getAnnotationsByType(GenerateSealedWorkaround::class).first().prefix
+            val prefix = (it.getGenerateSealedWorkaroundAnnotation) ?.prefix ?.takeIf {
+                it.isNotEmpty()
+            } ?: it.buildSubFileName.replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "SealedWorkaround") {
                 FileSpec.builder(
                     it.packageName.asString(),
