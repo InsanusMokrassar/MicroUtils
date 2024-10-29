@@ -2,6 +2,12 @@
 
 ## 0.23.0
 
+## 0.22.9
+
+* `Repos`:
+  * `Cache`:
+    * Add direct caching repos
+
 ## 0.22.8
 
 * `Common`:
