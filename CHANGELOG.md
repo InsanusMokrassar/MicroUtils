@@ -2,6 +2,22 @@
 
 ## 0.23.0
 
+**THIS UPDATE MAY CONTAINS SOME BREAKING CHANGES (INCLUDING BREAKING CHANGES IN BYTECODE LAYER) RELATED TO UPDATE OF
+KTOR DEPENDENCY**
+
+**THIS UPDATE CONTAINS CHANGES ACCORDING TO MIGRATION [GUIDE FROM KTOR](https://ktor.io/docs/migrating-3.html)**
+
+* `Versions`:
+  * `Ktor`: `2.3.12` -> `3.0.1`
+* `Ktor`:
+  * `Common`:
+    * Extension `Input.downloadToTempFile` has changed its receiver to `Source`. Its API can be broken
+  * `Client`:
+    * Extension `HttpClient.tempUpload` has changed type of `onUpload` argument from `OnUploadCallback` to `ProgressListener`
+    * All extensions `HttpClient.uniUpload` have changed type of `onUpload` argument from `OnUploadCallback` to `ProgressListener`
+  * `Server`:
+    * Remove redundant `ApplicationCall.respond` extension due to its presence in the ktor library
+
 ## 0.22.9
 
 * `Repos`:
