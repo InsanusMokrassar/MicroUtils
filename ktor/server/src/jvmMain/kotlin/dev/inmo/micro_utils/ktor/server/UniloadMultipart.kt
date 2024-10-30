@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.ktor.common.downloadToTempFile
 import io.ktor.http.content.*
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receiveMultipart
+import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
@@ -47,7 +48,7 @@ suspend fun ApplicationCall.uniloadMultipart(
         onBinaryChannelItem
     ) {
         when (it.name) {
-            "bytes" -> resultInput = it.provider()
+            "bytes" -> resultInput = it.provider().readBuffer()
             else -> onCustomFileItem(it)
         }
     }
