@@ -2,6 +2,10 @@
 
 ## 0.23.1
 
+* `Coroutines`:
+  * `Compose`:
+    * Add `StyleSheetsAggregator`
+
 ## 0.23.0
 
 **THIS UPDATE MAY CONTAINS SOME BREAKING CHANGES (INCLUDING BREAKING CHANGES IN BYTECODE LAYER) RELATED TO UPDATE OF
