@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.23.1
+
+* `Versions`:
+  * `Compose`: `1.7.0` -> `1.7.1`
+  * `Exposed`: `0.55.0` -> `0.56.0`
+  * `Xerial SQLite`: `3.46.1.3` -> `3.47.0.0`
+  * `Android CoreKTX`: `1.13.1` -> `1.15.0`
+  * `Android Fragment`: `1.8.4` -> `1.8.5`
+* `Coroutines`:
+  * `Compose`:
+    * Add `StyleSheetsAggregator`
+
 ## 0.23.0
 
 **THIS UPDATE MAY CONTAINS SOME BREAKING CHANGES (INCLUDING BREAKING CHANGES IN BYTECODE LAYER) RELATED TO UPDATE OF
