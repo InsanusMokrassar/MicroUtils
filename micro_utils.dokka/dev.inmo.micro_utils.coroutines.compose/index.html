@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-0.23.0            </div>
+0.23.1            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector common-like" data-active="" data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
@@ -68,8 +68,29 @@
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
     <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="19895053%2FClasslikes%2F-119510368" anchor-label="StyleSheetsAggregator" id="19895053%2FClasslikes%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-style-sheets-aggregator/index.html"><span>Style</span><wbr></wbr><span>Sheets</span><wbr></wbr><span><span>Aggregator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="19895053%2FClasslikes%2F-119510368"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-style-sheets-aggregator/index.html">StyleSheetsAggregator</a></div><div class="brief "><p class="paragraph">Aggregator of Compose CSS StyleSheet. Allowing to add StyleSheet in it and draw it in one place without requiring to add <code class="lang-kotlin">Style(stylesheet)</code> on every compose function call</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
         <div class="table"><a data-name="-684296787%2FFunctions%2F-1478683138" anchor-label="asComposeList" id="-684296787%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
@@ -128,6 +149,40 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-mutable-compose-state.html"><span class="token function">asMutableComposeState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter ">useContextOnChange<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator">?</span><span class="token operator"> = </span>Dispatchers.Main<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>onException<span class="token operator">: </span><a href="../dev.inmo.micro_utils.coroutines/-exception-handler/index.html">ExceptionHandler</a><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator"> = </span>defaultSafelyWithoutExceptionHandlerWithNull</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Will map <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">this</span> as MutableState. Returned MutableState WILL NOT change source <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>. This conversation will pass its <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow/value/#/PointingToDeclaration/">StateFlow.value</span> as the first value</p></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-mutable-compose-state.html"><span class="token function">asMutableComposeState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initial<span class="token operator">: </span><a href="as-mutable-compose-state.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter ">useContextOnChange<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator">?</span><span class="token operator"> = </span>Dispatchers.Main<span class="token punctuation">, </span></span><span class="parameter ">onException<span class="token operator">: </span><a href="../dev.inmo.micro_utils.coroutines/-exception-handler/index.html">ExceptionHandler</a><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator"> = </span>defaultSafelyWithoutExceptionHandlerWithNull</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="as-mutable-compose-state.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Will map <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">this</span> as MutableState. Returned MutableState WILL NOT change source <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span></p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2073002347%2FFunctions%2F-119510368" anchor-label="enableStyleSheetsAggregator" id="-2073002347%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="enable-style-sheets-aggregator.html"><span>enable</span><wbr></wbr><span>Style</span><wbr></wbr><span>Sheets</span><wbr></wbr><span><span>Aggregator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2073002347%2FFunctions%2F-119510368"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="enable-style-sheets-aggregator.html"><span class="token function">enableStyleSheetsAggregator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">stylesPreset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span><span class="token operator"> = </span>emptySet()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Drawing <a href="-style-sheets-aggregator/index.html">StyleSheetsAggregator</a> in place. You may pass <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a> of CSSRulesHolder/StyleSheets as preset of styles</p></div></div>                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-8888973%2FFunctions%2F-119510368" anchor-label="includeInStyleSheetsAggregator" id="-8888973%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="include-in-style-sheets-aggregator.html"><span>include</span><wbr></wbr><span>In</span><wbr></wbr><span>Style</span><wbr></wbr><span>Sheets</span><wbr></wbr><span><span>Aggregator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-8888973%2FFunctions%2F-119510368"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">.</span><a href="include-in-style-sheets-aggregator.html"><span class="token function">includeInStyleSheetsAggregator</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Will include CSSRulesHolder/StyleSheet in the <a href="-style-sheets-aggregator/index.html">StyleSheetsAggregator</a> using its <a href="-style-sheets-aggregator/add-style-sheet.html">StyleSheetsAggregator.addStyleSheet</a></p></div></div>                  </div>
                 </div>
               </div>
             </div>
