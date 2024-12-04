@@ -21,4 +21,5 @@ jobs:
         continue-on-error: true
         run: ./gradlew publishAllPublicationsToInmoNexusRepository
         env:
-          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          INMONEXUS_USER: ${{ secrets.INMONEXUS_USER }}
+          INMONEXUS_PASSWORD: ${{ secrets.INMONEXUS_PASSWORD }}
