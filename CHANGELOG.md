@@ -2,6 +2,9 @@
 
 ## 0.23.2
 
+* `Coroutines`:
+  * Small refactor in `AccumulatorFlow` to use `runCatching` instead of `runCatchingSafely`
+
 ## 0.23.1
 
 * `Versions`:

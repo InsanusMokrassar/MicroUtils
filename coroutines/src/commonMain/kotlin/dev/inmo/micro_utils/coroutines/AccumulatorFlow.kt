@@ -68,9 +68,9 @@ class AccumulatorFlow<T>(
     override suspend fun collectSafely(collector: FlowCollector<T>) {
         val channel = Channel<T>(Channel.UNLIMITED, BufferOverflow.SUSPEND)
         steps.send(SubscribeAccumulatorFlowStep(channel))
-        val result = runCatchingSafely {
+        val result = runCatching {
             for (data in channel) {
-                val emitResult = runCatchingSafely {
+                val emitResult = runCatching {
                     collector.emit(data)
                 }
                 if (emitResult.isSuccess || emitResult.exceptionOrNull() is CancellationException) {
