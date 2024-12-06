@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.23.2
+
+* `Versions`:
+  * `Kotlin`: `2.0.21` -> `2.1.0`
+  * `Exposed`: `0.56.0` -> `0.57.0`
+  * `Xerial SQLite`: `3.47.0.0` -> `3.47.1.0`
+  * `Ktor`: `3.0.1` -> `3.0.2`
+* `Coroutines`:
+  * Small refactor in `AccumulatorFlow` to use `runCatching` instead of `runCatchingSafely`
+
 ## 0.23.1
 
 * `Versions`:
