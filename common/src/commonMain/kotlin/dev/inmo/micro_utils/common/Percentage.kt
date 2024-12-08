@@ -5,7 +5,7 @@ import kotlin.jvm.JvmInline
 
 @Serializable
 @JvmInline
-value class Progress private constructor(
+value class Percentage private constructor(
     val of1: Double
 ) {
     val of1Float
@@ -26,12 +26,15 @@ value class Progress private constructor(
     companion object {
         val rangeOfValues = 0.0 .. 1.0
 
-        val START = Progress(rangeOfValues.start)
-        val COMPLETED = Progress(rangeOfValues.endInclusive)
+        val START = Percentage(rangeOfValues.start)
+        val COMPLETED = Percentage(rangeOfValues.endInclusive)
 
-        operator fun invoke(of1: Double) = Progress(of1.coerceIn(rangeOfValues))
-        operator fun invoke(part: Number, total: Number) = Progress(
+        operator fun invoke(of1: Double) = Percentage(of1.coerceIn(rangeOfValues))
+        operator fun invoke(part: Number, total: Number) = Percentage(
             part.toDouble() / total.toDouble()
         )
+        fun of100(of100: Double) = Percentage(of1 = of100 / 100)
     }
 }
+
+typealias Progress = Percentage
