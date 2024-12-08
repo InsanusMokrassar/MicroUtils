@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24.0
+
+* `Common`:
+  * Rename `Progress` to more common `Percentage`. `Progress` now is typealias
+  * Fix of `Progress.compareTo` extension
+
 ## 0.23.2
 
 * `Versions`:
