@@ -276,7 +276,7 @@ $dokka.location:dev.inmo.micro_utils.common//calculateStrictDiff/kotlin.collecti
 $dokka.location:dev.inmo.micro_utils.common//changeVisibility/android.view.View#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/change-visibility.html
 $dokka.location:dev.inmo.micro_utils.common//collapse/android.view.View#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/collapse.html
 $dokka.location:dev.inmo.micro_utils.common//collapseHorizontally/android.view.View#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/collapse-horizontally.html
-$dokka.location:dev.inmo.micro_utils.common//compareTo/dev.inmo.micro_utils.common.Progress#dev.inmo.micro_utils.common.Progress/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/compare-to.html
+$dokka.location:dev.inmo.micro_utils.common//compareTo/dev.inmo.micro_utils.common.Percentage#dev.inmo.micro_utils.common.Percentage/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/compare-to.html
 $dokka.location:dev.inmo.micro_utils.common//convert/dev.inmo.micro_utils.common.SimpleMapper[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[common]convert.html
 $dokka.location:dev.inmo.micro_utils.common//convert/dev.inmo.micro_utils.common.SimpleSuspendableMapper[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/[common]convert.html
 $dokka.location:dev.inmo.micro_utils.common//convertToClipboardItem/org.w3c.files.Blob#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/convert-to-clipboard-item.html
@@ -291,17 +291,19 @@ $dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Map[TypePar
 $dokka.location:dev.inmo.micro_utils.common//diff/kotlin.collections.Map[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Map[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#kotlin.Function3[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?]),kotlin.Boolean]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/diff.html
 $dokka.location:dev.inmo.micro_utils.common//disable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disable.html
 $dokka.location:dev.inmo.micro_utils.common//disabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/disabled.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
-$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
+$dokka.location:dev.inmo.micro_utils.common//div/dev.inmo.micro_utils.common.Percentage#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/div.html
 $dokka.location:dev.inmo.micro_utils.common//downloadToTempFile/java.io.InputStream#kotlin.String#kotlin.String?#java.io.File?/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/download-to-temp-file.html
 $dokka.location:dev.inmo.micro_utils.common//either/kotlin.Any#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/either.html
 $dokka.location:dev.inmo.micro_utils.common//emptyDiff/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/empty-diff.html
 $dokka.location:dev.inmo.micro_utils.common//enable/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enable.html
 $dokka.location:dev.inmo.micro_utils.common//enabled/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/enabled.html
+$dokka.location:dev.inmo.micro_utils.common//ensureStrictOrNull/dev.inmo.micro_utils.common.Percentage#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/ensure-strict-or-null.html
+$dokka.location:dev.inmo.micro_utils.common//ensureStrictOrThrow/dev.inmo.micro_utils.common.Percentage#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/ensure-strict-or-throw.html
 $dokka.location:dev.inmo.micro_utils.common//expand/android.view.View#kotlin.Long#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/expand.html
 $dokka.location:dev.inmo.micro_utils.common//expandHorizontally/android.view.View#kotlin.Long#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/expand-horizontally.html
 $dokka.location:dev.inmo.micro_utils.common//filename/dev.inmo.micro_utils.common.MPPFile#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/filename.html
@@ -364,13 +366,13 @@ $dokka.location:dev.inmo.micro_utils.common//mapOnAbsent/dev.inmo.micro_utils.co
 $dokka.location:dev.inmo.micro_utils.common//mapOnFirst/dev.inmo.micro_utils.common.Either[TypeParam(bounds=[kotlin.Any?]),*]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-on-first.html
 $dokka.location:dev.inmo.micro_utils.common//mapOnPresented/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-on-presented.html
 $dokka.location:dev.inmo.micro_utils.common//mapOnSecond/dev.inmo.micro_utils.common.Either[*,TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/map-on-second.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#dev.inmo.micro_utils.common.Progress/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
-$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#dev.inmo.micro_utils.common.Percentage/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
+$dokka.location:dev.inmo.micro_utils.common//minus/dev.inmo.micro_utils.common.Percentage#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/minus.html
 $dokka.location:dev.inmo.micro_utils.common//observe/dev.inmo.micro_utils.common.ResizeObserver#org.w3c.dom.Element#dev.inmo.micro_utils.common.ResizeObserverObserveOptions/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/observe.html
 $dokka.location:dev.inmo.micro_utils.common//onAbsent/dev.inmo.micro_utils.common.Optional[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/on-absent.html
 $dokka.location:dev.inmo.micro_utils.common//onActionOutside/org.w3c.dom.Element#kotlin.String#kotlin.Any#kotlin.Function1[org.w3c.dom.events.Event,kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/on-action-outside.html
@@ -395,21 +397,21 @@ $dokka.location:dev.inmo.micro_utils.common//padStart/kotlin.sequences.Sequence[
 $dokka.location:dev.inmo.micro_utils.common//padStart/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.Int#kotlin.Function1[kotlin.Int,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/pad-start.html
 $dokka.location:dev.inmo.micro_utils.common//padWith/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#kotlin.Int#kotlin.Function1[kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])],kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/pad-with.html
 $dokka.location:dev.inmo.micro_utils.common//padWith/kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]#kotlin.Int#kotlin.Function1[kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])],kotlin.sequences.Sequence[TypeParam(bounds=[kotlin.Any?])]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/pad-with.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#dev.inmo.micro_utils.common.Progress/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
-$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#dev.inmo.micro_utils.common.Percentage/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
+$dokka.location:dev.inmo.micro_utils.common//plus/dev.inmo.micro_utils.common.Percentage#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/plus.html
 $dokka.location:dev.inmo.micro_utils.common//readBytes/org.w3c.files.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/read-bytes.html
 $dokka.location:dev.inmo.micro_utils.common//readBytesPromise/org.w3c.files.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/read-bytes-promise.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
-$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
+$dokka.location:dev.inmo.micro_utils.common//rem/dev.inmo.micro_utils.common.Percentage#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/rem.html
 $dokka.location:dev.inmo.micro_utils.common//repeatOnFailure/#kotlin.Function1[kotlin.Throwable,kotlin.Boolean]#kotlin.Function0[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/repeat-on-failure.html
 $dokka.location:dev.inmo.micro_utils.common//repeatOnFailure/#kotlin.Int#kotlin.Function1[kotlin.Throwable,kotlin.Unit]#kotlin.Function1[kotlin.Int,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/repeat-on-failure.html
 $dokka.location:dev.inmo.micro_utils.common//reversed/dev.inmo.micro_utils.common.Diff[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/reversed.html
@@ -421,12 +423,12 @@ $dokka.location:dev.inmo.micro_utils.common//show/android.view.View#/PointingToD
 $dokka.location:dev.inmo.micro_utils.common//shown/android.view.View#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/shown.html
 $dokka.location:dev.inmo.micro_utils.common//simpleMapper/#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/simple-mapper.html
 $dokka.location:dev.inmo.micro_utils.common//simpleSuspendableMapper/#kotlin.coroutines.SuspendFunction1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]#kotlin.coroutines.SuspendFunction1[TypeParam(bounds=[kotlin.Any?]),TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/simple-suspendable-mapper.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
-$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Progress#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Byte/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Float/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Long/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
+$dokka.location:dev.inmo.micro_utils.common//times/dev.inmo.micro_utils.common.Percentage#kotlin.Short/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/times.html
 $dokka.location:dev.inmo.micro_utils.common//toArrayBuffer/kotlin.ByteArray#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/to-array-buffer.html
 $dokka.location:dev.inmo.micro_utils.common//toByteArray/org.khronos.webgl.ArrayBuffer#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/to-byte-array.html
 $dokka.location:dev.inmo.micro_utils.common//toByteArray/org.khronos.webgl.DataView#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/to-byte-array.html
@@ -542,20 +544,24 @@ $dokka.location:dev.inmo.micro_utils.common/Optional.Companion/presented/#TypePa
 $dokka.location:dev.inmo.micro_utils.common/Optional///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-optional/index.html
 $dokka.location:dev.inmo.micro_utils.common/Optional/data/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-optional/data.html
 $dokka.location:dev.inmo.micro_utils.common/Optional/dataPresented/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-optional/data-presented.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/index.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/COMPLETED/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/-c-o-m-p-l-e-t-e-d.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/START/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/-s-t-a-r-t.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/invoke/#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/invoke.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/invoke/#kotlin.Number#kotlin.Number/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/invoke.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/of1/#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/of1.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/of100/#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/of100.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/partOfTotal/#kotlin.Number#kotlin.Number/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/part-of-total.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage.Companion/rangeOfValues/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/-companion/range-of-values.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/index.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage/of1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/of1.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage/of100/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/of100.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage/of100Float/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/of100-float.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage/of100Int/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/of100-int.html
+$dokka.location:dev.inmo.micro_utils.common/Percentage/of1Float/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-percentage/of1-float.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-preview-feature/index.html
 $dokka.location:dev.inmo.micro_utils.common/PreviewFeature/message/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-preview-feature/message.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/index.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion/COMPLETED/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/-c-o-m-p-l-e-t-e-d.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion/START/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/-s-t-a-r-t.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion/invoke/#kotlin.Double/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/invoke.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion/invoke/#kotlin.Number#kotlin.Number/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/invoke.html
-$dokka.location:dev.inmo.micro_utils.common/Progress.Companion/rangeOfValues/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/-companion/range-of-values.html
 $dokka.location:dev.inmo.micro_utils.common/Progress///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/index.html
-$dokka.location:dev.inmo.micro_utils.common/Progress/of1/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/of1.html
-$dokka.location:dev.inmo.micro_utils.common/Progress/of100/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/of100.html
-$dokka.location:dev.inmo.micro_utils.common/Progress/of100Float/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/of100-float.html
-$dokka.location:dev.inmo.micro_utils.common/Progress/of100Int/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/of100-int.html
-$dokka.location:dev.inmo.micro_utils.common/Progress/of1Float/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-progress/of1-float.html
 $dokka.location:dev.inmo.micro_utils.common/ResizeObserver///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-resize-observer/index.html
 $dokka.location:dev.inmo.micro_utils.common/ResizeObserver/ResizeObserver/#kotlin.Function2[kotlin.Array[dev.inmo.micro_utils.common.ResizeObserverEntry],dev.inmo.micro_utils.common.ResizeObserver,kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-resize-observer/-resize-observer.html
 $dokka.location:dev.inmo.micro_utils.common/ResizeObserver/disconnect/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-resize-observer/disconnect.html
@@ -1017,6 +1023,8 @@ $dokka.location:dev.inmo.micro_utils.ktor.client//openWebSocketFlow/[Error type:
 $dokka.location:dev.inmo.micro_utils.ktor.client//openWebSocketFlow/[Error type: Unresolved type for HttpClient]#kotlin.String#kotlin.coroutines.SuspendFunction1[kotlin.Throwable?,kotlin.Boolean]#kotlin.Function1[[Error type: Unresolved type for HttpRequestBuilder],kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/open-web-socket-flow.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//tempUpload/#kotlin.String#org.w3c.files.File#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/temp-upload.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//tempUpload/[Error type: Unresolved type for HttpClient]#kotlin.String#dev.inmo.micro_utils.common.MPPFile#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/temp-upload.html
+$dokka.location:dev.inmo.micro_utils.ktor.client//tempUpload/[Error type: Unresolved type for HttpClient]#kotlin.String#java.io.File#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/temp-upload.html
+$dokka.location:dev.inmo.micro_utils.ktor.client//tempUpload/[Error type: Unresolved type for HttpClient]#kotlin.String#org.w3c.files.File#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/temp-upload.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//throwOnUnsuccess/[Error type: Unresolved type for HttpResponse]#kotlin.Function0[kotlin.String]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/throw-on-unsuccess.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//uniUpload/[Error type: Unresolved type for HttpClient]#kotlin.String#dev.inmo.micro_utils.common.FileName#kotlin.String#kotlin.Function0[[Error type: Unresolved type for Input]]#kotlinx.serialization.DeserializationStrategy[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Map[kotlin.String,kotlin.Any]#[Error type: Unresolved type for Headers]#kotlinx.serialization.StringFormat#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/uni-upload.html
 $dokka.location:dev.inmo.micro_utils.ktor.client//uniUpload/[Error type: Unresolved type for HttpClient]#kotlin.String#dev.inmo.micro_utils.common.MPPFile#kotlinx.serialization.DeserializationStrategy[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Map[kotlin.String,kotlin.Any]#[Error type: Unresolved type for Headers]#kotlinx.serialization.StringFormat#[Error type: Unresolved type for ProgressListener]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.client/uni-upload.html
@@ -1047,6 +1055,8 @@ $dokka.location:dev.inmo.micro_utils.ktor.common//extractFromToDateTime/kotlin.c
 $dokka.location:dev.inmo.micro_utils.ktor.common//includeQueryParams/kotlin.String#kotlin.collections.List[kotlin.Pair[kotlin.String,kotlin.String?]]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/include-query-params.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//includeQueryParams/kotlin.String#kotlin.collections.Map[kotlin.String,kotlin.String?]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/include-query-params.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//input/dev.inmo.micro_utils.common.MPPFile#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/input.html
+$dokka.location:dev.inmo.micro_utils.ktor.common//input/java.io.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/input.html
+$dokka.location:dev.inmo.micro_utils.ktor.common//input/org.w3c.files.File#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/input.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//parseUrlQuery/kotlin.String#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/parse-url-query.html
 $dokka.location:dev.inmo.micro_utils.ktor.common//standardKtorSerialFormat/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/standard-ktor-serial-format.html
 $dokka.location:dev.inmo.micro_utils.ktor.common/CorrectCloseException///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ktor.common/-correct-close-exception/index.html
@@ -6962,4 +6972,3 @@ dev.inmo.micro_utils.serialization.typed_serializer
 dev.inmo.micro_utils.startup.launcher
 dev.inmo.micro_utils.startup.plugin
 dev.inmo.micro_utils.strings
-
