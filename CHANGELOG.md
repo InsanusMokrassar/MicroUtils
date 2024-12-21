@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.24.0
+
+* `Versions`:
+  * `Coroutines`: `1.9.0` -> `1.10.1`
+  * `KSLog`: `1.3.6` -> `1.4.0`
+  * `Compose`: `1.7.1` -> `1.7.3`
+  * `Ktor`: `3.0.2` -> `3.0.3`
+* `Common`:
+  * Rename `Progress` to more common `Percentage`. `Progress` now is typealias
+  * Fix of `Progress.compareTo` extension
+
 ## 0.23.2
 
 * `Versions`:
