@@ -19,7 +19,7 @@ ktor = "3.0.3"
 
 gh-release = "2.5.2"
 
-koin = "4.0.0"
+koin = "4.0.1"
 
 okio = "3.9.1"
 
