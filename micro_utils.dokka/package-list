@@ -998,6 +998,7 @@ $dokka.location:dev.inmo.micro_utils.ksp.classcasts/ClassCastsIncluded/levelsToI
 $dokka.location:dev.inmo.micro_utils.ksp.classcasts/ClassCastsIncluded/outputFilePrefix/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.classcasts/-class-casts-included/output-file-prefix.html
 $dokka.location:dev.inmo.micro_utils.ksp.classcasts/ClassCastsIncluded/typesRegex/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.classcasts/-class-casts-included/types-regex.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test//subtypes/dev.inmo.micro_utils.ksp.sealed.generator.test.Test.Companion#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/subtypes.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test//values/dev.inmo.micro_utils.ksp.sealed.generator.test.Test.Companion#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/values.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.A///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-a/index.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.B///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-b/index.html
@@ -1005,6 +1006,12 @@ $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.C///Pointing
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test.Companion///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/-companion/index.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed.generator.test/Test///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/-test/index.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed////PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround.Exclude///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/-exclude/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround.Order///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/-order/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround.Order/order/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/-order/order.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/index.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround/includeNonSealedSubTypes/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/include-non-sealed-sub-types.html
+$dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedTypesWorkaround/prefix/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-types-workaround/prefix.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedWorkaround.Exclude///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-workaround/-exclude/index.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedWorkaround.Order///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-workaround/-order/index.html
 $dokka.location:dev.inmo.micro_utils.ksp.sealed/GenerateSealedWorkaround.Order/order/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/-generate-sealed-workaround/-order/order.html
