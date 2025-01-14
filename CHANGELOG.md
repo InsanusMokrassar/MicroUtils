@@ -2,6 +2,10 @@
 
 ## 0.24.2
 
+* `Ksp`:
+  * `Sealed`:
+    * Add annotation `GenerateSealedTypesWorkaround` which allow to generate `subtypes` lists
+
 ## 0.24.1
 
 * `Versions`:
