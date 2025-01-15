@@ -7,6 +7,6 @@ import kotlin.collections.Set
 import kotlin.reflect.KClass
 
 private val subtypes: Set<KClass<out Test>> = setOf(Test.C::class,
-    Test.A::class)
+    Test.B::class)
 
 public fun Test.Companion.subtypes(): Set<KClass<out Test>> = subtypes

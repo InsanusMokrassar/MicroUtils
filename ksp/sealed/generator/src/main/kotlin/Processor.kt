@@ -116,9 +116,9 @@ class Processor(
             allowNonSealed = annotation ?.includeNonSealedSubTypes ?: false
         ).distinct()
         val subClassesNames = subClasses.filter {
-            it.getAnnotationsByType(GenerateSealedWorkaround.Exclude::class).count() == 0
+            it.getAnnotationsByType(GenerateSealedTypesWorkaround.Exclude::class).count() == 0
         }.sortedBy {
-            (it.getAnnotationsByType(GenerateSealedWorkaround.Order::class).firstOrNull()) ?.order ?: 0
+            (it.getAnnotationsByType(GenerateSealedTypesWorkaround.Order::class).firstOrNull()) ?.order ?: 0
         }.map {
             it.toClassName()
         }.toList()

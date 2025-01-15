@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24.3
+
+* `Ksp`:
+  * `Sealed`:
+    * Fixes in processing of `GenerateSealedTypesWorkaround` annotations
+
 ## 0.24.2
 
 * `Versions`:
