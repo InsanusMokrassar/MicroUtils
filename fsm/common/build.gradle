@@ -12,6 +12,7 @@ kotlin {
             dependencies {
                 api project(":micro_utils.common")
                 api project(":micro_utils.coroutines")
+                api libs.kslog
             }
         }
     }
