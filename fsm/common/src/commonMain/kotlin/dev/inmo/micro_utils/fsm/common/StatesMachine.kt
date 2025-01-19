@@ -1,5 +1,7 @@
 package dev.inmo.micro_utils.fsm.common
 
+import dev.inmo.kslog.common.TagLogger
+import dev.inmo.kslog.common.e
 import dev.inmo.micro_utils.common.Optional
 import dev.inmo.micro_utils.coroutines.*
 import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
@@ -68,6 +70,7 @@ open class DefaultStatesMachine <T: State>(
     protected val handlers: List<CheckableHandlerHolder<in T, T>>,
     protected val onStateHandlingErrorHandler: StateHandlingErrorHandler<T> = defaultStateHandlingErrorHandler()
 ) : StatesMachine<T> {
+    protected val logger = TagLogger(this::class.simpleName!!)
     /**
      * Will call [launchStateHandling] for state handling
      */
@@ -96,7 +99,13 @@ open class DefaultStatesMachine <T: State>(
         statesJobsMutex.withLock {
             statesJobs[actualState] ?.cancel()
             statesJobs[actualState] = scope.launch {
-                performUpdate(actualState)
+                runCatching {
+                    performUpdate(actualState)
+                }.onFailure {
+                    logger.e(it) {
+                        "Unable to perform update of state from $actualState"
+                    }
+                }.getOrThrow()
             }.also { job ->
                 job.invokeOnCompletion { _ ->
                     scope.launch {

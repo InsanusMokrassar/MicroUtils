@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.24.4
+
+* `Repos`:
+  * `Exposed`:
+    * Improve `CommonExposedRepo.selectByIds`
+* `FSM`:
+  * Fixes and improvements
+
 ## 0.24.3
 
 * `Ksp`:
