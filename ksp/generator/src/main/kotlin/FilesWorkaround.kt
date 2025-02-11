@@ -1,11 +1,13 @@
 package dev.inmo.micro_ksp.generator
 
 import com.google.devtools.ksp.symbol.KSClassDeclaration
+import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSFile
+import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.squareup.kotlinpoet.FileSpec
 import java.io.File
 
-fun KSClassDeclaration.writeFile(
+fun KSDeclaration.writeFile(
     prefix: String = "",
     suffix: String = "",
     relatedPath: String = "",
@@ -21,8 +23,9 @@ fun KSClassDeclaration.writeFile(
         "$prefix${simpleName.asString()}$suffix.kt"
     ).takeIf { force || !it.exists() } ?.apply {
         parentFile.mkdirs()
+        val fileSpec = fileSpecBuilder()
         writer().use { writer ->
-            fileSpecBuilder().writeTo(writer)
+            fileSpec.writeTo(writer)
         }
     }
 }
@@ -42,8 +45,9 @@ fun KSFile.writeFile(
         "$prefix${fileName.dropLastWhile { it != '.' }.removeSuffix(".")}$suffix.kt"
     ).takeIf { force || !it.exists() } ?.apply {
         parentFile.mkdirs()
+        val fileSpec = fileSpecBuilder()
         writer().use { writer ->
-            fileSpecBuilder().writeTo(writer)
+            fileSpec.writeTo(writer)
         }
     }
 }
