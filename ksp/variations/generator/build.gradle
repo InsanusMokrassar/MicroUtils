@@ -9,6 +9,7 @@ repositories {
 }
 
 dependencies {
+    implementation libs.kt.stdlib
     api project(":micro_utils.ksp.generator")
     api project(":micro_utils.ksp.variations")
     api libs.kotlin.poet

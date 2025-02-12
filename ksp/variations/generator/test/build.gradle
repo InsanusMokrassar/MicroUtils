@@ -12,6 +12,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation libs.kt.stdlib
                 api project(":micro_utils.ksp.variations")
             }
         }

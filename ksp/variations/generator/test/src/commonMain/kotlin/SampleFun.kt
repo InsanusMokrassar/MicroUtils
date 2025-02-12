@@ -1,32 +1,51 @@
+package dev.inmo.micro_utils.ksp.variations.generator.test
+
 import dev.inmo.micro_utils.ksp.variations.GenerateVariations
 import dev.inmo.micro_utils.ksp.variations.GenerationVariant
 
-data class Sample(
+data class SimpleType(
     val value: String
+)
+
+data class GenericType<T>(
+    val value: T
 )
 
 @GenerateVariations
 fun sample(
     @GenerationVariant(
-        "example",
-        "Sample",
-        "value"
+        SimpleType::class,
+        "value",
+    )
+    @GenerationVariant(
+        GenericType::class,
+        "value.toString()",
+        genericTypes = arrayOf(Int::class)
     )
     example: String = "12"
 ) = println(example)
 
 @GenerateVariations
-suspend fun Sample.sample2(
+fun sampleVararg(
     @GenerationVariant(
+        SimpleType::class,
+        "value",
+    )
+    vararg example: String = arrayOf("12")
+) = println(example.joinToString())
+
+@GenerateVariations
+suspend fun SimpleType.sample2(
+    @GenerationVariant(
+        Int::class,
+        "toString()",
         "arg12",
-        "kotlin.Int",
-        "toString()"
     )
     arg1: String = "1",
     @GenerationVariant(
+        String::class,
+        "toInt()",
         "arg22",
-        "kotlin.String",
-        "toInt()"
     )
     arg2: Int = 2,
     arg3: Boolean = false
