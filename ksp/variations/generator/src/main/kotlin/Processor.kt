@@ -9,6 +9,7 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.ksp.toAnnotationSpec
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toKModifier
 import com.squareup.kotlinpoet.ksp.toTypeName
@@ -90,6 +91,9 @@ class Processor(
                 val baseFunctionDefaults = mutableMapOf<String, String>()
                 val funSpec = FunSpec.builder(ksFunctionDeclaration.simpleName.asString()).apply {
                     modifiers.addAll(ksFunctionDeclaration.modifiers.mapNotNull { it.toKModifier() })
+                    ksFunctionDeclaration.annotations.forEach {
+                        addAnnotation(it.toAnnotationSpec(omitDefaultValues = false))
+                    }
                     ksFunctionDeclaration.extensionReceiver ?.let {
                         receiver(it.toTypeName())
                     }
