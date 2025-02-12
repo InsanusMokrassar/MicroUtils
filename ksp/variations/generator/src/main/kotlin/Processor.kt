@@ -8,14 +8,13 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toKModifier
 import com.squareup.kotlinpoet.ksp.toTypeName
-import dev.inmo.micro_ksp.generator.companion
 import dev.inmo.micro_ksp.generator.findSubClasses
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.micro_utils.ksp.variations.GenerateVariations
 import dev.inmo.micro_utils.ksp.variations.GenerationVariant
+import kotlin.math.pow
 
 class Processor(
     private val codeGenerator: CodeGenerator
@@ -50,73 +49,212 @@ class Processor(
     ) {
         val annotation = ksFunctionDeclaration.getAnnotationsByType(GenerateVariations::class).first()
         val variations: List<Pair<List<GenerationVariant>, KSValueParameter>> = ksFunctionDeclaration.parameters.mapNotNull {
-            val variationAnnotations = it.getAnnotationsByType(GenerationVariant::class).toList().ifEmpty { return@mapNotNull null }
+            val variationAnnotations = it.getAnnotationsByType(GenerationVariant::class).toList()
             variationAnnotations to it
         }
-        val accumulatedGenerations = mutableSetOf<FunSpec>()
+        val accumulatedGenerations = mutableSetOf<Pair<FunSpec, Map<String, String>>>()
+        val baseFunctionParameters = ksFunctionDeclaration.parameters.mapNotNull {
+            ParameterSpec
+                .builder(
+                    it.name ?.asString() ?: return@mapNotNull null,
+                    it.type.toTypeName(),
+                )
+                .apply {
+                    if (it.isCrossInline) {
+                        addModifiers(KModifier.CROSSINLINE)
+                    }
+                    if (it.isVal) {
+                        addModifiers(KModifier.VALUE)
+                    }
+                    if (it.isNoInline) {
+                        addModifiers(KModifier.NOINLINE)
+                    }
+                    if (it.isVararg) {
+                        addModifiers(KModifier.VARARG)
+                    }
+                }
+                .build() to it.hasDefault
+        }
+        val baseFunctionFunSpecs = mutableListOf<Pair<FunSpec, Map<String, String>>>()
+        let {
+            var defaultParametersIndicator = 0u
+            val maxIndicator = baseFunctionParameters.filter { it.second }.foldIndexed(0u) { index, acc, _ ->
+                2.0.pow(index).toUInt() + acc
+            }
+            while (defaultParametersIndicator <= maxIndicator) {
+                var currentDefaultParameterIndex = 0u
+                val baseFunctionDefaults = mutableMapOf<String, String>()
+                val funSpec = FunSpec.builder(ksFunctionDeclaration.simpleName.asString()).apply {
+                    modifiers.addAll(ksFunctionDeclaration.modifiers.mapNotNull { it.toKModifier() })
+                    ksFunctionDeclaration.extensionReceiver ?.let {
+                        receiver(it.toTypeName())
+                    }
+                }
+                baseFunctionParameters.forEach { (parameter, hasDefault) ->
+                    if (hasDefault) {
+                        val shouldBeIncluded = (2.0.pow(currentDefaultParameterIndex.toInt()).toUInt()).and(defaultParametersIndicator) > 0u
+                        currentDefaultParameterIndex++
+
+                        if (!shouldBeIncluded) {
+                            return@forEach
+                        }
+                    }
+                    funSpec.addParameter(parameter)
+                    val name = parameter.name
+                    val defaultValueString = if (parameter.modifiers.contains(KModifier.VARARG)) {
+                        "*$name"
+                    } else {
+                        "$name"
+                    }
+                    baseFunctionDefaults[parameter.name] = defaultValueString
+                }
+                baseFunctionFunSpecs.add(
+                    funSpec.build() to baseFunctionDefaults.toMap()
+                )
+                defaultParametersIndicator++
+            }
+        }
         variations.forEach { (variations, parameter) ->
-            if (accumulatedGenerations.isEmpty()) {
+            (baseFunctionFunSpecs + accumulatedGenerations).forEach { (accumulatedGeneration, baseDefaults) ->
+                if ((parameter.name ?.asString() ?: "this") !in baseDefaults.keys) {
+                    return@forEach
+                }
                 variations.forEach { variation ->
+                    val defaults = mutableMapOf<String, String>()
                     accumulatedGenerations.add(
-                        FunSpec.builder(ksFunctionDeclaration.simpleName.asString()).apply {
-                            modifiers.addAll(ksFunctionDeclaration.modifiers.mapNotNull { it.toKModifier() })
-                            ksFunctionDeclaration.parameters.forEach {
+                        FunSpec.builder(accumulatedGeneration.name).apply {
+                            modifiers.addAll(accumulatedGeneration.modifiers)
+                            accumulatedGeneration.receiverType ?.let {
+                                receiver(it)
+                            }
+                            accumulatedGeneration.parameters.forEach {
                                 parameters.add(
-                                    (if (it == parameter) {
+                                    (if (it.name == (parameter.name ?.asString() ?: "this")) {
                                         ParameterSpec
                                             .builder(
                                                 variation.argName,
                                                 if (variation.varargTypes.isEmpty()) {
-                                                    variation.type.asTypeName()
+                                                    ClassName.bestGuess(variation.type)
                                                 } else {
-                                                    variation.type.parameterizedBy(*variation.varargTypes)
+                                                    ClassName.bestGuess(variation.type).parameterizedBy(
+                                                        *variation.varargTypes.map { it.asTypeName() }.toTypedArray()
+                                                    )
                                                 }
                                             )
                                             .apply {
-                                                val name = it.name ?.asString() ?: "this"
-                                                if (it.isVararg) {
-                                                    defaultValue(
-                                                        """
-                                                            *$name.map { it.${variation.conversion} }.toTypedArray()
-                                                        """.trimIndent()
-                                                    )
+                                                val defaultValueString = if (it.modifiers.contains(KModifier.VARARG)) {
+                                                    """
+                                                        *${variation.argName}.map { it.${variation.conversion} }.toTypedArray()
+                                                    """.trimIndent()
                                                 } else {
-                                                    defaultValue("$name.${variation.conversion}")
+                                                    "${variation.argName}.${variation.conversion}"
                                                 }
+                                                defaults[it.name] = defaultValueString
                                             }
                                     } else {
-                                        ParameterSpec
-                                            .builder(
-                                                it.name ?.asString() ?: return@forEach,
-                                                it.type.toTypeName(),
-                                            )
+                                        it.toBuilder()
                                     })
-                                        .apply {
-                                            if (it.isCrossInline) {
-                                                addModifiers(KModifier.CROSSINLINE)
-                                            }
-                                            if (it.isVal) {
-                                                addModifiers(KModifier.VALUE)
-                                            }
-                                            if (it.isNoInline) {
-                                                addModifiers(KModifier.NOINLINE)
-                                            }
-                                            if (it.isVararg) {
-                                                addModifiers(KModifier.VARARG)
-                                            }
-                                        }
                                         .build()
                                 )
                             }
-                        }.build()
+                            val parameters = accumulatedGeneration.parameters.joinToString(", ") {
+                                val itName = it.name
+                                """
+                                    $itName = ${defaults[itName] ?: baseDefaults[itName] ?: itName}
+                                """.trimIndent()
+                            }
+                            addCode(
+                                """
+                                    return ${ksFunctionDeclaration.simpleName.asString()}(
+                                        $parameters
+                                    )
+                                """.trimIndent()
+                            )
+                        }.build() to defaults.toMap()
                     )
                 }
-            } else {
-
             }
+//            if (accumulatedGenerations.isEmpty()) {
+//                variations.forEach { variation ->
+//                    val defaults = mutableMapOf<String, String>()
+//                    accumulatedGenerations.add(
+//                        FunSpec.builder(ksFunctionDeclaration.simpleName.asString()).apply {
+//                            modifiers.addAll(ksFunctionDeclaration.modifiers.mapNotNull { it.toKModifier() })
+//                            ksFunctionDeclaration.extensionReceiver ?.let {
+//                                receiver(it.toTypeName())
+//                            }
+//                            ksFunctionDeclaration.parameters.forEach {
+//                                parameters.add(
+//                                    (if (it == parameter) {
+//                                        ParameterSpec
+//                                            .builder(
+//                                                variation.argName,
+//                                                if (variation.varargTypes.isEmpty()) {
+//                                                    ClassName.bestGuess(variation.type)
+//                                                } else {
+//                                                    ClassName.bestGuess(variation.type).parameterizedBy(
+//                                                        *variation.varargTypes.map { it.asTypeName() }.toTypedArray()
+//                                                    )
+//                                                }
+//                                            )
+//                                    } else {
+//                                        ParameterSpec
+//                                            .builder(
+//                                                it.name ?.asString() ?: return@forEach,
+//                                                it.type.toTypeName(),
+//                                            )
+//                                    })
+//                                        .apply {
+//                                            if (it.isCrossInline) {
+//                                                addModifiers(KModifier.CROSSINLINE)
+//                                            }
+//                                            if (it.isVal) {
+//                                                addModifiers(KModifier.VALUE)
+//                                            }
+//                                            if (it.isNoInline) {
+//                                                addModifiers(KModifier.NOINLINE)
+//                                            }
+//                                            if (it.isVararg) {
+//                                                addModifiers(KModifier.VARARG)
+//                                            }
+//                                        }
+//                                        .build()
+//                                        .apply {
+//                                            val name = it.name ?.asString() ?: "this"
+//                                            val defaultValueString = if (it.isVararg) {
+//                                                """
+//                                                    *$name.map { it.${variation.conversion} }.toTypedArray()
+//                                                """.trimIndent()
+//                                            } else {
+//                                                "$name.${variation.conversion}"
+//                                            }
+//                                            defaults[this.name] = defaultValueString
+//                                        }
+//                                )
+//                            }
+//                            val parameters = ksFunctionDeclaration.parameters.joinToString(", ") {
+//                                val itName = it.name ?.asString() ?: "this"
+//                                """
+//                                    $itName = ${defaults[itName] ?: itName}
+//                                """.trimIndent()
+//                            }
+//                            addCode(
+//                                """
+//                                    return ${ksFunctionDeclaration.simpleName.asString()}(
+//                                        $parameters
+//                                    )
+//                                """.trimIndent()
+//                            )
+//                        }.build() to defaults.toMap()
+//                    )
+//                }
+//            } else {
+//                val reusingGenerations = accumulatedGenerations.toList()
+//                reusingGenerations
+//            }
         }
         accumulatedGenerations.forEach {
-            addFunction(it)
+            addFunction(it.first)
         }
     }
 

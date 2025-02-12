@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.TYPE_PARAMETER, AnnotationTarget.VALUE_PARAMETER)
 annotation class GenerationVariant(
     val argName: String,
-    val type: KClass<*>,
+    val type: String,
     val conversion: String,
     vararg val varargTypes: KClass<*>
 )
