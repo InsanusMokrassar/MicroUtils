@@ -132,6 +132,9 @@ class Processor(
                     accumulatedGenerations.add(
                         FunSpec.builder(accumulatedGeneration.name).apply {
                             modifiers.addAll(accumulatedGeneration.modifiers)
+                            accumulatedGeneration.annotations.forEach {
+                                addAnnotation(it)
+                            }
                             accumulatedGeneration.receiverType ?.let {
                                 receiver(it)
                             }
