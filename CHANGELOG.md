@@ -2,6 +2,10 @@
 
 ## 0.24.6
 
+* `KSP`:
+  * `Variations`:
+    * Module has been created
+
 ## 0.24.5
 
 * `Versions`:
