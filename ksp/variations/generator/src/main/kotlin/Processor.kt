@@ -77,6 +77,11 @@ class Processor(
                     if (it.isVararg) {
                         addModifiers(KModifier.VARARG)
                     }
+                    it.annotations.forEach {
+                        if (it.shortName.asString() == GenerationVariant::class.simpleName) return@forEach
+
+                        addAnnotation(it.toAnnotationSpec(omitDefaultValues = false))
+                    }
                 }
                 .build() to it.hasDefault
         }
@@ -92,10 +97,15 @@ class Processor(
                 val funSpec = FunSpec.builder(ksFunctionDeclaration.simpleName.asString()).apply {
                     modifiers.addAll(ksFunctionDeclaration.modifiers.mapNotNull { it.toKModifier() })
                     ksFunctionDeclaration.annotations.forEach {
+                        if (it.shortName.asString() == GenerateVariations::class.simpleName) return@forEach
+
                         addAnnotation(it.toAnnotationSpec(omitDefaultValues = false))
                     }
                     ksFunctionDeclaration.extensionReceiver ?.let {
                         receiver(it.toTypeName())
+                    }
+                    ksFunctionDeclaration.returnType ?.let {
+                        returns(it.toTypeName())
                     }
                 }
                 baseFunctionParameters.forEach { (parameter, hasDefault) ->
@@ -138,6 +148,7 @@ class Processor(
                             accumulatedGeneration.receiverType ?.let {
                                 receiver(it)
                             }
+                            returns(accumulatedGeneration.returnType)
                             accumulatedGeneration.parameters.forEach {
                                 val actualName = if (variation.argName.isEmpty()) it.name else variation.argName
                                 parameters.add(
@@ -169,8 +180,15 @@ class Processor(
                                                 defaults[it.name] = defaultValueString
                                             }
                                     } else {
-                                        it.toBuilder()
+                                        it.toBuilder().apply {
+                                            defaults[it.name] = it.name
+                                        }
                                     })
+                                        .apply {
+                                            it.annotations.forEach {
+                                                addAnnotation(it)
+                                            }
+                                        }
                                         .build()
                                 )
                             }
@@ -206,7 +224,7 @@ class Processor(
             it.writeFile(prefix = prefix, suffix = "GeneratedVariation") {
                 FileSpec.builder(
                     it.packageName.asString(),
-                    "${it.simpleName.getShortName()}GeneratedVariation"
+                    "${it.simpleName.getShortName().let { it.replaceFirst(it.first().toString(), it.first().uppercase()) }}GeneratedVariation"
                 ).apply {
                     addFileComment(
                         """
