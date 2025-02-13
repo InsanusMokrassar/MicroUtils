@@ -5,6 +5,8 @@ plugins {
     id "com.google.devtools.ksp"
 }
 
+ext.do_publish = false
+
 apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
 
 

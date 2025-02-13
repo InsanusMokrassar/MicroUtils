@@ -1,0 +1,22 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm"
+}
+
+apply from: "$publish_jvm"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.kt.stdlib
+    api project(":micro_utils.ksp.generator")
+    api project(":micro_utils.ksp.variations")
+    api libs.kotlin.poet
+    api libs.ksp
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}

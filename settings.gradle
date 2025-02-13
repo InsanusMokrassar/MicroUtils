@@ -62,6 +62,10 @@ String[] includes = [
     ":ksp:classcasts:generator",
     ":ksp:classcasts:generator:test",
 
+    ":ksp:variations",
+    ":ksp:variations:generator",
+    ":ksp:variations:generator:test",
+
     ":dokka"
 ]
 

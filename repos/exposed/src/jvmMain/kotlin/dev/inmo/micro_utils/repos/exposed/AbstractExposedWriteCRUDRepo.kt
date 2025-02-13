@@ -137,7 +137,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override suspend fun deleteById(ids: List<IdType>) {
         onBeforeDelete(ids)
         transaction(db = database) {
-            val deleted = deleteWhere(null, null) { selectByIds(it, ids) }
+            val deleted = deleteWhere { selectByIds(it, ids) }
             if (deleted == ids.size) {
                 ids
             } else {
