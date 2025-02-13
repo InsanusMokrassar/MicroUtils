@@ -2,6 +2,11 @@
 
 ## 0.24.6
 
+* `Versions`:
+  * `KSLog`: `1.4.0` -> `1.4.1`
+  * `Exposed`: `0.58.0` -> `0.59.0`
+  * `SQLite`: `3.48.0.0` -> `3.49.0.0`
+  * `AndroidFragment`: `1.8.5` -> `1.8.6`
 * `KSP`:
   * `Variations`:
     * Module has been created
