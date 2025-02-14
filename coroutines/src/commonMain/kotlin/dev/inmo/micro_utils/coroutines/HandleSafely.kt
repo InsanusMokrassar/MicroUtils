@@ -15,6 +15,10 @@ import kotlin.coroutines.coroutineContext
  *
  * @return [Result] with result of [block] if no exceptions or [Result] from [onException] execution
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { onException(it) }")
+)
 suspend inline fun <T> runCatchingSafely(
     onException: ExceptionHandler<T>,
     block: suspend () -> T
@@ -29,6 +33,10 @@ suspend inline fun <T> runCatchingSafely(
     }
 }
 
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { onException(it) }")
+)
 suspend inline fun <T, R> R.runCatchingSafely(
     onException: ExceptionHandler<T>,
     block: suspend R.() -> T
@@ -39,10 +47,18 @@ suspend inline fun <T, R> R.runCatchingSafely(
 /**
  * Launching [runCatchingSafely] with [defaultSafelyExceptionHandler] as `onException` parameter
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { defaultSafelyExceptionHandler(it) }")
+)
 suspend inline fun <T> runCatchingSafely(
     block: suspend () -> T
 ): Result<T> = runCatchingSafely(defaultSafelyExceptionHandler, block)
 
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { defaultSafelyExceptionHandler(it) }")
+)
 suspend inline fun <T, R> R.runCatchingSafely(
     block: suspend R.() -> T
 ): Result<T> = runCatchingSafely<T> {
@@ -73,6 +89,9 @@ suspend fun contextSafelyExceptionHandler() = coroutineContext[ContextSafelyExce
  * After all, will be called [withContext] method with created [ContextSafelyExceptionHandler] and block which will call
  * [safely] method with [safelyExceptionHandler] as onException parameter and [block] as execution block
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+)
 suspend fun <T> safelyWithContextExceptionHandler(
     contextExceptionHandler: ExceptionHandler<Unit>,
     safelyExceptionHandler: ExceptionHandler<T> = defaultSafelyExceptionHandler,
@@ -94,6 +113,10 @@ suspend fun <T> safelyWithContextExceptionHandler(
  *
  * @see runCatchingSafely
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { onException(it) }.getOrThrow()")
+)
 suspend inline fun <T> safely(
     onException: ExceptionHandler<T>,
     block: suspend () -> T
@@ -104,9 +127,17 @@ suspend inline fun <T> safely(
  *
  * @see runCatchingSafely
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { defaultSafelyExceptionHandler(it) }.getOrThrow()")
+)
 suspend inline fun <T> safely(
     block: suspend () -> T
 ): T = safely(defaultSafelyExceptionHandler, block)
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { defaultSafelyExceptionHandler(it) }.getOrThrow()")
+)
 suspend inline fun <T, R> R.safely(
     block: suspend R.() -> T
 ): T = safely<T> { block() }
@@ -137,11 +168,19 @@ val defaultSafelyWithoutExceptionHandlerWithNull: ExceptionHandler<Nothing?> = {
  * Shortcut for [safely] with exception handler, that as expected must return null in case of impossible creating of
  * result from exception (instead of throwing it, by default always returns null)
  */
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { onException(it) }.getOrNull()")
+)
 suspend fun <T> safelyWithoutExceptions(
     onException: ExceptionHandler<T> = defaultSafelyExceptionHandler,
     block: suspend () -> T
 ): T? = runCatchingSafely(onException, block).getOrNull()
 
+@Deprecated(
+    "This function become redundant since coroutines correctly handling throwing exceptions",
+    replaceWith = ReplaceWith("runCatching(block).replaceIfFailure { onException(it) }.getOrNull()")
+)
 suspend fun <T> runCatchingSafelyWithoutExceptions(
     onException: ExceptionHandler<T?> = defaultSafelyExceptionHandler,
     block: suspend () -> T

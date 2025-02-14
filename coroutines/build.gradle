@@ -11,6 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api libs.kt.coroutines
+                api libs.kslog
             }
         }
         jsMain {
