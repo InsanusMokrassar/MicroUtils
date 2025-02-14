@@ -7,49 +7,49 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 fun CoroutineScope.launchLogging(
-    errorMessageBuilder: () -> Any = { "Something web wrong" },
+    errorMessageBuilder: CoroutineScope.(Throwable) -> Any = { "Something web wrong" },
     logger: KSLog = KSLog,
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
 ) = launch(context, start) {
     runCatching { block() }.onFailure {
-        logger.e(it, errorMessageBuilder)
+        logger.e(it) { errorMessageBuilder(it) }
     }.getOrThrow()
 }
 
 fun CoroutineScope.launchLoggingDropExceptions(
-    errorMessageBuilder: () -> Any = { "Something web wrong" },
+    errorMessageBuilder: CoroutineScope.(Throwable) -> Any = { "Something web wrong" },
     logger: KSLog = KSLog,
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
 ) = launch(context, start) {
     runCatching { block() }.onFailure {
-        logger.e(it, errorMessageBuilder)
+        logger.e(it) { errorMessageBuilder(it) }
     } // just dropping exception
 }
 
 fun <T> CoroutineScope.asyncLogging(
-    errorMessageBuilder: () -> Any = { "Something web wrong" },
+    errorMessageBuilder: CoroutineScope.(Throwable) -> Any = { "Something web wrong" },
     logger: KSLog = KSLog,
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
 ) = async(context, start) {
     runCatching { block() }.onFailure {
-        logger.e(it, errorMessageBuilder)
+        logger.e(it) { errorMessageBuilder(it) }
     }.getOrThrow()
 }
 
 fun <T> CoroutineScope.asyncLoggingDropExceptions(
-    errorMessageBuilder: () -> Any = { "Something web wrong" },
+    errorMessageBuilder: CoroutineScope.(Throwable) -> Any = { "Something web wrong" },
     logger: KSLog = KSLog,
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
 ) = async(context, start) {
     runCatching { block() }.onFailure {
-        logger.e(it, errorMessageBuilder)
+        logger.e(it) { errorMessageBuilder(it) }
     }
 }

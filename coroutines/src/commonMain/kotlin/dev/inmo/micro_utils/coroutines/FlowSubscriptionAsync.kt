@@ -15,7 +15,7 @@ private class SubscribeAsyncReceiver<T>(
         get() = dataChannel
 
     init {
-        scope.launchSafelyWithoutExceptions {
+        scope.launchLoggingDropExceptions {
             for (data in dataChannel) {
                 output(data)
             }

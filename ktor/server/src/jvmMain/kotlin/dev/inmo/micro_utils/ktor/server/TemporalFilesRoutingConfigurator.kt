@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.ktor.server
 import com.benasher44.uuid.uuid4
 import dev.inmo.micro_utils.common.FileName
 import dev.inmo.micro_utils.common.MPPFile
-import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.ktor.common.DefaultTemporalFilesSubPath
 import dev.inmo.micro_utils.ktor.common.TemporalFileId
 import dev.inmo.micro_utils.ktor.server.configurators.ApplicationRoutingConfigurator
@@ -44,7 +44,7 @@ class TemporalFilesRoutingConfigurator(
                     filesMap: MutableMap<TemporalFileId, MPPFile>,
                     filesMutex: Mutex,
                     onNewFileFlow: Flow<TemporalFileId>
-                ): Job = scope.launchSafelyWithoutExceptions {
+                ): Job = scope.launchLoggingDropExceptions {
                     while (currentCoroutineContext().isActive) {
                         val filesWithCreationInfo = filesMap.mapNotNull { (fileId, file) ->
                             fileId to ((Files.getAttribute(file.toPath(), "creationTime") as? FileTime) ?.toMillis() ?: return@mapNotNull null)
