@@ -7,6 +7,8 @@
   * `Exposed`: `0.58.0` -> `0.59.0`
   * `SQLite`: `3.48.0.0` -> `3.49.0.0`
   * `AndroidFragment`: `1.8.5` -> `1.8.6`
+* `Coroutines`:
+  * Safely functions has been replaced with `Logging` variations (resolve of [#541](https://github.com/InsanusMokrassar/MicroUtils/issues/541))
 * `KSP`:
   * `Variations`:
     * Module has been created
