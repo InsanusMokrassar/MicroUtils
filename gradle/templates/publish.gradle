@@ -1,3 +1,7 @@
+if (ext.getProperties()["do_publish"] == false) {
+    return
+}
+
 apply plugin: 'maven-publish'
 
 task javadocsJar(type: Jar) {
@@ -19,29 +23,29 @@ publishing {
             }
 
             developers {
-                
+
                     developer {
                         id = "InsanusMokrassar"
                         name = "Aleksei Ovsiannikov"
                         email = "ovsyannikov.alexey95@gmail.com"
                     }
-                
+
 
                     developer {
                         id = "000Sanya"
                         name = "Syrov Aleksandr"
                         email = "000sanya.000sanya@gmail.com"
                     }
-                
+
             }
 
             licenses {
-                
+
                     license {
                         name = "Apache Software License 2.0"
                         url = "https://github.com/InsanusMokrassar/MicroUtils/blob/master/LICENSE"
                     }
-                
+
             }
         }
         repositories {
@@ -49,51 +53,51 @@ publishing {
                 maven {
                     name = "GithubPackages"
                     url = uri("https://maven.pkg.github.com/InsanusMokrassar/MicroUtils")
-            
+
                     credentials {
                         username = project.hasProperty('GITHUBPACKAGES_USER') ? project.property('GITHUBPACKAGES_USER') : System.getenv('GITHUBPACKAGES_USER')
                         password = project.hasProperty('GITHUBPACKAGES_PASSWORD') ? project.property('GITHUBPACKAGES_PASSWORD') : System.getenv('GITHUBPACKAGES_PASSWORD')
                     }
-            
+
                 }
             }
             if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
                 maven {
                     name = "InmoNexus"
                     url = uri("https://nexus.inmo.dev/repository/maven-releases/")
-            
+
                     credentials {
                         username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
                         password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
                     }
-            
+
                 }
             }
             if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
                 maven {
                     name = "sonatype"
                     url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            
+
                     credentials {
                         username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
                         password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
                     }
-            
+
                 }
             }
         }
     }
 }
-    
+
 if (project.hasProperty("signing.gnupg.keyName")) {
     apply plugin: 'signing'
-    
+
     signing {
         useGpgCmd()
-    
+
         sign publishing.publications
     }
-    
+
     task signAll {
         tasks.withType(Sign).forEach {
             dependsOn(it)

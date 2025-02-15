@@ -2,7 +2,7 @@ package dev.inmo.micro_utils.repos.cache.full
 
 import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.coroutines.SmartRWLocker
-import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
@@ -210,7 +210,7 @@ open class FullKeyValuesCacheRepo<Key,Value>(
     WriteKeyValuesRepo<Key, Value> by parentRepo {
     init {
         if (!skipStartInvalidate) {
-            scope.launchSafelyWithoutExceptions {
+            scope.launchLoggingDropExceptions {
                 if (locker.writeMutex.isLocked) {
                     initialInvalidate()
                 } else {

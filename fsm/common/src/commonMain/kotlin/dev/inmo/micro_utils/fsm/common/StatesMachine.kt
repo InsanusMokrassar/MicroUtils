@@ -128,8 +128,10 @@ open class DefaultStatesMachine <T: State>(
      */
     override fun start(scope: CoroutineScope): Job {
         val supervisorScope = scope.LinkedSupervisorScope()
-        supervisorScope.launchSafelyWithoutExceptions {
-            (statesManager.getActiveStates().asFlow() + statesManager.onStartChain).subscribeSafelyWithoutExceptions(supervisorScope) {
+        supervisorScope.launchLoggingDropExceptions {
+            (statesManager.getActiveStates().asFlow() + statesManager.onStartChain).subscribeSafelyWithoutExceptions(
+                supervisorScope
+            ) {
                 supervisorScope.launch { performStateUpdate(Optional.absent(), it, supervisorScope) }
             }
             statesManager.onChainStateUpdated.subscribeSafelyWithoutExceptions(supervisorScope) {
@@ -140,7 +142,7 @@ open class DefaultStatesMachine <T: State>(
                     statesJobsMutex.withLock {
                         val stateInMap = statesJobs.keys.firstOrNull { stateInMap -> stateInMap == removedState }
                         if (stateInMap === removedState) {
-                            statesJobs[stateInMap] ?.cancel()
+                            statesJobs[stateInMap]?.cancel()
                         }
                     }
                 }

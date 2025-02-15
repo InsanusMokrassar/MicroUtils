@@ -14,7 +14,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api project(":micro_utils.ksp.sealed")
+                implementation libs.kt.stdlib
+                api project(":micro_utils.ksp.variations")
             }
         }
     }
@@ -22,7 +23,7 @@ kotlin {
 
 
 dependencies {
-    add("kspCommonMainMetadata", project(":micro_utils.ksp.sealed.generator"))
+    add("kspCommonMainMetadata", project(":micro_utils.ksp.variations.generator"))
 }
 
 ksp {

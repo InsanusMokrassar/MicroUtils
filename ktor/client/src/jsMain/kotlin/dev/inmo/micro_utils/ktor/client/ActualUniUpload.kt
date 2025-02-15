@@ -2,7 +2,7 @@ package dev.inmo.micro_utils.ktor.client
 
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.coroutines.LinkedSupervisorJob
-import dev.inmo.micro_utils.coroutines.launchSafelyWithoutExceptions
+import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import io.ktor.client.HttpClient
 import io.ktor.client.content.*
 import io.ktor.http.Headers
@@ -66,7 +66,7 @@ actual suspend fun <T> HttpClient.uniUpload(
     }
     request.responseType = XMLHttpRequestResponseType.TEXT
     request.upload.onprogress = {
-        subscope.launchSafelyWithoutExceptions { onUpload.onProgress(it.loaded.toLong(), it.total.toLong()) }
+        subscope.launchLoggingDropExceptions { onUpload.onProgress(it.loaded.toLong(), it.total.toLong()) }
     }
     request.onload = {
         if (request.status == 200.toShort()) {
