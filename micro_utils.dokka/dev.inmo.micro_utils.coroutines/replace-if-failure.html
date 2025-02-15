@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>subscribeSafelySkippingExceptions</title>
+    <title>replaceIfFailure</title>
     <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -46,7 +46,7 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.24.5        </div>
+0.24.6        </div>
         <div class="navigation-controls">
         <div class="filter-section filter-section_loading" id="filter-section">
                 <button class="platform-tag platform-selector common-like" data-active=""
@@ -104,12 +104,12 @@
                 </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.coroutines//subscribeSafelySkippingExceptions/kotlinx.coroutines.flow.Flow[TypeParam(bounds=[kotlin.Any?])]#kotlinx.coroutines.CoroutineScope#kotlin.coroutines.SuspendFunction1[TypeParam(bounds=[kotlin.Any?]),kotlin.Unit]/PointingToDeclaration//-1478683138">
-  <div class="breadcrumbs"><a href="../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="index.html">dev.inmo.micro_utils.coroutines</a><span class="delimiter">/</span><span class="current">subscribeSafelySkippingExceptions</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.coroutines//replaceIfFailure/kotlin.Result[TypeParam(bounds=[kotlin.Any?])]#kotlin.Function1[kotlin.Throwable,TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration//-1478683138">
+  <div class="breadcrumbs"><a href="../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="index.html">dev.inmo.micro_utils.coroutines</a><span class="delimiter">/</span><span class="current">replaceIfFailure</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>subscribe</span><wbr></wbr><span>Safely</span><wbr></wbr><span>Skipping</span><wbr></wbr><span><span>Exceptions</span></span></h1>
+    <h1 class="cover"><span>replace</span><wbr></wbr><span>If</span><wbr></wbr><span><span>Failure</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="subscribe-safely-skipping-exceptions.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="subscribe-safely-skipping-exceptions.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="subscribe-safely-skipping-exceptions.html"><span class="token function">subscribeSafelySkippingExceptions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>block<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><a href="subscribe-safely-skipping-exceptions.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//coroutines/src/commonMain/kotlin/dev/inmo/micro_utils/coroutines/FlowSubscription.kt#L45">source</a>)</span></span></div><p class="paragraph">Use <a href="subscribe-safely-without-exceptions.html">subscribeSafelyWithoutExceptions</a>, but all exceptions inside of <a href="safely.html">safely</a> will be skipped</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="replace-if-failure.html">T</a><span class="token operator">&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><a href="replace-if-failure.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="replace-if-failure.html"><span class="token function">replaceIfFailure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onException<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="replace-if-failure.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><a href="replace-if-failure.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//coroutines/src/commonMain/kotlin/dev/inmo/micro_utils/coroutines/ReplaceResult.kt#L3">source</a>)</span></span></div></div></div>
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
