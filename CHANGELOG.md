@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.24.7
+
+* `Repos`:
+  * `Cache`:
+    * Fix of `FullKeyValueCacheRepo` fields usage
+
 ## 0.24.6
 
 * `Versions`:

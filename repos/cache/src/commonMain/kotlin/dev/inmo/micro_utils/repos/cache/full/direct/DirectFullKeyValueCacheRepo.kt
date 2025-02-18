@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.onEach
 open class DirectFullReadKeyValueCacheRepo<Key, Value>(
     protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
     protected open val kvCache: KeyValueRepo<Key, Value>,
-    protected val locker: SmartRWLocker = SmartRWLocker()
+    protected open val locker: SmartRWLocker = SmartRWLocker()
 ) : DirectFullCacheRepo, ReadKeyValueRepo<Key, Value> {
     protected open suspend fun actualizeAll() {
         kvCache.actualizeAll(parentRepo, locker)
@@ -102,10 +102,10 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.directlyCached(
 
 open class DirectFullKeyValueCacheRepo<Key, Value>(
     override val parentRepo: KeyValueRepo<Key, Value>,
-    kvCache: KeyValueRepo<Key, Value>,
+    override val kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : DirectFullCacheRepo,
     KeyValueRepo<Key, Value> ,
     WriteKeyValueRepo<Key, Value> by DirectFullWriteKeyValueCacheRepo(
