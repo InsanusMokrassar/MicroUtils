@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 open class DirectFullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
     protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
-    protected val locker: SmartRWLocker = SmartRWLocker(),
+    protected open val locker: SmartRWLocker = SmartRWLocker(),
     protected open val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType>, DirectFullCacheRepo {
     protected open suspend fun actualizeAll() {
@@ -61,10 +61,10 @@ fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.directlyCached(
 
 open class DirectFullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    kvCache: KeyValueRepo<IdType, ObjectType>,
+    override val kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
     idGetter: (ObjectType) -> IdType
 ) : DirectFullReadCRUDCacheRepo<ObjectType, IdType>(
     parentRepo,
