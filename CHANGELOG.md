@@ -2,6 +2,8 @@
 
 ## 0.24.7
 
+* `Versions`:
+  * `SQLite`: `3.49.0.0` -> `3.49.1.0`
 * `Repos`:
   * `Cache`:
     * Fix of `FullKeyValueCacheRepo` fields usage

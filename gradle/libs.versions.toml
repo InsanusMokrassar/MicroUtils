@@ -10,7 +10,7 @@ jb-compose = "1.7.3"
 jb-exposed = "0.59.0"
 jb-dokka = "2.0.0"
 
-sqlite = "3.49.0.0"
+sqlite = "3.49.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
@@ -23,7 +23,7 @@ koin = "4.0.2"
 
 okio = "3.10.2"
 
-ksp = "2.1.10-1.0.29"
+ksp = "2.1.10-1.0.30"
 kotlin-poet = "1.18.1"
 
 versions = "0.51.0"
