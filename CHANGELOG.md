@@ -4,6 +4,8 @@
 
 * `Versions`:
   * `SQLite`: `3.49.0.0` -> `3.49.1.0`
+* `Common`:
+  * Add `retryOnFailure` utility for simple retries code writing
 * `Repos`:
   * `Cache`:
     * Fix of `FullKeyValueCacheRepo` fields usage
