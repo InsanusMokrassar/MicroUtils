@@ -4,7 +4,6 @@ import dev.inmo.micro_utils.repos.KeyValuesRepo
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.InsertStatement
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -57,18 +56,48 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
             }
         }
 
-        transaction(database) {
+        val (oldObjects, insertedResults) = transaction(database) {
+            val oldObjects = selectAll().where { selectByIds(toSet.keys.toList()) }.map { it.asKey to it.asObject }
+
             deleteWhere {
                 selectByIds(it, toSet.keys.toList())
             }
-            batchInsert(
+            val inserted = batchInsert(
                 prepreparedData,
             ) { (k, v) ->
                 insert(k, v, this)
             }.map {
                 it.asKey to it.asObject
             }
-        }.forEach { _onNewValue.emit(it) }
+            oldObjects to inserted
+        }.let {
+            val mappedFirst = it
+                .first
+                .asSequence()
+                .groupBy { it.first }
+                .mapValues { it.value.map { it.second }.toSet() }
+            val mappedSecond = it
+                .second
+                .asSequence()
+                .groupBy { it.first }
+                .mapValues { it.value.map { it.second }.toSet() }
+            mappedFirst to mappedSecond
+        }
+        val deletedResults = oldObjects.mapNotNull { (k, vs) ->
+            k to vs.filter { v ->
+                insertedResults[k] ?.contains(v) != true
+            }.ifEmpty { return@mapNotNull null }
+        }
+        deletedResults.forEach { (k, vs) ->
+            vs.forEach { v ->
+                _onValueRemoved.emit(k to v)
+            }
+        }
+        insertedResults.forEach { (k, vs) ->
+            vs.forEach { v ->
+                _onNewValue.emit(k to v)
+            }
+        }
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {

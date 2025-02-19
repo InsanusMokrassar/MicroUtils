@@ -9,6 +9,8 @@
 * `Repos`:
   * `Cache`:
     * Fix of `FullKeyValueCacheRepo` fields usage
+  * `Exposed`:
+    * `AbstractExposedKeyValuesRepo` will produce `onValueRemoved` event on `set` if some data has been removed
 
 ## 0.24.6
 
