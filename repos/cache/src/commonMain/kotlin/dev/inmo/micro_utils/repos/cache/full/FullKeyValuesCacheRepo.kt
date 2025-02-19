@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.*
 open class FullReadKeyValuesCacheRepo<Key,Value>(
     protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
     protected open val kvCache: KeyValueRepo<Key, List<Value>>,
-    protected val locker: SmartRWLocker = SmartRWLocker(),
+    protected open val locker: SmartRWLocker = SmartRWLocker(),
 ) : ReadKeyValuesRepo<Key, Value>, FullCacheRepo {
     protected suspend inline fun <T> doOrTakeAndActualize(
         action: KeyValueRepo<Key, List<Value>>.() -> Optional<T>,
@@ -201,10 +201,10 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.caching(
 
 open class FullKeyValuesCacheRepo<Key,Value>(
     override val parentRepo: KeyValuesRepo<Key, Value>,
-    kvCache: KeyValueRepo<Key, List<Value>>,
+    override val kvCache: KeyValueRepo<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : KeyValuesRepo<Key, Value>,
     FullReadKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, locker),
     WriteKeyValuesRepo<Key, Value> by parentRepo {
