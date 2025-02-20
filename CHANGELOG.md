@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.24.7
+
+* `Versions`:
+  * `SQLite`: `3.49.0.0` -> `3.49.1.0`
+* `Common`:
+  * Add `retryOnFailure` utility for simple retries code writing
+* `Repos`:
+  * `Cache`:
+    * Fix of `FullKeyValueCacheRepo` fields usage
+  * `Exposed`:
+    * `AbstractExposedKeyValuesRepo` will produce `onValueRemoved` event on `set` if some data has been removed
+
 ## 0.24.6
 
 * `Versions`:

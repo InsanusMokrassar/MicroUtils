@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 open class FullReadCRUDCacheRepo<ObjectType, IdType>(
     protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
     protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
-    protected val locker: SmartRWLocker = SmartRWLocker(),
+    protected open val locker: SmartRWLocker = SmartRWLocker(),
     protected open val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType>, FullCacheRepo {
     protected suspend inline fun <T> doOrTakeAndActualize(
@@ -95,11 +95,11 @@ fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
 
 open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
     override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    kvCache: KeyValueRepo<IdType, ObjectType>,
+    override val kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
-    idGetter: (ObjectType) -> IdType
+    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    override val idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
     parentRepo,
     kvCache,
