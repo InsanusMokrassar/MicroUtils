@@ -8,6 +8,8 @@ import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.measureTime
 
 class SortedBinaryTreeNodeTests {
     @Test
@@ -42,7 +44,7 @@ class SortedBinaryTreeNodeTests {
         }
     }
     @Test
-    fun deepInsertOnWorks() = runTest {
+    fun deepInsertOnWorks() = runTest(timeout = 320.seconds) { // 320 due to js targets -.-
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
