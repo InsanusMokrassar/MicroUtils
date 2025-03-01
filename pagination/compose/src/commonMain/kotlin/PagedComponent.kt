@@ -6,23 +6,42 @@ import dev.inmo.micro_utils.common.dataOrThrow
 import dev.inmo.micro_utils.common.optional
 import dev.inmo.micro_utils.pagination.*
 
+/**
+ * Context for managing paginated data in a Compose UI.
+ *
+ * @param T The type of data being paginated.
+ * @property iterationState Holds the current pagination state and iteration count.
+ * @property dataOptional Stores the optional preloaded pagination result.
+ * @property dataState Stores the current pagination result.
+ * @constructor Internal constructor for setting up pagination.
+ * @param preset Optional preset pagination result.
+ * @param initialPage Initial page number.
+ * @param size Number of items per page.
+ */
 class PagedComponentContext<T> internal constructor(
     preset: PaginationResult<T>? = null,
     initialPage: Int,
     size: Int
 ) {
-    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(preset ?.page ?: initialPage, preset ?.size ?: size))
-
+    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(preset?.page ?: initialPage, preset?.size ?: size))
+    
     internal var dataOptional: PaginationResult<T>? = preset
         private set
     internal val dataState: MutableState<PaginationResult<T>?> = mutableStateOf(dataOptional)
 
+    /**
+     * Loads the next page of data. If the last page is reached, this function returns early.
+     */
     fun loadNext() {
         iterationState.value = iterationState.value.let {
             if (dataState.value ?.isLastPage == true) return
             (it.first + 1) to it.second.nextPage()
         }
     }
+
+    /**
+     * Loads the previous page of data if available.
+     */
     fun loadPrevious() {
         iterationState.value = iterationState.value.let {
             if (it.second.isFirstPage) return
@@ -32,6 +51,10 @@ class PagedComponentContext<T> internal constructor(
             )
         }
     }
+
+    /**
+     * Reloads the current page, refreshing the data.
+     */
     fun reload() {
         iterationState.value = iterationState.value.let {
             it.copy(it.first + 1)
@@ -39,6 +62,16 @@ class PagedComponentContext<T> internal constructor(
     }
 }
 
+/**
+ * Composable function for paginated data displaying in a Compose UI.
+ *
+ * @param T The type of paginated data.
+ * @param preload Optional preloaded pagination result.
+ * @param initialPage Initial page number.
+ * @param size Number of items per page.
+ * @param loader Suspended function that loads paginated data.
+ * @param block Composable function that renders the UI with the loaded data.
+ */
 @Composable
 internal fun <T> PagedComponent(
     preload: PaginationResult<T>?,
@@ -58,6 +91,14 @@ internal fun <T> PagedComponent(
     }
 }
 
+/**
+ * Overloaded composable function for paginated components with preloaded data.
+ *
+ * @param T The type of paginated data.
+ * @param preload Preloaded pagination result.
+ * @param loader Suspended function that loads paginated data.
+ * @param block Composable function that renders the UI with the loaded data.
+ */
 @Composable
 fun <T> PagedComponent(
     preload: PaginationResult<T>,
@@ -73,6 +114,14 @@ fun <T> PagedComponent(
     )
 }
 
+/**
+ * Overloaded composable function for paginated components with pagination info.
+ *
+ * @param T The type of paginated data.
+ * @param pageInfo Initial pagination information.
+ * @param loader Suspended function that loads paginated data.
+ * @param block Composable function that renders the UI with the loaded data.
+ */
 @Composable
 fun <T> PagedComponent(
     pageInfo: Pagination,
@@ -88,6 +137,15 @@ fun <T> PagedComponent(
     )
 }
 
+/**
+ * Overloaded composable function for paginated components with an initial page.
+ *
+ * @param T The type of paginated data.
+ * @param initialPage Initial page number.
+ * @param size Number of items per page.
+ * @param loader Suspended function that loads paginated data.
+ * @param block Composable function that renders the UI with the loaded data.
+ */
 @Composable
 fun <T> PagedComponent(
     initialPage: Int,
@@ -98,6 +156,14 @@ fun <T> PagedComponent(
     PagedComponent(null, initialPage, size, loader, block)
 }
 
+/**
+ * Overloaded composable function for paginated components with only a size parameter.
+ *
+ * @param T The type of paginated data.
+ * @param size Number of items per page.
+ * @param loader Suspended function that loads paginated data.
+ * @param block Composable function that renders the UI with the loaded data.
+ */
 @Composable
 fun <T> PagedComponent(
     size: Int,
