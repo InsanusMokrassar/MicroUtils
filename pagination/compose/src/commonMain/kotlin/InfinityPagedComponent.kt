@@ -1,21 +1,15 @@
 package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
-import dev.inmo.micro_utils.common.Optional
-import dev.inmo.micro_utils.common.dataOrThrow
-import dev.inmo.micro_utils.common.optional
 import dev.inmo.micro_utils.pagination.*
 
 class InfinityPagedComponentContext<T> internal constructor(
-    preset: List<T>? = null,
-    initialPage: Int,
+    page: Int,
     size: Int
 ) {
-    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(preset ?.page ?: initialPage, preset ?.size ?: size))
+    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(page, size))
 
-    internal var dataOptional: List<T>? = preset
-        private set
-    internal val dataState: MutableState<List<T>?> = mutableStateOf(dataOptional)
+    internal val dataState: MutableState<List<T>?> = mutableStateOf(null)
 
     fun loadNext() {
         iterationState.value = iterationState.value.let {
@@ -24,6 +18,7 @@ class InfinityPagedComponentContext<T> internal constructor(
         }
     }
     fun reload() {
+        dataState.value = null
         iterationState.value = iterationState.value.let {
             (it.first + 1) to (it.second.firstPage())
         }
@@ -32,36 +27,20 @@ class InfinityPagedComponentContext<T> internal constructor(
 
 @Composable
 internal fun <T> InfinityPagedComponent(
-    preload: List<T>?,
-    initialPage: Int,
+    page: Int,
     size: Int,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(List<T>) -> Unit
+    loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
-    val context = remember { InfinityPagedComponentContext(preload, initialPage, size) }
+    val context = remember { InfinityPagedComponentContext<T>(page, size) }
 
     LaunchedEffect(context.iterationState.value) {
-        context.dataState.value = loader(context, context.iterationState.value.second)
+        context.dataState.value = (context.dataState.value ?: emptyList()) + loader(context, context.iterationState.value.second).results
     }
 
     context.dataState.value ?.let {
-        context.block()
+        context.block(context.dataState.value)
     }
-}
-
-@Composable
-fun <T> InfinityPagedComponent(
-    preload: PaginationResult<T>,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
-) {
-    PagedComponent(
-        preload,
-        preload.page,
-        preload.size,
-        loader,
-        block
-    )
 }
 
 @Composable
