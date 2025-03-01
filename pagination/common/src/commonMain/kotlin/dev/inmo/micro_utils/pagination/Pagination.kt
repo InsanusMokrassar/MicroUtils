@@ -40,6 +40,8 @@ fun Pagination.intersect(
 inline val Pagination.isFirstPage
     get() = page == 0
 
+fun Pagination.firstPage() = if (isFirstPage) this else SimplePagination(0, size)
+
 /**
  * First number in index of objects. It can be used as offset for databases or other data sources
  */

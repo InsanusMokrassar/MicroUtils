@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.24.8
+
+* `Coroutines`:
+  * Add `SortedBinaryTreeNode`
+
 ## 0.24.7
 
 * `Versions`:
