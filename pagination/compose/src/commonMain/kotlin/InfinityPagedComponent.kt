@@ -19,11 +19,14 @@ class InfinityPagedComponentContext<T> internal constructor(
 ) {
     internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(page, size))
     internal val dataState: MutableState<List<T>?> = mutableStateOf(null)
+    internal var lastPageLoaded = false
 
     /**
      * Loads the next page of data. If the current page is the last one, the function returns early.
      */
     fun loadNext() {
+        if (lastPageLoaded) return
+
         iterationState.value = iterationState.value.let {
             if ((dataState.value as? PaginationResult<*>) ?.isLastPage == true) return
             (it.first + 1) to it.second.nextPage()
@@ -35,6 +38,7 @@ class InfinityPagedComponentContext<T> internal constructor(
      */
     fun reload() {
         dataState.value = null
+        lastPageLoaded = false
         iterationState.value = iterationState.value.let {
             (it.first + 1) to (it.second.firstPage())
         }
@@ -59,8 +63,12 @@ internal fun <T> InfinityPagedComponent(
 ) {
     val context = remember { InfinityPagedComponentContext<T>(page, size) }
 
-    LaunchedEffect(context.iterationState.value) {
-        context.dataState.value = (context.dataState.value ?: emptyList()) + loader(context, context.iterationState.value.second).results
+    LaunchedEffect(context.iterationState.value.first) {
+        val paginationResult = loader(context, context.iterationState.value.second)
+        if (paginationResult.isLastPage) {
+            context.lastPageLoaded = true
+        }
+        context.dataState.value = (context.dataState.value ?: emptyList()) + paginationResult.results
     }
 
     context.dataState.value ?.let {
@@ -79,11 +87,10 @@ internal fun <T> InfinityPagedComponent(
 @Composable
 fun <T> InfinityPagedComponent(
     pageInfo: Pagination,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
+    loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
-    PagedComponent(
-        null,
+    InfinityPagedComponent(
         pageInfo.page,
         pageInfo.size,
         loader,
@@ -95,25 +102,6 @@ fun <T> InfinityPagedComponent(
  * Overloaded composable function for an infinitely paged component.
  *
  * @param T The type of the paginated data.
- * @param initialPage Initial page number.
- * @param size Number of items per page.
- * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
- */
-@Composable
-fun <T> InfinityPagedComponent(
-    initialPage: Int,
-    size: Int,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
-) {
-    PagedComponent(null, initialPage, size, loader, block)
-}
-
-/**
- * Overloaded composable function for an infinitely paged component.
- *
- * @param T The type of the paginated data.
  * @param size Number of items per page.
  * @param loader Suspended function that loads paginated data.
  * @param block Composable function that renders the UI with the loaded data.
@@ -121,8 +109,8 @@ fun <T> InfinityPagedComponent(
 @Composable
 fun <T> InfinityPagedComponent(
     size: Int,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
+    loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
-    PagedComponent(0, size, loader, block)
+    InfinityPagedComponent(0, size, loader, block)
 }
