@@ -12,10 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class ReadCRUDCacheRepo<ObjectType, IdType>(
-    protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
-    protected open val kvCache: KVCache<IdType, ObjectType>,
+    protected val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
+    protected val kvCache: KVCache<IdType, ObjectType>,
     protected val locker: SmartRWLocker = SmartRWLocker(),
-    protected open val idGetter: (ObjectType) -> IdType
+    protected val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType> by parentRepo, CommonCacheRepo {
     override suspend fun getById(id: IdType): ObjectType? = locker.withReadAcquire {
         kvCache.get(id)
@@ -51,11 +51,11 @@ fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
 ) = ReadCRUDCacheRepo(this, kvCache, locker, idGetter)
 
 open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
-    protected open val parentRepo: WriteCRUDRepo<ObjectType, IdType, InputValueType>,
-    protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
-    protected open val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
+    protected val parentRepo: WriteCRUDRepo<ObjectType, IdType, InputValueType>,
+    protected val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected val locker: SmartRWLocker = SmartRWLocker(),
-    protected open val idGetter: (ObjectType) -> IdType
+    protected val idGetter: (ObjectType) -> IdType
 ) : WriteCRUDRepo<ObjectType, IdType, InputValueType>, CommonCacheRepo {
     override val newObjectsFlow: Flow<ObjectType> by parentRepo::newObjectsFlow
     override val updatedObjectsFlow: Flow<ObjectType> by parentRepo::updatedObjectsFlow
@@ -131,25 +131,25 @@ fun <ObjectType, IdType, InputType> WriteCRUDRepo<ObjectType, IdType, InputType>
 
 
 open class CRUDCacheRepo<ObjectType, IdType, InputValueType>(
-    override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
+    protected val crudRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
     kvCache: KVCache<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     locker: SmartRWLocker = SmartRWLocker(),
     idGetter: (ObjectType) -> IdType
 ) : ReadCRUDCacheRepo<ObjectType, IdType>(
-    parentRepo,
+    crudRepo,
     kvCache,
     locker,
     idGetter
 ),
-    WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
-    parentRepo,
+WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
+    crudRepo,
     kvCache,
     scope,
     locker,
     idGetter
 ),
-    CRUDRepo<ObjectType, IdType, InputValueType> {
+CRUDRepo<ObjectType, IdType, InputValueType> {
     override suspend fun invalidate() = kvCache.actualizeAll(parentRepo, locker = locker)
 }
 

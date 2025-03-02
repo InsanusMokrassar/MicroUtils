@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
-    protected open val originalRepo: ReadKeyValuesRepo<Id, RegisteredObject>,
+    protected val originalRepo: ReadKeyValuesRepo<Id, RegisteredObject>,
     protected val scope: CoroutineScope,
     protected val kvCache: KeyValueRepo<Id, List<RegisteredObject>> = MapKeyValueRepo(),
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,

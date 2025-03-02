@@ -13,8 +13,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class ReadKeyValuesCacheRepo<Key,Value>(
-    protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
-    protected open val kvCache: KVCache<Key, List<Value>>,
+    protected val parentRepo: ReadKeyValuesRepo<Key, Value>,
+    protected val kvCache: KVCache<Key, List<Value>>,
     protected val locker: SmartRWLocker = SmartRWLocker(),
 ) : ReadKeyValuesRepo<Key,Value> by parentRepo, CommonCacheRepo {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {

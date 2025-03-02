@@ -15,9 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class FullReadKeyValueCacheRepo<Key,Value>(
-    protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, Value>,
-    protected open val locker: SmartRWLocker = SmartRWLocker()
+    protected val parentRepo: ReadKeyValueRepo<Key, Value>,
+    protected val kvCache: KeyValueRepo<Key, Value>,
+    protected val locker: SmartRWLocker = SmartRWLocker()
 ) : ReadKeyValueRepo<Key, Value>, FullCacheRepo {
     protected suspend inline fun <T> doOrTakeAndActualize(
         action: KeyValueRepo<Key, Value>.() -> Optional<T>,
@@ -98,7 +98,7 @@ fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
 
 open class FullWriteKeyValueCacheRepo<Key,Value>(
     parentRepo: WriteKeyValueRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, Value>,
+    protected val kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected val locker: SmartRWLocker = SmartRWLocker()
 ) : WriteKeyValueRepo<Key, Value> by parentRepo, FullCacheRepo {
@@ -126,16 +126,16 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.caching(
 ) = FullWriteKeyValueCacheRepo(this, kvCache, scope)
 
 open class FullKeyValueCacheRepo<Key,Value>(
-    override val parentRepo: KeyValueRepo<Key, Value>,
-    override val kvCache: KeyValueRepo<Key, Value>,
+    protected val kvRepo: KeyValueRepo<Key, Value>,
+    kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : //FullWriteKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, scope),
     KeyValueRepo<Key,Value>,
-    WriteKeyValueRepo<Key,Value> by parentRepo,
+    WriteKeyValueRepo<Key,Value> by kvRepo,
     FullReadKeyValueCacheRepo<Key, Value>(
-        parentRepo,
+        kvRepo,
         kvCache,
         locker
 ) {
@@ -151,7 +151,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
         }
     }
 
-    override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
+    override suspend fun unsetWithValues(toUnset: List<Value>) = kvRepo.unsetWithValues(toUnset)
 
     protected open suspend fun initialInvalidate() {
         try {
@@ -165,13 +165,13 @@ open class FullKeyValueCacheRepo<Key,Value>(
     }
 
     override suspend fun clear() {
-        parentRepo.clear()
+        kvRepo.clear()
         kvCache.clear()
     }
 
     override suspend fun set(toSet: Map<Key, Value>) {
         locker.withWriteLock {
-            parentRepo.set(toSet)
+            kvRepo.set(toSet)
             kvCache.set(
                 toSet.filter {
                     parentRepo.contains(it.key)
@@ -182,7 +182,7 @@ open class FullKeyValueCacheRepo<Key,Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         locker.withWriteLock {
-            parentRepo.unset(toUnset)
+            kvRepo.unset(toUnset)
             kvCache.unset(
                 toUnset.filter {
                     !parentRepo.contains(it)
