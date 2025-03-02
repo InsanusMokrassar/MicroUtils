@@ -15,9 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class DirectFullReadKeyValuesCacheRepo<Key,Value>(
-    protected open val parentRepo: ReadKeyValuesRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, List<Value>>,
-    protected open val locker: SmartRWLocker = SmartRWLocker(),
+    protected val parentRepo: ReadKeyValuesRepo<Key, Value>,
+    protected val kvCache: KeyValueRepo<Key, List<Value>>,
+    protected val locker: SmartRWLocker = SmartRWLocker(),
 ) : ReadKeyValuesRepo<Key, Value>, DirectFullCacheRepo {
     protected open suspend fun actualizeKey(k: Key) {
         kvCache.actualizeAll(locker = locker, clearMode = ActualizeAllClearMode.Never) {
@@ -100,7 +100,7 @@ fun <Key, Value> ReadKeyValuesRepo<Key, Value>.directlyCached(
 
 open class DirectFullWriteKeyValuesCacheRepo<Key,Value>(
     parentRepo: WriteKeyValuesRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, List<Value>>,
+    protected val kvCache: KeyValueRepo<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     protected val locker: SmartRWLocker = SmartRWLocker(),
 ) : WriteKeyValuesRepo<Key, Value> by parentRepo, DirectFullCacheRepo {
@@ -135,14 +135,14 @@ fun <Key, Value> WriteKeyValuesRepo<Key, Value>.directlyCached(
 ) = DirectFullWriteKeyValuesCacheRepo(this, kvCache, scope, locker)
 
 open class DirectFullKeyValuesCacheRepo<Key,Value>(
-    override val parentRepo: KeyValuesRepo<Key, Value>,
-    override val kvCache: KeyValueRepo<Key, List<Value>>,
+    protected val kvsRepo: KeyValuesRepo<Key, Value>,
+    kvCache: KeyValueRepo<Key, List<Value>>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : KeyValuesRepo<Key, Value>,
-    DirectFullReadKeyValuesCacheRepo<Key, Value>(parentRepo, kvCache, locker),
-    WriteKeyValuesRepo<Key, Value> by parentRepo {
+    DirectFullReadKeyValuesCacheRepo<Key, Value>(kvsRepo, kvCache, locker),
+    WriteKeyValuesRepo<Key, Value> by kvsRepo {
     init {
         if (!skipStartInvalidate) {
             scope.launchLoggingDropExceptions {
@@ -176,7 +176,7 @@ open class DirectFullKeyValuesCacheRepo<Key,Value>(
 
     override suspend fun set(toSet: Map<Key, List<Value>>) {
         locker.withWriteLock {
-            parentRepo.set(toSet)
+            kvsRepo.set(toSet)
             kvCache.set(
                 toSet.filter {
                     parentRepo.contains(it.key)
@@ -187,7 +187,7 @@ open class DirectFullKeyValuesCacheRepo<Key,Value>(
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
         locker.withWriteLock {
-            parentRepo.add(toAdd)
+            kvsRepo.add(toAdd)
             toAdd.forEach {
                 val filtered = it.value.filter { v ->
                     parentRepo.contains(it.key, v)
@@ -204,7 +204,7 @@ open class DirectFullKeyValuesCacheRepo<Key,Value>(
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
         locker.withWriteLock {
-            parentRepo.remove(toRemove)
+            kvsRepo.remove(toRemove)
             toRemove.forEach {
                 val filtered = it.value.filter { v ->
                     !parentRepo.contains(it.key, v)
@@ -226,7 +226,7 @@ open class DirectFullKeyValuesCacheRepo<Key,Value>(
 
     override suspend fun clear(k: Key) {
         locker.withWriteLock {
-            parentRepo.clear(k)
+            kvsRepo.clear(k)
             if (parentRepo.contains(k)) {
                 return@withWriteLock
             }

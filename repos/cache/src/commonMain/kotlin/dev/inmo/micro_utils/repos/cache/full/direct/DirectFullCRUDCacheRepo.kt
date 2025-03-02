@@ -1,24 +1,21 @@
 package dev.inmo.micro_utils.repos.cache.full.direct
 
-import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.coroutines.withReadAcquire
-import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.cache.*
-import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 open class DirectFullReadCRUDCacheRepo<ObjectType, IdType>(
-    protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
-    protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
-    protected open val locker: SmartRWLocker = SmartRWLocker(),
-    protected open val idGetter: (ObjectType) -> IdType
+    protected val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
+    protected val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val locker: SmartRWLocker = SmartRWLocker(),
+    protected val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType>, DirectFullCacheRepo {
     protected open suspend fun actualizeAll() {
         kvCache.actualizeAll(parentRepo, locker = locker)
@@ -60,20 +57,20 @@ fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.directlyCached(
 ) = DirectFullReadCRUDCacheRepo(this, kvCache, locker, idGetter)
 
 open class DirectFullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
-    override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    override val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val crudRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
+    kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
     idGetter: (ObjectType) -> IdType
 ) : DirectFullReadCRUDCacheRepo<ObjectType, IdType>(
-    parentRepo,
+    crudRepo,
     kvCache,
     locker,
     idGetter
 ),
     WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
-        parentRepo,
+        crudRepo,
         kvCache,
         scope,
         locker,

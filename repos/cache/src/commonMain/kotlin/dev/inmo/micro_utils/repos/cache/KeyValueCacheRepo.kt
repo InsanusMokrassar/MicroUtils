@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 open class ReadKeyValueCacheRepo<Key,Value>(
-    protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
-    protected open val kvCache: KVCache<Key, Value>,
+    protected val parentRepo: ReadKeyValueRepo<Key, Value>,
+    protected val kvCache: KVCache<Key, Value>,
     protected val locker: SmartRWLocker = SmartRWLocker(),
 ) : ReadKeyValueRepo<Key,Value> by parentRepo, CommonCacheRepo {
     override suspend fun get(k: Key): Value? = locker.withReadAcquire {
@@ -58,24 +58,24 @@ fun <Key, Value> ReadKeyValueRepo<Key, Value>.cached(
 ) = ReadKeyValueCacheRepo(this, kvCache, locker)
 
 open class KeyValueCacheRepo<Key,Value>(
-    override val parentRepo: KeyValueRepo<Key, Value>,
+    protected val kvRepo: KeyValueRepo<Key, Value>,
     kvCache: KVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     locker: SmartRWLocker = SmartRWLocker(),
-) : ReadKeyValueCacheRepo<Key,Value>(parentRepo, kvCache, locker), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CommonCacheRepo {
-    protected val onNewJob = parentRepo.onNewValue.onEach {
+) : ReadKeyValueCacheRepo<Key,Value>(kvRepo, kvCache, locker), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CommonCacheRepo {
+    protected val onNewJob = kvRepo.onNewValue.onEach {
         locker.withWriteLock {
             kvCache.set(it.first, it.second)
         }
     }.launchIn(scope)
-    protected val onRemoveJob = parentRepo.onValueRemoved.onEach {
+    protected val onRemoveJob = kvRepo.onValueRemoved.onEach {
         locker.withWriteLock {
             kvCache.unset(it)
         }
     }.launchIn(scope)
 
     override suspend fun clear() {
-        parentRepo.clear()
+        kvRepo.clear()
         locker.withWriteLock {
             kvCache.clear()
         }
