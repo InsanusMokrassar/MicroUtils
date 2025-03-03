@@ -44,7 +44,7 @@ class SortedBinaryTreeNodeTests {
         }
     }
     @Test
-    fun deepInsertOnWorks() = runTest(timeout = 320.seconds) { // 320 due to js targets -.-
+    fun deepInsertOnWorks() = runTest(timeout = 440.seconds) { // 440 due to js targets -.-
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
