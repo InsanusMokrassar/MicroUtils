@@ -1,3 +1,5 @@
+package dev.inmo.micro_utils.coroutines
+
 import dev.inmo.micro_utils.coroutines.collections.SortedBinaryTreeNode
 import dev.inmo.micro_utils.coroutines.collections.addSubNode
 import dev.inmo.micro_utils.coroutines.collections.findNode
@@ -9,8 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
-
-expect val AllowDeepInsertOnWorksTest: Boolean
 
 class SortedBinaryTreeNodeTests {
     @Test
@@ -46,7 +46,6 @@ class SortedBinaryTreeNodeTests {
     }
     @Test
     fun deepReInsertOnWorks() = runTest(timeout = 300.seconds) {
-        if (AllowDeepInsertOnWorksTest == false) return@runTest
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
@@ -124,7 +123,6 @@ class SortedBinaryTreeNodeTests {
     }
     @Test
     fun deepInsertOnWorks() = runTest(timeout = 240.seconds) {
-        if (AllowDeepInsertOnWorksTest == false) return@runTest
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
