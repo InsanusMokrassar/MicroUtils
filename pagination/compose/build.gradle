@@ -14,6 +14,7 @@ kotlin {
             dependencies {
                 api project(":micro_utils.pagination.common")
                 api project(":micro_utils.common.compose")
+                api libs.kt.coroutines
             }
         }
     }

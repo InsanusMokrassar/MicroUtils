@@ -17,7 +17,8 @@ class InfinityPagedComponentContext<T> internal constructor(
     page: Int,
     size: Int
 ) {
-    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(page, size))
+    internal val startPage = SimplePagination(page, size)
+    internal val iterationState: MutableState<Pair<Int, Pagination?>> = mutableStateOf(0 to null)
     internal val dataState: MutableState<List<T>?> = mutableStateOf(null)
     internal var lastPageLoaded = false
 
@@ -26,10 +27,11 @@ class InfinityPagedComponentContext<T> internal constructor(
      */
     fun loadNext() {
         if (lastPageLoaded) return
+        if (iterationState.value.second is SimplePagination) return // Data loading has been inited but not loaded yet
 
         iterationState.value = iterationState.value.let {
-            if ((dataState.value as? PaginationResult<*>) ?.isLastPage == true) return
-            (it.first + 1) to it.second.nextPage()
+            if ((it.second as? PaginationResult<*>) ?.isLastPage == true) return
+            (it.first + 1) to (it.second ?: startPage).nextPage()
         }
     }
 
@@ -40,7 +42,7 @@ class InfinityPagedComponentContext<T> internal constructor(
         dataState.value = null
         lastPageLoaded = false
         iterationState.value = iterationState.value.let {
-            (it.first + 1) to (it.second.firstPage())
+            (it.first + 1) to null
         }
     }
 }
@@ -64,10 +66,11 @@ internal fun <T> InfinityPagedComponent(
     val context = remember { InfinityPagedComponentContext<T>(page, size) }
 
     LaunchedEffect(context.iterationState.value.first) {
-        val paginationResult = loader(context, context.iterationState.value.second)
+        val paginationResult = loader(context, context.iterationState.value.second ?: context.startPage)
         if (paginationResult.isLastPage) {
             context.lastPageLoaded = true
         }
+        context.iterationState.value = context.iterationState.value.copy(second = paginationResult)
         context.dataState.value = (context.dataState.value ?: emptyList()) + paginationResult.results
     }
 
