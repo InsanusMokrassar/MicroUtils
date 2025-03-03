@@ -12,8 +12,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api project(":micro_utils.common")
-                api libs.kt.coroutines
+                api project(":micro_utils.pagination.common")
+                api project(":micro_utils.common.compose")
+                api project(":micro_utils.coroutines")
             }
         }
     }
