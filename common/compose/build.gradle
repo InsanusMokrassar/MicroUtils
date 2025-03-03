@@ -13,6 +13,7 @@ kotlin {
         commonMain {
             dependencies {
                 api project(":micro_utils.common")
+                api libs.kt.coroutines
             }
         }
     }
