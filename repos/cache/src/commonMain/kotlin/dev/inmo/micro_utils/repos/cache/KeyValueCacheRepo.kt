@@ -62,7 +62,7 @@ open class KeyValueCacheRepo<Key,Value>(
     kvCache: KVCache<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     locker: SmartRWLocker = SmartRWLocker(),
-) : ReadKeyValueCacheRepo<Key,Value>(kvRepo, kvCache, locker), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by parentRepo, CommonCacheRepo {
+) : ReadKeyValueCacheRepo<Key,Value>(kvRepo, kvCache, locker), KeyValueRepo<Key,Value>, WriteKeyValueRepo<Key, Value> by kvRepo, CommonCacheRepo {
     protected val onNewJob = kvRepo.onNewValue.onEach {
         locker.withWriteLock {
             kvCache.set(it.first, it.second)
