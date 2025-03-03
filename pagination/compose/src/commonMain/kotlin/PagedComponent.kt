@@ -23,7 +23,7 @@ class PagedComponentContext<T> internal constructor(
     initialPage: Int,
     size: Int
 ) {
-    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(preset?.page ?: initialPage, preset?.size ?: size))
+    internal val iterationState: MutableState<Pagination> = mutableStateOf(SimplePagination(preset?.page ?: initialPage, preset?.size ?: size))
     
     internal var dataOptional: PaginationResult<T>? = preset
         private set
@@ -35,7 +35,7 @@ class PagedComponentContext<T> internal constructor(
     fun loadNext() {
         iterationState.value = iterationState.value.let {
             if (dataState.value ?.isLastPage == true) return
-            (it.first + 1) to it.second.nextPage()
+            it.nextPage()
         }
     }
 
@@ -44,10 +44,10 @@ class PagedComponentContext<T> internal constructor(
      */
     fun loadPrevious() {
         iterationState.value = iterationState.value.let {
-            if (it.second.isFirstPage) return
-            (it.first - 1) to SimplePagination(
-                it.second.page - 1,
-                it.second.size
+            if (it.isFirstPage) return
+            SimplePagination(
+                it.page - 1,
+                it.size
             )
         }
     }
@@ -57,7 +57,7 @@ class PagedComponentContext<T> internal constructor(
      */
     fun reload() {
         iterationState.value = iterationState.value.let {
-            it.copy(it.first + 1)
+            SimplePagination(it.page, it.size)
         }
     }
 }
@@ -82,8 +82,8 @@ internal fun <T> PagedComponent(
 ) {
     val context = remember { PagedComponentContext(preload, initialPage, size) }
 
-    LaunchedEffect(context.iterationState.value) {
-        context.dataState.value = loader(context, context.iterationState.value.second)
+    LaunchedEffect(context.iterationState.value.page, context.iterationState.value.hashCode()) {
+        context.dataState.value = loader(context, context.iterationState.value)
     }
 
     context.dataState.value ?.let {
