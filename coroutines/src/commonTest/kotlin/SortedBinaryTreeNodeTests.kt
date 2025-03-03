@@ -11,6 +11,8 @@ import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.measureTime
 
+expect val AllowDeepReInsertOnWorksTest: Boolean
+
 class SortedBinaryTreeNodeTests {
     @Test
     fun insertOnZeroLevelWorks() = runTest {
@@ -44,7 +46,8 @@ class SortedBinaryTreeNodeTests {
         }
     }
     @Test
-    fun deepInsertOnWorks() = runTest(timeout = 440.seconds) { // 440 due to js targets -.-
+    fun deepReInsertOnWorks() = runTest(timeout = 240.seconds) {
+        if (AllowDeepReInsertOnWorksTest == false) return@runTest
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
@@ -110,6 +113,41 @@ class SortedBinaryTreeNodeTests {
                 "It is expected, that parent node with data ${parentNode ?.data} will be parent of ${expectedNode.data}, but its left subnode is ${parentNode ?.getLeftNode() ?.data} and right one is ${parentNode ?.getRightNode() ?.data}"
             )
         }
+
+        var previousData = -rangeRadius - 1
+        for (node in zeroNode) {
+            assertTrue(nodes[node.data] === node)
+            assertTrue(previousData == node.data - 1)
+            previousData = node.data
+        }
+
+        assertTrue(sourceTreeSize == zeroNode.size())
+    }
+    @Test
+    fun deepInsertOnWorks() = runTest(timeout = 440.seconds) { // 440 due to js targets -.-
+        val zeroNode = SortedBinaryTreeNode(0)
+        val rangeRadius = 500
+        val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
+        for (i in -rangeRadius .. rangeRadius) {
+            nodes[i] = zeroNode.addSubNode(i)
+        }
+
+        for (i in -rangeRadius .. rangeRadius) {
+            val expectedNode = nodes.getValue(i)
+            val foundNode = zeroNode.findNode(i)
+
+            assertTrue(expectedNode === foundNode)
+
+            if (expectedNode === zeroNode) continue
+
+            val parentNode = zeroNode.findParentNode(i)
+            assertTrue(
+                parentNode ?.getLeftNode() === expectedNode || parentNode ?.getRightNode() === expectedNode,
+                "It is expected, that parent node with data ${parentNode ?.data} will be parent of ${expectedNode.data}, but its left subnode is ${parentNode ?.getLeftNode() ?.data} and right one is ${parentNode ?.getRightNode() ?.data}"
+            )
+        }
+
+        val sourceTreeSize = zeroNode.size()
 
         var previousData = -rangeRadius - 1
         for (node in zeroNode) {
