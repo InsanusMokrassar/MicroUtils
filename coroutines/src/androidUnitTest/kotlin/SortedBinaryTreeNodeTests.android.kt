@@ -1,2 +1,2 @@
-actual val AllowDeepReInsertOnWorksTest: Boolean
+actual val AllowDeepInsertOnWorksTest: Boolean
     get() = true

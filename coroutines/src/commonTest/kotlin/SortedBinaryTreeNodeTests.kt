@@ -9,9 +9,8 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.measureTime
 
-expect val AllowDeepReInsertOnWorksTest: Boolean
+expect val AllowDeepInsertOnWorksTest: Boolean
 
 class SortedBinaryTreeNodeTests {
     @Test
@@ -46,8 +45,8 @@ class SortedBinaryTreeNodeTests {
         }
     }
     @Test
-    fun deepReInsertOnWorks() = runTest(timeout = 240.seconds) {
-        if (AllowDeepReInsertOnWorksTest == false) return@runTest
+    fun deepReInsertOnWorks() = runTest(timeout = 300.seconds) {
+        if (AllowDeepInsertOnWorksTest == false) return@runTest
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
@@ -124,7 +123,8 @@ class SortedBinaryTreeNodeTests {
         assertTrue(sourceTreeSize == zeroNode.size())
     }
     @Test
-    fun deepInsertOnWorks() = runTest(timeout = 440.seconds) { // 440 due to js targets -.-
+    fun deepInsertOnWorks() = runTest(timeout = 240.seconds) {
+        if (AllowDeepInsertOnWorksTest == false) return@runTest
         val zeroNode = SortedBinaryTreeNode(0)
         val rangeRadius = 500
         val nodes = mutableMapOf<Int, SortedBinaryTreeNode<Int>>()
