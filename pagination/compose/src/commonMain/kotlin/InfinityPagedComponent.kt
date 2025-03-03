@@ -54,7 +54,8 @@ class InfinityPagedComponentContext<T> internal constructor(
  * @param page Initial page number.
  * @param size Number of items per page.
  * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
+ * @param block Composable function that renders the UI with the loaded data. When data is in loading state, block will
+ * receive null as `it` parameter
  */
 @Composable
 internal fun <T> InfinityPagedComponent(
@@ -74,9 +75,7 @@ internal fun <T> InfinityPagedComponent(
         context.dataState.value = (context.dataState.value ?: emptyList()) + paginationResult.results
     }
 
-    context.dataState.value ?.let {
-        context.block(context.dataState.value)
-    }
+    context.block(context.dataState.value)
 }
 
 /**
@@ -85,7 +84,8 @@ internal fun <T> InfinityPagedComponent(
  * @param T The type of the paginated data.
  * @param pageInfo Initial pagination information.
  * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
+ * @param block Composable function that renders the UI with the loaded data. When data is in loading state, block will
+ * receive null as `it` parameter
  */
 @Composable
 fun <T> InfinityPagedComponent(
@@ -107,7 +107,8 @@ fun <T> InfinityPagedComponent(
  * @param T The type of the paginated data.
  * @param size Number of items per page.
  * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
+ * @param block Composable function that renders the UI with the loaded data. When data is in loading state, block will
+ * receive null as `it` parameter
  */
 @Composable
 fun <T> InfinityPagedComponent(

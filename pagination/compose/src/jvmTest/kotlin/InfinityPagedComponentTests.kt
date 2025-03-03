@@ -29,7 +29,13 @@ class InfinityPagedComponentTests {
                     }
                 }
             ) {
-                assertEquals(expectedList, it)
+                if (it == null) {
+                    if (this.iterationState.value.second != null) {
+                        assertEquals(0, (this.iterationState.value.second as? SimplePagination) ?.page)
+                    }
+                } else {
+                    assertEquals(expectedList, it)
+                }
 
                 LaunchedEffect(it ?.size) {
                     loadNext()
