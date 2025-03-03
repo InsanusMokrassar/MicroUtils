@@ -11,6 +11,7 @@ String[] includes = [
     ":koin:generator:test",
     ":selector:common",
     ":pagination:common",
+    ":pagination:compose",
     ":pagination:exposed",
     ":pagination:ktor:common",
     ":pagination:ktor:server",

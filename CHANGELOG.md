@@ -6,6 +6,20 @@
   * `Cache`:
     * All cache repos now do not have `open` vals - to avoid collisions in runtime
 
+## 0.24.8
+
+* `Versions`:
+  * `Ktor`: `3.1.0` -> `3.1.1`
+  * `KSP`: `2.1.10-1.0.30` -> `2.1.10-1.0.31`
+* `Common`:
+  * `Compose`:
+    * Add component `LoadableComponent`
+* `Coroutines`:
+  * Add `SortedBinaryTreeNode`
+* `Pagination`:
+  * `Compose`:
+    * Add components `PagedComponent` and `InfinityPagedComponent`
+
 ## 0.24.7
 
 * `Versions`:
