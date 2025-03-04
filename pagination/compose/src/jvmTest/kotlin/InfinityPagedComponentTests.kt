@@ -30,9 +30,7 @@ class InfinityPagedComponentTests {
                 }
             ) {
                 if (it == null) {
-                    if (this.iterationState.value != null) {
-                        assertEquals(0, (this.iterationState.value as? SimplePagination) ?.page)
-                    }
+                    assertEquals(0, this.currentlyLoadingPage.value ?.page)
                 } else {
                     assertEquals(expectedList, it)
                 }
