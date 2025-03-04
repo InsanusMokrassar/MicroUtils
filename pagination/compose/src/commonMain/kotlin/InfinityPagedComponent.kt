@@ -1,6 +1,7 @@
 package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
+import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
 import dev.inmo.micro_utils.pagination.*
 
 /**
@@ -18,32 +19,27 @@ class InfinityPagedComponentContext<T> internal constructor(
     size: Int
 ) {
     internal val startPage = SimplePagination(page, size)
-    internal val iterationState: MutableState<Pair<Int, Pagination?>> = mutableStateOf(0 to null)
-    internal val dataState: MutableState<List<T>?> = mutableStateOf(null)
-    internal var lastPageLoaded = false
+    internal val currentlyLoadingPage = SpecialMutableStateFlow<Pagination?>(startPage)
+    internal val latestLoadedPage = SpecialMutableStateFlow<PaginationResult<T>?>(null)
+    internal val dataState = SpecialMutableStateFlow<List<T>?>(null)
 
     /**
      * Loads the next page of data. If the current page is the last one, the function returns early.
      */
     fun loadNext() {
-        if (lastPageLoaded) return
-        if (iterationState.value.second is SimplePagination) return // Data loading has been inited but not loaded yet
+        if (latestLoadedPage.value ?.isLastPage == true) return
+        if (currentlyLoadingPage.value != null) return // Data loading has been inited but not loaded yet
 
-        iterationState.value = iterationState.value.let {
-            if ((it.second as? PaginationResult<*>) ?.isLastPage == true) return
-            (it.first + 1) to (it.second ?: startPage).nextPage()
-        }
+        currentlyLoadingPage.value = latestLoadedPage.value ?.nextPage() ?: startPage
     }
 
     /**
      * Reloads the pagination from the first page, clearing previously loaded data.
      */
     fun reload() {
-        dataState.value = null
-        lastPageLoaded = false
-        iterationState.value = iterationState.value.let {
-            (it.first + 1) to null
-        }
+        latestLoadedPage.value = null
+        currentlyLoadingPage.value = null
+        loadNext()
     }
 }
 
@@ -66,16 +62,17 @@ internal fun <T> InfinityPagedComponent(
 ) {
     val context = remember { InfinityPagedComponentContext<T>(page, size) }
 
-    LaunchedEffect(context.iterationState.value.first) {
-        val paginationResult = loader(context, context.iterationState.value.second ?: context.startPage)
-        if (paginationResult.isLastPage) {
-            context.lastPageLoaded = true
-        }
-        context.iterationState.value = context.iterationState.value.copy(second = paginationResult)
+    val currentlyLoadingState = context.currentlyLoadingPage.collectAsState()
+    LaunchedEffect(currentlyLoadingState.value) {
+        val paginationResult = loader(context, currentlyLoadingState.value ?: return@LaunchedEffect)
+        context.latestLoadedPage.value = paginationResult
+        context.currentlyLoadingPage.value = null
+
         context.dataState.value = (context.dataState.value ?: emptyList()) + paginationResult.results
     }
 
-    context.block(context.dataState.value)
+    val dataState = context.dataState.collectAsState()
+    context.block(dataState.value)
 }
 
 /**
