@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 open class DirectFullReadKeyValueCacheRepo<Key, Value>(
-    protected open val parentRepo: ReadKeyValueRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, Value>,
-    protected open val locker: SmartRWLocker = SmartRWLocker()
+    protected val parentRepo: ReadKeyValueRepo<Key, Value>,
+    protected val kvCache: KeyValueRepo<Key, Value>,
+    protected val locker: SmartRWLocker = SmartRWLocker()
 ) : DirectFullCacheRepo, ReadKeyValueRepo<Key, Value> {
     protected open suspend fun actualizeAll() {
         kvCache.actualizeAll(parentRepo, locker)
@@ -65,8 +65,8 @@ fun <Key, Value> ReadKeyValueRepo<Key, Value>.directlyCached(
 ) = DirectFullReadKeyValueCacheRepo(this, kvCache, locker)
 
 open class DirectFullWriteKeyValueCacheRepo<Key, Value>(
-    protected open val parentRepo: WriteKeyValueRepo<Key, Value>,
-    protected open val kvCache: KeyValueRepo<Key, Value>,
+    protected val parentRepo: WriteKeyValueRepo<Key, Value>,
+    protected val kvCache: KeyValueRepo<Key, Value>,
     protected val locker: SmartRWLocker = SmartRWLocker(),
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
 ) : DirectFullCacheRepo, WriteKeyValueRepo<Key, Value> by parentRepo {
@@ -101,20 +101,20 @@ fun <Key, Value> WriteKeyValueRepo<Key, Value>.directlyCached(
 ) = DirectFullWriteKeyValueCacheRepo(this, kvCache, scope = scope)
 
 open class DirectFullKeyValueCacheRepo<Key, Value>(
-    override val parentRepo: KeyValueRepo<Key, Value>,
-    override val kvCache: KeyValueRepo<Key, Value>,
+    protected val kvRepo: KeyValueRepo<Key, Value>,
+    kvCache: KeyValueRepo<Key, Value>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
 ) : DirectFullCacheRepo,
     KeyValueRepo<Key, Value> ,
     WriteKeyValueRepo<Key, Value> by DirectFullWriteKeyValueCacheRepo(
-        parentRepo,
+        kvRepo,
         kvCache,
         locker,
         scope
     ),
-    DirectFullReadKeyValueCacheRepo<Key, Value>(parentRepo, kvCache, locker) {
+    DirectFullReadKeyValueCacheRepo<Key, Value>(kvRepo, kvCache, locker) {
     init {
         if (!skipStartInvalidate) {
             scope.launchLoggingDropExceptions {
@@ -140,15 +140,15 @@ open class DirectFullKeyValueCacheRepo<Key, Value>(
     }
 
     override suspend fun clear() {
-        parentRepo.clear()
+        kvRepo.clear()
         kvCache.clear()
     }
 
-    override suspend fun unsetWithValues(toUnset: List<Value>) = parentRepo.unsetWithValues(toUnset)
+    override suspend fun unsetWithValues(toUnset: List<Value>) = kvRepo.unsetWithValues(toUnset)
 
     override suspend fun set(toSet: Map<Key, Value>) {
         locker.withWriteLock {
-            parentRepo.set(toSet)
+            kvRepo.set(toSet)
             kvCache.set(
                 toSet.filter {
                     parentRepo.contains(it.key)
@@ -159,7 +159,7 @@ open class DirectFullKeyValueCacheRepo<Key, Value>(
 
     override suspend fun unset(toUnset: List<Key>) {
         locker.withWriteLock {
-            parentRepo.unset(toUnset)
+            kvRepo.unset(toUnset)
             kvCache.unset(
                 toUnset.filter {
                     !parentRepo.contains(it)

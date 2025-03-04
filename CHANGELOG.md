@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.25.0
+
+* `Repos`:
+  * `Cache`:
+    * All cache repos now do not have `open` vals - to avoid collisions in runtime
+
 ## 0.24.9
 
 * `Pagination`:

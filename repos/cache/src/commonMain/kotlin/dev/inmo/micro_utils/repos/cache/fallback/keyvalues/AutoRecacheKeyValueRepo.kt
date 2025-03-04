@@ -9,19 +9,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlin.time.Duration.Companion.seconds
 
 open class AutoRecacheKeyValuesRepo<Id, RegisteredObject>(
-    override val originalRepo: KeyValuesRepo<Id, RegisteredObject>,
+    protected val kvsRepo: KeyValuesRepo<Id, RegisteredObject>,
     scope: CoroutineScope,
     kvCache: KeyValueRepo<Id, List<RegisteredObject>> = MapKeyValueRepo(),
     recacheDelay: Long = 60.seconds.inWholeMilliseconds,
     actionWrapper: ActionWrapper = ActionWrapper.Direct
 ) : AutoRecacheReadKeyValuesRepo<Id, RegisteredObject> (
-    originalRepo,
+    kvsRepo,
     scope,
     kvCache,
     recacheDelay,
     actionWrapper
 ),
-    WriteKeyValuesRepo<Id, RegisteredObject> by AutoRecacheWriteKeyValuesRepo(originalRepo, scope, kvCache),
+    WriteKeyValuesRepo<Id, RegisteredObject> by AutoRecacheWriteKeyValuesRepo(kvsRepo, scope, kvCache),
     KeyValuesRepo<Id, RegisteredObject> {
 
     constructor(

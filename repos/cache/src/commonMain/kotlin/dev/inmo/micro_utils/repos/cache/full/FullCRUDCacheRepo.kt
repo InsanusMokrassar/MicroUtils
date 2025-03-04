@@ -15,10 +15,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
 open class FullReadCRUDCacheRepo<ObjectType, IdType>(
-    protected open val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
-    protected open val kvCache: KeyValueRepo<IdType, ObjectType>,
-    protected open val locker: SmartRWLocker = SmartRWLocker(),
-    protected open val idGetter: (ObjectType) -> IdType
+    protected val parentRepo: ReadCRUDRepo<ObjectType, IdType>,
+    protected val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val locker: SmartRWLocker = SmartRWLocker(),
+    protected val idGetter: (ObjectType) -> IdType
 ) : ReadCRUDRepo<ObjectType, IdType>, FullCacheRepo {
     protected suspend inline fun <T> doOrTakeAndActualize(
         action: KeyValueRepo<IdType, ObjectType>.() -> Optional<T>,
@@ -94,20 +94,20 @@ fun <ObjectType, IdType> ReadCRUDRepo<ObjectType, IdType>.cached(
 ) = FullReadCRUDCacheRepo(this, kvCache, locker, idGetter)
 
 open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
-    override val parentRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
-    override val kvCache: KeyValueRepo<IdType, ObjectType>,
+    protected val crudRepo: CRUDRepo<ObjectType, IdType, InputValueType>,
+    kvCache: KeyValueRepo<IdType, ObjectType>,
     scope: CoroutineScope = CoroutineScope(Dispatchers.Default),
     skipStartInvalidate: Boolean = false,
-    override val locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
-    override val idGetter: (ObjectType) -> IdType
+    locker: SmartRWLocker = SmartRWLocker(writeIsLocked = !skipStartInvalidate),
+    idGetter: (ObjectType) -> IdType
 ) : FullReadCRUDCacheRepo<ObjectType, IdType>(
-    parentRepo,
+    crudRepo,
     kvCache,
     locker,
     idGetter
 ),
     WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
-        parentRepo,
+        crudRepo,
         kvCache,
         scope,
         locker,
@@ -128,7 +128,7 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
 
     protected open suspend fun initialInvalidate() {
         try {
-            kvCache.actualizeAll(parentRepo, locker = null)
+            kvCache.actualizeAll(crudRepo, locker = null)
         } finally {
             locker.unlockWrite()
         }
