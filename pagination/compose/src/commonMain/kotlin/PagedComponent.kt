@@ -1,9 +1,7 @@
 package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
-import dev.inmo.micro_utils.common.Optional
-import dev.inmo.micro_utils.common.dataOrThrow
-import dev.inmo.micro_utils.common.optional
+import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
 import dev.inmo.micro_utils.pagination.*
 
 /**
@@ -19,23 +17,21 @@ import dev.inmo.micro_utils.pagination.*
  * @param size Number of items per page.
  */
 class PagedComponentContext<T> internal constructor(
-    preset: PaginationResult<T>? = null,
     initialPage: Int,
     size: Int
 ) {
-    internal val iterationState: MutableState<Pair<Int, Pagination>> = mutableStateOf(0 to SimplePagination(preset?.page ?: initialPage, preset?.size ?: size))
-    
-    internal var dataOptional: PaginationResult<T>? = preset
-        private set
-    internal val dataState: MutableState<PaginationResult<T>?> = mutableStateOf(dataOptional)
+    internal val startPage = SimplePagination(initialPage, size)
+    internal val currentlyLoadingPageState = SpecialMutableStateFlow<Pagination?>(startPage)
+    internal val latestLoadedPage = SpecialMutableStateFlow<PaginationResult<T>?>(null)
 
     /**
      * Loads the next page of data. If the last page is reached, this function returns early.
      */
     fun loadNext() {
-        iterationState.value = iterationState.value.let {
-            if (dataState.value ?.isLastPage == true) return
-            (it.first + 1) to it.second.nextPage()
+        when {
+            currentlyLoadingPageState.value != null -> return
+            latestLoadedPage.value ?.isLastPage == true -> return
+            else -> currentlyLoadingPageState.value = (latestLoadedPage.value ?.nextPage()) ?: startPage
         }
     }
 
@@ -43,12 +39,10 @@ class PagedComponentContext<T> internal constructor(
      * Loads the previous page of data if available.
      */
     fun loadPrevious() {
-        iterationState.value = iterationState.value.let {
-            if (it.second.isFirstPage) return
-            (it.first - 1) to SimplePagination(
-                it.second.page - 1,
-                it.second.size
-            )
+        when {
+            currentlyLoadingPageState.value != null -> return
+            latestLoadedPage.value ?.isFirstPage == true -> return
+            else -> currentlyLoadingPageState.value = (latestLoadedPage.value ?.previousPage()) ?: startPage
         }
     }
 
@@ -56,9 +50,7 @@ class PagedComponentContext<T> internal constructor(
      * Reloads the current page, refreshing the data.
      */
     fun reload() {
-        iterationState.value = iterationState.value.let {
-            it.copy(it.first + 1)
-        }
+        currentlyLoadingPageState.value = latestLoadedPage.value
     }
 }
 
@@ -74,44 +66,24 @@ class PagedComponentContext<T> internal constructor(
  */
 @Composable
 internal fun <T> PagedComponent(
-    preload: PaginationResult<T>?,
     initialPage: Int,
     size: Int,
     loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
     block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
 ) {
-    val context = remember { PagedComponentContext(preload, initialPage, size) }
+    val context = remember { PagedComponentContext<T>(initialPage, size) }
 
-    LaunchedEffect(context.iterationState.value) {
-        context.dataState.value = loader(context, context.iterationState.value.second)
+    val currentlyLoadingState = context.currentlyLoadingPageState.collectAsState()
+    LaunchedEffect(currentlyLoadingState.value) {
+        val paginationResult = loader(context, currentlyLoadingState.value ?: return@LaunchedEffect)
+        context.latestLoadedPage.value = paginationResult
+        context.currentlyLoadingPageState.value = null
     }
 
-    context.dataState.value ?.let {
+    val pageState = context.latestLoadedPage.collectAsState()
+    pageState.value ?.let {
         context.block(it)
     }
-}
-
-/**
- * Overloaded composable function for paginated components with preloaded data.
- *
- * @param T The type of paginated data.
- * @param preload Preloaded pagination result.
- * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
- */
-@Composable
-fun <T> PagedComponent(
-    preload: PaginationResult<T>,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
-) {
-    PagedComponent(
-        preload,
-        preload.page,
-        preload.size,
-        loader,
-        block
-    )
 }
 
 /**
@@ -129,31 +101,11 @@ fun <T> PagedComponent(
     block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
 ) {
     PagedComponent(
-        null,
         pageInfo.page,
         pageInfo.size,
         loader,
         block
     )
-}
-
-/**
- * Overloaded composable function for paginated components with an initial page.
- *
- * @param T The type of paginated data.
- * @param initialPage Initial page number.
- * @param size Number of items per page.
- * @param loader Suspended function that loads paginated data.
- * @param block Composable function that renders the UI with the loaded data.
- */
-@Composable
-fun <T> PagedComponent(
-    initialPage: Int,
-    size: Int,
-    loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
-    block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
-) {
-    PagedComponent(null, initialPage, size, loader, block)
 }
 
 /**

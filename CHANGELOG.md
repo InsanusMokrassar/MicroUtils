@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.24.9
+
+* `Pagination`:
+  * Make alternative constructor parameter `size` of `PaginationResult` with default value
+  * Add `Pagination.previousPage` extension
+  * `Compose`:
+    * Rework of `InfinityPagedComponentContext`
+    * Rework of `PagedComponent`
+
 ## 0.24.8
 
 * `Versions`:

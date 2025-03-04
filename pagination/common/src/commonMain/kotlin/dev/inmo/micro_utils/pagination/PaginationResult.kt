@@ -32,7 +32,7 @@ data class PaginationResult<T>(
         page: Int,
         results: List<T>,
         pagesNumber: Int,
-        size: Int
+        size: Int = results.size
     ) : this(
         page,
         size,
