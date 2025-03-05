@@ -77,56 +77,42 @@ class SortedMapLikeBinaryTreeNodeTests {
             assertEquals(foundNode ?.value, foundModifiedNode ?.value ?.times(-1))
         }
     }
-//    @Test
-//    fun deepInsertOnWorks() = runTest(timeout = 240.seconds) {
-//        val zeroNode = SortedMapLikeBinaryTreeNode(0)
-//        val rangeRadius = 500
-//        val nodes = mutableMapOf<Int, SortedMapLikeBinaryTreeNode<Int>>()
-//        for (i in -rangeRadius .. rangeRadius) {
-//            nodes[i] = zeroNode.addSubNode(i)
-//        }
-//
-//        for (i in -rangeRadius .. rangeRadius) {
-//            val expectedNode = nodes.getValue(i)
-//            val foundNode = zeroNode.findNode(i)
-//
-//            assertTrue(expectedNode === foundNode)
-//
-//            if (expectedNode === zeroNode) continue
-//
-//            val parentNode = zeroNode.findParentNode(i)
-//            assertTrue(
-//                parentNode ?.getLeftNode() === expectedNode || parentNode ?.getRightNode() === expectedNode,
-//                "It is expected, that parent node with data ${parentNode ?.data} will be parent of ${expectedNode.data}, but its left subnode is ${parentNode ?.getLeftNode() ?.data} and right one is ${parentNode ?.getRightNode() ?.data}"
-//            )
-//        }
-//
-//        val sourceTreeSize = zeroNode.size()
-//
-//        var previousData = -rangeRadius - 1
-//        for (node in zeroNode) {
-//            assertTrue(nodes[node.data] === node)
-//            assertTrue(previousData == node.data - 1)
-//            previousData = node.data
-//        }
-//
-//        assertTrue(sourceTreeSize == zeroNode.size())
-//    }
-//    @Test
-//    fun deepInsertIteratorWorking() = runTest {
-//        val zeroNode = SortedMapLikeBinaryTreeNode(0)
-//        val rangeRadius = 500
-//        val nodes = mutableMapOf<Int, SortedMapLikeBinaryTreeNode<Int>>()
-//        for (i in -rangeRadius .. rangeRadius) {
-//            nodes[i] = zeroNode.addSubNode(i)
-//        }
-//
-//        var previousData = -rangeRadius - 1
-//        for (node in zeroNode) {
-//            assertTrue(nodes[node.data] === node)
-//            assertTrue(previousData == node.data - 1)
-//            previousData = node.data
-//        }
-//        assertTrue(previousData == rangeRadius)
-//    }
+    @Test
+    fun deepInsertOnWorks() = runTest(timeout = 240.seconds) {
+        val zeroNode = SortedMapLikeBinaryTreeNode(0, 0)
+        val rangeRadius = 500
+        val nodes = mutableMapOf<Int, SortedMapLikeBinaryTreeNode<Int, Int>>()
+        for (i in -rangeRadius .. rangeRadius) {
+            if (zeroNode.key != i) {
+                nodes[i] = zeroNode.upsertSubNode(i, i)
+            }
+        }
+        nodes[zeroNode.key] = zeroNode
+
+        for (i in -rangeRadius .. rangeRadius) {
+            val expectedNode = nodes.getValue(i)
+            val foundNode = zeroNode.findNode(i)
+
+            assertTrue(expectedNode === foundNode)
+
+            if (expectedNode === zeroNode) continue
+
+            val parentNode = zeroNode.findParentNode(i)
+            assertTrue(
+                parentNode ?.getLeftNode() === expectedNode || parentNode ?.getRightNode() === expectedNode,
+                "It is expected, that parent node with data ${parentNode ?.key} will be parent of ${expectedNode.key}, but its left subnode is ${parentNode ?.getLeftNode() ?.key} and right one is ${parentNode ?.getRightNode() ?.key}"
+            )
+        }
+
+        val sourceTreeSize = zeroNode.size()
+
+        var previousData = -rangeRadius - 1
+        for (node in zeroNode) {
+            assertTrue(nodes[node.key] === node)
+            assertTrue(previousData == node.key - 1)
+            previousData = node.key
+        }
+
+        assertTrue(sourceTreeSize == zeroNode.size())
+    }
 }
