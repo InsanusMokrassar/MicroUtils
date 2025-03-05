@@ -68,13 +68,13 @@ class SortedMapLikeBinaryTreeNodeTests {
                 parentNode ?.getLeftNode() === expectedNode || parentNode ?.getRightNode() === expectedNode,
                 "It is expected, that parent node with data ${parentNode ?.key} will be parent of ${expectedNode.key}, but its left subnode is ${parentNode ?.getLeftNode() ?.key} and right one is ${parentNode ?.getRightNode() ?.key}"
             )
+            assertTrue(
+                foundNode != null && expectedNode.deepEquals(foundNode)
+            )
 
             zeroNode.upsertSubNode(i, -i)
             val foundModifiedNode = zeroNode.findNode(i)
             assertEquals(foundNode ?.value, foundModifiedNode ?.value ?.times(-1))
-            assertTrue(
-                foundNode != null && foundModifiedNode != null && foundNode.deepEquals(foundModifiedNode)
-            )
         }
     }
 //    @Test
