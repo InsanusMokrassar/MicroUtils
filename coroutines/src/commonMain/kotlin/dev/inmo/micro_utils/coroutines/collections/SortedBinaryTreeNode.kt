@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.coroutines.collections
 
 import dev.inmo.micro_utils.coroutines.SmartRWLocker
-import dev.inmo.micro_utils.coroutines.waitReadRelease
 import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import kotlinx.coroutines.job
@@ -93,7 +92,7 @@ class SortedBinaryTreeNode<T>(
  * This process will continue until function will not find place to put [SortedBinaryTreeNode] with data or
  * [SortedBinaryTreeNode] with [SortedBinaryTreeNode.data] same as [newData] will be found
  */
-private suspend fun <T> SortedBinaryTreeNode<T>.addSubNode(
+private suspend fun <T> SortedBinaryTreeNode<T>.upsertSubNode(
     subNode: SortedBinaryTreeNode<T>,
     skipLockers: Set<SmartRWLocker> = emptySet()
 ): SortedBinaryTreeNode<T> {
@@ -149,7 +148,7 @@ private suspend fun <T> SortedBinaryTreeNode<T>.addSubNode(
  * [SortedBinaryTreeNode] with [SortedBinaryTreeNode.data] same as [newData] will be found
  */
 suspend fun <T> SortedBinaryTreeNode<T>.addSubNode(newData: T): SortedBinaryTreeNode<T> {
-    return addSubNode(
+    return upsertSubNode(
         SortedBinaryTreeNode(newData, comparator)
     )
 }
@@ -198,8 +197,8 @@ suspend fun <T> SortedBinaryTreeNode<T>.findParentNode(data: T): SortedBinaryTre
  */
 suspend fun <T> SortedBinaryTreeNode<T>.removeSubNode(data: T): Pair<SortedBinaryTreeNode<T>, SortedBinaryTreeNode<T>>? {
     val onFoundToRemoveCallback: suspend SortedBinaryTreeNode<T>.(left: SortedBinaryTreeNode<T>?, right: SortedBinaryTreeNode<T>?) -> Unit = { left, right ->
-        left ?.also { leftNode -> addSubNode(leftNode, setOf(locker)) }
-        right ?.also { rightNode -> addSubNode(rightNode, setOf(locker)) }
+        left ?.also { leftNode -> upsertSubNode(leftNode, setOf(locker)) }
+        right ?.also { rightNode -> upsertSubNode(rightNode, setOf(locker)) }
     }
     while (coroutineContext.job.isActive) {
         val foundParentNode = findParentNode(data) ?: return null

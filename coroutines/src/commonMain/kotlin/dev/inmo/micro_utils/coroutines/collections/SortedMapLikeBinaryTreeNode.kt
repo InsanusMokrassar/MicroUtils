@@ -99,7 +99,7 @@ class SortedMapLikeBinaryTreeNode<K, V>(
  *
  * @param replaceMode Will replace only value if node already exists
  */
-private suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.addSubNode(
+private suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.upsertSubNode(
     subNode: SortedMapLikeBinaryTreeNode<K, V>,
     skipLockers: Set<SmartRWLocker> = emptySet(),
     replaceMode: Boolean
@@ -180,11 +180,11 @@ private suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.addSubNode(
  * This process will continue until function will not find place to put [SortedMapLikeBinaryTreeNode] with data or
  * [SortedMapLikeBinaryTreeNode] with [SortedMapLikeBinaryTreeNode.key] same as [key] will be found
  */
-suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.addSubNode(
+suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.upsertSubNode(
     key: K,
     value: V
 ): SortedMapLikeBinaryTreeNode<K, V> {
-    return addSubNode(
+    return upsertSubNode(
         SortedMapLikeBinaryTreeNode(key, value, comparator),
         replaceMode = false
     )
@@ -234,8 +234,8 @@ suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.findParentNode(data: K): So
  */
 suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.removeSubNode(data: K): Pair<SortedMapLikeBinaryTreeNode<K, V>, SortedMapLikeBinaryTreeNode<K, V>>? {
     val onFoundToRemoveCallback: suspend SortedMapLikeBinaryTreeNode<K, V>.(left: SortedMapLikeBinaryTreeNode<K, V>?, right: SortedMapLikeBinaryTreeNode<K, V>?) -> Unit = { left, right ->
-        left ?.also { leftNode -> addSubNode(leftNode, setOf(locker), replaceMode = true) }
-        right ?.also { rightNode -> addSubNode(rightNode, setOf(locker), replaceMode = true) }
+        left ?.also { leftNode -> upsertSubNode(leftNode, setOf(locker), replaceMode = true) }
+        right ?.also { rightNode -> upsertSubNode(rightNode, setOf(locker), replaceMode = true) }
     }
     while (coroutineContext.job.isActive) {
         val foundParentNode = findParentNode(data) ?: return null
@@ -336,6 +336,52 @@ suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.findNodesInRange(from: K, t
         }
     }
     error("Unable to find nodes range")
+}
+suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.deepEquals(other: SortedMapLikeBinaryTreeNode<K, V>): Boolean {
+    val leftToCheck = mutableSetOf(this)
+    val othersToCheck = mutableSetOf(other)
+    val lockedLockers = mutableSetOf<SmartRWLocker>()
+    try {
+        while (leftToCheck.isNotEmpty() && othersToCheck.isNotEmpty()) {
+            val thisToCheck = leftToCheck.first()
+            leftToCheck.remove(thisToCheck)
+
+            val otherToCheck = othersToCheck.first()
+            othersToCheck.remove(otherToCheck)
+
+            if (thisToCheck.locker !in lockedLockers) {
+                thisToCheck.locker.acquireRead()
+                lockedLockers.add(thisToCheck.locker)
+            }
+            if (otherToCheck.locker !in lockedLockers) {
+                otherToCheck.locker.acquireRead()
+                lockedLockers.add(otherToCheck.locker)
+            }
+
+            if (thisToCheck.key != otherToCheck.key || thisToCheck.value != otherToCheck.value) {
+                return false
+            }
+
+            if ((thisToCheck.leftNode == null).xor(otherToCheck.leftNode == null)) {
+                return false
+            }
+            if ((thisToCheck.rightNode == null).xor(otherToCheck.rightNode == null)) {
+                return false
+            }
+
+            thisToCheck.leftNode?.let { leftToCheck.add(it) }
+            thisToCheck.rightNode?.let { leftToCheck.add(it) }
+
+            otherToCheck.leftNode?.let { othersToCheck.add(it) }
+            otherToCheck.rightNode?.let { othersToCheck.add(it) }
+        }
+    } finally {
+        lockedLockers.forEach {
+            runCatching { it.releaseRead() }
+        }
+    }
+
+    return leftToCheck.isEmpty() && othersToCheck.isEmpty()
 }
 suspend fun <K, V> SortedMapLikeBinaryTreeNode<K, V>.findNodesInRange(from: K, to: K): Set<SortedMapLikeBinaryTreeNode<K, V>> = findNodesInRange(
     from = from,
