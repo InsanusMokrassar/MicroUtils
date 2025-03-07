@@ -85,6 +85,9 @@ internal fun <T> InfinityPagedComponent(
 ) {
     val scope = predefinedScope ?: rememberCoroutineScope()
     val context = remember { InfinityPagedComponentContext<T>(page, size, scope, loader) }
+    remember {
+        context.loadNext()
+    }
 
     val dataState = context.dataState.collectAsState()
     context.block(dataState.value)
