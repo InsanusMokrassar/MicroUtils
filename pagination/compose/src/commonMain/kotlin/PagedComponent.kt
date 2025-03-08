@@ -2,7 +2,12 @@ package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
 import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
+import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.pagination.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Context for managing paginated data in a Compose UI.
@@ -18,39 +23,73 @@ import dev.inmo.micro_utils.pagination.*
  */
 class PagedComponentContext<T> internal constructor(
     initialPage: Int,
-    size: Int
+    size: Int,
+    private val scope: CoroutineScope,
+    private val loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>
 ) {
     internal val startPage = SimplePagination(initialPage, size)
-    internal val currentlyLoadingPageState = SpecialMutableStateFlow<Pagination?>(startPage)
     internal val latestLoadedPage = SpecialMutableStateFlow<PaginationResult<T>?>(null)
+    internal val dataState = SpecialMutableStateFlow<PaginationResult<T>?>(null)
+    internal var loadingJob: Job? = null
+    internal val loadingMutex = Mutex()
+
+    private fun initLoadingJob(
+        skipCheckerInLock: () -> Boolean,
+        pageGetter: () -> Pagination
+    ): Job {
+        return scope.launchLoggingDropExceptions {
+            loadingMutex.withLock {
+                if (skipCheckerInLock()) return@launchLoggingDropExceptions
+                loadingJob = loadingJob ?: scope.launchLoggingDropExceptions {
+                    runCatching {
+                        loader(pageGetter())
+                    }.onSuccess {
+                        latestLoadedPage.value = it
+                        dataState.value = it
+                    }
+                    loadingMutex.withLock {
+                        loadingJob = null
+                    }
+                }
+                loadingJob
+            } ?.join()
+        }
+    }
 
     /**
      * Loads the next page of data. If the last page is reached, this function returns early.
      */
-    fun loadNext() {
-        when {
-            currentlyLoadingPageState.value != null -> return
-            latestLoadedPage.value ?.isLastPage == true -> return
-            else -> currentlyLoadingPageState.value = (latestLoadedPage.value ?.nextPage()) ?: startPage
+    fun loadNext(): Job {
+        return initLoadingJob(
+            { latestLoadedPage.value ?.isLastPage == true }
+        ) {
+            latestLoadedPage.value ?.nextPage() ?: startPage
         }
     }
 
     /**
      * Loads the previous page of data if available.
      */
-    fun loadPrevious() {
-        when {
-            currentlyLoadingPageState.value != null -> return
-            latestLoadedPage.value ?.isFirstPage == true -> return
-            else -> currentlyLoadingPageState.value = (latestLoadedPage.value ?.previousPage()) ?: startPage
+    fun loadPrevious(): Job {
+        return initLoadingJob(
+            { latestLoadedPage.value ?.isFirstPage == true }
+        ) {
+            latestLoadedPage.value ?.previousPage() ?: startPage
         }
     }
 
     /**
      * Reloads the current page, refreshing the data.
      */
-    fun reload() {
-        currentlyLoadingPageState.value = latestLoadedPage.value
+    fun reload(): Job {
+        return initLoadingJob(
+            {
+                latestLoadedPage.value = null
+                true
+            }
+        ) {
+            startPage
+        }
     }
 }
 
@@ -69,18 +108,16 @@ internal fun <T> PagedComponent(
     initialPage: Int,
     size: Int,
     loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
 ) {
-    val context = remember { PagedComponentContext<T>(initialPage, size) }
-
-    val currentlyLoadingState = context.currentlyLoadingPageState.collectAsState()
-    LaunchedEffect(currentlyLoadingState.value) {
-        val paginationResult = loader(context, currentlyLoadingState.value ?: return@LaunchedEffect)
-        context.latestLoadedPage.value = paginationResult
-        context.currentlyLoadingPageState.value = null
+    val scope = predefinedScope ?: rememberCoroutineScope()
+    val context = remember { PagedComponentContext<T>(initialPage, size, scope, loader) }
+    remember {
+        context.reload()
     }
 
-    val pageState = context.latestLoadedPage.collectAsState()
+    val pageState = context.dataState.collectAsState()
     pageState.value ?.let {
         context.block(it)
     }
@@ -98,12 +135,14 @@ internal fun <T> PagedComponent(
 fun <T> PagedComponent(
     pageInfo: Pagination,
     loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
 ) {
     PagedComponent(
         pageInfo.page,
         pageInfo.size,
         loader,
+        predefinedScope,
         block
     )
 }
@@ -120,7 +159,8 @@ fun <T> PagedComponent(
 fun <T> PagedComponent(
     size: Int,
     loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable PagedComponentContext<T>.(PaginationResult<T>) -> Unit
 ) {
-    PagedComponent(0, size, loader, block)
+    PagedComponent(0, size, loader, predefinedScope, block)
 }
