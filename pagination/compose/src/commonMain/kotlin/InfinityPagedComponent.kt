@@ -2,7 +2,13 @@ package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
 import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
+import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
+import dev.inmo.micro_utils.coroutines.runCatchingLogging
 import dev.inmo.micro_utils.pagination.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Context for managing infinite pagination in a Compose UI.
@@ -16,30 +22,46 @@ import dev.inmo.micro_utils.pagination.*
  */
 class InfinityPagedComponentContext<T> internal constructor(
     page: Int,
-    size: Int
+    size: Int,
+    private val scope: CoroutineScope,
+    private val loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>
 ) {
     internal val startPage = SimplePagination(page, size)
-    internal val currentlyLoadingPage = SpecialMutableStateFlow<Pagination?>(startPage)
     internal val latestLoadedPage = SpecialMutableStateFlow<PaginationResult<T>?>(null)
     internal val dataState = SpecialMutableStateFlow<List<T>?>(null)
+    internal var loadingJob: Job? = null
+    internal val loadingMutex = Mutex()
 
     /**
      * Loads the next page of data. If the current page is the last one, the function returns early.
      */
-    fun loadNext() {
-        if (latestLoadedPage.value ?.isLastPage == true) return
-        if (currentlyLoadingPage.value != null) return // Data loading has been inited but not loaded yet
-
-        currentlyLoadingPage.value = latestLoadedPage.value ?.nextPage() ?: startPage
+    fun loadNext(): Job {
+        return scope.launchLoggingDropExceptions {
+            loadingMutex.withLock {
+                if (latestLoadedPage.value ?.isLastPage == true) return@launchLoggingDropExceptions
+                loadingJob = loadingJob ?: scope.launchLoggingDropExceptions {
+                    runCatching {
+                        loader(latestLoadedPage.value ?.nextPage() ?: startPage)
+                    }.onSuccess {
+                        latestLoadedPage.value = it
+                        dataState.value = (dataState.value ?: emptyList()) + it.results
+                    }
+                    loadingMutex.withLock {
+                        loadingJob = null
+                    }
+                }
+                loadingJob
+            } ?.join()
+        }
     }
 
     /**
      * Reloads the pagination from the first page, clearing previously loaded data.
      */
-    fun reload() {
+    fun reload(): Job {
         latestLoadedPage.value = null
-        currentlyLoadingPage.value = null
-        loadNext()
+        dataState.value = null
+        return loadNext()
     }
 }
 
@@ -58,17 +80,13 @@ internal fun <T> InfinityPagedComponent(
     page: Int,
     size: Int,
     loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
-    val context = remember { InfinityPagedComponentContext<T>(page, size) }
-
-    val currentlyLoadingState = context.currentlyLoadingPage.collectAsState()
-    LaunchedEffect(currentlyLoadingState.value) {
-        val paginationResult = loader(context, currentlyLoadingState.value ?: return@LaunchedEffect)
-        context.latestLoadedPage.value = paginationResult
-        context.currentlyLoadingPage.value = null
-
-        context.dataState.value = (context.dataState.value ?: emptyList()) + paginationResult.results
+    val scope = predefinedScope ?: rememberCoroutineScope()
+    val context = remember { InfinityPagedComponentContext<T>(page, size, scope, loader) }
+    remember {
+        context.reload()
     }
 
     val dataState = context.dataState.collectAsState()
@@ -88,12 +106,14 @@ internal fun <T> InfinityPagedComponent(
 fun <T> InfinityPagedComponent(
     pageInfo: Pagination,
     loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
     InfinityPagedComponent(
         pageInfo.page,
         pageInfo.size,
         loader,
+        predefinedScope,
         block
     )
 }
@@ -111,7 +131,8 @@ fun <T> InfinityPagedComponent(
 fun <T> InfinityPagedComponent(
     size: Int,
     loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
+    predefinedScope: CoroutineScope? = null,
     block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
-    InfinityPagedComponent(0, size, loader, block)
+    InfinityPagedComponent(0, size, loader, predefinedScope, block)
 }

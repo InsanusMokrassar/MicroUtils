@@ -30,13 +30,13 @@ class InfinityPagedComponentTests {
                 }
             ) {
                 if (it == null) {
-                    assertEquals(0, this.currentlyLoadingPage.value ?.page)
+                    assertEquals(null, it)
                 } else {
                     assertEquals(expectedList, it)
                 }
 
                 LaunchedEffect(it ?.size) {
-                    loadNext()
+                    loadNext().join()
                 }
             }
         }
