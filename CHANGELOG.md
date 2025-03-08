@@ -2,6 +2,12 @@
 
 ## 0.25.1
 
+* `Coroutines`:
+  * Add `SortedMapLikeBinaryTreeNode`
+* `Pagination`:
+  * `Compose`:
+    * One more rework of `InfinityPagedComponent` and `PagedComponent`
+
 ## 0.25.0
 
 * `Repos`:
