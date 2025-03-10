@@ -26,7 +26,7 @@ okio = "3.10.2"
 ksp = "2.1.10-1.0.31"
 kotlin-poet = "1.18.1"
 
-versions = "0.51.0"
+versions = "0.52.0"
 
 android-gradle = "8.7.+"
 dexcount = "4.0.0"
