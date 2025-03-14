@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.*
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
@@ -133,6 +134,7 @@ open class FullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
             locker.unlockWrite()
         }
     }
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }

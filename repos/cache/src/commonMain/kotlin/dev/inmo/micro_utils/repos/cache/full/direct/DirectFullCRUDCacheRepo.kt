@@ -1,11 +1,13 @@
 package dev.inmo.micro_utils.repos.cache.full.direct
 
+import dev.inmo.micro_utils.common.Warning
 import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.*
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
@@ -96,6 +98,8 @@ open class DirectFullCRUDCacheRepo<ObjectType, IdType, InputValueType>(
             locker.unlockWrite()
         }
     }
+
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }

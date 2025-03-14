@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.cache.fallback.crud
 
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -53,6 +54,7 @@ open class AutoRecacheWriteCRUDRepo<RegisteredObject, Id, InputObject>(
         kvCache.set(idGetter(it), it)
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         kvCache.clear()
     }

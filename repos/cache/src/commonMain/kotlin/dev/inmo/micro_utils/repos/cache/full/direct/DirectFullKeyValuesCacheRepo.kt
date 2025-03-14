@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
@@ -88,6 +89,7 @@ open class DirectFullReadKeyValuesCacheRepo<Key,Value>(
         return result ?: emptyPaginationResult()
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }
@@ -121,6 +123,7 @@ open class DirectFullWriteKeyValuesCacheRepo<Key,Value>(
         }
     }.launchIn(scope)
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         locker.withWriteLock {
             kvCache.clear()
@@ -170,6 +173,7 @@ open class DirectFullKeyValuesCacheRepo<Key,Value>(
             locker.unlockWrite()
         }
     }
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker = locker)
     }

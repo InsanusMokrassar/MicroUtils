@@ -5,6 +5,7 @@ import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
@@ -49,6 +50,7 @@ open class ReadKeyValueCacheRepo<Key,Value>(
         }
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() = kvCache.actualizeAll(parentRepo, locker = locker)
 }
 
