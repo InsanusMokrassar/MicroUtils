@@ -15,7 +15,7 @@ suspend fun <T : InvalidatableRepo> T.alsoInvalidate() = also {
     invalidate()
 }
 
-fun <T : InvalidatableRepo> T.alsoDoInvalidate(scope: CoroutineScope) = also {
+fun <T : InvalidatableRepo> T.alsoInvalidateAsync(scope: CoroutineScope) = also {
     scope.launchLoggingDropExceptions {
         invalidate()
     }

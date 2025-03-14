@@ -6,7 +6,7 @@
   * `Exposed`: `0.59.0` -> `0.60.0`
 * `Repo`:
   * `Cache`:
-    * Add extensions `alsoInvalidate` and `alsoDoInvalidate`
+    * Add extensions `alsoInvalidate`, `alsoInvalidateAsync`, `alsoInvalidateSync` and `alsoInvalidateSyncLogging`
 * `Koin`:
   * Add extensions `singleSuspend` and `factorySuspend` for defining of dependencies with suspendable blocks
 

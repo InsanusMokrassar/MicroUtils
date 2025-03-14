@@ -73,7 +73,7 @@ class KtorCRUDRepoTests : CommonCRUDRepoTests() {
             }
             val server = io.ktor.server.engine.embeddedServer(
                 CIO,
-                34567,
+                34568,
                 "127.0.0.1"
             ) {
                 install(ContentNegotiation) {
@@ -100,7 +100,7 @@ class KtorCRUDRepoTests : CommonCRUDRepoTests() {
                 }
             }
             val crudClient = KtorCRUDRepoClient<ComplexData, Int, SimpleData>(
-                "http://127.0.0.1:34567",
+                "http://127.0.0.1:34568",
                 client,
                 ContentType.Application.Json
             ) {

@@ -63,7 +63,7 @@ class KtorKeyValueRepoTests : CommonKeyValueRepoTests() {
             val repo = MapKeyValueRepo<Int, ComplexData>(map)
             val server = io.ktor.server.engine.embeddedServer(
                 CIO,
-                34567,
+                34569,
                 "127.0.0.1"
             ) {
                 install(ContentNegotiation) {
@@ -91,7 +91,7 @@ class KtorKeyValueRepoTests : CommonKeyValueRepoTests() {
                 }
             }
             val crudClient = KtorKeyValueRepoClient<Int, ComplexData>(
-                "http://127.0.0.1:34567",
+                "http://127.0.0.1:34569",
                 client,
                 ContentType.Application.Json,
                 Int.serializer(),
