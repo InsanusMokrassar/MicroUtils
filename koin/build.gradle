@@ -17,11 +17,13 @@ kotlin {
         jvmMain {
             dependencies {
                 api libs.kt.reflect
+                api project(":micro_utils.coroutines")
             }
         }
         androidMain {
             dependencies {
                 api libs.kt.reflect
+                api project(":micro_utils.coroutines")
             }
         }
     }

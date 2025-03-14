@@ -3,6 +3,7 @@ package dev.inmo.micro_utils.repos.cache.fallback.keyvalues
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import dev.inmo.micro_utils.repos.pagination.maxPagePagination
 import kotlinx.coroutines.CoroutineScope
@@ -89,6 +90,7 @@ open class AutoRecacheWriteKeyValuesRepo<Id, RegisteredObject>(
         }
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         kvCache.clear()
     }

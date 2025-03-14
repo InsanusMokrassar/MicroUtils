@@ -7,7 +7,9 @@ fun <T> CoroutineScope.launchSynchronously(block: suspend CoroutineScope.() -> T
     val objectToSynchronize = Object()
     synchronized(objectToSynchronize) {
         launch(start = CoroutineStart.UNDISPATCHED) {
-            result = safelyWithResult(block)
+            result = runCatching {
+                block()
+            }
         }.invokeOnCompletion {
             synchronized(objectToSynchronize) {
                 objectToSynchronize.notifyAll()

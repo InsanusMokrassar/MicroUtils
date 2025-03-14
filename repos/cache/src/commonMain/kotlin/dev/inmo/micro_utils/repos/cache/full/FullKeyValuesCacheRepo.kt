@@ -8,6 +8,7 @@ import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.pagination.utils.*
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.pagination.maxPagePagination
@@ -153,6 +154,7 @@ open class FullReadKeyValuesCacheRepo<Key,Value>(
         { if (it.results.isNotEmpty()) actualizeAll() }
     )
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }
@@ -235,6 +237,7 @@ open class FullKeyValuesCacheRepo<Key,Value>(
             locker.unlockWrite()
         }
     }
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         kvCache.actualizeAll(parentRepo, locker = locker)
     }

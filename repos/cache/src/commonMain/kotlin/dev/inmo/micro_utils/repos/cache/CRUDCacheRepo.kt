@@ -4,6 +4,7 @@ import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.withReadAcquire
 import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.cache.KVCache
 import dev.inmo.micro_utils.repos.cache.util.ActualizeAllClearMode
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
@@ -39,6 +40,7 @@ open class ReadCRUDCacheRepo<ObjectType, IdType>(
         kvCache.contains(id)
     } || parentRepo.contains(id)
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() = locker.withWriteLock {
         kvCache.clear()
     }
@@ -117,6 +119,7 @@ open class WriteCRUDCacheRepo<ObjectType, IdType, InputValueType>(
         return created
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() = locker.withWriteLock {
         kvCache.clear()
     }
@@ -150,6 +153,7 @@ WriteCRUDRepo<ObjectType, IdType, InputValueType> by WriteCRUDCacheRepo(
     idGetter
 ),
 CRUDRepo<ObjectType, IdType, InputValueType> {
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() = kvCache.actualizeAll(parentRepo, locker = locker)
 }
 

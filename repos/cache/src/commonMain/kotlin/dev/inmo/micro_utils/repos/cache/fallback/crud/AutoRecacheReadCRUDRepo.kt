@@ -6,6 +6,7 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.KeyValueRepo
 import dev.inmo.micro_utils.repos.MapKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadCRUDRepo
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
@@ -90,6 +91,7 @@ open class AutoRecacheReadCRUDRepo<RegisteredObject, Id>(
         kvCache.set(idGetter(it), it)
     } ?: kvCache.get(id)
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }

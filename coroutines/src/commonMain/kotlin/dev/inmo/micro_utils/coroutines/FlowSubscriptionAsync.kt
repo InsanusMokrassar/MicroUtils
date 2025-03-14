@@ -71,7 +71,7 @@ fun <T, M> Flow<T>.subscribeAsync(
         it.invoke(markersMap)
     }
 
-    val job = subscribeSafelyWithoutExceptions(subscope) { data ->
+    val job = subscribeLoggingDropExceptions(subscope) { data ->
         val dataCommand = AsyncSubscriptionCommandData(data, subscope, markerFactory, block) { marker ->
             actor.send(
                 AsyncSubscriptionCommandClearReceiver(marker)

@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.repos.cache.fallback.keyvalue
 
 import dev.inmo.micro_utils.coroutines.subscribeSafelyWithoutExceptions
 import dev.inmo.micro_utils.repos.*
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -44,6 +45,7 @@ open class AutoRecacheWriteKeyValueRepo<Id, RegisteredObject>(
         kvCache.set(toSet)
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         kvCache.clear()
     }
