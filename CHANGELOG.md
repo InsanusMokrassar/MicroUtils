@@ -2,6 +2,9 @@
 
 ## 0.25.3
 
+* `Coroutines`:
+  * Add extensions `SmartRWLocker.alsoWithUnlockingOnSuccessAsync` and `SmartRWLocker.alsoWithUnlockingOnSuccess`
+
 ## 0.25.2
 
 * `Versions`:

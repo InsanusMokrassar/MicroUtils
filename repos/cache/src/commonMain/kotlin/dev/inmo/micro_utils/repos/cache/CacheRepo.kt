@@ -1,7 +1,9 @@
 package dev.inmo.micro_utils.repos.cache
 
+import dev.inmo.micro_utils.coroutines.SmartRWLocker
 import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 interface InvalidatableRepo {
     /**
