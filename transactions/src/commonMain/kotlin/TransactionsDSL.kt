@@ -63,7 +63,7 @@ suspend fun <T> TransactionsDSL.rollbackableOperation(
  * @param onRollbackStepError Will be called if rollback action throwing some error
  */
 suspend fun <T> doSuspendTransaction(
-    onRollbackStepError: suspend (TransactionDSLRollbackLambda, Throwable) -> Unit = { _, _ -> },
+    onRollbackStepError: suspend (Throwable) -> Unit = { },
     block: suspend TransactionsDSL.() -> T
 ): Result<T> {
     val transactionsDSL = TransactionsDSL()
@@ -75,7 +75,7 @@ suspend fun <T> doSuspendTransaction(
             runCatching {
                 it.invoke(e)
             }.onFailure { ee ->
-                onRollbackStepError(it, ee)
+                onRollbackStepError(ee)
             }
         }
     }
