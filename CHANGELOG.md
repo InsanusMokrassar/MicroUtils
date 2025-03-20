@@ -4,6 +4,8 @@
 
 * `Coroutines`:
   * Add extensions `SmartRWLocker.alsoWithUnlockingOnSuccessAsync` and `SmartRWLocker.alsoWithUnlockingOnSuccess`
+* `Transactions`:
+  * Add `TransactionsDSL`
 
 ## 0.25.2
 
