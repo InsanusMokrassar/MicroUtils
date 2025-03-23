@@ -19,7 +19,7 @@ class RollbackContext<T> internal constructor (
  *
  * @param rollback Will be called if
  */
-suspend fun <T> TransactionsDSL.rollbackableOperation(
+suspend fun <T> TransactionsDSL.rollableBackOperation(
     rollback: suspend RollbackContext<T>.() -> Unit,
     action: suspend () -> T
 ): T {
@@ -34,7 +34,7 @@ suspend fun <T> TransactionsDSL.rollbackableOperation(
 }
 
 /**
- * Starts transaction with opportunity to add actions [rollbackableOperation]. How to use:
+ * Starts transaction with opportunity to add actions [rollableBackOperation]. How to use:
  *
  * ```kotlin
  * doSuspendTransaction {

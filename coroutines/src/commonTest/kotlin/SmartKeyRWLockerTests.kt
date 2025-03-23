@@ -63,13 +63,54 @@ class SmartKeyRWLockerTests {
             assertFails {
                 realWithTimeout(13.milliseconds) { locker.lockWrite() }
             }
+            val readPermitsBeforeLock = locker.readSemaphore().freePermits
             realWithTimeout(1.seconds) { locker.acquireRead() }
             locker.releaseRead()
-            assertTrue { locker.readSemaphore().freePermits == Int.MAX_VALUE }
+            assertEquals(readPermitsBeforeLock, locker.readSemaphore().freePermits)
 
             locker.releaseRead(it)
         }
 
+        assertTrue { locker.readSemaphore().freePermits == Int.MAX_VALUE }
+        realWithTimeout(1.seconds) { locker.lockWrite() }
+        assertFails {
+            realWithTimeout(13.milliseconds) { locker.acquireRead() }
+        }
+        assertTrue { locker.unlockWrite() }
+        assertTrue { locker.readSemaphore().freePermits == Int.MAX_VALUE }
+    }
+    @Test
+    fun writesBlockingGlobalWrite() = runTest {
+        val locker = SmartKeyRWLocker<String>()
+
+        val testKeys = (0 until 100).map { "test$it" }
+
+        for (i in testKeys.indices) {
+            val it = testKeys[i]
+            locker.lockWrite(it)
+            val previous = testKeys.take(i)
+            val next = testKeys.drop(i + 1)
+
+            previous.forEach {
+                assertTrue { locker.writeMutexOrNull(it) ?.isLocked == true }
+            }
+            next.forEach {
+                assertTrue { locker.writeMutexOrNull(it) ?.isLocked != true }
+            }
+        }
+
+        for (i in testKeys.indices) {
+            val it = testKeys[i]
+            assertFails { realWithTimeout(13.milliseconds) { locker.lockWrite() } }
+
+            val readPermitsBeforeLock = locker.readSemaphore().freePermits
+            assertFails { realWithTimeout(13.milliseconds) { locker.acquireRead() } }
+            assertEquals(readPermitsBeforeLock, locker.readSemaphore().freePermits)
+
+            locker.unlockWrite(it)
+        }
+
+        assertTrue { locker.readSemaphore().freePermits == Int.MAX_VALUE }
         realWithTimeout(1.seconds) { locker.lockWrite() }
         assertFails {
             realWithTimeout(13.milliseconds) { locker.acquireRead() }

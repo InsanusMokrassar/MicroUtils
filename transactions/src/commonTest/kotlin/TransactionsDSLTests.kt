@@ -1,5 +1,5 @@
 import dev.inmo.micro_utils.transactions.doSuspendTransaction
-import dev.inmo.micro_utils.transactions.rollbackableOperation
+import dev.inmo.micro_utils.transactions.rollableBackOperation
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -19,7 +19,7 @@ class TransactionsDSLTests {
 
         val actionResult = doSuspendTransaction {
             dataCollections.forEachIndexed { i, _ ->
-                val resultData = rollbackableOperation({
+                val resultData = rollableBackOperation({
                     dataCollections[i] = actionResult.copy(second = true)
                 }) {
                     val result = dataCollections[i]
@@ -56,7 +56,7 @@ class TransactionsDSLTests {
 
             val actionResult = doSuspendTransaction {
                 dataCollections.forEachIndexed { i, _ ->
-                    val resultData = rollbackableOperation({
+                    val resultData = rollableBackOperation({
                         assertTrue(error === this.error)
                         dataCollections[i] = actionResult.copy(second = true)
                     }) {

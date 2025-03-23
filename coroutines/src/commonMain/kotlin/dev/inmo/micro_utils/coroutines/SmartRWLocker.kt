@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
+import kotlinx.coroutines.CancellationException
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -39,7 +40,12 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
      */
     suspend fun lockWrite() {
         _writeMutex.lock()
-        _readSemaphore.acquire(readPermits)
+        try {
+            _readSemaphore.acquire(readPermits)
+        } catch (e: CancellationException) {
+            _writeMutex.unlock()
+            throw e
+        }
     }
 
     /**

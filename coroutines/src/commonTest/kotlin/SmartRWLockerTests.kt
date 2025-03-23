@@ -6,7 +6,10 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.seconds
 
 class SmartRWLockerTests {
     @Test
@@ -147,5 +150,18 @@ class SmartRWLockerTests {
             assertEquals(Int.MAX_VALUE, locker.readSemaphore.freePermits)
             assertEquals(false, locker.writeMutex.isLocked)
         }
+    }
+
+    @Test
+    fun exceptionOnLockingWillNotLockLocker() = runTest {
+        val locker = SmartRWLocker()
+
+        locker.acquireRead()
+        assertFails {
+            realWithTimeout(1.seconds) {
+                locker.lockWrite()
+            }
+        }
+        assertFalse { locker.writeMutex.isLocked }
     }
 }
