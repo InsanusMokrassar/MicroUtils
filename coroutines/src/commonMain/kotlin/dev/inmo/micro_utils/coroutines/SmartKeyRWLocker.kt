@@ -7,6 +7,22 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+/**
+ * Combining [globalRWLocker] and internal map of [SmartRWLocker] associated by [T] to provide next logic:
+ *
+ * * Locker by key, for reading: waiting for [globalRWLocker] unlock write by acquiring read permit in it and then
+ * taking or creating locker for key [T] and lock its reading too
+ * * Locker by key, for writing: waiting for [globalRWLocker] unlock write by acquiring read permit in it and then
+ * taking or creating locker for key [T] and lock its writing
+ * * [globalRWLocker], for reading: using [SmartRWLocker.acquireRead], will be suspended until its
+ * [SmartRWLocker.lockWrite] will not be unlocked
+ * * [globalRWLocker], for writing: using [SmartRWLocker.lockWrite], will be paused by other reading and writing
+ * operations and will pause other operations until the end of operation (calling of [unlockWrite])
+ *
+ * You may see, that lockers by key still will use global locker permits - it is required to prevent [globalRWLocker]
+ * write locking during all other operations are not done. In fact, all the keys works like a simple [SmartRWLocker] as
+ * well, as [globalRWLocker], but they are linked with [globalRWLocker] [SmartRWLocker.acquireRead] permissions
+ */
 class SmartKeyRWLocker<T>(
     globalLockerReadPermits: Int = Int.MAX_VALUE,
     globalLockerWriteIsLocked: Boolean = false,
