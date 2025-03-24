@@ -153,6 +153,27 @@ suspend inline fun <T, R> SmartKeyRWLocker<T>.withReadAcquire(key: T, action: ()
 }
 
 @OptIn(ExperimentalContracts::class)
+suspend inline fun <T, R> SmartKeyRWLocker<T>.withReadAcquires(keys: Iterable<T>, action: () -> R): R {
+    contract {
+        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
+    }
+
+    val acquired = mutableSetOf<T>()
+    try {
+        keys.forEach {
+            acquireRead(it)
+            acquired.add(it)
+        }
+        return action()
+    } finally {
+        acquired.forEach {
+            releaseRead(it)
+        }
+    }
+}
+suspend inline fun <T, R> SmartKeyRWLocker<T>.withReadAcquires(vararg keys: T, action: () -> R): R = withReadAcquires(keys.asIterable(), action)
+
+@OptIn(ExperimentalContracts::class)
 suspend inline fun <T, R> SmartKeyRWLocker<T>.withWriteLock(key: T, action: () -> R): R {
     contract {
         callsInPlace(action, InvocationKind.EXACTLY_ONCE)
@@ -163,5 +184,25 @@ suspend inline fun <T, R> SmartKeyRWLocker<T>.withWriteLock(key: T, action: () -
         return action()
     } finally {
         unlockWrite(key)
+    }
+}
+
+@OptIn(ExperimentalContracts::class)
+suspend inline fun <T, R> SmartKeyRWLocker<T>.withWriteLocks(keys: Iterable<T>, action: () -> R): R {
+    contract {
+        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
+    }
+
+    val locked = mutableSetOf<T>()
+    try {
+        keys.forEach {
+            lockWrite(it)
+            locked.add(it)
+        }
+        return action()
+    } finally {
+        locked.forEach {
+            unlockWrite(it)
+        }
     }
 }
