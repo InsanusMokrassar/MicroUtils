@@ -14,7 +14,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class SmartKeyRWLockerTests {
     @Test
-    fun lockKeyFailedOnGlobalLockTest() = runTest {
+    fun writeLockKeyFailedOnGlobalWriteLockTest() = runTest {
         val locker = SmartKeyRWLocker<String>()
         val testKey = "test"
         locker.lockWrite()
@@ -30,6 +30,31 @@ class SmartKeyRWLockerTests {
 
         locker.unlockWrite()
         assertFalse { locker.isWriteLocked() }
+
+        realWithTimeout(1.seconds) {
+            locker.lockWrite(testKey)
+        }
+        assertTrue { locker.isWriteLocked(testKey) }
+        assertTrue { locker.unlockWrite(testKey) }
+        assertFalse { locker.isWriteLocked(testKey) }
+    }
+    @Test
+    fun writeLockKeyFailedOnGlobalReadLockTest() = runTest {
+        val locker = SmartKeyRWLocker<String>()
+        val testKey = "test"
+        locker.acquireRead()
+
+        assertEquals(Int.MAX_VALUE - 1, locker.readSemaphore().freePermits)
+
+        assertFails {
+            realWithTimeout(1.seconds) {
+                locker.lockWrite(testKey)
+            }
+        }
+        assertFalse { locker.isWriteLocked(testKey) }
+
+        locker.releaseRead()
+        assertEquals(Int.MAX_VALUE, locker.readSemaphore().freePermits)
 
         realWithTimeout(1.seconds) {
             locker.lockWrite(testKey)
