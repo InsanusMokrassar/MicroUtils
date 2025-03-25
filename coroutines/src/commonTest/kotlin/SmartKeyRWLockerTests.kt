@@ -64,6 +64,56 @@ class SmartKeyRWLockerTests {
         assertFalse { locker.isWriteLocked(testKey) }
     }
     @Test
+    fun readLockFailedOnWriteLockKeyTest() = runTest {
+        val locker = SmartKeyRWLocker<String>()
+        val testKey = "test"
+        locker.lockWrite(testKey)
+
+        assertTrue { locker.isWriteLocked(testKey) }
+
+        assertFails {
+            realWithTimeout(1.seconds) {
+                locker.acquireRead()
+            }
+        }
+        assertEquals(locker.readSemaphore().maxPermits - 1, locker.readSemaphore().freePermits)
+
+        locker.unlockWrite(testKey)
+        assertFalse { locker.isWriteLocked(testKey) }
+
+        realWithTimeout(1.seconds) {
+            locker.acquireRead()
+        }
+        assertEquals(locker.readSemaphore().maxPermits - 1, locker.readSemaphore().freePermits)
+        assertTrue { locker.releaseRead() }
+        assertEquals(locker.readSemaphore().maxPermits, locker.readSemaphore().freePermits)
+    }
+    @Test
+    fun writeLockFailedOnWriteLockKeyTest() = runTest {
+        val locker = SmartKeyRWLocker<String>()
+        val testKey = "test"
+        locker.lockWrite(testKey)
+
+        assertTrue { locker.isWriteLocked(testKey) }
+
+        assertFails {
+            realWithTimeout(1.seconds) {
+                locker.lockWrite()
+            }
+        }
+        assertFalse(locker.isWriteLocked())
+
+        locker.unlockWrite(testKey)
+        assertFalse { locker.isWriteLocked(testKey) }
+
+        realWithTimeout(1.seconds) {
+            locker.lockWrite()
+        }
+        assertTrue(locker.isWriteLocked())
+        assertTrue { locker.unlockWrite() }
+        assertFalse(locker.isWriteLocked())
+    }
+    @Test
     fun readsBlockingGlobalWrite() = runTest {
         val locker = SmartKeyRWLocker<String>()
 
