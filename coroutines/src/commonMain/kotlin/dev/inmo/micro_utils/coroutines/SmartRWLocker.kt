@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
+import kotlinx.coroutines.CancellationException
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -7,9 +8,10 @@ import kotlin.contracts.contract
 /**
  * Composite mutex which works with next rules:
  *
- * * [acquireRead] require to [writeMutex] be free. Then it will take one lock from [readSemaphore]
+ * * [acquireRead] require to [writeMutex] to be free. Then it will take one lock from [readSemaphore]
  * * [releaseRead] will just free up one permit in [readSemaphore]
- * * [lockWrite] will lock [writeMutex] and then await while all [readSemaphore] will be freed
+ * * [lockWrite] will lock [writeMutex] and then await while all [readSemaphore] will be freed. If coroutine will be
+ * cancelled during read semaphore freeing, locking will be cancelled too with [SmartMutex.Mutable.unlock]ing of [writeMutex]
  * * [unlockWrite] will just unlock [writeMutex]
  */
 class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked: Boolean = false) {
@@ -39,7 +41,12 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
      */
     suspend fun lockWrite() {
         _writeMutex.lock()
-        _readSemaphore.acquire(readPermits)
+        try {
+            _readSemaphore.acquire(readPermits)
+        } catch (e: CancellationException) {
+            _writeMutex.unlock()
+            throw e
+        }
     }
 
     /**

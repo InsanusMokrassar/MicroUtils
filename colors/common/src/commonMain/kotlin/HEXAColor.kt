@@ -13,7 +13,7 @@ import kotlin.math.floor
  *
  * Anyway it is recommended to use
  *
- * @param hexaUInt rgba [UInt] in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
+ * @param hexaUInt rgba [UInt] in format `0xRRGGBBAA` where RR - red, GG - green, BB - blue` and AA - alpha
  */
 @Serializable
 @JvmInline
@@ -21,18 +21,18 @@ value class HEXAColor (
     val hexaUInt: UInt
 ) : Comparable<HEXAColor> {
     /**
-     * @returns [hexaUInt] as a string with format `#FFEEBBAA` where FF - red, EE - green, BB - blue and AA - alpha
+     * @returns [hexaUInt] as a string with format `#RRGGBBAA` where RR - red, GG - green, BB - blue and AA - alpha
      */
     val hexa: String
         get() = "#${hexaUInt.toString(16).padStart(8, '0')}"
 
     /**
-     * @returns [hexaUInt] as a string with format `#FFEEBB` where FF - red, EE - green and BB - blue
+     * @returns [hexaUInt] as a string with format `#RRGGBB` where RR - red, GG - green and BB - blue
      */
     val hex: String
         get() = hexa.take(7)
     /**
-     * @returns [hexaUInt] as a string with format `#AAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue
+     * @returns [hexaUInt] as a string with format `#AARRGGBB` where AA - alpha, RR - red, GG - green and BB - blue
      */
     val ahex: String
         get() = "#${a.toString(16).padStart(2, '2')}${hex.drop(1)}"
@@ -140,12 +140,12 @@ value class HEXAColor (
         }.lowercase().toUInt(16).let(::HEXAColor)
 
         /**
-         * Creates [HEXAColor] from [uint] presume it is in format `0xFFEEBBAA` where FF - red, EE - green, BB - blue` and AA - alpha
+         * Creates [HEXAColor] from [uint] presume it is in format `0xRRGGBBAA` where RR - red, GG - green, BB - blue` and AA - alpha
          */
         fun fromHexa(uint: UInt) = HEXAColor(uint)
 
         /**
-         * Creates [HEXAColor] from [uint] presume it is in format `0xAAFFEEBB` where AA - alpha, FF - red, EE - green and BB - blue`
+         * Creates [HEXAColor] from [uint] presume it is in format `0xAARRGGBB` where AA - alpha, RR - red, GG - green and BB - blue`
          */
         fun fromAhex(uint: UInt) = HEXAColor(
             a = ((uint and 0xff000000u) / 0x1000000u).toInt(),

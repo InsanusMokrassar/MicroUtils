@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.25.3
+
+* `Coroutines`:
+  * Add extensions `SmartRWLocker.alsoWithUnlockingOnSuccessAsync` and `SmartRWLocker.alsoWithUnlockingOnSuccess`
+  * Fix of `SmartRWLocker.lockWrite` issue when it could lock write mutex without unlocking
+  * Add tool `SmartKeyRWLocker`
+  * `SmartSemaphore` got new property `maxPermits`
+  * New extension `SmartSemaphore.waitReleaseAll()`
+* `Transactions`:
+  * Add `TransactionsDSL`
+
 ## 0.25.2
 
 * `Versions`:

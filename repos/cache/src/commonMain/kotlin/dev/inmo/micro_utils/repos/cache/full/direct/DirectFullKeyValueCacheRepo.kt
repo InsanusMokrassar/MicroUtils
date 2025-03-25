@@ -8,9 +8,6 @@ import dev.inmo.micro_utils.pagination.Pagination
 import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.*
 import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
-import dev.inmo.micro_utils.repos.cache.full.FullKeyValueCacheRepo
-import dev.inmo.micro_utils.repos.cache.full.FullReadKeyValueCacheRepo
-import dev.inmo.micro_utils.repos.cache.full.FullWriteKeyValueCacheRepo
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -24,6 +24,7 @@ import kotlin.contracts.contract
  * [Mutable] creator
  */
 sealed interface SmartSemaphore {
+    val maxPermits: Int
     val permitsStateFlow: StateFlow<Int>
 
     /**
@@ -36,7 +37,7 @@ sealed interface SmartSemaphore {
     /**
      * Immutable variant of [SmartSemaphore]. In fact will depend on the owner of [permitsStateFlow]
      */
-    class Immutable(override val permitsStateFlow: StateFlow<Int>) : SmartSemaphore
+    class Immutable(override val permitsStateFlow: StateFlow<Int>, override val maxPermits: Int) : SmartSemaphore
 
     /**
      * Mutable variant of [SmartSemaphore]. With that variant you may [lock] and [unlock]. Besides, you may create
@@ -44,15 +45,16 @@ sealed interface SmartSemaphore {
      *
      * @param locked Preset state of [freePermits] and its internal [_freePermitsStateFlow]
      */
-    class Mutable(private val permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
+    class Mutable(permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
+        override val maxPermits: Int = permits
         private val _freePermitsStateFlow = SpecialMutableStateFlow<Int>(permits - acquiredPermits)
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex(false)
 
-        fun immutable() = Immutable(permitsStateFlow)
+        fun immutable() = Immutable(permitsStateFlow, maxPermits)
 
-        private fun checkedPermits(permits: Int) = permits.coerceIn(1 .. this.permits)
+        private fun checkedPermits(permits: Int) = permits.coerceIn(1 .. this.maxPermits)
 
         /**
          * Holds call until this [SmartSemaphore] will be re-locked. That means that current method will
@@ -126,10 +128,10 @@ sealed interface SmartSemaphore {
          */
         suspend fun release(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (_freePermitsStateFlow.value < this.permits) {
+            return if (_freePermitsStateFlow.value < this.maxPermits) {
                 internalChangesMutex.withLock {
-                    if (_freePermitsStateFlow.value < this.permits) {
-                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, this.permits)
+                    if (_freePermitsStateFlow.value < this.maxPermits) {
+                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, this.maxPermits)
                         true
                     } else {
                         false
@@ -166,3 +168,4 @@ suspend inline fun <T> SmartSemaphore.Mutable.withAcquire(permits: Int = 1, acti
  * the fact that some other parties may lock it again
  */
 suspend fun SmartSemaphore.waitRelease(permits: Int = 1) = permitsStateFlow.first { it >= permits }
+suspend fun SmartSemaphore.waitReleaseAll() = permitsStateFlow.first { it == maxPermits }

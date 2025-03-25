@@ -1,13 +1,19 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "application"
     id "com.google.devtools.ksp"
 }
 
 apply from: "$mppJvmJsLinuxMingwProject"
 
 kotlin {
+    jvm {
+        binaries {
+            executable {
+                mainClass.set("dev.inmo.micro_utils.startup.launcher.MainKt")
+            }
+        }
+    }
     sourceSets {
         commonMain {
             dependencies {
@@ -21,10 +27,6 @@ kotlin {
             }
         }
     }
-}
-
-application {
-    mainClassName = "dev.inmo.micro_utils.startup.launcher.MainKt"
 }
 
 java {
