@@ -1,7 +1,6 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-//    id "application"
     id "com.google.devtools.ksp"
 }
 
@@ -10,7 +9,6 @@ apply from: "$mppJvmJsLinuxMingwProject"
 kotlin {
     jvm {
         binaries {
-            // Configures a JavaExec task named "runJvm" and a Gradle distribution for the "main" compilation in this target
             executable {
                 mainClass.set("dev.inmo.micro_utils.startup.launcher.MainKt")
             }
@@ -30,10 +28,6 @@ kotlin {
         }
     }
 }
-
-//application {
-//    mainClassName = "dev.inmo.micro_utils.startup.launcher.MainKt"
-//}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
