@@ -222,3 +222,5 @@ suspend inline fun <T, R> SmartKeyRWLocker<T>.withWriteLocks(keys: Iterable<T>, 
         }
     }
 }
+
+suspend inline fun <T, R> SmartKeyRWLocker<T>.withWriteLocks(vararg keys: T, action: () -> R): R = withWriteLocks(keys.asIterable(), action)
