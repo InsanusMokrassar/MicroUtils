@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.25.4
+
+* `Coroutines`:
+  * Add `SmartKeyRWLocker.withWriteLocks` extension with vararg keys
+
 ## 0.25.3
 
 * `Coroutines`:
