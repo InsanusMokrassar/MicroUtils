@@ -2,6 +2,9 @@
 
 ## 0.25.4
 
+* `Versions`:
+  * `Ktor`: `3.1.1` -> `3.1.2`
+  * `Koin`: `4.0.2` -> `4.0.3`
 * `Coroutines`:
   * Add `SmartKeyRWLocker.withWriteLocks` extension with vararg keys
 
