@@ -7,6 +7,8 @@
   * `Koin`: `4.0.2` -> `4.0.3`
 * `Coroutines`:
   * Add `SmartKeyRWLocker.withWriteLocks` extension with vararg keys
+* `Transactions`:
+  * Fix order of rollback actions calling
 
 ## 0.25.3
 

@@ -71,7 +71,7 @@ suspend fun <T> doSuspendTransaction(
     return runCatching {
         transactionsDSL.block()
     }.onFailure { e ->
-        transactionsDSL.rollbackActions.forEach {
+        transactionsDSL.rollbackActions.reversed().forEach {
             runCatching {
                 it.invoke(e)
             }.onFailure { ee ->
