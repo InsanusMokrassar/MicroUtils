@@ -4,7 +4,7 @@
 
 * `Versions`:
   * `Ktor`: `3.1.1` -> `3.1.2`
-  * `Koin`: `4.0.2` -> `4.0.3`
+  * `Koin`: `4.0.2` -> `4.0.4`
 * `Coroutines`:
   * Add `SmartKeyRWLocker.withWriteLocks` extension with vararg keys
 * `Transactions`:
