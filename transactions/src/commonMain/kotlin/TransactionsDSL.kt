@@ -2,7 +2,7 @@ package dev.inmo.micro_utils.transactions
 
 typealias TransactionDSLRollbackLambda = suspend (Throwable) -> Unit
 class TransactionsDSL internal constructor() {
-    internal val rollbackActions = LinkedHashSet<TransactionDSLRollbackLambda>()
+    internal val rollbackActions = ArrayList<TransactionDSLRollbackLambda>()
 
     internal fun addRollbackAction(rollbackAction: TransactionDSLRollbackLambda) {
         rollbackActions.add(rollbackAction)
@@ -71,9 +71,10 @@ suspend fun <T> doSuspendTransaction(
     return runCatching {
         transactionsDSL.block()
     }.onFailure { e ->
-        transactionsDSL.rollbackActions.forEach {
+        for (i in transactionsDSL.rollbackActions.lastIndex downTo 0) {
+            val rollbackAction = transactionsDSL.rollbackActions[i]
             runCatching {
-                it.invoke(e)
+                rollbackAction.invoke(e)
             }.onFailure { ee ->
                 onRollbackStepError(ee)
             }
