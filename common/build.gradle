@@ -29,5 +29,12 @@ kotlin {
                 api libs.okio
             }
         }
+
+        wasmJsMain {
+            dependencies {
+                api libs.kotlinx.browser
+                implementation libs.kt.coroutines
+            }
+        }
     }
 }
