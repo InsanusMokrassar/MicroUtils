@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {

@@ -4,6 +4,8 @@ kt = "2.1.20"
 kt-serialization = "1.8.0"
 kt-coroutines = "1.10.1"
 
+kotlinx-browser = "0.3"
+
 kslog = "1.4.1"
 
 jb-compose = "1.7.3"
@@ -55,6 +57,7 @@ kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-and
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
 kt-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kt-coroutines" }
 
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", version.ref = "kotlinx-browser" }
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }

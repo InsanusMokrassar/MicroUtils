@@ -27,6 +27,22 @@ kotlin {
             }
         }
     }
+    wasmJs {
+        browser {
+            testTask {
+                useKarma {
+                    timeout = Duration.ofSeconds(240)
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useKarma {
+                    timeout = Duration.ofSeconds(240)
+                }
+            }
+        }
+    }
     androidTarget {
         publishAllLibraryVariants()
         compilations.all {
@@ -70,6 +86,11 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
+            }
+        }
+        wasmJsTest {
+            dependencies {
+                implementation kotlin('test-wasm-js')
             }
         }
         androidUnitTest {

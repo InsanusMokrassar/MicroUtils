@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
@@ -27,6 +27,13 @@ kotlin {
         nativeMain {
             dependencies {
                 api libs.okio
+            }
+        }
+
+        wasmJsMain {
+            dependencies {
+                api libs.kotlinx.browser
+                api libs.kt.coroutines
             }
         }
     }

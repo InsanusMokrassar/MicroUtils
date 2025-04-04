@@ -4,7 +4,7 @@ plugins {
     id "com.google.devtools.ksp"
 }
 
-apply from: "$mppJvmJsLinuxMingwProject"
+apply from: "$mppJvmJsWasmJsLinuxMingwProject"
 
 kotlin {
     jvm {
