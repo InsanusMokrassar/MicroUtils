@@ -28,8 +28,20 @@ kotlin {
         }
     }
     wasmJs {
-        browser()
-        nodejs()
+        browser {
+            testTask {
+                useKarma {
+                    timeout = Duration.ofSeconds(240)
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useKarma {
+                    timeout = Duration.ofSeconds(240)
+                }
+            }
+        }
     }
     linuxX64()
     mingwX64()
