@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
@@ -14,12 +14,6 @@ kotlin {
                 api libs.kt.serialization.cbor
                 api libs.uuid
                 api libs.ktor.io
-            }
-        }
-
-        wasmJsMain {
-            dependencies {
-
             }
         }
     }

@@ -3,7 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply from: "$mppJvmJsLinuxMingwProject"
+apply from: "$mppJvmJsWasmJsLinuxMingwProject"
 
 kotlin {
     sourceSets {
@@ -13,26 +13,6 @@ kotlin {
                 api libs.kslog
                 api libs.kt.reflect
                 api project(":micro_utils.coroutines")
-                api libs.uuid
-            }
-        }
-        jsMain {
-            dependencies {
-                api libs.uuid
-            }
-        }
-        wasmJsMain {
-            dependencies {
-                api libs.uuid
-            }
-        }
-        linuxX64Main {
-            dependencies {
-                api libs.uuid
-            }
-        }
-        mingwX64Main {
-            dependencies {
                 api libs.uuid
             }
         }

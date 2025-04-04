@@ -7,7 +7,7 @@ plugins {
 
 ext.do_publish = false
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 
 kotlin {

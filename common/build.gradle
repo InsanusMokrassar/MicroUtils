@@ -4,7 +4,7 @@ plugins {
     id "com.android.library"
 }
 
-apply from: "$mppJvmJsAndroidLinuxMingwLinuxArm64Project"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
@@ -33,7 +33,7 @@ kotlin {
         wasmJsMain {
             dependencies {
                 api libs.kotlinx.browser
-                implementation libs.kt.coroutines
+                api libs.kt.coroutines
             }
         }
     }
