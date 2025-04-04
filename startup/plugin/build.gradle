@@ -21,6 +21,11 @@ kotlin {
                 api libs.uuid
             }
         }
+        wasmJsMain {
+            dependencies {
+                api libs.uuid
+            }
+        }
         linuxX64Main {
             dependencies {
                 api libs.uuid

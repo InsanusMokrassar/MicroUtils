@@ -27,6 +27,10 @@ kotlin {
             }
         }
     }
+    wasmJs {
+        browser()
+        nodejs()
+    }
     linuxX64()
     mingwX64()
 
@@ -53,6 +57,11 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
+            }
+        }
+        wasmJsTest {
+            dependencies {
+                implementation kotlin('test-wasm-js')
             }
         }
 

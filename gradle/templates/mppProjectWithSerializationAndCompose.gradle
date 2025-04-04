@@ -27,6 +27,10 @@ kotlin {
             }
         }
     }
+    wasmJs {
+        browser()
+        nodejs()
+    }
     androidTarget {
         publishAllLibraryVariants()
         compilations.all {
@@ -70,6 +74,11 @@ kotlin {
         jsTest {
             dependencies {
                 implementation kotlin('test-js')
+            }
+        }
+        wasmJsTest {
+            dependencies {
+                implementation kotlin('test-wasm-js')
             }
         }
         androidUnitTest {
