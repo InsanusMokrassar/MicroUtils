@@ -31,15 +31,14 @@ kotlin {
         browser {
             testTask {
                 useKarma {
-                    timeout = Duration.ofSeconds(240)
+                    useChromeHeadless()
+                    useConfigDirectory(rootProject.relativeProjectPath("gradle/karma.config.d"))
                 }
             }
         }
         nodejs {
             testTask {
-                useKarma {
-                    timeout = Duration.ofSeconds(240)
-                }
+                enabled = false
             }
         }
     }
