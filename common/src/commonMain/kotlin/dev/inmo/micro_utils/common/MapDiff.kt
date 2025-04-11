@@ -82,13 +82,11 @@ fun <K, V> MutableMap<K, V>.applyDiff(
     mapDiff: MapDiff<K, V>
 ) {
     mapDiff.apply {
-        removed.keys.forEach { remove(it) }
+        keys.removeAll(removed.keys)
         changed.forEach { (k, oldNew) ->
             put(k, oldNew.second)
         }
-        added.forEach { (k, new) ->
-            put(k, new)
-        }
+        putAll(added)
     }
 }
 

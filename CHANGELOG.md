@@ -2,6 +2,9 @@
 
 ## 0.25.5
 
+* `Common`:
+  * Small performance optimization of `MutableMap.applyDiff`
+
 ## 0.25.4
 
 * `Versions`:
