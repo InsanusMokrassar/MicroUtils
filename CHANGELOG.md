@@ -2,6 +2,10 @@
 
 ## 0.25.5
 
+* `Versions`:
+  * `Exposed`: `0.60.0` -> `0.61.0`
+  * `Serialization`: `1.8.0` -> `1.8.1`
+  * `Coroutines`: `1.10.1` -> `1.10.2`
 * `Common`:
   * Small performance optimization of `MutableMap.applyDiff`
 
