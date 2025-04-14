@@ -1,0 +1,21 @@
+kotlin {
+    jvm {
+        compilations.main {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+
+    sourceSets {
+        jvmMain {
+            dependencies {
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+kotlin {
+    wasmJs {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    useConfigDirectory(rootProject.relativeProjectPath("gradle/karma.config.d"))
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                timeout = Duration.ofSeconds(240)
+                nodeJsArgs.add("--unhandled-rejections=warn")
+                nodeJsArgs.add("--trace-warnings")
+            }
+        }
+    }
+
+    sourceSets {
+        wasmJsTest {
+            dependencies {
+                implementation kotlin('test-wasm-js')
+            }
+        }
+    }
+}

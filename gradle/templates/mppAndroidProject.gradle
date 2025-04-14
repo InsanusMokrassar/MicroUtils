@@ -1,37 +1,6 @@
-project.version = "$version"
-project.group = "$group"
-
+apply from: "$defaultProject"
+apply from: "$enableMPPJvm"
+apply from: "$enableMPPJs"
+apply from: "$enableMPPWasmJs"
+apply from: "$enableMPPAndroid"
 apply from: "$publish"
-
-kotlin {
-    androidTarget {
-        publishAllLibraryVariants()
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
-    }
-
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation kotlin('stdlib')
-            }
-        }
-        commonTest {
-            dependencies {
-                implementation kotlin('test-common')
-                implementation kotlin('test-annotations-common')
-                implementation libs.kt.coroutines.test
-            }
-        }
-    }
-}
-
-apply from: "$defaultAndroidSettings"
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
