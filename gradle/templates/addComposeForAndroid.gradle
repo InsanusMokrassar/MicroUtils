@@ -1,0 +1,9 @@
+kotlin {
+    sourceSets {
+        androidUnitTest {
+            dependencies {
+                implementation compose.uiTest
+            }
+        }
+    }
+}

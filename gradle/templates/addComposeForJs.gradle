@@ -1,0 +1,9 @@
+kotlin {
+    sourceSets {
+        jsMain {
+            dependencies {
+                implementation compose.web.core
+            }
+        }
+    }
+}

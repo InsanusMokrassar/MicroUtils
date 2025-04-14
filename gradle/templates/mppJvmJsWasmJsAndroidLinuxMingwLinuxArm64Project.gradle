@@ -1,0 +1,8 @@
+apply from: "$defaultProjectWithSerialization"
+apply from: "$enableMPPJvm"
+apply from: "$enableMPPJs"
+apply from: "$enableMPPWasmJs"
+apply from: "$enableMPPAndroid"
+apply from: "$enableMPPNativeX64"
+apply from: "$enableMPPNativeArm64"
+apply from: "$publish"

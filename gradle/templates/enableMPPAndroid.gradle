@@ -1,0 +1,31 @@
+kotlin {
+    androidTarget {
+        publishAllLibraryVariants()
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "17"
+            }
+        }
+    }
+
+    sourceSets {
+        androidUnitTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
+        androidInstrumentedTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
+
+        androidMain.dependsOn jvmMain
+    }
+}
+
+apply from: "$defaultAndroidSettings"

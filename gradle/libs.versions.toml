@@ -1,13 +1,15 @@
 [versions]
 
 kt = "2.1.20"
-kt-serialization = "1.8.0"
-kt-coroutines = "1.10.1"
+kt-serialization = "1.8.1"
+kt-coroutines = "1.10.2"
+
+kotlinx-browser = "0.3"
 
 kslog = "1.4.1"
 
 jb-compose = "1.7.3"
-jb-exposed = "0.60.0"
+jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
 sqlite = "3.49.1.0"
@@ -31,7 +33,7 @@ versions = "0.51.0"
 android-gradle = "8.7.+"
 dexcount = "4.0.0"
 
-android-coreKtx = "1.15.0"
+android-coreKtx = "1.16.0"
 android-recyclerView = "1.4.0"
 android-appCompat = "1.7.0"
 android-fragment = "1.8.6"
@@ -39,8 +41,8 @@ android-espresso = "3.6.1"
 android-test = "1.2.1"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "35"
-android-props-buildTools = "35.0.0"
+android-props-compileSdk = "36"
+android-props-buildTools = "36.0.0"
 
 [libraries]
 
@@ -55,6 +57,7 @@ kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-and
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
 kt-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kt-coroutines" }
 
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", version.ref = "kotlinx-browser" }
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }

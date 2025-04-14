@@ -1,0 +1,30 @@
+kotlin {
+    js (IR) {
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "240000"
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                useMocha {
+                    timeout = "240000"
+                }
+            }
+        }
+    }
+
+    sourceSets {
+        jsMain {
+            dependencies {
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation kotlin('test-js')
+            }
+        }
+    }
+}
