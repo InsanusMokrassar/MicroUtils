@@ -38,7 +38,9 @@ kotlin {
         }
         nodejs {
             testTask {
-                enabled = false
+                timeout = Duration.ofSeconds(240)
+                nodeJsArgs.add("--unhandled-rejections=warn")
+                nodeJsArgs.add("--trace-warnings")
             }
         }
     }
