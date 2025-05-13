@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.25.6
+
 ## 0.25.5
 
 * `Versions`:
