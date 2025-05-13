@@ -76,7 +76,7 @@ publishing {
             if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
                 maven {
                     name = "sonatype"
-                    url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
 
                     credentials {
                         username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
