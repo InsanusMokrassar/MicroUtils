@@ -44,8 +44,6 @@ android-props-minSdk = "21"
 android-props-compileSdk = "36"
 android-props-buildTools = "36.0.0"
 
-maven-publish = "0.32.0-rc1"
-
 [libraries]
 
 kt-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kt" }
@@ -118,7 +116,6 @@ buildscript-jb-dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", ver
 buildscript-gh-release = { module = "com.github.breadmoirai:github-release", version.ref = "gh-release" }
 buildscript-android-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gradle-plugin", version.ref = "dexcount" }
-buildscript-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 
 [plugins]
 

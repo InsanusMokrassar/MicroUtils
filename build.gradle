@@ -14,7 +14,6 @@ buildscript {
         classpath libs.buildscript.gh.release
         classpath libs.buildscript.android.gradle
         classpath libs.buildscript.android.dexcount
-        classpath libs.buildscript.maven.publish
     }
 }
 
