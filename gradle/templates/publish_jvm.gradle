@@ -1,100 +1,78 @@
-apply plugin: 'maven-publish'
 apply plugin: 'com.vanniktech.maven.publish'
 
-mavenPublishing {}
 
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
-}
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier = 'sources'
+mavenPublishing {
+    pom {
+        description = "It is set of projects with micro tools for avoiding of routines coding"
+        name = "${project.name}"
+        url = "https://github.com/InsanusMokrassar/MicroUtils/"
+
+        scm {
+            developerConnection = "scm:git:[fetch=]https://github.com/InsanusMokrassar/MicroUtils.git[push=]https://github.com/InsanusMokrassar/MicroUtils.git"
+            url = "https://github.com/InsanusMokrassar/MicroUtils.git"
+        }
+
+        developers {
+
+            developer {
+                id = "InsanusMokrassar"
+                name = "Aleksei Ovsiannikov"
+                email = "ovsyannikov.alexey95@gmail.com"
+            }
+
+
+            developer {
+                id = "000Sanya"
+                name = "Syrov Aleksandr"
+                email = "000sanya.000sanya@gmail.com"
+            }
+
+        }
+
+        licenses {
+
+            license {
+                name = "Apache Software License 2.0"
+                url = "https://github.com/InsanusMokrassar/MicroUtils/blob/master/LICENSE"
+            }
+
+        }
+    }
+
+    if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
+        project.setProperty("mavenCentralUsername", project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER'))
+        project.setProperty("mavenCentralPassword", project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD'))
+
+//        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    }
+
+    signAllPublications()
 }
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
+    repositories {
+        if ((project.hasProperty('GITHUBPACKAGES_USER') || System.getenv('GITHUBPACKAGES_USER') != null) && (project.hasProperty('GITHUBPACKAGES_PASSWORD') || System.getenv('GITHUBPACKAGES_PASSWORD') != null)) {
+            maven {
+                name = "GithubPackages"
+                url = uri("https://maven.pkg.github.com/InsanusMokrassar/MicroUtils")
 
-            artifact javadocJar
-            artifact sourcesJar
-
-            pom {
-                resolveStrategy = Closure.DELEGATE_FIRST
-
-                description = "It is set of projects with micro tools for avoiding of routines coding"
-                name = "${project.name}"
-                url = "https://github.com/InsanusMokrassar/MicroUtils/"
-
-                scm {
-                    developerConnection = "scm:git:[fetch=]https://github.com/InsanusMokrassar/MicroUtils.git[push=]https://github.com/InsanusMokrassar/MicroUtils.git"
-                    url = "https://github.com/InsanusMokrassar/MicroUtils.git"
+                credentials {
+                    username = project.hasProperty('GITHUBPACKAGES_USER') ? project.property('GITHUBPACKAGES_USER') : System.getenv('GITHUBPACKAGES_USER')
+                    password = project.hasProperty('GITHUBPACKAGES_PASSWORD') ? project.property('GITHUBPACKAGES_PASSWORD') : System.getenv('GITHUBPACKAGES_PASSWORD')
                 }
 
-                developers {
-                    
-                        developer {
-                            id = "InsanusMokrassar"
-                            name = "Aleksei Ovsiannikov"
-                            email = "ovsyannikov.alexey95@gmail.com"
-                        }
-                    
-
-                        developer {
-                            id = "000Sanya"
-                            name = "Syrov Aleksandr"
-                            email = "000sanya.000sanya@gmail.com"
-                        }
-                    
-                }
-
-                licenses {
-                    
-                        license {
-                            name = "Apache Software License 2.0"
-                            url = "https://github.com/InsanusMokrassar/MicroUtils/blob/master/LICENSE"
-                        }
-                    
-                }
             }
-            repositories {
-                if ((project.hasProperty('GITHUBPACKAGES_USER') || System.getenv('GITHUBPACKAGES_USER') != null) && (project.hasProperty('GITHUBPACKAGES_PASSWORD') || System.getenv('GITHUBPACKAGES_PASSWORD') != null)) {
-                    maven {
-                        name = "GithubPackages"
-                        url = uri("https://maven.pkg.github.com/InsanusMokrassar/MicroUtils")
-                
-                        credentials {
-                            username = project.hasProperty('GITHUBPACKAGES_USER') ? project.property('GITHUBPACKAGES_USER') : System.getenv('GITHUBPACKAGES_USER')
-                            password = project.hasProperty('GITHUBPACKAGES_PASSWORD') ? project.property('GITHUBPACKAGES_PASSWORD') : System.getenv('GITHUBPACKAGES_PASSWORD')
-                        }
-                
-                    }
+        }
+        if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
+            maven {
+                name = "InmoNexus"
+                url = uri("https://nexus.inmo.dev/repository/maven-releases/")
+
+                credentials {
+                    username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
+                    password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
                 }
-                if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
-                    maven {
-                        name = "InmoNexus"
-                        url = uri("https://nexus.inmo.dev/repository/maven-releases/")
-                
-                        credentials {
-                            username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
-                            password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
-                        }
-                
-                    }
-                }
-                if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
-                    maven {
-                        name = "sonatype"
-                        url = uri("https://central.sonatype.com/api/v1")
-                
-                        credentials {
-                            username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
-                            password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
-                        }
-                
-                    }
-                }
+
             }
         }
     }
@@ -102,13 +80,13 @@ publishing {
 
 if (project.hasProperty("signing.gnupg.keyName")) {
     apply plugin: 'signing'
-    
+
     signing {
         useGpgCmd()
-    
+
         sign publishing.publications
     }
-    
+
     task signAll {
         tasks.withType(Sign).forEach {
             dependsOn(it)
