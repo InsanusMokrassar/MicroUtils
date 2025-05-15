@@ -1,4 +1,5 @@
 apply plugin: 'maven-publish'
+apply from: "$sonatype_upload"
 
 task javadocJar(type: Jar) {
     from javadoc

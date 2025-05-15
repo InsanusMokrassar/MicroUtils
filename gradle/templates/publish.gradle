@@ -3,6 +3,7 @@ if (ext.getProperties()["do_publish"] == false) {
 }
 
 apply plugin: 'maven-publish'
+apply from: "$sonatype_upload"
 
 task javadocsJar(type: Jar) {
     archiveClassifier = 'javadoc'
