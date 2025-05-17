@@ -36,6 +36,8 @@ if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != n
                             .POST(HttpRequest.BodyPublishers.ofString(""))
                             .header("Content-Type", "application/json")
                             .header("Authorization", "Bearer $bearer")
+                            .header("Connection", "keep-alive")
+                            .header("Keep-Alive", "timeout=7200")
                             .build()
                     def uploadResponse = client.send(uploadRequest, HttpResponse.BodyHandlers.ofString())
                     if (uploadResponse.statusCode() != 200) {
