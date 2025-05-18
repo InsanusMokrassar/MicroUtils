@@ -9,6 +9,7 @@ apply plugin: 'maven-publish'
 if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
     def taskName = "uploadSonatypePublication"
     if (rootProject.tasks.names.contains(taskName) == false) {
+        System.setProperty("jdk.httpclient.allowRestrictedHeaders", "Connection,Keep-Alive")
         rootProject.tasks.register(taskName) {
             doLast {
                 def username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
