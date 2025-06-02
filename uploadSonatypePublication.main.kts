@@ -108,7 +108,16 @@ val api = CentralSonatypeOSSRHApi(
     }
 )
 
-if (args.any { "--user_manager" }) {
+if (args.contains("--drop")) {
+    api.repositories()?.forEach {
+        println("Start dropping of ${it.key}")
+        val uploaded = api.drop(it.key)
+
+        println("Complete dropping of ${it.key}. Status ok: $uploaded")
+    }
+}
+
+if (args.contains("--user_manager")) {
     api.repositories()?.forEach {
         if (it.state == "open") {
             println("Start uploading of ${it.key}")
@@ -118,7 +127,7 @@ if (args.any { "--user_manager" }) {
         }
     }
 }
-if (args.any { "--automatic" }) {
+if (args.contains("--automatic")) {
     api.repositories()?.forEach {
         if (it.state == "closed") {
             println("Start uploading of ${it.key} with auto mode ")

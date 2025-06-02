@@ -13,6 +13,8 @@ function assert_success() {
     fi
 }
 
+assert_success ./uploadSonatypePublication.main.kts --drop
+
 readarray -t projects <<< "`./gradlew getPublishableModules --quiet`"
 for project in "${projects[@]}"; do
     echo "Start publishing of $project"
