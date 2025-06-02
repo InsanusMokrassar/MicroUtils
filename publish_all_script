@@ -19,6 +19,8 @@ for project in "${projects[@]}"; do
     assert_success ./gradlew "$project:publishAllPublicationsToSonatypeRepository" --no-parallel --quiet
     echo "Complete publishing of $project"
     echo "Start uploading of $project"
-    assert_success ./uploadSonatypePublication.main.kts --quiet
+    assert_success ./uploadSonatypePublication.main.kts --user_manager
     echo "Complete uploading of $project"
 done
+
+assert_success ./uploadSonatypePublication.main.kts --automatic

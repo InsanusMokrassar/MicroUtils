@@ -108,19 +108,23 @@ val api = CentralSonatypeOSSRHApi(
     }
 )
 
-api.repositories() ?.forEach {
-    if (it.state == "open") {
-        println("Start uploading of ${it.key}")
-        val uploaded = api.upload(it.key, "user_managed")
+if (args.any { "--user_manager" }) {
+    api.repositories()?.forEach {
+        if (it.state == "open") {
+            println("Start uploading of ${it.key}")
+            val uploaded = api.upload(it.key, "user_managed")
 
-        println("Complete uploading of ${it.key}. Status ok: $uploaded")
+            println("Complete uploading of ${it.key}. Status ok: $uploaded")
+        }
     }
 }
-api.repositories() ?.forEach {
-    if (it.state == "closed") {
-        println("Start uploading of ${it.key} with auto mode ")
-        val uploaded = api.upload(it.key, "automatic")
+if (args.any { "--automatic" }) {
+    api.repositories()?.forEach {
+        if (it.state == "closed") {
+            println("Start uploading of ${it.key} with auto mode ")
+            val uploaded = api.upload(it.key, "automatic")
 
-        println("Complete uploading of ${it.key} with auto mode . Status ok: $uploaded")
+            println("Complete uploading of ${it.key} with auto mode . Status ok: $uploaded")
+        }
     }
 }
