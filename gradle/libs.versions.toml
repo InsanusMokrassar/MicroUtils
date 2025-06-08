@@ -29,6 +29,7 @@ ksp = "2.1.20-1.0.31"
 kotlin-poet = "1.18.1"
 
 versions = "0.51.0"
+nmcp = "0.1.5"
 
 android-gradle = "8.9.+"
 dexcount = "4.0.0"
@@ -123,3 +124,4 @@ jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
 kt-jb-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kt" }
 
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }

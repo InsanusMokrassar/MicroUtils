@@ -19,6 +19,21 @@ buildscript {
 
 plugins {
     alias(libs.plugins.versions)
+    alias(libs.plugins.nmcp.aggregation)
+}
+
+
+if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
+    nmcpAggregation {
+        centralPortal {
+            username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
+            password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
+            verificationTimeout = Duration.ofSeconds(0)
+            publishingType = "USER_MANAGED"
+        }
+
+        publishAllProjectsProbablyBreakingProjectIsolation()
+    }
 }
 
 allprojects {
