@@ -12,7 +12,7 @@ jb-compose = "1.8.0"
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
-sqlite = "3.49.1.0"
+sqlite = "3.50.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
