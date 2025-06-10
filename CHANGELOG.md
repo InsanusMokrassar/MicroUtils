@@ -2,6 +2,13 @@
 
 ## 0.25.7
 
+* `Versions`:
+  * `Compose`: `1.8.0` -> `1.8.1`
+  * `Xerial SQLite`: `3.49.1.0` -> `3.50.1.0`
+  * `Okio`: `3.11.0` -> `3.12.0`
+  * `Android AppCompat`: `1.7.0` -> `1.7.1`
+  * `Android Fragment`: `1.8.6` -> `1.8.8`
+
 ## 0.25.6
 
 * `Versions`:
