@@ -8,11 +8,11 @@ kotlinx-browser = "0.3"
 
 kslog = "1.4.2"
 
-jb-compose = "1.8.0"
+jb-compose = "1.8.1"
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
-sqlite = "3.49.1.0"
+sqlite = "3.50.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
@@ -23,7 +23,7 @@ gh-release = "2.5.2"
 
 koin = "4.0.4"
 
-okio = "3.11.0"
+okio = "3.12.0"
 
 ksp = "2.1.20-1.0.31"
 kotlin-poet = "1.18.1"
@@ -36,8 +36,8 @@ dexcount = "4.0.0"
 
 android-coreKtx = "1.16.0"
 android-recyclerView = "1.4.0"
-android-appCompat = "1.7.0"
-android-fragment = "1.8.6"
+android-appCompat = "1.7.1"
+android-fragment = "1.8.8"
 android-espresso = "3.6.1"
 android-test = "1.2.1"
 

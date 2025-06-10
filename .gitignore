@@ -9,6 +9,7 @@ settings.xml
 .gradle/
 build/
 out/
+bin/
 
 secret.gradle
 local.properties
