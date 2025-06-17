@@ -66,6 +66,44 @@ class InfinityPagedComponentContext<T> internal constructor(
 }
 
 /**
+ * Creates and remembers an [InfinityPagedComponentContext] for managing infinite pagination in a Compose UI.
+ * This function is used to create a persistent pagination context that survives recompositions.
+ *
+ * @param size Number of items to load per page.
+ * @param page Initial page number to start pagination from (defaults to 0).
+ * @param scope [CoroutineScope] to launch pagination operations in. If not provided, a new scope will be created
+ * using [rememberCoroutineScope].
+ * @param loader Suspended function that loads paginated data. Receives the current pagination context and
+ * pagination parameters, and returns a [PaginationResult] containing the loaded data.
+ * @return An [InfinityPagedComponentContext] instance that manages the pagination state and operations.
+ */
+@Composable
+fun <T> rememberInfinityPagedComponentContext(
+    size: Int,
+    page: Int = 0,
+    scope: CoroutineScope = rememberCoroutineScope(),
+    loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>
+) = remember {
+    InfinityPagedComponentContext(page = page, size = size, scope = scope, loader = loader)
+}
+
+/**
+ * Composable function for managing an infinitely paged component.
+ *
+ * @param T The type of the paginated data.
+ * @param block Composable function that renders the UI with the loaded data. When data is in loading state, block will
+ * receive null as `it` parameter
+ */
+@Composable
+internal fun <T> InfinityPagedComponent(
+    context: InfinityPagedComponentContext<T>,
+    block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
+) {
+    val dataState = context.dataState.collectAsState()
+    context.block(dataState.value)
+}
+
+/**
  * Composable function for managing an infinitely paged component.
  *
  * @param T The type of the paginated data.
@@ -84,13 +122,8 @@ internal fun <T> InfinityPagedComponent(
     block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
     val scope = predefinedScope ?: rememberCoroutineScope()
-    val context = remember { InfinityPagedComponentContext<T>(page, size, scope, loader) }
-    remember {
-        context.reload()
-    }
-
-    val dataState = context.dataState.collectAsState()
-    context.block(dataState.value)
+    val context = rememberInfinityPagedComponentContext(page = page, size = size, scope = scope, loader = loader)
+    InfinityPagedComponent(context, block)
 }
 
 /**

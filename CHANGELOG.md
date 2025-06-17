@@ -2,6 +2,11 @@
 
 ## 0.25.8
 
+* `Pagination`:
+  * `Compose`:
+    * New function `rememberInfinityPagedComponentContext` to create `InfinityPagedComponentContext`
+    * New variants of `InfinityPagedComponent` component
+
 ## 0.25.7
 
 * `Versions`:
