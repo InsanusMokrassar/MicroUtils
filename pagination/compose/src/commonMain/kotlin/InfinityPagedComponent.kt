@@ -111,7 +111,7 @@ fun <T> rememberInfinityPagedComponentContext(
  * receive null as `it` parameter
  */
 @Composable
-internal fun <T> InfinityPagedComponent(
+fun <T> InfinityPagedComponent(
     context: InfinityPagedComponentContext<T>,
     block: @Composable InfinityPagedComponentContext<T>.(List<T>?) -> Unit
 ) {
@@ -130,7 +130,7 @@ internal fun <T> InfinityPagedComponent(
  * receive null as `it` parameter
  */
 @Composable
-internal fun <T> InfinityPagedComponent(
+fun <T> InfinityPagedComponent(
     page: Int,
     size: Int,
     loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>,
