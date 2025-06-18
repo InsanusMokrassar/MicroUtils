@@ -82,9 +82,25 @@ fun <T> rememberInfinityPagedComponentContext(
     size: Int,
     page: Int = 0,
     scope: CoroutineScope = rememberCoroutineScope(),
+    doReloadInInit: Boolean = true,
     loader: suspend InfinityPagedComponentContext<T>.(Pagination) -> PaginationResult<T>
-) = remember {
-    InfinityPagedComponentContext(page = page, size = size, scope = scope, loader = loader)
+): InfinityPagedComponentContext<T> {
+    val context = remember {
+        InfinityPagedComponentContext(
+            page = page,
+            size = size,
+            scope = scope,
+            loader = loader
+        )
+    }
+
+    LaunchedEffect(context) {
+        if (doReloadInInit) {
+            context.reload()
+        }
+    }
+
+    return context
 }
 
 /**
