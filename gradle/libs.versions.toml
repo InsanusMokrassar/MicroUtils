@@ -26,7 +26,7 @@ koin = "4.1.0"
 okio = "3.15.0"
 
 ksp = "2.2.0-2.0.2"
-kotlin-poet = "1.18.1"
+kotlin-poet = "2.2.0"
 
 versions = "0.51.0"
 nmcp = "1.0.1"
