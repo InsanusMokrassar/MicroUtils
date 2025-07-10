@@ -2,6 +2,18 @@
 
 ## 0.26.0
 
+**WARNING!!! SINCE THIS VERSION IF YOU WANT TO USE SOME OF KSP MODULES, SET `ksp.useKSP2=false` IN YOUR `gradle.properties`** (see [gh issue 2491](https://github.com/google/ksp/issues/2491))
+
+* `Versions`:
+  * `Kotlin`: `2.1.21` -> `2.2.0`
+  * `Serialization`: `1.8.1` -> `1.9.0`
+  * `KSLog`: `1.4.2` -> `1.5.0`
+  * `Ktor`: `3.1.3` -> `3.2.1`
+  * `Koin`: `4.0.4` -> `4.1.0`
+  * `Okio`: `3.12.0` -> `3.15.0`
+  * `KSP`: `2.1.20-1.0.31` -> `2.2.0-2.0.2`
+  * `kotlin-poet`: `1.18.1` -> `2.2.0`
+
 ## 0.25.8
 
 * `Pagination`:
