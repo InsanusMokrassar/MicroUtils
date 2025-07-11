@@ -238,7 +238,7 @@ class Processor(
                     """.trimIndent()
                 )
                 ksFile.getAnnotationsByType(GenerateKoinDefinition::class).forEach {
-                    val type = it.type.safeClassName()
+                    val type = safeClassName { it.type }
                     val targetType = runCatching {
                         type.parameterizedBy(*(it.typeArgs.takeIf { it.isNotEmpty() } ?.map { it.asTypeName() } ?.toTypedArray() ?: return@runCatching type))
                     }.getOrElse { e ->

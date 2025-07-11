@@ -6,9 +6,10 @@ import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.asTypeName
 import kotlin.reflect.KClass
 
+@Suppress("NOTHING_TO_INLINE")
 @OptIn(KspExperimental::class)
-fun KClass<*>.safeClassName() = runCatching {
-    asTypeName()
+inline fun safeClassName(classnameGetter: () -> KClass<*>) = runCatching {
+    classnameGetter().asTypeName()
 }.getOrElse { e ->
     if (e is KSTypeNotPresentException) {
         ClassName(
