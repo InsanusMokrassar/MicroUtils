@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     api project(":micro_utils.koin")
+    api project(":micro_utils.ksp.generator")
     api libs.kotlin.poet
     api libs.ksp
 }

@@ -26,6 +26,7 @@ import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
+import dev.inmo.micro_ksp.generator.safeClassName
 import dev.inmo.micro_utils.koin.annotations.GenerateGenericKoinDefinition
 import dev.inmo.micro_utils.koin.annotations.GenerateKoinDefinition
 import org.koin.core.Koin
@@ -237,15 +238,7 @@ class Processor(
                     """.trimIndent()
                 )
                 ksFile.getAnnotationsByType(GenerateKoinDefinition::class).forEach {
-                    val type = runCatching {
-                        it.type.asTypeName()
-                    }.getOrElse { e ->
-                        if (e is KSTypeNotPresentException) {
-                            e.ksType.toClassName()
-                        } else {
-                            throw e
-                        }
-                    }
+                    val type = safeClassName { it.type }
                     val targetType = runCatching {
                         type.parameterizedBy(*(it.typeArgs.takeIf { it.isNotEmpty() } ?.map { it.asTypeName() } ?.toTypedArray() ?: return@runCatching type))
                     }.getOrElse { e ->
