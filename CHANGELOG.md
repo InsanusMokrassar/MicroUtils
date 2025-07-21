@@ -2,6 +2,9 @@
 
 ## 0.26.1
 
+* `Versions`:
+  * `Compose`: `1.8.1` -> `1.8.2`
+  * `Ktor`: `3.2.1` -> `3.2.2`
 * `Coroutines`:
   * Add opportunity to pass logger in subscribe async
 
