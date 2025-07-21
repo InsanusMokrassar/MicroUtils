@@ -2,6 +2,9 @@
 
 ## 0.26.1
 
+* `Coroutines`:
+  * Add opportunity to pass logger in subscribe async
+
 ## 0.26.0
 
 **WARNING!!! SINCE THIS VERSION IF YOU WANT TO USE SOME OF KSP MODULES, SET `ksp.useKSP2=false` IN YOUR `gradle.properties`** (see [gh issue 2491](https://github.com/google/ksp/issues/2491))
