@@ -3,7 +3,7 @@ package dev.inmo.micro_utils.coroutines.compose
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
+import dev.inmo.micro_utils.coroutines.MutableRedeliverStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -16,7 +16,7 @@ import org.jetbrains.compose.web.css.StyleSheet
  * to add `Style(stylesheet)` on every compose function call
  */
 object StyleSheetsAggregator {
-    private val _stylesFlow = SpecialMutableStateFlow<Set<CSSRulesHolder>>(emptySet())
+    private val _stylesFlow = MutableRedeliverStateFlow<Set<CSSRulesHolder>>(emptySet())
     val stylesFlow: StateFlow<Set<CSSRulesHolder>> = _stylesFlow.asStateFlow()
 
     @Composable

@@ -1,33 +1,31 @@
-import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
-import dev.inmo.micro_utils.coroutines.asDeferred
+import dev.inmo.micro_utils.coroutines.MutableRedeliverStateFlow
 import dev.inmo.micro_utils.coroutines.subscribe
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class SpecialMutableStateFlowTests {
     @Test
     fun simpleTest() = runTest {
-        val specialMutableStateFlow = SpecialMutableStateFlow(0)
-        specialMutableStateFlow.value = 1
-        specialMutableStateFlow.first { it == 1 }
-        assertEquals(1, specialMutableStateFlow.value)
+        val mutableRedeliverStateFlow = MutableRedeliverStateFlow(0)
+        mutableRedeliverStateFlow.value = 1
+        mutableRedeliverStateFlow.first { it == 1 }
+        assertEquals(1, mutableRedeliverStateFlow.value)
     }
     @Test
     fun specialTest() = runTest {
-        val specialMutableStateFlow = SpecialMutableStateFlow(0)
+        val mutableRedeliverStateFlow = MutableRedeliverStateFlow(0)
         lateinit var subscriberJob: Job
-        subscriberJob = specialMutableStateFlow.subscribe(this) {
+        subscriberJob = mutableRedeliverStateFlow.subscribe(this) {
             when (it) {
-                1 -> specialMutableStateFlow.value = 2
+                1 -> mutableRedeliverStateFlow.value = 2
                 2 -> subscriberJob.cancel()
             }
         }
-        specialMutableStateFlow.value = 1
+        mutableRedeliverStateFlow.value = 1
         subscriberJob.join()
-        assertEquals(2, specialMutableStateFlow.value)
+        assertEquals(2, mutableRedeliverStateFlow.value)
     }
 }

@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -47,7 +46,7 @@ sealed interface SmartSemaphore {
      */
     class Mutable(permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
         override val maxPermits: Int = permits
-        private val _freePermitsStateFlow = SpecialMutableStateFlow<Int>(permits - acquiredPermits)
+        private val _freePermitsStateFlow = MutableRedeliverStateFlow<Int>(permits - acquiredPermits)
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex(false)

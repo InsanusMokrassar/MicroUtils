@@ -2,6 +2,9 @@
 
 ## 0.26.2
 
+* `Coroutines`:
+  * Rename `SpecialMutableStateFlow` to `MutableRedeliverStateFlow`
+
 ## 0.26.1
 
 * `Versions`:
