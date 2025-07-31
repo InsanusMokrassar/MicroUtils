@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>SpecialMutableStateFlow</title>
+    <title>MutableRedeliverStateFlow</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -46,7 +46,7 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.26.1        </div>
+0.26.2        </div>
         <div class="navigation-controls">
         <div class="filter-section filter-section_loading" id="filter-section">
                 <button class="platform-tag platform-selector common-like" data-active=""
@@ -104,23 +104,23 @@
                 </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.coroutines/SpecialMutableStateFlow///PointingToDeclaration//-1478683138">
-  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.coroutines</a><span class="delimiter">/</span><span class="current">SpecialMutableStateFlow</span></div>
+<div class="main-content" data-page-type="classlike" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.coroutines/MutableRedeliverStateFlow///PointingToDeclaration//-1478683138">
+  <div class="breadcrumbs"><a href="../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../index.html">dev.inmo.micro_utils.coroutines</a><span class="delimiter">/</span><span class="current">MutableRedeliverStateFlow</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>Special</span><wbr></wbr><span>Mutable</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Flow</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">SpecialMutableStateFlow</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialValue<span class="token operator">: </span><a href="index.html">T</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span>, <span data-unresolved-link="kotlinx.coroutines.flow/FlowCollector///PointingToDeclaration/">FlowCollector</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span>, <span data-unresolved-link="kotlinx.coroutines.flow/MutableSharedFlow///PointingToDeclaration/">MutableSharedFlow</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//coroutines/src/commonMain/kotlin/dev/inmo/micro_utils/coroutines/SpecialMutableStateFlow.kt#L20">source</a>)</span></span></div><p class="paragraph">Works like <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>, but guarantee that latest value update will always be delivered to each active subscriber</p></div></div>
+    <h1 class="cover"><span>Mutable</span><wbr></wbr><span>Redeliver</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Flow</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="index.html">MutableRedeliverStateFlow</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initialValue<span class="token operator">: </span><a href="index.html">T</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="kotlinx.coroutines.flow/MutableStateFlow///PointingToDeclaration/">MutableStateFlow</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span>, <span data-unresolved-link="kotlinx.coroutines.flow/FlowCollector///PointingToDeclaration/">FlowCollector</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span>, <span data-unresolved-link="kotlinx.coroutines.flow/MutableSharedFlow///PointingToDeclaration/">MutableSharedFlow</span><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//coroutines/src/commonMain/kotlin/dev/inmo/micro_utils/coroutines/MutableRedeliverStateFlow.kt#L17">source</a>)</span></span></div><p class="paragraph">Works like <span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span>, but guarantee that latest value update will always be delivered to each active subscriber</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="1534835624%2FConstructors%2F-1478683138" anchor-label="SpecialMutableStateFlow" id="1534835624%2FConstructors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table"><a data-name="-594370390%2FConstructors%2F-1478683138" anchor-label="MutableRedeliverStateFlow" id="-594370390%2FConstructors%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-special-mutable-state-flow.html"><span>Special</span><wbr></wbr><span>Mutable</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Flow</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1534835624%2FConstructors%2F-1478683138"></span>
+                  <div><a href="-mutable-redeliver-state-flow.html"><span>Mutable</span><wbr></wbr><span>Redeliver</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Flow</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-594370390%2FConstructors%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -134,12 +134,12 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="-329374739%2FProperties%2F-1478683138" anchor-label="replayCache" id="-329374739%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+        <div class="table"><a data-name="717952268%2FProperties%2F-1478683138" anchor-label="replayCache" id="717952268%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="replay-cache.html"><span>replay</span><wbr></wbr><span><span>Cache</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-329374739%2FProperties%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="717952268%2FProperties%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -149,12 +149,12 @@
               </div>
             </div>
           </div>
-<a data-name="-14594698%2FProperties%2F-1478683138" anchor-label="subscriptionCount" id="-14594698%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="-499733675%2FProperties%2F-1478683138" anchor-label="subscriptionCount" id="-499733675%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="subscription-count.html"><span>subscription</span><wbr></wbr><span><span>Count</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-14594698%2FProperties%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-499733675%2FProperties%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -164,12 +164,12 @@
               </div>
             </div>
           </div>
-<a data-name="-2059431081%2FProperties%2F-1478683138" anchor-label="value" id="-2059431081%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="268666806%2FProperties%2F-1478683138" anchor-label="value" id="268666806%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="value.html"><span><span>value</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2059431081%2FProperties%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="268666806%2FProperties%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -258,12 +258,12 @@
               </div>
             </div>
           </div>
-<a data-name="437450373%2FFunctions%2F-1478683138" anchor-label="collect" id="437450373%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="-814898204%2FFunctions%2F-1478683138" anchor-label="collect" id="-814898204%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="collect.html"><span><span>collect</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="437450373%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-814898204%2FFunctions%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -273,12 +273,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1712836539%2FFunctions%2F-1478683138" anchor-label="compareAndSet" id="-1712836539%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="602069766%2FFunctions%2F-1478683138" anchor-label="compareAndSet" id="602069766%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="compare-and-set.html"><span>compare</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Set</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1712836539%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="602069766%2FFunctions%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -303,12 +303,12 @@
               </div>
             </div>
           </div>
-<a data-name="-423395297%2FFunctions%2F-1478683138" anchor-label="emit" id="-423395297%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="461816894%2FFunctions%2F-1478683138" anchor-label="emit" id="461816894%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="emit.html"><span><span>emit</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-423395297%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="461816894%2FFunctions%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -423,12 +423,12 @@
               </div>
             </div>
           </div>
-<a data-name="921691494%2FFunctions%2F-1478683138" anchor-label="resetReplayCache" id="921691494%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="-1864904793%2FFunctions%2F-1478683138" anchor-label="resetReplayCache" id="-1864904793%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="reset-replay-cache.html"><span>reset</span><wbr></wbr><span>Replay</span><wbr></wbr><span><span>Cache</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="921691494%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864904793%2FFunctions%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -528,12 +528,12 @@
               </div>
             </div>
           </div>
-<a data-name="-1541633468%2FFunctions%2F-1478683138" anchor-label="tryEmit" id="-1541633468%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
+<a data-name="-1284448827%2FFunctions%2F-1478683138" anchor-label="tryEmit" id="-1284448827%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
           <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="try-emit.html"><span>try</span><wbr></wbr><span><span>Emit</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1541633468%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1284448827%2FFunctions%2F-1478683138"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
