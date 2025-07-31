@@ -1,7 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -44,7 +43,7 @@ sealed interface SmartMutex {
      * @param locked Preset state of [isLocked] and its internal [_lockStateFlow]
      */
     class Mutable(locked: Boolean = false) : SmartMutex {
-        private val _lockStateFlow = SpecialMutableStateFlow<Boolean>(locked)
+        private val _lockStateFlow = MutableRedeliverStateFlow<Boolean>(locked)
         override val lockStateFlow: StateFlow<Boolean> = _lockStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex()

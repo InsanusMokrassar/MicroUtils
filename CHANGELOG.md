@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.26.2
+
+* `Versions`:
+  * `Ktor`: `3.2.2` -> `3.2.3`
+  * `Okio`: `3.15.0` -> `3.16.0`
+* `Coroutines`:
+  * Rename `SpecialMutableStateFlow` to `MutableRedeliverStateFlow`
+
 ## 0.26.1
 
 * `Versions`:
