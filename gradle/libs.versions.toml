@@ -34,7 +34,7 @@ nmcp = "1.0.2"
 android-gradle = "8.9.+"
 dexcount = "4.0.0"
 
-android-coreKtx = "1.16.0"
+android-coreKtx = "1.17.0"
 android-recyclerView = "1.4.0"
 android-appCompat = "1.7.1"
 android-fragment = "1.8.8"
