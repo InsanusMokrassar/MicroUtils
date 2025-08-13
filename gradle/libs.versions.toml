@@ -37,7 +37,7 @@ dexcount = "4.0.0"
 android-coreKtx = "1.16.0"
 android-recyclerView = "1.4.0"
 android-appCompat = "1.7.1"
-android-fragment = "1.8.8"
+android-fragment = "1.8.9"
 android-espresso = "3.7.0"
 android-test = "1.3.0"
 
