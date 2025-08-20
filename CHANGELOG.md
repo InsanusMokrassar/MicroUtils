@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.26.3
+
+* `Versions`:
+  * `Kotlin`: `2.2.0` -> `2.2.10`
+  * `KSP`: `2.2.0-2.0.2` -> `2.2.10-2.0.2`
+  * `Android CoreKTX`: `1.16.0` -> `1.17.0`
+  * `Android Fragment`: `1.8.8` -> `1.8.9`
+
 ## 0.26.2
 
 * `Versions`:
