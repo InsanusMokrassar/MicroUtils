@@ -14,6 +14,10 @@ actual typealias MPPFile = File
  */
 actual val MPPFile.filename: FileName
     get() = FileName(name)
+
+actual val MPPFilePathSeparator: Char
+    get() = File.separatorChar
+
 /**
  * @suppress
  */
