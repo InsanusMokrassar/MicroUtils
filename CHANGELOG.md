@@ -2,6 +2,10 @@
 
 ## 0.26.4
 
+* `Common`:
+  * Add expect/actual `MPPFilePathSeparator`
+  * Fix `FileName` realization to take care about system file path separator
+
 ## 0.26.3
 
 * `Versions`:

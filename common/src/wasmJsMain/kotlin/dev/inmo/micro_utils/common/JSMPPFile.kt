@@ -37,6 +37,10 @@ private suspend fun MPPFile.dirtyReadBytes(): ByteArray = readBytesPromise().awa
  */
 actual val MPPFile.filename: FileName
     get() = FileName(name)
+
+actual val MPPFilePathSeparator: Char
+    get() = '/'
+
 /**
  * @suppress
  */
