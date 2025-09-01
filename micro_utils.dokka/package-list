@@ -205,6 +205,7 @@ $dokka.location:dev.inmo.micro_utils.common////PointingToDeclaration/micro_util
 $dokka.location:dev.inmo.micro_utils.common//Diff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-diff.html
 $dokka.location:dev.inmo.micro_utils.common//FixedSignsRange/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-fixed-signs-range.html
 $dokka.location:dev.inmo.micro_utils.common//IntersectionObserverOptions/#kotlin.Function1[dev.inmo.micro_utils.common.IntersectionObserverOptions,kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-intersection-observer-options.html
+$dokka.location:dev.inmo.micro_utils.common//MPPFilePathSeparator/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-m-p-p-file-path-separator.html
 $dokka.location:dev.inmo.micro_utils.common//StrictDiff/#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]#kotlin.collections.Iterable[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/-strict-diff.html
 $dokka.location:dev.inmo.micro_utils.common//alsoIfFalse/kotlin.Boolean#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/also-if-false.html
 $dokka.location:dev.inmo.micro_utils.common//alsoIfTrue/kotlin.Boolean#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.common/also-if-true.html
