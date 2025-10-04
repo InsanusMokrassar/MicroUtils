@@ -12,7 +12,8 @@ jb-compose = "1.8.2"
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
-sqlite = "3.50.3.0"
+# 3.50.3.0 contains bug https://github.com/InsanusMokrassar/MicroUtils/actions/runs/18138301958/job/51629588088
+sqlite = "3.50.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
