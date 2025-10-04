@@ -1,31 +1,32 @@
 [versions]
 
-kt = "2.2.10"
+kt = "2.2.20"
 kt-serialization = "1.9.0"
 kt-coroutines = "1.10.2"
 
-kotlinx-browser = "0.3"
+kotlinx-browser = "0.5.0"
 
-kslog = "1.5.0"
+kslog = "1.5.1"
 
 jb-compose = "1.8.2"
 jb-exposed = "0.61.0"
 jb-dokka = "2.0.0"
 
+# 3.50.3.0 contains bug https://github.com/InsanusMokrassar/MicroUtils/actions/runs/18138301958/job/51629588088
 sqlite = "3.50.1.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "3.2.3"
+ktor = "3.3.0"
 
 gh-release = "2.5.2"
 
-koin = "4.1.0"
+koin = "4.1.1"
 
 okio = "3.16.0"
 
-ksp = "2.2.10-2.0.2"
+ksp = "2.2.20-2.0.3"
 kotlin-poet = "2.2.0"
 
 versions = "0.52.0"
