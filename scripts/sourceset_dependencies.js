@@ -1,1 +1,1 @@
-sourceset_dependencies='{":micro_utils.dokka:dokkaHtml/commonMain":[],":micro_utils.dokka:dokkaHtml/jsMain":[":micro_utils.dokka:dokkaHtml/commonMain"],":micro_utils.dokka:dokkaHtml/jvmMain":[":micro_utils.dokka:dokkaHtml/commonMain"]}'
+sourceset_dependencies='{":micro_utils.dokka:dokkaHtml/commonMain":[],":micro_utils.dokka:dokkaHtml/jsMain":[":micro_utils.dokka:dokkaHtml/webMain"],":micro_utils.dokka:dokkaHtml/jvmMain":[":micro_utils.dokka:dokkaHtml/commonMain"],":micro_utils.dokka:dokkaHtml/webMain":[":micro_utils.dokka:dokkaHtml/commonMain"]}'
