@@ -24,7 +24,7 @@ gh-release = "2.5.2"
 
 koin = "4.1.1"
 
-okio = "3.16.0"
+okio = "3.16.2"
 
 ksp = "2.2.20-2.0.3"
 kotlin-poet = "2.2.0"
