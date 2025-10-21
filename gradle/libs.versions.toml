@@ -32,7 +32,7 @@ kotlin-poet = "2.2.0"
 versions = "0.52.0"
 nmcp = "1.1.0"
 
-android-gradle = "8.10.+"
+android-gradle = "8.13.+"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.17.0"
