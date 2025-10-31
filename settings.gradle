@@ -50,6 +50,7 @@ String[] includes = [
     ":colors:common",
 
     ":resources",
+    ":resources:compose",
 
     ":fsm:common",
     ":fsm:repos:common",

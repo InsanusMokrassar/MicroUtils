@@ -1,0 +1,20 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.library"
+    alias(libs.plugins.jb.compose)
+    alias(libs.plugins.kt.jb.compose)
+}
+
+apply from: "$mppComposeJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api libs.kt.coroutines
+                api project(":micro_utils.resources")
+            }
+        }
+    }
+}
