@@ -1,6 +1,6 @@
 [versions]
 
-kt = "2.2.20"
+kt = "2.2.21"
 kt-serialization = "1.9.0"
 kt-coroutines = "1.10.2"
 
@@ -8,11 +8,13 @@ kotlinx-browser = "0.5.0"
 
 kslog = "1.5.1"
 
-jb-compose = "1.8.2"
+jb-compose = "1.9.2"
+jb-compose-material3 = "1.9.0"
+jb-compose-icons = "1.7.8"
 jb-exposed = "0.61.0"
 jb-dokka = "2.1.0"
 
-# 3.50.3.0 contains bug https://github.com/InsanusMokrassar/MicroUtils/actions/runs/18138301958/job/51629588088
+# 3.51.0.0 contains bug, checking with ./gradlew :micro_utils.repos.exposed:jvmTest
 sqlite = "3.50.1.0"
 
 korlibs = "5.4.0"
@@ -26,11 +28,11 @@ koin = "4.1.1"
 
 okio = "3.16.2"
 
-ksp = "2.2.20-2.0.3"
+ksp = "2.3.1"
 kotlin-poet = "2.2.0"
 
 versions = "0.52.0"
-nmcp = "1.1.0"
+nmcp = "1.2.0"
 
 android-gradle = "8.10.+"
 dexcount = "4.0.0"
@@ -89,7 +91,8 @@ jb-exposed = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jb-
 jb-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jb-exposed" }
 sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 
-jb-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "jb-compose" }
+jb-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "jb-compose-material3" }
+jb-compose-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "jb-compose-icons" }
 
 android-coreKtx = { module = "androidx.core:core-ktx", version.ref = "android-coreKtx" }
 android-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "android-recyclerView" }

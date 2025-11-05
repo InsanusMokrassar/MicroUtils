@@ -27,6 +27,7 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.writeTo
 import dev.inmo.micro_ksp.generator.safeClassName
+import dev.inmo.micro_ksp.generator.withNoSuchElementWorkaround
 import dev.inmo.micro_utils.koin.annotations.GenerateGenericKoinDefinition
 import dev.inmo.micro_utils.koin.annotations.GenerateKoinDefinition
 import org.koin.core.Koin
@@ -240,9 +241,14 @@ class Processor(
                 ksFile.getAnnotationsByType(GenerateKoinDefinition::class).forEach {
                     val type = safeClassName { it.type }
                     val targetType = runCatching {
-                        type.parameterizedBy(*(it.typeArgs.takeIf { it.isNotEmpty() } ?.map { it.asTypeName() } ?.toTypedArray() ?: return@runCatching type))
+                        type.parameterizedBy(
+                            *withNoSuchElementWorkaround(emptyArray()) {
+                                it.typeArgs.takeIf { it.isNotEmpty() } ?.map { it.asTypeName() } ?.toTypedArray() ?: return@runCatching type
+                            }
+                        )
                     }.getOrElse { e ->
                         when (e) {
+                            is IllegalArgumentException if (e.message ?.contains("no type argument") == true) -> return@getOrElse type
                             is KSTypeNotPresentException -> e.ksType.toClassName()
                         }
                         if (e is KSTypesNotPresentException) {
@@ -251,14 +257,32 @@ class Processor(
                             throw e
                         }
                     }.copy(
-                        nullable = it.nullable
+                        nullable = withNoSuchElementWorkaround(true) { it.nullable }
                     )
 
-                    addCodeForType(targetType, it.name, it.nullable, it.generateSingle, it.generateFactory)
+                    addCodeForType(
+                        targetType,
+                        it.name,
+                        withNoSuchElementWorkaround(true) {
+                            it.nullable
+                        },
+                        withNoSuchElementWorkaround(true) {
+                            it.generateSingle
+                        },
+                        withNoSuchElementWorkaround(true) {
+                            it.generateFactory
+                        }
+                    )
                 }
                 ksFile.getAnnotationsByType(GenerateGenericKoinDefinition::class).forEach {
                     val targetType = TypeVariableName("T", Any::class)
-                    addCodeForType(targetType, it.name, it.nullable, it.generateSingle, it.generateFactory)
+                    addCodeForType(
+                        targetType = targetType,
+                        name = it.name,
+                        nullable = withNoSuchElementWorkaround(true) { it.nullable },
+                        generateSingle = withNoSuchElementWorkaround(true) { it.generateSingle },
+                        generateFactory = withNoSuchElementWorkaround(true) { it.generateFactory }
+                    )
                 }
             }.build().let {
                 File(

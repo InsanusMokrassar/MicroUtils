@@ -16,6 +16,7 @@ import com.squareup.kotlinpoet.ksp.toTypeName
 import dev.inmo.micro_ksp.generator.convertToClassName
 import dev.inmo.micro_ksp.generator.convertToClassNames
 import dev.inmo.micro_ksp.generator.findSubClasses
+import dev.inmo.micro_ksp.generator.withNoSuchElementWorkaround
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.micro_utils.ksp.variations.GenerateVariations
 import dev.inmo.micro_utils.ksp.variations.GenerationVariant
@@ -218,7 +219,9 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(GenerateVariations::class.qualifiedName!!)).filterIsInstance<KSFunctionDeclaration>().forEach {
-            val prefix = (it.getAnnotationsByType(GenerateVariations::class)).firstOrNull() ?.prefix ?.takeIf {
+            val prefix = withNoSuchElementWorkaround("") {
+                (it.getAnnotationsByType(GenerateVariations::class)).firstOrNull() ?.prefix
+            } ?.takeIf {
                 it.isNotEmpty()
             } ?: it.simpleName.asString().replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "GeneratedVariation") {

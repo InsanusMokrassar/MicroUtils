@@ -10,6 +10,7 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.toClassName
+import dev.inmo.micro_ksp.generator.withNoSuchElementWorkaround
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.micro_utils.ksp.classcasts.ClassCastsExcluded
 import dev.inmo.micro_utils.ksp.classcasts.ClassCastsIncluded
@@ -25,7 +26,11 @@ class Processor(
     ) {
         val rootAnnotation = ksClassDeclaration.getAnnotationsByType(ClassCastsIncluded::class).first()
         val (includeRegex: Regex?, excludeRegex: Regex?) = rootAnnotation.let {
-            it.typesRegex.takeIf { it.isNotEmpty() } ?.let(::Regex) to it.excludeRegex.takeIf { it.isNotEmpty() } ?.let(::Regex)
+            withNoSuchElementWorkaround("") {
+                it.typesRegex
+            }.takeIf { it.isNotEmpty() } ?.let(::Regex) to withNoSuchElementWorkaround("") {
+                it.excludeRegex
+            }.takeIf { it.isNotEmpty() } ?.let(::Regex)
         }
         val classesSubtypes = mutableMapOf<KSClassDeclaration, MutableSet<KSClassDeclaration>>()
 
@@ -49,7 +54,9 @@ class Processor(
                 when {
                     potentialSubtype === ksClassDeclaration -> {}
                     potentialSubtype.isAnnotationPresent(ClassCastsExcluded::class) -> return@forEach
-                    potentialSubtype !is KSClassDeclaration || !potentialSubtype.checkSupertypeLevel(rootAnnotation.levelsToInclude.takeIf { it >= 0 }) -> return@forEach
+                    potentialSubtype !is KSClassDeclaration || !potentialSubtype.checkSupertypeLevel(
+                        withNoSuchElementWorkaround(-1) { rootAnnotation.levelsToInclude }.takeIf { it >= 0 }
+                    ) -> return@forEach
                     excludeRegex ?.matches(simpleName) == true -> return@forEach
                     includeRegex ?.matches(simpleName) == false -> {}
                     else -> classesSubtypes.getOrPut(ksClassDeclaration) { mutableSetOf() }.add(potentialSubtype)
@@ -96,7 +103,9 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(ClassCastsIncluded::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = it.getAnnotationsByType(ClassCastsIncluded::class).first().outputFilePrefix
+            val prefix = withNoSuchElementWorkaround("") {
+                it.getAnnotationsByType(ClassCastsIncluded::class).first().outputFilePrefix
+            }
             it.writeFile(prefix = prefix, suffix = "ClassCasts") {
                 FileSpec.builder(
                     it.packageName.asString(),
