@@ -12,6 +12,7 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import dev.inmo.micro_ksp.generator.buildSubFileName
 import dev.inmo.micro_ksp.generator.companion
 import dev.inmo.micro_ksp.generator.findSubClasses
+import dev.inmo.micro_ksp.generator.withNoSuchElementWorkaround
 import dev.inmo.micro_ksp.generator.writeFile
 import dev.inmo.micro_utils.ksp.sealed.GenerateSealedTypesWorkaround
 import dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround
@@ -113,7 +114,7 @@ class Processor(
         val annotation = ksClassDeclaration.getGenerateSealedTypesWorkaroundAnnotation
         val subClasses = ksClassDeclaration.resolveSubclasses(
             searchIn = resolver.getAllFiles(),
-            allowNonSealed = annotation ?.includeNonSealedSubTypes ?: false
+            allowNonSealed = withNoSuchElementWorkaround(null) { annotation ?.includeNonSealedSubTypes } ?: false
         ).distinct()
         val subClassesNames = subClasses.filter {
             it.getAnnotationsByType(GenerateSealedTypesWorkaround.Exclude::class).count() == 0
@@ -164,7 +165,15 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(GenerateSealedWorkaround::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = (it.getGenerateSealedWorkaroundAnnotation) ?.prefix ?.takeIf {
+            val prefix = runCatching {
+                (it.getGenerateSealedWorkaroundAnnotation) ?.prefix
+            }.getOrElse {
+                if (it is NoSuchElementException) {
+                    ""
+                } else {
+                    throw it
+                }
+            } ?.takeIf {
                 it.isNotEmpty()
             } ?: it.buildSubFileName.replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "SealedWorkaround") {
@@ -184,7 +193,9 @@ class Processor(
             }
         }
         (resolver.getSymbolsWithAnnotation(GenerateSealedTypesWorkaround::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = (it.getGenerateSealedTypesWorkaroundAnnotation) ?.prefix ?.takeIf {
+            val prefix = withNoSuchElementWorkaround("") {
+                (it.getGenerateSealedTypesWorkaroundAnnotation)?.prefix
+            } ?.takeIf {
                 it.isNotEmpty()
             } ?: it.buildSubFileName.replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "SealedTypesWorkaround") {

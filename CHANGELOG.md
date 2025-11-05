@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.26.7
+
+* `Versions`:
+  * `Kotlin`: `2.2.20` -> `2.2.21`
+  * `Compose`: `1.8.2` -> `1.9.2`
+  * `KSP`: `2.2.20-2.0.3` -> `2.3.1`
+* `Coroutines`:
+  * Fix `SmartSemaphore.waitRelease` to wait for the exact number of permits
+  * Improve `SmartKeyRWLocker` tests
+* `KSP`:
+  * `Sealed`/`ClassCasts`/`Variations`:
+    * Add workaround for `NoSuchElementException` to improve processors stability on new `KSP`
+* `Koin`:
+  * `Generator`:
+    * Handle missing annotation values safely (`NoSuchElementException` workaround)
+* `Android`:
+  * `Pickers`:
+    * Add dependency `androidx.compose.material:material-icons-extended`
+
 ## 0.26.6
 
 * `Versions`:
