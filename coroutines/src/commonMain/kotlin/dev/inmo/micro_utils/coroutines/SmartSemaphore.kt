@@ -72,7 +72,7 @@ sealed interface SmartSemaphore {
                         acquiredPermits != checkedPermits
                     }
                     if (shouldContinue) {
-                        waitRelease()
+                        waitRelease(checkedPermits - acquiredPermits)
                     }
                 } while (shouldContinue && currentCoroutineContext().isActive)
             } catch (e: Throwable) {
