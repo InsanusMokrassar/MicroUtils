@@ -6,9 +6,9 @@ kt-coroutines = "1.10.2"
 
 kotlinx-browser = "0.5.0"
 
-kslog = "1.5.1"
+kslog = "1.5.2"
 
-jb-compose = "1.9.2"
+jb-compose = "1.9.3"
 jb-compose-material3 = "1.9.0"
 jb-compose-icons = "1.7.8"
 jb-exposed = "0.61.0"
@@ -20,7 +20,7 @@ sqlite = "3.50.1.0"
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "3.3.1"
+ktor = "3.3.2"
 
 gh-release = "2.5.2"
 
@@ -28,13 +28,13 @@ koin = "4.1.1"
 
 okio = "3.16.2"
 
-ksp = "2.3.1"
+ksp = "2.3.2"
 kotlin-poet = "2.2.0"
 
-versions = "0.52.0"
+versions = "0.53.0"
 nmcp = "1.2.0"
 
-android-gradle = "8.10.+"
+android-gradle = "8.12.+"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.17.0"
