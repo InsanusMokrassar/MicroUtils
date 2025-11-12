@@ -2,6 +2,10 @@
 
 ## 0.26.8
 
+* `Versions`:
+  * `KSLog`: `1.5.1` -> `1.5.2`
+  * `Compose`: `1.9.2` -> `1.9.3`
+  * `Ktor`: `3.3.1` -> `3.3.2`
 * `Coroutines`:
   * Add simple suspend function `suspendPoint` which will ensure that current coroutine is active to let it be
   destroyable even in case it have non-suspendable nature
