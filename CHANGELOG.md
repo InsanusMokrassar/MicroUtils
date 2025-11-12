@@ -2,6 +2,10 @@
 
 ## 0.26.8
 
+* `Coroutines`:
+  * Add simple suspend function `suspendPoint` which will ensure that current coroutine is active to let it be
+  destroyable even in case it have non-suspendable nature
+
 ## 0.26.7
 
 * `Versions`:
