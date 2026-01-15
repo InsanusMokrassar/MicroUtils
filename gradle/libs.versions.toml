@@ -20,15 +20,15 @@ sqlite = "3.50.1.0"
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "3.3.2"
+ktor = "3.3.3"
 
 gh-release = "2.5.2"
 
 koin = "4.1.1"
 
-okio = "3.16.2"
+okio = "3.16.4"
 
-ksp = "2.3.2"
+ksp = "2.3.4"
 kotlin-poet = "2.2.0"
 
 versions = "0.53.0"
