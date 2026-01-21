@@ -1,7 +1,7 @@
 [versions]
 
 kt = "2.2.21"
-kt-serialization = "1.9.0"
+kt-serialization = "1.10.0"
 kt-coroutines = "1.10.2"
 
 kotlinx-browser = "0.5.0"
