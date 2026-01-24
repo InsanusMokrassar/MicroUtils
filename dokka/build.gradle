@@ -26,7 +26,7 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                            it != project
+                            it.name != project.name
                                     && it.hasProperty("kotlin")
                                     && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                                     && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
@@ -44,7 +44,7 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                            it != project
+                            it.name != project.name
                                     && it.hasProperty("kotlin")
                                     && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                                     && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
@@ -60,7 +60,7 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                            it != project
+                            it.name != project.name
                                     && it.hasProperty("kotlin")
                                     && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                                     && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
@@ -76,7 +76,7 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                            it != project
+                            it.name != project.name
                                     && it.hasProperty("kotlin")
                                     && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
                                     && it.kotlin.sourceSets.any { it.name.contains("androidMain") }

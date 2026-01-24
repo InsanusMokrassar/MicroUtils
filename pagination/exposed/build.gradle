@@ -14,7 +14,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-                api libs.jb.exposed
+                api libs.jb.exposed.jdbc
             }
         }
     }
