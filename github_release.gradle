@@ -1,9 +1,15 @@
+interface InjectedExecOps {
+    @Inject //@javax.inject.Inject
+    ExecOperations getExecOps()
+}
 private String getCurrentVersionChangelog() {
     OutputStream changelogDataOS = new ByteArrayOutputStream()
-    exec {
+
+    def injected = project.objects.newInstance(InjectedExecOps)
+    injected.execOps.exec {
         commandLine 'chmod', "+x", './changelog_parser.sh'
     }
-    exec {
+    injected.execOps.exec {
         standardOutput = changelogDataOS
         commandLine './changelog_parser.sh', "${project.version}", 'CHANGELOG.md'
     }

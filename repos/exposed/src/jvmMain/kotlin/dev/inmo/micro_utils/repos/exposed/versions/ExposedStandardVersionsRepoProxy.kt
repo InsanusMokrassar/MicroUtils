@@ -3,8 +3,12 @@ package dev.inmo.micro_utils.repos.exposed.versions
 import dev.inmo.micro_utils.repos.exposed.ExposedRepo
 import dev.inmo.micro_utils.repos.exposed.initTable
 import dev.inmo.micro_utils.repos.versions.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import org.jetbrains.exposed.v1.jdbc.update
 
 /**
  * Use this method to create [StandardVersionsRepo] based on [Database] with [ExposedStandardVersionsRepoProxy] as

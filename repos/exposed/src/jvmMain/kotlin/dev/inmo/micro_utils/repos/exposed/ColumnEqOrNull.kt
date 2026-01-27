@@ -1,10 +1,10 @@
 package dev.inmo.micro_utils.repos.exposed
 
-import org.jetbrains.exposed.sql.Column
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNotNull
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNull
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
+import org.jetbrains.exposed.v1.core.Column
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.core.isNotNull
+import org.jetbrains.exposed.v1.core.isNull
+import org.jetbrains.exposed.v1.core.neq
 
 fun <T> Column<T?>.eqOrIsNull(
     value: T?

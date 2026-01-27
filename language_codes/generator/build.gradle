@@ -23,7 +23,9 @@ dependencies {
     implementation libs.ktor.client.java
 }
 
-mainClassName="MainKt"
+application {
+    mainClass = "MainKt"
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

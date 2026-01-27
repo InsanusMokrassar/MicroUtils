@@ -2,7 +2,11 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.*
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.v1.core.Column
+import org.jetbrains.exposed.v1.core.Op
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.jdbc.Database
 
 typealias ExposedReadOneToManyKeyValueRepo<Key, Value> = ExposedReadKeyValuesRepo<Key, Value>
 
@@ -15,10 +19,10 @@ open class ExposedReadKeyValuesRepo<Key, Value>(
     override val keyColumn: Column<Key> = keyColumnAllocator()
     override val ResultRow.asKey: Key
         get() = get(keyColumn)
-    override val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean> = { valueColumn.eq(it) }
+    override val selectByValue: (Value) -> Op<Boolean> = { valueColumn.eq(it) }
     override val ResultRow.asObject: Value
         get() = get(valueColumn)
-    override val selectById: ISqlExpressionBuilder.(Key) -> Op<Boolean> = { keyColumn.eq(it) }
+    override val selectById: (Key) -> Op<Boolean> = { keyColumn.eq(it) }
     val valueColumn: Column<Value> = valueColumnAllocator()
 
     init { initTable() }

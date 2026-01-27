@@ -5,12 +5,12 @@ import dev.inmo.micro_utils.repos.CRUDRepo
 import dev.inmo.micro_utils.repos.common.tests.CommonCRUDRepoTests
 import dev.inmo.micro_utils.repos.exposed.AbstractExposedCRUDRepo
 import dev.inmo.micro_utils.repos.exposed.initTable
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.ISqlExpressionBuilder
-import org.jetbrains.exposed.sql.Op
-import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.statements.InsertStatement
-import org.jetbrains.exposed.sql.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.core.Op
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.core.statements.InsertStatement
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.Database
 import java.io.File
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -29,7 +29,7 @@ class ExposedCRUDRepoTests : CommonCRUDRepoTests() {
                 asId,
                 get(dataColumn)
             )
-        override val selectById: ISqlExpressionBuilder.(String) -> Op<Boolean> = { idColumn.eq(it) }
+        override val selectById: (String) -> Op<Boolean> = { idColumn.eq(it) }
 
         init {
             initTable()

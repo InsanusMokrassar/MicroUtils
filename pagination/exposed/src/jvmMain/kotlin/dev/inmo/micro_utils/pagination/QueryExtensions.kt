@@ -1,6 +1,8 @@
 package dev.inmo.micro_utils.pagination
 
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.v1.core.Expression
+import org.jetbrains.exposed.v1.core.SortOrder
+import org.jetbrains.exposed.v1.jdbc.Query
 
 fun Query.paginate(with: Pagination, orderBy: Pair<Expression<*>, SortOrder>? = null) =
     limit(with.size)

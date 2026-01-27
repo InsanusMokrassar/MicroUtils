@@ -3,9 +3,14 @@ package dev.inmo.micro_utils.repos.exposed.keyvalue
 import dev.inmo.micro_utils.repos.KeyValueRepo
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import kotlinx.coroutines.flow.update
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.deleteAll
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.update
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val database: Database,
@@ -54,7 +59,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
             toUnset.mapNotNull { item ->
-                if (deleteWhere { selectById(it, item) } > 0) {
+                if (deleteWhere { selectById(item) } > 0) {
                     item
                 } else {
                     null
@@ -69,7 +74,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
         transaction(database) {
             toUnset.flatMap {
                 val keys = selectAll().where { selectByValue(it) }.mapNotNull { it.asKey }
-                deleteWhere { selectByIds(it, keys) }
+                deleteWhere { selectByIds(keys) }
                 keys
             }
         }.distinct().forEach {

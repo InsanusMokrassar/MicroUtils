@@ -44,6 +44,11 @@ allprojects {
         maven { url "https://nexus.inmo.dev/repository/maven-releases/" }
         mavenLocal()
     }
+
+
+    it.tasks.withType(AbstractTestTask).configureEach {
+        it.failOnNoDiscoveredTests = false
+    }
 }
 
 apply from: "./extensions.gradle"

@@ -4,9 +4,12 @@ import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteCRUDRepo
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.statements.InsertStatement
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import org.jetbrains.exposed.v1.jdbc.update
 import java.util.Objects
 
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
@@ -93,7 +96,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         return transaction(db = database) {
             update(
                 {
-                    selectById(this, id)
+                    selectById( id)
                 }
             ) {
                 update(id, value, it as UpdateBuilder<Int>)
@@ -102,7 +105,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
             if (it > 0) {
                 transaction(db = database) {
                     selectAll().where {
-                        selectById(this, id)
+                        selectById(id)
                     }.limit(1).firstOrNull() ?.asObject
                 }
             } else {
@@ -137,7 +140,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override suspend fun deleteById(ids: List<IdType>) {
         onBeforeDelete(ids)
         transaction(db = database) {
-            val deleted = deleteWhere { selectByIds(it, ids) }
+            val deleted = deleteWhere { selectByIds(ids) }
             if (deleted == ids.size) {
                 ids
             } else {
