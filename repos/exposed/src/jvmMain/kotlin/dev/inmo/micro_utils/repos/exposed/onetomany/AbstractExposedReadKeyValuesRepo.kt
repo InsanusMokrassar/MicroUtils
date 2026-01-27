@@ -4,8 +4,14 @@ import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.*
 import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.Column
+import org.jetbrains.exposed.v1.core.Op
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.SortOrder
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
     override val database: Database,
@@ -17,7 +23,7 @@ abstract class AbstractExposedReadKeyValuesRepo<Key, Value>(
     abstract val ResultRow.asKey: Key
     override val ResultRow.asId: Key
         get() = asKey
-    abstract val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean>
+    abstract val selectByValue: (Value) -> Op<Boolean>
 
     override suspend fun count(k: Key): Long = transaction(database) { selectAll().where { selectById(k) }.count() }
 

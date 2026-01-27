@@ -3,9 +3,13 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 import dev.inmo.micro_utils.repos.KeyValuesRepo
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.UpdateBuilder
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.batchInsert
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 abstract class AbstractExposedKeyValuesRepo<Key, Value>(
     override val database: Database,
@@ -60,7 +64,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
             val oldObjects = selectAll().where { selectByIds(toSet.keys.toList()) }.map { it.asKey to it.asObject }
 
             deleteWhere {
-                selectByIds(it, toSet.keys.toList())
+                selectByIds(toSet.keys.toList())
             }
             val inserted = batchInsert(
                 prepreparedData,
@@ -104,7 +108,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
         transaction(database) {
             toRemove.keys.flatMap { k ->
                 toRemove[k] ?.mapNotNull { v ->
-                    if (deleteWhere { selectById(it, k).and(SqlExpressionBuilder.selectByValue(v)) } > 0 ) {
+                    if (deleteWhere { selectById(k).and(selectByValue(v)) } > 0 ) {
                         k to v
                     } else {
                         null
@@ -118,7 +122,7 @@ abstract class AbstractExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun clear(k: Key) {
         transaction(database) {
-            deleteWhere { selectById(it, k) }
+            deleteWhere { selectById(k) }
         }.also { _onDataCleared.emit(k) }
     }
 }

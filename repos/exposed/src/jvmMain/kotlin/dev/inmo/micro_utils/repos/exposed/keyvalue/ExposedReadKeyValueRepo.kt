@@ -1,13 +1,13 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
-import dev.inmo.micro_utils.pagination.*
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.exposed.*
-import dev.inmo.micro_utils.repos.exposed.utils.selectPaginated
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.InsertStatement
-import org.jetbrains.exposed.sql.statements.UpdateBuilder
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.Column
+import org.jetbrains.exposed.v1.core.Op
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.jdbc.Database
 
 open class ExposedReadKeyValueRepo<Key, Value>(
     database: Database,
@@ -20,10 +20,10 @@ open class ExposedReadKeyValueRepo<Key, Value>(
     val valueColumn: Column<Value> = valueColumnAllocator()
     override val ResultRow.asKey: Key
         get() = get(keyColumn)
-    override val selectByValue: ISqlExpressionBuilder.(Value) -> Op<Boolean> = { valueColumn.eq(it) }
+    override val selectByValue: (Value) -> Op<Boolean> = { valueColumn.eq(it) }
     override val ResultRow.asObject: Value
         get() = get(valueColumn)
-    override val selectById: ISqlExpressionBuilder.(Key) -> Op<Boolean> = { keyColumn.eq(it) }
+    override val selectById: (Key) -> Op<Boolean> = { keyColumn.eq(it) }
     override val primaryKey: Table.PrimaryKey
         get() = PrimaryKey(keyColumn, valueColumn)
 

@@ -1,11 +1,15 @@
 package dev.inmo.micro_utils.repos.exposed
 
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SchemaUtils.addMissingColumnsStatements
-import org.jetbrains.exposed.sql.SchemaUtils.checkMappingConsistence
-import org.jetbrains.exposed.sql.SchemaUtils.createStatements
-import org.jetbrains.exposed.sql.transactions.TransactionManager
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.Table
+import org.jetbrains.exposed.v1.core.Transaction
+import org.jetbrains.exposed.v1.core.exposedLogger
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.SchemaUtils
+import org.jetbrains.exposed.v1.jdbc.SchemaUtils.addMissingColumnsStatements
+import org.jetbrains.exposed.v1.jdbc.SchemaUtils.checkMappingConsistence
+import org.jetbrains.exposed.v1.jdbc.transactions.TransactionManager
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+
 
 /**
  * Code in this function mostly duplicates Exposed [SchemaUtils.createMissingTablesAndColumns]. It made due to deprecation
@@ -41,9 +45,9 @@ fun initTablesInTransaction(vararg tables: Table, database: Database, inBatch: B
             }
         }
         with(TransactionManager.current()) {
-            db.dialect.resetCaches()
+            db.dialectMetadata.resetCaches()
             val createStatements = logTimeSpent("Preparing create tables statements", withLogs) {
-                createStatements(*tables)
+                SchemaUtils.createStatements(*tables)
             }
             logTimeSpent("Executing create tables statements", withLogs) {
                 execStatements(inBatch, createStatements)
@@ -66,7 +70,7 @@ fun initTablesInTransaction(vararg tables: Table, database: Database, inBatch: B
                 execStatements(inBatch, modifyTablesStatements)
                 commit()
             }
-            db.dialect.resetCaches()
+            db.dialectMetadata.resetCaches()
         }
     }
 }

@@ -4,10 +4,13 @@ import dev.inmo.micro_utils.repos.KeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.core.inList
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 typealias ExposedOneToManyKeyValueRepo1<Key, Value> = ExposedKeyValuesRepo<Key, Value>
 open class ExposedKeyValuesRepo<Key, Value>(
@@ -34,7 +37,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
         get() = _onDataCleared
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
-        transaction(database) {
+        transaction (database) {
             toAdd.keys.flatMap { k ->
                 toAdd[k] ?.mapNotNull { v ->
                     if (selectAll().where { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
@@ -73,7 +76,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
     override suspend fun removeWithValue(v: Value) {
         transaction(database) {
             val keys = selectAll().where { selectByValue(v) }.map { it.asKey }
-            deleteWhere { SqlExpressionBuilder.selectByValue(v) }
+            deleteWhere { selectByValue(v) }
             keys
         }.forEach {
             _onValueRemoved.emit(it to v)
