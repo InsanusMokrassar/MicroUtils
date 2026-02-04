@@ -2,6 +2,22 @@
 
 ## 0.28.0
 
+**THIS VERSION CONTAINS BREAKING CHANGES DUE TO EXPOSED 1.0.0 UPDATE**
+
+* `Versions`:
+  * `Kotlin`: `2.2.21` -> `2.3.0`
+  * `Serialization`: `1.9.0` -> `1.10.0`
+  * `Exposed`: `0.61.0` -> `1.0.0` (**MAJOR VERSION UPDATE**)
+  * `Ktor`: `3.3.3` -> `3.4.0`
+  * `NMCP`: `1.2.0` -> `1.2.1`
+* `Repos`:
+  * `Exposed`:
+    * All Exposed-based repositories have been updated to support Exposed 1.0.0 API changes
+    * Import paths have been migrated to new `org.jetbrains.exposed.v1.*` package structure
+* `Pagination`:
+  * `Exposed`:
+    * Updated to use new Exposed 1.0.0 import paths
+
 ## 0.27.0
 
 * `Versions`:
