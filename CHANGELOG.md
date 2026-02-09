@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.25.8.1
+
 ## 0.25.8
 
 * `Pagination`:
