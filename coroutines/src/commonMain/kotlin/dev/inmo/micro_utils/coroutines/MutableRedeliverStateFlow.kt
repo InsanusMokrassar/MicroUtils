@@ -65,6 +65,3 @@ open class MutableRedeliverStateFlow<T>(
 
     override suspend fun collect(collector: FlowCollector<T>) = sharingFlow.collect(collector)
 }
-
-@Deprecated("Renamed to MutableRedeliverStateFlow", ReplaceWith("MutableRedeliverStateFlow<T>"))
-typealias SpecialMutableStateFlow<T> = MutableRedeliverStateFlow<T>
