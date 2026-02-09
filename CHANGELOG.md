@@ -407,7 +407,7 @@ KTOR DEPENDENCY**
 * A lot of inline functions became common functions due to inline with only noinline callbacks in arguments leads to
 low performance
 * `Coroutines`:
-    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `MutableRedeliverStateFlow`
+    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `SpecialMutableStateFlow`
 
 ## 0.20.49
 
@@ -616,7 +616,7 @@ low performance
 ## 0.20.18
 
 * `Coroutines`:
-    * `MutableRedeliverStateFlow` now extends `MutableStateFlow`
+    * `SpecialMutableStateFlow` now extends `MutableStateFlow`
     * `Compose`:
         * Deprecate `FlowState` due to its complexity in fixes
 
@@ -630,7 +630,7 @@ low performance
 * `Versions`:
     * `Exposed`: `0.44.1` -> `0.45.0`
 * `Coroutines`:
-    * Add `MutableRedeliverStateFlow`
+    * Add `SpecialMutableStateFlow`
     * `Compose`:
         * Add `FlowState`
 
