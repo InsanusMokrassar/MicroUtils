@@ -2,6 +2,12 @@
 
 ## 0.25.8.1
 
+* `Coroutines`:
+  * New function `suspendPoint` to check coroutine cancellation status
+  * `SpecialMutableStateFlow` renamed to `MutableRedeliverStateFlow` (old name deprecated with `ReplaceWith`)
+  * `SmartSemaphore`:
+    * Fix of `waitRelease` call to pass correct number of permits
+
 ## 0.25.8
 
 * `Pagination`:
@@ -401,7 +407,7 @@ KTOR DEPENDENCY**
 * A lot of inline functions became common functions due to inline with only noinline callbacks in arguments leads to
 low performance
 * `Coroutines`:
-    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `SpecialMutableStateFlow`
+    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `MutableRedeliverStateFlow`
 
 ## 0.20.49
 
@@ -610,7 +616,7 @@ low performance
 ## 0.20.18
 
 * `Coroutines`:
-    * `SpecialMutableStateFlow` now extends `MutableStateFlow`
+    * `MutableRedeliverStateFlow` now extends `MutableStateFlow`
     * `Compose`:
         * Deprecate `FlowState` due to its complexity in fixes
 
@@ -624,7 +630,7 @@ low performance
 * `Versions`:
     * `Exposed`: `0.44.1` -> `0.45.0`
 * `Coroutines`:
-    * Add `SpecialMutableStateFlow`
+    * Add `MutableRedeliverStateFlow`
     * `Compose`:
         * Add `FlowState`
 

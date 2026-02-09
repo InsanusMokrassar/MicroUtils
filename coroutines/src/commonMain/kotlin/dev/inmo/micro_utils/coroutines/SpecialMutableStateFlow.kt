@@ -1,7 +1,5 @@
 package dev.inmo.micro_utils.coroutines
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
@@ -11,13 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.internal.SynchronizedObject
 import kotlinx.coroutines.internal.synchronized
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Works like [StateFlow], but guarantee that latest value update will always be delivered to
  * each active subscriber
  */
-open class SpecialMutableStateFlow<T>(
+open class MutableRedeliverStateFlow<T>(
     initialValue: T
 ) : MutableStateFlow<T>, FlowCollector<T>, MutableSharedFlow<T> {
     @OptIn(InternalCoroutinesApi::class)
@@ -68,3 +65,6 @@ open class SpecialMutableStateFlow<T>(
 
     override suspend fun collect(collector: FlowCollector<T>) = sharingFlow.collect(collector)
 }
+
+@Deprecated("Renamed to MutableRedeliverStateFlow", ReplaceWith("MutableRedeliverStateFlow<T>"))
+typealias SpecialMutableStateFlow<T> = MutableRedeliverStateFlow<T>

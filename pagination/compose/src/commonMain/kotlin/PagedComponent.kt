@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.pagination.compose
 
 import androidx.compose.runtime.*
-import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
+import dev.inmo.micro_utils.coroutines.MutableRedeliverStateFlow
 import dev.inmo.micro_utils.coroutines.launchLoggingDropExceptions
 import dev.inmo.micro_utils.pagination.*
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +28,8 @@ class PagedComponentContext<T> internal constructor(
     private val loader: suspend PagedComponentContext<T>.(Pagination) -> PaginationResult<T>
 ) {
     internal val startPage = SimplePagination(initialPage, size)
-    internal val latestLoadedPage = SpecialMutableStateFlow<PaginationResult<T>?>(null)
-    internal val dataState = SpecialMutableStateFlow<PaginationResult<T>?>(null)
+    internal val latestLoadedPage = MutableRedeliverStateFlow<PaginationResult<T>?>(null)
+    internal val dataState = MutableRedeliverStateFlow<PaginationResult<T>?>(null)
     internal var loadingJob: Job? = null
     internal val loadingMutex = Mutex()
 

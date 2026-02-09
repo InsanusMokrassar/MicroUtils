@@ -2,7 +2,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.test.*
-import dev.inmo.micro_utils.coroutines.SpecialMutableStateFlow
+import dev.inmo.micro_utils.coroutines.MutableRedeliverStateFlow
 import org.jetbrains.annotations.TestOnly
 import kotlin.test.Test
 
@@ -11,7 +11,7 @@ class FlowStateTests {
     @Test
     @TestOnly
     fun simpleTest() = runComposeUiTest {
-        val flowState = SpecialMutableStateFlow(0)
+        val flowState = MutableRedeliverStateFlow(0)
         setContent {
             Button({ flowState.value++ }) { Text("Click") }
             Text(flowState.collectAsState().value.toString())
