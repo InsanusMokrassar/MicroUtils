@@ -6,7 +6,7 @@ kt-coroutines = "1.10.2"
 
 kotlinx-browser = "0.5.0"
 
-kslog = "1.5.2"
+kslog = "1.6.0"
 
 jb-compose = "1.10.0"
 jb-compose-material3 = "1.10.0-alpha05"
