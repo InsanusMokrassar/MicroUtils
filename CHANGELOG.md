@@ -2,6 +2,9 @@
 
 ## 0.26.9
 
+* `Coroutines`:
+  * `runCatchingLogging` updated to rethrow `CancellationException` and log other exceptions
+
 ## 0.26.8
 
 * `Versions`:
