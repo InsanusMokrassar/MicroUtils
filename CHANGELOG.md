@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.25.8.2
+
 ## 0.25.8.1
 
 * `Coroutines`:
