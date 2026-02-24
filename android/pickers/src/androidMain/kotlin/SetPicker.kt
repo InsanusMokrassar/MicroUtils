@@ -22,6 +22,18 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlin.math.*
 
+/**
+ * A Compose picker component that allows users to select an item from a list by dragging or using arrow buttons.
+ *
+ * @param T The type of items in the list
+ * @param current The currently selected item
+ * @param dataList The list of items to choose from
+ * @param modifier The modifier to be applied to the picker
+ * @param textStyle The text style for displaying items
+ * @param arrowsColor The color of the up/down arrow buttons
+ * @param dataToString A composable function to convert items to strings for display. Defaults to [Any.toString]
+ * @param onStateChanged Callback invoked when the selected item changes
+ */
 @OptIn(ExperimentalTextApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun <T> SetPicker(

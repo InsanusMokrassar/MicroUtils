@@ -10,6 +10,14 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
 
+/**
+ * Information about a file to upload in a multipart request.
+ * This allows uploading from custom sources beyond regular files.
+ *
+ * @param fileName The name of the file
+ * @param mimeType The MIME type of the file
+ * @param inputAllocator A lambda that provides input streams for reading the file data
+ */
 data class UniUploadFileInfo(
     val fileName: FileName,
     val mimeType: String,
