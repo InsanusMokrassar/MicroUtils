@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.28.1
+## 0.29.0
 
 * `Coroutines`:
   * `runCatchingLogging` updated to rethrow `CancellationException` and log other exceptions
