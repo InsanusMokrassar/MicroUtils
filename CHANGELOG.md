@@ -7,6 +7,7 @@
   * `KSLog`: `1.5.2` -> `1.6.0`
   * `KSP`: `2.3.4` -> `2.3.6`
   * `Compose`: `1.10.0` -> `1.10.1`
+  * `SQLite`: `3.50.1.0` -> `3.51.2.0`
 * `Coroutines`:
   * `runCatchingLogging` updated to rethrow `CancellationException` and log other exceptions
 
