@@ -1,6 +1,14 @@
 package dev.inmo.micro_utils.transactions
 
+/**
+ * Type alias for a suspending rollback lambda that receives the error that triggered the rollback.
+ */
 typealias TransactionDSLRollbackLambda = suspend (Throwable) -> Unit
+
+/**
+ * DSL context for defining transactional operations with automatic rollback on failure.
+ * This class manages a list of rollback actions that will be executed in reverse order if an error occurs.
+ */
 class TransactionsDSL internal constructor() {
     internal val rollbackActions = ArrayList<TransactionDSLRollbackLambda>()
 
@@ -8,6 +16,15 @@ class TransactionsDSL internal constructor() {
         rollbackActions.add(rollbackAction)
     }
 }
+
+/**
+ * Context provided to rollback actions, containing both the successful result of the action
+ * and the error that triggered the rollback.
+ *
+ * @param T The type of the action result
+ * @param actionResult The result of the action that succeeded before the transaction failed
+ * @param error The throwable that caused the transaction to fail
+ */
 class RollbackContext<T> internal constructor (
     val actionResult: T,
     val error: Throwable

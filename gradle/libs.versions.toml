@@ -1,21 +1,20 @@
 [versions]
 
-kt = "2.3.0"
+kt = "2.3.10"
 kt-serialization = "1.10.0"
 kt-coroutines = "1.10.2"
 
 kotlinx-browser = "0.5.0"
 
-kslog = "1.5.2"
+kslog = "1.6.0"
 
-jb-compose = "1.10.0"
+jb-compose = "1.10.1"
 jb-compose-material3 = "1.10.0-alpha05"
 jb-compose-icons = "1.7.8"
 jb-exposed = "1.0.0"
 jb-dokka = "2.1.0"
 
-# 3.51.0.0 contains bug, checking with ./gradlew :micro_utils.repos.exposed:jvmTest
-sqlite = "3.50.1.0"
+sqlite = "3.51.2.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
@@ -28,7 +27,7 @@ koin = "4.1.1"
 
 okio = "3.16.4"
 
-ksp = "2.3.4"
+ksp = "2.3.6"
 kotlin-poet = "2.2.0"
 
 versions = "0.53.0"

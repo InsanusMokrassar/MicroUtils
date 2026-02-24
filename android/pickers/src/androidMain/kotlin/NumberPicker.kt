@@ -41,6 +41,18 @@ private inline fun PointerInputScope.checkContains(offset: Offset): Boolean {
 
 // src: https://gist.github.com/vganin/a9a84653a9f48a2d669910fbd48e32d5
 
+/**
+ * A Compose number picker component that allows users to select a number by dragging, using arrow buttons,
+ * or manually entering a value.
+ *
+ * @param number The currently selected number
+ * @param modifier The modifier to be applied to the picker
+ * @param range Optional range of valid numbers. If specified, the picker will be limited to this range
+ * @param textStyle The text style for displaying numbers
+ * @param arrowsColor The color of the up/down arrow buttons
+ * @param allowUseManualInput Whether to allow manual keyboard input for the number
+ * @param onStateChanged Callback invoked when the selected number changes
+ */
 @OptIn(ExperimentalTextApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun NumberPicker(

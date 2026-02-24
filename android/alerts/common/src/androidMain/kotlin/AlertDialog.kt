@@ -1,3 +1,6 @@
+/**
+ * Utility functions for creating Android AlertDialogs with simplified API.
+ */
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 
 package dev.inmo.micro_utils.android.alerts.common
@@ -6,8 +9,21 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 
+/**
+ * Type alias for alert dialog button callbacks.
+ */
 typealias AlertDialogCallback = (DialogInterface) -> Unit
 
+/**
+ * Creates an [AlertDialog.Builder] template with configurable title and buttons.
+ * This provides a simplified API for creating alert dialogs with positive, negative, and neutral buttons.
+ *
+ * @param title Optional dialog title
+ * @param positivePair Optional positive button as a pair of (text, callback)
+ * @param neutralPair Optional neutral button as a pair of (text, callback)
+ * @param negativePair Optional negative button as a pair of (text, callback)
+ * @return An [AlertDialog.Builder] configured with the specified parameters
+ */
 inline fun Context.createAlertDialogTemplate(
     title: String? = null,
     positivePair: Pair<String, AlertDialogCallback?>? = null,

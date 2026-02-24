@@ -65,6 +65,20 @@ private data class AsyncSubscriptionCommandClearReceiver<T, M>(
     }
 }
 
+/**
+ * Subscribes to a [Flow] with asynchronous processing based on markers.
+ * Each value from the flow will be processed by the [block] function. Values with the same marker
+ * will be processed sequentially in the same coroutine scope, while values with different markers
+ * can be processed concurrently in separate coroutine scopes.
+ *
+ * @param T The type of values emitted by the flow
+ * @param M The type of markers used to group values
+ * @param scope The [CoroutineScope] in which to subscribe to the flow
+ * @param markerFactory A factory function that produces a marker for each emitted value
+ * @param logger The logger instance used for logging exceptions. Defaults to [KSLog]
+ * @param block The suspending function that processes each emitted value
+ * @return A [Job] representing the subscription that can be cancelled
+ */
 fun <T, M> Flow<T>.subscribeAsync(
     scope: CoroutineScope,
     markerFactory: suspend (T) -> M,
@@ -122,6 +136,20 @@ fun <T, M> Flow<T>.subscribeSafelyWithoutExceptionsAsync(
     }
 }
 
+/**
+ * Subscribes to a [Flow] with asynchronous processing based on markers, automatically logging and dropping exceptions.
+ * Each value from the flow will be processed by the [block] function. Values with the same marker
+ * will be processed sequentially, while values with different markers can be processed concurrently.
+ * Any exceptions thrown during processing will be logged and dropped without affecting other messages.
+ *
+ * @param T The type of values emitted by the flow
+ * @param M The type of markers used to group values
+ * @param scope The [CoroutineScope] in which to subscribe to the flow
+ * @param markerFactory A factory function that produces a marker for each emitted value
+ * @param logger The logger instance used for logging exceptions. Defaults to [KSLog]
+ * @param block The suspending function that processes each emitted value
+ * @return A [Job] representing the subscription that can be cancelled
+ */
 fun <T, M> Flow<T>.subscribeLoggingDropExceptionsAsync(
     scope: CoroutineScope,
     markerFactory: suspend (T) -> M,

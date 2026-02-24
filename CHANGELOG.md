@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.29.0
+
+* `Versions`:
+  * `Kotlin`: `2.3.0` -> `2.3.10`
+  * `KSLog`: `1.5.2` -> `1.6.0`
+  * `KSP`: `2.3.4` -> `2.3.6`
+  * `Compose`: `1.10.0` -> `1.10.1`
+  * `SQLite`: `3.50.1.0` -> `3.51.2.0`
+* `Coroutines`:
+  * `runCatchingLogging` updated to rethrow `CancellationException` and log other exceptions
+
 ## 0.28.0
 
 **THIS VERSION CONTAINS BREAKING CHANGES DUE TO EXPOSED 1.0.0 UPDATE**
