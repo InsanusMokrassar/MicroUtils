@@ -31,7 +31,7 @@ ksp = "2.3.6"
 kotlin-poet = "2.2.0"
 
 versions = "0.53.0"
-nmcp = "1.2.1"
+nmcp = "1.4.4"
 
 android-gradle = "8.12.+"
 dexcount = "4.0.0"
