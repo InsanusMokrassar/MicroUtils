@@ -9,7 +9,7 @@ kotlinx-browser = "0.5.0"
 kslog = "1.6.0"
 
 jb-compose = "1.10.2"
-jb-compose-material3 = "1.10.0-alpha05"
+jb-compose-material3 = "1.10.0-SNAPSHOT+update-templates-demos"
 jb-compose-icons = "1.7.8"
 jb-exposed = "1.1.1"
 jb-dokka = "2.1.0"
