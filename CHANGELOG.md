@@ -3,7 +3,7 @@
 ## 0.29.1
 
 * `Versions`:
-  * `Compose`: `1.10.2` -> `1.10.1` (fix: corrected to latest stable version)
+  * `Compose`: `1.10.1` -> `1.10.2`
   * `Exposed`: `1.0.0` -> `1.1.1`
   * `Ktor`: `3.4.0` -> `3.4.1`
   * `NMCP`: `1.2.1` -> `1.4.4`
