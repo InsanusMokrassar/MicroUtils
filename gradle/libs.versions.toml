@@ -1,12 +1,12 @@
 [versions]
 
 kt = "2.3.20"
-kt-serialization = "1.10.0"
+kt-serialization = "1.11.0"
 kt-coroutines = "1.10.2"
 
 kotlinx-browser = "0.5.0"
 
-kslog = "1.6.0"
+kslog = "1.6.1"
 
 jb-compose = "1.10.3"
 jb-compose-material3 = "1.10.0-alpha05"
@@ -23,7 +23,7 @@ ktor = "3.4.2"
 
 gh-release = "2.5.2"
 
-koin = "4.1.1"
+koin = "4.2.1"
 
 okio = "3.17.0"
 
