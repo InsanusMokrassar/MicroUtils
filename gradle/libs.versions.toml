@@ -30,7 +30,7 @@ okio = "3.17.0"
 ksp = "2.3.6"
 kotlin-poet = "2.3.0"
 
-versions = "0.53.0"
+versions = "0.54.0"
 nmcp = "1.4.4"
 
 android-gradle = "8.12.+"
