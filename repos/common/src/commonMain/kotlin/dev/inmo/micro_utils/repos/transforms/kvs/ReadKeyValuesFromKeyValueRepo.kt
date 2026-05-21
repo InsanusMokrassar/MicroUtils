@@ -11,6 +11,15 @@ import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 
+/**
+ * Adapter that exposes a [ReadKeyValueRepo] storing iterables as a [ReadKeyValuesRepo].
+ * Each key maps to a [ValuesIterable] in the underlying repo, which is exposed as a one-to-many relationship.
+ *
+ * @param Key The type of keys
+ * @param Value The type of individual values within each iterable
+ * @param ValuesIterable The iterable type storing multiple values per key
+ * @param original The underlying [ReadKeyValueRepo] mapping keys to iterables of values
+ */
 open class ReadKeyValuesFromKeyValueRepo<Key, Value, ValuesIterable : Iterable<Value>>(
     private val original: ReadKeyValueRepo<Key, ValuesIterable>
 ) : ReadKeyValuesRepo<Key, Value> {

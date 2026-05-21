@@ -18,6 +18,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.merge
 
+/**
+ * Full read-write adapter that exposes a [KeyValuesRepo] as a [KeyValueRepo] mapping each key to a [List] of values.
+ * Extends [ReadKeyValueFromKeyValuesRepo] with write operations delegated to the underlying [KeyValuesRepo].
+ * [onNewValue] merges [KeyValuesRepo.onNewValue] and [KeyValuesRepo.onValueRemoved] and emits the updated list per key;
+ * [onValueRemoved] mirrors [KeyValuesRepo.onDataCleared].
+ *
+ * @param Key The type of keys
+ * @param Value The type of individual values in the one-to-many repo
+ * @param original The underlying [KeyValuesRepo] to delegate operations to
+ */
 open class KeyValueFromKeyValuesRepo<Key, Value>(
     private val original: KeyValuesRepo<Key, Value>
 ) : KeyValueRepo<Key, List<Value>>, ReadKeyValueFromKeyValuesRepo<Key, Value>(original) {
