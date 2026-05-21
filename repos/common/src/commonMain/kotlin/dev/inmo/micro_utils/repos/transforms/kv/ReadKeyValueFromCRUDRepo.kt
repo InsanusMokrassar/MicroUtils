@@ -15,6 +15,15 @@ import dev.inmo.micro_utils.repos.pagination.getAll
 import dev.inmo.micro_utils.repos.transforms.kvs.ReadKeyValuesFromKeyValueRepo
 import kotlin.jvm.JvmInline
 
+/**
+ * Inline value class adapter that exposes a [ReadCRUDRepo] as a [ReadKeyValueRepo].
+ * Maps key-value read operations to the underlying CRUD repository operations,
+ * treating CRUD IDs as keys and CRUD objects as values.
+ *
+ * @param Key The type of keys (maps to [ReadCRUDRepo] ID type)
+ * @param Value The type of values (maps to [ReadCRUDRepo] object type)
+ * @param original The underlying [ReadCRUDRepo] to delegate operations to
+ */
 @JvmInline
 value class ReadKeyValueFromCRUDRepo<Key, Value>(
     private val original: ReadCRUDRepo<Value, Key>

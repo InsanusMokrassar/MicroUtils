@@ -177,38 +177,89 @@ interface WriteKeyValuesRepo<Key, Value> : Repo {
  */
 typealias WriteOneToManyKeyValueRepo<Key,Value> = WriteKeyValuesRepo<Key, Value>
 
+/**
+ * List-of-pairs overload of [WriteKeyValuesRepo.add].
+ *
+ * @param keysAndValues List of key to list-of-values pairs to add
+ */
 suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.add(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = add(keysAndValues.toMap())
 
+/**
+ * Vararg overload of [WriteKeyValuesRepo.add].
+ *
+ * @param keysAndValues Key to list-of-values pairs to add
+ */
 suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.add(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = add(keysAndValues.toMap())
 
+/**
+ * Single-key overload of [WriteKeyValuesRepo.add] accepting a list of values.
+ *
+ * @param k Key to add values to
+ * @param v List of values to add
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.add(
     k: Key, v: List<Value>
 ) = add(mapOf(k to v))
 
+/**
+ * Single-key vararg overload of [WriteKeyValuesRepo.add].
+ *
+ * @param k Key to add values to
+ * @param v Values to add
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.add(
     k: Key, vararg v: Value
 ) = add(k, v.toList())
 
+/**
+ * List-of-pairs overload of [WriteKeyValuesRepo.set].
+ *
+ * @param keysAndValues List of key to list-of-values pairs to set
+ */
 suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.set(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = set(keysAndValues.toMap())
 
+/**
+ * Vararg overload of [WriteKeyValuesRepo.set].
+ *
+ * @param keysAndValues Key to list-of-values pairs to set
+ */
 suspend inline fun <Key, Value, REPO : WriteKeyValuesRepo<Key, Value>> REPO.set(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = set(keysAndValues.toMap())
 
+/**
+ * Single-key overload of [WriteKeyValuesRepo.set] accepting a list of values.
+ *
+ * @param k Key to set values for
+ * @param v List of values to set
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.set(
     k: Key, v: List<Value>
 ) = set(mapOf(k to v))
 
+/**
+ * Single-key vararg overload of [WriteKeyValuesRepo.set].
+ *
+ * @param k Key to set values for
+ * @param v Values to set
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.set(
     k: Key, vararg v: Value
 ) = set(k, v.toList())
 
+/**
+ * Full one-to-many key-values repository combining read and write capabilities.
+ * Provides default implementations for [clearWithValue], [removeWithValue], and [set].
+ *
+ * @param Key The type used as the key in all operations
+ * @param Value The type of values associated with keys
+ */
 interface KeyValuesRepo<Key, Value> : ReadKeyValuesRepo<Key, Value>, WriteKeyValuesRepo<Key, Value> {
     override suspend fun clearWithValue(v: Value) {
         doWithPagination {
@@ -247,6 +298,14 @@ interface KeyValuesRepo<Key, Value> : ReadKeyValuesRepo<Key, Value>, WriteKeyVal
 }
 typealias OneToManyKeyValueRepo<Key,Value> = KeyValuesRepo<Key, Value>
 
+/**
+ * Delegate-based implementation of [KeyValuesRepo] that composes separate read and write delegates.
+ *
+ * @param Key The type of keys in the repository
+ * @param Value The type of values associated with keys
+ * @param readDelegate Delegate providing all [ReadKeyValuesRepo] operations
+ * @param writeDelegate Delegate providing all [WriteKeyValuesRepo] operations
+ */
 class DelegateBasedKeyValuesRepo<Key, Value>(
     readDelegate: ReadKeyValuesRepo<Key, Value>,
     writeDelegate: WriteKeyValuesRepo<Key, Value>
@@ -254,19 +313,41 @@ class DelegateBasedKeyValuesRepo<Key, Value>(
     ReadKeyValuesRepo<Key, Value> by readDelegate,
     WriteKeyValuesRepo<Key, Value> by writeDelegate
 
+/**
+ * List-of-pairs overload of [WriteKeyValuesRepo.remove].
+ *
+ * @param keysAndValues List of key to list-of-values pairs to remove
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     keysAndValues: List<Pair<Key, List<Value>>>
 ) = remove(keysAndValues.toMap())
 
+/**
+ * Vararg overload of [WriteKeyValuesRepo.remove].
+ *
+ * @param keysAndValues Key to list-of-values pairs to remove
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     vararg keysAndValues: Pair<Key, List<Value>>
 ) = remove(keysAndValues.toMap())
 
+/**
+ * Single-key overload of [WriteKeyValuesRepo.remove] accepting a list of values.
+ *
+ * @param k Key to remove values from
+ * @param v List of values to remove
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     k: Key,
     v: List<Value>
 ) = remove(mapOf(k to v))
 
+/**
+ * Single-key vararg overload of [WriteKeyValuesRepo.remove].
+ *
+ * @param k Key to remove values from
+ * @param v Values to remove
+ */
 suspend inline fun <Key, Value> WriteKeyValuesRepo<Key, Value>.remove(
     k: Key,
     vararg v: Value

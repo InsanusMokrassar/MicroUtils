@@ -12,6 +12,17 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlin.js.JsName
 import kotlin.jvm.JvmName
 
+/**
+ * Full read-write adapter that exposes a [KeyValueRepo] storing iterables as a [KeyValuesRepo].
+ * Extends [ReadKeyValuesFromKeyValueRepo] with write operations: add, remove, clear.
+ * Emits [onNewValue] and [onValueRemoved] for individual value changes; [onDataCleared] mirrors [KeyValueRepo.onValueRemoved].
+ *
+ * @param Key The type of keys
+ * @param Value The type of individual values within each iterable
+ * @param ValuesIterable The iterable type storing multiple values per key
+ * @param original The underlying [KeyValueRepo] mapping keys to iterables of values
+ * @param listToValuesIterable Converter from [List] of values to [ValuesIterable] used when persisting changes
+ */
 open class KeyValuesFromKeyValueRepo<Key, Value, ValuesIterable : Iterable<Value>>(
     private val original: KeyValueRepo<Key, ValuesIterable>,
     private val listToValuesIterable: suspend (List<Value>) -> ValuesIterable
