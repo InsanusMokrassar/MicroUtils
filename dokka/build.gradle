@@ -17,7 +17,7 @@ kotlin {
         browser()
         nodejs()
     }
-    android {}
+    androidTarget {}
 
     sourceSets {
         commonMain {
@@ -91,7 +91,7 @@ kotlin {
 
 private List<SourceDirectorySet> findSourcesWithName(String... approximateNames) {
     return parent.subprojects
-            .findAll { it != project && it.hasProperty("kotlin") }
+            .findAll { it != project && it.hasProperty("kotlin") && (it.name.contains("dokka") == false) }
             .collectMany { it.kotlin.sourceSets }
             .findAll { sourceSet ->
                 approximateNames.any { nameToFilter ->
@@ -100,14 +100,14 @@ private List<SourceDirectorySet> findSourcesWithName(String... approximateNames)
             }.collect { it.kotlin }
 }
 
-tasks.dokkaHtml {
+dokka {
     dokkaSourceSets {
         configureEach {
             skipDeprecated.set(true)
 
             sourceLink {
                 localDirectory.set(file("../"))
-                remoteUrl.set(new URL("https://github.com/InsanusMokrassar/MicroUtils/blob/master/"))
+                remoteUrl.set(new URI("https://github.com/InsanusMokrassar/MicroUtils/blob/master/"))
                 remoteLineSuffix.set("#L")
             }
         }
@@ -129,5 +129,13 @@ tasks.dokkaHtml {
         }
     }
 }
+
+//dependencies {
+//    project.parent.subprojects.forEach {
+//        if (it != project) {
+//            dokka(it)
+//        }
+//    }
+//}
 
 apply from: "$defaultAndroidSettings"
