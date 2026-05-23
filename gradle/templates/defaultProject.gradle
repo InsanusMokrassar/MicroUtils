@@ -1,6 +1,8 @@
 project.version = "$version"
 project.group = "$group"
 
+apply plugin: 'org.jetbrains.dokka'
+
 kotlin {
     sourceSets {
         commonMain {
