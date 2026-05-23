@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>dev.inmo.micro_utils.common.compose</title>
     <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
 <link href="../../styles/logo-styles.css" rel="Stylesheet">
-<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
 <script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
-<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-            <a class="library-name--link" href="../../index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
                     micro_utils.dokka
             </a>
         <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
@@ -46,13 +43,13 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.26.5        </div>
+0.29.4        </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector common-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
-                <button class="platform-tag platform-selector js-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/jsMain">js</button>
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/commonMain">common</button>
+                <button class="platform-tag platform-selector js-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/jsMain">js</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
                         data-role="dropdown-toggle"
@@ -61,24 +58,24 @@
                         aria-expanded="false"
                         aria-label="Toggle source sets"
                 ></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
                         <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/commonMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/commonMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/commonMain"
+                                       data-filter=":micro_utils.dokka/commonMain"/>
                                 <span class="checkbox--icon"></span>
                                 common
                             </label>
                         </li>
                         <li role="option" class="dropdown--option platform-selector-option js-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/jsMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/jsMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/jsMain"
+                                       data-filter=":micro_utils.dokka/jsMain"/>
                                 <span class="checkbox--icon"></span>
                                 js
                             </label>
@@ -86,7 +83,7 @@
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
                     type="button">Switch theme
             </button>
@@ -94,27 +91,29 @@
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
-                        data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     micro_utils.dokka
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
-<div class="main-content" data-page-type="package" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.common.compose////PointingToDeclaration//1716429550">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.common.compose////PointingToDeclaration//-1170042098">
   <div class="breadcrumbs"><a href="../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><span class="current">dev.inmo.micro_utils.common.compose</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
@@ -123,50 +122,50 @@
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
-        <div class="table"><a data-name="1371957596%2FClasslikes%2F-1478683138" anchor-label="DefaultDisposableEffectResult" id="1371957596%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="1371957596%2FClasslikes%2F-1457309097" anchor-label="DefaultDisposableEffectResult" id="1371957596%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-default-disposable-effect-result/index.html"><span>Default</span><wbr></wbr><span>Disposable</span><wbr></wbr><span>Effect</span><wbr></wbr><span><span>Result</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371957596%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371957596%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-disposable-effect-result/index.html">DefaultDisposableEffectResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onDispose<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-default-disposable-effect-result/index.html">DefaultDisposableEffectResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">onDispose<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="/&amp;lt;ERROR CLASS&amp;gt; ERROR CLASS: Symbol not found for DisposableEffectResult///PointingToDeclaration/">&lt;ERROR CLASS&gt; ERROR CLASS: Symbol not found for DisposableEffectResult</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1518808475%2FClasslikes%2F-1478683138" anchor-label="LoadableComponentContext" id="-1518808475%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1518808475%2FClasslikes%2F-1457309097" anchor-label="LoadableComponentContext" id="-1518808475%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-loadable-component-context/index.html"><span>Loadable</span><wbr></wbr><span>Component</span><wbr></wbr><span><span>Context</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1518808475%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1518808475%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component-context/index.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component-context/index.html">T</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1354966572%2FClasslikes%2F-119510368" anchor-label="SkeletonAnimation" id="-1354966572%2FClasslikes%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-1354966572%2FClasslikes%2F1069517945" anchor-label="SkeletonAnimation" id="-1354966572%2FClasslikes%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-skeleton-animation/index.html"><span>Skeleton</span><wbr></wbr><span><span>Animation</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1354966572%2FClasslikes%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1354966572%2FClasslikes%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-skeleton-animation/index.html">SkeletonAnimation</a></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-skeleton-animation/index.html">SkeletonAnimation</a> : <span data-unresolved-link="/&amp;lt;ERROR CLASS&amp;gt; ERROR CLASS: Symbol not found for StyleSheet///PointingToDeclaration/">&lt;ERROR CLASS&gt; ERROR CLASS: Symbol not found for StyleSheet</span></div></div>                  </div>
                 </div>
               </div>
             </div>
@@ -174,152 +173,152 @@
         </div>
       </div>
       <div data-togglable="FUNCTION">
-        <h2 class="">Functions</h2>
-        <div class="table"><a data-name="869129156%2FFunctions%2F-1478683138" anchor-label="asState" id="869129156%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="592801530%2FFunctions%2F-1457309097" anchor-label="asState" id="592801530%2FFunctions%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="as-state.html"><span>as</span><wbr></wbr><span><span>State</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="869129156%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="592801530%2FFunctions%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="as-state.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="as-state.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="as-state.html"><span class="token function">asState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="as-state.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts current MutableState to immutable State using derivedStateOf</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="as-state.html">T</a><span class="token operator">&gt; </span>ERROR CLASS: Symbol not found for MutableState&lt;T&gt;<span class="token punctuation">.</span><a href="as-state.html"><span class="token function">asState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span>ERROR CLASS: Ambiguity: State, [kotlin/collections/State, kotlin/sequences/State]&lt;T&gt;</div><div class="brief "><p class="paragraph">Converts current MutableState to immutable <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-state/index.html">State</a> using derivedStateOf</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1832162711%2FFunctions%2F-119510368" anchor-label="linkWithElement" id="-1832162711%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="1012345021%2FFunctions%2F1069517945" anchor-label="linkWithElement" id="1012345021%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="link-with-element.html"><span>link</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Element</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1832162711%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1012345021%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">.</span><a href="link-with-element.html"><span class="token function">linkWithElement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">element<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span>ERROR CLASS: Symbol not found for Composition<span class="token punctuation">.</span><a href="link-with-element.html"><span class="token function">linkWithElement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">element<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a></span></span><span class="token punctuation">)</span></div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="67047224%2FFunctions%2F-1478683138" anchor-label="LoadableComponent" id="67047224%2FFunctions%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="67047224%2FFunctions%2F-1457309097" anchor-label="LoadableComponent" id="67047224%2FFunctions%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-loadable-component.html"><span>Loadable</span><wbr></wbr><span><span>Component</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="67047224%2FFunctions%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="67047224%2FFunctions%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preload<span class="token operator">: </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preload<span class="token operator">: </span><a href="../dev.inmo.micro_utils.common/-optional/index.html">Optional</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Showing data with ability to reload data</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preload<span class="token operator">: </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt; </span><a href="-loadable-component.html"><span class="token function">LoadableComponent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preload<span class="token operator">: </span><a href="../dev.inmo.micro_utils.common/-optional/index.html">Optional</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">loader<span class="token operator">: </span><span class="token keyword">suspend </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="-loadable-component.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><a href="-loadable-component-context/index.html">LoadableComponentContext</a><span class="token operator">&lt;</span><a href="-loadable-component.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="-loadable-component.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Showing data with ability to reload data</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="470470748%2FFunctions%2F-119510368" anchor-label="openLink" id="470470748%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-1098010272%2FFunctions%2F1069517945" anchor-label="openLink" id="-1098010272%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="open-link.html"><span>open</span><wbr></wbr><span><span>Link</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="470470748%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1098010272%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-link.html"><span class="token function">openLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">link<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">mode<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>ATarget.Blank<span class="token punctuation">, </span></span><span class="parameter ">features<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span></span></span><span class="token punctuation">)</span></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="open-link.html"><span class="token function">openLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">link<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">mode<span class="token operator">: </span>ERROR CLASS: Symbol not found for ATarget<span class="token operator"> = </span>ATarget.Blank<span class="token punctuation">, </span></span><span class="parameter ">features<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span><span class="token string">&quot;&quot;</span></span></span><span class="token punctuation">)</span></div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-539484730%2FFunctions%2F-119510368" anchor-label="plus" id="-539484730%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-593327066%2FFunctions%2F1069517945" anchor-label="plus" id="-593327066%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="plus.html"><span><span>plus</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-539484730%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-593327066%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="plus.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="plus.html">T</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="plus.html">T</a><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="plus.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span>ERROR CLASS: Symbol not found for AttrBuilderContext&lt;T&gt;?<span class="token operator">?</span><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span>ERROR CLASS: Symbol not found for AttrBuilderContext&lt;T&gt;?<span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1560157379%2FFunctions%2F-119510368" anchor-label="ref" id="-1560157379%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="167565414%2FFunctions%2F1069517945" anchor-label="ref" id="167565414%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="ref.html"><span><span>ref</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1560157379%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="167565414%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="ref.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="ref.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="ref.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function must be called in the context of your tag content. It works like default AttrsScope.ref, but able to be used several times. Uses DisposableEffect under the hood</p></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="ref.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span>ERROR CLASS: Symbol not found for ElementScope&lt;T&gt;<span class="token punctuation">.</span><a href="ref.html"><span class="token function">ref</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span>ERROR CLASS: Symbol not found for DisposableEffectScope<span class="token punctuation">.</span><span class="token punctuation">(</span><a href="ref.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span>ERROR CLASS: Symbol not found for DisposableEffectResult</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">This function must be called in the context of your tag content. It works like default AttrsScope.ref, but able to be used several times. Uses DisposableEffect under the hood</p></div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="103706953%2FFunctions%2F-119510368" anchor-label="renderComposableAndLinkToRoot" id="103706953%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="1068603666%2FFunctions%2F1069517945" anchor-label="renderComposableAndLinkToRoot" id="1068603666%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="render-composable-and-link-to-root.html"><span>render</span><wbr></wbr><span>Composable</span><wbr></wbr><span>And</span><wbr></wbr><span>Link</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Root</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="103706953%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1068603666%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="render-composable-and-link-to-root.html">TElement</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span><a href="render-composable-and-link-to-root.html"><span class="token function">renderComposableAndLinkToRoot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">root<span class="token operator">: </span><a href="render-composable-and-link-to-root.html">TElement</a><span class="token punctuation">, </span></span><span class="parameter ">monotonicFrameClock<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>DefaultMonotonicFrameClock<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><a href="render-composable-and-link-to-root.html">TElement</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="render-composable-and-link-to-root.html">TElement</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/org.w3c.dom/-element/index.html">Element</a><span class="token operator">&gt; </span><a href="render-composable-and-link-to-root.html"><span class="token function">renderComposableAndLinkToRoot</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">root<span class="token operator">: </span><a href="render-composable-and-link-to-root.html">TElement</a><span class="token punctuation">, </span></span><span class="parameter ">monotonicFrameClock<span class="token operator">: </span>ERROR CLASS: Symbol not found for MonotonicFrameClock<span class="token operator"> = </span>DefaultMonotonicFrameClock<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span>ERROR CLASS: Symbol not found for DOMScope&lt;TElement&gt;<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span>ERROR CLASS: Symbol not found for Composition</div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1146836424%2FFunctions%2F-119510368" anchor-label="tagClasses" id="-1146836424%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-2048469630%2FFunctions%2F1069517945" anchor-label="tagClasses" id="-2048469630%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="tag-classes.html"><span>tag</span><wbr></wbr><span><span>Classes</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1146836424%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2048469630%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-classes.html"><span class="token function">tagClasses</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>classnames<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword">out </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-classes.html"><span class="token function">tagClasses</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>classnames<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span>ERROR CLASS: Symbol not found for AttrBuilderContext&lt;*&gt;</div></div>                  </div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-2005247417%2FFunctions%2F-119510368" anchor-label="tagId" id="-2005247417%2FFunctions%2F-119510368" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-2005247417%2FFunctions%2F1069517945" anchor-label="tagId" id="-2005247417%2FFunctions%2F1069517945" data-filterable-set=":micro_utils.dokka/jsMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="tag-id.html"><span>tag</span><wbr></wbr><span><span>Id</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2005247417%2FFunctions%2F-119510368"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2005247417%2FFunctions%2F1069517945"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jsMain" data-active="" data-toggle=":micro_utils.dokka:dokkaHtml/jsMain">js</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-id.html"><span class="token function">tagId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword">out </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&gt;</span></div></div>                  </div>
+                    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/jsMain" data-active="" data-toggle=":micro_utils.dokka/jsMain">js</button></div>
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/jsMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="tag-id.html"><span class="token function">tagId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span>ERROR CLASS: Symbol not found for AttrBuilderContext&lt;*&gt;</div></div>                  </div>
                 </div>
               </div>
             </div>
@@ -330,17 +329,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

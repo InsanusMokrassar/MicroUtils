@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Video</title>
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "../../../../";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+        <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../../styles/style.css" rel="Stylesheet">
 <link href="../../../../styles/main.css" rel="Stylesheet">
 <link href="../../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../../styles/logo-styles.css" rel="Stylesheet">
-<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
 <script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer="defer"></script>
-<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-            <a class="library-name--link" href="../../../../index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../../index.html" tabindex="1">
                     micro_utils.dokka
             </a>
         <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
@@ -46,11 +43,11 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.26.5        </div>
+0.29.4        </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector common-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
                         data-role="dropdown-toggle"
@@ -59,16 +56,16 @@
                         aria-expanded="false"
                         aria-label="Toggle source sets"
                 ></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
                         <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/commonMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/commonMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/commonMain"
+                                       data-filter=":micro_utils.dokka/commonMain"/>
                                 <span class="checkbox--icon"></span>
                                 common
                             </label>
@@ -76,7 +73,7 @@
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
                     type="button">Switch theme
             </button>
@@ -84,573 +81,575 @@
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
-                        data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     micro_utils.dokka
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.mime_types/KnownMimeTypes.Video///PointingToDeclaration//-1478683138">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="micro_utils.dokka::dev.inmo.micro_utils.mime_types/KnownMimeTypes.Video///PointingToDeclaration//-1457309097">
   <div class="breadcrumbs"><a href="../../../../index.html">micro_utils.dokka</a><span class="delimiter">/</span><a href="../../index.html">dev.inmo.micro_utils.mime_types</a><span class="delimiter">/</span><a href="../index.html">KnownMimeTypes</a><span class="delimiter">/</span><span class="current">Video</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Video</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Video</a> : <a href="../index.html">KnownMimeTypes</a>, <a href="../../-mime-type/index.html">MimeType</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//mime_types/src/commonMain/kotlin/dev/inmo/micro_utils/mime_types/KnownMimeTypes.kt#L1381">source</a>)</span></span></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-any/index.html">Any</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-v3gpp/index.html">V3gpp</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-v3gpp2/index.html">V3gpp2</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-msvideo/index.html">XMsvideo</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-hd/index.html">VndDeceHd</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-mobile/index.html">VndDeceMobile</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-uvvu-mp4/index.html">VndUvvuMp4</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-pd/index.html">VndDecePd</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-sd/index.html">VndDeceSd</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-video/index.html">VndDeceVideo</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-fvt/index.html">VndFvt</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-f4v/index.html">XF4v</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-flv/index.html">XFlv</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-fli/index.html">XFli</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h261/index.html">H261</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h263/index.html">H263</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h264/index.html">H264</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-jpm/index.html">Jpm</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-jpeg/index.html">Jpeg</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-m4v/index.html">XM4v</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-asf/index.html">XMsAsf</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-ms-playready-media-pyv/index.html">VndMsPlayreadyMediaPyv</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wm/index.html">XMsWm</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wmx/index.html">XMsWmx</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wmv/index.html">XMsWmv</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wvx/index.html">XMsWvx</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mj2/index.html">Mj2</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mp2t/index.html">Mp2t</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-mpegurl/index.html">VndMpegurl</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mpeg/index.html">Mpeg</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mp4/index.html">Mp4</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-ogg/index.html">Ogg</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-webm/index.html">Webm</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-quicktime/index.html">Quicktime</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-sgi-movie/index.html">XSgiMovie</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-vivo/index.html">VndVivo</a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Video</a> : <a href="../../-mime-type/index.html">MimeType</a>, <a href="../index.html">KnownMimeTypes</a><span class="source-link-wrapper"><span class="source-link" data-element-type="source-link">(<a href="https://github.com/InsanusMokrassar/MicroUtils/blob/master//mime_types/src/commonMain/kotlin/dev/inmo/micro_utils/mime_types/KnownMimeTypes.kt#L1381">source</a>)</span></span></div><h4 class="tableheader">Inheritors</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-any/index.html">Any</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-v3gpp/index.html">V3gpp</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-v3gpp2/index.html">V3gpp2</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-msvideo/index.html">XMsvideo</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-hd/index.html">VndDeceHd</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-mobile/index.html">VndDeceMobile</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-uvvu-mp4/index.html">VndUvvuMp4</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-pd/index.html">VndDecePd</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-sd/index.html">VndDeceSd</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-dece-video/index.html">VndDeceVideo</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-fvt/index.html">VndFvt</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-f4v/index.html">XF4v</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-flv/index.html">XFlv</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-fli/index.html">XFli</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h261/index.html">H261</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h263/index.html">H263</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-h264/index.html">H264</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-jpm/index.html">Jpm</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-jpeg/index.html">Jpeg</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-m4v/index.html">XM4v</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-asf/index.html">XMsAsf</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-ms-playready-media-pyv/index.html">VndMsPlayreadyMediaPyv</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wm/index.html">XMsWm</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wmx/index.html">XMsWmx</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wmv/index.html">XMsWmv</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-ms-wvx/index.html">XMsWvx</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mj2/index.html">Mj2</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mp2t/index.html">Mp2t</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-mpegurl/index.html">VndMpegurl</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mpeg/index.html">Mpeg</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-mp4/index.html">Mp4</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-ogg/index.html">Ogg</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-webm/index.html">Webm</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-quicktime/index.html">Quicktime</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-x-sgi-movie/index.html">XSgiMovie</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-vnd-vivo/index.html">VndVivo</a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
-        <div class="table"><a data-name="-1522484727%2FClasslikes%2F-1478683138" anchor-label="Any" id="-1522484727%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1522484727%2FClasslikes%2F-1457309097" anchor-label="Any" id="-1522484727%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-any/index.html"><span><span>Any</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1522484727%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1522484727%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-any/index.html">Any</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="871594248%2FClasslikes%2F-1478683138" anchor-label="H261" id="871594248%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="871594248%2FClasslikes%2F-1457309097" anchor-label="H261" id="871594248%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-h261/index.html"><span><span>H261</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="871594248%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="871594248%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h261/index.html">H261</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h261/index.html">H261</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="933633862%2FClasslikes%2F-1478683138" anchor-label="H263" id="933633862%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="933633862%2FClasslikes%2F-1457309097" anchor-label="H263" id="933633862%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-h263/index.html"><span><span>H263</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="933633862%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="933633862%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h263/index.html">H263</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h263/index.html">H263</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="964653669%2FClasslikes%2F-1478683138" anchor-label="H264" id="964653669%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="964653669%2FClasslikes%2F-1457309097" anchor-label="H264" id="964653669%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-h264/index.html"><span><span>H264</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="964653669%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="964653669%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h264/index.html">H264</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-h264/index.html">H264</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1024678139%2FClasslikes%2F-1478683138" anchor-label="Jpeg" id="-1024678139%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1024678139%2FClasslikes%2F-1457309097" anchor-label="Jpeg" id="-1024678139%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-jpeg/index.html"><span><span>Jpeg</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1024678139%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1024678139%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-jpeg/index.html">Jpeg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-jpeg/index.html">Jpeg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="2030844014%2FClasslikes%2F-1478683138" anchor-label="Jpm" id="2030844014%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="2030844014%2FClasslikes%2F-1457309097" anchor-label="Jpm" id="2030844014%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-jpm/index.html"><span><span>Jpm</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2030844014%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2030844014%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-jpm/index.html">Jpm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-jpm/index.html">Jpm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-2038251040%2FClasslikes%2F-1478683138" anchor-label="Mj2" id="-2038251040%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-2038251040%2FClasslikes%2F-1457309097" anchor-label="Mj2" id="-2038251040%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-mj2/index.html"><span><span>Mj2</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2038251040%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2038251040%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mj2/index.html">Mj2</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mj2/index.html">Mj2</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-339790168%2FClasslikes%2F-1478683138" anchor-label="Mp2t" id="-339790168%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-339790168%2FClasslikes%2F-1457309097" anchor-label="Mp2t" id="-339790168%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-mp2t/index.html"><span><span>Mp2t</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-339790168%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-339790168%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mp2t/index.html">Mp2t</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mp2t/index.html">Mp2t</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-501494620%2FClasslikes%2F-1478683138" anchor-label="Mp4" id="-501494620%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-501494620%2FClasslikes%2F-1457309097" anchor-label="Mp4" id="-501494620%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-mp4/index.html"><span><span>Mp4</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-501494620%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-501494620%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mp4/index.html">Mp4</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mp4/index.html">Mp4</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1054626952%2FClasslikes%2F-1478683138" anchor-label="Mpeg" id="1054626952%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1054626952%2FClasslikes%2F-1457309097" anchor-label="Mpeg" id="1054626952%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-mpeg/index.html"><span><span>Mpeg</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1054626952%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1054626952%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mpeg/index.html">Mpeg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-mpeg/index.html">Mpeg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="506450886%2FClasslikes%2F-1478683138" anchor-label="Ogg" id="506450886%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="506450886%2FClasslikes%2F-1457309097" anchor-label="Ogg" id="506450886%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-ogg/index.html"><span><span>Ogg</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="506450886%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="506450886%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-ogg/index.html">Ogg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-ogg/index.html">Ogg</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1238529413%2FClasslikes%2F-1478683138" anchor-label="Quicktime" id="-1238529413%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1238529413%2FClasslikes%2F-1457309097" anchor-label="Quicktime" id="-1238529413%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-quicktime/index.html"><span><span>Quicktime</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1238529413%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1238529413%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-quicktime/index.html">Quicktime</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-quicktime/index.html">Quicktime</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1513047125%2FClasslikes%2F-1478683138" anchor-label="V3gpp" id="-1513047125%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1513047125%2FClasslikes%2F-1457309097" anchor-label="V3gpp" id="-1513047125%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-v3gpp/index.html"><span><span>V3gpp</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1513047125%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1513047125%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-v3gpp/index.html">V3gpp</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-v3gpp/index.html">V3gpp</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1757225979%2FClasslikes%2F-1478683138" anchor-label="V3gpp2" id="-1757225979%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1757225979%2FClasslikes%2F-1457309097" anchor-label="V3gpp2" id="-1757225979%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-v3gpp2/index.html"><span><span>V3gpp2</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1757225979%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1757225979%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-v3gpp2/index.html">V3gpp2</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-v3gpp2/index.html">V3gpp2</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1972743434%2FClasslikes%2F-1478683138" anchor-label="VndDeceHd" id="1972743434%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1972743434%2FClasslikes%2F-1457309097" anchor-label="VndDeceHd" id="1972743434%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-dece-hd/index.html"><span>Vnd</span><wbr></wbr><span>Dece</span><wbr></wbr><span><span>Hd</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1972743434%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1972743434%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-hd/index.html">VndDeceHd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-hd/index.html">VndDeceHd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1596341668%2FClasslikes%2F-1478683138" anchor-label="VndDeceMobile" id="1596341668%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1596341668%2FClasslikes%2F-1457309097" anchor-label="VndDeceMobile" id="1596341668%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-dece-mobile/index.html"><span>Vnd</span><wbr></wbr><span>Dece</span><wbr></wbr><span><span>Mobile</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1596341668%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1596341668%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-mobile/index.html">VndDeceMobile</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-mobile/index.html">VndDeceMobile</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1075720978%2FClasslikes%2F-1478683138" anchor-label="VndDecePd" id="1075720978%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1075720978%2FClasslikes%2F-1457309097" anchor-label="VndDecePd" id="1075720978%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-dece-pd/index.html"><span>Vnd</span><wbr></wbr><span>Dece</span><wbr></wbr><span><span>Pd</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1075720978%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1075720978%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-pd/index.html">VndDecePd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-pd/index.html">VndDecePd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-334404267%2FClasslikes%2F-1478683138" anchor-label="VndDeceSd" id="-334404267%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-334404267%2FClasslikes%2F-1457309097" anchor-label="VndDeceSd" id="-334404267%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-dece-sd/index.html"><span>Vnd</span><wbr></wbr><span>Dece</span><wbr></wbr><span><span>Sd</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-334404267%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-334404267%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-sd/index.html">VndDeceSd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-sd/index.html">VndDeceSd</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1169704353%2FClasslikes%2F-1478683138" anchor-label="VndDeceVideo" id="1169704353%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1169704353%2FClasslikes%2F-1457309097" anchor-label="VndDeceVideo" id="1169704353%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-dece-video/index.html"><span>Vnd</span><wbr></wbr><span>Dece</span><wbr></wbr><span><span>Video</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1169704353%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1169704353%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-video/index.html">VndDeceVideo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-dece-video/index.html">VndDeceVideo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1832822507%2FClasslikes%2F-1478683138" anchor-label="VndFvt" id="-1832822507%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1832822507%2FClasslikes%2F-1457309097" anchor-label="VndFvt" id="-1832822507%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-fvt/index.html"><span>Vnd</span><wbr></wbr><span><span>Fvt</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1832822507%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1832822507%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-fvt/index.html">VndFvt</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-fvt/index.html">VndFvt</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1506665553%2FClasslikes%2F-1478683138" anchor-label="VndMpegurl" id="-1506665553%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1506665553%2FClasslikes%2F-1457309097" anchor-label="VndMpegurl" id="-1506665553%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-mpegurl/index.html"><span>Vnd</span><wbr></wbr><span><span>Mpegurl</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506665553%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506665553%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-mpegurl/index.html">VndMpegurl</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-mpegurl/index.html">VndMpegurl</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="922949223%2FClasslikes%2F-1478683138" anchor-label="VndMsPlayreadyMediaPyv" id="922949223%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="922949223%2FClasslikes%2F-1457309097" anchor-label="VndMsPlayreadyMediaPyv" id="922949223%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-ms-playready-media-pyv/index.html"><span>Vnd</span><wbr></wbr><span>Ms</span><wbr></wbr><span>Playready</span><wbr></wbr><span>Media</span><wbr></wbr><span><span>Pyv</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922949223%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922949223%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-ms-playready-media-pyv/index.html">VndMsPlayreadyMediaPyv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-ms-playready-media-pyv/index.html">VndMsPlayreadyMediaPyv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="942225832%2FClasslikes%2F-1478683138" anchor-label="VndUvvuMp4" id="942225832%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="942225832%2FClasslikes%2F-1457309097" anchor-label="VndUvvuMp4" id="942225832%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-uvvu-mp4/index.html"><span>Vnd</span><wbr></wbr><span>Uvvu</span><wbr></wbr><span><span>Mp4</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="942225832%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="942225832%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-uvvu-mp4/index.html">VndUvvuMp4</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-uvvu-mp4/index.html">VndUvvuMp4</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-2043558915%2FClasslikes%2F-1478683138" anchor-label="VndVivo" id="-2043558915%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-2043558915%2FClasslikes%2F-1457309097" anchor-label="VndVivo" id="-2043558915%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-vnd-vivo/index.html"><span>Vnd</span><wbr></wbr><span><span>Vivo</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2043558915%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2043558915%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-vivo/index.html">VndVivo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-vnd-vivo/index.html">VndVivo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-500911884%2FClasslikes%2F-1478683138" anchor-label="Webm" id="-500911884%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-500911884%2FClasslikes%2F-1457309097" anchor-label="Webm" id="-500911884%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-webm/index.html"><span><span>Webm</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-500911884%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-500911884%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-webm/index.html">Webm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-webm/index.html">Webm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1506305443%2FClasslikes%2F-1478683138" anchor-label="XF4v" id="-1506305443%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1506305443%2FClasslikes%2F-1457309097" anchor-label="XF4v" id="-1506305443%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-f4v/index.html"><span><span>XF4v</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506305443%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506305443%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-f4v/index.html">XF4v</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-f4v/index.html">XF4v</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="401214466%2FClasslikes%2F-1478683138" anchor-label="XFli" id="401214466%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="401214466%2FClasslikes%2F-1457309097" anchor-label="XFli" id="401214466%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-fli/index.html"><span><span>XFli</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="401214466%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="401214466%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-fli/index.html">XFli</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-fli/index.html">XFli</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="804471957%2FClasslikes%2F-1478683138" anchor-label="XFlv" id="804471957%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="804471957%2FClasslikes%2F-1457309097" anchor-label="XFlv" id="804471957%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-flv/index.html"><span><span>XFlv</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="804471957%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="804471957%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-flv/index.html">XFlv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-flv/index.html">XFlv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1005506038%2FClasslikes%2F-1478683138" anchor-label="XM4v" id="1005506038%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1005506038%2FClasslikes%2F-1457309097" anchor-label="XM4v" id="1005506038%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-m4v/index.html"><span><span>XM4v</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1005506038%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1005506038%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-m4v/index.html">XM4v</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-m4v/index.html">XM4v</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1743500585%2FClasslikes%2F-1478683138" anchor-label="XMsAsf" id="-1743500585%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1743500585%2FClasslikes%2F-1457309097" anchor-label="XMsAsf" id="-1743500585%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-ms-asf/index.html"><span>XMs</span><wbr></wbr><span><span>Asf</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1743500585%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1743500585%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-asf/index.html">XMsAsf</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-asf/index.html">XMsAsf</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-996217840%2FClasslikes%2F-1478683138" anchor-label="XMsvideo" id="-996217840%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-996217840%2FClasslikes%2F-1457309097" anchor-label="XMsvideo" id="-996217840%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-msvideo/index.html"><span><span>XMsvideo</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-996217840%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-996217840%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-msvideo/index.html">XMsvideo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-msvideo/index.html">XMsvideo</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-2070084543%2FClasslikes%2F-1478683138" anchor-label="XMsWm" id="-2070084543%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-2070084543%2FClasslikes%2F-1457309097" anchor-label="XMsWm" id="-2070084543%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-ms-wm/index.html"><span>XMs</span><wbr></wbr><span><span>Wm</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2070084543%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2070084543%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wm/index.html">XMsWm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wm/index.html">XMsWm</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="263830123%2FClasslikes%2F-1478683138" anchor-label="XMsWmv" id="263830123%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="263830123%2FClasslikes%2F-1457309097" anchor-label="XMsWmv" id="263830123%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-ms-wmv/index.html"><span>XMs</span><wbr></wbr><span><span>Wmv</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="263830123%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="263830123%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wmv/index.html">XMsWmv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wmv/index.html">XMsWmv</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="325869737%2FClasslikes%2F-1478683138" anchor-label="XMsWmx" id="325869737%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="325869737%2FClasslikes%2F-1457309097" anchor-label="XMsWmx" id="325869737%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-ms-wmx/index.html"><span>XMs</span><wbr></wbr><span><span>Wmx</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="325869737%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="325869737%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wmx/index.html">XMsWmx</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wmx/index.html">XMsWmx</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="390461298%2FClasslikes%2F-1478683138" anchor-label="XMsWvx" id="390461298%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="390461298%2FClasslikes%2F-1457309097" anchor-label="XMsWvx" id="390461298%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-ms-wvx/index.html"><span>XMs</span><wbr></wbr><span><span>Wvx</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="390461298%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="390461298%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wvx/index.html">XMsWvx</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-ms-wvx/index.html">XMsWvx</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1962497374%2FClasslikes%2F-1478683138" anchor-label="XSgiMovie" id="-1962497374%2FClasslikes%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1962497374%2FClasslikes%2F-1457309097" anchor-label="XSgiMovie" id="-1962497374%2FClasslikes%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-x-sgi-movie/index.html"><span>XSgi</span><wbr></wbr><span><span>Movie</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1962497374%2FClasslikes%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1962497374%2FClasslikes%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-sgi-movie/index.html">XSgiMovie</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../../-mime-type-serializer/index.html">MimeTypeSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">object </span><a href="-x-sgi-movie/index.html">XSgiMovie</a> : <a href="index.html">KnownMimeTypes.Video</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -658,33 +657,33 @@
         </div>
       </div>
       <div data-togglable="PROPERTY">
-        <h2 class="">Properties</h2>
-        <div class="table"><a data-name="-669342621%2FProperties%2F-1478683138" anchor-label="extensions" id="-669342621%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-669342621%2FProperties%2F-1457309097" anchor-label="extensions" id="-669342621%2FProperties%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../../-mime-type/extensions.html"><span><span>extensions</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-669342621%2FProperties%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-669342621%2FProperties%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../../-mime-type/extensions.html">extensions</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../../-mime-type/extensions.html">extensions</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">An array of file extensions commonly associated with this MIME type. For example, &quot;text/html&quot; might have extensions &quot;html&quot;, &quot;htm&quot;. Returns an empty array by default if no extensions are known.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="575580059%2FProperties%2F-1478683138" anchor-label="raw" id="575580059%2FProperties%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-          <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="575580059%2FProperties%2F-1457309097" anchor-label="raw" id="575580059%2FProperties%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../../-mime-type/raw.html"><span><span>raw</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="575580059%2FProperties%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="575580059%2FProperties%2F-1457309097"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka:dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="../../-mime-type/raw.html">raw</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":micro_utils.dokka/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="../../-mime-type/raw.html">raw</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">The raw MIME type string (e.g., &quot;text/html&quot;, &quot;application/json&quot;).</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -695,17 +694,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

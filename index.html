@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>micro_utils.dokka</title>
     <link href="images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+        <script>var pathToRoot = "";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
 <script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
 <link href="styles/style.css" rel="Stylesheet">
 <link href="styles/main.css" rel="Stylesheet">
 <link href="styles/prism.css" rel="Stylesheet">
 <link href="styles/logo-styles.css" rel="Stylesheet">
-<link href="styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="scripts/prism.js" async="async"></script>
 <script type="text/javascript" src="ui-kit/ui-kit.min.js" defer="defer"></script>
-<script type="text/javascript" src="scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-            <a class="library-name--link" href="index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="index.html" tabindex="1">
                     micro_utils.dokka
             </a>
         <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
@@ -46,15 +43,17 @@
         </button>
         <div class="navigation-controls--break ui-kit_mobile-only"></div>
         <div class="library-version" id="library-version">
-0.26.5        </div>
+0.29.4        </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector common-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/commonMain">common</button>
-                <button class="platform-tag platform-selector js-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/jsMain">js</button>
-                <button class="platform-tag platform-selector jvm-like" data-active=""
-                        data-filter=":micro_utils.dokka:dokkaHtml/jvmMain">jvm</button>
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/androidMain">android</button>
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/commonMain">common</button>
+                <button class="platform-tag platform-selector js-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/jsMain">js</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":micro_utils.dokka/jvmMain">jvm</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
                         data-role="dropdown-toggle"
@@ -63,32 +62,40 @@
                         aria-expanded="false"
                         aria-label="Toggle source sets"
                 ></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/androidMain"
+                                       data-filter=":micro_utils.dokka/androidMain"/>
+                                <span class="checkbox--icon"></span>
+                                android
+                            </label>
+                        </li>
                         <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/commonMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/commonMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/commonMain"
+                                       data-filter=":micro_utils.dokka/commonMain"/>
                                 <span class="checkbox--icon"></span>
                                 common
                             </label>
                         </li>
                         <li role="option" class="dropdown--option platform-selector-option js-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/jsMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/jsMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/jsMain"
+                                       data-filter=":micro_utils.dokka/jsMain"/>
                                 <span class="checkbox--icon"></span>
                                 js
                             </label>
                         </li>
                         <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
                             <label class="checkbox">
-                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka:dokkaHtml/jvmMain"
-                                       data-filter=":micro_utils.dokka:dokkaHtml/jvmMain"/>
+                                <input type="checkbox" class="checkbox--input" id=":micro_utils.dokka/jvmMain"
+                                       data-filter=":micro_utils.dokka/jvmMain"/>
                                 <span class="checkbox--icon"></span>
                                 jvm
                             </label>
@@ -96,7 +103,7 @@
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
                     type="button">Switch theme
             </button>
@@ -104,42 +111,134 @@
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
-                        data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     micro_utils.dokka
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
-<div class="main-content" id="content" pageIds="micro_utils.dokka::////PointingToDeclaration//-612354790">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" id="content" pageIds="micro_utils.dokka::////PointingToDeclaration//1979973784">
   <div class="breadcrumbs"></div>
   <div class="cover ">
     <h1 class="cover"><span>micro_utils.</span><wbr></wbr><span>dokka</span></h1>
   </div>
   <h2 class="">Packages</h2>
-  <div class="table"><a data-name="-2044586696%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.colors" id="-2044586696%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+  <div class="table"><a data-name="181569375%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.android.alerts.common" id="181569375%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.android.alerts.common/index.html">dev.inmo.micro_utils.android.alerts.common</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="181569375%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-158013928%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.android.alerts.recyclerview" id="-158013928%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.android.alerts.recyclerview/index.html">dev.inmo.micro_utils.android.alerts.recyclerview</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-158013928%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-100958622%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.android.pickers" id="-100958622%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.android.pickers/index.html">dev.inmo.micro_utils.android.pickers</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-100958622%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1312018443%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.android.recyclerview" id="1312018443%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.android.recyclerview/index.html">dev.inmo.micro_utils.android.recyclerview</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1312018443%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1730030509%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.android.smalltextfield" id="1730030509%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.android.smalltextfield/index.html">dev.inmo.micro_utils.android.smalltextfield</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1730030509%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2044586696%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.colors" id="-2044586696%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.colors/index.html">dev.inmo.micro_utils.colors</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2044586696%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2044586696%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -148,16 +247,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1511834149%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.colors.common" id="1511834149%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1511834149%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.colors.common" id="1511834149%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.colors.common/index.html">dev.inmo.micro_utils.colors.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1511834149%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1511834149%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -166,17 +265,18 @@
         <div></div>
       </div>
     </div>
-<a data-name="1126600179%2FPackages%2F-612354790" anchor-label="dev.inmo.micro_utils.common" id="1126600179%2FPackages%2F-612354790" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="1126600179%2FPackages%2F1979973784" anchor-label="dev.inmo.micro_utils.common" id="1126600179%2FPackages%2F1979973784" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.common/index.html">dev.inmo.micro_utils.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1126600179%2FPackages%2F-612354790"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1126600179%2FPackages%2F1979973784"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -186,16 +286,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="254405015%2FPackages%2F1716429550" anchor-label="dev.inmo.micro_utils.common.compose" id="254405015%2FPackages%2F1716429550" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="254405015%2FPackages%2F-1170042098" anchor-label="dev.inmo.micro_utils.common.compose" id="254405015%2FPackages%2F-1170042098" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.common.compose/index.html">dev.inmo.micro_utils.common.compose</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="254405015%2FPackages%2F1716429550"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="254405015%2FPackages%2F-1170042098"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -205,17 +305,18 @@
         <div></div>
       </div>
     </div>
-<a data-name="855711139%2FPackages%2F-612354790" anchor-label="dev.inmo.micro_utils.coroutines" id="855711139%2FPackages%2F-612354790" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="855711139%2FPackages%2F1979973784" anchor-label="dev.inmo.micro_utils.coroutines" id="855711139%2FPackages%2F1979973784" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.coroutines/index.html">dev.inmo.micro_utils.coroutines</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855711139%2FPackages%2F-612354790"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="855711139%2FPackages%2F1979973784"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -225,16 +326,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1441411574%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.coroutines.collections" id="-1441411574%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1441411574%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.coroutines.collections" id="-1441411574%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.coroutines.collections/index.html">dev.inmo.micro_utils.coroutines.collections</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1441411574%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1441411574%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -243,16 +344,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1374566073%2FPackages%2F1716429550" anchor-label="dev.inmo.micro_utils.coroutines.compose" id="-1374566073%2FPackages%2F1716429550" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-1374566073%2FPackages%2F-1170042098" anchor-label="dev.inmo.micro_utils.coroutines.compose" id="-1374566073%2FPackages%2F-1170042098" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.coroutines.compose/index.html">dev.inmo.micro_utils.coroutines.compose</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1374566073%2FPackages%2F1716429550"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1374566073%2FPackages%2F-1170042098"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -262,16 +363,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-212937399%2FPackages%2F1716429550" anchor-label="dev.inmo.micro_utils.crypto" id="-212937399%2FPackages%2F1716429550" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-212937399%2FPackages%2F-1170042098" anchor-label="dev.inmo.micro_utils.crypto" id="-212937399%2FPackages%2F-1170042098" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.crypto/index.html">dev.inmo.micro_utils.crypto</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-212937399%2FPackages%2F1716429550"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-212937399%2FPackages%2F-1170042098"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -281,16 +382,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="751013345%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.fsm.common" id="751013345%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="751013345%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.fsm.common" id="751013345%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.fsm.common/index.html">dev.inmo.micro_utils.fsm.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="751013345%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="751013345%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -299,16 +400,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-24612752%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.fsm.common.dsl" id="-24612752%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-24612752%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.fsm.common.dsl" id="-24612752%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.fsm.common.dsl/index.html">dev.inmo.micro_utils.fsm.common.dsl</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-24612752%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-24612752%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -317,16 +418,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1178838441%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.fsm.common.managers" id="-1178838441%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1178838441%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.fsm.common.managers" id="-1178838441%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.fsm.common.managers/index.html">dev.inmo.micro_utils.fsm.common.managers</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1178838441%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1178838441%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -335,16 +436,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1346588124%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.fsm.common.utils" id="-1346588124%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1346588124%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.fsm.common.utils" id="-1346588124%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.fsm.common.utils/index.html">dev.inmo.micro_utils.fsm.common.utils</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1346588124%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1346588124%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -353,16 +454,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1358036974%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.fsm.repos.common" id="1358036974%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1358036974%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.fsm.repos.common" id="1358036974%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.fsm.repos.common/index.html">dev.inmo.micro_utils.fsm.repos.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358036974%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358036974%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -371,16 +472,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-855061103%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.koin" id="-855061103%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-855061103%2FPackages%2F-16529398" anchor-label="dev.inmo.micro_utils.koin" id="-855061103%2FPackages%2F-16529398" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.koin/index.html">dev.inmo.micro_utils.koin</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-855061103%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-855061103%2FPackages%2F-16529398"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -390,16 +491,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-106661433%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.koin.annotations" id="-106661433%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-106661433%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.koin.annotations" id="-106661433%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.koin.annotations/index.html">dev.inmo.micro_utils.koin.annotations</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106661433%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-106661433%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -408,16 +509,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="2067260174%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.koin.generator.test" id="2067260174%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="2067260174%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.koin.generator.test" id="2067260174%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.koin.generator.test/index.html">dev.inmo.micro_utils.koin.generator.test</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2067260174%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2067260174%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -426,16 +527,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="33187722%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.classcasts" id="33187722%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="33187722%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.classcasts" id="33187722%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.classcasts/index.html">dev.inmo.micro_utils.ksp.classcasts</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="33187722%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="33187722%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -444,16 +545,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="983693301%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.classcasts.generator.test" id="983693301%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="983693301%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.classcasts.generator.test" id="983693301%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.classcasts.generator.test/index.html">dev.inmo.micro_utils.ksp.classcasts.generator.test</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="983693301%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="983693301%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -462,16 +563,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="76430922%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.sealed" id="76430922%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="76430922%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.sealed" id="76430922%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed/index.html">dev.inmo.micro_utils.ksp.sealed</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="76430922%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="76430922%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -480,16 +581,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="2089666869%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.sealed.generator.test" id="2089666869%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="2089666869%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.sealed.generator.test" id="2089666869%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.sealed.generator.test/index.html">dev.inmo.micro_utils.ksp.sealed.generator.test</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2089666869%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2089666869%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -498,16 +599,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-413502290%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.variations" id="-413502290%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-413502290%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.variations" id="-413502290%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.variations/index.html">dev.inmo.micro_utils.ksp.variations</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-413502290%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-413502290%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -516,16 +617,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="168394321%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.ksp.variations.generator.test" id="168394321%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="168394321%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.ksp.variations.generator.test" id="168394321%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ksp.variations.generator.test/index.html">dev.inmo.micro_utils.ksp.variations.generator.test</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="168394321%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="168394321%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -534,16 +635,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="402161257%2FPackages%2F-612354790" anchor-label="dev.inmo.micro_utils.ktor.client" id="402161257%2FPackages%2F-612354790" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="402161257%2FPackages%2F1164364609" anchor-label="dev.inmo.micro_utils.ktor.client" id="402161257%2FPackages%2F1164364609" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ktor.client/index.html">dev.inmo.micro_utils.ktor.client</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402161257%2FPackages%2F-612354790"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402161257%2FPackages%2F1164364609"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -554,16 +655,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1020218505%2FPackages%2F-612354790" anchor-label="dev.inmo.micro_utils.ktor.common" id="1020218505%2FPackages%2F-612354790" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="1020218505%2FPackages%2F1164364609" anchor-label="dev.inmo.micro_utils.ktor.common" id="1020218505%2FPackages%2F1164364609" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ktor.common/index.html">dev.inmo.micro_utils.ktor.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1020218505%2FPackages%2F-612354790"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1020218505%2FPackages%2F1164364609"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -574,16 +675,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-486288415%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.ktor.server" id="-486288415%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-486288415%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.ktor.server" id="-486288415%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ktor.server/index.html">dev.inmo.micro_utils.ktor.server</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-486288415%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-486288415%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -592,16 +693,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="782156817%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.ktor.server.configurators" id="782156817%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="782156817%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.ktor.server.configurators" id="782156817%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.ktor.server.configurators/index.html">dev.inmo.micro_utils.ktor.server.configurators</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="782156817%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="782156817%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -610,16 +711,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="9597319%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.language_codes" id="9597319%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="9597319%2FPackages%2F-16529398" anchor-label="dev.inmo.micro_utils.language_codes" id="9597319%2FPackages%2F-16529398" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.language_codes/index.html">dev.inmo.micro_utils.language_codes</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="9597319%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="9597319%2FPackages%2F-16529398"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -629,16 +730,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-606421943%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.matrix" id="-606421943%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-606421943%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.matrix" id="-606421943%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.matrix/index.html">dev.inmo.micro_utils.matrix</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606421943%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-606421943%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -647,16 +748,34 @@
         <div></div>
       </div>
     </div>
-<a data-name="-509760522%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.mime_types" id="-509760522%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1591693555%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.meta" id="-1591693555%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.meta/index.html">dev.inmo.micro_utils.meta</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1591693555%2FPackages%2F-1457309097"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag common-like">common</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-509760522%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.mime_types" id="-509760522%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.mime_types/index.html">dev.inmo.micro_utils.mime_types</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-509760522%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-509760522%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -665,16 +784,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="583592930%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.pagination" id="583592930%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="583592930%2FPackages%2F-16529398" anchor-label="dev.inmo.micro_utils.pagination" id="583592930%2FPackages%2F-16529398" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.pagination/index.html">dev.inmo.micro_utils.pagination</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="583592930%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="583592930%2FPackages%2F-16529398"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -684,16 +803,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1963124870%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.pagination.compose" id="1963124870%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1963124870%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.pagination.compose" id="1963124870%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.pagination.compose/index.html">dev.inmo.micro_utils.pagination.compose</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1963124870%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1963124870%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -702,16 +821,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="212454245%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.pagination.utils" id="212454245%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="212454245%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.pagination.utils" id="212454245%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.pagination.utils/index.html">dev.inmo.micro_utils.pagination.utils</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212454245%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="212454245%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -720,17 +839,18 @@
         <div></div>
       </div>
     </div>
-<a data-name="682134845%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.repos" id="682134845%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="682134845%2FPackages%2F-294786605" anchor-label="dev.inmo.micro_utils.repos" id="682134845%2FPackages%2F-294786605" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos/index.html">dev.inmo.micro_utils.repos</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="682134845%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="682134845%2FPackages%2F-294786605"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -739,16 +859,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-525985933%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.annotations" id="-525985933%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-525985933%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.annotations" id="-525985933%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.annotations/index.html">dev.inmo.micro_utils.repos.annotations</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-525985933%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-525985933%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -757,16 +877,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="631408657%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.repos.cache" id="631408657%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="631408657%2FPackages%2F-16529398" anchor-label="dev.inmo.micro_utils.repos.cache" id="631408657%2FPackages%2F-16529398" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache/index.html">dev.inmo.micro_utils.repos.cache</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="631408657%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="631408657%2FPackages%2F-16529398"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -776,16 +896,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1751258085%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.cache" id="1751258085%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1751258085%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.cache" id="1751258085%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.cache/index.html">dev.inmo.micro_utils.repos.cache.cache</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1751258085%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1751258085%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -794,16 +914,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-80301149%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.fallback" id="-80301149%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-80301149%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.fallback" id="-80301149%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.fallback/index.html">dev.inmo.micro_utils.repos.cache.fallback</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-80301149%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-80301149%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -812,16 +932,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="719524909%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.crud" id="719524909%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="719524909%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.crud" id="719524909%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.fallback.crud/index.html">dev.inmo.micro_utils.repos.cache.fallback.crud</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="719524909%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="719524909%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -830,16 +950,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="354191329%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.keyvalue" id="354191329%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="354191329%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.keyvalue" id="354191329%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.fallback.keyvalue/index.html">dev.inmo.micro_utils.repos.cache.fallback.keyvalue</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="354191329%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="354191329%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -848,16 +968,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1164775542%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.keyvalues" id="1164775542%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1164775542%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.fallback.keyvalues" id="1164775542%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.fallback.keyvalues/index.html">dev.inmo.micro_utils.repos.cache.fallback.keyvalues</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1164775542%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1164775542%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -866,16 +986,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="462801040%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.full" id="462801040%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="462801040%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.full" id="462801040%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.full/index.html">dev.inmo.micro_utils.repos.cache.full</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="462801040%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="462801040%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -884,16 +1004,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1187441739%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.full.direct" id="1187441739%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1187441739%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.full.direct" id="1187441739%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.full.direct/index.html">dev.inmo.micro_utils.repos.cache.full.direct</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1187441739%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1187441739%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -902,16 +1022,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="703650883%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.cache.util" id="703650883%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="703650883%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.cache.util" id="703650883%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.cache.util/index.html">dev.inmo.micro_utils.repos.cache.util</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703650883%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703650883%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -920,16 +1040,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="322465011%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.common.tests" id="322465011%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="322465011%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.common.tests" id="322465011%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.common.tests/index.html">dev.inmo.micro_utils.repos.common.tests</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="322465011%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="322465011%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -938,16 +1058,34 @@
         <div></div>
       </div>
     </div>
-<a data-name="-239370022%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.diff" id="-239370022%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="242952915%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.repos.crud" id="242952915%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.crud/index.html">dev.inmo.micro_utils.repos.crud</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="242952915%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-239370022%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.diff" id="-239370022%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.diff/index.html">dev.inmo.micro_utils.repos.diff</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-239370022%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-239370022%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -956,16 +1094,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="770997487%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.exposed" id="770997487%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="770997487%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.exposed" id="770997487%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.exposed/index.html">dev.inmo.micro_utils.repos.exposed</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="770997487%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="770997487%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -974,16 +1112,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-694258667%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.exposed.keyvalue" id="-694258667%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-694258667%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.exposed.keyvalue" id="-694258667%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.exposed.keyvalue/index.html">dev.inmo.micro_utils.repos.exposed.keyvalue</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-694258667%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-694258667%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -992,16 +1130,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1255656193%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.exposed.onetomany" id="1255656193%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="1255656193%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.exposed.onetomany" id="1255656193%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.exposed.onetomany/index.html">dev.inmo.micro_utils.repos.exposed.onetomany</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1255656193%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1255656193%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1010,16 +1148,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-489316686%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.exposed.utils" id="-489316686%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-489316686%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.exposed.utils" id="-489316686%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.exposed.utils/index.html">dev.inmo.micro_utils.repos.exposed.utils</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489316686%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489316686%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1028,16 +1166,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1929606402%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.exposed.versions" id="-1929606402%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-1929606402%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.exposed.versions" id="-1929606402%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.exposed.versions/index.html">dev.inmo.micro_utils.repos.exposed.versions</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1929606402%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1929606402%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1046,16 +1184,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-264022558%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.generator.test" id="-264022558%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-264022558%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.generator.test" id="-264022558%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.generator.test/index.html">dev.inmo.micro_utils.repos.generator.test</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-264022558%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-264022558%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1064,16 +1202,34 @@
         <div></div>
       </div>
     </div>
-<a data-name="-82762380%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.client.crud" id="-82762380%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1411589241%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.repos.keyvalue" id="-1411589241%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.keyvalue/index.html">dev.inmo.micro_utils.repos.keyvalue</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1411589241%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-82762380%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.client.crud" id="-82762380%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.client.crud/index.html">dev.inmo.micro_utils.repos.ktor.client.crud</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-82762380%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-82762380%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1082,16 +1238,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1233695440%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.client.key.value" id="-1233695440%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1233695440%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.client.key.value" id="-1233695440%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.client.key.value/index.html">dev.inmo.micro_utils.repos.ktor.client.key.value</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1233695440%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1233695440%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1100,16 +1256,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-815074041%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.client.key.values" id="-815074041%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-815074041%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.client.key.values" id="-815074041%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.client.key.values/index.html">dev.inmo.micro_utils.repos.ktor.client.key.values</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-815074041%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-815074041%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1118,16 +1274,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1041072156%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.common" id="1041072156%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1041072156%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.common" id="1041072156%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.common/index.html">dev.inmo.micro_utils.repos.ktor.common</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1041072156%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1041072156%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1136,16 +1292,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="686173012%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.common.crud" id="686173012%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="686173012%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.common.crud" id="686173012%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.common.crud/index.html">dev.inmo.micro_utils.repos.ktor.common.crud</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="686173012%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="686173012%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1154,16 +1310,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-42521345%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.common.key_value" id="-42521345%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-42521345%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.common.key_value" id="-42521345%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.common.key_value/index.html">dev.inmo.micro_utils.repos.ktor.common.key_value</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42521345%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-42521345%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1172,16 +1328,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="397076984%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.ktor.common.one_to_many" id="397076984%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="397076984%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.ktor.common.one_to_many" id="397076984%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.common.one_to_many/index.html">dev.inmo.micro_utils.repos.ktor.common.one_to_many</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="397076984%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="397076984%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1190,16 +1346,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="932739836%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.ktor.server.crud" id="932739836%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="932739836%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.ktor.server.crud" id="932739836%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.server.crud/index.html">dev.inmo.micro_utils.repos.ktor.server.crud</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="932739836%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="932739836%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1208,16 +1364,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="709897384%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.ktor.server.key.value" id="709897384%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="709897384%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.ktor.server.key.value" id="709897384%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.server.key.value/index.html">dev.inmo.micro_utils.repos.ktor.server.key.value</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="709897384%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="709897384%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1226,16 +1382,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-693238641%2FPackages%2F-1052446920" anchor-label="dev.inmo.micro_utils.repos.ktor.server.key.values" id="-693238641%2FPackages%2F-1052446920" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-693238641%2FPackages%2F694735551" anchor-label="dev.inmo.micro_utils.repos.ktor.server.key.values" id="-693238641%2FPackages%2F694735551" data-filterable-set=":micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.ktor.server.key.values/index.html">dev.inmo.micro_utils.repos.ktor.server.key.values</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-693238641%2FPackages%2F-1052446920"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-693238641%2FPackages%2F694735551"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1244,16 +1400,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="889726881%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.mappers" id="889726881%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="889726881%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.mappers" id="889726881%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.mappers/index.html">dev.inmo.micro_utils.repos.mappers</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="889726881%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="889726881%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1262,16 +1418,34 @@
         <div></div>
       </div>
     </div>
-<a data-name="-939755025%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.pagination" id="-939755025%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="493244879%2FPackages%2F102564003" anchor-label="dev.inmo.micro_utils.repos.onetomany" id="493244879%2FPackages%2F102564003" data-filterable-set=":micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/androidMain">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.onetomany/index.html">dev.inmo.micro_utils.repos.onetomany</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="493244879%2FPackages%2F102564003"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right platform-tags--wrapper">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-939755025%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.pagination" id="-939755025%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.pagination/index.html">dev.inmo.micro_utils.repos.pagination</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939755025%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939755025%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1280,16 +1454,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1758104364%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.transforms.crud" id="-1758104364%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1758104364%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.transforms.crud" id="-1758104364%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.transforms.crud/index.html">dev.inmo.micro_utils.repos.transforms.crud</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1758104364%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1758104364%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1298,16 +1472,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="651900353%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.transforms.kv" id="651900353%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="651900353%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.transforms.kv" id="651900353%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.transforms.kv/index.html">dev.inmo.micro_utils.repos.transforms.kv</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="651900353%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="651900353%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1316,16 +1490,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="1803820694%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.transforms.kvs" id="1803820694%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1803820694%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.repos.transforms.kvs" id="1803820694%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.transforms.kvs/index.html">dev.inmo.micro_utils.repos.transforms.kvs</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1803820694%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1803820694%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1334,17 +1508,18 @@
         <div></div>
       </div>
     </div>
-<a data-name="1648030320%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.repos.versions" id="1648030320%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="1648030320%2FPackages%2F831620768" anchor-label="dev.inmo.micro_utils.repos.versions" id="1648030320%2FPackages%2F831620768" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/androidMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/androidMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/androidMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.repos.versions/index.html">dev.inmo.micro_utils.repos.versions</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1648030320%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1648030320%2FPackages%2F831620768"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
             </div>
           </div>
@@ -1352,16 +1527,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-96827927%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.safe_wrapper" id="-96827927%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-96827927%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.safe_wrapper" id="-96827927%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.safe_wrapper/index.html">dev.inmo.micro_utils.safe_wrapper</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-96827927%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-96827927%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1370,16 +1545,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1642533529%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.selector" id="-1642533529%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1642533529%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.selector" id="-1642533529%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.selector/index.html">dev.inmo.micro_utils.selector</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1642533529%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1642533529%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1388,16 +1563,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-765207531%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.serialization.base64" id="-765207531%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-765207531%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.serialization.base64" id="-765207531%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.serialization.base64/index.html">dev.inmo.micro_utils.serialization.base64</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765207531%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765207531%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1406,16 +1581,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-208531011%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.serialization.encapsulator" id="-208531011%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-208531011%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.serialization.encapsulator" id="-208531011%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.serialization.encapsulator/index.html">dev.inmo.micro_utils.serialization.encapsulator</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-208531011%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-208531011%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1424,16 +1599,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1998466425%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.serialization.mapper" id="-1998466425%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1998466425%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.serialization.mapper" id="-1998466425%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.serialization.mapper/index.html">dev.inmo.micro_utils.serialization.mapper</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1998466425%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1998466425%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1442,16 +1617,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-1052043187%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.serialization.typed_serializer" id="-1052043187%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="-1052043187%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.serialization.typed_serializer" id="-1052043187%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.serialization.typed_serializer/index.html">dev.inmo.micro_utils.serialization.typed_serializer</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1052043187%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1052043187%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1460,16 +1635,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-116548359%2FPackages%2F1320102954" anchor-label="dev.inmo.micro_utils.startup.launcher" id="-116548359%2FPackages%2F1320102954" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="-116548359%2FPackages%2F-16529398" anchor-label="dev.inmo.micro_utils.startup.launcher" id="-116548359%2FPackages%2F-16529398" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/jvmMain,:micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.startup.launcher/index.html">dev.inmo.micro_utils.startup.launcher</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-116548359%2FPackages%2F1320102954"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-116548359%2FPackages%2F-16529398"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -1479,16 +1654,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="-771978100%2FPackages%2F1716429550" anchor-label="dev.inmo.micro_utils.startup.plugin" id="-771978100%2FPackages%2F1716429550" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain">
+<a data-name="-771978100%2FPackages%2F-1170042098" anchor-label="dev.inmo.micro_utils.startup.plugin" id="-771978100%2FPackages%2F-1170042098" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain" data-filterable-set=":micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.startup.plugin/index.html">dev.inmo.micro_utils.startup.plugin</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-771978100%2FPackages%2F1716429550"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-771978100%2FPackages%2F-1170042098"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
@@ -1498,17 +1673,18 @@
         <div></div>
       </div>
     </div>
-<a data-name="98758334%2FPackages%2F-612354790" anchor-label="dev.inmo.micro_utils.strings" id="98758334%2FPackages%2F-612354790" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain,:micro_utils.dokka:dokkaHtml/jsMain,:micro_utils.dokka:dokkaHtml/jvmMain">
+<a data-name="98758334%2FPackages%2F1979973784" anchor-label="dev.inmo.micro_utils.strings" id="98758334%2FPackages%2F1979973784" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain" data-filterable-set=":micro_utils.dokka/androidMain,:micro_utils.dokka/commonMain,:micro_utils.dokka/jsMain,:micro_utils.dokka/jvmMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.strings/index.html">dev.inmo.micro_utils.strings</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="98758334%2FPackages%2F-612354790"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="98758334%2FPackages%2F1979973784"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">android</div>
               <div class="platform-tag common-like">common</div>
               <div class="platform-tag js-like">js</div>
               <div class="platform-tag jvm-like">jvm</div>
@@ -1518,16 +1694,16 @@
         <div></div>
       </div>
     </div>
-<a data-name="219863133%2FPackages%2F-1478683138" anchor-label="dev.inmo.micro_utils.transactions" id="219863133%2FPackages%2F-1478683138" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain"></a>
-    <div class="table-row" data-filterable-current=":micro_utils.dokka:dokkaHtml/commonMain" data-filterable-set=":micro_utils.dokka:dokkaHtml/commonMain">
+<a data-name="219863133%2FPackages%2F-1457309097" anchor-label="dev.inmo.micro_utils.transactions" id="219863133%2FPackages%2F-1457309097" data-filterable-set=":micro_utils.dokka/commonMain"></a>
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":micro_utils.dokka/commonMain" data-filterable-set=":micro_utils.dokka/commonMain">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
               <div><a href="micro_utils.dokka/dev.inmo.micro_utils.transactions/index.html">dev.inmo.micro_utils.transactions</a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="219863133%2FPackages%2F-1478683138"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="219863133%2FPackages%2F-1457309097"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag common-like">common</div>
             </div>
@@ -1539,17 +1715,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
