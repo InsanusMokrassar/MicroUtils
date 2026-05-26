@@ -27,7 +27,7 @@ koin = "4.2.1"
 
 okio = "3.17.0"
 
-ksp = "2.3.8"
+ksp = "2.3.9"
 kotlin-poet = "2.3.0"
 
 versions = "0.54.0"
