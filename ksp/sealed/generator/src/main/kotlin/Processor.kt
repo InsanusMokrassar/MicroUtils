@@ -53,7 +53,7 @@ class Processor(
         val annotation = ksClassDeclaration.getGenerateSealedWorkaroundAnnotation
         val subClasses = ksClassDeclaration.resolveSubclasses(
             searchIn = resolver.getAllFiles(),
-            allowNonSealed = annotation ?.includeNonSealedSubTypes ?: false
+            allowNonSealed = withNoSuchElementWorkaround(null) { annotation ?.includeNonSealedSubTypes } ?: false
         ).distinct()
         val subClassesNames = subClasses.filter {
             when (it.classKind) {
@@ -165,15 +165,7 @@ class Processor(
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         (resolver.getSymbolsWithAnnotation(GenerateSealedWorkaround::class.qualifiedName!!)).filterIsInstance<KSClassDeclaration>().forEach {
-            val prefix = runCatching {
-                (it.getGenerateSealedWorkaroundAnnotation) ?.prefix
-            }.getOrElse {
-                if (it is NoSuchElementException) {
-                    ""
-                } else {
-                    throw it
-                }
-            } ?.takeIf {
+            val prefix = withNoSuchElementWorkaround(null) { (it.getGenerateSealedWorkaroundAnnotation) ?.prefix } ?.takeIf {
                 it.isNotEmpty()
             } ?: it.buildSubFileName.replaceFirst(it.simpleName.asString(), "")
             it.writeFile(prefix = prefix, suffix = "SealedWorkaround") {
