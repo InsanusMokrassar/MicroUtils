@@ -1,34 +1,18 @@
 apply plugin: 'com.getkeepsafe.dexcount'
 
-android {
-    compileSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
-    buildToolsVersion libs.versions.android.props.buildTools.get()
-
-    defaultConfig {
-        minSdkVersion libs.versions.android.props.minSdk.get().toInteger()
-        compileSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
-        targetSdkVersion libs.versions.android.props.compileSdk.get().toInteger()
-        versionCode "${android_code_version}".toInteger()
-        versionName "$version"
-        namespace "${project.group}.${project.name}"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-        debug {
-            debuggable true
+ext.configureAndroidTarget = { target ->
+    target.compileSdk = libs.versions.android.props.compileSdk.get().toInteger()
+    target.buildToolsVersion = libs.versions.android.props.buildTools.get()
+    target.minSdk = libs.versions.android.props.minSdk.get().toInteger()
+    target.namespace = "${project.group}.${project.name}"
+    target.packaging {
+        resources {
+            excludes.add 'META-INF/kotlinx-serialization-runtime.kotlin_module'
+            excludes.add 'META-INF/kotlinx-serialization-cbor.kotlin_module'
+            excludes.add 'META-INF/kotlinx-serialization-properties.kotlin_module'
         }
     }
-
-    packagingOptions {
-        exclude 'META-INF/kotlinx-serialization-runtime.kotlin_module'
-        exclude 'META-INF/kotlinx-serialization-cbor.kotlin_module'
-        exclude 'META-INF/kotlinx-serialization-properties.kotlin_module'
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
+    target.compilerOptions.jvmTarget.set(
+            target.compilerOptions.jvmTarget.get().class.fromTarget("17")
+    )
 }

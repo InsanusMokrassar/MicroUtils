@@ -1,6 +1,6 @@
 kotlin {
     sourceSets {
-        androidUnitTest {
+        androidHostTest {
             dependencies {
                 implementation compose.uiTest
             }

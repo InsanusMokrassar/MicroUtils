@@ -1,25 +1,31 @@
+apply from: "$defaultAndroidSettings"
+
 kotlin {
-    androidTarget {
-        publishLibraryVariants(
-                "release",
-                "debug",
-        )
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
+    android {
+        project.ext.configureAndroidTarget(delegate)
+        withHostTest {}
+        withDeviceTest {}
     }
 
     sourceSets {
-        androidUnitTest {
+        jvmAndAndroidMain {
+            dependsOn commonMain
+            kotlin.srcDir("src/jvmMain/kotlin")
+            resources.srcDir("src/jvmMain/resources")
+        }
+        jvmMain {
+            dependsOn jvmAndAndroidMain
+            kotlin.setSrcDirs([])
+            resources.setSrcDirs([])
+        }
+        androidHostTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation libs.android.test.junit
                 implementation libs.android.espresso
             }
         }
-        androidInstrumentedTest {
+        androidDeviceTest {
             dependencies {
                 implementation kotlin('test-junit')
                 implementation libs.android.test.junit
@@ -27,8 +33,6 @@ kotlin {
             }
         }
 
-        androidMain.dependsOn jvmMain
+        androidMain.dependsOn jvmAndAndroidMain
     }
 }
-
-apply from: "$defaultAndroidSettings"
