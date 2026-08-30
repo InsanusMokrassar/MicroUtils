@@ -1,11 +1,13 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
 }
 
 project.version = "$version"
 project.group = "$group"
+
+apply from: "$defaultAndroidSettings"
 
 kotlin {
     jvm {
@@ -23,12 +25,8 @@ kotlin {
         browser()
         nodejs()
     }
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
-        }
+    android {
+        project.ext.configureAndroidTarget(delegate)
     }
     linuxX64()
     mingwX64()
@@ -51,6 +49,11 @@ kotlin {
                 implementation kotlin('test-junit')
             }
         }
+        androidMain {
+            dependencies {
+                implementation kotlin('test-junit')
+            }
+        }
         jsMain {
             dependencies {
                 implementation kotlin('test-js')
@@ -61,11 +64,8 @@ kotlin {
         mingwX64Main.dependsOn nativeMain
         linuxArm64Main.dependsOn nativeMain
 
-        androidMain.dependsOn jvmMain
     }
 }
-
-apply from: "$defaultAndroidSettings"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

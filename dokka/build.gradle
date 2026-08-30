@@ -1,7 +1,7 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
     id "org.jetbrains.dokka"
 }
 
@@ -11,13 +11,17 @@ repositories {
     mavenCentral()
 }
 
+apply from: "$defaultAndroidSettings"
+
 kotlin {
     jvm()
     js(IR) {
         browser()
         nodejs()
     }
-    androidTarget {}
+    android {
+        project.ext.configureAndroidTarget(delegate)
+    }
 
     sourceSets {
         commonMain {
@@ -137,5 +141,3 @@ dokka {
 //        }
 //    }
 //}
-
-apply from: "$defaultAndroidSettings"

@@ -1,6 +1,6 @@
 [versions]
 
-kt = "2.3.21"
+kt = "2.4.10"
 kt-serialization = "1.11.0"
 kt-coroutines = "1.11.0"
 
@@ -8,13 +8,13 @@ kotlinx-browser = "0.5.0"
 
 kslog = "1.7.0"
 
-jb-compose = "1.11.1"
+jb-compose = "1.12.0"
 jb-compose-material3 = "1.11.0-alpha07"
 jb-compose-icons = "1.7.8"
-jb-exposed = "1.3.0"
+jb-exposed = "1.5.0"
 jb-dokka = "2.2.0"
 
-sqlite = "3.53.2.1"
+sqlite = "3.53.4.0"
 
 korlibs = "5.4.0"
 uuid = "0.8.4"
@@ -27,25 +27,25 @@ koin = "4.2.2"
 
 okio = "3.18.1"
 
-ksp = "2.3.9"
+ksp = "2.3.11"
 kotlin-poet = "2.3.0"
 
-versions = "0.54.0"
-nmcp = "1.5.0"
+versions = "0.61.0"
+nmcp = "1.6.1"
 
-android-gradle = "8.12.+"
+android-gradle = "9.1.1"
 dexcount = "4.0.0"
 
 android-coreKtx = "1.19.0"
 android-recyclerView = "1.4.0"
-android-appCompat = "1.7.1"
-android-fragment = "1.8.9"
+android-appCompat = "1.8.0"
+android-fragment = "1.9.0"
 android-espresso = "3.7.0"
 android-test = "1.3.0"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "36"
-android-props-buildTools = "36.0.0"
+android-props-compileSdk = "37"
+android-props-buildTools = "37.0.0"
 
 [libraries]
 
@@ -126,5 +126,5 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
 kt-jb-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kt" }
 
-versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "versions" }
 nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }
