@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -8,6 +9,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -76,7 +78,9 @@ sealed interface SmartSemaphore {
                     }
                 } while (shouldContinue && currentCoroutineContext().isActive)
             } catch (e: Throwable) {
-                release(acquiredPermits)
+                if (acquiredPermits > 0) {
+                    release(acquiredPermits)
+                }
                 throw e
             }
         }
@@ -107,9 +111,9 @@ sealed interface SmartSemaphore {
          */
         suspend fun tryAcquire(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            return if (_freePermitsStateFlow.value < checkedPermits) {
+            return if (_freePermitsStateFlow.value >= checkedPermits) {
                 internalChangesMutex.withLock {
-                    if (_freePermitsStateFlow.value < checkedPermits) {
+                    if (_freePermitsStateFlow.value >= checkedPermits) {
                         _freePermitsStateFlow.value -= checkedPermits
                         true
                     } else {
@@ -125,12 +129,12 @@ sealed interface SmartSemaphore {
          * If [freePermits] == true - will change it to false and return true. If current call will not unlock this
          * [SmartSemaphore] - false
          */
-        suspend fun release(permits: Int = 1): Boolean {
+        suspend fun release(permits: Int = 1): Boolean = withContext(NonCancellable) {
             val checkedPermits = checkedPermits(permits)
-            return if (_freePermitsStateFlow.value < this.maxPermits) {
+            if (_freePermitsStateFlow.value < maxPermits) {
                 internalChangesMutex.withLock {
-                    if (_freePermitsStateFlow.value < this.maxPermits) {
-                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, this.maxPermits)
+                    if (_freePermitsStateFlow.value < maxPermits) {
+                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, maxPermits)
                         true
                     } else {
                         false
