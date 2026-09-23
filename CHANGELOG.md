@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.31.1
+
+* `Coroutines`:
+  * `SmartRWLocker`:
+    * Fix of `unlockWrite`, `lockWrite` and `releaseRead` calls to pass correct number of permits
+  * `SmartMutex`:
+    * Fix `unlock` call
+  * `SmartSemaphore`:
+    * Fix same issues to avoid cancellation exceptions handling errors and several other problems
+
 ## 0.31.0
 
 * `Versions`:
