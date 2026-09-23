@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -7,6 +8,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -92,8 +94,8 @@ sealed interface SmartMutex {
          * If [isLocked] == true - will change it to false and return true. If current call will not unlock this
          * [SmartMutex] - false
          */
-        suspend fun unlock(): Boolean {
-            return if (_lockStateFlow.value) {
+        suspend fun unlock(): Boolean = withContext(NonCancellable) {
+            if (_lockStateFlow.value) {
                 internalChangesMutex.withLock {
                     if (_lockStateFlow.value) {
                         _lockStateFlow.value = false
