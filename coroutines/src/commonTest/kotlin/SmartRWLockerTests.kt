@@ -9,6 +9,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 
 class SmartRWLockerTests {
@@ -107,6 +108,59 @@ class SmartRWLockerTests {
         } catch (e: Exception) {
             assertEquals(exception, e)
         }
+    }
+
+    @Test
+    fun failureOnReadFreeingRead() = runTest {
+        val locker = SmartRWLocker()
+        val job = launch {
+            locker.withReadAcquire {
+                while (isActive) {
+                    delay(1.days)
+                }
+            }
+        }
+
+        locker.readSemaphore.permitsStateFlow.first {
+            it == locker.readSemaphore.maxPermits - 1
+        }
+        job.cancelAndJoin()
+        locker.readSemaphore.permitsStateFlow.first {
+            it == locker.readSemaphore.maxPermits
+        }
+    }
+
+    @Test
+    fun cancelledReaderReleasesPermitUnderContention() = runTest(timeout = 5.seconds) {
+        val locker = SmartRWLocker(readPermits = 2)
+        val reader = launch(Dispatchers.Unconfined) {
+            locker.withReadAcquire {
+                awaitCancellation()
+            }
+        }
+        assertEquals(1, locker.readSemaphore.freePermits)
+
+        // Observe the second acquisition synchronously while it still holds the
+        // semaphore's internal mutex. Cancelling the unconfined reader makes its
+        // cleanup contend for that mutex before the acquisition can release it.
+        val cancellation = launch(Dispatchers.Unconfined) {
+            locker.readSemaphore.permitsStateFlow.first { it == 0 }
+            reader.cancel()
+        }
+
+        // Keep this acquisition on the normal test dispatcher: making it
+        // unconfined would change the ordering that forces cleanup contention.
+        locker.withReadAcquire {
+            cancellation.join()
+            reader.join()
+            assertTrue(reader.isCancelled)
+            assertEquals(
+                1,
+                locker.readSemaphore.freePermits,
+                "The cancelled reader must release its permit while the other reader still holds one"
+            )
+        }
+        assertEquals(2, locker.readSemaphore.freePermits)
     }
 
     @Test

@@ -2,6 +2,10 @@
 
 ## 0.25.8.3
 
+* `Coroutines`:
+  * `SmartRWLocker`:
+    * Fix of `unlockWrite`, `lockWrite` and `releaseRead` calls to pass correct number of permits
+
 ## 0.25.8.2
 
 * `Coroutines`:
