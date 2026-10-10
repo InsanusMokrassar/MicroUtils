@@ -17,7 +17,6 @@
   * `Kotlin`: `2.4.10` -> `2.4.21`
   * `Compose`: `1.12.0` -> `1.12.1`
   * `Gradle wrapper`: `9.3.1` -> `9.7.0`
-
 * `Coroutines`:
   * `SmartSemaphore`:
     * Rewrite docs for `freePermits` property.
