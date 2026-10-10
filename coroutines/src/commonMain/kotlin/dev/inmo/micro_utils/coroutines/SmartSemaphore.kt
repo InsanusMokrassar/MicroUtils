@@ -54,7 +54,7 @@ sealed interface SmartSemaphore {
             require(acquiredPermits >= 0) { "The number 'acquiredPermits' of initially acquired permits ($acquiredPermits) must be non-negative." }
             require(permits >= acquiredPermits) { "The number 'acquiredPermits' of acquired initially permits ($acquiredPermits) must not exceed the maximal number 'permits' of permits ($permits)." }
         }
-        
+
         override val maxPermits: Int = permits
         private val _freePermitsStateFlow = MutableRedeliverStateFlow<Int>(permits - acquiredPermits)
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
