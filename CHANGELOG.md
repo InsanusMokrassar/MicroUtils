@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.32.0
+
+* `Versions`:
+  * `crypto-js`: `4.1.1` -> `4.2.0`
+  * `AndroidX Fragment`: `1.9.0` -> `1.9.1`
+  * `AndroidX Core KTX`: `1.19.0` -> `1.19.1`
+  * `NMCP`: `1.6.1` -> `1.6.2`
+  * `Gradle Versions`: `0.61.0` -> `0.65.0`
+  * `KotlinPoet`: `2.3.0` -> `2.4.0`
+  * `Okio`: `3.18.1` -> `3.18.2`
+  * `Ktor`: `3.5.2` -> `3.6.0`
+  * `Exposed`: `1.5.0` -> `1.5.1`
+  * `Compose Material3`: `1.11.0-alpha07` -> `1.9.0`
+  * `KSLog`: `1.7.0` -> `2.1.0`
+  * `Kotlin`: `2.4.10` -> `2.4.21`
+  * `Compose`: `1.12.0` -> `1.12.1`
+  * `Gradle wrapper`: `9.3.1` -> `9.7.0`
+* `Coroutines`:
+  * `SmartSemaphore`:
+    * Rewrite docs for `freePermits` property.
+    * Add constructor arguments requirements to fail on invalid `permits` and `acquiredPermits` values.
+  * `SmartRWLocker`:
+    * Add constructor arguments requirements to fail on invalid `readPermits` values.
+  * `SmartKeyRWLocker`:
+      * Add constructor arguments requirements to fail on invalid `globalLockerReadPermits` and `perKeyReadPermits` values.
+
+
 ## 0.31.1
 
 * `Coroutines`:
