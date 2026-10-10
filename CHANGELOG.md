@@ -19,13 +19,12 @@
   * `Gradle wrapper`: `9.3.1` -> `9.7.0`
 * `Coroutines`:
   * `SmartSemaphore`:
-    * Rewrite docs for `freePermits` property.
-    * Add constructor arguments requirements to fail on invalid `permits` and `acquiredPermits` values.
+    * Rewrite docs for `freePermits` property
+    * Add constructor arguments requirements to fail on invalid `permits` and `acquiredPermits` values
   * `SmartRWLocker`:
-    * Add constructor arguments requirements to fail on invalid `readPermits` values.
+    * Add constructor arguments requirements to fail on invalid `readPermits` values
   * `SmartKeyRWLocker`:
-      * Add constructor arguments requirements to fail on invalid `globalLockerReadPermits` and `perKeyReadPermits` values.
-
+    * Add constructor arguments requirements to fail on invalid `globalLockerReadPermits` and `perKeyReadPermits` values
 
 ## 0.31.1
 
