@@ -28,6 +28,11 @@ class SmartKeyRWLocker<T>(
     globalLockerWriteIsLocked: Boolean = false,
     private val perKeyReadPermits: Int = Int.MAX_VALUE
 ) {
+    init {
+        require(globalLockerReadPermits > 0) { "The maximal number 'globalLockerReadPermits' of global permits on reading ($globalLockerReadPermits) must be positive." }
+        require(perKeyReadPermits > 0) { "The maximal number 'perKeyReadPermits' of permits on reading per key ($perKeyReadPermits) must be positive." }
+    }
+    
     private val globalRWLocker: SmartRWLocker = SmartRWLocker(
         readPermits = globalLockerReadPermits,
         writeIsLocked = globalLockerWriteIsLocked

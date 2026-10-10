@@ -2,6 +2,16 @@
 
 ## 0.32.0
 
+* `Coroutines`:
+  * `SmartSemaphore`:
+    * Rewrite docs for `freePermits` property.
+    * Add constructor arguments requirements to fail on invalid `permits` and `acquiredPermits` values.
+  * `SmartRWLocker`:
+    * Add constructor arguments requirements to fail on invalid `readPermits` values.
+  * `SmartKeyRWLocker`:
+      * Add constructor arguments requirements to fail on invalid `globalLockerReadPermits` and `perKeyReadPermits` values.
+
+
 ## 0.31.1
 
 * `Coroutines`:

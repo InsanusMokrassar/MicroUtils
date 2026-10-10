@@ -29,8 +29,10 @@ sealed interface SmartSemaphore {
     val permitsStateFlow: StateFlow<Int>
 
     /**
-     * * True - locked
-     * * False - unlocked
+     * The number of the available permits.
+     *
+     * If returns `0`, it is fully acquired (locked).
+     * If it returns the same value as `maxPermits`, it is fully released (unlocked).
      */
     val freePermits: Int
         get() = permitsStateFlow.value
@@ -47,6 +49,12 @@ sealed interface SmartSemaphore {
      * @param locked Preset state of [freePermits] and its internal [_freePermitsStateFlow]
      */
     class Mutable(permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
+        init {
+            require(permits > 0) { "The maximal number 'permits' of permits ($permits) must be positive." }
+            require(acquiredPermits >= 0) { "The number 'acquiredPermits' of initially acquired permits ($acquiredPermits) must be non-negative." }
+            require(permits >= acquiredPermits) { "The number 'acquiredPermits' of acquired initially permits ($acquiredPermits) must not exceed the maximal number 'permits' of permits ($permits)." }
+        }
+        
         override val maxPermits: Int = permits
         private val _freePermitsStateFlow = MutableRedeliverStateFlow<Int>(permits - acquiredPermits)
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
