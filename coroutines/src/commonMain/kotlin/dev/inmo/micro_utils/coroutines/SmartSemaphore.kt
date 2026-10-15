@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -63,7 +64,7 @@ sealed interface SmartSemaphore {
 
         fun immutable() = Immutable(permitsStateFlow, maxPermits)
 
-        private fun checkedPermits(permits: Int) = permits.coerceIn(1 .. this.maxPermits)
+        private fun checkedPermits(permits: Int) = permits.coerceIn(1, maxPermits)
 
         /**
          * Holds call until this [SmartSemaphore] will be re-locked. That means that current method will
@@ -75,7 +76,8 @@ sealed interface SmartSemaphore {
                 do {
                     val shouldContinue = internalChangesMutex.withLock {
                         val requiredPermits = checkedPermits - acquiredPermits
-                        val acquiring = minOf(freePermits, requiredPermits).takeIf { it > 0 } ?: return@withLock true
+                        val acquiring = minOf(freePermits, requiredPermits)
+                        if (acquiring <= 0) return@withLock true
                         acquiredPermits += acquiring
                         _freePermitsStateFlow.value -= acquiring
 
@@ -137,20 +139,31 @@ sealed interface SmartSemaphore {
          * If [freePermits] == true - will change it to false and return true. If current call will not unlock this
          * [SmartSemaphore] - false
          */
-        suspend fun release(permits: Int = 1): Boolean = withContext(NonCancellable) {
+        suspend fun release(permits: Int = 1): Boolean {
             val checkedPermits = checkedPermits(permits)
-            if (_freePermitsStateFlow.value < maxPermits) {
-                internalChangesMutex.withLock {
-                    if (_freePermitsStateFlow.value < maxPermits) {
-                        _freePermitsStateFlow.value = minOf(_freePermitsStateFlow.value + checkedPermits, maxPermits)
-                        true
-                    } else {
-                        false
-                    }
+            if (_freePermitsStateFlow.value >= maxPermits) return false
+
+            // Updating permits without suspension remains safe in a cancelled coroutine.
+            if (internalChangesMutex.tryLock()) {
+                try {
+                    return releaseLocked(checkedPermits)
+                } finally {
+                    internalChangesMutex.unlock()
                 }
-            } else {
-                false
             }
+
+            return withContext(NonCancellable) {
+                internalChangesMutex.withLock {
+                    releaseLocked(checkedPermits)
+                }
+            }
+        }
+
+        private fun releaseLocked(permits: Int): Boolean {
+            val freePermits = _freePermitsStateFlow.value
+            if (freePermits >= maxPermits) return false
+            _freePermitsStateFlow.value = minOf(freePermits + permits, maxPermits)
+            return true
         }
     }
 }
@@ -178,5 +191,14 @@ suspend inline fun <T> SmartSemaphore.Mutable.withAcquire(permits: Int = 1, acti
  * Anyway, after the end of this block there are no any guaranties that [SmartSemaphore.freePermits] >= [permits] due to
  * the fact that some other parties may lock it again
  */
-suspend fun SmartSemaphore.waitRelease(permits: Int = 1) = permitsStateFlow.first { it >= permits }
-suspend fun SmartSemaphore.waitReleaseAll() = permitsStateFlow.first { it == maxPermits }
+suspend fun SmartSemaphore.waitRelease(permits: Int = 1): Int {
+    currentCoroutineContext().ensureActive()
+    val availablePermits = freePermits
+    return if (availablePermits >= permits) availablePermits else permitsStateFlow.first { it >= permits }
+}
+
+suspend fun SmartSemaphore.waitReleaseAll(): Int {
+    currentCoroutineContext().ensureActive()
+    val availablePermits = freePermits
+    return if (availablePermits == maxPermits) availablePermits else permitsStateFlow.first { it == maxPermits }
+}

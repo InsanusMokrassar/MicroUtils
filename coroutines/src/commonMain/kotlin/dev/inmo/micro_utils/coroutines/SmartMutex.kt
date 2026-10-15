@@ -2,6 +2,7 @@ package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
@@ -94,19 +95,32 @@ sealed interface SmartMutex {
          * If [isLocked] == true - will change it to false and return true. If current call will not unlock this
          * [SmartMutex] - false
          */
-        suspend fun unlock(): Boolean = withContext(NonCancellable) {
-            if (_lockStateFlow.value) {
-                internalChangesMutex.withLock {
-                    if (_lockStateFlow.value) {
-                        _lockStateFlow.value = false
-                        true
-                    } else {
-                        false
-                    }
-                }
-            } else {
-                false
+        suspend fun unlock(): Boolean {
+            if (!_lockStateFlow.value) {
+                return false
             }
+            // The uncontended path cannot suspend, including during cancelled cleanup.
+            if (internalChangesMutex.tryLock()) {
+                try {
+                    return unlockState()
+                } finally {
+                    internalChangesMutex.unlock()
+                }
+            }
+            return withContext(NonCancellable) {
+                internalChangesMutex.withLock {
+                    unlockState()
+                }
+            }
+        }
+
+        // The caller must hold internalChangesMutex while updating the state.
+        private fun unlockState(): Boolean {
+            if (!_lockStateFlow.value) {
+                return false
+            }
+            _lockStateFlow.value = false
+            return true
         }
     }
 }
@@ -134,4 +148,11 @@ suspend inline fun <T> SmartMutex.Mutable.withLock(action: () -> T): T {
  * Anyway, after the end of this block there are no any guaranties that [SmartMutex.isLocked] == false due to the fact
  * that some other parties may lock it again
  */
-suspend fun SmartMutex.waitUnlock() = lockStateFlow.first { !it }
+suspend fun SmartMutex.waitUnlock(): Boolean {
+    currentCoroutineContext().ensureActive()
+    return if (!lockStateFlow.value) {
+        false
+    } else {
+        lockStateFlow.first { !it }
+    }
+}
