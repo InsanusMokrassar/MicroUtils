@@ -37,7 +37,7 @@ class SmartKeyRWLocker<T>(
         readPermits = globalLockerReadPermits,
         writeIsLocked = globalLockerWriteIsLocked
     )
-    private val lockers = mutableMapOf<T, SmartRWLocker>()
+    private val lockers = hashMapOf<T, SmartRWLocker>()
     private val lockersMutex = Mutex()
     private val lockersWritingLocker = SmartSemaphore.Mutable(Int.MAX_VALUE)
     private val globalWritingLocker = SmartSemaphore.Mutable(Int.MAX_VALUE)
@@ -45,7 +45,7 @@ class SmartKeyRWLocker<T>(
     private fun allocateLockerWithoutLock(key: T) = lockers.getOrPut(key) {
         SmartRWLocker(perKeyReadPermits)
     }
-    private suspend fun allocateLocker(key: T) = lockersMutex.withLock {
+    private suspend inline fun allocateLocker(key: T) = lockersMutex.withLock {
         lockers.getOrPut(key) {
             SmartRWLocker(perKeyReadPermits)
         }

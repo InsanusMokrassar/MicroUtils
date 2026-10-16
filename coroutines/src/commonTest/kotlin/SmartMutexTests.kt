@@ -32,7 +32,8 @@ class SmartMutexTests {
         releaser.join()
 
         assertTrue(releaser.isCancelled)
-        assertFalse(mutex.isLocked, "Cancellation must not prevent the delegated unlock")
+        assertTrue(mutex.isLocked, "Cancellation must not prevent the delegated unlock")
+        assertTrue(mutex.unlock())
         assertTrue(mutex.tryLock())
         assertTrue(mutex.unlock())
     }

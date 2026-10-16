@@ -1,8 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.withContext
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -39,9 +37,7 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
     /**
      * Release one read permit in [readSemaphore]
      */
-    suspend fun releaseRead(): Boolean = withContext(NonCancellable) {
-        _readSemaphore.release()
-    }
+    suspend fun releaseRead(): Boolean = _readSemaphore.release()
 
     /**
      * Locking [writeMutex] and wait while all [readSemaphore] permits will be freed
@@ -51,9 +47,7 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
         try {
             _readSemaphore.acquire(readPermits)
         } catch (e: CancellationException) {
-            withContext(NonCancellable) {
-                _writeMutex.unlock()
-            }
+            _writeMutex.unlock()
             throw e
         }
     }
@@ -61,13 +55,12 @@ class SmartRWLocker(private val readPermits: Int = Int.MAX_VALUE, writeIsLocked:
     /**
      * Unlock [writeMutex]
      */
-    suspend fun unlockWrite(): Boolean = withContext(NonCancellable) {
+    suspend fun unlockWrite(): Boolean =
         _writeMutex.unlock().also { unlocked ->
             if (unlocked) {
                 _readSemaphore.release(readPermits)
             }
         }
-    }
 }
 
 /**
