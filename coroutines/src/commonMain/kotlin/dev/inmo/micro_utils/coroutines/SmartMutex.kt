@@ -50,7 +50,7 @@ sealed interface SmartMutex {
         override val lockStateFlow: StateFlow<Boolean> = _lockStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex()
-        private val backingMutex = Mutex()
+        private val backingMutex = Mutex(locked = locked)
 
         fun immutable() = Immutable(lockStateFlow)
 
