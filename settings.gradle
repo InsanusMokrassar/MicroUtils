@@ -35,6 +35,7 @@ String[] includes = [
     ":ktor:client",
     ":coroutines",
     ":coroutines:compose",
+    ":coroutines:benchmark",
     ":android:recyclerview",
     ":android:pickers",
     ":android:smalltextfield",

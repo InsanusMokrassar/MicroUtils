@@ -61,6 +61,7 @@ sealed interface SmartSemaphore {
         override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex(false)
+        private val acquirePermitsMutex = Mutex(false)
 
         fun immutable() = Immutable(permitsStateFlow, maxPermits)
 
@@ -70,28 +71,24 @@ sealed interface SmartSemaphore {
          * Holds call until this [SmartSemaphore] will be re-locked. That means that current method will
          */
         suspend fun acquire(permits: Int = 1) {
-            var acquiredPermits = 0
             val checkedPermits = checkedPermits(permits)
-            try {
-                do {
-                    val shouldContinue = internalChangesMutex.withLock {
-                        val requiredPermits = checkedPermits - acquiredPermits
-                        val acquiring = minOf(freePermits, requiredPermits)
-                        if (acquiring <= 0) return@withLock true
-                        acquiredPermits += acquiring
-                        _freePermitsStateFlow.value -= acquiring
-
-                        acquiredPermits != checkedPermits
-                    }
-                    if (shouldContinue) {
-                        waitRelease(checkedPermits - acquiredPermits)
-                    }
-                } while (shouldContinue && currentCoroutineContext().isActive)
-            } catch (e: Throwable) {
-                if (acquiredPermits > 0) {
-                    release(acquiredPermits)
+            var changed = false
+            acquirePermitsMutex.withLock {
+                _freePermitsStateFlow.first {
+                    it >= checkedPermits
                 }
-                throw e
+                internalChangesMutex.withLock {
+                    try {
+                        _freePermitsStateFlow.value -= checkedPermits
+                        changed = true
+                        suspendPoint()
+                    } catch (e: Throwable) {
+                        if (changed) {
+                            _freePermitsStateFlow.value += checkedPermits
+                        }
+                        throw e
+                    }
+                }
             }
         }
 
@@ -99,19 +96,9 @@ sealed interface SmartSemaphore {
          * Holds call until this [SmartSemaphore] will be re-locked. That means that while [freePermits] == true, [holds] will
          * wait for [freePermits] == false and then try to lock
          */
+        @Deprecated("Use acquire instead", ReplaceWith("acquire(permits)"))
         suspend fun acquireByOne(permits: Int = 1) {
-            val checkedPermits = checkedPermits(permits)
-            do {
-                waitRelease(checkedPermits)
-                val shouldContinue = internalChangesMutex.withLock {
-                    if (_freePermitsStateFlow.value < checkedPermits) {
-                        true
-                    } else {
-                        _freePermitsStateFlow.value -= checkedPermits
-                        false
-                    }
-                }
-            } while (shouldContinue && currentCoroutineContext().isActive)
+            return acquire(permits)
         }
 
         /**
@@ -120,18 +107,29 @@ sealed interface SmartSemaphore {
          * @return True if lock was successful. False otherwise
          */
         suspend fun tryAcquire(permits: Int = 1): Boolean {
+            if (acquirePermitsMutex.tryLock() == false) return false
+
             val checkedPermits = checkedPermits(permits)
-            return if (_freePermitsStateFlow.value >= checkedPermits) {
-                internalChangesMutex.withLock {
+            var changed = false
+
+            return internalChangesMutex.withLock {
+                try {
                     if (_freePermitsStateFlow.value >= checkedPermits) {
                         _freePermitsStateFlow.value -= checkedPermits
+                        changed = true
+                        suspendPoint()
                         true
                     } else {
                         false
                     }
+                } catch (e: Throwable) {
+                    if (changed) {
+                        _freePermitsStateFlow.value += checkedPermits
+                    }
+                    throw e
+                } finally {
+                    acquirePermitsMutex.unlock()
                 }
-            } else {
-                false
             }
         }
 

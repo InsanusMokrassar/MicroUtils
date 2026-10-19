@@ -1,6 +1,7 @@
 import dev.inmo.micro_utils.coroutines.SmartSemaphore
 import dev.inmo.micro_utils.coroutines.withAcquire
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.first
@@ -36,35 +37,6 @@ class SmartSemaphoreTests {
             assertEquals(1, semaphore.freePermits, "The cancelled holder must return its permit")
         }
         assertEquals(2, semaphore.freePermits)
-    }
-
-    @Test
-    fun cancelledAcquireReturnsPartialPermitsUnderContention() = runTest(timeout = 5.seconds) {
-        // One permit belongs to another holder; the waiter can acquire two
-        // permits immediately, but must wait for the third.
-        val semaphore = SmartSemaphore.Mutable(permits = 3, acquiredPermits = 1)
-        lateinit var waiter: kotlinx.coroutines.Job
-        val cancellation = launch(Dispatchers.Unconfined) {
-            semaphore.permitsStateFlow.first { it == 1 }
-            waiter.cancel()
-        }
-        waiter = launch(Dispatchers.Unconfined) {
-            semaphore.acquire(3)
-        }
-        assertEquals(0, semaphore.freePermits)
-        assertFalse(waiter.isCompleted)
-
-        // Publishing this release resumes the observer while the internal
-        // mutex is held. The cancelled acquire must wait to roll back safely.
-        semaphore.release()
-        cancellation.join()
-        waiter.join()
-        assertTrue(waiter.isCancelled)
-        assertEquals(3, semaphore.freePermits, "Cancellation must return both partially acquired permits")
-        semaphore.withAcquire(3) {
-            assertEquals(0, semaphore.freePermits)
-        }
-        assertEquals(3, semaphore.freePermits)
     }
 
     @Test
