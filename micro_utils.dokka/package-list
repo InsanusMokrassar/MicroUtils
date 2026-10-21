@@ -865,7 +865,6 @@ $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Immutable/permits
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable///PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/index.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/Mutable/#kotlin.Int#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/-mutable.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/acquire/#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/acquire.html
-$dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/acquireByOne/#kotlin.Int/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/acquire-by-one.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/immutable/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/immutable.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/maxPermits/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/max-permits.html
 $dokka.location:dev.inmo.micro_utils.coroutines/SmartSemaphore.Mutable/permitsStateFlow/#/PointingToDeclaration/micro_utils.dokka/dev.inmo.micro_utils.coroutines/-smart-semaphore/-mutable/permits-state-flow.html
