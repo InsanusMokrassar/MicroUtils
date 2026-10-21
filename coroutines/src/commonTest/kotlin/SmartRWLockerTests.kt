@@ -14,6 +14,25 @@ import kotlin.time.Duration.Companion.seconds
 
 class SmartRWLockerTests {
     @Test
+    fun initiallyWriteLockedLockerReleasesReadPermits() = runTest(timeout = 5.seconds) {
+        val locker = SmartRWLocker(readPermits = 2, writeIsLocked = true)
+        assertTrue(locker.writeMutex.isLocked)
+        assertEquals(0, locker.readSemaphore.freePermits)
+
+        assertTrue(locker.unlockWrite())
+
+        assertFalse(locker.writeMutex.isLocked)
+        assertEquals(2, locker.readSemaphore.freePermits)
+        locker.withReadAcquire {
+            assertEquals(1, locker.readSemaphore.freePermits)
+        }
+        locker.withWriteLock {
+            assertEquals(0, locker.readSemaphore.freePermits)
+        }
+        assertEquals(2, locker.readSemaphore.freePermits)
+    }
+
+    @Test
     fun compositeTest() {
         val locker = SmartRWLocker()
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.32.1
+
+* `Coroutines`:
+  * `SmartSemaphore`:
+    * Optimize permit checks, acquisition, uncontended releases and already satisfied waits to reduce allocations while preserving cancellation handling.
+  * `SmartMutex`:
+    * Optimize waits for unlocked mutexes and uncontended unlocks to reduce allocations while preserving cancellation handling.
+  * `SmartRWLocker`:
+    * Remove redundant coroutine contexts during read releases, write unlocks and cancellation cleanup.
+  * `SmartKeyRWLocker`:
+    * Reduce allocations during keyed operations by inlining the locker allocation helper and using a hash map without insertion order tracking.
+
 ## 0.32.0
 
 * `Versions`:

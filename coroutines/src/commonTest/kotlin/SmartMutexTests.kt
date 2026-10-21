@@ -15,6 +15,17 @@ import kotlin.time.Duration.Companion.seconds
 
 class SmartMutexTests {
     @Test
+    fun initiallyLockedMutexCanBeReleasedAndReacquired() = runTest(timeout = 5.seconds) {
+        val mutex = SmartMutex.Mutable(locked = true)
+        assertTrue(mutex.isLocked)
+        assertFalse(mutex.tryLock())
+        assertTrue(mutex.unlock())
+        assertFalse(mutex.isLocked)
+        assertTrue(mutex.tryLock())
+        assertTrue(mutex.unlock())
+    }
+
+    @Test
     fun cancelledUnlockCompletesUnderContention() = runTest(timeout = 5.seconds) {
         val mutex = SmartMutex.Mutable()
 
@@ -32,7 +43,8 @@ class SmartMutexTests {
         releaser.join()
 
         assertTrue(releaser.isCancelled)
-        assertFalse(mutex.isLocked, "Cancellation must not prevent the delegated unlock")
+        assertTrue(mutex.isLocked, "Cancellation must not prevent the delegated unlock")
+        assertTrue(mutex.unlock())
         assertTrue(mutex.tryLock())
         assertTrue(mutex.unlock())
     }
