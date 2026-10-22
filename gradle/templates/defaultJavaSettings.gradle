@@ -1,0 +1,11 @@
+plugins.withId('org.jetbrains.kotlin.multiplatform') {
+    kotlin {
+        jvmToolchain(17)
+    }
+}
+
+plugins.withId('org.jetbrains.kotlin.jvm') {
+    kotlin {
+        jvmToolchain(17)
+    }
+}

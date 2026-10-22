@@ -37,6 +37,8 @@ if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != n
 }
 
 allprojects {
+    apply from: rootProject.file("gradle/templates/defaultJavaSettings.gradle")
+
     repositories {
         mavenCentral()
         google()
