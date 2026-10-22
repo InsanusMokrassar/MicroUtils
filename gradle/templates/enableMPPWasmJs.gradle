@@ -3,7 +3,7 @@ kotlin {
         browser {
             testTask {
                 useKarma {
-                    useChromeHeadless()
+                    useChromeHeadlessNoSandbox()
                     useConfigDirectory(rootProject.relativeProjectPath("gradle/karma.config.d"))
                 }
             }
