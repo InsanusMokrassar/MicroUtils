@@ -4,6 +4,7 @@ project.group = "$group"
 apply plugin: 'org.jetbrains.dokka'
 
 kotlin {
+    jvmToolchain(17)
     sourceSets {
         commonMain {
             dependencies {
