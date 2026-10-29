@@ -19,7 +19,7 @@ sqlite = "3.53.4.0"
 korlibs = "5.4.0"
 uuid = "0.8.4"
 
-ktor = "3.6.0"
+ktor = "3.6.1"
 
 gh-release = "2.5.2"
 
