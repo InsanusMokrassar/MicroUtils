@@ -17,7 +17,7 @@ fun Node.onRemoved(block: () -> Unit): MutationObserver {
         }
     }
 
-    observer.observe(document, MutationObserverInit(childList = true, subtree = true))
+    observer.observe(document, js("({childList: true, subtree: true})"))
     return observer
 }
 
