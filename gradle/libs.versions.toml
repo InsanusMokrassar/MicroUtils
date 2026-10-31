@@ -1,42 +1,51 @@
 [versions]
 
-kt = "1.8.20"
-kt-serialization = "1.5.1"
-kt-coroutines = "1.6.4"
+kt = "2.4.21"
+kt-serialization = "1.11.0"
+kt-coroutines = "1.11.0"
 
-kslog = "1.1.1"
+kotlinx-browser = "0.5.0"
 
-jb-compose = "1.4.0"
-jb-exposed = "0.41.1"
-jb-dokka = "1.8.10"
+kslog = "2.1.0"
 
-korlibs = "3.4.0"
-uuid = "0.7.0"
+jb-compose = "1.12.1"
+jb-compose-material3 = "1.9.0"
+jb-compose-icons = "1.7.8"
+jb-exposed = "1.5.1"
+jb-dokka = "2.2.0"
 
-ktor = "2.3.0"
+sqlite = "3.53.4.0"
 
-gh-release = "2.4.1"
+korlibs = "5.4.0"
+uuid = "0.8.4"
 
-koin = "3.4.0"
+ktor = "3.6.0"
 
-okio = "3.3.0"
+gh-release = "2.5.2"
 
-ksp = "1.8.20-1.0.11"
-kotlin-poet = "1.13.2"
+koin = "4.2.2"
 
-android-gradle = "7.4.2"
+okio = "3.18.2"
+
+ksp = "2.3.11"
+kotlin-poet = "2.4.0"
+
+versions = "0.65.0"
+nmcp = "1.6.2"
+
+android-gradle = "9.1.1"
 dexcount = "4.0.0"
 
-android-coreKtx = "1.10.1"
-android-recyclerView = "1.3.0"
-android-appCompat = "1.6.1"
-android-fragment = "1.5.7"
-android-espresso = "3.5.1"
-android-test = "1.1.5"
+android-coreKtx = "1.19.1"
+android-recyclerView = "1.4.0"
+android-appCompat = "1.8.0"
+android-fragment = "1.9.1"
+android-espresso = "3.7.0"
+android-test = "1.3.0"
 
 android-props-minSdk = "21"
-android-props-compileSdk = "33"
-android-props-buildTools = "33.0.2"
+android-props-compileSdk = "37"
+android-props-buildTools = "37.0.0"
 
 [libraries]
 
@@ -49,7 +58,9 @@ kt-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 kt-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kt-coroutines" }
 kt-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kt-coroutines" }
 kt-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kt-coroutines" }
+kt-coroutines-debug = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-debug", version.ref = "kt-coroutines" }
 
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser-wasm-js", version.ref = "kotlinx-browser" }
 
 ktor-io = { module = "io.ktor:ktor-io", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
@@ -69,14 +80,18 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 
 kslog = { module = "dev.inmo:kslog", version.ref = "kslog" }
 
-klock = { module = "com.soywiz.korlibs.klock:klock", version.ref = "korlibs" }
-krypto = { module = "com.soywiz.korlibs.krypto:krypto", version.ref = "korlibs" }
+klock = { module = "com.soywiz.korge:korlibs-time", version.ref = "korlibs" }
+krypto = { module = "com.soywiz.korge:korlibs-crypto", version.ref = "korlibs" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 
 jb-exposed = { module = "org.jetbrains.exposed:exposed-core", version.ref = "jb-exposed" }
+jb-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "jb-exposed" }
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 
+jb-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "jb-compose-material3" }
+jb-compose-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "jb-compose-icons" }
 
 android-coreKtx = { module = "androidx.core:core-ktx", version.ref = "android-coreKtx" }
 android-recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "android-recyclerView" }
@@ -109,3 +124,7 @@ buildscript-android-dexcount = { module = "com.getkeepsafe.dexcount:dexcount-gra
 [plugins]
 
 jb-compose = { id = "org.jetbrains.compose", version.ref = "jb-compose" }
+kt-jb-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kt" }
+
+versions = { id = "io.github.ben-manes.versions", version.ref = "versions" }
+nmcp-aggregation = { id = "com.gradleup.nmcp.aggregation", version.ref = "nmcp" }

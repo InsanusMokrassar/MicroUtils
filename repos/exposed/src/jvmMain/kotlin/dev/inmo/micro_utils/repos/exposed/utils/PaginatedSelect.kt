@@ -1,7 +1,10 @@
 package dev.inmo.micro_utils.repos.exposed.utils
 
 import dev.inmo.micro_utils.pagination.*
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.v1.core.Expression
+import org.jetbrains.exposed.v1.core.ResultRow
+import org.jetbrains.exposed.v1.core.SortOrder
+import org.jetbrains.exposed.v1.jdbc.Query
 
 fun <T> Query.selectPaginated(
     pagination: Pagination,

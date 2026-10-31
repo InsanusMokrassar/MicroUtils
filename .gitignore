@@ -1,4 +1,6 @@
 .idea
+.vscode
+.kotlin
 out/*
 *.iml
 target
@@ -8,9 +10,16 @@ settings.xml
 .gradle/
 build/
 out/
+bin/
 
 secret.gradle
 local.properties
 kotlin-js-store
 
 publishing.sh
+
+local.*
+local/
+**/*.local.*
+
+.kotlin/

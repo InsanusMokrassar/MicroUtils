@@ -1,13 +1,19 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "application"
     id "com.google.devtools.ksp"
 }
 
-apply from: "$mppJvmJsLinuxMingwProjectPresetPath"
+apply from: "$mppJvmJsWasmJsLinuxMingwProject"
 
 kotlin {
+    jvm {
+        binaries {
+            executable {
+                mainClass.set("dev.inmo.micro_utils.startup.launcher.MainKt")
+            }
+        }
+    }
     sourceSets {
         commonMain {
             dependencies {
@@ -23,13 +29,9 @@ kotlin {
     }
 }
 
-application {
-    mainClassName = "dev.inmo.micro_utils.startup.launcher.MainKt"
-}
-
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 dependencies {

@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.coroutines
 
+import dev.inmo.kslog.common.KSLog
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
@@ -8,6 +9,7 @@ import kotlinx.coroutines.sync.withLock
 
 private class SubscribeAsyncReceiver<T>(
     val scope: CoroutineScope,
+    val logger: KSLog,
     output: suspend SubscribeAsyncReceiver<T>.(T) -> Unit
 ) {
     private val dataChannel: Channel<T> = Channel(Channel.UNLIMITED)
@@ -15,7 +17,7 @@ private class SubscribeAsyncReceiver<T>(
         get() = dataChannel
 
     init {
-        scope.launchSafelyWithoutExceptions {
+        scope.launchLoggingDropExceptions(logger = logger) {
             for (data in dataChannel) {
                 output(data)
             }
@@ -33,13 +35,16 @@ private data class AsyncSubscriptionCommandData<T, M>(
     val scope: CoroutineScope,
     val markerFactory: suspend (T) -> M,
     val block: suspend (T) -> Unit,
+    val logger: KSLog,
     val onEmpty: suspend (M) -> Unit
 ) : AsyncSubscriptionCommand<T, M> {
     override suspend fun invoke(markersMap: MutableMap<M, SubscribeAsyncReceiver<T>>) {
         val marker = markerFactory(data)
         markersMap.getOrPut(marker) {
-            SubscribeAsyncReceiver(scope.LinkedSupervisorScope()) {
-                safelyWithoutExceptions { block(it) }
+            SubscribeAsyncReceiver(scope.LinkedSupervisorScope(), logger) {
+                runCatchingLogging(logger = logger) {
+                    block(it)
+                }
                 if (isEmpty()) {
                     onEmpty(marker)
                 }
@@ -60,9 +65,24 @@ private data class AsyncSubscriptionCommandClearReceiver<T, M>(
     }
 }
 
+/**
+ * Subscribes to a [Flow] with asynchronous processing based on markers.
+ * Each value from the flow will be processed by the [block] function. Values with the same marker
+ * will be processed sequentially in the same coroutine scope, while values with different markers
+ * can be processed concurrently in separate coroutine scopes.
+ *
+ * @param T The type of values emitted by the flow
+ * @param M The type of markers used to group values
+ * @param scope The [CoroutineScope] in which to subscribe to the flow
+ * @param markerFactory A factory function that produces a marker for each emitted value
+ * @param logger The logger instance used for logging exceptions. Defaults to [KSLog]
+ * @param block The suspending function that processes each emitted value
+ * @return A [Job] representing the subscription that can be cancelled
+ */
 fun <T, M> Flow<T>.subscribeAsync(
     scope: CoroutineScope,
     markerFactory: suspend (T) -> M,
+    logger:  KSLog = KSLog,
     block: suspend (T) -> Unit
 ): Job {
     val subscope = scope.LinkedSupervisorScope()
@@ -71,8 +91,14 @@ fun <T, M> Flow<T>.subscribeAsync(
         it.invoke(markersMap)
     }
 
-    val job = subscribeSafelyWithoutExceptions(subscope) { data ->
-        val dataCommand = AsyncSubscriptionCommandData(data, subscope, markerFactory, block) { marker ->
+    val job = subscribeLoggingDropExceptions(subscope, logger = logger) { data ->
+        val dataCommand = AsyncSubscriptionCommandData(
+            data = data,
+            scope = subscope,
+            markerFactory = markerFactory,
+            block = block,
+            logger = logger
+        ) { marker ->
             actor.send(
                 AsyncSubscriptionCommandClearReceiver(marker)
             )
@@ -85,33 +111,61 @@ fun <T, M> Flow<T>.subscribeAsync(
     return job
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelyAsync(
+@Deprecated("Renamed", ReplaceWith("subscribeLoggingDropExceptionsAsync(scope, markerFactory, block = block)", "dev.inmo.micro_utils.coroutines.subscribeLoggingDropExceptionsAsync"))
+fun <T, M> Flow<T>.subscribeSafelyAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
-    noinline block: suspend (T) -> Unit
-) = subscribeAsync(scope, markerFactory) {
+    markerFactory: suspend (T) -> M,
+    onException: ExceptionHandler<Unit> = defaultSafelyExceptionHandler,
+    logger:  KSLog = KSLog,
+    block: suspend (T) -> Unit
+) = subscribeAsync(scope, markerFactory, logger) {
     safely(onException) {
         block(it)
     }
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelyWithoutExceptionsAsync(
+@Deprecated("Renamed", ReplaceWith("subscribeLoggingDropExceptionsAsync(scope, markerFactory, block = block)", "dev.inmo.micro_utils.coroutines.subscribeLoggingDropExceptionsAsync"))
+fun <T, M> Flow<T>.subscribeSafelyWithoutExceptionsAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
-    noinline block: suspend (T) -> Unit
+    markerFactory: suspend (T) -> M,
+    onException: ExceptionHandler<T?> = defaultSafelyWithoutExceptionHandlerWithNull,
+    block: suspend (T) -> Unit
 ) = subscribeAsync(scope, markerFactory) {
     safelyWithoutExceptions(onException) {
         block(it)
     }
 }
 
-inline fun <T, M> Flow<T>.subscribeSafelySkippingExceptionsAsync(
+/**
+ * Subscribes to a [Flow] with asynchronous processing based on markers, automatically logging and dropping exceptions.
+ * Each value from the flow will be processed by the [block] function. Values with the same marker
+ * will be processed sequentially, while values with different markers can be processed concurrently.
+ * Any exceptions thrown during processing will be logged and dropped without affecting other messages.
+ *
+ * @param T The type of values emitted by the flow
+ * @param M The type of markers used to group values
+ * @param scope The [CoroutineScope] in which to subscribe to the flow
+ * @param markerFactory A factory function that produces a marker for each emitted value
+ * @param logger The logger instance used for logging exceptions. Defaults to [KSLog]
+ * @param block The suspending function that processes each emitted value
+ * @return A [Job] representing the subscription that can be cancelled
+ */
+fun <T, M> Flow<T>.subscribeLoggingDropExceptionsAsync(
     scope: CoroutineScope,
-    noinline markerFactory: suspend (T) -> M,
-    noinline block: suspend (T) -> Unit
-) = subscribeAsync(scope, markerFactory) {
+    markerFactory: suspend (T) -> M,
+    logger:  KSLog = KSLog,
+    block: suspend (T) -> Unit
+) = subscribeAsync(scope, markerFactory, logger) {
+    block(it)
+}
+
+@Deprecated("Renamed", ReplaceWith("subscribeLoggingDropExceptionsAsync(scope, markerFactory, logger, block = block)", "dev.inmo.micro_utils.coroutines.subscribeLoggingDropExceptionsAsync"))
+fun <T, M> Flow<T>.subscribeSafelySkippingExceptionsAsync(
+    scope: CoroutineScope,
+    markerFactory: suspend (T) -> M,
+    logger:  KSLog = KSLog,
+    block: suspend (T) -> Unit
+) = subscribeAsync(scope, markerFactory, logger) {
     safelyWithoutExceptions({ /* do nothing */}) {
         block(it)
     }

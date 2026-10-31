@@ -1,7 +1,7 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
     id "org.jetbrains.dokka"
 }
 
@@ -11,13 +11,17 @@ repositories {
     mavenCentral()
 }
 
+apply from: "$defaultAndroidSettings"
+
 kotlin {
     jvm()
-//    js(IR) {
-//        browser()
-//        nodejs()
-//    }
-    android {}
+    js(IR) {
+        browser()
+        nodejs()
+    }
+    android {
+        project.ext.configureAndroidTarget(delegate)
+    }
 
     sourceSets {
         commonMain {
@@ -26,44 +30,44 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                        it != project
-                        && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-//                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
+                            it.name != project.name
+                                    && it.hasProperty("kotlin")
+                                    && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
                         api it
                     }
                 }
             }
         }
-//        jsMain {
-//            dependencies {
-//                implementation kotlin('stdlib')
+        jsMain {
+            dependencies {
+                implementation kotlin('stdlib')
 
-//                project.parent.subprojects.forEach {
-//                    if (
-//                        it != project
-//                        && it.hasProperty("kotlin")
-//                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-//                        && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
-//                    ) {
-//                        api it
-//                    }
-//                }
-//            }
-//        }
+                project.parent.subprojects.forEach {
+                    if (
+                            it.name != project.name
+                                    && it.hasProperty("kotlin")
+                                    && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("jsMain") }
+                    ) {
+                        api it
+                    }
+                }
+            }
+        }
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib')
 
                 project.parent.subprojects.forEach {
                     if (
-                        it != project
-                        && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
+                            it.name != project.name
+                                    && it.hasProperty("kotlin")
+                                    && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("jvmMain") }
                     ) {
                         api it
                     }
@@ -76,10 +80,10 @@ kotlin {
 
                 project.parent.subprojects.forEach {
                     if (
-                        it != project
-                        && it.hasProperty("kotlin")
-                        && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
-                        && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
+                            it.name != project.name
+                                    && it.hasProperty("kotlin")
+                                    && it.kotlin.sourceSets.any { it.name.contains("commonMain") }
+                                    && it.kotlin.sourceSets.any { it.name.contains("androidMain") }
                     ) {
                         api it
                     }
@@ -91,7 +95,7 @@ kotlin {
 
 private List<SourceDirectorySet> findSourcesWithName(String... approximateNames) {
     return parent.subprojects
-            .findAll { it != project && it.hasProperty("kotlin") }
+            .findAll { it != project && it.hasProperty("kotlin") && (it.name.contains("dokka") == false) }
             .collectMany { it.kotlin.sourceSets }
             .findAll { sourceSet ->
                 approximateNames.any { nameToFilter ->
@@ -100,14 +104,14 @@ private List<SourceDirectorySet> findSourcesWithName(String... approximateNames)
             }.collect { it.kotlin }
 }
 
-tasks.dokkaHtml {
+dokka {
     dokkaSourceSets {
         configureEach {
             skipDeprecated.set(true)
 
             sourceLink {
-                localDirectory.set(file("./"))
-                remoteUrl.set(new URL("https://github.com/InsanusMokrassar/MicroUtils/blob/master/"))
+                localDirectory.set(file("../"))
+                remoteUrl.set(new URI("https://github.com/InsanusMokrassar/MicroUtils/blob/master/"))
                 remoteLineSuffix.set("#L")
             }
         }
@@ -116,9 +120,9 @@ tasks.dokkaHtml {
             sourceRoots.setFrom(findSourcesWithName("commonMain"))
         }
 
-//        named("jsMain") {
-//            sourceRoots.setFrom(findSourcesWithName("jsMain", "commonMain"))
-//        }
+        named("jsMain") {
+            sourceRoots.setFrom(findSourcesWithName("jsMain"))
+        }
 
         named("jvmMain") {
             sourceRoots.setFrom(findSourcesWithName("jvmMain"))
@@ -130,4 +134,10 @@ tasks.dokkaHtml {
     }
 }
 
-apply from: "$defaultAndroidSettingsPresetPath"
+//dependencies {
+//    project.parent.subprojects.forEach {
+//        if (it != project) {
+//            dokka(it)
+//        }
+//    }
+//}

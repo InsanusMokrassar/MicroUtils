@@ -3,31 +3,16 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply from: "$mppJvmJsLinuxMingwProjectPresetPath"
+apply from: "$mppJvmJsWasmJsLinuxMingwProject"
 
 kotlin {
     sourceSets {
         commonMain {
             dependencies {
                 api libs.koin
-                api libs.kt.serialization
                 api libs.kslog
                 api libs.kt.reflect
                 api project(":micro_utils.coroutines")
-            }
-        }
-        jsMain {
-            dependencies {
-                api libs.uuid
-            }
-        }
-        linuxX64Main {
-            dependencies {
-                api libs.uuid
-            }
-        }
-        mingwX64Main {
-            dependencies {
                 api libs.uuid
             }
         }

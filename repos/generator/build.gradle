@@ -2,7 +2,7 @@ plugins {
     id "org.jetbrains.kotlin.jvm"
 }
 
-apply from: "$publishJvmOnlyPath"
+apply from: "$publish_jvm"
 
 repositories {
     mavenCentral()
@@ -13,4 +13,13 @@ dependencies {
     api project(":micro_utils.repos.common")
     api libs.kotlin.poet
     api libs.ksp
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+kotlin {
+    jvmToolchain(17)
 }

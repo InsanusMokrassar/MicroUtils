@@ -1,10 +1,10 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
@@ -17,7 +17,7 @@ kotlin {
             }
         }
 
-        jvmMain {
+        jvmAndAndroidMain {
             dependencies {
                 api internalProject("micro_utils.common")
             }
@@ -28,7 +28,6 @@ kotlin {
                 api internalProject("micro_utils.common")
                 api internalProject("micro_utils.coroutines")
             }
-            dependsOn jvmMain
         }
     }
 }

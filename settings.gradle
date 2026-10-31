@@ -1,8 +1,10 @@
 rootProject.name='micro_utils'
 
 String[] includes = [
+    ":meta",
     ":common",
     ":common:compose",
+    ":transactions",
     ":matrix",
     ":safe_wrapper",
     ":crypto",
@@ -11,6 +13,7 @@ String[] includes = [
     ":koin:generator:test",
     ":selector:common",
     ":pagination:common",
+    ":pagination:compose",
     ":pagination:exposed",
     ":pagination:ktor:common",
     ":pagination:ktor:server",
@@ -18,6 +21,7 @@ String[] includes = [
     ":language_codes",
     ":language_codes:generator",
     ":repos:common",
+    ":repos:common:tests",
     ":repos:generator",
     ":repos:generator:test",
     ":repos:cache",
@@ -32,6 +36,8 @@ String[] includes = [
     ":coroutines",
     ":coroutines:compose",
     ":android:recyclerview",
+    ":android:pickers",
+    ":android:smalltextfield",
     ":android:alerts:common",
     ":android:alerts:recyclerview",
     ":serialization:base64",
@@ -41,8 +47,27 @@ String[] includes = [
     ":startup:plugin",
     ":startup:launcher",
 
+    ":colors",
+    ":colors:common",
+
+    ":resources",
+
     ":fsm:common",
     ":fsm:repos:common",
+
+    ":ksp:generator",
+
+    ":ksp:sealed",
+    ":ksp:sealed:generator",
+    ":ksp:sealed:generator:test",
+
+    ":ksp:classcasts",
+    ":ksp:classcasts:generator",
+    ":ksp:classcasts:generator:test",
+
+    ":ksp:variations",
+    ":ksp:variations:generator",
+    ":ksp:variations:generator:test",
 
     ":dokka"
 ]
@@ -57,5 +82,3 @@ includes.each { originalName ->
     project.name = projectName
     project.projectDir = new File(projectDirectory)
 }
-
-enableFeaturePreview("VERSION_CATALOGS")

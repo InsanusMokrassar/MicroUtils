@@ -2,28 +2,39 @@ package dev.inmo.micro_utils.repos.exposed
 
 import dev.inmo.micro_utils.repos.UpdatedValuePair
 import dev.inmo.micro_utils.repos.WriteCRUDRepo
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.statements.InsertStatement
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import org.jetbrains.exposed.v1.jdbc.update
 import java.util.Objects
 
 abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     flowsChannelsSize: Int = 0,
     tableName: String = "",
-    replyCacheInFlows: Int = 0
+    replyCacheInFlows: Int = 0,
+    onBufferOverflowBehaviour: BufferOverflow = BufferOverflow.SUSPEND
 ) :
     AbstractExposedReadCRUDRepo<ObjectType, IdType>(tableName),
     ExposedCRUDRepo<ObjectType, IdType>,
     WriteCRUDRepo<ObjectType, IdType, InputValueType>
 {
-    protected val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize)
-    protected val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize)
+    protected open val _newObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
+    protected open val _updatedObjectsFlow = MutableSharedFlow<ObjectType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
+    protected open val _deletedObjectsIdsFlow = MutableSharedFlow<IdType>(replyCacheInFlows, flowsChannelsSize, onBufferOverflowBehaviour)
 
-    override val newObjectsFlow: Flow<ObjectType> = _newObjectsFlow.asSharedFlow()
-    override val updatedObjectsFlow: Flow<ObjectType> = _updatedObjectsFlow.asSharedFlow()
-    override val deletedObjectsIdsFlow: Flow<IdType> = _deletedObjectsIdsFlow.asSharedFlow()
+    override val newObjectsFlow: Flow<ObjectType> by lazy {
+        _newObjectsFlow.asSharedFlow()
+    }
+    override val updatedObjectsFlow: Flow<ObjectType> by lazy {
+        _updatedObjectsFlow.asSharedFlow()
+    }
+    override val deletedObjectsIdsFlow: Flow<IdType> by lazy {
+        _deletedObjectsIdsFlow.asSharedFlow()
+    }
 
     protected abstract fun InsertStatement<Number>.asObject(value: InputValueType): ObjectType
 
@@ -44,9 +55,9 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
      *
      * @return In case when id for the model has been created new [IdType] should be returned
      */
-    protected open fun createAndInsertId(value: InputValueType, it: InsertStatement<Number>): IdType? = null
+    protected open fun createAndInsertId(value: InputValueType, it: UpdateBuilder<Int>): IdType? = null
 
-    protected open fun insert(value: InputValueType, it: InsertStatement<Number>) {
+    protected open fun insert(value: InputValueType, it: UpdateBuilder<Int>) {
         val id = createAndInsertId(value, it)
         update(id, value, it as UpdateBuilder<Int>)
     }
@@ -85,7 +96,7 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         return transaction(db = database) {
             update(
                 {
-                    selectById(this, id)
+                    selectById( id)
                 }
             ) {
                 update(id, value, it as UpdateBuilder<Int>)
@@ -93,8 +104,8 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
         }.let {
             if (it > 0) {
                 transaction(db = database) {
-                    select {
-                        selectById(this, id)
+                    selectAll().where {
+                        selectById(id)
                     }.limit(1).firstOrNull() ?.asObject
                 }
             } else {
@@ -129,12 +140,12 @@ abstract class AbstractExposedWriteCRUDRepo<ObjectType, IdType, InputValueType>(
     override suspend fun deleteById(ids: List<IdType>) {
         onBeforeDelete(ids)
         transaction(db = database) {
-            val deleted = deleteWhere(null, null) { selectByIds(it, ids) }
+            val deleted = deleteWhere { selectByIds(ids) }
             if (deleted == ids.size) {
                 ids
             } else {
                 ids.filter {
-                    select { selectById(it) }.limit(1).none()
+                    selectAll().where { selectById(it) }.limit(1).none()
                 }
             }
         }.forEach {

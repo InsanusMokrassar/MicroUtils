@@ -2,39 +2,45 @@ package dev.inmo.micro_utils.repos.exposed.onetomany
 
 import dev.inmo.micro_utils.repos.KeyValuesRepo
 import dev.inmo.micro_utils.repos.exposed.ColumnAllocator
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.core.eq
+import org.jetbrains.exposed.v1.core.inList
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 typealias ExposedOneToManyKeyValueRepo1<Key, Value> = ExposedKeyValuesRepo<Key, Value>
 open class ExposedKeyValuesRepo<Key, Value>(
     database: Database,
     keyColumnAllocator: ColumnAllocator<Key>,
     valueColumnAllocator: ColumnAllocator<Value>,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValuesRepo<Key, Value>, ExposedReadKeyValuesRepo<Key, Value>(
     database,
     keyColumnAllocator,
     valueColumnAllocator,
     tableName
 ) {
-    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onNewValue: Flow<Pair<Key, Value>>
         get() = _onNewValue
-    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
+    protected val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onValueRemoved: Flow<Pair<Key, Value>>
         get() = _onValueRemoved
-    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
+    protected val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
     override val onDataCleared: Flow<Key>
         get() = _onDataCleared
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
-        transaction(database) {
+        transaction (database) {
             toAdd.keys.flatMap { k ->
                 toAdd[k] ?.mapNotNull { v ->
-                    if (select { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
+                    if (selectAll().where { keyColumn.eq(k).and(valueColumn.eq(v)) }.limit(1).count() > 0) {
                         return@mapNotNull null
                     }
                     val insertResult = insert {
@@ -69,8 +75,8 @@ open class ExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun removeWithValue(v: Value) {
         transaction(database) {
-            val keys = select { selectByValue(v) }.map { it.asKey }
-            deleteWhere { SqlExpressionBuilder.selectByValue(v) }
+            val keys = selectAll().where { selectByValue(v) }.map { it.asKey }
+            deleteWhere { selectByValue(v) }
             keys
         }.forEach {
             _onValueRemoved.emit(it to v)
@@ -85,7 +91,7 @@ open class ExposedKeyValuesRepo<Key, Value>(
 
     override suspend fun clearWithValue(v: Value) {
         transaction(database) {
-            val toClear = select { selectByValue(v) }
+            val toClear = selectAll().where { selectByValue(v) }
                 .asSequence()
                 .map { it.asKey to it.asObject }
                 .groupBy { it.first }

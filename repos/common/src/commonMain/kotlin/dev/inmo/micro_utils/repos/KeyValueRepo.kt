@@ -53,6 +53,12 @@ interface ReadKeyValueRepo<Key, Value> : Repo {
      */
     suspend fun contains(key: Key): Boolean
 
+    /**
+     * Returns all key-value pairs in the repository as a [Map].
+     * Default implementation iterates all pages using [keys] and [get].
+     *
+     * @return Map of all [Key] to [Value] entries in the repository
+     */
     suspend fun getAll(): Map<Key, Value> = getAllByWithNextPaging(maxPagePagination()) {
         keys(it).let {
             it.changeResultsUnchecked(
@@ -111,22 +117,48 @@ interface WriteKeyValueRepo<Key, Value> : Repo {
 }
 typealias WriteStandardKeyValueRepo<Key,Value> = WriteKeyValueRepo<Key, Value>
 
+/**
+ * Vararg overload of [WriteKeyValueRepo.set] accepting pairs.
+ *
+ * @param toSet Key-value pairs to set
+ */
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     vararg toSet: Pair<Key, Value>
 ) = set(toSet.toMap())
 
+/**
+ * List overload of [WriteKeyValueRepo.set] accepting a list of pairs.
+ *
+ * @param toSet List of key-value pairs to set
+ */
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     toSet: List<Pair<Key, Value>>
 ) = set(toSet.toMap())
 
+/**
+ * Single-entry overload of [WriteKeyValueRepo.set].
+ *
+ * @param k Key to set
+ * @param v Value to associate with [k]
+ */
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.set(
     k: Key, v: Value
 ) = set(k to v)
 
+/**
+ * Vararg overload of [WriteKeyValueRepo.unset].
+ *
+ * @param k Keys to remove
+ */
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.unset(
     vararg k: Key
 ) = unset(k.toList())
 
+/**
+ * Vararg overload of [WriteKeyValueRepo.unsetWithValues].
+ *
+ * @param v Values whose associated keys should be removed
+ */
 suspend inline fun <Key, Value> WriteKeyValueRepo<Key, Value>.unsetWithValues(
     vararg v: Value
 ) = unsetWithValues(v.toList())
@@ -160,6 +192,14 @@ interface KeyValueRepo<Key, Value> : ReadKeyValueRepo<Key, Value>, WriteKeyValue
 }
 typealias StandardKeyValueRepo<Key,Value> = KeyValueRepo<Key, Value>
 
+/**
+ * Delegate-based implementation of [KeyValueRepo] that composes separate read and write delegates.
+ *
+ * @param Key The type of keys in the repository
+ * @param Value The type of values in the repository
+ * @param readDelegate Delegate providing all [ReadKeyValueRepo] operations
+ * @param writeDelegate Delegate providing all [WriteKeyValueRepo] operations
+ */
 class DelegateBasedKeyValueRepo<Key, Value>(
     readDelegate: ReadKeyValueRepo<Key, Value>,
     writeDelegate: WriteKeyValueRepo<Key, Value>

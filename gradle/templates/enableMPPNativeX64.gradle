@@ -1,0 +1,10 @@
+kotlin {
+    linuxX64()
+    mingwX64()
+
+    sourceSets {
+        nativeMain.dependsOn commonMain
+        linuxX64Main.dependsOn nativeMain
+        mingwX64Main.dependsOn nativeMain
+    }
+}

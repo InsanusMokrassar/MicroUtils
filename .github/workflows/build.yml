@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 17
       - name: Rewrite version
         run: |
           branch="`echo "${{ github.ref }}" | grep -o "[^/]*$"`"
@@ -17,8 +17,9 @@ jobs:
           mv gradle.properties.tmp gradle.properties
       - name: Build
         run: ./gradlew build
-      - name: Publish
+      - name: Publish to InmoNexus
         continue-on-error: true
-        run: ./gradlew publishAllPublicationsToGiteaRepository
+        run: ./gradlew publishAllPublicationsToInmoNexusRepository
         env:
-          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          INMONEXUS_USER: ${{ secrets.INMONEXUS_USER }}
+          INMONEXUS_PASSWORD: ${{ secrets.INMONEXUS_PASSWORD }}

@@ -1,5 +1,6 @@
 package dev.inmo.micro_utils.fsm.common
 
+import dev.inmo.kslog.common.e
 import dev.inmo.micro_utils.common.*
 import dev.inmo.micro_utils.fsm.common.utils.StateHandlingErrorHandler
 import dev.inmo.micro_utils.fsm.common.utils.defaultStateHandlingErrorHandler
@@ -44,7 +45,13 @@ open class DefaultUpdatableStatesMachine<T : State>(
             val job = previousState.mapOnPresented {
                 statesJobs.remove(it)
             } ?.takeIf { it.isActive } ?: scope.launch {
-                performUpdate(actualState)
+                runCatching {
+                    performUpdate(actualState)
+                }.onFailure {
+                    logger.e(it) {
+                        "Unable to perform update of state up to $actualState"
+                    }
+                }.getOrThrow()
             }.also { job ->
                 job.invokeOnCompletion { _ ->
                     scope.launch {

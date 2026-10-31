@@ -1,0 +1,8 @@
+kotlin {
+    linuxArm64()
+
+    sourceSets {
+        nativeMain.dependsOn commonMain
+        linuxArm64Main.dependsOn nativeMain
+    }
+}

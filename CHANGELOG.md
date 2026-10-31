@@ -1,5 +1,1086 @@
 # Changelog
 
+## 0.32.1
+
+* `Coroutines`:
+  * `SmartSemaphore`:
+    * Optimize permit checks, acquisition, uncontended releases and already satisfied waits to reduce allocations while preserving cancellation handling.
+  * `SmartMutex`:
+    * Optimize waits for unlocked mutexes and uncontended unlocks to reduce allocations while preserving cancellation handling.
+  * `SmartRWLocker`:
+    * Remove redundant coroutine contexts during read releases, write unlocks and cancellation cleanup.
+  * `SmartKeyRWLocker`:
+    * Reduce allocations during keyed operations by inlining the locker allocation helper and using a hash map without insertion order tracking.
+
+## 0.32.0
+
+* `Versions`:
+  * `crypto-js`: `4.1.1` -> `4.2.0`
+  * `AndroidX Fragment`: `1.9.0` -> `1.9.1`
+  * `AndroidX Core KTX`: `1.19.0` -> `1.19.1`
+  * `NMCP`: `1.6.1` -> `1.6.2`
+  * `Gradle Versions`: `0.61.0` -> `0.65.0`
+  * `KotlinPoet`: `2.3.0` -> `2.4.0`
+  * `Okio`: `3.18.1` -> `3.18.2`
+  * `Ktor`: `3.5.2` -> `3.6.0`
+  * `Exposed`: `1.5.0` -> `1.5.1`
+  * `Compose Material3`: `1.11.0-alpha07` -> `1.9.0`
+  * `KSLog`: `1.7.0` -> `2.1.0`
+  * `Kotlin`: `2.4.10` -> `2.4.21`
+  * `Compose`: `1.12.0` -> `1.12.1`
+  * `Gradle wrapper`: `9.3.1` -> `9.7.0`
+* `Coroutines`:
+  * `SmartSemaphore`:
+    * Rewrite docs for `freePermits` property.
+    * Add constructor arguments requirements to fail on invalid `permits` and `acquiredPermits` values.
+  * `SmartRWLocker`:
+    * Add constructor arguments requirements to fail on invalid `readPermits` values.
+  * `SmartKeyRWLocker`:
+      * Add constructor arguments requirements to fail on invalid `globalLockerReadPermits` and `perKeyReadPermits` values.
+
+
+## 0.31.1
+
+* `Coroutines`:
+  * `SmartRWLocker`:
+    * Fix of `unlockWrite`, `lockWrite` and `releaseRead` calls to pass correct number of permits
+  * `SmartMutex`:
+    * Fix `unlock` call
+  * `SmartSemaphore`:
+    * Fix same issues to avoid cancellation exceptions handling errors and several other problems
+
+## 0.31.0
+
+* `Versions`:
+  * `Kotlin`: `2.3.21` -> `2.4.10`
+  * `SQLite`: `3.53.2.1` -> `3.53.4.0`
+  * `KSP`: `2.3.9` -> `2.3.11`
+  * `Exposed`: `1.3.0` -> `1.5.0`
+  * `NMCP`: `1.5.0` -> `1.6.1`
+  * `AndroidX AppCompat`: `1.7.1` -> `1.8.0`
+  * `AndroidX Fragment`: `1.8.9` -> `1.9.0`
+
+## 0.30.1
+
+* `Versions`:
+  * `KSLog`: `1.6.1` -> `1.7.0`
+  * `SQLite`: `3.53.2.0` -> `3.53.2.1`
+  * `Ktor`: `3.5.1` -> `3.5.2`
+  * `Okio`: `3.17.0` -> `3.18.1`
+
+## 0.30.0
+
+* `Versions`:
+  * `Compose`: `1.11.0` -> `1.11.1`
+  * `KSP`: `2.3.8` -> `2.3.9`
+  * `Ktor`: `3.5.0` -> `3.5.1`
+  * `Koin`: `4.2.1` -> `4.2.2`
+  * `SQLite`: `3.53.1.0` -> `3.53.2.0`
+  * `AndroidX Core KTX`: `1.18.0` -> `1.19.0`
+
+## 0.29.4
+
+* `Meta`:
+  * Inited
+
+## 0.29.3
+
+* `Versions`:
+  * `Kotlin`: `2.3.20` -> `2.3.21`
+  * `KSP`: `2.3.6` -> `2.3.8`
+  * `Coroutines`: `1.10.2` -> `1.11.0`
+  * `SQLite`: `3.53.0.0` -> `3.53.1.0`
+  * `Ktor`: `3.4.2` -> `3.5.0`
+  * `Compose`: `1.10.3` -> `1.11.0`
+  * `Compose Material3`: `1.10.0-alpha05` -> `1.11.0-alpha07`
+  * `Exposed`: `1.2.0` -> `1.3.0`
+  * `Gradle Versions`: `0.53.0` -> `0.54.0`
+  * `NMCP`: `1.4.4` -> `1.5.0`
+
+## 0.29.2
+
+* `Versions`:
+  * `Kotlin`: `2.3.10` -> `2.3.20`
+  * `Serialization`: `1.10.0` -> `1.11.0`
+  * `Compose`: `1.10.2` -> `1.10.3`
+  * `Exposed`: `1.1.1` -> `1.2.0`
+  * `Dokka`: `2.1.0` -> `2.2.0`
+  * `KSLog`: `1.6.0` -> `1.6.1`
+  * `Koin`: `4.1.1` -> `4.2.1`
+  * `SQLite`: `3.51.2.0` -> `3.53.0.0`
+  * `Ktor`: `3.4.1` -> `3.4.2`
+  * `Okio`: `3.16.4` -> `3.17.0`
+  * `KotlinPoet`: `2.2.0` -> `2.3.0`
+  * `AndroidX Core KTX`: `1.17.0` -> `1.18.0`
+
+## 0.29.1
+
+* `Versions`:
+  * `Compose`: `1.10.1` -> `1.10.2`
+  * `Exposed`: `1.0.0` -> `1.1.1`
+  * `Ktor`: `3.4.0` -> `3.4.1`
+  * `NMCP`: `1.2.1` -> `1.4.4`
+
+## 0.29.0
+
+* `Versions`:
+  * `Kotlin`: `2.3.0` -> `2.3.10`
+  * `KSLog`: `1.5.2` -> `1.6.0`
+  * `KSP`: `2.3.4` -> `2.3.6`
+  * `Compose`: `1.10.0` -> `1.10.1`
+  * `SQLite`: `3.50.1.0` -> `3.51.2.0`
+* `Coroutines`:
+  * `runCatchingLogging` updated to rethrow `CancellationException` and log other exceptions
+
+## 0.28.0
+
+**THIS VERSION CONTAINS BREAKING CHANGES DUE TO EXPOSED 1.0.0 UPDATE**
+
+* `Versions`:
+  * `Kotlin`: `2.2.21` -> `2.3.0`
+  * `Serialization`: `1.9.0` -> `1.10.0`
+  * `Exposed`: `0.61.0` -> `1.0.0` (**MAJOR VERSION UPDATE**)
+  * `Ktor`: `3.3.3` -> `3.4.0`
+  * `NMCP`: `1.2.0` -> `1.2.1`
+* `Repos`:
+  * `Exposed`:
+    * All Exposed-based repositories have been updated to support Exposed 1.0.0 API changes
+    * Import paths have been migrated to new `org.jetbrains.exposed.v1.*` package structure
+* `Pagination`:
+  * `Exposed`:
+    * Updated to use new Exposed 1.0.0 import paths
+
+## 0.27.0
+
+* `Versions`:
+  * `Ktor`: `3.3.2` -> `3.3.3`
+  * `Okio`: `3.16.2` -> `3.16.4`
+  * `KSP`: `2.3.2` -> `2.3.4`
+  * `Compose`: `1.9.3` -> `1.10.0`
+  * `Compose Material3`: `1.9.0` -> `1.10.0-alpha05`
+
+## 0.26.8
+
+* `Versions`:
+  * `KSLog`: `1.5.1` -> `1.5.2`
+  * `Compose`: `1.9.2` -> `1.9.3`
+  * `Ktor`: `3.3.1` -> `3.3.2`
+* `Coroutines`:
+  * Add simple suspend function `suspendPoint` which will ensure that current coroutine is active to let it be
+  destroyable even in case it have non-suspendable nature
+
+## 0.26.7
+
+* `Versions`:
+  * `Kotlin`: `2.2.20` -> `2.2.21`
+  * `Compose`: `1.8.2` -> `1.9.2`
+  * `KSP`: `2.2.20-2.0.3` -> `2.3.1`
+* `Coroutines`:
+  * Fix `SmartSemaphore.waitRelease` to wait for the exact number of permits
+  * Improve `SmartKeyRWLocker` tests
+* `KSP`:
+  * `Sealed`/`ClassCasts`/`Variations`:
+    * Add workaround for `NoSuchElementException` to improve processors stability on new `KSP`
+* `Koin`:
+  * `Generator`:
+    * Handle missing annotation values safely (`NoSuchElementException` workaround)
+* `Android`:
+  * `Pickers`:
+    * Add dependency `androidx.compose.material:material-icons-extended`
+
+## 0.26.6
+
+* `Versions`:
+    * `Ktor`: `3.3.0` -> `3.3.1`
+    * `Okio`: `3.16.0` -> `3.16.2`
+
+## 0.26.5
+
+* `Versions`:
+    * `Kotlin`: `2.2.10` -> `2.2.20`
+    * `KSLog`: `1.5.0` -> `1.5.1`
+    * `Ktor`: `3.2.3` -> `3.3.0`
+    * `KotlinX Browser`: `0.3` -> `0.5.0`
+    * `Koin`: `4.1.0` -> `4.1.1`
+
+## 0.26.4
+
+* `Common`:
+  * Add expect/actual `MPPFilePathSeparator`
+  * Fix `FileName` realization to take care about system file path separator
+
+## 0.26.3
+
+* `Versions`:
+  * `Kotlin`: `2.2.0` -> `2.2.10`
+  * `KSP`: `2.2.0-2.0.2` -> `2.2.10-2.0.2`
+  * `Android CoreKTX`: `1.16.0` -> `1.17.0`
+  * `Android Fragment`: `1.8.8` -> `1.8.9`
+
+## 0.26.2
+
+* `Versions`:
+  * `Ktor`: `3.2.2` -> `3.2.3`
+  * `Okio`: `3.15.0` -> `3.16.0`
+* `Coroutines`:
+  * Rename `SpecialMutableStateFlow` to `MutableRedeliverStateFlow`
+
+## 0.26.1
+
+* `Versions`:
+  * `Compose`: `1.8.1` -> `1.8.2`
+  * `Ktor`: `3.2.1` -> `3.2.2`
+* `Coroutines`:
+  * Add opportunity to pass logger in subscribe async
+
+## 0.26.0
+
+**WARNING!!! SINCE THIS VERSION IF YOU WANT TO USE SOME OF KSP MODULES, SET `ksp.useKSP2=false` IN YOUR `gradle.properties`** (see [gh issue 2491](https://github.com/google/ksp/issues/2491))
+
+* `Versions`:
+  * `Kotlin`: `2.1.21` -> `2.2.0`
+  * `Serialization`: `1.8.1` -> `1.9.0`
+  * `KSLog`: `1.4.2` -> `1.5.0`
+  * `Ktor`: `3.1.3` -> `3.2.1`
+  * `Koin`: `4.0.4` -> `4.1.0`
+  * `Okio`: `3.12.0` -> `3.15.0`
+  * `KSP`: `2.1.20-1.0.31` -> `2.2.0-2.0.2`
+  * `kotlin-poet`: `1.18.1` -> `2.2.0`
+
+## 0.25.8
+
+* `Pagination`:
+  * `Compose`:
+    * New function `rememberInfinityPagedComponentContext` to create `InfinityPagedComponentContext`
+    * New variants of `InfinityPagedComponent` component
+
+## 0.25.7
+
+* `Versions`:
+  * `Compose`: `1.8.0` -> `1.8.1`
+  * `Xerial SQLite`: `3.49.1.0` -> `3.50.1.0`
+  * `Okio`: `3.11.0` -> `3.12.0`
+  * `Android AppCompat`: `1.7.0` -> `1.7.1`
+  * `Android Fragment`: `1.8.6` -> `1.8.8`
+
+## 0.25.6
+
+* `Versions`:
+  * `Kotlin`: `2.1.20` -> `2.1.21`
+  * `KSLog`: `1.4.1` -> `1.4.2`
+  * `Compose`: `1.7.3` -> `1.8.0`
+  * `Okio`: `3.10.2` -> `3.11.0`
+
+## 0.25.5
+
+* `Versions`:
+  * `Exposed`: `0.60.0` -> `0.61.0`
+  * `Serialization`: `1.8.0` -> `1.8.1`
+  * `Coroutines`: `1.10.1` -> `1.10.2`
+* `Common`:
+  * Small performance optimization of `MutableMap.applyDiff`
+
+## 0.25.4
+
+* `Versions`:
+  * `Ktor`: `3.1.1` -> `3.1.2`
+  * `Koin`: `4.0.2` -> `4.0.4`
+* `Coroutines`:
+  * Add `SmartKeyRWLocker.withWriteLocks` extension with vararg keys
+* `Transactions`:
+  * Fix order of rollback actions calling
+
+## 0.25.3
+
+* `Coroutines`:
+  * Add extensions `SmartRWLocker.alsoWithUnlockingOnSuccessAsync` and `SmartRWLocker.alsoWithUnlockingOnSuccess`
+  * Fix of `SmartRWLocker.lockWrite` issue when it could lock write mutex without unlocking
+  * Add tool `SmartKeyRWLocker`
+  * `SmartSemaphore` got new property `maxPermits`
+  * New extension `SmartSemaphore.waitReleaseAll()`
+* `Transactions`:
+  * Add `TransactionsDSL`
+
+## 0.25.2
+
+* `Versions`:
+  * `Exposed`: `0.59.0` -> `0.60.0`
+* `Repo`:
+  * `Cache`:
+    * Add extensions `alsoInvalidate`, `alsoInvalidateAsync`, `alsoInvalidateSync` and `alsoInvalidateSyncLogging`
+* `Koin`:
+  * Add extensions `singleSuspend` and `factorySuspend` for defining of dependencies with suspendable blocks
+
+## 0.25.1
+
+* `Coroutines`:
+  * Add `SortedMapLikeBinaryTreeNode`
+* `Pagination`:
+  * `Compose`:
+    * One more rework of `InfinityPagedComponent` and `PagedComponent`
+
+## 0.25.0
+
+* `Repos`:
+  * `Cache`:
+    * All cache repos now do not have `open` vals - to avoid collisions in runtime
+
+## 0.24.9
+
+* `Pagination`:
+  * Make alternative constructor parameter `size` of `PaginationResult` with default value
+  * Add `Pagination.previousPage` extension
+  * `Compose`:
+    * Rework of `InfinityPagedComponentContext`
+    * Rework of `PagedComponent`
+
+## 0.24.8
+
+* `Versions`:
+  * `Ktor`: `3.1.0` -> `3.1.1`
+  * `KSP`: `2.1.10-1.0.30` -> `2.1.10-1.0.31`
+* `Common`:
+  * `Compose`:
+    * Add component `LoadableComponent`
+* `Coroutines`:
+  * Add `SortedBinaryTreeNode`
+* `Pagination`:
+  * `Compose`:
+    * Add components `PagedComponent` and `InfinityPagedComponent`
+
+## 0.24.7
+
+* `Versions`:
+  * `SQLite`: `3.49.0.0` -> `3.49.1.0`
+* `Common`:
+  * Add `retryOnFailure` utility for simple retries code writing
+* `Repos`:
+  * `Cache`:
+    * Fix of `FullKeyValueCacheRepo` fields usage
+  * `Exposed`:
+    * `AbstractExposedKeyValuesRepo` will produce `onValueRemoved` event on `set` if some data has been removed
+
+## 0.24.6
+
+* `Versions`:
+  * `KSLog`: `1.4.0` -> `1.4.1`
+  * `Exposed`: `0.58.0` -> `0.59.0`
+  * `SQLite`: `3.48.0.0` -> `3.49.0.0`
+  * `AndroidFragment`: `1.8.5` -> `1.8.6`
+* `Coroutines`:
+  * Safely functions has been replaced with `Logging` variations (resolve of [#541](https://github.com/InsanusMokrassar/MicroUtils/issues/541))
+* `KSP`:
+  * `Variations`:
+    * Module has been created
+
+## 0.24.5
+
+* `Versions`:
+  * `Kotlin`: `2.1.0` -> `2.1.10`
+  * `SQLite`: `3.47.2.0` -> `3.48.0.0`
+  * `Koin`: `4.0.1` -> `4.0.2`
+  * `Android RecyclerView`: `1.3.2` -> `1.4.0`
+
+## 0.24.4
+
+* `Repos`:
+  * `Exposed`:
+    * Improve `CommonExposedRepo.selectByIds`
+* `FSM`:
+  * Fixes and improvements
+
+## 0.24.3
+
+* `Ksp`:
+  * `Sealed`:
+    * Fixes in processing of `GenerateSealedTypesWorkaround` annotations
+
+## 0.24.2
+
+* `Versions`:
+  * `Exposed`: `0.57.0` -> `0.58.0`
+* `Ksp`:
+  * `Sealed`:
+    * Add annotation `GenerateSealedTypesWorkaround` which allow to generate `subtypes` lists
+
+## 0.24.1
+
+* `Versions`:
+  * `Serialization`: `1.7.3` -> `1.8.0`
+  * `SQLite`: `3.47.1.0` -> `3.47.2.0`
+  * `Koin`: `4.0.0` -> `3.10.2`
+  * `OKio`: `3.9.1` -> `3.10.2`
+
+## 0.24.0
+
+* `Versions`:
+  * `Coroutines`: `1.9.0` -> `1.10.1`
+  * `KSLog`: `1.3.6` -> `1.4.0`
+  * `Compose`: `1.7.1` -> `1.7.3`
+  * `Ktor`: `3.0.2` -> `3.0.3`
+* `Common`:
+  * Rename `Progress` to more common `Percentage`. `Progress` now is typealias
+  * Fix of `Progress.compareTo` extension
+
+## 0.23.2
+
+* `Versions`:
+  * `Kotlin`: `2.0.21` -> `2.1.0`
+  * `Exposed`: `0.56.0` -> `0.57.0`
+  * `Xerial SQLite`: `3.47.0.0` -> `3.47.1.0`
+  * `Ktor`: `3.0.1` -> `3.0.2`
+* `Coroutines`:
+  * Small refactor in `AccumulatorFlow` to use `runCatching` instead of `runCatchingSafely`
+
+## 0.23.1
+
+* `Versions`:
+  * `Compose`: `1.7.0` -> `1.7.1`
+  * `Exposed`: `0.55.0` -> `0.56.0`
+  * `Xerial SQLite`: `3.46.1.3` -> `3.47.0.0`
+  * `Android CoreKTX`: `1.13.1` -> `1.15.0`
+  * `Android Fragment`: `1.8.4` -> `1.8.5`
+* `Coroutines`:
+  * `Compose`:
+    * Add `StyleSheetsAggregator`
+
+## 0.23.0
+
+**THIS UPDATE MAY CONTAINS SOME BREAKING CHANGES (INCLUDING BREAKING CHANGES IN BYTECODE LAYER) RELATED TO UPDATE OF
+KTOR DEPENDENCY**
+
+**THIS UPDATE CONTAINS CHANGES ACCORDING TO MIGRATION [GUIDE FROM KTOR](https://ktor.io/docs/migrating-3.html)**
+
+* `Versions`:
+  * `Ktor`: `2.3.12` -> `3.0.1`
+* `Ktor`:
+  * `Common`:
+    * Extension `Input.downloadToTempFile` has changed its receiver to `Source`. Its API can be broken
+  * `Client`:
+    * Extension `HttpClient.tempUpload` has changed type of `onUpload` argument from `OnUploadCallback` to `ProgressListener`
+    * All extensions `HttpClient.uniUpload` have changed type of `onUpload` argument from `OnUploadCallback` to `ProgressListener`
+  * `Server`:
+    * Remove redundant `ApplicationCall.respond` extension due to its presence in the ktor library
+
+## 0.22.9
+
+* `Repos`:
+  * `Cache`:
+    * Add direct caching repos
+
+## 0.22.8
+
+* `Common`:
+  * Add `List.breakAsPairs` extension
+  * Add `Sequence.padWith`/`Sequence.padStart`/`Sequence.padEnd` and `List.padWith`/`List.padStart`/`List.padEnd` extensions
+
+## 0.22.7
+
+* `Versions`:
+  * `Kotlin`: `2.0.20` -> `2.0.21`
+  * `Compose`: `1.7.0-rc01` -> `1.7.0`
+* `KSP`:
+  * `Sealed`:
+    * Change package of `GenerateSealedWorkaround`. Migration: replace `dev.inmo.microutils.kps.sealed.GenerateSealedWorkaround` -> `dev.inmo.micro_utils.ksp.sealed.GenerateSealedWorkaround`
+
+## 0.22.6
+
+* `KSP`:
+  * `Generator`:
+    * Add extension `KSClassDeclaration.buildSubFileName`
+    * Add extension `KSClassDeclaration.companion`
+    * Add extension `KSClassDeclaration.resolveSubclasses`
+  * `Sealed`:
+    * Improvements
+
+## 0.22.5
+
+* `Versions`:
+  * `Compose`: `1.7.0-beta02` -> `1.7.0-rc01`
+  * `SQLite`: `3.46.1.2` -> `3.46.1.3`
+  * `AndroidXFragment`: `1.8.3` -> `1.8.4`
+* `Common`:
+  * Add extension `withReplacedAt`/`withReplaced` ([#489](https://github.com/InsanusMokrassar/MicroUtils/issues/489))
+* `Coroutines`:
+  * Add extension `Flow.debouncedBy`
+* `Ktor`:
+  * `Server`:
+    * Add `KtorApplicationConfigurator.Routing.Static` as solution for [#488](https://github.com/InsanusMokrassar/MicroUtils/issues/488)
+
+## 0.22.4
+
+* `Versions`:
+  * `Exposed`: `0.54.0` -> `0.55.0`
+  * `SQLite`: `3.46.1.0` -> `3.46.1.2`
+
+## 0.22.3
+
+* `Versions`:
+  * `Serialization`: `1.7.2` -> `1.7.3`
+  * `Coroutines`: `1.8.1` -> `1.9.0`
+  * `Compose`: `1.7.0-alpha03` -> `1.7.0-beta02`
+  * `Koin`: `3.5.6` -> `4.0.0`
+  * `Okio`: `3.9.0` -> `3.9.1`
+  * `AndroidFragment`: `1.8.2` -> `1.8.3`
+  * `androidx.compose.material3:material3` has been replaced with `org.jetbrains.compose.material3:material3`
+* `Common`:
+  * `JS`:
+    * Add several useful extensions
+  * `Compose`:
+    * `JS`:
+      * Add several useful extensions
+
+## 0.22.2
+
+* `Versions`:
+    * `Exposed`: `0.53.0` -> `0.54.0`
+    * `SQLite`: `3.46.0.1` -> `3.46.1.0`
+
+## 0.22.1
+
+* `Versions`:
+    * `Kotlin`: `2.0.10` -> `2.0.20`
+    * `Serialization`: `1.7.1` -> `1.7.2`
+    * `KSLog`: `1.3.5` -> `1.3.6`
+    * `Compose`: `1.7.0-alpha02` -> `1.7.0-alpha03`
+    * `Ktor`: `2.3.11` -> `2.3.12`
+
+## 0.22.0
+
+**THIS UPDATE CONTAINS BREAKING CHANGES ACCORDING TO UPDATE UP TO KOTLIN 2.0**
+
+* `Versions`:
+    * `Kotlin`: `1.9.23` -> `2.0.10`
+    * `Serialization`: `1.6.3` -> `1.7.1`
+    * `KSLog`: `1.3.4` -> `1.3.5`
+    * `Compose`: `1.6.2` -> `1.7.0-alpha02`
+    * `Exposed`: `0.50.1` -> `0.53.0`
+    * `AndroidAppCompat`: `1.6.1` -> `1.7.0`
+    * `AndroidFragment`: `1.7.1` -> `1.8.2`
+
+## 0.21.6
+
+* `KSP`:
+    * `Sealed`:
+        * Fixes in generation
+
+## 0.21.5
+
+* `KSP`:
+    * Add utility functions `KSClassDeclaration.findSubClasses`
+    * `Sealed`:
+        * Improve generation
+
+## 0.21.4
+
+* `Common`:
+    * `Compose`:
+        * Add support of mingw, linux, arm64 targets
+* `Coroutines`:
+    * `Compose`:
+        * Add support of mingw, linux, arm64 targets
+* `Koin`:
+    * Add support of mingw, linux, arm64 targets
+* `KSP`:
+    * `ClassCasts`:
+        * Add support of mingw, linux, arm64 targets
+    * `Sealed`:
+        * Add support of mingw, linux, arm64 targets
+
+## 0.21.3
+
+* `Colors`:
+    * Added as a module. It should be used by default in case you wish all the API currently realized for `HEXAColor`
+* `Coroutines`:
+    * Fix of [#374](https://github.com/InsanusMokrassar/MicroUtils/issues/374):
+        * Add vararg variants of `awaitFirst`
+        * Add `joinFirst`
+
+## 0.21.2
+
+* `KSP`:
+    * `ClassCasts`:
+        * Module has been initialized
+
+## 0.21.1
+
+* `KSP`:
+    * Module has been initialized
+    * `Generator`:
+        * Module has been initialized
+    * `Sealed`:
+        * Module has been initialized
+
+## 0.21.0
+
+**THIS UPDATE CONTAINS BREAKING CHANGES IN `safely*`-ORIENTED FUNCTIONS**
+
+* `Coroutines`:
+    * **All `safely` functions lost their `supervisorScope` in favor to wrapping `runCatching`**
+        * `runCatchingSafely` is the main handling function of all `safely` functions
+        * `launchSafely*` and `asyncSafely*` blocks lost `CoroutineScope` as their receiver
+
+## 0.20.52
+
+* `Coroutines`:
+    * Small rework of weak jobs: add `WeakScope` factory, rename old weal extensions and add kdocs
+
+## 0.20.51
+
+* `Versions`:
+    * `Android Fragment`: `1.7.0` -> `1.7.1`
+* `Pagination`:
+    * Add `Pagination.nextPageIfTrue` and `Pagination.thisPageIftrue` extensions to get the page according to condition
+    pass status
+    * Add `PaginationResult.nextPageIfNotEmptyOrLastPage` and `PaginationResult.thisPageIfNotEmptyOrLastPage`
+    * Change all `doForAll` and `getAll` extensions fo pagination to work basing on `nextPageIfNotEmptyOrLastPage` and
+    `thisPageIfNotEmptyOrLastPage`
+
+## 0.20.50
+
+* `Versions`:
+    * `Coroutines`: `1.8.0` -> `1.8.1`
+    * `KSLog`: `1.3.3` -> `1.3.4`
+    * `Exposed`: `0.50.0` -> `0.50.1`
+    * `Ktor`: `2.3.10` -> `2.3.11`
+* A lot of inline functions became common functions due to inline with only noinline callbacks in arguments leads to
+low performance
+* `Coroutines`:
+    * `SmartMutex`, `SmartSemaphore` and `SmartRWLocker` as their user changed their state flow to `SpecialMutableStateFlow`
+
+## 0.20.49
+
+* `Repos`:
+    * `Common`:
+        * All `Repo`s get `diff` extensions
+        * `KeyValueRepo` and `KeyValuesRepo` get `applyDiff` extension
+        * Add new extensions `on*` flows for crud repos
+
+## 0.20.48
+
+* `Versions`:
+    * `Android Core KTX`: `1.13.0` -> `1.13.1`
+    * `AndroidX Fragment`: `1.6.2` -> `1.7.0`
+
+## 0.20.47
+
+* `Versions`:
+    * `Exposed`: `0.49.0` -> `0.50.0`
+
+## 0.20.46
+
+* `Common`:
+    * Now this repo depends on `klock`
+    * Add new object-serializer `DateTimeSerializer` for `klock` serializer
+
+## 0.20.45
+
+* `Versions`:
+    * `Android Core KTX`: `1.12.0` -> `1.13.0`
+
+## 0.20.44
+
+* `Versions`:
+    * `Compose`: `1.6.1` -> `1.6.2`
+    * `Koin`: `3.5.4` -> `3.5.6`
+
+## 0.20.43
+
+* `Versions`:
+    * `Ktor`: `2.3.9` -> `2.3.10`
+    * `Koin`: `3.5.3` -> `3.5.4`
+
+## 0.20.42
+
+* `Repos`:
+    * `Generator`:
+        * Improvements
+
+## 0.20.41
+
+* `Repos`:
+    * `Exposed`:
+        * `AbstractExposedKeyValueRepo`, `ExposedKeyValueRepo`, `AbstractExposedKeyValuesRepo`, `ExposedKeyValuesRepo` got opportunity to setup some part of their flows
+
+## 0.20.40
+
+* `Versions`:
+    * `KSLog`: `1.3.2` -> `1.3.3`
+    * `Exposed`: `0.48.0` -> `0.49.0`
+    * `UUID`: `0.8.2` -> `0.8.4`
+
+## 0.20.39
+
+* `Versions`:
+    * `Kotlin`: `1.9.22` -> `1.9.23`
+    * `Korlibs`: `5.3.2` -> `5.4.0`
+    * `Okio`: `3.8.0` -> `3.9.0`
+    * `Compose`: `1.6.0` -> `1.6.1`
+    * `ComposeMaterial3`: `1.2.0` -> `1.2.1`
+
+## 0.20.38
+
+* `Versions`:
+    * `Ktor`: `2.3.8` -> `2.3.9`
+
+## 0.20.37
+
+* `Versions`:
+    * `Compose`: `1.5.12` -> `1.6.0`
+    * `Exposed`: `0.47.0` -> `0.48.0`
+
+## 0.20.36
+
+* `Versions`:
+    * `Serialization`: `1.6.2` -> `1.6.3`
+    * `Korlibs`: `5.3.1` -> `5.3.2`
+* `Repos`:
+    * `Cache`:
+        * Improve work and functionality of `actualizeAll` and subsequent functions
+        * All internal repos `invalidate`/`actualizeAll` now use common `actualizeAll` functions
+
+## 0.20.35
+
+* `Versions`:
+    * `Coroutines`: `1.7.3` -> `1.8.0`
+    * `Material3`: `1.1.2` -> `1.2.0`
+
+## 0.20.34
+
+* `Repos`:
+    * `Common`:
+        * Improve default `set` realization of `KeyValuesRepo`
+
+## 0.20.33
+
+* `Colors`
+    * `Common`:
+        * Add opportunity to use `HEXAColor` with `ahex` colors
+
+## 0.20.32
+
+* `Versions`:
+    * `Okio`: `3.7.0` -> `3.8.0`
+* `Resources`:
+    * Make `StringResource` serializable
+    * Add several variants of builder usages
+
+## 0.20.31
+
+* `Versions`:
+    * `Ktor`: `2.3.7` -> `2.3.8`
+
+## 0.20.30
+
+* `Versions`:
+    * `Exposed`: `0.46.0` -> `0.47.0`
+
+## 0.20.29
+
+* `Versions`:
+    * `Kotlin`: `1.9.21` -> `1.9.22`
+    * `Compose`: `1.5.11` -> `1.5.12`
+    * `Korlibs`: `5.3.0` -> `5.3.1`
+
+## 0.20.28
+
+* `Versions`:
+    * `Kotlin`: `1.9.22` -> `1.9.21` (downgrade)
+    * `Compose`: `1.6.0-dev13691` -> `1.5.11` (downgrade)
+
+## 0.20.27
+
+* `Versions`:
+    * `Kotlin`: `1.9.21` -> `1.9.22`
+    * `Compose`: `1.5.11` -> `1.6.0-dev13691`
+
+## 0.20.26
+
+* `Versions`:
+    * `Exposed`: `0.45.0` -> `0.46.0`. **This update brinds new api deprecations in exposed**
+* `Resources`:
+    * Add opportunity to get default translation by passing `null` as `IetfLang` argument
+    * Add several useful extensions to get translations in `JS` target
+
+## 0.20.25
+
+* `Colors`:
+    * `Common`:
+        * Module inited
+
+## 0.20.24
+
+**Since this version depdendencies of klock and krypto replaced with `com.soywiz.korge:korlibs-time` and `com.soywiz.korge:korlibs-crypto`**
+
+* `Versions`:
+    * `Klock` (since now `KorlibsTime`): `4.0.10` -> `5.3.0`
+    * `Krypto` (since now `KorlibsCrypto`): `4.0.10` -> `5.3.0`
+* `Serialization`:
+    * `Mapper`:
+        * `Mapper` pass decoder into callback of deserialization strategy
+        * `Mapper` pass encoder into callback of serialization strategy
+
+## 0.20.23
+
+* `Versions`:
+    * `Koin`: `3.5.0` -> `3.5.3`
+    * `Okio`: `3.6.0` -> `3.7.0`
+* `LanguageCodes`:
+    * Fixes in intermediate language codes (like `Chinese.Hans`)
+    * Rename `IetfLanguageCode` to `IetfLang`
+        * Rename all subsequent functions (including serializer)
+    * New lazy properties `knownLanguageCodesMap`, `knownLanguageCodesMapByLowerCasedKeys` and several others
+
+## 0.20.22
+
+* `Common`:
+    * Add opportunity to create own `Diff` with base constructor
+
+## 0.20.21
+
+* `Resources`:
+    * Inited
+
+## 0.20.20
+
+* `Repos`:
+    * `Exposed`:
+        * Add opportunity for setup flows in `AbstractExposedCRUDRepo`
+
+## 0.20.19
+
+* `Versions`:
+    * `Ktor`: `2.3.6` -> `2.3.7`
+
+## 0.20.18
+
+* `Coroutines`:
+    * `SpecialMutableStateFlow` now extends `MutableStateFlow`
+    * `Compose`:
+        * Deprecate `FlowState` due to its complexity in fixes
+
+## 0.20.17
+
+* `Versions`:
+    * `Serialization`: `1.6.1` -> `1.6.2`
+
+## 0.20.16
+
+* `Versions`:
+    * `Exposed`: `0.44.1` -> `0.45.0`
+* `Coroutines`:
+    * Add `SpecialMutableStateFlow`
+    * `Compose`:
+        * Add `FlowState`
+
+## 0.20.15
+
+* `Versions`:
+    * `Kotlin`: `1.9.20` -> `1.9.21`
+    * `KSLog`: `1.3.0` -> `1.3.1`
+    * `Compose`: `1.5.10` -> `1.5.11`
+
+## 0.20.14
+
+* `Versions`:
+    * `Serialization`: `1.6.0` -> `1.6.1`
+    * `KSLog`: `1.2.4` -> `1.3.0`
+
+## 0.20.13
+
+* `Versions`:
+    * `Ktor`: `2.3.5` -> `2.3.6`
+    * `UUID`: `0.8.1` -> `0.8.2`
+
+## 0.20.12
+
+**It is experimental migration onto new gradle version. Be careful in use of this version**
+
+**This update have JDK 17 in `compatibility` and `target` versions**
+
+## 0.20.11
+
+* `Versions`:
+    * `Kotlin`: `1.9.20-RC2` -> `1.9.20`
+    * `Exposed`: `0.44.0` -> `0.44.1`
+    * `Compose`: `1.5.10-rc02` -> `1.5.10`
+* `Coroutines`:
+    * `SmartRWLocker` now will wait first unlock of write mutex for acquiring read
+
+## 0.20.10
+
+* `Versions`:
+    * `Kotlin`: `1.9.20-RC` -> `1.9.20-RC1`
+    * `KSLog`: `1.2.1` -> `1.2.2`
+    * `Compose`: `1.5.10-rc01` -> `1.5.10-rc02`
+    * `RecyclerView`: `1.3.1` -> `1.3.2`
+
+## 0.20.9
+
+* Most of common modules now supports `linuxArm64` target
+
+## 0.20.8
+
+**THIS VERSION CONTAINS UPDATES OF DEPENDENCIES UP TO RC VERSIONS. USE WITH CAUTION**
+
+* `Versions`:
+    * `Kotlin`: `1.9.20-Beta2` -> `1.9.20-RC`
+    * `Compose`: `1.5.10-beta02` -> `1.5.10-rc01`
+
+## 0.20.7
+
+**THIS VERSION CONTAINS UPDATES OF DEPENDENCIES UP TO BETA VERSIONS. USE WITH CAUTION**
+
+* `Versions`:
+    * `Kotlin`: `1.9.10` -> `1.9.20-Beta2`
+    * `Compose`: `1.5.1` -> `1.5.10-beta02`
+    * `Exposed`: `0.43.0` -> `0.44.0`
+    * `Ktor`: `2.3.4` -> `2.3.5`
+    * `Koin`: `3.4.3` -> `3.5.0`
+    * `Okio`: `3.5.0` -> `3.6.0`
+    * `Android Core`: `1.10.1` -> `1.12.0`
+    * `Android Compose Material`: `1.1.1` -> `1.1.2`
+
+## 0.20.6
+
+* `Repos`:
+    * `Exposed`
+        * Fixes in exposed key-values repos
+
+## 0.20.5
+
+* `Coroutines`:
+    * Fixes in `SmartRWLocker`
+
+## 0.20.4
+
+* `Versions`:
+    * `Kotlin`: `1.9.0` -> `1.9.10`
+    * `KSLog`: `1.2.0` -> `1.2.1`
+    * `Compose`: `1.5.0` -> `1.5.1`
+    * `UUID`: `0.8.0` -> `0.8.1`
+
+## 0.20.3
+
+* `Versions`:
+    * `Compose`: `1.4.3` -> `1.5.0`
+    * `Exposed`: `0.42.1` -> `0.43.0`
+    * `Ktor`: `2.3.3` -> `2.3.4`
+* `Repos`:
+    * `Cache`:
+        * Fixes in locks of caches
+
+## 0.20.2
+
+* All main repos uses `SmartRWLocker`
+* `Versions`:
+    * `Serialization`: `1.5.1` -> `1.6.0`
+    * `Exposed`: `0.42.0` -> `0.42.1`
+    * `Korlibs`: `4.0.9` -> `4.0.10`
+* `Androis SDK`: `33` -> `34`
+
+## 0.20.1
+
+* `SmallTextField`:
+    * Module is initialized
+* `Pickers`:
+    * Module is initialized
+* `Coroutines`:
+    * Add `SmartSemaphore`
+    * Add `SmartRWLocker`
+
+## 0.20.0
+
+* `Versions`:
+    * `Kotlin`: `1.8.22` -> `1.9.0`
+    * `KSLog`: `1.1.1` -> `1.2.0`
+    * `Exposed`: `0.41.1` -> `0.42.0`
+    * `UUID`: `0.7.1` -> `0.8.0`
+    * `Korlibs`: `4.0.3` -> `4.0.9`
+    * `Ktor`: `2.3.2` -> `2.3.3`
+    * `Okio`: `3.4.0` -> `3.5.0`
+
+## 0.19.9
+
+* `Versions`:
+    * `Koin`: `3.4.2` -> `3.4.3`
+* `Startup`:
+    * Now it is possible to start application in synchronous way
+
+## 0.19.8
+
+* `Versions`:
+    * `Coroutines`: `1.7.2` -> `1.7.3`
+    * `Kotlin`: `1.8.20` -> `1.8.22`
+    * `Compose`: `1.4.1` -> `1.4.3`
+    * `Okio`: `3.3.0` -> `3.4.0`
+    * `RecyclerView`: `1.3.0` -> `1.3.1`
+    * `Fragment`: `1.6.0` -> `1.6.1`
+* `Repos`:
+    * Fixes In `KeyValueRepo.clear()` of almost all inheritors of `KeyValueRepo`
+    * `Cache`:
+        * All full caches got `skipStartInvalidate` property. By default, this property is `false` and fully caching repos
+          will be automatically invalidated on start of their work
+
+## 0.19.7
+
+* `Versions`:
+    * `Coroutines`: `1.7.1` -> `1.7.2`
+
+## 0.19.6
+
+* `Versions`:
+    * `Coroutines`: `1.6.4` -> `1.7.1`
+    * `Ktor`: `2.3.1` -> `2.3.2`
+    * `Compose`: `1.4.0` -> `1.4.1`
+
+## 0.19.5
+
+* `Repos`:
+    * `Generator`:
+        * Fixes in new type generation
+
+## 0.19.4
+
+* `Versions`:
+    * `Koin`: `3.4.1` -> `3.4.2`
+    * `Android Fragments`: `1.5.7` -> `1.6.0`
+* `Koin`
+    * `Generator`
+        * Fixes in new generic generator part
+
+## 0.19.3
+
+* `Koin`
+    * `Generator`
+        * New getter methods now available with opportunity to use parameters
+        * Old notation `*Single` and `*Factory` is deprecated since this release. With old
+          will be generated new `single*` and `factory*` notations for new generations
+        * Add opportunity to use generic-oriented koin definitions
+
+## 0.19.2
+
+* `Versions`:
+    * `Ktor`: `2.3.0` -> `2.3.1`
+    * `Koin`: `3.4.0` -> `3.4.1`
+    * `Uuid`: `0.7.0` -> `0.7.1`
+
+## 0.19.1
+
+* `Versions`:
+    * `Korlibs`: `4.0.1` -> `4.0.3`
+    * `Kotlin Poet`: `1.13.2` -> `1.14.0`
+
+## 0.19.0
+
+* `Versions`:
+    * `Korlibs`: `3.4.0` -> `4.0.1`
+
+## 0.18.4
+
+* `Koin`:
+    * New extension `lazyInject`
+
 ## 0.18.3
 
 * `Versions`:

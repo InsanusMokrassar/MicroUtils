@@ -1,34 +1,39 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
-        jvmMain {
+        commonMain {
+            dependencies {
+                api libs.klock
+            }
+        }
+        jvmAndAndroidMain {
             dependencies {
                 api project(":micro_utils.coroutines")
             }
         }
         androidMain {
             dependencies {
-                api project(":micro_utils.coroutines")
                 api libs.android.fragment
             }
-            dependsOn jvmMain
         }
 
-        linuxX64Main {
+        nativeMain {
             dependencies {
                 api libs.okio
             }
         }
-        mingwX64Main {
+
+        wasmJsMain {
             dependencies {
-                api libs.okio
+                api libs.kotlinx.browser
+                api libs.kt.coroutines
             }
         }
     }

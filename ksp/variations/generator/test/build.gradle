@@ -1,0 +1,30 @@
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
+    id "org.jetbrains.kotlin.plugin.serialization"
+    id "com.android.kotlin.multiplatform.library"
+    id "com.google.devtools.ksp"
+}
+
+ext.do_publish = false
+
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
+
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation libs.kt.stdlib
+                api project(":micro_utils.ksp.variations")
+            }
+        }
+    }
+}
+
+
+dependencies {
+    add("kspCommonMainMetadata", project(":micro_utils.ksp.variations.generator"))
+}
+
+ksp {
+}

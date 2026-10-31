@@ -12,6 +12,14 @@ import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
 import dev.inmo.micro_utils.repos.transforms.kvs.ReadKeyValuesFromKeyValueRepo
 
+/**
+ * Adapter that exposes a [ReadKeyValuesRepo] as a [ReadKeyValueRepo] mapping each key to a [List] of values.
+ * Each key's associated list of values is retrieved via [ReadKeyValuesRepo.getAll].
+ *
+ * @param Key The type of keys
+ * @param Value The type of individual values in the one-to-many repo
+ * @param original The underlying [ReadKeyValuesRepo] to delegate operations to
+ */
 open class ReadKeyValueFromKeyValuesRepo<Key, Value>(
     private val original: ReadKeyValuesRepo<Key, Value>
 ) : ReadKeyValueRepo<Key, List<Value>> {

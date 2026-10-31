@@ -27,6 +27,16 @@ inline fun Pagination.nextPage() =
     )
 
 /**
+ * This method DO NOT check [Pagination.page] of receiver. Returns pagination for previous page
+ */
+@Suppress("NOTHING_TO_INLINE")
+inline fun Pagination.previousPage() =
+    SimplePagination(
+        page - 1,
+        size
+    )
+
+/**
  * @param page Current page number
  * @param size Current page size
  */

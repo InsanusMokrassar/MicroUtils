@@ -3,7 +3,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.serialization"
 }
 
-apply from: "$mppJavaProjectPresetPath"
+apply from: "$mppJavaProject"
 
 kotlin {
     sourceSets {
@@ -12,6 +12,13 @@ kotlin {
                 api internalProject("micro_utils.coroutines")
                 api internalProject("micro_utils.repos.common")
                 api internalProject("micro_utils.pagination.exposed")
+            }
+        }
+        jvmTest {
+            dependencies {
+                api libs.sqlite
+                api libs.jb.exposed.jdbc
+                api project(":micro_utils.repos.common.tests")
             }
         }
     }

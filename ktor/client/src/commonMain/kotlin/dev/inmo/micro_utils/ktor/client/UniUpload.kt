@@ -4,12 +4,20 @@ import dev.inmo.micro_utils.common.FileName
 import dev.inmo.micro_utils.common.MPPFile
 import dev.inmo.micro_utils.ktor.common.LambdaInputProvider
 import io.ktor.client.HttpClient
+import io.ktor.client.content.*
 import io.ktor.http.Headers
-import io.ktor.utils.io.core.Input
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
 
+/**
+ * Information about a file to upload in a multipart request.
+ * This allows uploading from custom sources beyond regular files.
+ *
+ * @param fileName The name of the file
+ * @param mimeType The MIME type of the file
+ * @param inputAllocator A lambda that provides input streams for reading the file data
+ */
 data class UniUploadFileInfo(
     val fileName: FileName,
     val mimeType: String,
@@ -31,7 +39,7 @@ expect suspend fun <T> HttpClient.uniUpload(
     resultDeserializer: DeserializationStrategy<T>,
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T?
 
 /**
@@ -46,7 +54,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     additionalData + ("bytes" to file),
@@ -68,7 +76,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     additionalData + ("bytes" to info),
@@ -93,7 +101,7 @@ suspend fun <T> HttpClient.uniUpload(
     additionalData: Map<String, Any> = emptyMap(),
     headers: Headers = Headers.Empty,
     stringFormat: StringFormat = Json,
-    onUpload: OnUploadCallback = { _, _ -> }
+    onUpload: ProgressListener = ProgressListener { _, _ -> }
 ): T? = uniUpload(
     url,
     UniUploadFileInfo(fileName, mimeType, inputAllocator),

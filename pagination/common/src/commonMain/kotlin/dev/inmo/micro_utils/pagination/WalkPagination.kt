@@ -10,8 +10,7 @@ inline fun doWithPagination(
     }
 }
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun PaginationResult<*>.nextPageIfNotEmpty() = if (results.isNotEmpty()) {
+inline fun <T, PR: PaginationResult<T>> PR.nextPageIfTrue(condition: PR.() -> Boolean) = if (condition()) {
     SimplePagination(
         page + 1,
         size
@@ -20,12 +19,28 @@ inline fun PaginationResult<*>.nextPageIfNotEmpty() = if (results.isNotEmpty()) 
     null
 }
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun <T> PaginationResult<T>.thisPageIfNotEmpty(): PaginationResult<T>? = if (results.isNotEmpty()) {
+inline fun <T, PR: PaginationResult<T>> PR.thisPageIfTrue(condition: PR.() -> Boolean): PR? = if (condition()) {
     this
 } else {
     null
 }
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun <T> PaginationResult<T>.currentPageIfNotEmpty() = thisPageIfNotEmpty()
+fun PaginationResult<*>.nextPageIfNotEmpty() = nextPageIfTrue { results.isNotEmpty() }
+
+fun <T> PaginationResult<T>.thisPageIfNotEmpty(): PaginationResult<T>? = thisPageIfTrue { results.isNotEmpty() }
+
+fun <T> PaginationResult<T>.currentPageIfNotEmpty() = thisPageIfNotEmpty()
+
+
+fun PaginationResult<*>.nextPageIfNotEmptyOrLastPage() = nextPageIfTrue { results.isNotEmpty() && !this.isLastPage }
+
+fun <T> PaginationResult<T>.thisPageIfNotEmptyOrLastPage(): PaginationResult<T>? = thisPageIfTrue  { results.isNotEmpty() && !this.isLastPage }
+
+fun <T> PaginationResult<T>.currentPageIfNotEmptyOrLastPage() = thisPageIfNotEmptyOrLastPage()
+
+
+fun PaginationResult<*>.nextPageIfNotLastPage() = nextPageIfTrue { !this.isLastPage }
+
+fun <T> PaginationResult<T>.thisPageIfNotLastPage(): PaginationResult<T>? = thisPageIfTrue  { !this.isLastPage }
+
+fun <T> PaginationResult<T>.currentPageIfNotLastPage() = thisPageIfNotLastPage()

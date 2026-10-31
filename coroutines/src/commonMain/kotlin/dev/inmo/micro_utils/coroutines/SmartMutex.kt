@@ -1,13 +1,15 @@
 package dev.inmo.micro_utils.coroutines
 
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -44,68 +46,35 @@ sealed interface SmartMutex {
      * @param locked Preset state of [isLocked] and its internal [_lockStateFlow]
      */
     class Mutable(locked: Boolean = false) : SmartMutex {
-        private val _lockStateFlow = MutableStateFlow<Boolean>(locked)
+        private val _lockStateFlow = MutableRedeliverStateFlow<Boolean>(locked)
         override val lockStateFlow: StateFlow<Boolean> = _lockStateFlow.asStateFlow()
 
         private val internalChangesMutex = Mutex()
+        private val backingMutex = Mutex(locked = locked)
 
         fun immutable() = Immutable(lockStateFlow)
 
-        /**
-         * Holds call until this [SmartMutex] will be re-locked. That means that while [isLocked] == true, [holds] will
-         * wait for [isLocked] == false and then try to lock
-         */
         suspend fun lock() {
-            do {
-                waitUnlock()
-                val shouldContinue = internalChangesMutex.withLock {
-                    if (_lockStateFlow.value) {
-                        true
-                    } else {
-                        _lockStateFlow.value = true
-                        false
-                    }
-                }
-            } while (shouldContinue && currentCoroutineContext().isActive)
+            backingMutex.lock()
+            internalChangesMutex.withLock {
+                _lockStateFlow.value = true
+            }
         }
 
-        /**
-         * Will try to lock this [SmartMutex] immediataly
-         *
-         * @return True if lock was successful. False otherwise
-         */
         suspend fun tryLock(): Boolean {
-            return if (!_lockStateFlow.value) {
-                internalChangesMutex.withLock {
-                    if (!_lockStateFlow.value) {
-                        _lockStateFlow.value = true
-                        true
-                    } else {
-                        false
-                    }
-                }
-            } else {
-                false
+            val result = backingMutex.tryLock()
+            if (result) internalChangesMutex.withLock {
+                _lockStateFlow.value = true
             }
+            return result
         }
 
-        /**
-         * If [isLocked] == true - will change it to false and return true. If current call will not unlock this
-         * [SmartMutex] - false
-         */
         suspend fun unlock(): Boolean {
-            return if (_lockStateFlow.value) {
-                internalChangesMutex.withLock {
-                    if (_lockStateFlow.value) {
-                        _lockStateFlow.value = false
-                        true
-                    } else {
-                        false
-                    }
-                }
-            } else {
-                false
+            val tryUnlock = internalChangesMutex.withLock {
+                _lockStateFlow.value.also { if (it) _lockStateFlow.value = false }
             }
+            if (tryUnlock) backingMutex.unlock()
+            return tryUnlock
         }
     }
 }
@@ -133,4 +102,11 @@ suspend inline fun <T> SmartMutex.Mutable.withLock(action: () -> T): T {
  * Anyway, after the end of this block there are no any guaranties that [SmartMutex.isLocked] == false due to the fact
  * that some other parties may lock it again
  */
-suspend fun SmartMutex.waitUnlock() = lockStateFlow.first { !it }
+suspend fun SmartMutex.waitUnlock(): Boolean {
+    currentCoroutineContext().ensureActive()
+    return if (!lockStateFlow.value) {
+        false
+    } else {
+        lockStateFlow.first { !it }
+    }
+}

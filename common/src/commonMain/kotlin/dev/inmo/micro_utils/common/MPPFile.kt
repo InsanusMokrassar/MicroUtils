@@ -7,7 +7,7 @@ import kotlin.jvm.JvmInline
 @JvmInline
 value class FileName(val string: String) {
     val name: String
-        get() = withoutSlashAtTheEnd.takeLastWhile { it != '/' }
+        get() = withoutSlashAtTheEnd.takeLastWhile { it != MPPFilePathSeparator }
     val extension: String
         get() = name.takeLastWhile { it != '.' }
     val nameWithoutExtension: String
@@ -18,7 +18,7 @@ value class FileName(val string: String) {
             } ?: filename
         }
     val withoutSlashAtTheEnd: String
-        get() = string.dropLastWhile { it == '/' }
+        get() = string.dropLastWhile { it == MPPFilePathSeparator }
     override fun toString(): String = string
 }
 
@@ -26,6 +26,7 @@ value class FileName(val string: String) {
 expect class MPPFile
 
 expect val MPPFile.filename: FileName
+expect val MPPFilePathSeparator: Char
 expect val MPPFile.filesize: Long
 expect val MPPFile.bytesAllocatorSync: ByteArrayAllocator
 expect val MPPFile.bytesAllocator: SuspendByteArrayAllocator

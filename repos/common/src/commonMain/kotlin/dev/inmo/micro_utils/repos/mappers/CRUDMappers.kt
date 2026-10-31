@@ -6,6 +6,17 @@ import dev.inmo.micro_utils.repos.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+/**
+ * A [ReadCRUDRepo] wrapper that maps between different key and value types.
+ * Allows adapting a repository with one type system to work with another type system.
+ *
+ * @param FromId The external ID type exposed by this wrapper
+ * @param FromRegistered The external object type exposed by this wrapper
+ * @param ToId The internal ID type used by the underlying repository
+ * @param ToRegistered The internal object type used by the underlying repository
+ * @param to The underlying repository to wrap
+ * @param mapper The mapper that defines the bidirectional type conversions
+ */
 open class MapperReadCRUDRepo<FromId, FromRegistered, ToId, ToRegistered>(
     private val to: ReadCRUDRepo<ToRegistered, ToId>,
     mapper: MapperRepo<FromId, FromRegistered, ToId, ToRegistered>
@@ -41,11 +52,34 @@ open class MapperReadCRUDRepo<FromId, FromRegistered, ToId, ToRegistered>(
     ) ?.toInnerValue()
 }
 
+/**
+ * Wraps this [ReadCRUDRepo] with a mapper to expose different key and value types.
+ *
+ * @param FromKey The desired external ID type
+ * @param FromValue The desired external object type
+ * @param ToKey The current internal ID type
+ * @param ToValue The current internal object type
+ * @param mapper The mapper defining the type conversions
+ * @return A mapped repository with the new type system
+ */
 @Suppress("NOTHING_TO_INLINE")
 inline fun <FromKey, FromValue, ToKey, ToValue> ReadCRUDRepo<ToValue, ToKey>.withMapper(
     mapper: MapperRepo<FromKey, FromValue, ToKey, ToValue>
 ): ReadCRUDRepo<FromValue, FromKey> = MapperReadCRUDRepo(this, mapper)
 
+/**
+ * Wraps this [ReadCRUDRepo] with custom conversion functions for keys and values.
+ *
+ * @param FromKey The desired external ID type
+ * @param FromValue The desired external object type
+ * @param ToKey The current internal ID type
+ * @param ToValue The current internal object type
+ * @param keyFromToTo Converts external keys to internal keys
+ * @param valueFromToTo Converts external values to internal values
+ * @param keyToToFrom Converts internal keys to external keys
+ * @param valueToToFrom Converts internal values to external values
+ * @return A mapped repository with the new type system
+ */
 @Suppress("NOTHING_TO_INLINE")
 inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> ReadCRUDRepo<ToValue, ToKey>.withMapper(
     noinline keyFromToTo: suspend FromKey.() -> ToKey = { this as ToKey },
@@ -56,6 +90,20 @@ inline fun <reified FromKey, reified FromValue, reified ToKey, reified ToValue> 
     mapper(keyFromToTo, valueFromToTo, keyToToFrom, valueToToFrom)
 )
 
+/**
+ * A [WriteCRUDRepo] wrapper that maps between different key, value, and input types.
+ * Allows adapting a repository to work with different type systems for both reading and writing.
+ *
+ * @param FromId The external ID type
+ * @param FromRegistered The external object type for read operations
+ * @param FromInput The external input type for write operations
+ * @param ToId The internal ID type
+ * @param ToRegistered The internal object type for read operations
+ * @param ToInput The internal input type for write operations
+ * @param to The underlying repository to wrap
+ * @param mapper The mapper for keys and values
+ * @param inputMapper The mapper for input types
+ */
 open class MapperWriteCRUDRepo<FromId, FromRegistered, FromInput, ToId, ToRegistered, ToInput>(
     private val to: WriteCRUDRepo<ToRegistered, ToId, ToInput>,
     mapper: MapperRepo<FromId, FromRegistered, ToId, ToRegistered>,

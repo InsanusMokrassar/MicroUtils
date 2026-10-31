@@ -1,25 +1,20 @@
 package dev.inmo.micro_utils.coroutines
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 
 class HandleSafelyCoroutineContextTest {
     @Test
-    fun testHandleSafelyCoroutineContext() {
-        val scope = CoroutineScope(Dispatchers.Default)
+    fun testHandleSafelyCoroutineContext() = runTest {
+        val scope = this
         var contextHandlerHappen = false
         var localHandlerHappen = false
-        var defaultHandlerHappen = false
-        defaultSafelyExceptionHandler = {
-            defaultHandlerHappen = true
-            throw it
-        }
-        val contextHandler: ExceptionHandler<Unit> = {
-            contextHandlerHappen = true
-        }
         val checkJob = scope.launch {
-            safelyWithContextExceptionHandler(contextHandler) {
-                safely(
+            runCatchingLogging ({
+                contextHandlerHappen = true
+            }) {
+                runCatchingLogging (
                     {
                         localHandlerHappen = true
                     }
@@ -29,10 +24,8 @@ class HandleSafelyCoroutineContextTest {
                 println(coroutineContext)
                 error("That must happen too:)")
             }
-        }
-        launchSynchronously { checkJob.join() }
+        }.join()
         assert(contextHandlerHappen)
         assert(localHandlerHappen)
-        assert(defaultHandlerHappen)
     }
 }

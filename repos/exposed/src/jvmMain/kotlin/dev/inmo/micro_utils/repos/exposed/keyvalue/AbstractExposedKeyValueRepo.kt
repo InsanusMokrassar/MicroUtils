@@ -1,30 +1,38 @@
 package dev.inmo.micro_utils.repos.exposed.keyvalue
 
 import dev.inmo.micro_utils.repos.KeyValueRepo
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.statements.*
-import org.jetbrains.exposed.sql.transactions.transaction
+import kotlinx.coroutines.flow.update
+import org.jetbrains.exposed.v1.core.statements.UpdateBuilder
+import org.jetbrains.exposed.v1.jdbc.Database
+import org.jetbrains.exposed.v1.jdbc.deleteAll
+import org.jetbrains.exposed.v1.jdbc.deleteWhere
+import org.jetbrains.exposed.v1.jdbc.update
+import org.jetbrains.exposed.v1.jdbc.insert
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override val database: Database,
-    tableName: String? = null
+    tableName: String? = null,
+    flowsExtraBufferCapacity: Int = Int.MAX_VALUE,
+    flowsBufferOverflow: BufferOverflow = BufferOverflow.SUSPEND
 ) : KeyValueRepo<Key, Value>, AbstractExposedReadKeyValueRepo<Key, Value>(
     database,
     tableName
 ) {
-    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>()
-    protected val _onValueRemoved = MutableSharedFlow<Key>()
+    protected val _onNewValue = MutableSharedFlow<Pair<Key, Value>>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
+    protected val _onValueRemoved = MutableSharedFlow<Key>(extraBufferCapacity = flowsExtraBufferCapacity, onBufferOverflow = flowsBufferOverflow)
 
     override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
     override val onValueRemoved: Flow<Key> = _onValueRemoved.asSharedFlow()
 
     protected abstract fun update(k: Key, v: Value, it: UpdateBuilder<Int>)
-    protected abstract fun insertKey(k: Key, v: Value, it: InsertStatement<Number>)
+    protected abstract fun insertKey(k: Key, v: Value, it: UpdateBuilder<Int>)
 
-    protected open fun insert(k: Key, v: Value, it: InsertStatement<Number>) {
+    protected open fun insert(k: Key, v: Value, it: UpdateBuilder<Int>) {
         insertKey(k, v, it)
-        update(k, v, it as UpdateBuilder<Int>)
+        update(k, v, it)
     }
 
     override suspend fun set(toSet: Map<Key, Value>) {
@@ -51,7 +59,7 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override suspend fun unset(toUnset: List<Key>) {
         transaction(database) {
             toUnset.mapNotNull { item ->
-                if (deleteWhere { selectById(it, item) } > 0) {
+                if (deleteWhere { selectById(item) } > 0) {
                     item
                 } else {
                     null
@@ -65,12 +73,26 @@ abstract class AbstractExposedKeyValueRepo<Key, Value>(
     override suspend fun unsetWithValues(toUnset: List<Value>) {
         transaction(database) {
             toUnset.flatMap {
-                val keys = select { selectByValue(it) }.mapNotNull { it.asKey }
-                deleteWhere { selectByIds(it, keys) }
+                val keys = selectAll().where { selectByValue(it) }.mapNotNull { it.asKey }
+                deleteWhere { selectByIds(keys) }
                 keys
             }
         }.distinct().forEach {
             _onValueRemoved.emit(it)
+        }
+    }
+
+    override suspend fun clear() {
+        transaction(database) {
+            val keys = selectAll().map { it.asKey }
+
+            deleteAll()
+
+            keys
+        }.also {
+            it.forEach {
+                _onValueRemoved.emit(it)
+            }
         }
     }
 }

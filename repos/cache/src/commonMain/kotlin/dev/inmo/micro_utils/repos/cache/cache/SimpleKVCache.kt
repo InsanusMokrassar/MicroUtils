@@ -37,6 +37,10 @@ open class SimpleKVCache<K, V>(
     override suspend fun unset(toUnset: List<K>) {
         syncMutex.withLock { makeUnset(toUnset) }
     }
+
+    override suspend fun clear() {
+        syncMutex.withLock { makeUnset(cacheQueue) }
+    }
 }
 
 inline fun <K, V> KVCache(

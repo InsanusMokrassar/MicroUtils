@@ -5,6 +5,14 @@ import dev.inmo.micro_utils.pagination.PaginationResult
 import dev.inmo.micro_utils.repos.ReadCRUDRepo
 import dev.inmo.micro_utils.repos.ReadKeyValueRepo
 
+/**
+ * Adapter that exposes a [ReadKeyValueRepo] as a [ReadCRUDRepo].
+ * Maps CRUD read operations to the underlying key-value repository operations.
+ *
+ * @param RegisteredType The type of objects stored in the repository
+ * @param IdType The type of identifiers (keys) used to reference stored objects
+ * @param original The underlying [ReadKeyValueRepo] to delegate operations to
+ */
 open class ReadCRUDFromKeyValueRepo<RegisteredType, IdType>(
     protected open val original: ReadKeyValueRepo<IdType, RegisteredType>
 ) : ReadCRUDRepo<RegisteredType, IdType> {

@@ -1,0 +1,15 @@
+kotlin {
+    sourceSets {
+        jvmMain {
+            dependencies {
+                implementation compose.desktop.currentOs
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation compose.uiTest
+            }
+        }
+    }
+}

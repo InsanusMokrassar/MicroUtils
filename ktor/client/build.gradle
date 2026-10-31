@@ -1,10 +1,10 @@
 plugins {
     id "org.jetbrains.kotlin.multiplatform"
     id "org.jetbrains.kotlin.plugin.serialization"
-    id "com.android.library"
+    id "com.android.kotlin.multiplatform.library"
 }
 
-apply from: "$mppProjectWithSerializationPresetPath"
+apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
     sourceSets {
@@ -15,9 +15,6 @@ kotlin {
                 api libs.ktor.client
             }
         }
-        androidMain {
-            dependsOn jvmMain
-        }
 
         linuxX64Main {
             dependencies {
@@ -26,6 +23,12 @@ kotlin {
         }
 
         mingwX64Main {
+            dependencies {
+                api internalProject("micro_utils.mime_types")
+            }
+        }
+
+        linuxArm64Main {
             dependencies {
                 api internalProject("micro_utils.mime_types")
             }

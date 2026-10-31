@@ -1,0 +1,6 @@
+apply from: "$defaultProject"
+apply from: "$enableMPPJvm"
+apply from: "$enableMPPJs"
+apply from: "$enableMPPWasmJs"
+apply from: "$enableMPPAndroid"
+apply from: "$publish"

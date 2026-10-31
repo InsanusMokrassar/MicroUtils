@@ -1,0 +1,27 @@
+project.version = "$version"
+project.group = "$group"
+
+apply plugin: 'org.jetbrains.dokka'
+
+kotlin {
+    jvmToolchain(17)
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib')
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+                implementation libs.kt.coroutines.test
+            }
+        }
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}

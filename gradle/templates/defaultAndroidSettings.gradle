@@ -1,0 +1,18 @@
+apply plugin: 'com.getkeepsafe.dexcount'
+
+ext.configureAndroidTarget = { target ->
+    target.compileSdk = libs.versions.android.props.compileSdk.get().toInteger()
+    target.buildToolsVersion = libs.versions.android.props.buildTools.get()
+    target.minSdk = libs.versions.android.props.minSdk.get().toInteger()
+    target.namespace = "${project.group}.${project.name}"
+    target.packaging {
+        resources {
+            excludes.add 'META-INF/kotlinx-serialization-runtime.kotlin_module'
+            excludes.add 'META-INF/kotlinx-serialization-cbor.kotlin_module'
+            excludes.add 'META-INF/kotlinx-serialization-properties.kotlin_module'
+        }
+    }
+    target.compilerOptions.jvmTarget.set(
+            target.compilerOptions.jvmTarget.get().class.fromTarget("17")
+    )
+}

@@ -1,0 +1,135 @@
+apply plugin: 'maven-publish'
+
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact javadocJar
+            artifact sourcesJar
+
+            pom {
+                resolveStrategy = Closure.DELEGATE_FIRST
+
+                description = "It is set of projects with micro tools for avoiding of routines coding"
+                name = "${project.name}"
+                url = "https://github.com/InsanusMokrassar/MicroUtils/"
+
+                scm {
+                    developerConnection = "scm:git:[fetch=]https://github.com/InsanusMokrassar/MicroUtils.git[push=]https://github.com/InsanusMokrassar/MicroUtils.git"
+                    url = "https://github.com/InsanusMokrassar/MicroUtils.git"
+                }
+
+                developers {
+                    
+                        developer {
+                            id = "InsanusMokrassar"
+                            name = "Aleksei Ovsiannikov"
+                            email = "ovsyannikov.alexey95@gmail.com"
+                        }
+                    
+
+                        developer {
+                            id = "000Sanya"
+                            name = "Syrov Aleksandr"
+                            email = "000sanya.000sanya@gmail.com"
+                        }
+                    
+                }
+
+                licenses {
+                    
+                        license {
+                            name = "Apache Software License 2.0"
+                            url = "https://github.com/InsanusMokrassar/MicroUtils/blob/master/LICENSE"
+                        }
+                    
+                }
+            }
+        }
+    }
+    repositories {
+        if ((project.hasProperty('GITHUBPACKAGES_USER') || System.getenv('GITHUBPACKAGES_USER') != null) && (project.hasProperty('GITHUBPACKAGES_PASSWORD') || System.getenv('GITHUBPACKAGES_PASSWORD') != null)) {
+            maven {
+                name = "GithubPackages"
+                url = uri("https://maven.pkg.github.com/InsanusMokrassar/MicroUtils")
+        
+                credentials {
+                    username = project.hasProperty('GITHUBPACKAGES_USER') ? project.property('GITHUBPACKAGES_USER') : System.getenv('GITHUBPACKAGES_USER')
+                    password = project.hasProperty('GITHUBPACKAGES_PASSWORD') ? project.property('GITHUBPACKAGES_PASSWORD') : System.getenv('GITHUBPACKAGES_PASSWORD')
+                }
+            }
+        }
+        if ((project.hasProperty('INMONEXUS_USER') || System.getenv('INMONEXUS_USER') != null) && (project.hasProperty('INMONEXUS_PASSWORD') || System.getenv('INMONEXUS_PASSWORD') != null)) {
+            maven {
+                name = "InmoNexus"
+                url = uri("https://nexus.inmo.dev/repository/maven-releases/")
+        
+                credentials {
+                    username = project.hasProperty('INMONEXUS_USER') ? project.property('INMONEXUS_USER') : System.getenv('INMONEXUS_USER')
+                    password = project.hasProperty('INMONEXUS_PASSWORD') ? project.property('INMONEXUS_PASSWORD') : System.getenv('INMONEXUS_PASSWORD')
+                }
+            }
+        }
+        if ((project.hasProperty('SONATYPE_USER') || System.getenv('SONATYPE_USER') != null) && (project.hasProperty('SONATYPE_PASSWORD') || System.getenv('SONATYPE_PASSWORD') != null)) {
+            maven {
+                name = "sonatype"
+                url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+        
+                credentials {
+                    username = project.hasProperty('SONATYPE_USER') ? project.property('SONATYPE_USER') : System.getenv('SONATYPE_USER')
+                    password = project.hasProperty('SONATYPE_PASSWORD') ? project.property('SONATYPE_PASSWORD') : System.getenv('SONATYPE_PASSWORD')
+                }
+            }
+        }
+    }
+}
+
+if (project.hasProperty("signing.gnupg.keyName")) {
+    apply plugin: 'signing'
+
+    signing {
+        useGpgCmd()
+
+        sign publishing.publications
+    }
+
+    task signAll {
+        tasks.withType(Sign).forEach {
+            dependsOn(it)
+        }
+    }
+
+    // Workaround to make android sign operations depend on signing tasks
+    project.getTasks().withType(AbstractPublishToMaven.class).configureEach {
+        def signingTasks = project.getTasks().withType(Sign.class)
+        mustRunAfter(signingTasks)
+    }
+    // Workaround to make test tasks use sign
+    project.getTasks().withType(Sign.class).configureEach { signTask ->
+        def withoutSign = (signTask.name.startsWith("sign") ? signTask.name.minus("sign") : signTask.name)
+        def pubName = withoutSign.endsWith("Publication") ? withoutSign.substring(0, withoutSign.length() - "Publication".length()) : withoutSign
+        // These tasks only exist for native targets, hence findByName() to avoid trying to find them for other targets
+
+        // Task ':linkDebugTest<platform>' uses this output of task ':sign<platform>Publication' without declaring an explicit or implicit dependency
+        def debugTestTask = tasks.findByName("linkDebugTest$pubName")
+        if (debugTestTask != null) {
+            signTask.mustRunAfter(debugTestTask)
+        }
+        // Task ':compileTestKotlin<platform>' uses this output of task ':sign<platform>Publication' without declaring an explicit or implicit dependency
+        def testTask = tasks.findByName("compileTestKotlin$pubName")
+        if (testTask != null) {
+            signTask.mustRunAfter(testTask)
+        }
+    }
+}

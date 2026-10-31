@@ -9,10 +9,7 @@ import dev.inmo.micro_utils.koin.annotations.GenerateKoinDefinition
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin.setupDI
 import dev.inmo.micro_utils.startup.launcher.StartLauncherPlugin.startPlugin
 import dev.inmo.micro_utils.startup.plugin.StartPlugin
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.serialization.SerialFormat
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.json.Json
@@ -116,12 +113,16 @@ object StartLauncherPlugin : StartPlugin {
     /**
      * Will create [KoinApplication], init, load modules using [StartLauncherPlugin] and start plugins using the same base
      * plugin. It is basic [start] method which accepts both [config] and [rawConfig] which suppose to be the same or
-     * at least [rawConfig] must contain serialized variant of [config]
+     * at least [rawConfig] must contain serialized variant of [config].
+     *
+     * Koin part will be started in-place. This means, that after ending of this method call you will be able to
+     * take any declared dependency from koin
      *
      * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config] ([StartLauncherPlugin] will
      * deserialize it in its [StartLauncherPlugin.setupDI]
+     * @return [KoinApplication] of current start and [Job] which can be used to call [CoroutineScope.join]
      */
-    suspend fun start(config: Config, rawConfig: JsonObject) {
+    fun startAsync(config: Config, rawConfig: JsonObject): Pair<KoinApplication, Job> {
 
         logger.i("Start initialization")
         val koinApp = KoinApplication.init()
@@ -133,8 +134,44 @@ object StartLauncherPlugin : StartPlugin {
         logger.i("Modules loaded")
         startKoin(koinApp)
         logger.i("Koin started")
-        startPlugin(koinApp.koin)
-        logger.i("App has been setup")
+        val launchJob = koinApp.koin.get<CoroutineScope>().launch {
+            startPlugin(koinApp.koin)
+            logger.i("App has been started")
+        }
+
+        return koinApp to launchJob
+    }
+
+    /**
+     * Will create [KoinApplication], init, load modules using [StartLauncherPlugin] and start plugins using the same base
+     * plugin. It is basic [start] method which accepts both [config] and [rawConfig] which suppose to be the same or
+     * at least [rawConfig] must contain serialized variant of [config]
+     *
+     * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config] ([StartLauncherPlugin] will
+     * deserialize it in its [StartLauncherPlugin.setupDI]
+     * @return [KoinApplication] of current launch
+     */
+    suspend fun start(config: Config, rawConfig: JsonObject): KoinApplication {
+
+        val (koinApp, job) = startAsync(config, rawConfig)
+
+        job.join()
+
+        return koinApp
+    }
+
+    /**
+     * Call [start] with deserialized [Config] as config and [rawConfig] as is
+     *
+     * Koin part will be started in-place. This means, that after ending of this method call you will be able to
+     * take any declared dependency from koin
+     *
+     * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config]
+     * @return [KoinApplication] of current launch and [Job] of starting launch
+     */
+    fun startAsync(rawConfig: JsonObject): Pair<KoinApplication, Job> {
+
+        return startAsync(defaultJson.decodeFromJsonElement(Config.serializer(), rawConfig), rawConfig)
 
     }
 
@@ -143,9 +180,30 @@ object StartLauncherPlugin : StartPlugin {
      *
      * @param rawConfig It is expected that this [JsonObject] will contain serialized [Config]
      */
-    suspend fun start(rawConfig: JsonObject) {
+    suspend fun start(rawConfig: JsonObject): KoinApplication {
 
-        start(defaultJson.decodeFromJsonElement(Config.serializer(), rawConfig), rawConfig)
+        val (koinApp, job) = startAsync(rawConfig)
+
+        job.join()
+
+        return koinApp
+
+    }
+
+    /**
+     * Call [start] with deserialized [Config] as is and serialize it to [JsonObject] to pass as the first parameter
+     * to the basic [start] method
+     *
+     * Koin part will be started in-place. This means, that after ending of this method call you will be able to
+     * take any declared dependency from koin
+     *
+     * @param config Will be converted to [JsonObject] as raw config. That means that all plugins from [config] will
+     * receive serialized version of [config] in [StartPlugin.setupDI] method
+     * @return [KoinApplication] of current launch and [Job] of starting launch
+     */
+    fun startAsync(config: Config): Pair<KoinApplication, Job> {
+
+        return startAsync(config, defaultJson.encodeToJsonElement(Config.serializer(), config).jsonObject)
 
     }
 
@@ -156,9 +214,13 @@ object StartLauncherPlugin : StartPlugin {
      * @param config Will be converted to [JsonObject] as raw config. That means that all plugins from [config] will
      * receive serialized version of [config] in [StartPlugin.setupDI] method
      */
-    suspend fun start(config: Config) {
+    suspend fun start(config: Config): KoinApplication {
 
-        start(config, defaultJson.encodeToJsonElement(Config.serializer(), config).jsonObject)
+        val (koinApp, job) = startAsync(config)
+
+        job.join()
+
+        return koinApp
 
     }
 }

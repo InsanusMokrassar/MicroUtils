@@ -1,9 +1,7 @@
 package dev.inmo.micro_utils.serialization.mapper
 
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 /**
@@ -11,15 +9,20 @@ import kotlinx.serialization.encoding.Encoder
  * serialization
  *
  * @param base Serializer for [I]
- * @param serialize Will be used in [serialize] method to convert incoming [O] to [I] and serialize with [base]
+ * @param internalSerialize Will be used in [internalSerialize] method to convert incoming [O] to [I] and serialize with [base]
  */
 open class MapperSerializationStrategy<I, O>(
     private val base: SerializationStrategy<I>,
-    private val serialize: (O) -> I
+    private val internalSerialize: (Encoder, O) -> I
 ) : SerializationStrategy<O> {
     override val descriptor: SerialDescriptor = base.descriptor
 
+    constructor(
+        base: SerializationStrategy<I>,
+        serialize: (O) -> I
+    ) : this(base, { _, o -> serialize(o) })
+
     override fun serialize(encoder: Encoder, value: O) {
-        base.serialize(encoder, serialize(value))
+        base.serialize(encoder, internalSerialize(encoder, value))
     }
 }

@@ -1,7 +1,7 @@
 package dev.inmo.micro_utils.ktor.server
 
 import dev.inmo.micro_utils.ktor.server.configurators.KtorApplicationConfigurator
-import io.ktor.server.application.Application
+import io.ktor.server.application.*
 import io.ktor.server.cio.CIO
 import io.ktor.server.cio.CIOApplicationEngine
 import io.ktor.server.engine.*
@@ -11,20 +11,22 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
     engine: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: EngineConnectorBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: TConfiguration.() -> Unit = {},
+    environment: ApplicationEnvironment = applicationEnvironment(),
     block: Application.() -> Unit
-): TEngine = embeddedServer(
+): EmbeddedServer<TEngine, TConfiguration> = embeddedServer<TEngine, TConfiguration>(
     engine,
-    applicationEngineEnvironment {
-        module(block)
+    environment,
+    {
         connector {
             this.host = host
             this.port = port
+            additionalEngineEnvironmentConfigurator()
         }
-        additionalEngineEnvironmentConfigurator()
+        additionalConfigurationConfigurator()
     },
-    additionalConfigurationConfigurator
+    module = block
 )
 
 /**
@@ -35,15 +37,17 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
 fun createKtorServer(
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: EngineConnectorBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: CIOApplicationEngine.Configuration.() -> Unit = {},
+    environment: ApplicationEnvironment = applicationEnvironment(),
     block: Application.() -> Unit
-): CIOApplicationEngine = createKtorServer(
+): EmbeddedServer<CIOApplicationEngine, CIOApplicationEngine.Configuration> = createKtorServer(
     CIO,
     host,
     port,
     additionalEngineEnvironmentConfigurator,
     additionalConfigurationConfigurator,
+    environment,
     block
 )
 
@@ -51,15 +55,17 @@ fun <TEngine : ApplicationEngine, TConfiguration : ApplicationEngine.Configurati
     engine: ApplicationEngineFactory<TEngine, TConfiguration>,
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: EngineConnectorBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: TConfiguration.() -> Unit = {},
+    environment: ApplicationEnvironment = applicationEnvironment(),
     configurators: List<KtorApplicationConfigurator>
-): TEngine = createKtorServer(
+): EmbeddedServer<TEngine, TConfiguration> = createKtorServer(
     engine,
     host,
     port,
     additionalEngineEnvironmentConfigurator,
-    additionalConfigurationConfigurator
+    additionalConfigurationConfigurator,
+    environment,
 ) {
     configurators.forEach { it.apply { configure() } }
 }
@@ -73,6 +79,7 @@ fun createKtorServer(
     host: String = "localhost",
     port: Int = Random.nextInt(1024, 65535),
     configurators: List<KtorApplicationConfigurator>,
-    additionalEngineEnvironmentConfigurator: ApplicationEngineEnvironmentBuilder.() -> Unit = {},
+    additionalEngineEnvironmentConfigurator: EngineConnectorBuilder.() -> Unit = {},
     additionalConfigurationConfigurator: CIOApplicationEngine.Configuration.() -> Unit = {},
-): ApplicationEngine = createKtorServer(CIO, host, port, additionalEngineEnvironmentConfigurator, additionalConfigurationConfigurator, configurators)
+    environment: ApplicationEnvironment = applicationEnvironment(),
+): EmbeddedServer<CIOApplicationEngine, CIOApplicationEngine.Configuration> = createKtorServer(CIO, host, port, additionalEngineEnvironmentConfigurator, additionalConfigurationConfigurator, environment, configurators)

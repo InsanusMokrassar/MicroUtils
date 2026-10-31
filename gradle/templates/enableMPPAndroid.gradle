@@ -1,0 +1,38 @@
+apply from: "$defaultAndroidSettings"
+
+kotlin {
+    android {
+        project.ext.configureAndroidTarget(delegate)
+        withHostTest {}
+        withDeviceTest {}
+    }
+
+    sourceSets {
+        jvmAndAndroidMain {
+            dependsOn commonMain
+            kotlin.srcDir("src/jvmMain/kotlin")
+            resources.srcDir("src/jvmMain/resources")
+        }
+        jvmMain {
+            dependsOn jvmAndAndroidMain
+            kotlin.setSrcDirs([])
+            resources.setSrcDirs([])
+        }
+        androidHostTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
+        androidDeviceTest {
+            dependencies {
+                implementation kotlin('test-junit')
+                implementation libs.android.test.junit
+                implementation libs.android.espresso
+            }
+        }
+
+        androidMain.dependsOn jvmAndAndroidMain
+    }
+}

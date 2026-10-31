@@ -10,8 +10,10 @@ import dev.inmo.micro_utils.pagination.firstIndex
 import dev.inmo.micro_utils.pagination.utils.doForAllWithNextPaging
 import dev.inmo.micro_utils.pagination.utils.optionallyReverse
 import dev.inmo.micro_utils.pagination.utils.paginate
+import dev.inmo.micro_utils.repos.KeyValueRepo
+import dev.inmo.micro_utils.repos.MapKeyValueRepo
 import dev.inmo.micro_utils.repos.ReadKeyValuesRepo
-import dev.inmo.micro_utils.repos.cache.cache.FullKVCache
+import dev.inmo.micro_utils.repos.annotations.OverrideRequireManualInvalidation
 import dev.inmo.micro_utils.repos.cache.fallback.ActionWrapper
 import dev.inmo.micro_utils.repos.cache.util.actualizeAll
 import dev.inmo.micro_utils.repos.cache.FallbackCacheRepo
@@ -23,9 +25,9 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
-    protected open val originalRepo: ReadKeyValuesRepo<Id, RegisteredObject>,
+    protected val originalRepo: ReadKeyValuesRepo<Id, RegisteredObject>,
     protected val scope: CoroutineScope,
-    protected val kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
+    protected val kvCache: KeyValueRepo<Id, List<RegisteredObject>> = MapKeyValueRepo(),
     protected val recacheDelay: Long = 60.seconds.inWholeMilliseconds,
     protected val actionWrapper: ActionWrapper = ActionWrapper.Direct
 ) : ReadKeyValuesRepo<Id, RegisteredObject>, FallbackCacheRepo {
@@ -41,7 +43,7 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         originalRepo: ReadKeyValuesRepo<Id, RegisteredObject>,
         scope: CoroutineScope,
         originalCallTimeoutMillis: Long,
-        kvCache: FullKVCache<Id, List<RegisteredObject>> = FullKVCache(),
+        kvCache: KeyValueRepo<Id, List<RegisteredObject>> = MapKeyValueRepo(),
         recacheDelay: Long = 60.seconds.inWholeMilliseconds
     ) : this(originalRepo, scope, kvCache, recacheDelay, ActionWrapper.Timeouted(originalCallTimeoutMillis))
 
@@ -139,6 +141,7 @@ open class AutoRecacheReadKeyValuesRepo<Id, RegisteredObject>(
         }) ?: (kvCache.get(k) ?.contains(v) == true)
     }
 
+    @OverrideRequireManualInvalidation
     override suspend fun invalidate() {
         actualizeAll()
     }

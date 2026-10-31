@@ -11,7 +11,7 @@ class TypedSerializerTests {
     interface Example {
         val number: Number
     }
-    val serialFormat = Json {  }
+    val serialFormat = Json
 
     @Serializable
     data class Example1(override val number: Long) : Example

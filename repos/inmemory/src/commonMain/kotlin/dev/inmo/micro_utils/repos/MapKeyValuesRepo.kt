@@ -1,15 +1,29 @@
 package dev.inmo.micro_utils.repos
 
+import dev.inmo.micro_utils.coroutines.SmartRWLocker
+import dev.inmo.micro_utils.coroutines.withReadAcquire
+import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.pagination.*
+import dev.inmo.micro_utils.pagination.utils.optionallyReverse
 import dev.inmo.micro_utils.pagination.utils.paginate
 import dev.inmo.micro_utils.pagination.utils.reverse
 import kotlinx.coroutines.flow.*
 
+/**
+ * [Map]-based [ReadKeyValuesRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withReadAcquire])
+ *
+ * **Warning**: It is not recommended to use constructor with both [Map] and [SmartRWLocker]. Besides, in case
+ * you are using your own [Map] as a [map] you should be careful with operations on this [map]
+ */
 class MapReadKeyValuesRepo<Key, Value>(
-    private val map: Map<Key, List<Value>> = emptyMap()
+    private val map: Map<Key, List<Value>> = emptyMap(),
+    private val locker: SmartRWLocker = SmartRWLocker()
 ) : ReadKeyValuesRepo<Key, Value> {
     override suspend fun get(k: Key, pagination: Pagination, reversed: Boolean): PaginationResult<Value> {
-        val list = map[k] ?: return emptyPaginationResult()
+        val list = locker.withReadAcquire {
+            map[k] ?: return emptyPaginationResult()
+        }
 
         return list.paginate(
             if (reversed) {
@@ -20,8 +34,24 @@ class MapReadKeyValuesRepo<Key, Value>(
         )
     }
 
+    override suspend fun getAll(k: Key, reversed: Boolean): List<Value> {
+        return locker.withReadAcquire { map[k] ?.optionallyReverse(reversed) ?: return emptyList() }
+    }
+
+    override suspend fun getAll(reverseLists: Boolean): Map<Key, List<Value>> {
+        return locker.withReadAcquire {
+            if (reverseLists) {
+                map.mapValues { it.value.reversed() }
+            } else {
+                map.toMap()
+            }
+        }
+    }
+
     override suspend fun keys(pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
-        val keys = map.keys
+        val keys = locker.withReadAcquire {
+            map.keys
+        }
         val actualPagination = if (reversed) pagination.reverse(keys.size) else pagination
         return keys.paginate(actualPagination).let {
             if (reversed) {
@@ -33,7 +63,9 @@ class MapReadKeyValuesRepo<Key, Value>(
     }
 
     override suspend fun keys(v: Value, pagination: Pagination, reversed: Boolean): PaginationResult<Key> {
-        val keys = map.keys.filter { map[it] ?.contains(v) == true }
+        val keys = locker.withReadAcquire {
+            map.keys.filter { map[it] ?.contains(v) == true }
+        }
         val actualPagination = if (reversed) pagination.reverse(keys.size) else pagination
         return keys.paginate(actualPagination).let {
             if (reversed) {
@@ -44,81 +76,155 @@ class MapReadKeyValuesRepo<Key, Value>(
         }
     }
 
-    override suspend fun contains(k: Key): Boolean = map.containsKey(k)
+    override suspend fun contains(k: Key): Boolean = locker.withReadAcquire { map.containsKey(k) }
 
-    override suspend fun contains(k: Key, v: Value): Boolean = map[k] ?.contains(v) == true
+    override suspend fun contains(k: Key, v: Value): Boolean = locker.withReadAcquire { map[k] ?.contains(v) } == true
 
-    override suspend fun count(k: Key): Long = map[k] ?.size ?.toLong() ?: 0L
+    override suspend fun count(k: Key): Long = locker.withReadAcquire { map[k] ?.size } ?.toLong() ?: 0L
 
-    override suspend fun count(): Long = map.size.toLong()
+    override suspend fun count(): Long = locker.withReadAcquire { map.size }.toLong()
 }
 
+/**
+ * [MutableMap]-based [WriteKeyValuesRepo]. All internal operations will be locked with [locker] (mostly with
+ * [SmartRWLocker.withWriteLock])
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 class MapWriteKeyValuesRepo<Key, Value>(
-    private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
+    private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf(),
+    private val locker: SmartRWLocker = SmartRWLocker()
 ) : WriteKeyValuesRepo<Key, Value> {
-    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
-    override val onNewValue: Flow<Pair<Key, Value>> = _onNewValue.asSharedFlow()
-    private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MutableSharedFlow()
-    override val onValueRemoved: Flow<Pair<Key, Value>> = _onValueRemoved.asSharedFlow()
-    private val _onDataCleared: MutableSharedFlow<Key> = MutableSharedFlow()
-    override val onDataCleared: Flow<Key> = _onDataCleared.asSharedFlow()
+    private val _onNewValue: MutableSharedFlow<Pair<Key, Value>> = MapsReposDefaultMutableSharedFlow()
+    override val onNewValue: Flow<Pair<Key, Value>> by lazy {
+        _onNewValue.asSharedFlow()
+    }
+    private val _onValueRemoved: MutableSharedFlow<Pair<Key, Value>> = MapsReposDefaultMutableSharedFlow()
+    override val onValueRemoved: Flow<Pair<Key, Value>> by lazy {
+        _onValueRemoved.asSharedFlow()
+    }
+    private val _onDataCleared: MutableSharedFlow<Key> = MapsReposDefaultMutableSharedFlow()
+    override val onDataCleared: Flow<Key> by lazy {
+        _onDataCleared.asSharedFlow()
+    }
 
     override suspend fun add(toAdd: Map<Key, List<Value>>) {
-        toAdd.keys.forEach { k ->
-            if (map.getOrPut(k) { mutableListOf() }.addAll(toAdd[k] ?: return@forEach)) {
-                toAdd[k] ?.forEach { v ->
-                    _onNewValue.emit(k to v)
+        locker.withWriteLock {
+            toAdd.keys.mapNotNull { k ->
+                (k to toAdd[k]).takeIf {
+                    map.getOrPut(k) { mutableListOf() }.addAll(toAdd[k] ?: return@mapNotNull null)
                 }
+            }
+        }.forEach { (k, vs) ->
+            vs ?.forEach { v ->
+                _onNewValue.emit(k to v)
+            }
+        }
+    }
+
+    override suspend fun set(toSet: Map<Key, List<Value>>) {
+        if (toSet.isEmpty()) return
+
+        locker.withWriteLock {
+            map.putAll(
+                toSet.mapValues { it.value.toMutableList() }
+            )
+        }
+        toSet.forEach { (k, v) ->
+            v.forEach {
+                _onNewValue.emit(k to it)
             }
         }
     }
 
     override suspend fun remove(toRemove: Map<Key, List<Value>>) {
-        toRemove.keys.forEach { k ->
-            if (map[k] ?.removeAll(toRemove[k] ?: return@forEach) == true) {
-                toRemove[k] ?.forEach { v ->
-                    _onValueRemoved.emit(k to v)
+        if (toRemove.isEmpty()) return
+
+        val removed = mutableListOf<Pair<Key, Value>>()
+        val cleared = mutableListOf<Key>()
+        locker.withWriteLock {
+            toRemove.keys.forEach { k ->
+                if (map[k]?.removeAll(toRemove[k] ?: return@forEach) == true) {
+                    toRemove[k]?.forEach { v ->
+                        removed.add(k to v)
+                    }
+                }
+                if (map[k]?.isEmpty() == true) {
+                    map.remove(k)
+                    cleared.add(k)
                 }
             }
-            if (map[k] ?.isEmpty() == true) {
-                map.remove(k)
-                _onDataCleared.emit(k)
-            }
+        }
+        removed.forEach {
+            _onValueRemoved.emit(it)
+        }
+        cleared.forEach {
+            _onDataCleared.emit(it)
         }
     }
 
     override suspend fun removeWithValue(v: Value) {
-        map.forEach { (k, values) ->
-            if (values.remove(v)) {
-                _onValueRemoved.emit(k to v)
+        locker.withWriteLock {
+            map.mapNotNull { (k, values) ->
+                if (values.remove(v)) {
+                    k to v
+                } else {
+                    null
+                }
             }
+        }.forEach {
+            _onValueRemoved.emit(it)
         }
     }
 
     override suspend fun clear(k: Key) {
-        map.remove(k) ?.also { _onDataCleared.emit(k) }
+        locker.withWriteLock {
+            map.remove(k)
+        } ?.also { _onDataCleared.emit(k) }
     }
 
     override suspend fun clearWithValue(v: Value) {
-        map.filter { (_, values) ->
-            values.contains(v)
+        locker.withWriteLock {
+            map.filter { (_, values) ->
+                values.contains(v)
+            }.mapNotNull {
+                if (map.remove(it.key) != null) {
+                    it.toPair()
+                } else {
+                    null
+                }
+            }
         }.forEach {
-            map.remove(it.key) ?.onEach { v ->
-                _onValueRemoved.emit(it.key to v)
-            } ?.also { _ ->
-                _onDataCleared.emit(it.key)
+            it.second.onEach { v ->
+                _onValueRemoved.emit(it.first to v)
+            }.also { _ ->
+                _onDataCleared.emit(it.first)
             }
         }
     }
 }
 
+/**
+ * [MutableMap]-based [KeyValuesRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: It is not recommended to use constructor with both [MutableMap] and [SmartRWLocker]. Besides, in case
+ * you are using your own [MutableMap] as a [map] you should be careful with operations on this [map]
+ */
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 class MapKeyValuesRepo<Key, Value>(
-    private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf()
+    private val map: MutableMap<Key, MutableList<Value>> = mutableMapOf(),
+    private val locker: SmartRWLocker = SmartRWLocker()
 ) : KeyValuesRepo<Key, Value>,
-    ReadKeyValuesRepo<Key, Value> by MapReadKeyValuesRepo(map),
-    WriteKeyValuesRepo<Key, Value> by MapWriteKeyValuesRepo(map)
+    ReadKeyValuesRepo<Key, Value> by MapReadKeyValuesRepo(map, locker),
+    WriteKeyValuesRepo<Key, Value> by MapWriteKeyValuesRepo(map, locker)
 
-fun <K, V> MutableMap<K, List<V>>.asKeyValuesRepo(): KeyValuesRepo<K, V> = MapKeyValuesRepo(
-    map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap()
+/**
+ * [MutableMap]-based [KeyValuesRepo]. All internal operations will be locked with [locker]
+ *
+ * **Warning**: In case you are using your own [MutableMap] as [this] receiver you should be careful with operations on [this] map
+ */
+fun <K, V> MutableMap<K, List<V>>.asKeyValuesRepo(locker: SmartRWLocker = SmartRWLocker()): KeyValuesRepo<K, V> = MapKeyValuesRepo(
+    map { (k, v) -> k to v.toMutableList() }.toMap().toMutableMap(),
+    locker
 )

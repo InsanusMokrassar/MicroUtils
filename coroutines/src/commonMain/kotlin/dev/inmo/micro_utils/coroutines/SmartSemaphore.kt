@@ -1,0 +1,202 @@
+package dev.inmo.micro_utils.coroutines
+
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+
+/**
+ * It is interface which will work like classic [Semaphore], but in difference have [permitsStateFlow] for listening of the
+ * [SmartSemaphore] state.
+ *
+ * There is [Mutable] and [Immutable] realizations. In case you are owner and manager current state of lock, you need
+ * [Mutable] [SmartSemaphore]. Otherwise, [Immutable].
+ *
+ * Any [Mutable] [SmartSemaphore] may produce its [Immutable] variant which will contains [permitsStateFlow] equal to its
+ * [Mutable] creator
+ */
+sealed interface SmartSemaphore {
+    val maxPermits: Int
+    val permitsStateFlow: StateFlow<Int>
+
+    /**
+     * The number of the available permits.
+     *
+     * If returns `0`, it is fully acquired (locked).
+     * If it returns the same value as `maxPermits`, it is fully released (unlocked).
+     */
+    val freePermits: Int
+        get() = permitsStateFlow.value
+
+    /**
+     * Immutable variant of [SmartSemaphore]. In fact will depend on the owner of [permitsStateFlow]
+     */
+    class Immutable(override val permitsStateFlow: StateFlow<Int>, override val maxPermits: Int) : SmartSemaphore
+
+    /**
+     * Mutable variant of [SmartSemaphore]. With that variant you may [lock] and [unlock]. Besides, you may create
+     * [Immutable] variant of [this] instance with [immutable] factory
+     *
+     * @param locked Preset state of [freePermits] and its internal [_freePermitsStateFlow]
+     */
+    class Mutable(permits: Int, acquiredPermits: Int = 0) : SmartSemaphore {
+        init {
+            require(permits > 0) { "The maximal number 'permits' of permits ($permits) must be positive." }
+            require(acquiredPermits >= 0) { "The number 'acquiredPermits' of initially acquired permits ($acquiredPermits) must be non-negative." }
+            require(permits >= acquiredPermits) { "The number 'acquiredPermits' of acquired initially permits ($acquiredPermits) must not exceed the maximal number 'permits' of permits ($permits)." }
+        }
+
+        override val maxPermits: Int = permits
+        private val _freePermitsStateFlow = MutableRedeliverStateFlow<Int>(permits - acquiredPermits)
+        override val permitsStateFlow: StateFlow<Int> = _freePermitsStateFlow.asStateFlow()
+
+        private val internalChangesMutex = Mutex(false)
+        private val acquirePermitsMutex = Mutex(false)
+
+        fun immutable() = Immutable(permitsStateFlow, maxPermits)
+
+        private fun checkedPermits(permits: Int) = permits.coerceIn(1, maxPermits)
+
+        /**
+         * Holds call until this [SmartSemaphore] will be re-locked. That means that current method will
+         */
+        suspend fun acquire(permits: Int = 1) {
+            val checkedPermits = checkedPermits(permits)
+            var changed = false
+            acquirePermitsMutex.withLock {
+                _freePermitsStateFlow.first {
+                    it >= checkedPermits
+                }
+                internalChangesMutex.withLock {
+                    try {
+                        _freePermitsStateFlow.value -= checkedPermits
+                        changed = true
+                        suspendPoint()
+                    } catch (e: Throwable) {
+                        if (changed) {
+                            _freePermitsStateFlow.value += checkedPermits
+                        }
+                        throw e
+                    }
+                }
+            }
+        }
+
+        /**
+         * Holds call until this [SmartSemaphore] will be re-locked. That means that while [freePermits] == true, [holds] will
+         * wait for [freePermits] == false and then try to lock
+         */
+        @Deprecated("Use acquire instead", ReplaceWith("acquire(permits)"))
+        suspend fun acquireByOne(permits: Int = 1) {
+            return acquire(permits)
+        }
+
+        /**
+         * Will try to lock this [SmartSemaphore] immediataly
+         *
+         * @return True if lock was successful. False otherwise
+         */
+        suspend fun tryAcquire(permits: Int = 1): Boolean {
+            if (acquirePermitsMutex.tryLock() == false) return false
+
+            val checkedPermits = checkedPermits(permits)
+            var changed = false
+
+            return internalChangesMutex.withLock {
+                try {
+                    if (_freePermitsStateFlow.value >= checkedPermits) {
+                        _freePermitsStateFlow.value -= checkedPermits
+                        changed = true
+                        suspendPoint()
+                        true
+                    } else {
+                        false
+                    }
+                } catch (e: Throwable) {
+                    if (changed) {
+                        _freePermitsStateFlow.value += checkedPermits
+                    }
+                    throw e
+                } finally {
+                    acquirePermitsMutex.unlock()
+                }
+            }
+        }
+
+        /**
+         * If [freePermits] == true - will change it to false and return true. If current call will not unlock this
+         * [SmartSemaphore] - false
+         */
+        suspend fun release(permits: Int = 1): Boolean {
+            val checkedPermits = checkedPermits(permits)
+            if (_freePermitsStateFlow.value >= maxPermits) return false
+
+            // Updating permits without suspension remains safe in a cancelled coroutine.
+            if (internalChangesMutex.tryLock()) {
+                try {
+                    return releaseLocked(checkedPermits)
+                } finally {
+                    internalChangesMutex.unlock()
+                }
+            }
+
+            return withContext(NonCancellable) {
+                internalChangesMutex.withLock {
+                    releaseLocked(checkedPermits)
+                }
+            }
+        }
+
+        private fun releaseLocked(permits: Int): Boolean {
+            val freePermits = _freePermitsStateFlow.value
+            if (freePermits >= maxPermits) return false
+            _freePermitsStateFlow.value = minOf(freePermits + permits, maxPermits)
+            return true
+        }
+    }
+}
+
+/**
+ * Will call [SmartSemaphore.Mutable.lock], then execute [action] and return the result after [SmartSemaphore.Mutable.unlock]
+ */
+@OptIn(ExperimentalContracts::class)
+suspend inline fun <T> SmartSemaphore.Mutable.withAcquire(permits: Int = 1, action: () -> T): T {
+    contract {
+        callsInPlace(action, InvocationKind.EXACTLY_ONCE)
+    }
+
+    acquire(permits)
+    try {
+        return action()
+    } finally {
+        release(permits)
+    }
+}
+
+/**
+ * Will wait until the [SmartSemaphore.permitsStateFlow] of [this] instance will have [permits] count free permits.
+ *
+ * Anyway, after the end of this block there are no any guaranties that [SmartSemaphore.freePermits] >= [permits] due to
+ * the fact that some other parties may lock it again
+ */
+suspend fun SmartSemaphore.waitRelease(permits: Int = 1): Int {
+    currentCoroutineContext().ensureActive()
+    val availablePermits = freePermits
+    return if (availablePermits >= permits) availablePermits else permitsStateFlow.first { it >= permits }
+}
+
+suspend fun SmartSemaphore.waitReleaseAll(): Int {
+    currentCoroutineContext().ensureActive()
+    val availablePermits = freePermits
+    return if (availablePermits == maxPermits) availablePermits else permitsStateFlow.first { it == maxPermits }
+}

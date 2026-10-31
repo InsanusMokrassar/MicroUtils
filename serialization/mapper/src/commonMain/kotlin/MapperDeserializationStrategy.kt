@@ -16,11 +16,16 @@ import kotlinx.serialization.encoding.Encoder
  */
 open class MapperDeserializationStrategy<I, O>(
     private val base: DeserializationStrategy<I>,
-    private val deserialize: (I) -> O
+    private val deserialize: (Decoder, I) -> O
 ) : DeserializationStrategy<O> {
     override val descriptor: SerialDescriptor = base.descriptor
 
+    constructor(
+        base: DeserializationStrategy<I>,
+        deserialize: (I) -> O
+    ) : this(base, { _, i -> deserialize(i) })
+
     override fun deserialize(decoder: Decoder): O {
-        return deserialize(base.deserialize(decoder))
+        return deserialize(decoder, base.deserialize(decoder))
     }
 }

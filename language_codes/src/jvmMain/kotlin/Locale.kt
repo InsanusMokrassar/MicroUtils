@@ -2,7 +2,9 @@ package dev.inmo.micro_utils.language_codes
 
 import java.util.Locale
 
-fun IetfLanguageCode.toJavaLocale(): Locale = Locale.forLanguageTag(code)
-fun IetfLanguageCode?.toJavaLocaleOrDefault(): Locale = this ?.toJavaLocale() ?: Locale.getDefault()
+fun IetfLang.toJavaLocale(): Locale = Locale.forLanguageTag(code)
+fun IetfLang?.toJavaLocaleOrDefault(): Locale = this?.toJavaLocale() ?: Locale.getDefault()
 
-fun Locale.toIetfLanguageCode(): IetfLanguageCode = IetfLanguageCode(toLanguageTag())
+fun Locale.toIetfLang(): IetfLang = IetfLang(toLanguageTag())
+@Deprecated("Renamed", ReplaceWith("this.toIetfLang()", "dev.inmo.micro_utils.language_codes.toIetfLang"))
+fun Locale.toIetfLanguageCode(): IetfLang = toIetfLang()

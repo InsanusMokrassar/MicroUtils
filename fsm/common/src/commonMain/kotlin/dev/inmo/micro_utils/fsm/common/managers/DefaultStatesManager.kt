@@ -1,10 +1,11 @@
 package dev.inmo.micro_utils.fsm.common.managers
 
+import dev.inmo.micro_utils.coroutines.SmartRWLocker
+import dev.inmo.micro_utils.coroutines.withReadAcquire
+import dev.inmo.micro_utils.coroutines.withWriteLock
 import dev.inmo.micro_utils.fsm.common.State
 import dev.inmo.micro_utils.fsm.common.StatesManager
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 
 /**
  * Implement this repo if you want to use some custom repo for [DefaultStatesManager]
@@ -19,6 +20,14 @@ interface DefaultStatesManagerRepo<T : State> {
      * NOT be removed
      */
     suspend fun removeState(state: T)
+
+    /**
+     * Semantically, calls [removeState] and then [set]
+     */
+    suspend fun removeAndSet(toRemove: T, toSet: T) {
+        removeState(toRemove)
+        set(toSet)
+    }
     /**
      * @return Current list of available and saved states
      */
@@ -58,7 +67,7 @@ open class DefaultStatesManager<T : State>(
     protected val _onEndChain = MutableSharedFlow<T>(0)
     override val onEndChain: Flow<T> = _onEndChain.asSharedFlow()
 
-    protected val mapMutex = Mutex()
+    protected val internalLocker = SmartRWLocker()
 
     constructor(
         repo: DefaultStatesManagerRepo<T>,
@@ -68,28 +77,30 @@ open class DefaultStatesManager<T : State>(
         onUpdateContextsConflictResolver = onContextsConflictResolver
     )
 
-    override suspend fun update(old: T, new: T) = mapMutex.withLock {
+    override suspend fun update(old: T, new: T) = internalLocker.withWriteLock {
         val stateByOldContext: T? = repo.getContextState(old.context)
         when {
-            stateByOldContext != old -> return@withLock
-            stateByOldContext == null || old.context == new.context -> {
-                repo.removeState(old)
-                repo.set(new)
+            stateByOldContext != old -> return@withWriteLock
+            old.context == new.context -> {
+                repo.removeAndSet(old, new)
                 _onChainStateUpdated.emit(old to new)
             }
-            else -> {
+            old.context != new.context -> {
                 val stateOnNewOneContext = repo.getContextState(new.context)
                 if (stateOnNewOneContext == null || onUpdateContextsConflictResolver(old, new, stateOnNewOneContext)) {
                     stateOnNewOneContext ?.let { endChainWithoutLock(it) }
-                    repo.removeState(old)
-                    repo.set(new)
+                    repo.removeAndSet(old, new)
                     _onChainStateUpdated.emit(old to new)
+                } else {
+                    error(
+                        "Unable to update state from $old to $new due to false answer from $onUpdateContextsConflictResolver and state on old context $stateOnNewOneContext"
+                    )
                 }
             }
         }
     }
 
-    override suspend fun startChain(state: T) = mapMutex.withLock {
+    override suspend fun startChain(state: T) = internalLocker.withWriteLock {
         val stateOnContext = repo.getContextState(state.context)
         if (stateOnContext == null || onStartContextsConflictResolver(stateOnContext, state)) {
             stateOnContext ?.let {
@@ -108,11 +119,13 @@ open class DefaultStatesManager<T : State>(
     }
 
     override suspend fun endChain(state: T) {
-        mapMutex.withLock {
+        internalLocker.withWriteLock {
             endChainWithoutLock(state)
         }
     }
 
-    override suspend fun getActiveStates(): List<T> = repo.getStates()
+    override suspend fun getActiveStates(): List<T> = internalLocker.withReadAcquire {
+        repo.getStates()
+    }
 
 }
