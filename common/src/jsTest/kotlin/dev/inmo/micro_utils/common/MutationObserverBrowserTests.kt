@@ -3,6 +3,7 @@ package dev.inmo.micro_utils.common
 import kotlinx.browser.document
 import org.w3c.dom.MutationObserver
 import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventListener
 import kotlin.js.Promise
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -121,19 +122,21 @@ class MutationObserverBrowserTests {
     fun onRemovedCallsBackOnceAndDisconnects(): Promise<Unit> {
         val parent = document.createElement("div")
         val child = document.createElement("span")
-        parent.appendChild(child)
-        document.body!!.appendChild(parent)
         var calls = 0
-        val observer = child.onRemoved { calls++ }
-        parent.removeChild(child)
+        var observer: MutationObserver? = null
         return Promise.resolve(Unit).then {
+            parent.appendChild(child)
+            document.body!!.appendChild(parent)
+            observer = child.onRemoved { calls++ }
+            parent.removeChild(child)
+        }.then {
             assertEquals(1, calls)
             parent.appendChild(child)
             parent.removeChild(child)
         }.then {
             assertEquals(1, calls)
         }.finally {
-            observer.disconnect()
+            observer?.disconnect()
             parent.parentNode?.removeChild(parent)
         }
     }
@@ -141,17 +144,19 @@ class MutationObserverBrowserTests {
     @Test
     fun onClickOutsideStopsListeningAfterRemoval(): Promise<Unit> {
         val target = document.createElement("div")
-        document.body!!.appendChild(target)
         var calls = 0
-        val listener = target.onClickOutside { calls++ }
-        document.dispatchEvent(Event("click"))
-        assertEquals(1, calls)
-        target.parentNode!!.removeChild(target)
+        var listener: EventListener? = null
         return Promise.resolve(Unit).then {
+            document.body!!.appendChild(target)
+            listener = target.onClickOutside { calls++ }
+            document.dispatchEvent(Event("click"))
+            assertEquals(1, calls)
+            target.parentNode!!.removeChild(target)
+        }.then {
             document.dispatchEvent(Event("click"))
             assertEquals(1, calls)
         }.finally {
-            document.removeEventListener("click", listener)
+            listener?.let { document.removeEventListener("click", it) }
             target.parentNode?.removeChild(target)
         }
     }
