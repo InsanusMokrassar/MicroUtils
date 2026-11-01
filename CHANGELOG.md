@@ -2,6 +2,12 @@
 
 ## 0.33.0
 
+* `Versions`:
+  * `Exposed`: `1.5.1` -> `1.6.0`
+  * `Serialization`: `1.11.0` -> `1.12.0`
+  * `Compose`: `1.12.1` -> `1.12.2`
+  * `SQLite`: `3.53.4.0` -> `3.54.1.0`
+  * `Ktor`: `3.6.0` -> `3.6.1`
 * `Common`:
   * Add JS `MutationObserverInit` factory that omits unspecified options and preserves browser defaults.
   * Use safe `MutationObserver` options in `onRemoved` and cover DOM observation and outside-click cleanup with browser tests.
