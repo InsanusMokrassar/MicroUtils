@@ -1,7 +1,9 @@
 package dev.inmo.micro_utils.common
 
 import kotlinx.browser.document
-import org.w3c.dom.*
+import org.w3c.dom.Element
+import org.w3c.dom.MutationObserver
+import org.w3c.dom.Node
 
 fun Node.onRemoved(block: () -> Unit): MutationObserver {
     lateinit var observer: MutationObserver

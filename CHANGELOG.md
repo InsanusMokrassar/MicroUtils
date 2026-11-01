@@ -2,6 +2,10 @@
 
 ## 0.33.0
 
+* `Common`:
+  * Add JS `MutationObserverInit` factory that omits unspecified options and preserves browser defaults.
+  * Use safe `MutationObserver` options in `onRemoved` and cover DOM observation and outside-click cleanup with browser tests.
+
 ## 0.32.1
 
 * `Coroutines`:
