@@ -19,7 +19,7 @@ fun Node.onRemoved(block: () -> Unit): MutationObserver {
         }
     }
 
-    observer.observe(document, MutationObserverInit(childList = true, subtree = true))
+    observer.observe(document, MutationObserverOptions(childList = true, subtree = true))
     return observer
 }
 

@@ -9,7 +9,7 @@
   * `SQLite`: `3.53.4.0` -> `3.54.1.0`
   * `Ktor`: `3.6.0` -> `3.6.1`
 * `Common`:
-  * Add JS `MutationObserverInit` factory that omits unspecified options and preserves browser defaults.
+  * Add JS `MutationObserverOptions` factory that omits unspecified options and preserves browser defaults.
   * Use safe `MutationObserver` options in `onRemoved` and cover DOM observation and outside-click cleanup with browser tests.
 
 ## 0.32.1

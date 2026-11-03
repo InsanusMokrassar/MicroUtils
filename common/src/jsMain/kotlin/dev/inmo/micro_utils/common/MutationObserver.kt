@@ -1,7 +1,5 @@
 package dev.inmo.micro_utils.common
 
-import org.w3c.dom.MutationObserverInit as NativeMutationObserverInit
-
 /**
  * Creates options for [org.w3c.dom.MutationObserver] without adding unspecified properties.
  *
@@ -12,7 +10,7 @@ import org.w3c.dom.MutationObserverInit as NativeMutationObserverInit
  * Null arguments are omitted. Explicit false values and empty arrays are preserved. The browser remains responsible
  * for validating the options passed to [org.w3c.dom.MutationObserver.observe].
  */
-fun MutationObserverInit(
+fun MutationObserverOptions(
     childList: Boolean? = null,
     attributes: Boolean? = null,
     characterData: Boolean? = null,
