@@ -1,5 +1,7 @@
 package dev.inmo.micro_utils.common
 
+import org.w3c.dom.MutationObserverInit
+
 /**
  * Creates options for [org.w3c.dom.MutationObserver] without adding unspecified properties.
  *
@@ -18,7 +20,7 @@ fun MutationObserverOptions(
     attributeOldValue: Boolean? = null,
     characterDataOldValue: Boolean? = null,
     attributeFilter: Array<String>? = null
-): NativeMutationObserverInit = js("{}").unsafeCast<NativeMutationObserverInit>().apply {
+): MutationObserverInit = js("{}").unsafeCast<MutationObserverInit>().apply {
     if (childList != null) this.childList = childList
     if (attributes != null) this.attributes = attributes
     if (characterData != null) this.characterData = characterData

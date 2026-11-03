@@ -22,7 +22,7 @@ class MutationObserverBrowserTests {
         root.appendChild(nested)
         val observer = MutationObserver { _, _ -> }
         try {
-            observer.observe(root, MutationObserverInit(childList = true, subtree = true))
+            observer.observe(root, MutationObserverOptions(childList = true, subtree = true))
             nested.appendChild(child)
             val record = observer.takeRecords().single()
             assertEquals("childList", record.type)
@@ -45,7 +45,7 @@ class MutationObserverBrowserTests {
         target.setAttribute("data-state", "old")
         val observer = MutationObserver { _, _ -> }
         try {
-            observer.observe(target, MutationObserverInit(attributeFilter = arrayOf("data-state"), attributeOldValue = true))
+            observer.observe(target, MutationObserverOptions(attributeFilter = arrayOf("data-state"), attributeOldValue = true))
             target.setAttribute("ignored", "value")
             target.setAttribute("data-state", "new")
             val record = observer.takeRecords().single()
@@ -64,7 +64,7 @@ class MutationObserverBrowserTests {
         val target = document.createTextNode("old")
         val observer = MutationObserver { _, _ -> }
         try {
-            observer.observe(target, MutationObserverInit(characterDataOldValue = true))
+            observer.observe(target, MutationObserverOptions(characterDataOldValue = true))
             target.data = "new"
             val record = observer.takeRecords().single()
             assertEquals("characterData", record.type)
@@ -80,7 +80,7 @@ class MutationObserverBrowserTests {
         val target = document.createElement("div")
         val observer = MutationObserver { _, _ -> }
         try {
-            observer.observe(target, MutationObserverInit(childList = true, attributeFilter = null))
+            observer.observe(target, MutationObserverOptions(childList = true, attributeFilter = null))
             target.appendChild(document.createElement("span"))
             assertEquals("childList", observer.takeRecords().single().type)
         } finally {
@@ -93,7 +93,7 @@ class MutationObserverBrowserTests {
         val target = document.createElement("div")
         val observer = MutationObserver { _, _ -> }
         try {
-            observer.observe(target, MutationObserverInit(attributeFilter = emptyArray()))
+            observer.observe(target, MutationObserverOptions(attributeFilter = emptyArray()))
             target.setAttribute("data-state", "new")
             assertTrue(observer.takeRecords().isEmpty())
         } finally {
@@ -106,12 +106,12 @@ class MutationObserverBrowserTests {
         val target = document.createElement("div")
         val observer = MutationObserver { _, _ -> }
         try {
-            assertFails { observer.observe(target, MutationObserverInit()) }
+            assertFails { observer.observe(target, MutationObserverOptions()) }
             assertFails {
-                observer.observe(target, MutationObserverInit(attributes = false, attributeFilter = arrayOf("class")))
+                observer.observe(target, MutationObserverOptions(attributes = false, attributeFilter = arrayOf("class")))
             }
             assertFails {
-                observer.observe(target, MutationObserverInit(characterData = false, characterDataOldValue = true))
+                observer.observe(target, MutationObserverOptions(characterData = false, characterDataOldValue = true))
             }
         } finally {
             observer.disconnect()
