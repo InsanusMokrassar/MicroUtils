@@ -7,6 +7,22 @@ plugins {
 apply from: "$mppJvmJsWasmJsAndroidLinuxMingwLinuxArm64Project"
 
 kotlin {
+    js {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadlessNoSandbox()
+                    useConfigDirectory(rootProject.relativeProjectPath("gradle/karma.config.d"))
+                }
+            }
+        }
+        nodejs {
+            testTask {
+                filter.excludeTestsMatching("dev.inmo.micro_utils.common.MutationObserverBrowserTests*")
+            }
+        }
+    }
+
     sourceSets {
         commonMain {
             dependencies {
