@@ -52,16 +52,12 @@ fun <T> List<T>.paginate(with: Pagination): PaginationResult<T> {
  *
  * @param T The type of items in the list
  * @param with The pagination parameters specifying which page to retrieve
- * @param reversed If true, the list will be paginated in reverse order
- * @return A [PaginationResult] containing the items from the requested page, optionally reversed
+ * @param reversed If true, traverses the list in reverse order before selecting the requested page
+ * @return A [PaginationResult] containing the items from the requested page in traversal order
  */
 fun <T> List<T>.paginate(with: Pagination, reversed: Boolean): PaginationResult<T> {
     return if (reversed) {
-        val actualPagination = with.optionallyReverse(
-            size,
-            reversed
-        )
-        paginate(actualPagination).changeResultsUnchecked { results.reversed() }
+        asReversed().paginate(with)
     } else {
         paginate(with)
     }
